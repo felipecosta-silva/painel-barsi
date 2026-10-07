@@ -1,0 +1,625 @@
+<title>Simulador de Renda Passiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Layout concept: ledger-style two-column app — a control panel of aporte
+     inputs on the left feeds a live results ledger (stat tiles, allocation
+     bar, growth chart, goal tracker) on the right; stacks to one column on
+     phone width. */
+  :root{
+    color-scheme: light;
+    --bg: #f2f5f1;
+    --surface: #ffffff;
+    --surface-2: #e9ede8;
+    --text-primary: #131c17;
+    --text-secondary: #55605a;
+    --muted: #868f88;
+    --border: rgba(19,28,23,0.12);
+    --border-strong: rgba(19,28,23,0.22);
+    --accent: #1e6f52;
+    --accent-ink: #ffffff;
+    --accent-soft: #e2efe8;
+    --gold: #93691a;
+    --gold-soft: #f3e9d1;
+    --series-aportado: #2a78d6;
+    --series-rendimento: #eb6834;
+    --danger: #b3402f;
+    --focus: #2a78d6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --bg: #0e1310;
+      --surface: #161d18;
+      --surface-2: #1e2620;
+      --text-primary: #f1f2ee;
+      --text-secondary: #b7beb6;
+      --muted: #838b84;
+      --border: rgba(255,255,255,0.12);
+      --border-strong: rgba(255,255,255,0.22);
+      --accent: #4fb98a;
+      --accent-ink: #0a140f;
+      --accent-soft: rgba(79,185,138,0.16);
+      --gold: #d9b354;
+      --gold-soft: rgba(217,179,84,0.16);
+      --series-aportado: #3987e5;
+      --series-rendimento: #d95926;
+      --danger: #e0685a;
+      --focus: #3987e5;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg: #0e1310;
+    --surface: #161d18;
+    --surface-2: #1e2620;
+    --text-primary: #f1f2ee;
+    --text-secondary: #b7beb6;
+    --muted: #838b84;
+    --border: rgba(255,255,255,0.12);
+    --border-strong: rgba(255,255,255,0.22);
+    --accent: #4fb98a;
+    --accent-ink: #0a140f;
+    --accent-soft: rgba(79,185,138,0.16);
+    --gold: #d9b354;
+    --gold-soft: rgba(217,179,84,0.16);
+    --series-aportado: #3987e5;
+    --series-rendimento: #d95926;
+    --danger: #e0685a;
+    --focus: #3987e5;
+  }
+
+  *{ box-sizing: border-box; }
+  body{
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    padding-inline: 16px;
+    padding-block: 28px;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  h1,h2,h3{ font-family: 'Newsreader', Georgia, serif; font-weight: 600; margin: 0; text-wrap: balance; }
+  .num, input, .mono{ font-family: 'IBM Plex Mono', 'Courier New', monospace; font-variant-numeric: tabular-nums; }
+
+  header.page{ display:flex; flex-direction:column; gap:6px; margin-bottom:24px; }
+  header.page .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.09em; text-transform:uppercase;
+    color: var(--accent); font-weight:600;
+  }
+  header.page h1{ font-size: clamp(26px, 4vw, 34px); }
+  header.page p{ margin:0; color: var(--text-secondary); font-size:14.5px; max-width:65ch; line-height:1.5; }
+
+  .grid{ display:grid; grid-template-columns: minmax(260px, 340px) 1fr; gap:20px; align-items:start; }
+  @media (max-width: 760px){ .grid{ grid-template-columns: 1fr; } }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .card + .card{ margin-top: 16px; }
+
+  .panel-title{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+  .panel-title h2{ font-size:17px; }
+  .reset-btn{
+    font-family:'IBM Plex Sans', sans-serif; font-size:12.5px; font-weight:500;
+    background:none; border:1px solid var(--border-strong); color: var(--text-secondary);
+    border-radius:8px; padding:6px 10px; cursor:pointer;
+  }
+  .reset-btn:hover{ border-color: var(--accent); color: var(--accent); }
+  .reset-btn:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+
+  .field{ margin-bottom:18px; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-size:13px; font-weight:600; margin-bottom:6px; color: var(--text-primary); }
+  .field .field-help{ font-size:12px; color: var(--muted); margin-top:5px; line-height:1.4; }
+  .field-row{ display:flex; align-items:center; gap:10px; }
+  .field-row input[type="range"]{
+    flex:1; appearance:none; height:4px; border-radius:2px; background: var(--surface-2); outline:none;
+  }
+  .field-row input[type="range"]::-webkit-slider-thumb{
+    appearance:none; width:16px; height:16px; border-radius:50%; background: var(--accent);
+    border:2px solid var(--surface); box-shadow:0 0 0 1px var(--border-strong); cursor:pointer;
+  }
+  .field-row input[type="range"]::-moz-range-thumb{
+    width:14px; height:14px; border-radius:50%; background: var(--accent); border:2px solid var(--surface);
+    box-shadow:0 0 0 1px var(--border-strong); cursor:pointer;
+  }
+  .field-row .value-box{ display:flex; align-items:center; gap:2px; flex-shrink:0; width:118px; }
+  .field-row .value-box span.prefix{ color: var(--muted); font-size:13px; }
+  .field-row .value-box input[type="number"]{
+    width:100%; min-width:0; border:1px solid var(--border-strong); border-radius:8px; padding:6px 8px;
+    background: var(--surface); color: var(--text-primary); font-size:13.5px; text-align:right;
+  }
+  .field-row .value-box input[type="number"]:focus-visible{ outline:2px solid var(--focus); outline-offset:1px; }
+  .field-row .value-box span.suffix{ color: var(--muted); font-size:13px; }
+
+  .stat-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; }
+  @media (max-width:640px){ .stat-grid{ grid-template-columns: repeat(2, 1fr); } }
+  .stat-tile{
+    background: var(--surface-2); border-radius:12px; padding:14px 14px 12px;
+    display:flex; flex-direction:column; gap:4px; min-width:0;
+  }
+  .stat-tile .stat-label{ font-size:11.5px; color: var(--text-secondary); font-weight:600; letter-spacing:0.01em; }
+  .stat-tile .stat-value{ font-family:'Newsreader', serif; font-size:clamp(18px,2.6vw,23px); font-weight:600; font-variant-numeric: tabular-nums; overflow-wrap:break-word; }
+  .stat-tile.accent .stat-value{ color: var(--accent); }
+  .stat-tile.gold .stat-value{ color: var(--gold); }
+
+  .alloc-bar-wrap{ margin-top:18px; }
+  .alloc-bar-label{ display:flex; justify-content:space-between; font-size:12.5px; color: var(--text-secondary); margin-bottom:6px; }
+  .alloc-bar{ height:22px; border-radius:6px; overflow:hidden; display:flex; border:1px solid var(--border); }
+  .alloc-bar .seg-aportado{ background: var(--series-aportado); }
+  .alloc-bar .seg-rendimento{ background: var(--series-rendimento); }
+  .legend{ display:flex; gap:16px; margin-top:10px; flex-wrap:wrap; }
+  .legend-item{ display:flex; align-items:center; gap:6px; font-size:12.5px; color: var(--text-secondary); }
+  .legend-swatch{ width:10px; height:10px; border-radius:2px; flex-shrink:0; }
+
+  .chart-wrap{ margin-top:8px; }
+  .chart-wrap svg{ width:100%; height:auto; display:block; overflow:visible; }
+  .axis-label{ fill: var(--muted); font-size:10.5px; font-family:'IBM Plex Mono', monospace; }
+  .gridline{ stroke: var(--border); stroke-width:1; }
+  .baseline{ stroke: var(--border-strong); stroke-width:1; }
+
+  .goal-list{ display:flex; flex-direction:column; gap:12px; margin-top:4px; }
+  .goal-row{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    padding:14px 16px; border-radius:12px; background: var(--surface-2);
+    flex-wrap:wrap;
+  }
+  .goal-row .goal-info{ display:flex; flex-direction:column; gap:2px; min-width:180px; }
+  .goal-row .goal-info .goal-name{ font-weight:600; font-size:14px; }
+  .goal-row .goal-info .goal-target{ font-size:12px; color: var(--text-secondary); }
+  .goal-row .goal-time{ font-family:'Newsreader', serif; font-size:19px; font-weight:600; color: var(--gold); white-space:nowrap; }
+  .goal-row .goal-time.unreached{ color: var(--danger); font-family:'IBM Plex Sans', sans-serif; font-size:13px; font-weight:600; }
+
+  .aporte-schedule{ display:flex; gap:6px; overflow-x:auto; padding:2px 2px 6px; }
+  .aporte-chip{
+    flex:0 0 auto; background: var(--surface-2); border-radius:999px; padding:5px 11px;
+    font-size:11.5px; font-family:'IBM Plex Mono', monospace; color: var(--text-secondary); white-space:nowrap;
+  }
+  .aporte-chip .yr{ color: var(--muted); margin-right:5px; }
+  .aporte-chip.current{ background: var(--accent-soft); color: var(--accent); font-weight:600; }
+
+  .footnote{
+    font-size:12.5px; color: var(--text-secondary); line-height:1.6; margin-top:22px;
+    border-top:1px solid var(--border); padding-top:16px;
+  }
+  .footnote strong{ color: var(--text-primary); }
+
+  .tooltip{
+    position:absolute; pointer-events:none; background: var(--text-primary); color: var(--bg);
+    font-size:11.5px; padding:6px 9px; border-radius:6px; font-family:'IBM Plex Mono', monospace;
+    transform:translate(-50%,-115%); white-space:nowrap; opacity:0; transition:opacity .1s;
+    z-index:5;
+  }
+  .chart-hitlayer{ cursor: crosshair; }
+</style>
+
+<header class="page">
+  <div class="eyebrow">Barsi Bot — Ferramentas</div>
+  <h1>Simulador de Renda Passiva</h1>
+  <p>Projeta patrimônio e renda passiva a partir de aportes mensais, e mostra o tempo estimado até as metas de renda do documento mestre (seção 1: Patrimônio = Renda Desejada / 0,0085).</p>
+</header>
+
+<div class="grid">
+  <div class="card" id="panel-inputs">
+    <div class="panel-title">
+      <h2>Parâmetros</h2>
+      <button class="reset-btn" id="btn-reset" type="button">Restaurar padrão</button>
+    </div>
+
+    <div class="field">
+      <label for="in-inicial">Patrimônio inicial</label>
+      <div class="field-row">
+        <input type="range" id="rg-inicial" min="0" max="60000" step="100">
+        <div class="value-box"><span class="prefix">R$</span><input type="number" id="in-inicial" min="0" step="50"></div>
+      </div>
+      <div class="field-help">Ponto de partida. O último snapshot do documento mestre (25/09/2026) mapeava R$ 5.924,09 — ajuste se tiver um valor mais atual.</div>
+    </div>
+
+    <div class="field">
+      <label for="in-aporte">Aporte mensal inicial</label>
+      <div class="field-row">
+        <input type="range" id="rg-aporte" min="0" max="5000" step="10">
+        <div class="value-box"><span class="prefix">R$</span><input type="number" id="in-aporte" min="0" step="10"></div>
+      </div>
+      <div class="field-help">Valor do primeiro mês. Cresce todo ano pelo reajuste abaixo.</div>
+    </div>
+
+    <div class="field">
+      <label for="in-reajuste">Reajuste anual do aporte</label>
+      <div class="field-row">
+        <input type="range" id="rg-reajuste" min="0" max="30" step="1">
+        <div class="value-box"><input type="number" id="in-reajuste" min="0" max="100" step="1"><span class="suffix">%</span></div>
+      </div>
+      <div class="field-help">O quanto o aporte mensal aumenta a cada 12 meses (renda, mesada, disciplina de poupança).</div>
+      <div class="field-help" style="margin-top:10px; font-weight:600; color:var(--text-primary);">Aporte mensal por ano</div>
+      <div class="aporte-schedule" id="aporte-schedule"></div>
+    </div>
+
+    <div class="field">
+      <label for="in-rendimento">Rendimento esperado ao ano</label>
+      <div class="field-row">
+        <input type="range" id="rg-rendimento" min="0" max="25" step="0.5">
+        <div class="value-box"><input type="number" id="in-rendimento" min="0" max="100" step="0.5"><span class="suffix">%</span></div>
+      </div>
+      <div class="field-help">Taxa hipotética, não uma promessa — trate como cenário, não previsão (ver nota no rodapé).</div>
+    </div>
+
+    <div class="field">
+      <label for="in-anos">Tempo investindo</label>
+      <div class="field-row">
+        <input type="range" id="rg-anos" min="1" max="40" step="1">
+        <div class="value-box"><input type="number" id="in-anos" min="1" max="80" step="1"><span class="suffix">anos</span></div>
+      </div>
+      <div class="field-help">Horizonte da projeção de patrimônio e do gráfico ao lado.</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <div class="panel-title"><h2>Projeção ao fim do período</h2></div>
+      <div class="stat-grid">
+        <div class="stat-tile accent">
+          <div class="stat-label">Patrimônio final</div>
+          <div class="stat-value num" id="out-patrimonio">—</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-label">Total aportado</div>
+          <div class="stat-value num" id="out-aportado">—</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-label">Rendimento ganho</div>
+          <div class="stat-value num" id="out-rendimento">—</div>
+        </div>
+        <div class="stat-tile gold">
+          <div class="stat-label">Renda mensal estimada</div>
+          <div class="stat-value num" id="out-renda">—</div>
+        </div>
+      </div>
+
+      <div class="alloc-bar-wrap">
+        <div class="alloc-bar-label">
+          <span>De onde vem o patrimônio final</span>
+          <span class="num" id="out-alloc-pct">—</span>
+        </div>
+        <div class="alloc-bar">
+          <div class="seg-aportado" id="seg-aportado" style="width:50%"></div>
+          <div class="seg-rendimento" id="seg-rendimento" style="width:50%"></div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--series-aportado)"></span>Dinheiro do seu bolso</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--series-rendimento)"></span>Rendimento do mercado</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="panel-title"><h2>Evolução do patrimônio</h2></div>
+      <div class="chart-wrap" id="chart-wrap"></div>
+    </div>
+
+    <div class="card">
+      <div class="panel-title"><h2>Tempo até a meta de renda passiva</h2></div>
+      <div class="goal-list">
+        <div class="goal-row">
+          <div class="goal-info">
+            <div class="goal-name">R$ 5.000 / mês</div>
+            <div class="goal-target num" id="goal-5k-target">—</div>
+          </div>
+          <div class="goal-time num" id="goal-5k-time">—</div>
+        </div>
+        <div class="goal-row">
+          <div class="goal-info">
+            <div class="goal-name">R$ 10.000 / mês</div>
+            <div class="goal-target num" id="goal-10k-target">—</div>
+          </div>
+          <div class="goal-time num" id="goal-10k-time">—</div>
+        </div>
+      </div>
+      <div class="footnote" style="margin-top:14px; border-top:none; padding-top:0;">
+        Mantendo o aporte mensal e o reajuste anual acima indefinidamente, independente do horizonte escolido para o gráfico.
+      </div>
+    </div>
+
+    <div class="footnote">
+      <strong>Isto é um simulador, não uma previsão.</strong> A taxa de rendimento é uma premissa fixa que você escolhe — o mercado real não rende de forma constante mês a mês, e nenhum ativo específico deveria ser comprado só porque essa conta "fecha". Preço Teto, margem de segurança e a checagem anti-viés continuam sendo o critério de decisão de compra (seções 1, 2 e 8 do documento mestre) — este simulador só ajuda a enxergar o efeito do tempo e da disciplina de aporte sobre a meta de renda.
+    </div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var DEFAULTS = { inicial: 5924, aporte: 300, reajuste: 10, rendimento: 10, anos: 20 };
+
+  var els = {
+    rgInicial: document.getElementById('rg-inicial'), inInicial: document.getElementById('in-inicial'),
+    rgAporte: document.getElementById('rg-aporte'), inAporte: document.getElementById('in-aporte'),
+    rgReajuste: document.getElementById('rg-reajuste'), inReajuste: document.getElementById('in-reajuste'),
+    rgRendimento: document.getElementById('rg-rendimento'), inRendimento: document.getElementById('in-rendimento'),
+    rgAnos: document.getElementById('rg-anos'), inAnos: document.getElementById('in-anos'),
+    btnReset: document.getElementById('btn-reset'),
+    outPatrimonio: document.getElementById('out-patrimonio'),
+    outAportado: document.getElementById('out-aportado'),
+    outRendimento: document.getElementById('out-rendimento'),
+    outRenda: document.getElementById('out-renda'),
+    outAllocPct: document.getElementById('out-alloc-pct'),
+    segAportado: document.getElementById('seg-aportado'),
+    segRendimento: document.getElementById('seg-rendimento'),
+    chartWrap: document.getElementById('chart-wrap'),
+    aporteSchedule: document.getElementById('aporte-schedule'),
+    tooltip: document.getElementById('tooltip'),
+    goal5kTarget: document.getElementById('goal-5k-target'),
+    goal5kTime: document.getElementById('goal-5k-time'),
+    goal10kTarget: document.getElementById('goal-10k-target'),
+    goal10kTime: document.getElementById('goal-10k-time')
+  };
+
+  function fmtBRL(v){
+    var sign = v < 0 ? '-' : '';
+    v = Math.abs(v);
+    return sign + 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function fmtBRLCompact(v){
+    if (v >= 1000000) return 'R$ ' + (v/1000000).toLocaleString('pt-BR', {maximumFractionDigits:2}) + ' mi';
+    return fmtBRL(v);
+  }
+  function fmtBRLInt(v){
+    return 'R$ ' + Math.round(v).toLocaleString('pt-BR');
+  }
+
+  function buildAporteSchedule(aporteInicial, reajusteAnualPct, anos){
+    var rows = [];
+    var atual = aporteInicial;
+    for (var a = 1; a <= anos; a++){
+      rows.push({ ano: a, valor: atual });
+      atual *= (1 + reajusteAnualPct/100);
+    }
+    return rows;
+  }
+
+  function simulate(initial, aporteInicial, reajusteAnualPct, rendimentoAnoPct, meses){
+    var rMensal = Math.pow(1 + rendimentoAnoPct/100, 1/12) - 1;
+    var patrimonio = initial;
+    var aporteAtual = aporteInicial;
+    var totalAportado = 0;
+    var series = [{ mes: 0, patrimonio: patrimonio, aportado: initial }];
+    for (var m = 1; m <= meses; m++){
+      patrimonio = patrimonio * (1 + rMensal) + aporteAtual;
+      totalAportado += aporteAtual;
+      series.push({ mes: m, patrimonio: patrimonio, aportado: initial + totalAportado });
+      if (m % 12 === 0) aporteAtual *= (1 + reajusteAnualPct/100);
+    }
+    return { patrimonioFinal: patrimonio, totalAportado: totalAportado, rMensal: rMensal, series: series };
+  }
+
+  function monthsToReach(alvo, initial, aporteInicial, reajusteAnualPct, rendimentoAnoPct, capMeses){
+    if (initial >= alvo) return 0;
+    var rMensal = Math.pow(1 + rendimentoAnoPct/100, 1/12) - 1;
+    var patrimonio = initial;
+    var aporteAtual = aporteInicial;
+    for (var m = 1; m <= capMeses; m++){
+      patrimonio = patrimonio * (1 + rMensal) + aporteAtual;
+      if (m % 12 === 0) aporteAtual *= (1 + reajusteAnualPct/100);
+      if (patrimonio >= alvo) return m;
+    }
+    return null;
+  }
+
+  function fmtAnosMeses(totalMeses){
+    if (totalMeses === null) return null;
+    var anos = Math.floor(totalMeses / 12);
+    var meses = totalMeses % 12;
+    if (anos === 0) return meses + (meses === 1 ? ' mês' : ' meses');
+    if (meses === 0) return anos + (anos === 1 ? ' ano' : ' anos');
+    return anos + (anos === 1 ? ' ano' : ' anos') + ' e ' + meses + (meses === 1 ? ' mês' : ' meses');
+  }
+
+  function syncPair(range, input, min, max){
+    range.min = min; range.max = max;
+  }
+
+  function readInputs(){
+    return {
+      inicial: parseFloat(els.inInicial.value) || 0,
+      aporte: parseFloat(els.inAporte.value) || 0,
+      reajuste: parseFloat(els.inReajuste.value) || 0,
+      rendimento: parseFloat(els.inRendimento.value) || 0,
+      anos: parseInt(els.inAnos.value, 10) || 1
+    };
+  }
+
+  function setInputs(v){
+    els.rgInicial.value = v.inicial; els.inInicial.value = v.inicial;
+    els.rgAporte.value = v.aporte; els.inAporte.value = v.aporte;
+    els.rgReajuste.value = v.reajuste; els.inReajuste.value = v.reajuste;
+    els.rgRendimento.value = v.rendimento; els.inRendimento.value = v.rendimento;
+    els.rgAnos.value = v.anos; els.inAnos.value = v.anos;
+  }
+
+  function buildChart(series, width, height){
+    var pad = { top: 10, right: 14, bottom: 26, left: 58 };
+    var innerW = width - pad.left - pad.right;
+    var innerH = height - pad.top - pad.bottom;
+    var maxVal = series[series.length - 1].patrimonio;
+    var niceMax = (function(){
+      if (maxVal <= 0) return 100;
+      var mag = Math.pow(10, Math.floor(Math.log10(maxVal)));
+      var norm = maxVal / mag;
+      var step = norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10;
+      return step * mag;
+    })();
+    var maxMes = series[series.length - 1].mes;
+
+    function x(mes){ return pad.left + (mes / maxMes) * innerW; }
+    function y(val){ return pad.top + innerH - (val / niceMax) * innerH; }
+
+    var aportadoPts = series.map(function(p){ return x(p.mes) + ',' + y(p.aportado); }).join(' L ');
+    var patrimonioPts = series.map(function(p){ return x(p.mes) + ',' + y(p.patrimonio); }).join(' L ');
+    var patrimonioPtsRev = series.slice().reverse().map(function(p){ return x(p.mes) + ',' + y(p.aportado); }).join(' L ');
+
+    var aportadoArea = 'M ' + x(0) + ',' + y(0) + ' L ' + aportadoPts + ' L ' + x(maxMes) + ',' + y(0) + ' Z';
+    var rendimentoArea = 'M ' + patrimonioPts + ' L ' + patrimonioPtsRev + ' Z';
+
+    var gridLines = '';
+    var ticks = 4;
+    for (var i = 0; i <= ticks; i++){
+      var val = (niceMax / ticks) * i;
+      var yy = y(val);
+      gridLines += '<line class="gridline" x1="' + pad.left + '" x2="' + (width - pad.right) + '" y1="' + yy + '" y2="' + yy + '"/>';
+      gridLines += '<text class="axis-label" x="' + (pad.left - 8) + '" y="' + (yy + 3) + '" text-anchor="end">' + fmtBRLCompact(val) + '</text>';
+    }
+
+    var xTicks = '';
+    var totalAnos = Math.round(maxMes / 12);
+    var xTickCount = Math.min(6, totalAnos);
+    for (var t = 0; t <= xTickCount; t++){
+      var anoVal = Math.round((totalAnos / xTickCount) * t);
+      var mesVal = anoVal * 12;
+      var xx = x(mesVal);
+      xTicks += '<text class="axis-label" x="' + xx + '" y="' + (height - 6) + '" text-anchor="middle">' + anoVal + 'a</text>';
+    }
+
+    var hitStops = series.filter(function(p, idx){ return idx % Math.max(1, Math.floor(series.length/120)) === 0; });
+
+    var svg = '' +
+      '<svg viewBox="0 0 ' + width + ' ' + height + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Gráfico de evolução do patrimônio ao longo do tempo">' +
+        '<line class="baseline" x1="' + pad.left + '" x2="' + (width - pad.right) + '" y1="' + y(0) + '" y2="' + y(0) + '"/>' +
+        gridLines +
+        '<path d="' + aportadoArea + '" fill="var(--series-aportado)" fill-opacity="0.55" stroke="var(--series-aportado)" stroke-width="1.5"/>' +
+        '<path d="' + rendimentoArea + '" fill="var(--series-rendimento)" fill-opacity="0.55" stroke="var(--series-rendimento)" stroke-width="1.5"/>' +
+        xTicks +
+        '<rect class="chart-hitlayer" x="' + pad.left + '" y="' + pad.top + '" width="' + innerW + '" height="' + innerH + '" fill="transparent" data-hit="1"/>' +
+      '</svg>';
+
+    return { svg: svg, x: x, y: y, pad: pad, innerW: innerW, maxMes: maxMes, series: series };
+  }
+
+  var chartMeta = null;
+
+  function render(){
+    var v = readInputs();
+    try { localStorage.setItem('barsi-sim-inputs', JSON.stringify(v)); } catch (e) {}
+
+    var meses = v.anos * 12;
+    var sim = simulate(v.inicial, v.aporte, v.reajuste, v.rendimento, meses);
+    var rendimentoGanho = sim.patrimonioFinal - sim.totalAportado - v.inicial;
+    var rendaMensal = sim.patrimonioFinal * sim.rMensal;
+
+    els.outPatrimonio.textContent = fmtBRL(sim.patrimonioFinal);
+    els.outAportado.textContent = fmtBRL(sim.totalAportado + v.inicial);
+    els.outRendimento.textContent = fmtBRL(rendimentoGanho);
+    els.outRenda.textContent = fmtBRL(rendaMensal) + '/mês';
+
+    var aportadoTotal = sim.totalAportado + v.inicial;
+    var pctAportado = sim.patrimonioFinal > 0 ? (aportadoTotal / sim.patrimonioFinal) * 100 : 100;
+    var pctRendimento = 100 - pctAportado;
+    els.segAportado.style.width = Math.max(0, pctAportado) + '%';
+    els.segRendimento.style.width = Math.max(0, pctRendimento) + '%';
+    els.outAllocPct.textContent = pctAportado.toFixed(0) + '% seu · ' + pctRendimento.toFixed(0) + '% mercado';
+
+    var schedule = buildAporteSchedule(v.aporte, v.reajuste, v.anos);
+    els.aporteSchedule.innerHTML = schedule.map(function(row){
+      return '<span class="aporte-chip' + (row.ano === 1 ? ' current' : '') + '">' +
+        '<span class="yr">Ano ' + row.ano + '</span>' + fmtBRLInt(row.valor) + '</span>';
+    }).join('');
+
+    var width = els.chartWrap.clientWidth || 640;
+    var height = Math.min(320, Math.max(220, width * 0.42));
+    chartMeta = buildChart(sim.series, width, height);
+    els.chartWrap.innerHTML = chartMeta.svg;
+    wireTooltip();
+
+    var alvo5k = 5000 / 0.0085;
+    var alvo10k = 10000 / 0.0085;
+    els.goal5kTarget.textContent = 'Patrimônio-alvo: ' + fmtBRL(alvo5k);
+    els.goal10kTarget.textContent = 'Patrimônio-alvo: ' + fmtBRL(alvo10k);
+
+    var m5k = monthsToReach(alvo5k, v.inicial, v.aporte, v.reajuste, v.rendimento, 1200);
+    var m10k = monthsToReach(alvo10k, v.inicial, v.aporte, v.reajuste, v.rendimento, 1200);
+
+    if (m5k === null){ els.goal5kTime.textContent = 'Além de 100 anos'; els.goal5kTime.classList.add('unreached'); }
+    else { els.goal5kTime.textContent = fmtAnosMeses(m5k); els.goal5kTime.classList.remove('unreached'); }
+
+    if (m10k === null){ els.goal10kTime.textContent = 'Além de 100 anos'; els.goal10kTime.classList.add('unreached'); }
+    else { els.goal10kTime.textContent = fmtAnosMeses(m10k); els.goal10kTime.classList.remove('unreached'); }
+  }
+
+  function wireTooltip(){
+    var svg = els.chartWrap.querySelector('svg');
+    var hit = els.chartWrap.querySelector('[data-hit]');
+    if (!svg || !hit || !chartMeta) return;
+
+    function handleMove(evt){
+      var rect = svg.getBoundingClientRect();
+      var viewBoxWidth = chartMeta.pad.left + chartMeta.innerW + chartMeta.pad.right;
+      var svgX = ((evt.clientX - rect.left) / rect.width) * viewBoxWidth;
+      var frac = (svgX - chartMeta.pad.left) / chartMeta.innerW;
+      frac = Math.max(0, Math.min(1, frac));
+      var mes = Math.round(frac * chartMeta.maxMes);
+      var point = chartMeta.series[mes] || chartMeta.series[chartMeta.series.length - 1];
+      if (!point) return;
+      var anos = (point.mes / 12);
+      els.tooltip.innerHTML =
+        (anos < 1 ? point.mes + 'm' : anos.toFixed(1) + 'a') + ' &middot; ' +
+        'patrimônio ' + fmtBRLCompact(point.patrimonio) + ' &middot; ' +
+        'aportado ' + fmtBRLCompact(point.aportado);
+      els.tooltip.style.left = evt.clientX + 'px';
+      els.tooltip.style.top = evt.clientY + 'px';
+      els.tooltip.style.opacity = '1';
+    }
+    function handleLeave(){ els.tooltip.style.opacity = '0'; }
+
+    hit.addEventListener('mousemove', handleMove);
+    hit.addEventListener('mouseleave', handleLeave);
+    hit.addEventListener('touchmove', function(evt){
+      if (evt.touches && evt.touches[0]) handleMove(evt.touches[0]);
+    }, { passive: true });
+    hit.addEventListener('touchend', handleLeave);
+  }
+
+  [els.rgInicial, els.inInicial, els.rgAporte, els.inAporte, els.rgReajuste, els.inReajuste,
+   els.rgRendimento, els.inRendimento, els.rgAnos, els.inAnos].forEach(function(el){
+    el.addEventListener('input', function(evt){
+      var target = evt.target;
+      if (target.type === 'range'){
+        var pairMap = {
+          'rg-inicial': 'in-inicial', 'rg-aporte': 'in-aporte', 'rg-reajuste': 'in-reajuste',
+          'rg-rendimento': 'in-rendimento', 'rg-anos': 'in-anos'
+        };
+        document.getElementById(pairMap[target.id]).value = target.value;
+      } else {
+        var revMap = {
+          'in-inicial': 'rg-inicial', 'in-aporte': 'rg-aporte', 'in-reajuste': 'rg-reajuste',
+          'in-rendimento': 'rg-rendimento', 'in-anos': 'rg-anos'
+        };
+        var rg = document.getElementById(revMap[target.id]);
+        if (rg) rg.value = Math.max(parseFloat(rg.min), Math.min(parseFloat(rg.max), parseFloat(target.value) || 0));
+      }
+      render();
+    });
+  });
+
+  els.btnReset.addEventListener('click', function(){
+    setInputs(DEFAULTS);
+    render();
+  });
+
+  window.addEventListener('resize', function(){ render(); });
+
+  var initial = DEFAULTS;
+  try {
+    var saved = JSON.parse(localStorage.getItem('barsi-sim-inputs') || 'null');
+    if (saved && typeof saved === 'object') initial = saved;
+  } catch (e) {}
+  setInputs(initial);
+  render();
+})();
+</script>
