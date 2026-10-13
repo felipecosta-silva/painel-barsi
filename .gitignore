@@ -1,0 +1,46 @@
+# Chaves de API, Service Accounts e Credenciais Sensíveis (NUNCA SUBIR PRO GITHUB)
+barsi-bot-automacoes-*.json
+chaves.json
+config.json
+*.pem
+*.key
+.env
+.env.*
+
+# Logs e arquivos temporários
+*.log
+.cache/
+__pycache__/
+
+# Backups e dados locais
+memoria_financeira.json
+Assistente Financeiro.json
+
+# IDE e agentes
+.vscode/
+.idea/
+.agents/
+
+# Trava anti-vazamento (12/10/2026): nunca versionar chaves, tokens ou backups com dados
+*.token
+*token*.txt
+*chave*.txt
+*secret*
+.brapi*
+backup-carteira*.json
+carteira-backup*.json
+carteira-*backup*.json
+extrato-aportes-*.csv
+
+# Documentos pessoais e de trabalho local (decisão de 13/10/2026: não publicar no repositório público)
+Barsi_Bot_Metodologia.md
+HANDOFF_IA.md
+CLAUDE.md
+.bridge/
+.chrome_tmp*/
+painel-barsi.backup-*.html
+scratch_check.js
+Investimentos/
+brain/
+botArbitragem/
+botArbitragemSpot/

@@ -1,0 +1,8 @@
+#!/bin/sh
+# Hook do Git: bloqueia commit com chave/token gravado (instalado pelo subir_git_pessoal.bat)
+arquivos=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$arquivos" ] && exit 0
+python tools/checar_segredos.py $arquivos || {
+  echo "Commit cancelado pela trava anti-vazamento (tools/checar_segredos.py)."
+  exit 1
+}

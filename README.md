@@ -1,6 +1,8 @@
-# ⚡ Painel Barsi — Terminal Institucional de Proventos & Alocação
+# ᚠ Fehmir — Terminal de Proventos & Alocação
 
-> **Ambiente Completo de Análise de Renda Passiva, Valuation e Gestão de Portfólio baseado na Metodologia de Luiz Barsi Filho e Décio Bazin.**
+> *Riqueza que rende, sabedoria que guia.* O nome junta **Fehu** (ᚠ, a runa nórdica da riqueza que se multiplica, como o gado: as "vacas leiteiras") e **Mímir** (o guardião nórdico do poço da sabedoria).
+
+> **Ambiente Completo de Análise de Renda Passiva, Valuation e Gestão de Portfólio com metodologia própria, inspirada em Luiz Barsi Filho, Décio Bazin, Benjamin Graham e Charlie Munger (sem vínculo com eles).**
 
 [![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-success?style=for-the-badge&logo=github)](https://pages.github.com/)
 [![HTML5](https://img.shields.io/badge/Tecnologia-HTML5%20%7C%20CSS3%20%7C%20Vanilla%20JS-blue?style=for-the-badge)](https://developer.mozilla.org/)
@@ -31,18 +33,19 @@ Como o painel foi construído em tecnologia pura (**HTML + CSS + JavaScript Vani
 
 1. Acesse [vercel.com](https://vercel.com) ou [netlify.com](https://netlify.com).
 2. Faça login com sua conta do GitHub.
-3. Clique em **"Add New Project"** e selecione o repositório do Painel Barsi.
+3. Clique em **"Add New Project"** e selecione o repositório do Fehmir.
 4. Clique em **Deploy** (não precisa configurar nenhum comando de build).
-5. Você receberá um domínio gratuito instantâneo (ex: `https://painel-barsi.vercel.app`).
+5. Você receberá um domínio gratuito instantâneo (ex: `https://fehmir.vercel.app`).
 
 ---
 
 ## 💎 Principais Módulos do Painel
 
+- **🎯 Conselheiro Fehmir** (`painel-barsi.html#conselheiro`): termômetro de ciclo de mercado (pânico → euforia), plano de realização em escada para rotacionar ativos de risco para a B.A.S.E., radar de oportunidades, alertas, agenda e lições de ciclos eleitorais.
 - **🥊 Duelo de Ativos (Head-to-Head)**: Comparador lado a lado em 12 métricas com veredito de preço, moat e resiliência.
 - **🎯 Meta de Aposentadoria ("Quantas Ações Faltam?")**: Simulador de renda passiva mensal calculando o déficit exato de cotas para liberdade financeira.
 - **⚠️ Scanner de Armadilhas (Trap Scanner)**: Filtro contra falsos yields com payout $> 100\%$, alta alavancagem ou receitas esgotáveis (lição do MFII11 e PMLL11).
-- **🧭 Bússola Barsi de Cenários**: O que fazer na Bolsa em Alta, na Queda, sob Ruídos Políticos e o mapa dos Patinhos Feios da B3.
+- **🧭 Bússola Fehmir de Cenários**: O que fazer na Bolsa em Alta, na Queda, sob Ruídos Políticos e o mapa dos Patinhos Feios da B3.
 - **📒 Livro de Transações (Trade Log)**: Histórico completo de aportes com exportação em CSV para Excel.
 - **🎯 Algoritmo de Aporte Inteligente ("Onde Aportar Hoje?")**: Cruza Preço Teto + Sub-alocação + Filtro Anti-Armadilha para dizer exatamente quantas cotas comprar com a verba do mês.
 - **❄️ Calendário Anual 12 Meses**: Mapeia a sazonalidade dos proventos e calcula o Efeito Bola de Neve.
