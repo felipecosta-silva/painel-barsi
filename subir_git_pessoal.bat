@@ -17,6 +17,20 @@ if not exist ".git" (
 :: 1b. Trava anti-vazamento: instala o hook de pre-commit (bloqueia commit com chave/token gravado)
 if exist "tools\pre-commit" copy /Y "tools\pre-commit" ".git\hooks\pre-commit" >nul
 
+:: 1d. Remote pessoal e sincronizacao: o robo do GitHub Actions grava dados todo dia util,
+::     entao baixa esses commits ANTES de mexer em qualquer arquivo (senao o push e recusado)
+git remote remove origin >nul 2>&1
+git remote add origin https://github.com/felipecosta-silva/painel-barsi.git
+git branch -M main
+echo [*] Baixando atualizacoes do GitHub (dados do robo)...
+git pull --rebase --autostash origin main
+if errorlevel 1 (
+    echo.
+    echo [CANCELADO] Nao consegui sincronizar com o GitHub. Peca ajuda ao Claude antes de publicar.
+    pause
+    exit /b 1
+)
+
 :: 1a. Atualiza o histórico gratuito (Yahoo) antes de publicar — se falhar, segue com o arquivo anterior
 python tools\atualizar_historico.py
 
@@ -38,12 +52,6 @@ echo [*] Adicionando arquivos atualizados do Painel...
 
 git add index.html painel-barsi.html README.md .gitignore simulador-renda-passiva.html subir_git_pessoal.bat tools/checar_segredos.py tools/pre-commit tools/atualizar_historico.py tools/varrer_mercado.py dados/historico.js dados/mercado.js .github/workflows/historico.yml
 git commit -m "chore: atualizacao do painel e dados (%date%)"
-
-git branch -M main
-
-:: 3. Configura remote pessoal
-git remote remove origin >nul 2>&1
-git remote add origin https://github.com/felipecosta-silva/painel-barsi.git
 
 echo.
 echo [*] Enviando arquivos para https://github.com/felipecosta-silva/painel-barsi.git...
