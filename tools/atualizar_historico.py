@@ -126,6 +126,10 @@ def processar(js, diario=None, nome=""):
 
     um_ano_atras = time.time() - 365 * 86400
     dpa12 = round(sum(a for t, a in lista if t >= um_ano_atras), 4)
+
+    dois_anos_atras = time.time() - 2 * 365 * 86400
+    ev = [[utc(t).strftime("%Y-%m-%d"), round(a, 4)] for t, a in lista if t >= dois_anos_atras]
+
     return {
         "d0": utc(ano[0][0]).strftime("%Y-%m-%d"),
         "d1": utc(ano[-1][0]).strftime("%Y-%m-%d"),
@@ -140,6 +144,7 @@ def processar(js, diario=None, nome=""):
         "dpa5": dpa5,
         "dpa10": dpa10,
         "cagrDiv5": cagrDiv5,
+        "ev": ev,
     }
 
 

@@ -33,6 +33,7 @@ if errorlevel 1 (
 
 :: 1a. Atualiza o histórico gratuito (Yahoo) antes de publicar — se falhar, segue com o arquivo anterior
 python tools\atualizar_historico.py
+python tools\benchmarks.py
 
 :: 1c. Verifica segredos ANTES de publicar (cancela se achar chave/token nos arquivos)
 python tools\checar_segredos.py
@@ -50,7 +51,7 @@ git config user.email "felipecosta-silva@users.noreply.github.com"
 echo [*] Autor local configurado: Felipe Costa ^<felipecosta-silva@users.noreply.github.com^>
 echo [*] Adicionando arquivos atualizados do Painel...
 
-git add index.html painel-barsi.html README.md .gitignore simulador-renda-passiva.html subir_git_pessoal.bat tools/checar_segredos.py tools/pre-commit tools/atualizar_historico.py tools/varrer_mercado.py tools/novidades.py dados/historico.js dados/mercado.js dados/novidades.js .github/workflows/historico.yml .github/workflows/novidades.yml
+git add index.html painel-barsi.html README.md .gitignore simulador-renda-passiva.html subir_git_pessoal.bat tools/checar_segredos.py tools/pre-commit tools/atualizar_historico.py tools/benchmarks.py tools/varrer_mercado.py tools/novidades.py dados/historico.js dados/benchmarks.js dados/mercado.js dados/novidades.js .github/workflows/historico.yml .github/workflows/novidades.yml
 git commit -m "chore: atualizacao do painel e dados (%date%)"
 
 echo.

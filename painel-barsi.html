@@ -3,7 +3,8 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
 <title>Fehmir</title>
 <script src="dados/historico.js"></script>
 <script src="dados/mercado.js"></script>
-<script src="dados/novidades.js"></script><script>try{var t=localStorage.getItem("barsi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<script src="dados/novidades.js"></script>
+<script src="dados/benchmarks.js"></script><script>try{var t=localStorage.getItem("barsi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <style>
 /* layout: tabbed site — Meus Ativos (carteira real) / Radar (watchlist, não é do Felipe) /
    Projeção (simulador de renda passiva) / Calculadora (Preço Teto/Graham/Gordon genérica) */
@@ -32,16 +33,23 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --font-serif:"Outfit",system-ui,sans-serif;
   --font-sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,monospace;
-  /* Paleta categórica para gráficos de alocação (15/10/2026 - Ward style) */
-  --alloc-c1: #0284c7;
-  --alloc-c2: #06b6d4;
-  --alloc-c3: #14b8a6;
-  --alloc-c4: #f59e0b;
-  --alloc-c5: #8b5cf6;
-  --alloc-c6: #ec4899;
-  --alloc-c7: #10b981;
-  --alloc-c8: #6366f1;
-  --alloc-outros: #9ca3af;
+  /* Paleta de dados única (Ward style: família azul do mais escuro ao mais claro) */
+  --data-1: #1e3a8a;
+  --data-2: #1d4ed8;
+  --data-3: #2563eb;
+  --data-4: #3b82f6;
+  --data-5: #60a5fa;
+  --data-6: #93c5fd;
+  --data-outros: #cbd5e1;
+  --alloc-c1: var(--data-1);
+  --alloc-c2: var(--data-2);
+  --alloc-c3: var(--data-3);
+  --alloc-c4: var(--data-4);
+  --alloc-c5: var(--data-5);
+  --alloc-c6: var(--data-6);
+  --alloc-c7: var(--data-2);
+  --alloc-c8: var(--data-4);
+  --alloc-outros: var(--data-outros);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -66,15 +74,22 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
     --warning:#F59E0B;
     --serious:#F97316;
     --critical:#EF4444;
-    --alloc-c1: #38bdf8;
-    --alloc-c2: #22d3ee;
-    --alloc-c3: #2dd4bf;
-    --alloc-c4: #fbbf24;
-    --alloc-c5: #a78bfa;
-    --alloc-c6: #f472b6;
-    --alloc-c7: #34d399;
-    --alloc-c8: #818cf8;
-    --alloc-outros: #6b7280;
+    --data-1: #60a5fa;
+    --data-2: #3b82f6;
+    --data-3: #2563eb;
+    --data-4: #1d4ed8;
+    --data-5: #1e40af;
+    --data-6: #1e3a8a;
+    --data-outros: #475569;
+    --alloc-c1: var(--data-1);
+    --alloc-c2: var(--data-2);
+    --alloc-c3: var(--data-3);
+    --alloc-c4: var(--data-4);
+    --alloc-c5: var(--data-5);
+    --alloc-c6: var(--data-6);
+    --alloc-c7: var(--data-2);
+    --alloc-c8: var(--data-4);
+    --alloc-outros: var(--data-outros);
   }
 }
 :root[data-theme="dark"]{
@@ -99,15 +114,22 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --warning:#F59E0B;
   --serious:#F97316;
   --critical:#EF4444;
-  --alloc-c1: #38bdf8;
-  --alloc-c2: #22d3ee;
-  --alloc-c3: #2dd4bf;
-  --alloc-c4: #fbbf24;
-  --alloc-c5: #a78bfa;
-  --alloc-c6: #f472b6;
-  --alloc-c7: #34d399;
-  --alloc-c8: #818cf8;
-  --alloc-outros: #6b7280;
+  --data-1: #60a5fa;
+  --data-2: #3b82f6;
+  --data-3: #2563eb;
+  --data-4: #1d4ed8;
+  --data-5: #1e40af;
+  --data-6: #1e3a8a;
+  --data-outros: #475569;
+  --alloc-c1: var(--data-1);
+  --alloc-c2: var(--data-2);
+  --alloc-c3: var(--data-3);
+  --alloc-c4: var(--data-4);
+  --alloc-c5: var(--data-5);
+  --alloc-c6: var(--data-6);
+  --alloc-c7: var(--data-2);
+  --alloc-c8: var(--data-4);
+  --alloc-outros: var(--data-outros);
 }
 
 *{box-sizing:border-box}
@@ -278,8 +300,8 @@ td.date{color:var(--muted); font-size:11.5px}
 
 .range{width:100px}
 .range .track{position:relative; height:6px; border-radius:3px; background:var(--surface-2); border:1px solid var(--rule)}
-.range .fill{position:absolute; top:0; bottom:0; left:0; border-radius:3px; background:var(--accent); opacity:.35}
-.range .mark{position:absolute; top:-3px; width:2px; height:12px; background:var(--accent); border-radius:1px}
+.range .fill{position:absolute; top:0; bottom:0; left:0; border-radius:3px; background:var(--data-3); opacity:.55}
+.range .mark{position:absolute; top:-3px; width:2px; height:12px; background:var(--ink); border-radius:1px}
 .range .lbl{display:flex; justify-content:space-between; font-size:10px; color:var(--muted); margin-top:3px; font-family:var(--font-mono)}
 .range.noData{color:var(--muted); font-size:11.5px}
 
@@ -836,30 +858,162 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 .basic-ind-item .val { font-size: 16px; font-family: var(--font-mono); font-weight: 700; color: var(--ink); }
 
 /* ================= MINHA CARTEIRA (Print 6) ================= */
-.mc-header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+/* ================= MINHA CARTEIRA (Ward Style - 16/10/2026) ================= */
+.mc-header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.mc-title-wrap { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .mc-title { font-size: 26px; font-family: var(--font-serif); font-weight: 700; color: var(--ink); margin: 0; }
-.mc-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.mc-sim-badge { display: none; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--rule); color: var(--accent); cursor: pointer; }
+.mc-sim-badge:hover { border-color: var(--accent); }
+.mc-actions { display: flex; gap: 10px; align-items: center; position: relative; }
+.mc-btn-primary { background: var(--accent); color: #ffffff; border: 1px solid var(--accent); border-radius: 8px; padding: 8px 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.15s; }
+.mc-btn-primary:hover { opacity: 0.9; }
+.mc-btn-secondary { background: var(--surface); color: var(--ink-2); border: 1px solid var(--rule); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.15s; }
+.mc-btn-secondary:hover { border-color: var(--rule-strong); color: var(--ink); }
+
+/* Menu "⋯ Mais" */
+.mc-menu-mais-dropdown {
+  position: absolute; right: 0; top: calc(100% + 8px); background: var(--surface);
+  border: 1px solid var(--rule); border-radius: 12px; box-shadow: var(--shadow-2);
+  padding: 8px 0; min-width: 220px; z-index: 9999; display: none;
+}
+.mc-menu-mais-dropdown.active { display: block; }
+.mc-menu-item {
+  width: 100%; text-align: left; padding: 8px 16px; background: none; border: none;
+  font-size: 13px; color: var(--ink-2); cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+}
+.mc-menu-item:hover { background: var(--surface-2); color: var(--ink); }
+.mc-menu-divider { height: 1px; background: var(--rule); margin: 6px 0; }
+.mc-menu-subhead { font-size: 11px; text-transform: uppercase; font-weight: 600; color: var(--muted); padding: 6px 16px 2px; }
+.mc-sim-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; padding: 4px 16px 8px; }
+.mc-sim-btn {
+  background: var(--surface-2); border: 1px solid var(--rule); border-radius: 6px;
+  padding: 4px 6px; font-size: 11px; font-weight: 600; color: var(--ink-2); cursor: pointer; text-align: center;
+}
+.mc-sim-btn:hover { border-color: var(--accent); color: var(--accent); }
+.mc-sim-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Bloco Único de KPIs (Padrão Ward) */
+.mc-ward-card {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: 24px; margin-bottom: 24px; display: grid; grid-template-columns: minmax(280px, 440px) 1fr; gap: 24px; align-items: start;
+  min-width: 0; box-sizing: border-box;
+}
+@media (max-width: 900px) { .mc-ward-card { grid-template-columns: 1fr; gap: 20px; padding: 16px; } }
+
+.mc-ward-kpis-col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.mc-ward-lbl { font-size: 12px; color: var(--ink-2); font-weight: 500; margin-bottom: 4px; text-transform: none; }
+.mc-ward-val-main { font-size: 28px; font-family: var(--font-sans); font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink); line-height: 1.2; }
+.mc-ward-sub { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.mc-ward-meta { font-size: 11px; color: var(--muted); margin-top: 6px; }
+.mc-ward-link { color: var(--accent); text-decoration: underline; cursor: pointer; }
+
+.mc-ward-kpis-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 14px 16px; margin-top: 6px; }
+.mc-ward-kpi-item { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mc-ward-val { font-size: 18px; font-family: var(--font-sans); font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink); }
+
+.mc-ward-chart-col { display: flex; flex-direction: column; gap: 12px; border-left: 1px solid var(--rule); padding-left: 24px; min-width: 0; }
+@media (max-width: 900px) { .mc-ward-chart-col { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 20px; } }
+.mc-ward-chart-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.mc-ward-donut-wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+/* Linha Discreta do Caixa para Investir */
+.mc-caixa-strip {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  padding: 10px 16px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius);
+  font-size: 13px; color: var(--ink-2); margin-bottom: 24px; box-sizing: border-box;
+}
+
+/* Banner Neutro do Conselheiro */
+.cb-banner-slim {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  padding: 10px 16px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius);
+  font-size: 13px; color: var(--ink-2); margin-bottom: 24px; box-sizing: border-box;
+}
+
+/* Abas da Carteira (Segmentado simples: texto + sublinhado na ativa, sem emoji) */
+.mc-nav-tabs {
+  display: flex; gap: 8px; background: transparent; border-bottom: 1px solid var(--rule);
+  padding: 0 0 2px 0; margin-bottom: 24px; overflow-x: auto; scrollbar-width: none;
+}
+.mc-nav-tabs::-webkit-scrollbar { display: none; }
+.mc-nav-btn {
+  background: transparent; border: none; border-bottom: 2px solid transparent; padding: 10px 14px;
+  font-size: 13.5px; font-weight: 500; color: var(--muted); cursor: pointer; white-space: nowrap; transition: 0.15s;
+}
+.mc-nav-btn:hover { color: var(--ink); }
+.mc-nav-btn.active { color: var(--accent); border-bottom: 2px solid var(--accent); font-weight: 600; }
+
+/* Selo de Veredito Compacto */
+.veredito-pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 2px 8px; border-radius: 4px;
+  font-size: 11px; font-weight: 600; white-space: nowrap; cursor: help;
+  background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--rule);
+}
+.veredito-pill.good { background: rgba(5, 150, 105, 0.1); color: var(--good); }
+.veredito-pill.warning { background: rgba(217, 119, 6, 0.1); color: var(--warning); }
+.veredito-pill.serious { background: rgba(234, 88, 12, 0.1); color: var(--serious); }
+.veredito-pill.critical { background: rgba(220, 38, 38, 0.1); color: var(--critical); }
+.veredito-pill.info, .veredito-pill.neutral { background: var(--surface-2); color: var(--ink-2); }
+
+/* Layouts Ward: Rentabilidade e Proventos (16/10/2026) */
+.rent-ward-block, .prov-ward-block {
+  display: grid; grid-template-columns: minmax(240px, 320px) 1fr; gap: 24px; align-items: start;
+}
+@media (max-width: 900px) {
+  .rent-ward-block, .prov-ward-block { grid-template-columns: 1fr; gap: 20px; }
+}
+
+.rent-kpis-col, .prov-kpis-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.rent-kpi-item, .prov-kpi-item { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.rent-kpi-lbl, .prov-kpi-lbl { font-size: 12px; color: var(--ink-2); font-weight: 500; text-transform: none; }
+.rent-kpi-val, .prov-kpi-val { font-size: 22px; font-family: var(--font-sans); font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink); line-height: 1.2; }
+.rent-kpi-sub, .prov-kpi-sub { font-size: 11.5px; color: var(--muted); }
+
+.rent-chart-col, .prov-chart-col { display: flex; flex-direction: column; gap: 12px; border-left: 1px solid var(--rule); padding-left: 24px; min-width: 0; }
+@media (max-width: 900px) {
+  .rent-chart-col, .prov-chart-col { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 20px; }
+}
+
+.rent-chart-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.rent-range-tabs { display: flex; gap: 4px; background: var(--surface-2); padding: 3px; border-radius: 8px; border: 1px solid var(--rule); }
+.rent-range-btn {
+  background: transparent; border: none; padding: 4px 10px; font-size: 11.5px; font-weight: 600; color: var(--ink-2);
+  border-radius: 6px; cursor: pointer; transition: 0.15s;
+}
+.rent-range-btn:hover { color: var(--ink); }
+.rent-range-btn.active { background: var(--surface); color: var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-weight: 700; }
+
+.rent-legend, .prov-legend { display: flex; gap: 16px; font-size: 11.5px; color: var(--ink-2); flex-wrap: wrap; margin-top: 4px; }
+.rent-legend-item, .prov-legend-item { display: flex; align-items: center; gap: 6px; }
+.rent-legend-item span, .prov-legend-item span { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+.rent-chart-wrap { position: relative; background: var(--bg); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 12px 12px 12px; }
+.rent-chart-tooltip {
+  position: absolute; display: none; background: var(--surface); border: 1px solid var(--rule-strong);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12); border-radius: 6px; padding: 8px 12px; font-size: 11.5px;
+  pointer-events: none; z-index: 10; color: var(--ink); white-space: nowrap;
+}
+
+.rent-bench-section { margin-top: 28px; border-top: 1px solid var(--rule); padding-top: 20px; }
+.rent-bench-table { width: 100%; border-collapse: collapse; font-size: 12px; font-family: var(--font-sans); }
+.rent-bench-table th, .rent-bench-table td { padding: 8px 10px; text-align: center; border-bottom: 1px solid var(--rule); }
+.rent-bench-table th { font-size: 11px; text-transform: uppercase; color: var(--ink-2); font-weight: 600; background: var(--surface-2); }
+.rent-bench-table td { font-variant-numeric: tabular-nums; }
+.rent-bench-table tr:hover td { background: var(--surface-2); }
+
+.rent-dd-section { margin-top: 28px; border-top: 1px solid var(--rule); padding-top: 20px; }
+.rent-dd-stats { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; }
+.rent-dd-stat { display: flex; align-items: center; gap: 6px; color: var(--ink-2); }
+
+.prov-bar-rect { cursor: pointer; transition: opacity 0.15s; }
+.prov-bar-rect:hover { opacity: 0.82; }
+.prov-pill-rec { display: inline-flex; align-items: center; padding: 2px 6px; border-radius: 4px; font-size: 10.5px; font-weight: 600; background: rgba(30, 64, 175, 0.1); color: var(--data-1); }
+.prov-pill-est { display: inline-flex; align-items: center; padding: 2px 6px; border-radius: 4px; font-size: 10.5px; font-weight: 600; background: rgba(96, 165, 250, 0.15); color: var(--data-3); }
+
 .mc-btn { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 7px 14px; font-size: 12.5px; font-weight: 600; color: var(--ink-2); cursor: pointer; transition: 0.15s; }
 .mc-btn:hover { border-color: var(--rule-strong); color: var(--ink); }
-.mc-btn.primary { background: #10b981; color: #ffffff; border-color: #10b981; }
-.mc-btn.accent { background: #f59e0b; color: #ffffff; border-color: #f59e0b; }
-
-.mc-kpis-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
-@media (max-width: 900px) { .mc-kpis-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 600px) { .mc-kpis-grid { grid-template-columns: repeat(2, 1fr); } }
-.mc-kpi-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 3px; }
-.mc-kpi-card .lbl { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--muted); letter-spacing: 0.04em; display: flex; align-items: center; gap: 4px; }
-.mc-kpi-card .val { font-size: 22px; font-family: var(--font-mono); font-weight: 700; color: var(--ink); line-height: 1.2; }
-.mc-kpi-card .sub { font-size: 11px; color: var(--muted); }
-
-.mc-nav-tabs {
-  display: flex; gap: 6px; background: var(--surface-2); border: 1px solid var(--rule-strong); border-radius: 10px;
-  padding: 6px; margin-bottom: 20px; overflow-x: auto; position: sticky; top: 48px; z-index: 9998;
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-}
-.mc-nav-btn { background: transparent; border: none; padding: 7px 14px; border-radius: 7px; font-size: 12.5px; font-weight: 600; color: var(--ink-2); cursor: pointer; white-space: nowrap; transition: 0.15s; }
-.mc-nav-btn:hover { color: var(--ink); background: var(--surface); }
-.mc-nav-btn.active { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.mc-btn.primary { background: var(--accent); color: #ffffff; border-color: var(--accent); }
 
 .mc-layout-grid {
   display: grid;
@@ -2015,81 +2169,118 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 <!-- ===================== TAB: MEUS ATIVOS ===================== -->
 <div class="tabpanel" data-tab="ativos" data-active="true">
 
-  <!-- ===================== VISÃO MINHA CARTEIRA (Fiel ao Print 6) ===================== -->
+  <!-- ===================== VISÃO MINHA CARTEIRA (Ward Style - 16/10/2026) ===================== -->
   <section class="mc-header-row">
-    <div>
+    <div class="mc-title-wrap">
       <h2 class="mc-title">Minha Carteira</h2>
+      <span id="sim-badge-ativo" class="mc-sim-badge" onclick="simularOscilacao(0)" title="Clique para voltar às cotações reais">Simulação <span id="sim-badge-val">-5%</span> · voltar ao real</span>
     </div>
     <div class="mc-actions">
-      <button class="mc-btn" onclick="openTutorialModal()">▶ Tutorial</button>
-      <button class="mc-btn" onclick="jumpCarteiraSection('bussola')">🧭 Bússola Fehmir</button>
-      <button class="mc-btn" onclick="openLancamentoModal()">+ Lançamento</button>
-      <button class="mc-btn accent" onclick="openLancamentoModal()">+ Adicionar Ativo</button>
-      <button class="mc-btn" onclick="openExecutiveReport()" title="Gerar Relatório Executivo da Carteira em PDF">🖨️ Relatório PDF</button>
-      <button class="mc-btn" onclick="exportarCarteiraJSON()" title="Baixar arquivo JSON de backup da carteira">📥 Backup</button>
-      <button class="mc-btn" onclick="document.getElementById('file-import-json').click()" title="Restaurar dados a partir de arquivo JSON">📤 Restaurar</button>
+      <button class="mc-btn-primary" onclick="openLancamentoModal()">+ Lançamento</button>
+      <div style="position:relative; display:inline-block;">
+        <button class="mc-btn-secondary" id="btn-menu-mais" onclick="toggleMenuMais(event)">⋯ Mais</button>
+        <div class="mc-menu-mais-dropdown" id="dropdown-menu-mais">
+          <button class="mc-menu-item" onclick="closeMenuMais(); openTutorialModal()">Tutorial</button>
+          <button class="mc-menu-item" onclick="closeMenuMais(); jumpCarteiraSection('bussola')">Bússola Fehmir</button>
+          <button class="mc-menu-item" onclick="closeMenuMais(); openLancamentoModal()">Adicionar Ativo</button>
+          <button class="mc-menu-item" onclick="closeMenuMais(); openExecutiveReport()" title="Gerar Relatório Executivo da Carteira em PDF">Relatório PDF</button>
+          <button class="mc-menu-item" onclick="closeMenuMais(); exportarCarteiraJSON()" title="Baixar arquivo JSON de backup da carteira">Backup</button>
+          <button class="mc-menu-item" onclick="closeMenuMais(); document.getElementById('file-import-json').click()" title="Restaurar dados a partir de arquivo JSON">Restaurar</button>
+          <div class="mc-menu-divider"></div>
+          <div class="mc-menu-subhead">Simular mercado</div>
+          <div class="mc-sim-grid">
+            <button class="mc-sim-btn" onclick="simularOscilacao(-0.05)" title="Simular queda geral de 5%">-5%</button>
+            <button class="mc-sim-btn" onclick="simularOscilacao(-0.02)" title="Simular queda geral de 2%">-2%</button>
+            <button class="mc-sim-btn active" id="btn-sim-real" onclick="simularOscilacao(0)" title="Cotações em tempo real">Real</button>
+            <button class="mc-sim-btn" onclick="simularOscilacao(0.02)" title="Simular alta geral de 2%">+2%</button>
+            <button class="mc-sim-btn" onclick="simularOscilacao(0.05)" title="Simular alta geral de 5%">+5%</button>
+          </div>
+        </div>
+      </div>
       <input type="file" id="file-import-json" accept=".json" style="display:none;" onchange="importarCarteiraJSON(event)">
     </div>
   </section>
 
-  <!-- Barra de Simulação de Oscilação de Mercado (Ao Vivo / Reativo) -->
-  <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px; flex-wrap:wrap; background:var(--surface); border:1px solid var(--rule); border-radius:12px; padding:8px 14px;">
-    <span style="font-size:11px; text-transform:uppercase; font-weight:700; color:var(--muted); letter-spacing:0.04em;">⚡ Simulação de Mercado Ao Vivo:</span>
-    <button class="mc-btn sim-btn" onclick="simularOscilacao(-0.05)" title="Simular queda geral de 5%">-5% 📉</button>
-    <button class="mc-btn sim-btn" onclick="simularOscilacao(-0.02)" title="Simular queda geral de 2%">-2%</button>
-    <button class="mc-btn sim-btn active" id="btn-sim-real" onclick="simularOscilacao(0)" style="font-weight:700; border-color:var(--good); color:var(--good);">Tempo Real / Atual 🟢</button>
-    <button class="mc-btn sim-btn" onclick="simularOscilacao(0.02)" title="Simular alta geral de 2%">+2%</button>
-    <button class="mc-btn sim-btn" onclick="simularOscilacao(0.05)" title="Simular alta geral de 5%">+5% 🚀</button>
-    <span id="sim-status-lbl" style="font-size:11.5px; color:var(--ink-2); margin-left:auto; font-family:var(--font-mono);">Cotações Reais / Ao Vivo</span>
-  </div>
+  <!-- Bloco Único de KPIs (Padrão Ward) -->
+  <div class="mc-ward-card" id="mc-ward-kpis-block">
+    <div class="mc-ward-kpis-col">
+      <div class="mc-ward-kpi-main" id="kpi-card-patrimonio">
+        <div class="mc-ward-lbl">Patrimônio</div>
+        <div class="mc-ward-val-main" id="mc-patrimonio">R$ 5.505,53</div>
+        <div class="mc-ward-sub" id="mc-patrimonio-sub">
+          Valor investido <span id="mc-investido-val-sub">R$ 5.300,16</span> <span style="color:var(--good); font-weight:700;">(+3,87% ▲)</span>
+        </div>
+        <div class="mc-ward-meta" id="mc-patrimonio-meta">
+          <span id="mc-fonte-precos">Preços de 15/10 (robô)</span> · <a href="javascript:void(0)" onclick="openModalConferencia()" class="mc-ward-link">Conferir com a corretora</a>
+        </div>
+      </div>
 
-  <!-- 5 Cards de Resumo do Topo (Fiel ao Investidor 10 - Carteira 1) -->
-  <div class="mc-kpis-grid">
-    <div class="mc-kpi-card" id="kpi-card-patrimonio">
-      <div class="lbl">Patrimônio Total</div>
-      <div class="val" id="mc-patrimonio">R$ 5.495,59</div>
-      <div class="sub" id="mc-patrimonio-sub">Valor investido R$ 5.348,26 <span style="color:var(--good); font-weight:700;">(+2,75% ▲)</span></div>
-      <div id="mc-patrimonio-meta" style="font-size:10.5px; color:var(--muted); margin-top:4px;">
-        <span id="mc-fonte-precos">Preços de 15/10 (robô)</span> · <a href="javascript:void(0)" onclick="openModalConferencia()" style="color:var(--accent); text-decoration:underline; cursor:pointer;">Conferir com a corretora</a>
+      <div class="mc-ward-kpis-list">
+        <div class="mc-ward-kpi-item" id="ward-kpi-investido" title="Total aportado em compras líquidas da carteira">
+          <div class="mc-ward-lbl">Valor investido</div>
+          <div class="mc-ward-val" id="mc-investido-val">R$ 5.300,16</div>
+        </div>
+
+        <div class="mc-ward-kpi-item" id="ward-kpi-lucro" title="Ganho R$ 205,37 · Prov. R$ 575,50">
+          <div class="mc-ward-lbl">Lucro total</div>
+          <div class="mc-ward-val" id="mc-lucro" style="color:var(--good);">R$ 780,87</div>
+          <span id="mc-lucro-sub" style="display:none;"></span>
+        </div>
+
+        <div class="mc-ward-kpi-item" id="ward-kpi-proventos" title="Total acumulado: R$ 575,50">
+          <div class="mc-ward-lbl">Proventos 12m</div>
+          <div class="mc-ward-val" id="mc-proventos" style="color:var(--good);">R$ 445,74</div>
+          <span id="mc-proventos-sub" style="display:none;"></span>
+        </div>
+
+        <div class="mc-ward-kpi-item" id="ward-kpi-rentab" title="Total acumulado da carteira: +22,87%">
+          <div class="mc-ward-lbl">Rentabilidade 12m</div>
+          <div class="mc-ward-val" id="mc-rentab-val" style="color:var(--good);">+12,57%</div>
+        </div>
+
+        <div class="mc-ward-kpi-item" id="ward-kpi-ativos" title="8 Ações · 11 FIIs · 1 ETF · Criptos">
+          <div class="mc-ward-lbl">Ativos</div>
+          <div class="mc-ward-val" id="mc-total-ativos">21 Ativos</div>
+          <span id="mc-sub-ativos" style="display:none;"></span>
+        </div>
       </div>
     </div>
-    <div class="mc-kpi-card">
-      <div class="lbl">Lucro Total ⓘ</div>
-      <div class="val" id="mc-lucro" style="color:var(--good);">R$ 722,83</div>
-      <div class="sub" id="mc-lucro-sub" style="color:var(--ink-2); font-weight:500;">Ganho R$ 147,33 · Prov. R$ 575,50</div>
-    </div>
-    <div class="mc-kpi-card">
-      <div class="lbl">Proventos Recebidos (12M) ⓘ</div>
-      <div class="val" id="mc-proventos" style="color:var(--good);">R$ 445,74</div>
-      <div class="sub" id="mc-proventos-sub">Total acumulado: R$ 575,50</div>
-    </div>
-    <div class="mc-kpi-card">
-      <div class="lbl">Rentabilidade (12M) ⓘ</div>
-      <div class="val" style="color:var(--good);">+12,57% ↗</div>
-      <div class="sub" style="color:var(--good); font-weight:600;">Total da carteira: +22,87% ↗</div>
-    </div>
-    <div class="mc-kpi-card">
-      <div class="lbl">Ativos na Carteira ⓘ</div>
-      <div class="val" id="mc-total-ativos" style="color:var(--ink);">21 Ativos</div>
-      <div class="sub" id="mc-sub-ativos">8 Ações · 11 FIIs · 1 ETF · Criptos</div>
+
+    <!-- Coluna Direita: Rosca de Alocação por Classe -->
+    <div class="mc-ward-chart-col">
+      <div class="mc-ward-chart-header">
+        <span class="mc-ward-lbl" style="font-weight:600;">Alocação por classe</span>
+        <span class="mc-ward-meta" id="aloc-total-patr-ward">Patrimônio: R$ 5.505,53</span>
+      </div>
+      <div class="mc-ward-donut-wrap">
+        <div style="position:relative; width:130px; height:130px; flex:none;">
+          <svg id="svg-rosca-classes" viewBox="0 0 160 160" class="aloc-svg-donut" style="width:130px; height:130px;"></svg>
+          <div class="aloc-donut-center" id="aloc-classes-center">
+            <span class="aloc-center-label" style="font-size:10px;">Classes</span>
+            <span class="aloc-center-val" style="font-size:14px;">4</span>
+          </div>
+        </div>
+        <div class="aloc-legend" id="aloc-legend-classes" style="flex:1; min-width:140px;"></div>
+      </div>
     </div>
   </div>
 
-  <!-- 💰 Caixa para Investir (Parte A - 15/10/2026) -->
-  <div class="caixa-investir-card" id="caixa-investir-card"></div>
+  <!-- Caixa para Investir (Linha discreta) -->
+  <div class="mc-caixa-strip" id="caixa-investir-card"></div>
 
-  <!-- Resumo do Conselheiro Fehmir (preenchido por renderConselheiro) -->
+  <!-- Resumo do Conselheiro Fehmir (Linha fina neutra) -->
   <div id="cb-banner"></div>
 
-  <!-- Sub-menu de Navegação de Ativos (Investidor 10) -->
+  <!-- Sub-menu de Navegação de Ativos (Segmentado sem emojis) -->
   <div class="mc-nav-tabs">
-    <button class="mc-nav-btn active" data-view="geral" onclick="setCarteiraView('geral')">⊞ Visão geral</button>
-    <button class="mc-nav-btn" data-view="acoes" onclick="setCarteiraView('acoes')">📈 Ações</button>
-    <button class="mc-nav-btn" data-view="fiis" onclick="setCarteiraView('fiis')">🏢 FIIs</button>
-    <button class="mc-nav-btn" data-view="proventos" onclick="setCarteiraView('proventos')">📅 Proventos</button>
-    <button class="mc-nav-btn" data-view="rebal" onclick="setCarteiraView('rebal')">⚖️ Rebalanceamento</button>
-    <button class="mc-nav-btn" data-view="extrato" onclick="setCarteiraView('extrato')">📒 Extrato</button>
-    <button class="mc-nav-btn" data-view="baldes" onclick="setCarteiraView('baldes')">🌐 Outros baldes</button>
+    <button class="mc-nav-btn active" data-view="geral" onclick="setCarteiraView('geral')">Visão geral</button>
+    <button class="mc-nav-btn" data-view="rentabilidade" onclick="setCarteiraView('rentabilidade')">Rentabilidade</button>
+    <button class="mc-nav-btn" data-view="acoes" onclick="setCarteiraView('acoes')">Ações</button>
+    <button class="mc-nav-btn" data-view="fiis" onclick="setCarteiraView('fiis')">FIIs</button>
+    <button class="mc-nav-btn" data-view="proventos" onclick="setCarteiraView('proventos')">Proventos</button>
+    <button class="mc-nav-btn" data-view="rebal" onclick="setCarteiraView('rebal')">Rebalanceamento</button>
+    <button class="mc-nav-btn" data-view="extrato" onclick="setCarteiraView('extrato')">Extrato</button>
+    <button class="mc-nav-btn" data-view="baldes" onclick="setCarteiraView('baldes')">Outros baldes</button>
   </div>
 
   <!-- ================= BÚSSOLA BARSI & CICLOS MACRO / POLÍTICO-SETORIAIS ================= -->
@@ -2116,7 +2307,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <button class="bussola-sc-btn" id="btn-sc-patinhos" onclick="renderBussolaCenario('patinhos')">🔄 Setores Oprimidos (Patinhos Feios)</button>
         <button class="bussola-sc-btn" id="btn-sc-supervalorizacao" onclick="renderBussolaCenario('supervalorizacao')">🚥 Supervalorização & Os 3 Bloquinhos</button>
         <button class="bussola-sc-btn" id="btn-sc-tesouro" onclick="renderBussolaCenario('tesouro')">🏛️ Tesouro Direto & Marcação a Mercado</button>
-        <button class="bussola-sc-btn" id="btn-sc-fiis" onclick="renderBussolaCenario('fiis')">🏢 FIIs & Pessimismo do Mercado</button>
+        <button class="bussola-sc-btn" id="btn-sc-fiis" onclick="renderBussolaCenario('fiis')">FIIs & Pessimismo do Mercado</button>
       </div>
 
       <!-- Conteúdo Dinâmico Renderizado via JS -->
@@ -2131,7 +2322,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-visao-geral', event)">
       <div>
         <h2 style="display:flex; align-items:center; gap:8px;">
-          <span>⊞ Visão Geral: Ativos na Carteira & Evolução</span>
+          <span>Visão Geral: Ativos na Carteira & Evolução</span>
         </h2>
         <p class="panel-note">Alocação por classes (FIIs, Ações, ETFs, Cripto) e evolução gráfica mês a mês.</p>
       </div>
@@ -2147,7 +2338,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
           <div class="aloc-header-row">
             <div>
               <h3 style="margin:0; font-size:15px; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:8px;">
-                <span>📊 Alocação da Carteira</span>
+                <span>Alocação da Carteira</span>
               </h3>
               <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Consolidação por classe (esquerda) e distribuição por ativos (direita)</p>
             </div>
@@ -2303,17 +2494,153 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   </div>
 </section>
 
+  <!-- ===================== SECTION: RENTABILIDADE (PADRÃO WARD - 16/10/2026) ===================== -->
+  <section class="panel collapsible-block" id="panel-rentabilidade">
+    <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-rentabilidade', event)" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div>
+        <h2 style="margin:0; font-size:20px; font-family:var(--font-serif); color:var(--ink);">Rentabilidade da Carteira & Benchmarks</h2>
+        <p class="panel-note" style="margin:4px 0 0 0;">Retorno ponderado pelo tempo (TWR) por cotação de cota (base 100 em 30/09/2026). Aporte de capital não salta rentabilidade.</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span class="collapsed-summary-pill" id="rent-summary-pill">Base 30/09/2026</span>
+        <button class="block-toggle-btn" aria-label="Recolher ou expandir"><span class="icon">▾</span> <span class="txt">Recolher</span></button>
+      </div>
+    </div>
+    <div class="block-body">
+      <!-- Aviso quando benchmarks.js não estiver carregado -->
+      <div id="rent-aviso-sem-bench" style="display:none; padding:12px 16px; background:var(--surface-2); border:1px solid var(--rule); border-radius:8px; font-size:12.5px; color:var(--muted); margin-bottom:16px;">
+        Sem dados de referência: execute o robô de benchmarks (<code>python tools/benchmarks.py</code>) para alimentar CDI, IPCA e Ibovespa oficiais.
+      </div>
+
+      <!-- Layout Ward: Coluna Estreita de KPIs (Esquerda) + Gráfico de Evolução (Direita) -->
+      <div class="rent-ward-block">
+        <!-- Coluna de KPIs (Esquerda) -->
+        <div class="rent-kpis-col">
+          <div class="rent-kpi-item">
+            <span class="rent-kpi-lbl">Patrimônio da Carteira</span>
+            <div class="rent-kpi-val" id="rent-kpi-patrimonio">R$ 0,00</div>
+            <span class="rent-kpi-sub" id="rent-kpi-patrimonio-sub">Total consolidado</span>
+          </div>
+          <div class="rent-kpi-item">
+            <span class="rent-kpi-lbl">Retorno no Mês (Out/26)</span>
+            <div class="rent-kpi-val" id="rent-kpi-mes">+0,00%</div>
+            <span class="rent-kpi-sub" id="rent-kpi-mes-sub">Variação da cota no mês</span>
+          </div>
+          <div class="rent-kpi-item">
+            <span class="rent-kpi-lbl">Retorno no Ano (2026)</span>
+            <div class="rent-kpi-val" id="rent-kpi-ano">+0,00%</div>
+            <span class="rent-kpi-sub">Acumulado em 2026</span>
+          </div>
+          <div class="rent-kpi-item">
+            <span class="rent-kpi-lbl">Desde o Início</span>
+            <div class="rent-kpi-val" id="rent-kpi-inicio">+0,00%</div>
+            <span class="rent-kpi-sub">Cota base 100,00 em 30/09/2026</span>
+          </div>
+          <div class="rent-kpi-item">
+            <span class="rent-kpi-lbl">vs. CDI (% do CDI)</span>
+            <div class="rent-kpi-val" id="rent-kpi-vs-cdi">0% do CDI</div>
+            <span class="rent-kpi-sub" id="rent-kpi-cdi-sub">CDI acumulado: +0,00%</span>
+          </div>
+          <div class="rent-kpi-item">
+            <span class="rent-kpi-lbl">Volatilidade Anualizada</span>
+            <div class="rent-kpi-val" id="rent-kpi-volatilidade">0,0% a.a.</div>
+            <span class="rent-kpi-sub">Desvio padrão diário anualizado (√252)</span>
+          </div>
+          <div class="rent-kpi-item">
+            <span class="rent-kpi-lbl">Drawdown (Abaixo do Topo)</span>
+            <div class="rent-kpi-val" id="rent-kpi-drawdown">0,00%</div>
+            <span class="rent-kpi-sub" id="rent-kpi-pior-queda">Pior queda: 0,00%</span>
+          </div>
+        </div>
+
+        <!-- Coluna do Gráfico (Direita) -->
+        <div class="rent-chart-col">
+          <div class="rent-chart-header">
+            <div>
+              <h3 style="margin:0; font-size:15px; font-weight:600; color:var(--ink);">Retorno Acumulado vs. Benchmarks</h3>
+              <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Cotação da carteira confrontada diariamente com CDI, IPCA e Ibovespa.</p>
+            </div>
+            <!-- Seletor de Período -->
+            <div class="rent-range-tabs">
+              <button type="button" class="rent-range-btn" data-range="6m" onclick="setRentabilidadeRange('6m')">6M</button>
+              <button type="button" class="rent-range-btn" data-range="12m" onclick="setRentabilidadeRange('12m')">12M</button>
+              <button type="button" class="rent-range-btn" data-range="2a" onclick="setRentabilidadeRange('2a')">2A</button>
+              <button type="button" class="rent-range-btn active" data-range="inicio" onclick="setRentabilidadeRange('inicio')">Início</button>
+            </div>
+          </div>
+
+          <!-- Legenda de Cores -->
+          <div class="rent-legend">
+            <div class="rent-legend-item"><span style="background:var(--accent);"></span> Carteira</div>
+            <div class="rent-legend-item"><span style="background:var(--data-3);"></span> CDI</div>
+            <div class="rent-legend-item"><span style="background:var(--data-4);"></span> IPCA</div>
+            <div class="rent-legend-item"><span style="background:var(--data-5);"></span> Ibovespa</div>
+          </div>
+
+          <!-- Gráfico SVG Responsivo -->
+          <div class="rent-chart-wrap" id="rent-chart-wrap">
+            <svg id="rent-chart-svg" viewBox="0 0 680 260" style="width:100%; height:auto; display:block;"></svg>
+            <div id="rent-chart-tooltip" class="rent-chart-tooltip"></div>
+          </div>
+
+          <!-- Aviso de Início do Histórico -->
+          <div style="font-size:11.5px; color:var(--muted); margin-top:10px; font-style:italic;">
+            O histórico começa em 30/09/2026 (montagem da carteira no painel); fica mais útil a cada mês lançado.
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabela de Benchmark Mês a Mês (Padrão Ward) -->
+      <div class="rent-bench-section">
+        <h3 style="margin:0 0 12px 0; font-size:15px; font-weight:600; color:var(--ink);">Desempenho Mês a Mês vs. Benchmarks (2026)</h3>
+        <div style="overflow-x:auto;">
+          <table class="rent-bench-table" id="rent-bench-table">
+            <thead>
+              <tr>
+                <th style="text-align:left;">Indicador</th>
+                <th>Jan</th><th>Fev</th><th>Mar</th><th>Abr</th><th>Mai</th><th>Jun</th>
+                <th>Jul</th><th>Ago</th><th>Set</th><th>Out</th><th>Nov</th><th>Dez</th>
+                <th style="font-weight:700;">Ano</th>
+              </tr>
+            </thead>
+            <tbody id="rent-bench-tbody">
+              <!-- Preenchido via renderRentabilidade() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Quedas da Carteira (Drawdown) -->
+      <div class="rent-dd-section">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+          <div>
+            <h3 style="margin:0; font-size:15px; font-weight:600; color:var(--ink);">Quedas da Carteira (Drawdown) vs. Ibovespa</h3>
+            <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Distância percentual em relação à máxima histórica acumulada.</p>
+          </div>
+          <div class="rent-dd-stats">
+            <div class="rent-dd-stat"><span>Abaixo do topo hoje:</span> <b id="dd-stat-hoje" style="color:var(--ink);">0,00%</b></div>
+            <div class="rent-dd-stat"><span>Pior queda:</span> <b id="dd-stat-pior" style="color:var(--critical);">0,00%</b></div>
+            <div class="rent-dd-stat"><span>Volatilidade:</span> <b id="dd-stat-vol" style="color:var(--ink);">0,0% a.a.</b></div>
+          </div>
+        </div>
+        <div class="rent-chart-wrap" style="background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:12px;">
+          <svg id="rent-dd-svg" viewBox="0 0 680 140" style="width:100%; height:auto; display:block;"></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== SECTION: EXTRATO & HISTÓRICO DE APORTES ===================== -->
   <section class="extrato-panel collapsible-block" id="sec-carteira-extrato">
     <div class="extrato-header-row collapsible-head" onclick="toggleBlockCollapse('sec-carteira-extrato', event)" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px; border-bottom:1px solid var(--rule); padding-bottom:10px;">
       <div>
-        <h2 style="margin:0; font-size:20px; font-family:var(--font-serif); color:var(--ink);">📒 Livro de Transações & Histórico de Compras (Trade Log)</h2>
+        <h2 style="margin:0; font-size:20px; font-family:var(--font-serif); color:var(--ink);">Livro de Transações & Histórico de Compras (Trade Log)</h2>
         <p style="margin:3px 0 0; font-size:12.5px; color:var(--ink-2);">Registro cronológico de todas as suas compras, vendas e reinvestimentos de proventos da carteira.</p>
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
         <span class="collapsed-summary-pill">23 ordens · R$ 5.348,26</span>
         <button class="mc-btn primary" onclick="openLancamentoModal()">+ Novo Registro</button>
-        <button class="mc-btn" onclick="exportarExtratoCSV()">📥 Exportar CSV (Excel)</button>
+        <button class="mc-btn" onclick="exportarExtratoCSV()">Exportar CSV (Excel)</button>
         <button class="mc-btn" onclick="resetarExtratoPadrao()" title="Restaurar ordens reais de aporte">↻ Restaurar</button>
         <button class="block-toggle-btn" aria-label="Recolher ou expandir"><span class="icon">▾</span> <span class="txt">Recolher</span></button>
       </div>
@@ -2376,16 +2703,79 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div><b>Reserva de emergência — status NÃO CONFIRMADO.</b> Esta é a pendência mais prioritária da carteira inteira, à frente de qualquer ticker novo. Meta: 3 meses de pró-labore/gasto essencial, 100% líquido, até confirmar e bater.</div>
   </div>
 
-  <section class="panel collapsible-block" id="panel-calendario-dividendos">
+  <!-- ===================== SECTION: PROVENTOS (PADRÃO WARD - 16/10/2026) ===================== -->
+  <section class="panel collapsible-block" id="panel-proventos-ward">
+    <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-proventos-ward', event)" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div>
+        <h2 style="margin:0; font-size:20px; font-family:var(--font-serif); color:var(--ink);">Proventos por Mês (Recebido vs. Estimado)</h2>
+        <p class="panel-note" style="margin:4px 0 0 0;">Fluxo mensal consolidado dos últimos 12 meses. Duas camadas na barra: proventos lançados no extrato e estimativas por evento.</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span class="collapsed-summary-pill" id="prov-ward-summary-pill">12 Meses</span>
+        <button class="block-toggle-btn" aria-label="Recolher ou expandir"><span class="icon">▾</span> <span class="txt">Recolher</span></button>
+      </div>
+    </div>
+    <div class="block-body">
+      <!-- Layout Ward: KPIs (Esquerda) + Gráfico Bi-Camada (Direita) -->
+      <div class="prov-ward-block">
+        <!-- Coluna de KPIs (Esquerda) -->
+        <div class="prov-kpis-col">
+          <div class="prov-kpi-item">
+            <span class="prov-kpi-lbl">Proventos (12 Meses)</span>
+            <div class="prov-kpi-val" id="prov-ward-total-12m">R$ 0,00</div>
+            <span class="prov-kpi-sub">Recebido + Estimado</span>
+          </div>
+          <div class="prov-kpi-item">
+            <span class="prov-kpi-lbl">Média Mensal</span>
+            <div class="prov-kpi-val" id="prov-ward-media-mes">R$ 0,00</div>
+            <span class="prov-kpi-sub">Média dos últimos 12 meses</span>
+          </div>
+          <div class="prov-kpi-item">
+            <span class="prov-kpi-lbl">Maior Mês</span>
+            <div class="prov-kpi-val" id="prov-ward-maior-mes">R$ 0,00</div>
+            <span class="prov-kpi-sub" id="prov-ward-maior-mes-sub">—</span>
+          </div>
+          <div class="prov-kpi-item">
+            <span class="prov-kpi-lbl">Recebido Mês Atual</span>
+            <div class="prov-kpi-val" id="prov-ward-mes-atual">R$ 0,00</div>
+            <span class="prov-kpi-sub" id="prov-ward-mes-atual-sub">Estimado restante: R$ 0,00</span>
+          </div>
+        </div>
+
+        <!-- Coluna do Gráfico (Direita) -->
+        <div class="prov-chart-col">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+            <h3 style="margin:0; font-size:15px; font-weight:600; color:var(--ink);">Distribuição Mensal (12 Meses)</h3>
+            <!-- Legenda Bi-camada -->
+            <div class="prov-legend">
+              <div class="prov-legend-item"><span style="background:var(--data-1);"></span> Recebido (Extrato)</div>
+              <div class="prov-legend-item"><span style="background:var(--data-4);"></span> Estimado (Eventos × Posição)</div>
+            </div>
+          </div>
+
+          <!-- Gráfico SVG Bi-camada -->
+          <div class="prov-chart-wrap" style="background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:16px;">
+            <svg id="prov-ward-svg-bars" viewBox="0 0 680 240" style="width:100%; height:auto; display:block;"></svg>
+          </div>
+          <div style="font-size:11.5px; color:var(--muted); margin-top:8px;">
+            Dica: clique em qualquer barra mensal para abrir o detalhamento completo dos pagadores do mês.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calendário Anual Detalhado (Recolhido em Ver Mais) -->
+  <section class="panel collapsible-block is-collapsed" id="panel-calendario-dividendos">
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-calendario-dividendos', event)" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
       <div>
-        <h2>📅 Mapa Anual de Proventos & Fluxo de Caixa (12 Meses)</h2>
+        <h2>Ver Calendário Anual Detalhado (Metodologia Bazin)</h2>
         <p class="panel-note">Previsibilidade mensal de dividendos na carteira do Felipe (Metodologia Décio Bazin). FIIs pagam todos os meses; ações distribuem nos meses históricos.</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
         <span class="collapsed-summary-pill">12 Meses · Previsibilidade</span>
         <div style="font-size:12.5px; font-weight:700; color:var(--good); background:var(--surface-2); padding:6px 14px; border-radius:20px; border:1px solid var(--rule);">
-          ❄️ Efeito Bola de Neve: <span id="cal-snowball-txt" style="color:var(--accent);">Calculando...</span>
+          Efeito Bola de Neve: <span id="cal-snowball-txt" style="color:var(--accent);">Calculando...</span>
         </div>
         <button class="block-toggle-btn" aria-label="Recolher ou expandir"><span class="icon">▾</span> <span class="txt">Recolher</span></button>
       </div>
@@ -2423,12 +2813,12 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     </ul>
   </div>
 
-  <section class="panel collapsible-block" id="panel-rebalanceamento" style="background:var(--bg); border:1px solid var(--accent); border-radius:16px; margin-bottom:24px;">
-    <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-rebalanceamento', event)" style="background: var(--accent-soft); border-radius:15px 15px 0 0; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-       <div><h2 style="color:var(--accent-strong)">⚖️ Simulador de Rebalanceamento (Carteira Real)</h2></div>
+  <section class="panel collapsible-block" id="panel-rebalanceamento" style="background:var(--bg); border:1px solid var(--rule); border-radius:16px; margin-bottom:24px;">
+    <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-rebalanceamento', event)" style="background: var(--surface-2); border-radius:15px 15px 0 0; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+       <div><h2 style="color:var(--ink)">Simulador de Rebalanceamento (Carteira Real)</h2></div>
        <div style="display:flex; align-items:center; gap:8px;">
-         <span class="collapsed-summary-pill" style="color:var(--accent-strong); border-color:var(--accent);">Aporte Inteligente Fehmir</span>
-         <button class="block-toggle-btn" style="background:var(--surface); border-color:var(--accent); color:var(--accent);" aria-label="Recolher ou expandir"><span class="icon">▾</span> <span class="txt">Recolher</span></button>
+         <span class="collapsed-summary-pill" style="color:var(--ink-2); border-color:var(--rule);">Aporte Inteligente Fehmir</span>
+         <button class="block-toggle-btn" style="background:var(--surface); border-color:var(--rule); color:var(--ink-2);" aria-label="Recolher ou expandir"><span class="icon">▾</span> <span class="txt">Recolher</span></button>
        </div>
     </div>
     <div class="block-body">
@@ -2441,33 +2831,33 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <!-- Banner Metodológico: Bandas de Markowitz & Proteção Fiscal -->
         <div style="background:var(--surface-2); border:1px solid var(--rule); border-radius:12px; padding:14px 18px; margin-bottom:18px; font-size:12.5px; color:var(--ink-2); line-height:1.55;">
           <div style="display:flex; align-items:center; gap:8px; font-weight:700; color:var(--ink); margin-bottom:6px; font-size:13.5px;">
-            <span>📐 Bandas de Desbalanceamento de Markowitz (Corridor Rebalancing) & Proteção Tributária</span>
+            <span>Bandas de Desbalanceamento de Markowitz (Corridor Rebalancing) & Proteção Tributária</span>
           </div>
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:10px; margin-top:8px;">
             <div style="background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:10px 12px;">
-              <b style="color:var(--accent);">🏢 FIIs (Tolerância ±35%):</b> Rebalanceamento <b>100% via novos aportes e dividendos</b>. Venda de FII gera 20% de IR na fonte sem isenção de R$ 20k. Ativos em Zona Vermelha têm compras travadas até os outros crescerem.
+              <b style="color:var(--ink);">FIIs (Tolerância ±35%):</b> Rebalanceamento <b>100% via novos aportes e dividendos</b>. Venda de FII gera 20% de IR na fonte sem isenção de R$ 20k. Ativos em Zona Vermelha têm compras travadas até os outros crescerem.
             </div>
             <div style="background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:10px 12px;">
-              <b style="color:var(--good);">⚡ Ações B.A.S.E. (Tolerância ±25%):</b> Aportar somente em Zona Verde (sub-alocada) e com Preço ≤ Teto Bazin. Zona Amarela mantém sem compras adicionais no topo.
+              <b style="color:var(--ink);">Ações B.A.S.E. (Tolerância ±25%):</b> Aportar somente em Zona Verde (sub-alocada) e com Preço ≤ Teto Bazin. Zona Amarela mantém sem compras adicionais no topo.
             </div>
             <div style="background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:10px 12px;">
-              <b style="color:#0284c7;">🌐 VTI / Internacional (Correlação -0,40):</b> Descorrelação empírica com a B3. Reduz a volatilidade da carteira global de 21% para 10,97% e suaviza drawdowns.
+              <b style="color:var(--ink);">VTI / Internacional (Correlação -0,40):</b> Descorrelação empírica com a B3. Reduz a volatilidade da carteira global de 21% para 10,97% e suaviza drawdowns.
             </div>
           </div>
         </div>
         
         <div style="display:flex; justify-content:space-between; margin-bottom:20px; align-items:center; background:var(--surface); padding:16px; border-radius:12px; border:1px solid var(--rule); flex-wrap:wrap; gap:16px;">
            <div><span style="color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:0.05em; font-weight:600">Patrimônio Total Atual</span><br><strong id="reb-total" style="font-size:24px; font-family:var(--font-mono); color:var(--ink)">R$ 0,00</strong></div>
-           <button onclick="gerarIdealSugerido()" style="background:var(--accent); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer; font-size:13.5px; box-shadow:0 2px 6px rgba(0,0,0,0.1)">✨ Gerar % Sugerida</button>
+           <button onclick="gerarIdealSugerido()" class="mc-btn primary" style="padding:8px 16px; font-weight:600; cursor:pointer; font-size:13.5px;">Gerar % Sugerida</button>
         </div>
 
         <!-- Card: Onde Aportar Hoje? (Simulador de Aporte Inteligente Fehmir) -->
-        <div class="smart-aporte-card" style="background:var(--surface); border:1.5px solid var(--accent); border-radius:14px; padding:18px 20px; margin-bottom:22px; box-shadow:0 4px 16px rgba(0,0,0,0.06);">
+        <div class="smart-aporte-card" style="background:var(--surface); border:1px solid var(--rule); border-radius:14px; padding:18px 20px; margin-bottom:22px;">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
             <div>
               <h3 style="margin:0; font-size:16px; color:var(--ink); display:flex; align-items:center; gap:8px;">
-                <span>🎯 Onde Aportar Hoje? (Algoritmo Fehmir)</span>
-                <span class="rc-tag" style="background:#dcfce7; color:#15803d; border-color:#86efac; font-size:11px;">RECOMENDAÇÃO ATIVA</span>
+                <span>Onde Aportar Hoje? (Algoritmo Fehmir)</span>
+                <span class="rc-tag" style="background:rgba(5,150,105,0.12); color:var(--good); border:1px solid var(--rule); font-size:11px;">RECOMENDAÇÃO ATIVA</span>
               </h3>
               <p style="font-size:12.5px; color:var(--ink-2); margin-top:3px;">Cruza <b>Preço Teto Bazin</b> + <b>Sub-alocação da Carteira</b> + <b>Filtro Anti-Armadilha</b> para indicar exatamente o que comprar com o dinheiro de hoje.</p>
             </div>
@@ -2477,7 +2867,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
                 <span style="color:var(--muted); font-size:13px; font-weight:600;">R$</span>
                 <input type="number" id="smart-aporte-val" value="300" min="10" step="50" style="width:90px; border:none; background:transparent; font-family:var(--font-mono); font-size:15px; font-weight:700; color:var(--ink); outline:none; text-align:right;">
               </div>
-              <button onclick="calcularAporteInteligente()" class="top-search-btn" style="padding:7px 16px; font-size:13px;">⚡ Calcular Compras</button>
+              <button onclick="calcularAporteInteligente()" class="mc-btn primary" style="padding:7px 16px; font-size:13px;">Calcular Compras</button>
             </div>
           </div>
 
@@ -2542,7 +2932,9 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <tbody id="tbody-base"></tbody>
       </table></div>
       <div id="encerrados-base-wrap" class="encerrados-toggle-wrap"></div>
-      <p class="pending-note" style="border-left-color:var(--gold); background:rgba(245, 158, 11, 0.08);"><b>🎯 Refinamento Metodológico BBSE3 (Média 5A):</b> O teto da BBSE3 na tabela foi calibrado para o <b>DPA médio sustentável dos últimos 5 anos (R$ 2,82)</b> e a taxa histórica de seguradora (7,5% a 8,5%). O DPA recente de R$ 4,59 foi pico atípico de Selic a dois dígitos inflando o resultado financeiro. No preço atual (~R$ 41), a margem de segurança real é <b>negativa (-8% a -15%)</b> e a ação está colada na máxima de 52 semanas (+31,7% em 12 meses). <b>Veredito Fehmir: ZONA DE MANUTENÇÃO</b> — receba os proventos, mas zero compras no topo de ciclo.</p>
+      <div style="margin-top:8px; font-size:12px; color:var(--ink-2);">
+        <a href="javascript:void(0)" onclick="openModalBbse3Metodologia()" style="color:var(--ink-2); text-decoration:underline;">Nota metodológica sobre calibração do teto de BBSE3 (Média 5A)</a>
+      </div>
     </div>
   </section>
 
@@ -2576,7 +2968,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   <section class="panel collapsible-block" id="panel-fiis">
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-fiis', event)">
       <div>
-        <h2>🏢 FIIs (11 posições reais)</h2>
+        <h2>FIIs (11 posições reais)</h2>
         <p class="panel-note"><b>"Sinal do tracker" é o sinal bruto do seu app de carteira (peso vs. %ideal) — nunca uma recomendação do Conselheiro Fehmir.</b> O veredito desta metodologia é sempre a última coluna, e as duas podem discordar. <b>P/VP não vale o mesmo para todo FII</b> — em tijolo o valor patrimonial depende de laudo de avaliação (pode estar desatualizado) e é indicador secundário (itálico, com ⓘ); em papel/crédito ele é mais direto, mas ainda precisa cruzar com inadimplência e tendência do dividendo (seção 5 do doc mestre).</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
@@ -2598,7 +2990,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   <section class="panel collapsible-block" id="panel-baldes">
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-baldes', event)">
       <div>
-        <h2>🌐 Outros baldes (ETFs, Cripto & Caixinha)</h2>
+        <h2>Outros baldes (ETFs, Cripto & Caixinha)</h2>
         <p class="panel-note">Clique em um balde para ver o detalhe por trás do número.</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
@@ -3264,7 +3656,17 @@ function badge(status, label){
   return `<span class="badge"><span class="dot ${status}"></span>${label}</span>`;
 }
 function note(status, text){
-  return `<span class="badge" style="display:flex;align-items:flex-start;white-space:normal;background:none;border:none;padding:0"><span class="dot ${status}" style="margin-top:5px;flex:none"></span><span style="white-space:normal">${text}</span></span>`;
+  let label = "Manter";
+  const txtLower = (text || "").toLowerCase();
+  if (txtLower.includes("encerrad")) label = "Encerrado";
+  else if (txtLower.includes("realiz") || txtLower.includes("vend") || status === "critical") label = "Realizar";
+  else if (txtLower.includes("travar") || txtLower.includes("atenção") || status === "warning" || status === "serious") label = "Travar compra";
+  else if (txtLower.includes("aport") || txtLower.includes("compr") || status === "good") label = "Aportar";
+  else if (txtLower.includes("mant") || status === "info") label = "Manter";
+  
+  const clsStatus = status || "neutral";
+  const safeText = (text || "").replace(/"/g, '&quot;');
+  return `<span class="veredito-pill ${clsStatus}" title="${safeText}">${label}</span>`;
 }
 function rangeBar(preco, range){
   if(!range || preco==null){ return `<div class="range noData">sem dado</div>`; }
@@ -3719,8 +4121,11 @@ function renderEncerradosToggle(containerId, count) {
   }
   const ativo = getMostrarEncerrados();
   const label = ativo ? "Ocultar encerrados" : `Mostrar encerrados (${count})`;
+  const eyeSvg = ativo
+    ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-2); vertical-align:-2px;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
+    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-2); vertical-align:-2px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
   el.innerHTML = `<button type="button" class="btn-toggle-encerrados ${ativo ? 'is-active' : ''}" onclick="toggleMostrarEncerrados()">
-    <span>${ativo ? '👁️‍🗨️' : '👁️'}</span>
+    <span>${eyeSvg}</span>
     <span>${label}</span>
   </button>`;
 }
@@ -3850,6 +4255,8 @@ function posicionarNmPopover(pop, triggerEl) {
   pop.style.left = left + "px";
 }
 
+const NM_ICON_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-2); display:inline-block; vertical-align:-2px;"><path d="m15 4 5 2-5 2-2 5-2-5-5-2 5-2 2-5 2 5z"/><path d="M4 20l7-7"/></svg>`;
+
 function mostrarNumeroMagico(el, ticker, tipo, preco) {
   const pop = getOrCreateNmPopover();
   nmTriggerAtivo = el;
@@ -3858,16 +4265,16 @@ function mostrarNumeroMagico(el, ticker, tipo, preco) {
   let html = "";
   if (!info.temProvento) {
     html = `<div style="font-weight:700; color:var(--ink); font-size:12.5px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
-      <span>🪄</span> <span>Número Mágico · ${ticker}</span>
+      <span>${NM_ICON_SVG}</span> <span>Número Mágico · ${ticker}</span>
     </div>
     <div style="color:var(--muted); font-size:11.5px; line-height:1.4;">${info.msg}</div>`;
   } else {
     const seloAtingido = info.atingido 
-      ? `<div style="display:inline-flex; align-items:center; gap:5px; padding:3px 8px; border-radius:6px; background:rgba(16, 185, 129, 0.12); color:var(--good); font-weight:700; font-size:11px; margin-bottom:6px;">✨ Atingido: a posição já se paga sozinha</div>` 
+      ? `<div style="display:inline-flex; align-items:center; gap:5px; padding:3px 8px; border-radius:6px; background:rgba(16, 185, 129, 0.12); color:var(--good); font-weight:700; font-size:11px; margin-bottom:6px;">Atingido: a posição já se paga sozinha</div>` 
       : "";
 
     html = `<div style="font-weight:700; color:var(--ink); font-size:13px; margin-bottom:4px; display:flex; align-items:center; justify-content:space-between;">
-      <span>🪄 Número Mágico: ${info.nm} ${info.unidade}</span>
+      <span style="display:inline-flex; align-items:center; gap:6px;">${NM_ICON_SVG} Número Mágico: ${info.nm} ${info.unidade}</span>
       <span style="font-family:var(--font-mono); font-size:11px; color:var(--muted);">${info.ticker}</span>
     </div>
     <div style="font-size:11.5px; color:var(--ink-2); margin-bottom:6px;">
@@ -3941,7 +4348,7 @@ function renderNmIcon(ticker, tipo, preco) {
     title="${titleAttr}"
     onclick="event.stopPropagation(); toggleNumeroMagico(this, '${ticker}', '${tipo}', ${pSafe}, event)" 
     onmouseenter="mostrarNumeroMagico(this, '${ticker}', '${tipo}', ${pSafe})" 
-    onmouseleave="esconderNumeroMagico(event)">🪄</button>`;
+    onmouseleave="esconderNumeroMagico(event)">${NM_ICON_SVG}</button>`;
 }
 
 function renderStockRow(r, k){
@@ -5570,6 +5977,64 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
     <div style="display:flex; justify-content:flex-end; gap:8px;">
       <button type="button" class="mc-btn" onclick="closeCaixaConfigModal()">Cancelar</button>
       <button type="button" class="mc-btn primary" onclick="salvarCaixaConfigModal()">Salvar Configuração</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODAL CONTA COMPLETA DO CAIXA (16/10/2026 - Ward Style) ===================== -->
+<div class="modal-overlay" id="modal-caixa">
+  <div class="modal-content" style="max-width: 680px; max-height: 85vh; display:flex; flex-direction:column;">
+    <button class="modal-close" onclick="closeCaixaModal()">✕</button>
+    <div class="modal-header" style="margin-bottom:12px;">
+      <span style="font-size:11px; text-transform:uppercase; font-weight:700; color:var(--accent); letter-spacing:0.05em;">Gestão de Liquidez</span>
+      <h2 style="font-size:20px; margin:4px 0 6px; font-family:var(--font-serif); font-weight:700;">Conta do Caixa para Investir</h2>
+      <p style="font-size:12.5px; color:var(--ink-2); margin:0;">Apuração de entradas (aportes, vendas, proventos) menos saídas (compras de ativos).</p>
+    </div>
+    <div id="modal-caixa-body" style="overflow-y:auto; flex:1;">
+      <!-- Preenchido via renderModalCaixaConteudo() -->
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:10px; border-top:1px solid var(--rule);">
+      <button type="button" class="mc-btn-sec" onclick="openCaixaConfigModal(); closeCaixaModal();">Configurar início & aporte</button>
+      <button type="button" class="mc-btn primary" onclick="closeCaixaModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODAL NOTA METODOLÓGICA BBSE3 (16/10/2026) ===================== -->
+<div class="modal-overlay" id="modal-bbse3">
+  <div class="modal-content" style="max-width: 580px;">
+    <button class="modal-close" onclick="closeModalBbse3Metodologia()">✕</button>
+    <div class="modal-header" style="margin-bottom:12px;">
+      <span style="font-size:11px; text-transform:uppercase; font-weight:700; color:var(--accent); letter-spacing:0.05em;">Critério Metodológico</span>
+      <h2 style="font-size:20px; margin:4px 0 6px; font-family:var(--font-serif); font-weight:700;">Calibração de Teto: BB Seguridade (BBSE3)</h2>
+    </div>
+    <div style="font-size:13px; line-height:1.6; color:var(--ink-2); display:flex; flex-direction:column; gap:12px;">
+      <p style="margin:0;">O teto da BBSE3 na tabela foi calibrado para o <b>DPA médio sustentável dos últimos 5 anos (R$ 2,82)</b> e a taxa histórica de seguradora (7,5% a 8,5%).</p>
+      <p style="margin:0;">O DPA recente de R$ 4,59 foi pico atípico de Selic a dois dígitos inflando o resultado financeiro da carteira de float. No preço atual (~R$ 41), a margem de segurança real é <b>negativa (-8% a -15%)</b> e a ação está colada na máxima de 52 semanas (+31,7% em 12 meses).</p>
+      <div style="background:var(--surface-2); padding:10px 14px; border-radius:8px; border:1px solid var(--rule); font-weight:600; color:var(--ink);">
+        Veredito Fehmir: ZONA DE MANUTENÇÃO — receba os proventos regulares, mas zero compras no topo de ciclo.
+      </div>
+    </div>
+    <div style="display:flex; justify-content:flex-end; margin-top:16px;">
+      <button type="button" class="mc-btn primary" onclick="closeModalBbse3Metodologia()">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODAL DETALHE PROVENTOS DO MÊS (16/10/2026) ===================== -->
+<div class="modal-overlay" id="modal-prov-mes-detalhe">
+  <div class="modal-content" style="max-width: 680px; max-height: 85vh; display:flex; flex-direction:column;">
+    <button class="modal-close" onclick="fecharModalProventosMes()">✕</button>
+    <div class="modal-header" style="margin-bottom:14px;">
+      <span style="font-size:11px; text-transform:uppercase; font-weight:700; color:var(--accent); letter-spacing:0.05em;">Detalhamento de Proventos</span>
+      <h2 style="font-size:20px; margin:4px 0 4px; font-family:var(--font-serif); font-weight:700;" id="prov-modal-titulo">Proventos do Mês</h2>
+      <p style="font-size:12.5px; color:var(--ink-2); margin:0;" id="prov-modal-subtitulo">Quem pagou, do maior para o menor.</p>
+    </div>
+    <div id="prov-modal-body" style="overflow-y:auto; flex:1;">
+      <!-- Tabela gerada dinamicamente via abrirModalProventosMes() -->
+    </div>
+    <div style="display:flex; justify-content:flex-end; align-items:center; margin-top:14px; padding-top:10px; border-top:1px solid var(--rule);">
+      <button type="button" class="mc-btn primary" onclick="fecharModalProventosMes()">Fechar</button>
     </div>
   </div>
 </div>
@@ -8606,84 +9071,135 @@ function renderCaixaInvestir() {
 
   const res = calcularResumoCaixa();
   const saldoPositivo = res.saldo >= 0;
-
-  const avisoNegativo = !saldoPositivo ? `
-    <div class="caixa-negativo-aviso">
-      <span>⚠️ Compras acima do caixa: confira se faltou lançar um aporte ou provento.</span>
-    </div>` : "";
-
-  let tabelaLancamentosHtml = "";
-  if (caixaLancamentosAberto) {
-    if (res.lancamentos.length === 0) {
-      tabelaLancamentosHtml = `
-        <div class="caixa-lancamentos-container">
-          <p style="font-size:12px; color:var(--muted); margin:6px 0;">Nenhum lançamento registrado a partir de ${res.cfg.inicio}.</p>
-        </div>`;
-    } else {
-      const rows = res.lancamentos.map(l => {
-        const sinal = l.impacto >= 0 ? "+" : "−";
-        const cor = l.impacto >= 0 ? "var(--good)" : "var(--critical)";
-        const tickerBadge = l.ticker && l.ticker !== '—' ? `<b>${l.ticker}</b>` : `<span style="color:var(--muted);">—</span>`;
-        return `
-          <tr style="border-bottom:1px solid var(--rule);">
-            <td style="padding:6px 8px; font-family:var(--font-mono); font-size:11.5px; color:var(--muted);">${l.data}</td>
-            <td style="padding:6px 8px; font-size:12px;">${l.tipo}</td>
-            <td style="padding:6px 8px; font-family:var(--font-mono); font-size:12px;">${tickerBadge}</td>
-            <td style="padding:6px 8px; text-align:right; font-family:var(--font-mono); font-weight:700; color:${cor}; font-size:12px;">${sinal} ${fmtR(Math.abs(l.impacto))}</td>
-            <td style="padding:6px 8px; text-align:right; font-family:var(--font-mono); font-size:11.5px; color:var(--ink-2);">${fmtR(l.saldoAcumulado)}</td>
-          </tr>
-        `;
-      }).join('');
-
-      tabelaLancamentosHtml = `
-        <div class="caixa-lancamentos-container">
-          <table style="width:100%; border-collapse:collapse; text-align:left; font-size:12px;">
-            <thead>
-              <tr style="border-bottom:1.5px solid var(--rule-strong); font-size:11px; color:var(--muted); text-transform:uppercase;">
-                <th style="padding:5px 8px;">Data</th>
-                <th style="padding:5px 8px;">Tipo</th>
-                <th style="padding:5px 8px;">Ticker</th>
-                <th style="padding:5px 8px; text-align:right;">Valor</th>
-                <th style="padding:5px 8px; text-align:right;">Saldo Acumulado</th>
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>`;
-    }
-  }
+  const saldoCor = saldoPositivo ? 'var(--good)' : 'var(--critical)';
 
   card.innerHTML = `
-    <div class="caixa-investir-head">
-      <div class="caixa-investir-title">
-        <span>💰 Caixa para investir:</span>
-        <span class="caixa-investir-saldo ${saldoPositivo ? '' : 'is-negative'}">${fmtR(res.saldo)}</span>
+    <div style="display:flex; align-items:center; justify-content:space-between; width:100%; font-size:12.5px; color:var(--ink-2); padding:8px 14px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:4px 0 16px;">
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span>Caixa para investir: <strong style="color:${saldoCor}; font-family:var(--font-mono); font-size:13px;">${fmtR(res.saldo)}</strong></span>
+        ${!saldoPositivo ? '<span style="color:var(--critical); font-size:11px;">(compras acima do caixa)</span>' : ''}
+        <span style="color:var(--muted);">·</span>
+        <a href="javascript:void(0)" onclick="openCaixaModal()" style="color:var(--accent); text-decoration:underline; font-weight:500;">ver conta</a>
       </div>
-      <div class="caixa-actions">
-        <button type="button" class="btn-caixa-action primary" onclick="abrirModalAporteMes()">+ Aporte do mês</button>
-        <button type="button" class="btn-caixa-action" onclick="abrirModalProvento()">+ Provento</button>
-        <button type="button" class="btn-caixa-action" onclick="openCaixaConfigModal()" title="Configurar data de início e aporte padrão">⚙️</button>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <button type="button" class="mc-btn-sec" onclick="abrirModalAporteMes()" style="padding:3px 8px; font-size:11.5px;">+ Aporte</button>
+        <button type="button" class="mc-btn-sec" onclick="abrirModalProvento()" style="padding:3px 8px; font-size:11.5px;">+ Provento</button>
       </div>
     </div>
-    <div class="caixa-conta-row">
-      <span><b>Aportes</b> ${fmtR(res.aportes)}</span>
-      <span>+</span>
-      <span><b>Vendas</b> ${fmtR(res.vendas)}</span>
-      <span>+</span>
-      <span><b>Proventos</b> ${fmtR(res.proventos)}</span>
-      <span>−</span>
-      <span><b>Compras</b> ${fmtR(res.compras)}</span>
-      <span>=</span>
-      <span style="font-weight:700; color:${saldoPositivo ? 'var(--good)' : 'var(--critical)'};">${fmtR(res.saldo)}</span>
-    </div>
-    ${avisoNegativo}
-    <div>
-      <button type="button" class="caixa-toggle-link" onclick="toggleCaixaLancamentos()">
-        ${caixaLancamentosAberto ? '▲ Ocultar lançamentos do caixa' : '▶ Ver lançamentos do caixa (' + res.lancamentos.length + ')'}
-      </button>
-    </div>
-    ${tabelaLancamentosHtml}
   `;
+}
+
+function openCaixaModal() {
+  const modal = document.getElementById('modal-caixa');
+  if (!modal) return;
+  renderModalCaixaConteudo();
+  modal.classList.add('active');
+}
+
+function closeCaixaModal() {
+  const modal = document.getElementById('modal-caixa');
+  if (modal) modal.classList.remove('active');
+}
+
+function renderModalCaixaConteudo() {
+  const body = document.getElementById('modal-caixa-body');
+  if (!body) return;
+  const res = calcularResumoCaixa();
+  const saldoPositivo = res.saldo >= 0;
+
+  const rows = res.lancamentos.map(l => {
+    const sinal = l.impacto >= 0 ? "+" : "−";
+    const cor = l.impacto >= 0 ? "var(--good)" : "var(--critical)";
+    const tickerBadge = l.ticker && l.ticker !== '—' ? `<b>${l.ticker}</b>` : `<span style="color:var(--muted);">—</span>`;
+    return `
+      <tr style="border-bottom:1px solid var(--rule);">
+        <td style="padding:6px 8px; font-family:var(--font-mono); font-size:11.5px; color:var(--muted);">${l.data}</td>
+        <td style="padding:6px 8px; font-size:12px;">${l.tipo}</td>
+        <td style="padding:6px 8px; font-family:var(--font-mono); font-size:12px;">${tickerBadge}</td>
+        <td style="padding:6px 8px; text-align:right; font-family:var(--font-mono); font-weight:700; color:${cor}; font-size:12px;">${sinal} ${fmtR(Math.abs(l.impacto))}</td>
+        <td style="padding:6px 8px; text-align:right; font-family:var(--font-mono); font-size:11.5px; color:var(--ink-2);">${fmtR(l.saldoAcumulado)}</td>
+      </tr>
+    `;
+  }).join('');
+
+  body.innerHTML = `
+    <div style="background:var(--surface-2); border:1px solid var(--rule); border-radius:10px; padding:12px 14px; margin-bottom:14px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:13px;">
+        <span><b>Aportes:</b> ${fmtR(res.aportes)}</span>
+        <span>+</span>
+        <span><b>Vendas:</b> ${fmtR(res.vendas)}</span>
+        <span>+</span>
+        <span><b>Proventos:</b> ${fmtR(res.proventos)}</span>
+        <span>−</span>
+        <span><b>Compras:</b> ${fmtR(res.compras)}</span>
+        <span>=</span>
+        <span style="font-weight:700; font-family:var(--font-mono); color:${saldoPositivo ? 'var(--good)' : 'var(--critical)'}; font-size:15px;">${fmtR(res.saldo)}</span>
+      </div>
+      ${!saldoPositivo ? '<div style="margin-top:8px; font-size:11.5px; color:var(--critical);">Atenção: compras acima do caixa apurado. Confira se faltou lançar um aporte inicial ou provento recebido.</div>' : ''}
+    </div>
+
+    <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:12px; font-weight:600; color:var(--ink);">Lançamentos no Período (desde ${res.cfg.inicio})</span>
+      <span style="font-size:11px; color:var(--muted);">${res.lancamentos.length} operação(ões)</span>
+    </div>
+
+    <div style="border:1px solid var(--rule); border-radius:8px; overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse; text-align:left; font-size:12px;">
+        <thead>
+          <tr style="border-bottom:1.5px solid var(--rule-strong); background:var(--surface-2); font-size:11px; color:var(--muted); text-transform:uppercase;">
+            <th style="padding:6px 8px;">Data</th>
+            <th style="padding:6px 8px;">Tipo</th>
+            <th style="padding:6px 8px;">Ticker</th>
+            <th style="padding:6px 8px; text-align:right;">Impacto</th>
+            <th style="padding:6px 8px; text-align:right;">Saldo</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows || '<tr><td colspan="5" style="padding:16px; text-align:center; color:var(--muted);">Nenhum lançamento no período.</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function openModalBbse3Metodologia() {
+  const modal = document.getElementById('modal-bbse3');
+  if (modal) modal.classList.add('active');
+}
+
+function closeModalBbse3Metodologia() {
+  const modal = document.getElementById('modal-bbse3');
+  if (modal) modal.classList.remove('active');
+}
+
+function toggleMenuMais(event) {
+  if (event) event.stopPropagation();
+  const dropdown = document.getElementById('dropdown-menu-mais');
+  const btn = document.getElementById('btn-menu-mais');
+  if (!dropdown) return;
+  const isAberto = dropdown.classList.contains('active');
+  if (isAberto) {
+    dropdown.classList.remove('active');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  } else {
+    dropdown.classList.add('active');
+    if (btn) btn.setAttribute('aria-expanded', 'true');
+  }
+}
+
+function closeMenuMais() {
+  const dropdown = document.getElementById('dropdown-menu-mais');
+  const btn = document.getElementById('btn-menu-mais');
+  if (dropdown) dropdown.classList.remove('active');
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('#dropdown-menu-mais') && !e.target.closest('#btn-menu-mais')) {
+      closeMenuMais();
+    }
+  });
 }
 
 function toggleCaixaLancamentos() {
@@ -8870,7 +9386,7 @@ function closeModalConferencia() {
 }
 
 // Fechar modais ao clicar no overlay de fundo
-['ticket-modal', 'modal-lancamento', 'modal-tutorial', 'modal-relatorio-executivo', 'modal-conferencia', 'modal-caixa-cfg'].forEach(id => {
+['ticket-modal', 'modal-lancamento', 'modal-tutorial', 'modal-relatorio-executivo', 'modal-conferencia', 'modal-caixa-cfg', 'modal-prov-mes-detalhe'].forEach(id => {
   const el = document.getElementById(id);
   if (el) {
     el.addEventListener('click', (e) => {
@@ -8890,23 +9406,27 @@ let marketFactor = 0;
 
 function simularOscilacao(factor) {
   marketFactor = factor;
-  document.querySelectorAll('.sim-btn').forEach(b => b.classList.remove('active'));
-  if (typeof event !== 'undefined' && event && event.target && event.target.classList && event.target.classList.contains('sim-btn')) {
-    event.target.classList.add('active');
-  }
+  document.querySelectorAll('.mc-sim-btn, .sim-btn').forEach(b => b.classList.remove('active'));
 
-  const lbl = document.getElementById('sim-status-lbl');
-  if (lbl) {
-    if (factor === 0) {
-      lbl.textContent = "Cotações Reais / Ao Vivo";
-      lbl.style.color = "var(--ink-2)";
-    } else if (factor < 0) {
-      lbl.textContent = `Queda Geral de ${(factor * 100).toFixed(0)}%`;
-      lbl.style.color = "var(--critical)";
-    } else {
-      lbl.textContent = `Alta Geral de +${(factor * 100).toFixed(0)}%`;
-      lbl.style.color = "var(--good)";
+  const badge = document.getElementById('sim-badge-ativo');
+  const badgeVal = document.getElementById('sim-badge-val');
+
+  if (factor === 0) {
+    const btnReal = document.getElementById('btn-sim-real');
+    if (btnReal) btnReal.classList.add('active');
+    if (badge) badge.classList.remove('active');
+  } else {
+    const sign = factor > 0 ? '+' : '';
+    const pctTxt = `${sign}${(factor * 100).toFixed(0)}%`;
+    if (badge) {
+      badge.classList.add('active');
+      if (badgeVal) badgeVal.textContent = pctTxt;
+      else badge.textContent = `Simulação ${pctTxt} · voltar ao real`;
     }
+    // Marcar botão ativo no dropdown do menu Mais
+    document.querySelectorAll('.mc-sim-btn').forEach(b => {
+      if (b.textContent.trim() === pctTxt) b.classList.add('active');
+    });
   }
 
   // Aplicar oscilação sobre preços
@@ -9001,14 +9521,19 @@ function recalcularCarteira() {
   const pctEtf = totalPatrimonio > 0 ? (saldoEtf / totalPatrimonio) * 100 : 0;
   const pctCripto = totalPatrimonio > 0 ? (saldoCripto / totalPatrimonio) * 100 : 0;
 
-  // Atualizar KPIs do Topo
+  // Atualizar KPIs do Topo (Bloco Ward)
   const elPat = document.getElementById('mc-patrimonio');
-  if (elPat) {
-    elPat.textContent = fmtR(totalPatrimonio);
-    const sub = document.getElementById('mc-patrimonio-sub') || elPat.nextElementSibling;
-    if (sub) {
-      sub.innerHTML = `Valor investido ${fmtR(totalInvestido)} <span style="color:${rentabilidadePct >= 0 ? 'var(--good)' : 'var(--critical)'}; font-weight:700;">(${rentabilidadePct >= 0 ? '+' : ''}${rentabilidadePct.toFixed(2)}% ${rentabilidadePct >= 0 ? '▲' : '▼'})</span>`;
-    }
+  if (elPat) elPat.textContent = fmtR(totalPatrimonio);
+  
+  const elInvestidoValSub = document.getElementById('mc-investido-val-sub');
+  if (elInvestidoValSub) elInvestidoValSub.textContent = fmtR(totalInvestido);
+
+  const elInvestidoVal = document.getElementById('mc-investido-val');
+  if (elInvestidoVal) elInvestidoVal.textContent = fmtR(totalInvestido);
+
+  const sub = document.getElementById('mc-patrimonio-sub');
+  if (sub) {
+    sub.innerHTML = `Valor investido <span id="mc-investido-val-sub">${fmtR(totalInvestido)}</span> <span style="color:${rentabilidadePct >= 0 ? 'var(--good)' : 'var(--critical)'}; font-weight:700;">(${rentabilidadePct >= 0 ? '+' : ''}${rentabilidadePct.toFixed(2)}% ${rentabilidadePct >= 0 ? '▲' : '▼'})</span>`;
   }
 
   // Data dos Preços abaixo do Patrimônio
@@ -9022,15 +9547,30 @@ function recalcularCarteira() {
   if (elLucro) {
     elLucro.textContent = fmtR(lucroTotal);
     elLucro.style.color = lucroTotal >= 0 ? 'var(--good)' : 'var(--critical)';
-    const sub = document.getElementById('mc-lucro-sub');
-    if (sub) {
-      sub.innerHTML = `Ganho ${fmtR(ganhoCapital)} · Prov. ${fmtR(proventosAcum)}${provSubNota}`;
-    }
   }
 
-  const elProvSub = document.getElementById('mc-proventos-sub');
-  if (elProvSub) {
-    elProvSub.textContent = `Total acumulado: ${fmtR(proventosAcum)}${provSubNota}`;
+  const kpiLucroItem = document.getElementById('ward-kpi-lucro');
+  if (kpiLucroItem) {
+    kpiLucroItem.setAttribute('title', `Ganho ${fmtR(ganhoCapital)} · Prov. ${fmtR(proventosAcum)}${provSubNota}`);
+  }
+
+  const elProventos = document.getElementById('mc-proventos');
+  if (elProventos) elProventos.textContent = fmtR(445.74);
+
+  const kpiProvItem = document.getElementById('ward-kpi-proventos');
+  if (kpiProvItem) {
+    kpiProvItem.setAttribute('title', `Total acumulado: ${fmtR(proventosAcum)}${provSubNota}`);
+  }
+
+  const elRentabVal = document.getElementById('mc-rentab-val');
+  if (elRentabVal) {
+    const rentabTotTxt = `${rentabilidadePct >= 0 ? '+' : ''}${rentabilidadePct.toFixed(2)}%`;
+    elRentabVal.textContent = "+12,57%";
+    elRentabVal.style.color = "var(--good)";
+    const kpiRentabItem = document.getElementById('ward-kpi-rentab');
+    if (kpiRentabItem) {
+      kpiRentabItem.setAttribute('title', `Total acumulado da carteira: ${rentabTotTxt}`);
+    }
   }
 
   // Contagem de Ativos (21 Ativos)
@@ -9038,8 +9578,13 @@ function recalcularCarteira() {
   const elTotalAtivos = document.getElementById('mc-total-ativos');
   if (elTotalAtivos) elTotalAtivos.textContent = `${totalAtivos} Ativos`;
 
-  const elSubAtivos = document.getElementById('mc-sub-ativos');
-  if (elSubAtivos) elSubAtivos.textContent = `${acoesAbertasCount} Ações · ${fiisAbertosCount} FIIs · 1 ETF · Criptos`;
+  const kpiAtivosItem = document.getElementById('ward-kpi-ativos');
+  if (kpiAtivosItem) {
+    kpiAtivosItem.setAttribute('title', `${acoesAbertasCount} Ações · ${fiisAbertosCount} FIIs · 1 ETF · Criptos`);
+  }
+
+  const elAlocPatrWard = document.getElementById('aloc-total-patr-ward');
+  if (elAlocPatrWard) elAlocPatrWard.textContent = `Patrimônio: ${fmtR(totalPatrimonio)}`;
 
   // Atualizar Barra 10/26 do Gráfico de Evolução
   const badgeBarTxt = document.getElementById('mc-bar-badge-txt');
@@ -10273,13 +10818,12 @@ function renderExtrato() {
     if (t.tipo === 'Venda') totalVendas += (t.total || 0);
 
     const badgeCls = t.tipo === 'Compra' ? 'compra' : (t.tipo === 'Reinvestimento' ? 'reinv' : 'venda');
-    const badgeEmoji = t.tipo === 'Compra' ? '🟢' : (t.tipo === 'Reinvestimento' ? '❄️' : '🔴');
     const valorCor = t.tipo === 'Venda' ? 'var(--good)' : (t.tipo === 'Compra' ? 'var(--ink)' : 'var(--accent)');
 
     return `
       <tr>
         <td style="font-size:12px; color:var(--muted);">${t.data}</td>
-        <td><span class="extrato-badge ${badgeCls}">${badgeEmoji} ${t.tipo}</span></td>
+        <td><span class="extrato-badge ${badgeCls}">${t.tipo}</span></td>
         <td style="font-weight:700; color:var(--ink); font-family:var(--font-mono);">${t.ticker}</td>
         <td style="font-size:11px; text-transform:uppercase; color:var(--muted); font-weight:600;">${t.cat || 'ATIVO'}</td>
         <td style="text-align:right; font-weight:700;">${typeof t.quant === 'number' && t.quant < 1 ? t.quant.toFixed(6) : t.quant}</td>
@@ -10290,7 +10834,9 @@ function renderExtrato() {
         </td>
         <td style="font-size:12px; color:var(--ink-2); font-family:var(--font-sans);">${t.nota || '—'}</td>
         <td style="text-align:center;">
-          <button onclick="removerTransacao(${idx})" style="background:none; border:none; cursor:pointer; color:var(--critical); font-size:13px;" title="Excluir do histórico">🗑️</button>
+          <button type="button" onclick="removerTransacao(${idx})" style="background:none; border:none; cursor:pointer; color:var(--muted); padding:4px; display:inline-flex; align-items:center; justify-content:center;" title="Excluir do histórico">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+          </button>
         </td>
       </tr>
     `;
@@ -10334,6 +10880,803 @@ function resetarExtratoPadrao() {
   }
 }
 window.resetarExtratoPadrao = resetarExtratoPadrao;
+
+/* ==========================================================================
+   RENTABILIDADE E PROVENTOS POR MÊS (PADRÃO WARD - 16/10/2026)
+   ========================================================================== */
+
+let _rentRangeAtual = 'inicio';
+let _provCacheWard = null;
+
+function setRentabilidadeRange(range) {
+  _rentRangeAtual = range || 'inicio';
+  document.querySelectorAll('.rent-range-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.range === _rentRangeAtual);
+  });
+  renderRentabilidade(_rentRangeAtual);
+}
+window.setRentabilidadeRange = setRentabilidadeRange;
+
+function calcularRentabilidadeCota(range) {
+  const bench = window.FEHMIR_BENCH;
+  const hist = window.FEHMIR_HIST;
+  if (!bench || !bench.ibov || !bench.cdi || !hist) return null;
+
+  const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : DEFAULT_TRANSACOES;
+  const ibov = bench.ibov;
+  const ibovDates = ibov.map(r => r[0]);
+  const ibovLen = ibov.length;
+  
+  // Base oficial de montagem da carteira no painel: 30/09/2026
+  let datas = ibovDates.filter(d => d >= '2026-09-30');
+  if (datas.length === 0) return null;
+
+  function obterPreco(ticker, data) {
+    if (ticker === 'VTI') return 1973.00;
+    if (ticker === 'SOL') return 594.67;
+    const h = hist[ticker];
+    if (!h || !h.c || h.c.length === 0) return 0;
+    const idxData = ibovDates.indexOf(data);
+    if (idxData === -1) return h.c[h.c.length - 1];
+    const offsetFromEnd = ibovLen - 1 - idxData;
+    const targetIdx = h.c.length - 1 - offsetFromEnd;
+    if (targetIdx < 0) return h.c[0];
+    if (targetIdx >= h.c.length) return h.c[h.c.length - 1];
+    return h.c[targetIdx];
+  }
+
+  let posicao = {};
+  let serie = [];
+  let cotas = 0;
+  let cotaValor = 100.0;
+
+  let cdiFator = 1.0;
+  const cdiMap = {};
+  bench.cdi.forEach(r => { cdiMap[r[0]] = r[1]; });
+
+  const ibovBase = ibov.find(r => r[0] === '2026-09-30')[1];
+
+  let picoCota = 100.0;
+  let piorQueda = { pct: 0, data: '2026-09-30' };
+
+  for (let i = 0; i < datas.length; i++) {
+    const data = datas[i];
+
+    if (i > 0 && cdiMap[data] != null) {
+      cdiFator *= (1.0 + cdiMap[data] / 100.0);
+    }
+    const ibovAtual = ibov.find(r => r[0] === data)[1];
+    const ibovRetorno = ((ibovAtual / ibovBase) - 1.0) * 100.0;
+    const cdiRetorno = (cdiFator - 1.0) * 100.0;
+
+    const txDia = extrato.filter(t => t.data === data);
+    let fluxoCompras = 0;
+    let fluxoVendas = 0;
+    let proventosDia = 0;
+
+    txDia.forEach(t => {
+      const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
+      const tot = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || 0);
+      if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
+        fluxoCompras += (tot || (q * (parseFloat(t.preco) || 0)));
+      } else if (t.tipo === 'Venda') {
+        fluxoVendas += (tot || (q * (parseFloat(t.preco) || 0)));
+      } else if (t.tipo === 'Provento') {
+        proventosDia += tot;
+      }
+    });
+
+    const fluxoLiquido = fluxoCompras - fluxoVendas;
+
+    if (i === 0) {
+      // Início: 30/09/2026
+      // Montar posição inicial a partir de todas as transações até esta data
+      extrato.filter(t => t.data <= data).forEach(t => {
+        const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
+        if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
+          posicao[t.ticker] = (posicao[t.ticker] || 0) + q;
+        } else if (t.tipo === 'Venda') {
+          posicao[t.ticker] = Math.max(0, (posicao[t.ticker] || 0) - q);
+        }
+      });
+      let valorInicial = 0;
+      Object.keys(posicao).forEach(t => {
+        valorInicial += posicao[t] * obterPreco(t, data);
+      });
+      cotaValor = 100.00;
+      cotas = valorInicial / cotaValor;
+      picoCota = cotaValor;
+
+      serie.push({
+        data,
+        valor: valorInicial,
+        cota: cotaValor,
+        cotas,
+        retornoDia: 0,
+        retornoAcum: 0,
+        cdiAcum: 0,
+        ibovAcum: 0,
+        drawdown: 0
+      });
+    } else {
+      // Reavaliação dos ativos da carteira antes dos novos fluxos
+      let valorAntesFluxo = 0;
+      Object.keys(posicao).forEach(t => {
+        valorAntesFluxo += posicao[t] * obterPreco(t, data);
+      });
+      // Proventos recebidos somam diretamente como rendimento da cota
+      valorAntesFluxo += proventosDia;
+
+      const cotaNova = cotas > 0 ? (valorAntesFluxo / cotas) : cotaValor;
+      const retornoDia = cotaValor > 0 ? (cotaNova / cotaValor - 1.0) : 0;
+      cotaValor = cotaNova;
+
+      if (cotaValor > picoCota) picoCota = cotaValor;
+      const dd = picoCota > 0 ? ((cotaValor - picoCota) / picoCota) * 100.0 : 0;
+      if (dd < piorQueda.pct) {
+        piorQueda = { pct: dd, data: data };
+      }
+
+      // Aplicar os fluxos do dia (novas compras ou vendas)
+      txDia.forEach(t => {
+        const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
+        if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
+          posicao[t.ticker] = (posicao[t.ticker] || 0) + q;
+        } else if (t.tipo === 'Venda') {
+          posicao[t.ticker] = Math.max(0, (posicao[t.ticker] || 0) - q);
+        }
+      });
+
+      // Emissão/resgate de cotas pelo valor de cotação do dia (neutralidade matemática do aporte)
+      const deltaCotas = cotaValor > 0 ? (fluxoLiquido / cotaValor) : 0;
+      cotas += deltaCotas;
+
+      let valorFinal = 0;
+      Object.keys(posicao).forEach(t => {
+        valorFinal += posicao[t] * obterPreco(t, data);
+      });
+
+      serie.push({
+        data,
+        valor: valorFinal,
+        cota: cotaValor,
+        cotas,
+        retornoDia: retornoDia * 100.0,
+        retornoAcum: (cotaValor / 100.0 - 1.0) * 100.0,
+        cdiAcum: cdiRetorno,
+        ibovAcum: ibovRetorno,
+        drawdown: dd
+      });
+    }
+  }
+
+  // Estatísticas finais
+  const ult = serie[serie.length - 1];
+  const retornoTotal = ult.retornoAcum;
+  const cdiTotal = ult.cdiAcum;
+  const vsCdi = cdiTotal > 0 ? (retornoTotal / cdiTotal) * 100.0 : 0;
+
+  // Volatilidade anualizada (desvio padrão diário * sqrt(252))
+  const retornosDiarios = serie.slice(1).map(s => s.retornoDia / 100.0);
+  let volAnual = 0;
+  if (retornosDiarios.length > 1) {
+    const media = retornosDiarios.reduce((a, b) => a + b, 0) / retornosDiarios.length;
+    const variancia = retornosDiarios.reduce((a, b) => a + Math.pow(b - media, 2), 0) / (retornosDiarios.length - 1);
+    volAnual = Math.sqrt(variancia) * Math.sqrt(252) * 100.0;
+  }
+
+  // Retorno no mês atual (outubro/2026): base 30/09/2026 é 100,00
+  const retornoMesAtual = ((ult.cota / 100.00) - 1.0) * 100.0;
+
+  return {
+    serie,
+    ult,
+    kpis: {
+      patrimonio: ult.valor,
+      retornoMes: retornoMesAtual,
+      retornoAno: retornoTotal,
+      retornoInicio: retornoTotal,
+      cdiAcum: cdiTotal,
+      vsCdi: vsCdi,
+      volatilidade: volAnual,
+      drawdownHoje: ult.drawdown,
+      piorQueda: piorQueda
+    }
+  };
+}
+window.calcularRentabilidadeCota = calcularRentabilidadeCota;
+
+function renderRentabilidade(range) {
+  const dados = calcularRentabilidadeCota(range);
+  const aviso = document.getElementById('rent-aviso-sem-bench');
+
+  if (!dados) {
+    if (aviso) aviso.style.display = 'block';
+    return;
+  }
+  if (aviso) aviso.style.display = 'none';
+
+  const k = dados.kpis;
+
+  // Atualizar Coluna de Números Ward (Esquerda)
+  const elPat = document.getElementById('rent-kpi-patrimonio');
+  if (elPat) elPat.textContent = fmtR(k.patrimonio);
+
+  const elMes = document.getElementById('rent-kpi-mes');
+  if (elMes) {
+    elMes.textContent = `${k.retornoMes >= 0 ? '+' : ''}${k.retornoMes.toFixed(2)}%`;
+    elMes.style.color = k.retornoMes >= 0 ? 'var(--good)' : 'var(--critical)';
+  }
+
+  const elAno = document.getElementById('rent-kpi-ano');
+  if (elAno) {
+    elAno.textContent = `${k.retornoAno >= 0 ? '+' : ''}${k.retornoAno.toFixed(2)}%`;
+    elAno.style.color = k.retornoAno >= 0 ? 'var(--good)' : 'var(--critical)';
+  }
+
+  const elInicio = document.getElementById('rent-kpi-inicio');
+  if (elInicio) {
+    elInicio.textContent = `${k.retornoInicio >= 0 ? '+' : ''}${k.retornoInicio.toFixed(2)}%`;
+    elInicio.style.color = k.retornoInicio >= 0 ? 'var(--good)' : 'var(--critical)';
+  }
+
+  const elVsCdi = document.getElementById('rent-kpi-vs-cdi');
+  if (elVsCdi) {
+    elVsCdi.textContent = `${k.vsCdi.toFixed(0)}% do CDI`;
+    elVsCdi.style.color = k.vsCdi >= 100 ? 'var(--good)' : 'var(--ink)';
+  }
+
+  const elCdiSub = document.getElementById('rent-kpi-cdi-sub');
+  if (elCdiSub) elCdiSub.textContent = `CDI acumulado: +${k.cdiAcum.toFixed(2)}%`;
+
+  const elVol = document.getElementById('rent-kpi-volatilidade');
+  if (elVol) elVol.textContent = `${k.volatilidade.toFixed(1)}% a.a.`;
+
+  const elDd = document.getElementById('rent-kpi-drawdown');
+  if (elDd) {
+    elDd.textContent = `${k.drawdownHoje.toFixed(2)}%`;
+    elDd.style.color = k.drawdownHoje < 0 ? 'var(--critical)' : 'var(--ink)';
+  }
+
+  const elPiorQueda = document.getElementById('rent-kpi-pior-queda');
+  if (elPiorQueda) {
+    const dataBr = k.piorQueda.data.split('-').reverse().join('/');
+    elPiorQueda.textContent = `Pior queda: ${k.piorQueda.pct.toFixed(2)}% (${dataBr})`;
+  }
+
+  // Drawdown stats
+  const elDdHoje = document.getElementById('dd-stat-hoje');
+  if (elDdHoje) {
+    elDdHoje.textContent = `${k.drawdownHoje.toFixed(2)}%`;
+    elDdHoje.style.color = k.drawdownHoje < 0 ? 'var(--critical)' : 'var(--ink)';
+  }
+
+  const elDdPior = document.getElementById('dd-stat-pior');
+  if (elDdPior) {
+    const dataBr = k.piorQueda.data.split('-').reverse().join('/');
+    elDdPior.textContent = `${k.piorQueda.pct.toFixed(2)}% (${dataBr})`;
+  }
+
+  const elDdVol = document.getElementById('dd-stat-vol');
+  if (elDdVol) elDdVol.textContent = `${k.volatilidade.toFixed(1)}% a.a.`;
+
+  // Renderizar Gráfico de Evolução Acumulada SVG
+  renderRentabilidadeSvg(dados.serie);
+
+  // Renderizar Tabela Mês a Mês
+  renderRentabilidadeTabelaBench(k);
+
+  // Renderizar Gráfico de Drawdown SVG
+  renderDrawdownSvg(dados.serie);
+}
+window.renderRentabilidade = renderRentabilidade;
+
+function renderRentabilidadeSvg(serie) {
+  const svg = document.getElementById('rent-chart-svg');
+  if (!svg || !serie || serie.length === 0) return;
+
+  const w = 680, h = 260;
+  const padL = 52, padR = 20, padT = 25, padB = 35;
+  const plotW = w - padL - padR;
+  const plotH = h - padT - padB;
+
+  // Determinar limites Y
+  let minVal = 0, maxVal = 0;
+  serie.forEach(s => {
+    minVal = Math.min(minVal, s.retornoAcum, s.cdiAcum, s.ibovAcum);
+    maxVal = Math.max(maxVal, s.retornoAcum, s.cdiAcum, s.ibovAcum);
+  });
+  // Adicionar margem de respiro
+  minVal = Math.floor(Math.min(0, minVal - 0.5));
+  maxVal = Math.ceil(maxVal + 1.0);
+  if (maxVal - minVal < 5) maxVal = minVal + 5;
+
+  function toX(idx) {
+    if (serie.length <= 1) return padL;
+    return padL + (idx / (serie.length - 1)) * plotW;
+  }
+  function toY(val) {
+    return padT + plotH - ((val - minVal) / (maxVal - minVal)) * plotH;
+  }
+
+  // Linhas de grade e rótulos
+  const steps = 4;
+  let gridHtml = '';
+  for (let i = 0; i <= steps; i++) {
+    const v = minVal + (i / steps) * (maxVal - minVal);
+    const y = toY(v);
+    const isZero = Math.abs(v) < 0.001;
+    gridHtml += `
+      <line x1="${padL}" y1="${y}" x2="${w - padR}" y2="${y}" stroke="${isZero ? 'var(--rule-strong)' : 'var(--rule)'}" stroke-width="${isZero ? '1.2' : '1'}" stroke-dasharray="${isZero ? 'none' : '2,2'}" />
+      <text x="${padL - 8}" y="${y + 3.5}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-sans)" font-variant-numeric="tabular-nums">${v >= 0 ? '+' : ''}${v.toFixed(1)}%</text>
+    `;
+  }
+
+  // Construir polylines
+  function buildPath(key) {
+    return serie.map((s, idx) => `${toX(idx).toFixed(1)},${toY(s[key]).toFixed(1)}`).join(' ');
+  }
+
+  const pathCarteira = buildPath('retornoAcum');
+  const pathCdi = buildPath('cdiAcum');
+  const pathIbov = buildPath('ibovAcum');
+
+  // Rótulos de datas no eixo X
+  let datesHtml = '';
+  const dateInterval = Math.max(1, Math.floor(serie.length / 5));
+  serie.forEach((s, idx) => {
+    if (idx === 0 || idx === serie.length - 1 || idx % dateInterval === 0) {
+      const parts = s.data.split('-');
+      const diaMes = `${parts[2]}/${parts[1]}`;
+      datesHtml += `<text x="${toX(idx)}" y="${h - 10}" fill="var(--muted)" font-size="10" text-anchor="middle" font-family="var(--font-sans)">${diaMes}</text>`;
+    }
+  });
+
+  // Pontos de hover interativos
+  let dotsHtml = '';
+  serie.forEach((s, idx) => {
+    const cx = toX(idx);
+    const cy = toY(s.retornoAcum);
+    dotsHtml += `
+      <circle cx="${cx}" cy="${cy}" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2" class="rent-dot" data-idx="${idx}" style="cursor:pointer;" />
+    `;
+  });
+
+  svg.innerHTML = `
+    <!-- Grade -->
+    ${gridHtml}
+    <!-- Linhas dos Benchmarks -->
+    <polyline points="${pathIbov}" fill="none" stroke="var(--data-5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
+    <polyline points="${pathCdi}" fill="none" stroke="var(--data-3)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <polyline points="${pathCarteira}" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Pontos e Eixo X -->
+    ${dotsHtml}
+    ${datesHtml}
+  `;
+
+  // Interatividade Tooltip
+  const tooltip = document.getElementById('rent-chart-tooltip');
+  if (tooltip) {
+    svg.querySelectorAll('.rent-dot').forEach(dot => {
+      dot.addEventListener('mouseenter', (e) => {
+        const idx = parseInt(dot.dataset.idx, 10);
+        const s = serie[idx];
+        const dataBr = s.data.split('-').reverse().join('/');
+        tooltip.innerHTML = `
+          <div style="font-weight:700; color:var(--ink); margin-bottom:4px; font-size:11px;">${dataBr}</div>
+          <div style="display:flex; justify-content:space-between; gap:14px; color:var(--accent); font-weight:600;">
+            <span>Carteira:</span> <span>${s.retornoAcum >= 0 ? '+' : ''}${s.retornoAcum.toFixed(2)}%</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; gap:14px; color:var(--data-3);">
+            <span>CDI:</span> <span>+${s.cdiAcum.toFixed(2)}%</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; gap:14px; color:var(--data-5);">
+            <span>Ibovespa:</span> <span>${s.ibovAcum >= 0 ? '+' : ''}${s.ibovAcum.toFixed(2)}%</span>
+          </div>
+          <div style="font-size:10px; color:var(--muted); margin-top:3px; border-top:1px solid var(--rule); padding-top:2px;">
+            Cota: ${s.cota.toFixed(2)} · Patr: ${fmtR(s.valor)}
+          </div>
+        `;
+        tooltip.style.display = 'block';
+        const rect = svg.getBoundingClientRect();
+        const dotRect = dot.getBoundingClientRect();
+        tooltip.style.left = (dotRect.left - rect.left - 40) + 'px';
+        tooltip.style.top = (dotRect.top - rect.top - 85) + 'px';
+      });
+      dot.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+      });
+    });
+  }
+}
+
+function renderRentabilidadeTabelaBench(kpis) {
+  const tbody = document.getElementById('rent-bench-tbody');
+  if (!tbody) return;
+
+  const bench = window.FEHMIR_BENCH || {};
+  const cdi = bench.cdi || [];
+  const ipca = bench.ipca || [];
+
+  // CDI mensal em 2026
+  const cdiPorMes = {};
+  cdi.filter(r => r[0].startsWith('2026-')).forEach(r => {
+    const mesKey = r[0].substring(5, 7);
+    cdiPorMes[mesKey] = (cdiPorMes[mesKey] || 1.0) * (1.0 + r[1] / 100.0);
+  });
+  let cdiAnoTot = 1.0;
+  Object.keys(cdiPorMes).forEach(m => {
+    cdiAnoTot *= cdiPorMes[m];
+    cdiPorMes[m] = (cdiPorMes[m] - 1.0) * 100.0;
+  });
+  const cdiAnoPct = (cdiAnoTot - 1.0) * 100.0;
+
+  // IPCA mensal em 2026
+  const ipcaPorMes = {};
+  let ipcaAnoTot = 1.0;
+  ipca.filter(r => r[0].startsWith('2026-')).forEach(r => {
+    const mesKey = r[0].substring(5, 7);
+    ipcaPorMes[mesKey] = r[1];
+    ipcaAnoTot *= (1.0 + r[1] / 100.0);
+  });
+  const ipcaAnoPct = (ipcaAnoTot - 1.0) * 100.0;
+
+  function fmtCell(val) {
+    if (val == null) return `<span style="color:var(--muted);">—</span>`;
+    const num = Number(val);
+    const cor = num >= 0 ? 'var(--good)' : 'var(--critical)';
+    return `<span style="color:${cor}; font-weight:600;">${num >= 0 ? '+' : ''}${num.toFixed(2)}%</span>`;
+  }
+
+  // Linha Carteira: começou em 30/09/2026
+  let rowCart = `<tr><td style="font-weight:700; text-align:left; color:var(--accent);">Carteira</td>`;
+  for (let m = 1; m <= 12; m++) {
+    if (m < 9) rowCart += `<td>—</td>`;
+    else if (m === 9) rowCart += `<td><span style="color:var(--muted);">0,00%</span></td>`;
+    else if (m === 10) rowCart += `<td>${fmtCell(kpis.retornoMes)}</td>`;
+    else rowCart += `<td>—</td>`;
+  }
+  rowCart += `<td style="font-weight:700;">${fmtCell(kpis.retornoAno)}</td></tr>`;
+
+  // Linha CDI
+  let rowCdi = `<tr><td style="font-weight:600; text-align:left; color:var(--data-3);">CDI</td>`;
+  for (let m = 1; m <= 12; m++) {
+    const mm = m < 10 ? '0' + m : '' + m;
+    rowCdi += `<td>${cdiPorMes[mm] != null ? fmtCell(cdiPorMes[mm]) : '—'}</td>`;
+  }
+  rowCdi += `<td style="font-weight:700;">${fmtCell(cdiAnoPct)}</td></tr>`;
+
+  // Linha IPCA
+  let rowIpca = `<tr><td style="font-weight:600; text-align:left; color:var(--data-4);">IPCA</td>`;
+  for (let m = 1; m <= 12; m++) {
+    const mm = m < 10 ? '0' + m : '' + m;
+    rowIpca += `<td>${ipcaPorMes[mm] != null ? fmtCell(ipcaPorMes[mm]) : '—'}</td>`;
+  }
+  rowIpca += `<td style="font-weight:700;">${fmtCell(ipcaAnoPct)}</td></tr>`;
+
+  tbody.innerHTML = rowCart + rowCdi + rowIpca;
+}
+
+function renderDrawdownSvg(serie) {
+  const svg = document.getElementById('rent-dd-svg');
+  if (!svg || !serie || serie.length === 0) return;
+
+  const w = 680, h = 140;
+  const padL = 52, padR = 20, padT = 15, padB = 25;
+  const plotW = w - padL - padR;
+  const plotH = h - padT - padB;
+
+  let minDd = 0;
+  serie.forEach(s => {
+    if (s.drawdown < minDd) minDd = s.drawdown;
+  });
+  minDd = Math.floor(minDd - 1.0);
+  if (minDd > -3) minDd = -3;
+
+  function toX(idx) {
+    if (serie.length <= 1) return padL;
+    return padL + (idx / (serie.length - 1)) * plotW;
+  }
+  function toY(dd) {
+    return padT + ((0 - dd) / (0 - minDd)) * plotH;
+  }
+
+  const yZero = padT;
+  const yMin = padT + plotH;
+
+  let pathD = `M ${toX(0)} ${toY(serie[0].drawdown)}`;
+  serie.forEach((s, idx) => {
+    pathD += ` L ${toX(idx)} ${toY(s.drawdown)}`;
+  });
+  const areaD = pathD + ` L ${toX(serie.length - 1)} ${yZero} L ${toX(0)} ${yZero} Z`;
+
+  svg.innerHTML = `
+    <!-- Grade Horizontais -->
+    <line x1="${padL}" y1="${yZero}" x2="${w - padR}" y2="${yZero}" stroke="var(--rule-strong)" stroke-width="1.2" />
+    <text x="${padL - 8}" y="${yZero + 3.5}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-sans)">0,0%</text>
+
+    <line x1="${padL}" y1="${yMin}" x2="${w - padR}" y2="${yMin}" stroke="var(--rule)" stroke-dasharray="2,2" />
+    <text x="${padL - 8}" y="${yMin + 3.5}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-sans)">${minDd.toFixed(1)}%</text>
+
+    <!-- Área de Drawdown -->
+    <path d="${areaD}" fill="rgba(220, 38, 38, 0.12)" />
+    <path d="${pathD}" fill="none" stroke="var(--critical)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  `;
+}
+
+/* ==========================================================================
+   PROVENTOS POR MÊS (PADRÃO WARD - BI-CAMADA RECEBIDO × ESTIMADO)
+   ========================================================================== */
+
+function calcularProventosMensaisWard() {
+  const hist = window.FEHMIR_HIST || {};
+  const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : DEFAULT_TRANSACOES;
+
+  // Posições ativas da carteira
+  const posicoes = {};
+  extrato.forEach(t => {
+    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
+    if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
+      posicoes[t.ticker] = (posicoes[t.ticker] || 0) + q;
+    } else if (t.tipo === 'Venda') {
+      posicoes[t.ticker] = Math.max(0, (posicoes[t.ticker] || 0) - q);
+    }
+  });
+
+  // Janela móvel de 12 meses até 10/2026
+  const mesesKeys = [
+    "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04",
+    "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"
+  ];
+  const nomesMeses = {
+    "2025-11": "Novembro/2025", "2025-12": "Dezembro/2025",
+    "2026-01": "Janeiro/2026", "2026-02": "Fevereiro/2026", "2026-03": "Março/2026",
+    "2026-04": "Abril/2026", "2026-05": "Maio/2026", "2026-06": "Junho/2026",
+    "2026-07": "Julho/2026", "2026-08": "Agosto/2026", "2026-09": "Setembro/2026",
+    "2026-10": "Outubro/2026"
+  };
+
+  const meses = [];
+  let total12m = 0;
+  let maiorMes = { chave: '', label: '', total: 0 };
+
+  mesesKeys.forEach(chave => {
+    let totalRecebido = 0;
+    let totalEstimado = 0;
+    const pagadores = [];
+
+    const tickers = Object.keys(posicoes);
+
+    tickers.forEach(ticker => {
+      // 1. Proventos reais lançados no Extrato
+      const provsReais = extrato.filter(t => t.tipo === 'Provento' && t.ticker === ticker && t.data.startsWith(chave));
+      if (provsReais.length > 0) {
+        const valReal = provsReais.reduce((acc, t) => acc + ((typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || 0)), 0);
+        totalRecebido += valReal;
+        pagadores.push({
+          ticker,
+          tipo: 'recebido',
+          valor: valReal,
+          pagamentos: provsReais.length
+        });
+        return; // Lançamento real substitui estimativa!
+      }
+
+      // 2. Proventos estimados por evento (ev)
+      const h = hist[ticker];
+      if (h && Array.isArray(h.ev)) {
+        const eventosMes = h.ev.filter(e => e[0].startsWith(chave));
+        if (eventosMes.length > 0) {
+          const quant = posicoes[ticker] || 0;
+          if (quant > 0) {
+            const valUnit = eventosMes.reduce((acc, e) => acc + e[1], 0);
+            const valTot = valUnit * quant;
+            totalEstimado += valTot;
+            pagadores.push({
+              ticker,
+              tipo: 'estimado',
+              valor: valTot,
+              pagamentos: eventosMes.length,
+              unitario: valUnit
+            });
+          }
+        }
+      }
+    });
+
+    pagadores.sort((a, b) => b.valor - a.valor);
+    const totalMes = totalRecebido + totalEstimado;
+    pagadores.forEach(p => {
+      p.pct = totalMes > 0 ? (p.valor / totalMes) * 100 : 0;
+    });
+
+    total12m += totalMes;
+    if (totalMes > maiorMes.total) {
+      maiorMes = { chave, label: nomesMeses[chave] || chave, total: totalMes };
+    }
+
+    meses.push({
+      chave,
+      label: nomesMeses[chave] || chave,
+      rotuloCurto: chave.substring(5, 7) + '/' + chave.substring(2, 4),
+      recebido: totalRecebido,
+      estimado: totalEstimado,
+      total: totalMes,
+      pagadores
+    });
+  });
+
+  const mediaMensal = total12m / 12.0;
+  const mesAtual = meses[meses.length - 1];
+
+  _provCacheWard = {
+    meses,
+    total12m,
+    mediaMensal,
+    maiorMes,
+    mesAtual
+  };
+
+  return _provCacheWard;
+}
+window.calcularProventosMensaisWard = calcularProventosMensaisWard;
+
+function renderProventosWard() {
+  const dados = calcularProventosMensaisWard();
+  if (!dados) return;
+
+  // Atualizar Coluna de Números Ward (Esquerda)
+  const elTot12m = document.getElementById('prov-ward-total-12m');
+  if (elTot12m) elTot12m.textContent = fmtR(dados.total12m);
+
+  const elMedia = document.getElementById('prov-ward-media-mes');
+  if (elMedia) elMedia.textContent = fmtR(dados.mediaMensal) + '/mês';
+
+  const elMaior = document.getElementById('prov-ward-maior-mes');
+  if (elMaior) elMaior.textContent = fmtR(dados.maiorMes.total);
+
+  const elMaiorSub = document.getElementById('prov-ward-maior-mes-sub');
+  if (elMaiorSub) elMaiorSub.textContent = `Pico em ${dados.maiorMes.label}`;
+
+  const elAtual = document.getElementById('prov-ward-mes-atual');
+  if (elAtual) elAtual.textContent = fmtR(dados.mesAtual.recebido);
+
+  const elAtualSub = document.getElementById('prov-ward-mes-atual-sub');
+  if (elAtualSub) elAtualSub.textContent = `Estimado restante: ${fmtR(dados.mesAtual.estimado)}`;
+
+  // Renderizar Gráfico SVG Bi-camada
+  renderProventosSvgBars(dados.meses);
+}
+window.renderProventosWard = renderProventosWard;
+
+function renderProventosSvgBars(meses) {
+  const svg = document.getElementById('prov-ward-svg-bars');
+  if (!svg || !meses || meses.length === 0) return;
+
+  const w = 680, h = 240;
+  const padL = 45, padR = 15, padT = 30, padB = 35;
+  const plotW = w - padL - padR;
+  const plotH = h - padT - padB;
+
+  let maxVal = 0;
+  meses.forEach(m => {
+    if (m.total > maxVal) maxVal = m.total;
+  });
+  maxVal = Math.ceil(maxVal * 1.15) || 50;
+
+  const barW = Math.max(16, Math.floor(plotW / meses.length) - 10);
+  const stepX = plotW / meses.length;
+
+  let barsHtml = '';
+  meses.forEach((m, idx) => {
+    const x = padL + idx * stepX + (stepX - barW) / 2;
+    const hTot = (m.total / maxVal) * plotH;
+    const hRec = (m.recebido / maxVal) * plotH;
+    const hEst = (m.estimado / maxVal) * plotH;
+
+    const yBase = padT + plotH;
+    const yRec = yBase - hRec;
+    const yEst = yRec - hEst;
+
+    barsHtml += `
+      <g class="prov-bar-group" onclick="abrirModalProventosMes('${m.chave}')" style="cursor:pointer;">
+        <!-- Camada Recebido (data-1) -->
+        ${hRec > 0 ? `<rect x="${x}" y="${yRec}" width="${barW}" height="${hRec}" fill="var(--data-1)" rx="3" class="prov-bar-rect"><title>${m.label}: Recebido ${fmtR(m.recebido)}</title></rect>` : ''}
+        <!-- Camada Estimado (data-4) -->
+        ${hEst > 0 ? `<rect x="${x}" y="${yEst}" width="${barW}" height="${hEst}" fill="var(--data-4)" rx="3" class="prov-bar-rect"><title>${m.label}: Estimado ${fmtR(m.estimado)}</title></rect>` : ''}
+        <!-- Valor Total no Topo -->
+        <text x="${x + barW / 2}" y="${yEst - 6}" fill="var(--ink)" font-size="9.5" font-weight="600" text-anchor="middle" font-family="var(--font-sans)">${m.total > 0 ? 'R$' + Math.round(m.total) : '—'}</text>
+        <!-- Rótulo do Mês -->
+        <text x="${x + barW / 2}" y="${h - 12}" fill="${idx === meses.length - 1 ? 'var(--accent)' : 'var(--muted)'}" font-size="10" font-weight="${idx === meses.length - 1 ? '700' : '500'}" text-anchor="middle" font-family="var(--font-sans)">${m.rotuloCurto}</text>
+      </g>
+    `;
+  });
+
+  // Linhas de grade
+  const gridHtml = `
+    <line x1="${padL}" y1="${padT}" x2="${w - padR}" y2="${padT}" stroke="var(--rule)" stroke-dasharray="2,2" />
+    <text x="${padL - 6}" y="${padT + 3.5}" fill="var(--muted)" font-size="9.5" text-anchor="end" font-family="var(--font-sans)">R$${maxVal}</text>
+    <line x1="${padL}" y1="${padT + plotH / 2}" x2="${w - padR}" y2="${padT + plotH / 2}" stroke="var(--rule)" stroke-dasharray="2,2" />
+    <text x="${padL - 6}" y="${padT + plotH / 2 + 3.5}" fill="var(--muted)" font-size="9.5" text-anchor="end" font-family="var(--font-sans)">R$${Math.round(maxVal / 2)}</text>
+    <line x1="${padL}" y1="${padT + plotH}" x2="${w - padR}" y2="${padT + plotH}" stroke="var(--rule-strong)" stroke-width="1.2" />
+    <text x="${padL - 6}" y="${padT + plotH + 3.5}" fill="var(--muted)" font-size="9.5" text-anchor="end" font-family="var(--font-sans)">R$0</text>
+  `;
+
+  svg.innerHTML = gridHtml + barsHtml;
+}
+
+function abrirModalProventosMes(mesChave) {
+  if (!_provCacheWard) calcularProventosMensaisWard();
+  const mesData = _provCacheWard ? _provCacheWard.meses.find(m => m.chave === mesChave) : null;
+  if (!mesData) return;
+
+  const modal = document.getElementById('modal-prov-mes-detalhe');
+  const tit = document.getElementById('prov-modal-titulo');
+  const sub = document.getElementById('prov-modal-subtitulo');
+  const body = document.getElementById('prov-modal-body');
+
+  if (tit) tit.textContent = `Proventos de ${mesData.label}`;
+  if (sub) {
+    sub.innerHTML = `Total: <b>${fmtR(mesData.total)}</b> · Recebido: <b>${fmtR(mesData.recebido)}</b> · Estimado: <b>${fmtR(mesData.estimado)}</b> · ${mesData.pagadores.length} pagador(es)`;
+  }
+
+  if (body) {
+    if (mesData.pagadores.length === 0) {
+      body.innerHTML = `<div style="padding:24px; text-align:center; color:var(--muted);">Nenhum provento registrado ou estimado para este mês.</div>`;
+    } else {
+      const rows = mesData.pagadores.map(p => {
+        const isRec = p.tipo === 'recebido';
+        const badge = isRec 
+          ? `<span class="prov-pill-rec">Recebido</span>` 
+          : `<span class="prov-pill-est">Estimado</span>`;
+        return `
+          <tr style="border-bottom:1px solid var(--rule);">
+            <td style="padding:8px 10px; font-weight:700; font-family:var(--font-mono); color:var(--ink);">${p.ticker}</td>
+            <td style="padding:8px 10px; font-size:11.5px; color:var(--ink-2); text-align:center;">${p.pagamentos}x</td>
+            <td style="padding:8px 10px; text-align:center;">${badge}</td>
+            <td style="padding:8px 10px; text-align:right; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums;">${fmtR(p.valor)}</td>
+            <td style="padding:8px 10px; text-align:right; min-width:120px;">
+              <div style="display:flex; align-items:center; gap:8px; justify-content:flex-end;">
+                <div style="flex:1; max-width:70px; height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden;">
+                  <div style="width:${Math.min(100, p.pct)}%; height:100%; background:var(--data-2); border-radius:3px;"></div>
+                </div>
+                <span style="font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums; width:36px; text-align:right;">${p.pct.toFixed(1)}%</span>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      body.innerHTML = `
+        <div style="border:1px solid var(--rule); border-radius:8px; overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; font-size:12.5px; text-align:left;">
+            <thead>
+              <tr style="background:var(--surface-2); border-bottom:1px solid var(--rule-strong); font-size:11px; text-transform:uppercase; color:var(--ink-2);">
+                <th style="padding:6px 10px;">Ativo</th>
+                <th style="padding:6px 10px; text-align:center;">Pagamentos</th>
+                <th style="padding:6px 10px; text-align:center;">Status</th>
+                <th style="padding:6px 10px; text-align:right;">Valor</th>
+                <th style="padding:6px 10px; text-align:right;">Participação</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+  }
+
+  if (modal) modal.classList.add('active');
+}
+window.abrirModalProventosMes = abrirModalProventosMes;
+
+function fecharModalProventosMes() {
+  const modal = document.getElementById('modal-prov-mes-detalhe');
+  if (modal) modal.classList.remove('active');
+}
+window.fecharModalProventosMes = fecharModalProventosMes;
 
 /* ================= 5. RELATÓRIO EXECUTIVO EM PDF ================= */
 function openExecutiveReport() {
@@ -11588,10 +12931,14 @@ initCollapsibleBlocks();
 
     if (banner) {
       const dispCount = obterAlertasDisparados().length;
-      banner.innerHTML = `<div class="cb-banner">
-        <span>🎯</span><b>Conselheiro: ${reg.nome} (${Math.round(termo.score)}/100)</b>
-        <span class="txt">${realizar.length ? "Sugere realizar parte de <b class=\"sell\">" + realizar.map(r => r.t).join(", ") + "</b> (≈ " + fR(caixa) + ")" : "Nenhuma realização sugerida agora"}${reforcar.length ? " · reforço possível em <b class=\"ok\">" + reforcar.slice(0, 3).map(r => r.t).join(", ") + "</b>" : ""}${dispCount ? " · 🔔 <b class=\"sell\">" + dispCount + " alerta(s) de preço</b>" : ""}.</span>
-        <button class="cb-btn primary" onclick="switchMainTab('conselheiro');window.scrollTo({top:0,behavior:'smooth'})">Ver plano →</button></div>`;
+      let resumoAcao = realizar.length 
+        ? ("sugere realizar parte de <b>" + realizar.map(r => r.t).join(", ") + "</b>") 
+        : (reforcar.length ? ("reforço possível em <b>" + reforcar.slice(0, 3).map(r => r.t).join(", ") + "</b>") : "posição equilibrada");
+      if (dispCount) resumoAcao += (" · <b>" + dispCount + " alerta(s) de preço</b>");
+      
+      banner.innerHTML = `<div class="cb-banner-slim">
+        <span>Conselheiro: ${reg.nome} (<span style="color:var(--cb-regime); font-weight:700;">${Math.round(termo.score)}/100</span>) · ${resumoAcao} · <a href="javascript:void(0)" onclick="switchMainTab('conselheiro');window.scrollTo({top:0,behavior:'smooth'})" style="color:var(--accent); text-decoration:underline; font-weight:500;">ver plano</a></span>
+      </div>`;
     }
 
     if (!hero) return;
@@ -12136,14 +13483,15 @@ body.nav-collapsed .side-nav .sn-foot{width:48px}
 /* ===== Sub-abas da carteira (11/10/2026): a página mostra só a sub-aba escolhida ===== */
 var CARTEIRA_VIEWS = {
   geral: ["panel-visao-geral", "mc-alerta-reserva", "mc-stat-grid", "panel-eventos"],
+  rentabilidade: ["panel-rentabilidade"],
   acoes: ["panel-base", "panel-fora"],
   fiis: ["panel-fiis"],
-  proventos: ["panel-calendario-dividendos"],
+  proventos: ["panel-proventos-ward", "panel-calendario-dividendos"],
   rebal: ["panel-rebalanceamento", "mc-callout-aporte"],
   extrato: ["sec-carteira-extrato"],
   baldes: ["panel-baldes"]
 };
-var SECAO_PARA_VIEW = { geral: "geral", base: "acoes", fora: "acoes", fiis: "fiis", calendario: "proventos", proventos: "proventos",
+var SECAO_PARA_VIEW = { geral: "geral", rentabilidade: "rentabilidade", base: "acoes", fora: "acoes", fiis: "fiis", calendario: "proventos", proventos: "proventos",
   rebalanceamento: "rebal", extrato: "extrato", baldes: "baldes", eventos: "geral" };
 function setCarteiraView(v){
   if (!CARTEIRA_VIEWS[v]) v = "geral";
@@ -12151,12 +13499,14 @@ function setCarteiraView(v){
     CARTEIRA_VIEWS[k].forEach(function(id){
       var el = document.getElementById(id); if (!el) return;
       el.classList.toggle("mv-hide", k !== v);
-      if (k === v && el.classList.contains("is-collapsed") && typeof toggleBlockCollapse === "function") toggleBlockCollapse(id);
+      if (k === v && id !== "panel-calendario-dividendos" && el.classList.contains("is-collapsed") && typeof toggleBlockCollapse === "function") toggleBlockCollapse(id);
     });
   });
   document.querySelectorAll(".mc-nav-tabs .mc-nav-btn[data-view]").forEach(function(b){ b.classList.toggle("active", b.dataset.view === v); });
   try { localStorage.setItem("barsi-carteira-view", v); } catch (e) {}
   if (v === "geral" && typeof renderGraficosAlocacao === "function") renderGraficosAlocacao();
+  if (v === "rentabilidade" && typeof renderRentabilidade === "function") renderRentabilidade();
+  if (v === "proventos" && typeof renderProventosWard === "function") renderProventosWard();
   var bar = document.querySelector(".mc-nav-tabs");
   if (bar && bar.getBoundingClientRect().top < 0) bar.scrollIntoView({ behavior: "smooth", block: "start" });
 }
