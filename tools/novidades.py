@@ -1,12 +1,13 @@
 """Fehmir · Robô de Novidades (CVM IPE e Fundos.NET B3 com resumos via Gemini API).
 
-Busca fatos relevantes e relatórios gerenciais dos ativos da carteira (últimos 45 dias),
+Busca fatos relevantes e relatórios gerenciais dos ativos da carteira (últimos 45-90 dias),
 extrai os pontos principais, o que mudou e novos alertas via Gemini Flash,
 e atualiza dados/novidades.js.
 
 Regras de segurança:
 - Chave apenas via variável de ambiente `GEMINI_API_KEY`.
-- Sem chave, o script não quebra: lista os documentos encontrados sem resumo.
+- Sem chave, o script não quebra: lista os documentos encontrados sem resumo e marca `resumido_ia: False`.
+- Documentos catalogados sem chave continuam elegíveis para receber resumo quando a chave estiver disponível.
 """
 import os
 import io
@@ -37,32 +38,35 @@ UA = {
     "Referer": "https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM"
 }
 
-# Mapa oficial Ticker -> CNPJ (21 ativos da carteira + acompanhados)
+# Mapa Oficial Ticker -> CNPJ (21 ativos da carteira + acompanhados)
+# Fontes oficiais:
+# - FIIs e Fiagros: CVM Informes Mensais (inf_mensal_fii_geral_2024 / 2026 via cruzamento por Código ISIN)
+# - Ações: CVM Cadastro de Companhias Abertas (cad_cia_aberta.csv)
 MAPA_CNPJ = {
-    # FIIs e Fiagros
-    "TRXF11": "32.064.079/0001-57",
-    "RECR11": "27.876.819/0001-09",
-    "GARE11": "37.289.174/0001-50",
-    "MXRF11": "97.521.225/0001-25",
-    "XPML11": "28.757.546/0001-00",
-    "VILG11": "30.297.801/0001-65",
-    "RZTR11": "37.525.969/0001-07",
-    "GGRC11": "26.614.485/0001-34",
-    "KNCA11": "41.748.513/0001-68",
-    "RZAG11": "43.344.974/0001-24",
-    "HGRE11": "09.072.017/0001-29",
-    # Ações B.A.S.E. e fora da base
-    "BBAS3": "00.000.000/0001-91",
-    "BBSE3": "17.344.597/0001-94",
-    "TAEE11": "07.859.971/0001-30",
-    "CMIG4": "17.155.730/0001-64",
-    "CPLE3": "76.483.817/0001-20",
-    "PETR4": "33.000.167/0001-01",
-    "RECV3": "03.359.252/0001-05",
-    "LOGG3": "09.117.202/0001-96",
-    # Encerrados (mantidos para histórico)
-    "LAVV3": "26.469.541/0001-57",
-    "MELK3": "12.016.920/0001-41",
+    # FIIs e Fiagros (11 ativos)
+    "TRXF11": "28.548.288/0001-52",  # TRX REAL ESTATE FII (ISIN BRTRXFCTF003)
+    "RECR11": "28.152.272/0001-26",  # REC RECEBÍVEIS IMOBILIÁRIOS FII (ISIN BRRECRCTF004)
+    "GARE11": "37.295.919/0001-60",  # GUARDIAN LOGÍSTICA / GARE FII (ISIN BRGARECTF001)
+    "MXRF11": "97.521.225/0001-25",  # MAXI RENDA FII (ISIN BRMXRFCTF008)
+    "XPML11": "28.757.546/0001-00",  # XP MALLS FII (ISIN BRXPMLCTF000)
+    "VILG11": "24.853.044/0001-22",  # VINCI LOGÍSTICA FII (ISIN BRVILGCTF001)
+    "RZTR11": "36.501.128/0001-86",  # RIZA TERRAX FII (ISIN BRRZTRCTF003)
+    "GGRC11": "26.614.291/0001-00",  # GGR COVEPI RENDA FII (ISIN BRGGRCCTF002)
+    "KNCA11": "41.745.701/0001-37",  # KINEA CRÉDITO AGRO FIAGRO (ISIN BRKNCACTF014)
+    "RZAG11": "40.413.979/0001-44",  # RIZA AGRO FIAGRO (ISIN BRRZAGCTF006)
+    "HGRE11": "09.072.017/0001-29",  # CSHG REAL ESTATE FII (ISIN BRHGRECTF006)
+    # Ações B.A.S.E. e fora da base (8 ativas)
+    "BBAS3": "00.000.000/0001-91",   # BANCO DO BRASIL S.A.
+    "BBSE3": "17.344.597/0001-94",   # BB SEGURIDADE PARTICIPAÇÕES S.A.
+    "TAEE11": "07.859.971/0001-30",  # TRANSMISSORA ALIANÇA DE ENERGIA ELÉTRICA S.A. - TAESA
+    "CMIG4": "17.155.730/0001-64",   # COMPANHIA ENERGÉTICA DE MINAS GERAIS - CEMIG
+    "CPLE3": "76.483.817/0001-20",   # COMPANHIA PARANAENSE DE ENERGIA - COPEL
+    "PETR4": "33.000.167/0001-01",   # PETRÓLEO BRASILEIRO S.A. - PETROBRAS
+    "RECV3": "03.342.704/0001-30",   # PETRORECÔNCAVO S.A.
+    "LOGG3": "09.041.168/0001-10",   # LOG COMMERCIAL PROPERTIES E PARTICIPAÇÕES S.A.
+    # Encerrados (mantidos para histórico e integridade)
+    "LAVV3": "26.462.693/0001-28",   # LAVVI EMPREENDIMENTOS IMOBILIÁRIOS S.A.
+    "MELK3": "12.181.987/0001-77",   # MELNICK DESENVOLVIMENTO IMOBILIÁRIO S.A.
 }
 
 
@@ -71,7 +75,6 @@ def tickers_ativos_carteira():
     if not PAINEL.exists():
         return list(MAPA_CNPJ.keys())
     html = PAINEL.read_text(encoding="utf-8", errors="ignore")
-    # Busca blocos de BASE_STOCKS, OUT_OF_BASE e FIIS
     tickers = []
     for bloco in ["BASE_STOCKS", "OUT_OF_BASE", "FIIS"]:
         pos = html.find(f"const {bloco}")
@@ -80,7 +83,6 @@ def tickers_ativos_carteira():
             chunk = html[pos:end]
             achados = re.findall(r't:\s*"([A-Z0-9]+)"', chunk)
             for t in achados:
-                # Excluir encerrados
                 if t not in ["LAVV3", "MELK3"] and t in MAPA_CNPJ:
                     tickers.append(t)
     return sorted(list(set(tickers)))
@@ -101,73 +103,86 @@ def carregar_cache():
 
 
 def buscar_fundosnet(ticker, cnpj, dias=45):
-    """Busca Relatórios Gerenciais e Fatos Relevantes no Fundos.NET (B3)."""
-    hoje = datetime.date.today()
-    inicio = hoje - datetime.timedelta(days=dias)
-    params = {
-        "d": "1",
-        "s": "0",
-        "l": "30",
-        "tipoFundo": "1",
-        "cnpjFundo": cnpj,
-        "idCategoriaDocumento": "0",
-        "idTipoDocumento": "0",
-        "situacao": "A",
-        "dataInicial": inicio.strftime("%d/%m/%Y"),
-        "dataFinal": hoje.strftime("%d/%m/%Y"),
-        "_": str(int(time.time() * 1000))
-    }
-    url = f"https://fnet.bmfbovespa.com.br/fnet/publico/pesquisarGerenciadorDocumentosDados?{urllib.parse.urlencode(params)}"
-    try:
-        req = urllib.request.Request(url, headers=UA)
-        with urllib.request.urlopen(req, timeout=8) as r:
-            js = json.loads(r.read().decode("utf-8", errors="replace"))
-            records = js.get("data", [])
-            docs = []
-            for rec in records:
-                cat = (rec.get("categoriaDocumento") or "").strip()
-                tipo = (rec.get("tipoDocumento") or "").strip()
-                desc = (rec.get("descricaoStatus") or "").strip()
-                texto_completo = f"{cat} {tipo} {desc}".lower()
+    """Busca Relatórios Gerenciais e Fatos Relevantes no Fundos.NET (B3).
+    
+    Aplica timeout de 25s e até 2 retentativas em caso de lentidão.
+    Se não encontrar nenhum documento em 45 dias, expande para 90 dias
+    para capturar o último relatório publicado por fundos com publicação bimestral.
+    """
+    def _requisitar(janela_dias):
+        hoje = datetime.date.today()
+        inicio = hoje - datetime.timedelta(days=janela_dias)
+        params = {
+            "d": "1",
+            "s": "0",
+            "l": "30",
+            "cnpjFundo": cnpj,
+            "idCategoriaDocumento": "0",
+            "idTipoDocumento": "0",
+            "situacao": "A",
+            "dataInicial": inicio.strftime("%d/%m/%Y"),
+            "dataFinal": hoje.strftime("%d/%m/%Y"),
+            "_": str(int(time.time() * 1000))
+        }
+        url = f"https://fnet.bmfbovespa.com.br/fnet/publico/pesquisarGerenciadorDocumentosDados?{urllib.parse.urlencode(params)}"
+        
+        for tentativa in range(3):
+            try:
+                req = urllib.request.Request(url, headers=UA)
+                with urllib.request.urlopen(req, timeout=25) as r:
+                    js = json.loads(r.read().decode("utf-8", errors="replace"))
+                    records = js.get("data", [])
+                    docs = []
+                    for rec in records:
+                        cat = (rec.get("categoriaDocumento") or "").strip()
+                        tipo = (rec.get("tipoDocumento") or "").strip()
+                        desc = (rec.get("descricaoStatus") or "").strip()
+                        texto_completo = f"{cat} {tipo} {desc}".lower()
 
-                # Filtrar apenas Relatório Gerencial ou Fato Relevante
-                eh_relatorio = "relat" in texto_completo and "gerencial" in texto_completo
-                eh_fato_relevante = "fato relevante" in texto_completo
+                        eh_relatorio = "relat" in texto_completo and "gerencial" in texto_completo
+                        eh_fato_relevante = "fato relevante" in texto_completo
+                        if not (eh_relatorio or eh_fato_relevante):
+                            continue
 
-                if not (eh_relatorio or eh_fato_relevante):
-                    continue
+                        doc_id = str(rec.get("id"))
+                        tipo_doc = "Relatório Gerencial" if eh_relatorio else "Fato Relevante"
 
-                doc_id = str(rec.get("id"))
-                tipo_doc = "Relatório Gerencial" if eh_relatorio else "Fato Relevante"
+                        data_str = rec.get("dataEntrega") or rec.get("dataReferencia") or ""
+                        m_data = re.search(r'(\d{2})/(\d{2})/(\d{4})', data_str)
+                        if m_data:
+                            data_iso = f"{m_data.group(3)}-{m_data.group(2)}-{m_data.group(1)}"
+                        else:
+                            data_iso = hoje.strftime("%Y-%m-%d")
 
-                # Data de entrega ou referência (ISO AAAA-MM-DD)
-                data_str = rec.get("dataEntrega") or rec.get("dataReferencia") or ""
-                m_data = re.search(r'(\d{2})/(\d{2})/(\d{4})', data_str)
-                if m_data:
-                    data_iso = f"{m_data.group(3)}-{m_data.group(2)}-{m_data.group(1)}"
+                        titulo = tipo or cat
+                        if desc and desc != "Ativo com visualização":
+                            titulo = f"{titulo} - {desc}"
+
+                        docs.append({
+                            "id": f"fnet_{doc_id}",
+                            "data": data_iso,
+                            "tipo": tipo_doc,
+                            "titulo": titulo,
+                            "url": f"https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id={doc_id}",
+                            "url_view": f"https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id={doc_id}"
+                        })
+                    return docs
+            except Exception as e:
+                if tentativa < 2:
+                    time.sleep(2)
                 else:
-                    data_iso = hoje.strftime("%Y-%m-%d")
-
-                titulo = tipo or cat
-                if desc and desc != "Ativo com visualização":
-                    titulo = f"{titulo} - {desc}"
-
-                docs.append({
-                    "id": f"fnet_{doc_id}",
-                    "data": data_iso,
-                    "tipo": tipo_doc,
-                    "titulo": titulo,
-                    "url": f"https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id={doc_id}",
-                    "url_view": f"https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id={doc_id}"
-                })
-            return docs
-    except Exception as e:
-        # Se der timeout ou erro de conexão, pula suavemente
+                    return []
         return []
+
+    docs = _requisitar(dias)
+    if not docs and dias < 90:
+        # Fallback para 90 dias caso não tenha saído nos últimos 45 dias
+        docs = _requisitar(90)
+    return docs
 
 
 def buscar_cvm_acoes(tickers_acoes, dias=45):
-    """Busca Fatos Relevantes das ações na base aberta da CVM (IPE)."""
+    """Busca Fatos Relevantes e Comunicados das ações na base aberta da CVM (IPE)."""
     hoje = datetime.date.today()
     corte = hoje - datetime.timedelta(days=dias)
     ano = hoje.year
@@ -181,75 +196,82 @@ def buscar_cvm_acoes(tickers_acoes, dias=45):
     url = f"https://dados.cvm.gov.br/dados/CIA_ABERTA/DOC/IPE/DADOS/ipe_cia_aberta_{ano}.zip"
     docs_por_ticker = {tk: [] for tk in tickers_acoes}
 
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Fehmir/1.0"})
-        with urllib.request.urlopen(req, timeout=35) as r:
-            content = r.read()
-        z = zipfile.ZipFile(io.BytesIO(content))
-        csv_name = [n for n in z.namelist() if n.endswith('.csv')][0]
-        with z.open(csv_name) as f:
-            import csv
-            text_stream = io.TextIOWrapper(f, encoding='latin1', errors='replace')
-            reader = csv.DictReader(text_stream, delimiter=';')
-            for row in reader:
-                cnpj = row.get("CNPJ_Companhia")
-                if cnpj not in cnpj_to_ticker:
-                    continue
-
-                ticker = cnpj_to_ticker[cnpj]
-                cat = (row.get("Categoria") or "").strip()
-                tipo = (row.get("Tipo") or "").strip()
-                assunto = (row.get("Assunto") or "").strip()
-                dt_ent = (row.get("Data_Entrega") or "").strip()
-                dt_ref = (row.get("Data_Referencia") or "").strip()
-                link = (row.get("Link_Download") or "").strip()
-                proto = (row.get("Protocolo_Entrega") or "").strip()
-
-                # Checagem de data
-                dt_iso = dt_ent[:10] if dt_ent else dt_ref[:10]
-                try:
-                    dt_obj = datetime.datetime.strptime(dt_iso, "%Y-%m-%d").date()
-                    if dt_obj < corte:
+    for tentativa in range(3):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "Fehmir/1.0"})
+            with urllib.request.urlopen(req, timeout=35) as r:
+                content = r.read()
+            z = zipfile.ZipFile(io.BytesIO(content))
+            csv_name = [n for n in z.namelist() if n.endswith('.csv')][0]
+            with z.open(csv_name) as f:
+                import csv
+                text_stream = io.TextIOWrapper(f, encoding='latin1', errors='replace')
+                reader = csv.DictReader(text_stream, delimiter=';')
+                for row in reader:
+                    cnpj = row.get("CNPJ_Companhia")
+                    if cnpj not in cnpj_to_ticker:
                         continue
-                except Exception:
-                    continue
 
-                # Filtragem de categoria
-                aceitar = False
-                tipo_normalizado = "Fato Relevante"
-                if cat.lower() == "fato relevante":
-                    aceitar = True
-                elif cat.lower() == "comunicado ao mercado":
-                    txt_busca = f"{assunto} {tipo}".lower()
-                    palavras = ["dividendo", "jcp", "provento", "aquisi", "venda de ativo", "guidance", "gestão", "gestao", "administra"]
-                    if any(p in txt_busca for p in palavras):
+                    ticker = cnpj_to_ticker[cnpj]
+                    cat = (row.get("Categoria") or "").strip()
+                    tipo = (row.get("Tipo") or "").strip()
+                    assunto = (row.get("Assunto") or "").strip()
+                    dt_ent = (row.get("Data_Entrega") or "").strip()
+                    dt_ref = (row.get("Data_Referencia") or "").strip()
+                    link = (row.get("Link_Download") or "").strip()
+                    proto = (row.get("Protocolo_Entrega") or "").strip()
+
+                    dt_iso = dt_ent[:10] if dt_ent else dt_ref[:10]
+                    try:
+                        dt_obj = datetime.datetime.strptime(dt_iso, "%Y-%m-%d").date()
+                        if dt_obj < corte:
+                            continue
+                    except Exception:
+                        continue
+
+                    aceitar = False
+                    tipo_normalizado = "Fato Relevante"
+                    if cat.lower() == "fato relevante":
                         aceitar = True
-                        tipo_normalizado = "Comunicado ao Mercado"
+                    elif cat.lower() == "comunicado ao mercado":
+                        txt_busca = f"{assunto} {tipo}".lower()
+                        palavras = ["dividendo", "jcp", "provento", "aquisi", "venda de ativo", "guidance", "gestão", "gestao", "administra"]
+                        if any(p in txt_busca for p in palavras):
+                            aceitar = True
+                            tipo_normalizado = "Comunicado ao Mercado"
 
-                if aceitar:
-                    docs_por_ticker[ticker].append({
-                        "id": f"cvm_{proto}",
-                        "data": dt_iso,
-                        "tipo": tipo_normalizado,
-                        "titulo": assunto or tipo or cat,
-                        "url": link,
-                        "url_view": link
-                    })
-    except Exception as e:
-        print(f"Aviso CVM IPE: erro ao baixar/processar zip: {e}")
+                    if aceitar:
+                        docs_por_ticker[ticker].append({
+                            "id": f"cvm_{proto}",
+                            "data": dt_iso,
+                            "tipo": tipo_normalizado,
+                            "titulo": assunto or tipo or cat,
+                            "url": link,
+                            "url_view": link
+                        })
+            break
+        except Exception as e:
+            if tentativa < 2:
+                time.sleep(2)
+            else:
+                print(f"Aviso CVM IPE: erro ao baixar/processar zip: {e}")
 
     return docs_por_ticker
 
 
 def baixar_pdf(url):
     """Baixa o conteúdo em bytes de um PDF público."""
-    try:
-        req = urllib.request.Request(url, headers=UA)
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return r.read()
-    except Exception as e:
-        print(f"Erro ao baixar PDF ({url[:60]}...): {e}")
-        return None
+    for tentativa in range(2):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return r.read()
+        except Exception as e:
+            if tentativa < 1:
+                time.sleep(2)
+            else:
+                print(f"Erro ao baixar PDF ({url[:60]}...): {e}")
+                return None
 
 
 def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=None):
@@ -359,95 +381,103 @@ def main():
         print("GEMINI_API_KEY ausente: pulando resumos", flush=True)
 
     tickers = tickers_ativos_carteira()
-    fiis = [t for t in tickers if t.endswith("11") and t in MAPA_CNPJ]
-    acoes = [t for t in tickers if not t.endswith("11") or t in ["TAEE11"]]
+    fiis = [t for t in tickers if t.endswith("11") and t != "TAEE11"]
+    acoes = [t for t in tickers if not t.endswith("11") or t == "TAEE11"]
 
     print(f"Fehmir Novidades · Verificando {len(tickers)} ativos ({len(acoes)} Ações, {len(fiis)} FIIs)...", flush=True)
 
     cache = carregar_cache()
-    ids_existentes = set()
-    for doc_list in cache.values():
+
+    # Indexa documentos existentes por id
+    docs_existentes = {}
+    for tk, doc_list in cache.items():
         for d in doc_list:
             if "id" in d:
-                ids_existentes.add(d["id"])
+                docs_existentes[d["id"]] = (tk, d)
 
-    # 1. Coleta de Documentos
-    docs_novos_por_ticker = {t: [] for t in tickers}
+    # 1. Coleta de Documentos das fontes oficiais
+    docs_coletados = {t: [] for t in tickers}
 
     # Ações via CVM IPE
     print("Consultando CVM IPE para ações...", flush=True)
     docs_cvm = buscar_cvm_acoes(acoes, dias=45)
     for tk, dlist in docs_cvm.items():
-        docs_novos_por_ticker[tk].extend(dlist)
+        docs_coletados[tk].extend(dlist)
 
     # FIIs via Fundos.NET
-    print("Consultando Fundos.NET para FIIs...", flush=True)
+    print("Consultando Fundos.NET para FIIs (com retentativas e timeout 25s)...", flush=True)
     for f in fiis:
         cnpj = MAPA_CNPJ[f]
         dlist = buscar_fundosnet(f, cnpj, dias=45)
-        docs_novos_por_ticker[f].extend(dlist)
+        docs_coletados[f].extend(dlist)
+        time.sleep(1)
 
-    # 2. Processamento e Resumos
-    novos_para_processar = []
+    # 2. Atualização do Cache e identificação de documentos pendentes de resumo por IA
+    # Para novos documentos: adiciona ao cache com resumido_ia = False
     for tk in tickers:
-        for doc in docs_novos_por_ticker[tk]:
-            if doc["id"] not in ids_existentes:
-                novos_para_processar.append((tk, doc))
-
-    # Limite estrito de 12 documentos por execução
-    novos_para_processar = novos_para_processar[:12]
-    print(f"Documentos novos a processar nesta execução: {len(novos_para_processar)}", flush=True)
-
-    for tk, doc in novos_para_processar:
-        print(f" -> Processando {tk}: {doc['tipo']} - {doc['titulo'][:50]} ({doc['data']})", flush=True)
-
-        resumo_data = None
-        if api_key:
-            pdf_bytes = baixar_pdf(doc["url"])
-            if pdf_bytes:
-                # Obter métricas do documento mais recente já salvo desse ativo
-                ult_metricas = None
-                if tk in cache and len(cache[tk]) > 0:
-                    ult_metricas = cache[tk][0].get("metricas")
-                resumo_data = resumir_com_gemini(pdf_bytes, tk, doc["tipo"], doc["titulo"], ult_metricas)
-                time.sleep(2.5)  # Respeita o rate limit gratuito
-
-        if not resumo_data:
-            resumo_data = {
-                "resumo": [f"{doc['tipo']} publicado em {doc['data']}."],
-                "mudancas": [],
-                "alertas": [],
-                "metricas": {
-                    "vacancia_fisica": None, "vacancia_financeira": None, "inadimplencia": None,
-                    "provento_por_cota": None, "resultado_por_cota": None, "reserva_por_cota": None, "ltv": None
-                },
-                "gravidade": "info"
-            }
-
-        item_final = {
-            "id": doc["id"],
-            "data": doc["data"],
-            "tipo": doc["tipo"],
-            "titulo": doc["titulo"],
-            "url": doc["url"],
-            "resumo": resumo_data.get("resumo") or [],
-            "mudancas": resumo_data.get("mudancas") or [],
-            "alertas": resumo_data.get("alertas") or [],
-            "metricas": resumo_data.get("metricas") or {},
-            "gravidade": resumo_data.get("gravidade") or "info"
-        }
-
         if tk not in cache:
             cache[tk] = []
-        cache[tk].insert(0, item_final)
+        for doc in docs_coletados[tk]:
+            if doc["id"] not in docs_existentes:
+                item_provisorio = {
+                    "id": doc["id"],
+                    "data": doc["data"],
+                    "tipo": doc["tipo"],
+                    "titulo": doc["titulo"],
+                    "url": doc["url"],
+                    "resumo": [f"{doc['tipo']} publicado em {doc['data']}."],
+                    "mudancas": [],
+                    "alertas": [],
+                    "metricas": {
+                        "vacancia_fisica": None, "vacancia_financeira": None, "inadimplencia": None,
+                        "provento_por_cota": None, "resultado_por_cota": None, "reserva_por_cota": None, "ltv": None
+                    },
+                    "gravidade": "info",
+                    "resumido_ia": False
+                }
+                cache[tk].append(item_provisorio)
+                docs_existentes[doc["id"]] = (tk, item_provisorio)
 
-    # 3. Ordenação e corte (máximo 6 por ativo)
+    # 3. Processamento de Resumos via Gemini (se chave presente)
+    # Documentos elegíveis: qualquer documento com resumido_ia == False (respeitando limite de 12 por execução)
+    pendentes_ia = []
+    for tk in sorted(cache.keys()):
+        for d in cache[tk]:
+            if not d.get("resumido_ia", False):
+                pendentes_ia.append((tk, d))
+
+    print(f"Total de documentos pendentes de resumo por IA: {len(pendentes_ia)}", flush=True)
+
+    if api_key and pendentes_ia:
+        lote_ia = pendentes_ia[:12]
+        print(f"Processando {len(lote_ia)} resumos com Gemini nesta execução...", flush=True)
+        for tk, doc in lote_ia:
+            print(f" -> Resumindo {tk}: {doc['tipo']} - {doc['titulo'][:45]} ({doc['data']})", flush=True)
+            pdf_bytes = baixar_pdf(doc["url"])
+            if pdf_bytes:
+                ult_metricas = None
+                # Busca métricas anteriores conhecidas
+                for outro in cache.get(tk, []):
+                    if outro.get("id") != doc["id"] and outro.get("metricas"):
+                        ult_metricas = outro["metricas"]
+                        break
+
+                resumo_data = resumir_com_gemini(pdf_bytes, tk, doc["tipo"], doc["titulo"], ult_metricas)
+                if resumo_data:
+                    doc["resumo"] = resumo_data.get("resumo") or []
+                    doc["mudancas"] = resumo_data.get("mudancas") or []
+                    doc["alertas"] = resumo_data.get("alertas") or []
+                    doc["metricas"] = resumo_data.get("metricas") or {}
+                    doc["gravidade"] = resumo_data.get("gravidade") or "info"
+                    doc["resumido_ia"] = True
+                time.sleep(2.5)  # Rate limit gratuito
+
+    # 4. Ordenação e corte (máximo 6 por ativo, mais recentes primeiro)
     total_docs = 0
     saida_limpa = {}
     for tk in sorted(cache.keys()):
         # Ordena por data decrescente
         sorted_docs = sorted(cache[tk], key=lambda x: x.get("data", ""), reverse=True)
-        # Limita a 6 por ativo
         saida_limpa[tk] = sorted_docs[:6]
         total_docs += len(saida_limpa[tk])
 
@@ -457,13 +487,29 @@ def main():
         "window.FEHMIR_NOVIDADES = " + json.dumps(saida_limpa, ensure_ascii=False, indent=2) + ";\n"
     )
     SAIDA.write_text(conteudo_js, encoding="utf-8")
-    print(f"OK: {total_docs} documentos em {SAIDA.relative_to(RAIZ)}.", flush=True)
+    print(f"OK: {total_docs} documentos em {SAIDA.relative_to(RAIZ)}.\n", flush=True)
 
-    # Registro de contagem para o log
-    print("\n--- CONTAGEM DE DOCUMENTOS ENCONTRADOS ---", flush=True)
-    for t_alvo in ["RZTR11", "TRXF11", "BBAS3", "TAEE11"]:
-        qtd = len(saida_limpa.get(t_alvo, []))
-        print(f"{t_alvo}: {qtd} documentos", flush=True)
+    # 5. Autoteste e Contagem dos 21 Ativos
+    print("================ CONTAGEM POR ATIVO (AUTOTESTE) ================", flush=True)
+    avisos_fii = []
+    todos_21 = sorted(list(MAPA_CNPJ.keys()))
+    for tk in todos_21:
+        docs_ativo = saida_limpa.get(tk, [])
+        qtd = len(docs_ativo)
+        status_ia = sum(1 for d in docs_ativo if d.get("resumido_ia"))
+        exemplo = f" (Mais recente: {docs_ativo[0]['data']} - {docs_ativo[0]['tipo']})" if qtd > 0 else ""
+        print(f"{tk:7s}: {qtd} docs | IA: {status_ia}/{qtd}{exemplo}", flush=True)
+
+        # Checagem de integridade para FIIs
+        if tk.endswith("11") and tk != "TAEE11" and qtd == 0:
+            avisos_fii.append(tk)
+
+    if avisos_fii:
+        print("\n[AVISOS DE INTEGRIDADE]", flush=True)
+        for af in avisos_fii:
+            print(f"AVISO: FII {af} sem nenhum documento nos últimos 90 dias (verificar CNPJ).", flush=True)
+    else:
+        print("\n✅ Integridade de FIIs: 100% dos FIIs possuem documentos recentes catalogados.", flush=True)
 
     return 0
 
