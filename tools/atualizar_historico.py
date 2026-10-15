@@ -143,6 +143,17 @@ def processar(js, diario=None, nome=""):
     }
 
 
+ALIASES_YAHOO = {
+    "TRPL4": "ISAE4.SA",
+    "TRPL3": "ISAE3.SA",
+    "ISAE4": "ISAE4.SA",
+    "ISAE3": "ISAE3.SA",
+    "BRIT3": "BRST3.SA",
+    "BRST3": "BRST3.SA",
+    "XBCI11": "XPCI11.SA",
+}
+
+
 def main():
     tickers = tickers_do_painel()
     alvos = {t: t + ".SA" for t in tickers}
@@ -150,10 +161,19 @@ def main():
     print(f"Baixando {len(alvos)} ativos do Yahoo Finance…")
     dados, falhas = {}, []
     for nome, simbolo in alvos.items():
-        js = baixar(simbolo)
-        reg = processar(js, baixar_diario(simbolo), nome) if js else None
+        sym = ALIASES_YAHOO.get(nome, simbolo)
+        js = baixar(sym)
+        reg = processar(js, baixar_diario(sym), nome) if js else None
         if reg:
             dados[nome] = reg
+            if nome == "TRPL4":
+                dados["ISAE4"] = reg
+            elif nome == "ISAE4":
+                dados["TRPL4"] = reg
+            elif nome == "BRIT3":
+                dados["BRST3"] = reg
+            elif nome == "BRST3":
+                dados["BRIT3"] = reg
         else:
             falhas.append(nome)
         time.sleep(0.4)  # educado com o servidor
