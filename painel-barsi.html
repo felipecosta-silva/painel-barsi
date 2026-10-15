@@ -667,9 +667,9 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 
 /* ================= MODAL AVANÇADO DE DETALHES ================= */
 .modal-overlay.active { opacity: 1; pointer-events: auto; }
-.modal-content-rich { background: var(--surface); width: 95%; max-width: 960px; border-radius: 24px; padding: 0; box-shadow: 0 24px 64px rgba(0,0,0,0.3); border: 1px solid var(--rule-strong); max-height: 92vh; overflow-y: auto; display: flex; flex-direction: column; position: relative; }
+.modal-content-rich { background: var(--surface); width: 95vw; max-width: 1200px; border-radius: 24px; padding: 0; box-shadow: 0 24px 64px rgba(0,0,0,0.3); border: 1px solid var(--rule-strong); max-height: 92vh; overflow-y: auto; display: flex; flex-direction: column; position: relative; }
 
-.m-hero-header { padding: 24px 28px 18px; border-bottom: 1px solid var(--rule); background: var(--surface); position: sticky; top: 0; z-index: 10; }
+.m-hero-header { padding: 24px 28px 18px; border-bottom: 1px solid var(--rule); background: var(--surface); position: static; }
 .m-hero-title-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
 .m-hero-title-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .m-hero-ticker { font-size: 32px; font-family: var(--font-serif); font-weight: 700; color: var(--ink); margin: 0; }
@@ -683,11 +683,36 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 .m-kpi-card .lbl { font-size: 10.5px; text-transform: uppercase; color: var(--muted); font-weight: 600; letter-spacing: 0.04em; margin-bottom: 3px; }
 .m-kpi-card .val { font-size: 18px; font-family: var(--font-mono); font-weight: 700; color: var(--ink); }
 
-/* Navegação interna por abas na modal */
-.m-tab-bar { display: flex; gap: 6px; padding: 12px 28px; background: var(--bg); border-bottom: 1px solid var(--rule); overflow-x: auto; }
+/* Navegação interna por abas na modal (fixa no topo, wrap no desktop, scroll sem barra no celular) */
+.m-tab-bar-wrap { position: sticky; top: 0; z-index: 15; background: var(--bg); }
+.m-tab-bar { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 28px; background: var(--bg); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 15; }
 .m-tab-item { background: transparent; border: none; font-size: 13.5px; font-weight: 600; color: var(--ink-2); padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: 0.15s; white-space: nowrap; }
 .m-tab-item:hover { color: var(--ink); background: var(--surface); }
 .m-tab-item.active { background: var(--surface); color: var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+@media (max-width: 680px) {
+  .m-tab-bar-wrap { position: sticky; top: 0; z-index: 15; }
+  .m-tab-bar-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 28px;
+    background: linear-gradient(to right, transparent, var(--bg));
+    pointer-events: none;
+  }
+  .m-tab-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px 16px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .m-tab-bar::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 .m-tab-body { padding: 24px 28px 32px; flex: 1; }
 .m-pane { display: none; }
@@ -2545,7 +2570,6 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <tbody id="tbody-fora"></tbody>
       </table></div>
       <div id="encerrados-fora-wrap" class="encerrados-toggle-wrap"></div>
-      <p class="pending-note">LOGG3 ainda sem dado atualizado nesta rodada — pendente.</p>
     </div>
   </section>
 
@@ -2588,8 +2612,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   </section>
 
   <footer>
-    Fonte dos dados: StatusInvest / FundsExplorer / Investidor10, checados manualmente pelo Conselheiro Fehmir a cada rodada (WebFetch, tentando mais de uma fonte quando a primeira falha — foi assim que RZAG11 e KNCA11 saíram do zero). O Conselheiro Fehmir não tem busca de notícias automática (WebSearch está bloqueado nesta conta) — fatos relevantes de terceiros (como o corte do JP Morgan em BBSE3) dependem de o Felipe trazer o link/print, ou de o Conselheiro Fehmir já estar olhando a página certa.
-    Este painel reflete o último check-in do documento mestre e é republicado quando há nova checagem.
+    Fonte dos dados: preços e proventos pelo robô diário (Yahoo Finance, via GitHub Actions) e cotação ao vivo pela Brapi quando configurada; fundamentos do cadastro revisados nas reavaliações trimestrais (§22.7.2); fatos relevantes e relatórios gerenciais pelo robô semanal de novidades (§29).
   </footer>
 </div>
 
@@ -3649,10 +3672,42 @@ function toggleMostrarEncerrados() {
   if (typeof renderRebalanceamento === 'function') renderRebalanceamento();
 }
 
+function _converterNumRobusto(val) {
+  if (val == null) return 0;
+  if (typeof val === 'number') return isNaN(val) ? 0 : val;
+  const s = String(val).trim().replace(',', '.');
+  if (s === '' || s === 'null' || s === 'undefined') return 0;
+  const n = parseFloat(s);
+  return isNaN(n) ? 0 : n;
+}
+
 function isAtivoEncerrado(ticker) {
-  const p = (typeof rebData !== 'undefined' && rebData[ticker]) ? rebData[ticker] : null;
-  if (!p) return false;
-  return (p.q === 0 || p.q == null) && (p.i === 0 || p.i == null);
+  const p = (typeof rebData !== 'undefined' && rebData && rebData[ticker]) ? rebData[ticker] : null;
+
+  // Busca item de cadastro em BASE_STOCKS, OUT_OF_BASE ou FIIS
+  let cad = null;
+  if (typeof BASE_STOCKS !== 'undefined') cad = BASE_STOCKS.find(x => x.t === ticker);
+  if (!cad && typeof OUT_OF_BASE !== 'undefined') cad = OUT_OF_BASE.find(x => x.t === ticker);
+  if (!cad && typeof FIIS !== 'undefined') cad = FIIS.find(x => x.t === ticker);
+
+  // 1. Quantidade: primeiro valor disponível entre rebData[t].q e quant do cadastro
+  let q = 0;
+  if (p && p.q !== undefined && p.q !== null && String(p.q).trim() !== "") {
+    q = _converterNumRobusto(p.q);
+  } else if (cad && cad.quant !== undefined && cad.quant !== null) {
+    q = _converterNumRobusto(cad.quant);
+  }
+
+  // 2. Peso Ideal: primeiro valor disponível entre rebData[t].i e ideal do cadastro
+  let i = 0;
+  if (p && p.i !== undefined && p.i !== null && String(p.i).trim() !== "") {
+    i = _converterNumRobusto(p.i);
+  } else if (cad && cad.ideal !== undefined && cad.ideal !== null) {
+    i = _converterNumRobusto(cad.ideal);
+  }
+
+  // 3. Encerrado = quantidade 0 E peso ideal 0
+  return q <= 0 && i <= 0;
 }
 
 function renderEncerradosToggle(containerId, count) {
@@ -5088,15 +5143,10 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
           <div class="val" id="m-preco" style="color:var(--ink)">R$ 0,00</div>
           <div id="m-variacao" style="font-size:11px; font-weight:700; color:var(--good)">+0,0%</div>
         </div>
-        <div class="m-kpi-card" style="border-color:var(--gold); background:rgba(245, 158, 11, 0.06);">
-          <div class="lbl" id="m-kpi-lbl-pt1" style="color:var(--gold); font-weight:700;">Preço Teto 6%</div>
-          <div class="val" id="m-kpi-pt6" style="color:var(--gold); font-weight:800;">R$ 0,00</div>
-          <div id="m-kpi-pt6-sub" style="font-size:11px; font-weight:700; color:var(--good)">—</div>
-        </div>
-        <div class="m-kpi-card" style="border-color:var(--accent); background:rgba(37, 99, 235, 0.06);">
-          <div class="lbl" id="m-kpi-lbl-pt2" style="color:var(--accent); font-weight:700;">Teto 8% / Justo</div>
-          <div class="val" id="m-kpi-pt8" style="color:var(--accent); font-weight:800;">R$ 0,00</div>
-          <div id="m-kpi-pt8-sub" style="font-size:11px; font-weight:700; color:var(--good)">—</div>
+        <div class="m-kpi-card" id="m-kpi-card-teto" style="border-color:var(--gold); background:rgba(245, 158, 11, 0.06); cursor:pointer;" onclick="switchModalTab('teto')" title="Teto oficial pela Régua Setorial (§21)">
+          <div class="lbl" id="m-kpi-lbl-teto" style="color:var(--gold); font-weight:700;">Teto (Régua)</div>
+          <div class="val" id="m-kpi-teto-regua" style="color:var(--gold); font-weight:800;">R$ 0,00</div>
+          <div id="m-kpi-teto-sub" style="font-size:11px; font-weight:700; color:var(--good)">—</div>
         </div>
         <div class="m-kpi-card">
           <div class="lbl" id="m-kpi-lbl-roe">ROE</div>
@@ -5117,18 +5167,21 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
         <div class="m-kpi-card">
           <div class="lbl" id="m-kpi-lbl-payout">Payout</div>
           <div class="val" id="m-payout">0,0%</div>
+          <div id="m-payout-sub" style="font-size:10px; color:var(--muted); margin-top:2px; display:none;"></div>
         </div>
       </div>
     </div>
 
     <!-- Abas Internas da Tela de Detalhes -->
-    <div class="m-tab-bar">
-      <button class="m-tab-item active" data-mtab="grafico" onclick="switchModalTab('grafico')">📈 Cotação & Histórico</button>
-      <button class="m-tab-item" data-mtab="historico-dy" onclick="switchModalTab('historico-dy')">🏛️ Histórico DY & Setor</button>
-      <button class="m-tab-item" data-mtab="teto" onclick="switchModalTab('teto')">🎯 Preço Teto & Bazin</button>
-      <button class="m-tab-item" data-mtab="fcd" onclick="switchModalTab('fcd')">📊 Valuation (FCD)</button>
-      <button class="m-tab-item" data-mtab="analistas" onclick="switchModalTab('analistas')">👥 Consenso dos Analistas</button>
-      <button class="m-tab-item" data-mtab="origem" onclick="switchModalTab('origem')">🛡️ Veredito Fehmir & Origem</button>
+    <div class="m-tab-bar-wrap">
+      <div class="m-tab-bar">
+        <button class="m-tab-item active" data-mtab="grafico" onclick="switchModalTab('grafico')">📈 Cotação & Histórico</button>
+        <button class="m-tab-item" data-mtab="historico-dy" onclick="switchModalTab('historico-dy')">🏛️ Histórico DY & Setor</button>
+        <button class="m-tab-item" data-mtab="teto" onclick="switchModalTab('teto')">🎯 Preço Teto & Bazin</button>
+        <button class="m-tab-item" data-mtab="fcd" onclick="switchModalTab('fcd')">📊 Valuation (FCD)</button>
+        <button class="m-tab-item" data-mtab="analistas" onclick="switchModalTab('analistas')">👥 Consenso dos Analistas</button>
+        <button class="m-tab-item" data-mtab="origem" onclick="switchModalTab('origem')">🛡️ Veredito Fehmir & Origem</button>
+      </div>
     </div>
 
     <!-- Conteúdo das Abas -->
@@ -6738,7 +6791,11 @@ let currentModalItem = null;
 
 function switchModalTab(tabId) {
   document.querySelectorAll('.m-tab-bar .m-tab-item').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.mtab === tabId);
+    const isActive = btn.dataset.mtab === tabId;
+    btn.classList.toggle('active', isActive);
+    if (isActive && typeof btn.scrollIntoView === 'function') {
+      btn.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
+    }
   });
   document.querySelectorAll('.m-tab-body .m-pane').forEach(pane => {
     pane.classList.toggle('active', pane.id === `mpane-${tabId}`);
@@ -6756,52 +6813,61 @@ function switchModalTab(tabId) {
 function openModal(ticker) {
   const tUpper = (ticker || '').trim().toUpperCase();
 
-  // 1. Buscar no banco expandido do radar (RADAR_DATA)
-  let r = RADAR_DATA.find(x => (x.t || '').toUpperCase() === tUpper);
-
-  // 2. Buscar no consolidado da carteira / universo
-  if (!r && typeof universo === 'function') {
-    const u = universo();
+  // 1. Buscar no consolidado da carteira / universo oficial (mesma fonte da Análise e do Radar)
+  let r = null;
+  const UNITS_ACOES = ['TAEE11', 'ALUP11', 'KLBN11', 'SANB11', 'BPAC11', 'SAPR11', 'ENGI11', 'SULA11'];
+  const getU = typeof window.fehmirUniverso === 'function' ? window.fehmirUniverso : (typeof universo === 'function' ? universo : null);
+  if (getU) {
+    const u = getU();
     if (u && u[tUpper]) {
       const it = u[tUpper];
-      const isFii = it.tipo != null || tUpper.endsWith('11');
+      const isFii = it.macro === 'fiis' || (it.macro !== 'acoes' && (it.tipo != null || (tUpper.endsWith('11') && !UNITS_ACOES.includes(tUpper))));
       r = {
+        ...it,
         t: tUpper,
         nome: it.nome || tUpper,
         setor: it.setor || (it.tipo ? tipoLabel(it.tipo) : (isFii ? "Fundo Imobiliário" : "B.A.S.E.")),
         macro: isFii ? 'fiis' : 'acoes',
-        score: 75,
-        tag: it.tipo ? it.tipo.toUpperCase() : (isFii ? 'FII' : 'B.A.S.E.'),
-        anosLucro: 8,
+        score: it.score || 75,
+        tag: it.tag || (it.tipo ? it.tipo.toUpperCase() : (isFii ? 'FII' : 'B.A.S.E.')),
+        anosLucro: it.anosLucro || 8,
         preco: it.preco,
         dy: it.dy,
-        dyProj: it.dy ? it.dy * 0.95 : (isFii ? 12.0 : 8.0),
+        dyProj: it.dyProj || (it.dy ? it.dy * 0.95 : (isFii ? 12.0 : 8.0)),
         roe: it.roe,
         pl: it.pl,
         pvp: it.pvp,
-        payout: it.payout || (isFii ? 95 : 60),
-        dpa: it.dpa || (it.preco && it.dy ? (it.preco * it.dy / 100) : null),
+        payout: it.payout,
+        dpa: it.dpa != null ? it.dpa : (it.preco && it.dy ? (it.preco * it.dy / 100) : null),
+        rend: it.rend,
         status: it.status || 'good',
         note: it.note || "Posição acompanhada pela carteira."
       };
     }
   }
 
-  // 3. Buscar nos arrays legados de ações e FIIs
+  // 2. Buscar nos arrays legados de ações e FIIs
   if (!r) {
     const allFallback = [...(typeof BASE_STOCKS!=='undefined'?BASE_STOCKS:[]), ...(typeof OUT_OF_BASE!=='undefined'?OUT_OF_BASE:[]), ...(typeof FIIS!=='undefined'?FIIS:[])];
     const fb = allFallback.find(x => (x.t || '').toUpperCase() === tUpper);
     if (fb) {
-      const isFii = fb.tipo != null || tUpper.endsWith('11');
+      const isFii = fb.tipo != null || (fb.macro === 'fiis') || (fb.macro !== 'acoes' && tUpper.endsWith('11') && !UNITS_ACOES.includes(tUpper));
       r = {
+        ...fb,
         t: fb.t, nome: fb.nome || fb.t, setor: fb.setor || (fb.tipo ? tipoLabel(fb.tipo) : (isFii ? "Fundo Imobiliário" : "B.A.S.E.")),
-        macro: isFii ? 'fiis' : 'acoes', score: 75, tag: fb.tipo ? fb.tipo.toUpperCase() : (isFii ? 'FII' : 'B.A.S.E.'),
+        macro: isFii ? 'fiis' : 'acoes', score: fb.score || 75, tag: fb.tipo ? fb.tipo.toUpperCase() : (isFii ? 'FII' : 'B.A.S.E.'),
         anosLucro: 8, preco: fb.preco, dy: fb.dy, dyProj: fb.dy ? fb.dy * 0.95 : (isFii ? 12.0 : 8.0),
-        roe: fb.roe, pl: fb.pl, pvp: fb.pvp, payout: fb.payout || (isFii ? 95 : 60), dpa: fb.dpa,
+        roe: fb.roe, pl: fb.pl, pvp: fb.pvp, payout: fb.payout, dpa: fb.dpa, rend: fb.rend,
         status: fb.status || 'good', note: fb.note || "Posição acompanhada pela carteira.",
         q1: "Atividade operacional consolidada.", q2: "Fluxo regular de caixa."
       };
     }
+  }
+
+  // 3. Buscar no banco expandido do radar (RADAR_DATA)
+  if (!r && typeof RADAR_DATA !== 'undefined') {
+    const rd = RADAR_DATA.find(x => (x.t || '').toUpperCase() === tUpper);
+    if (rd) r = { ...rd };
   }
 
   // 4. Buscar na base histórica do robô (FEHMIR_HIST)
@@ -6950,41 +7016,59 @@ function openModal(ticker) {
   document.getElementById('m-roe').textContent = r.roe != null ? `${r.roe.toFixed(1)}%` : (r.macro==='fiis'?'—':fmtPct(r.roe));
   document.getElementById('m-pl').textContent = r.pl || '—';
   document.getElementById('m-pvp').textContent = r.pvp != null ? r.pvp.toFixed(2) : '—';
-  document.getElementById('m-dy').textContent = fmtPct(r.dy);
-  document.getElementById('m-payout').textContent = r.payout != null ? `${r.payout.toFixed(1)}%` : '—';
+  // Teto Oficial pela Régua Setorial (§21)
+  const av = typeof window.fehmirAvaliar === "function" ? window.fehmirAvaliar(r) : { teto: null, margemMin: 10, margemSeguranca: null, src: "" };
+  const tetoRegua = av ? av.teto : null;
+  const margemMin = (av && av.margemMin != null) ? av.margemMin : 10;
+  r._tetoRegua = tetoRegua;
+  r._av = av;
 
-  // Preço Teto no Topo (Labels e Valores Dinâmicos por Categoria)
-  const lblPt1El = document.getElementById('m-kpi-lbl-pt1');
-  if (lblPt1El) lblPt1El.textContent = pt1Lbl;
-  const kpiPt6El = document.getElementById('m-kpi-pt6');
-  const kpiPt6Sub = document.getElementById('m-kpi-pt6-sub');
-  if (kpiPt6El && kpiPt6Sub) {
-    if (pt1Val && isFinite(pt1Val)) {
-      kpiPt6El.textContent = fmtR(pt1Val);
-      const m1 = ((pt1Val - r.preco) / r.preco) * 100;
-      kpiPt6Sub.textContent = (m1 >= 0 ? '+' : '') + m1.toFixed(1) + '% margem';
-      kpiPt6Sub.style.color = m1 >= 0 ? 'var(--good)' : 'var(--critical)';
+  const elTetoVal = document.getElementById('m-kpi-teto-regua');
+  const elTetoSub = document.getElementById('m-kpi-teto-sub');
+  const cardTeto = document.getElementById('m-kpi-card-teto');
+  if (elTetoVal && elTetoSub) {
+    if (tetoRegua && isFinite(tetoRegua) && tetoRegua > 0) {
+      elTetoVal.textContent = fmtR(tetoRegua);
+      const margem = ((1 - (r.preco || 0) / tetoRegua) * 100);
+      elTetoSub.textContent = (margem >= 0 ? '+' : '') + margem.toFixed(1) + '% margem';
+      let corMargem = 'var(--critical)';
+      if (margem >= margemMin) corMargem = 'var(--good)';
+      else if (margem >= 0) corMargem = 'var(--accent)';
+      elTetoSub.style.color = corMargem;
+      if (cardTeto) {
+        cardTeto.setAttribute('title', av.src ? `Teto Régua Setorial (§21):\n${av.src}` : 'Teto oficial pela Régua Setorial (§21)');
+      }
     } else {
-      kpiPt6El.textContent = '—';
-      kpiPt6Sub.textContent = 'sem teto';
-      kpiPt6Sub.style.color = 'var(--muted)';
+      elTetoVal.textContent = '—';
+      elTetoSub.textContent = 'sem teto';
+      elTetoSub.style.color = 'var(--muted)';
+      if (cardTeto) cardTeto.setAttribute('title', 'Sem teto aplicável pela régua');
     }
   }
 
-  const lblPt2El = document.getElementById('m-kpi-lbl-pt2');
-  if (lblPt2El) lblPt2El.textContent = pt2Lbl;
-  const kpiPt8El = document.getElementById('m-kpi-pt8');
-  const kpiPt8Sub = document.getElementById('m-kpi-pt8-sub');
-  if (kpiPt8El && kpiPt8Sub) {
-    if (pt2Val && isFinite(pt2Val)) {
-      kpiPt8El.textContent = fmtR(pt2Val);
-      const m2 = ((pt2Val - r.preco) / r.preco) * 100;
-      kpiPt8Sub.textContent = (m2 >= 0 ? '+' : '') + m2.toFixed(1) + '% margem';
-      kpiPt8Sub.style.color = m2 >= 0 ? 'var(--good)' : 'var(--critical)';
+  // Payout com suporte a Payout Implícito (av.payoutDivergente)
+  const elPayout = document.getElementById('m-payout');
+  const elPayoutSub = document.getElementById('m-payout-sub');
+  if (elPayout) {
+    const payVal = (av && (av.payoutImplicito != null || av.payoutUsado != null)) ? (av.payoutImplicito != null ? av.payoutImplicito : av.payoutUsado) : r.payout;
+    if (av && av.payoutDivergente && payVal != null) {
+      elPayout.textContent = `${Math.round(payVal)}% (implícito)`;
+      elPayout.style.color = 'var(--gold)';
+      if (elPayoutSub) {
+        elPayoutSub.textContent = 'payout do código desatualizado';
+        elPayoutSub.style.display = 'block';
+        elPayoutSub.style.color = 'var(--warning)';
+      }
+      elPayout.setAttribute('title', `Payout do código (${r.payout}%) desatualizado frente ao provento real praticado. Usando payout implícito de ${Math.round(payVal)}%.`);
     } else {
-      kpiPt8El.textContent = '—';
-      kpiPt8Sub.textContent = 'sem teto';
-      kpiPt8Sub.style.color = 'var(--muted)';
+      const payShow = (av && av.payoutUsado != null) ? av.payoutUsado : r.payout;
+      elPayout.textContent = payShow != null ? `${payShow.toFixed(1)}%` : '—';
+      elPayout.style.color = 'var(--ink)';
+      if (elPayoutSub) {
+        elPayoutSub.textContent = '';
+        elPayoutSub.style.display = 'none';
+      }
+      elPayout.removeAttribute('title');
     }
   }
 
@@ -8697,14 +8781,15 @@ function openModalConferencia() {
   let totalSaldo = 0;
 
   function registrar(t, cat, q, pm, preco) {
-    if (q <= 0) return;
+    const qNum = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(q) : (parseFloat(q) || 0);
+    if (qNum <= 0 || (typeof isAtivoEncerrado === 'function' && isAtivoEncerrado(t))) return;
     const p = preco || 0;
     const pmVal = pm != null ? pm : p;
-    const investido = q * pmVal;
-    const saldo = q * p;
+    const investido = qNum * pmVal;
+    const saldo = qNum * p;
     totalInvestido += investido;
     totalSaldo += saldo;
-    ativos.push({ t, cat, q, pm: pmVal, preco: p, investido, saldo });
+    ativos.push({ t, cat, q: qNum, pm: pmVal, preco: p, investido, saldo });
   }
 
   BASE_STOCKS.forEach(s => {
@@ -8850,30 +8935,33 @@ function recalcularCarteira() {
   let fiisAbertosCount = 0;
 
   BASE_STOCKS.forEach(s => {
-    const q = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
+    const rawQ = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
+    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(rawQ) : (parseFloat(rawQ) || 0);
     s.saldo = q * (s.preco || 0);
     totalAcoes += s.saldo;
-    if (q > 0) {
+    if (q > 0 && (typeof isAtivoEncerrado !== 'function' || !isAtivoEncerrado(s.t))) {
       acoesAbertasCount++;
       totalInvestido += q * (s.pm || s.preco || 0);
     }
   });
 
   OUT_OF_BASE.forEach(s => {
-    const q = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
+    const rawQ = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
+    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(rawQ) : (parseFloat(rawQ) || 0);
     s.saldo = q * (s.preco || 0);
     totalAcoes += s.saldo;
-    if (q > 0) {
+    if (q > 0 && (typeof isAtivoEncerrado !== 'function' || !isAtivoEncerrado(s.t))) {
       acoesAbertasCount++;
       totalInvestido += q * (s.pm || s.preco || 0);
     }
   });
 
   FIIS.forEach(f => {
-    const q = f.quant != null ? f.quant : (rebData[f.t] ? rebData[f.t].q : 0);
+    const rawQ = f.quant != null ? f.quant : (rebData[f.t] ? rebData[f.t].q : 0);
+    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(rawQ) : (parseFloat(rawQ) || 0);
     f.saldo = q * (f.preco || 0);
     totalFiis += f.saldo;
-    if (q > 0) {
+    if (q > 0 && (typeof isAtivoEncerrado !== 'function' || !isAtivoEncerrado(f.t))) {
       fiisAbertosCount++;
       totalInvestido += q * (f.pm || f.preco || 0);
     }
@@ -11003,6 +11091,7 @@ initCollapsibleBlocks();
     let payEmp = !split && a.payout > 0 && a.payout < 100 ? a.payout : S.payout;
     let paySrcAviso = "";
     let payoutDivergente = false;
+    let payImplicitoVal = null;
 
     if (!split && pl > 0) {
       const dy12Val = (HY && HY.dpa12 && a.preco > 0) ? (HY.dpa12 / a.preco) * 100 : (a.dy || 0);
@@ -11010,6 +11099,7 @@ initCollapsibleBlocks();
       const payCod = a.payout || 0;
       if (payCod > 0 && Math.abs(payoutImplicito - payCod) > 20) {
         payEmp = Math.min(payoutImplicito, 100);
+        payImplicitoVal = payoutImplicito;
         paySrcAviso = "payout do código desatualizado (" + fmtN(payCod, 0) + "%) → implícito " + fmtN(payoutImplicito, 0) + "%";
         payoutDivergente = true;
       }
@@ -11035,7 +11125,7 @@ initCollapsibleBlocks();
     const src = (proj ? "Projetivo " + fR(proj) + " (LPA×" + fmtN(pay, 0) + "%" + (S.haircut ? "×" + fmtN(S.haircut * 100, 0) + "%" : "") + "÷" + fmtN(req, 1) + "%)" : "") +
       (paySrcAviso ? " [" + paySrcAviso + "]" : "") +
       (proj && hist ? " · " : "") + histSrc + (proj && hist ? " → usa o menor" : "");
-    return { teto, proj, hist, req, S, src, diverg, payoutDivergente };
+    return { teto, proj, hist, req, S, src, diverg, payoutDivergente, payoutUsado: pay, payoutImplicito: payImplicitoVal };
   }
   const isBaseSetor = s => setorDe({ setor: s }).base;
 
@@ -11711,10 +11801,10 @@ initCollapsibleBlocks();
       const sub = fiiSubDe(a), req = fiiReq(sub, a.dy || 0, m);
       const renda = a.rend ? a.rend * 12 : a.dpa;
       const teto = renda && req ? renda / (req / 100) : null;
-      return { teto, margemMin: sub.margemMin || 10, metodo: sub.nome, proj: null, hist: teto, src: "Renda anual ÷ " + (req ? fmtN(req, 1) + "%" : "—"), req };
+      return { teto, margemMin: sub.margemMin || 10, metodo: sub.nome, proj: null, hist: teto, src: "Renda anual ÷ " + (req ? fmtN(req, 1) + "%" : "—"), req, payoutUsado: a.payout || 95, payoutImplicito: null, payoutDivergente: false };
     }
     const tv = tetoAcao(a, m);
-    return { teto: tv.teto, margemMin: tv.S.margemMin, metodo: tv.S.nome, proj: tv.proj, hist: tv.hist, src: tv.src, req: tv.req, payoutDivergente: tv.payoutDivergente };
+    return { teto: tv.teto, margemMin: tv.S.margemMin, metodo: tv.S.nome, proj: tv.proj, hist: tv.hist, src: tv.src, req: tv.req, payoutDivergente: tv.payoutDivergente, payoutUsado: tv.payoutUsado, payoutImplicito: tv.payoutImplicito };
   };
 
   window.fehmirFiiTipo = t => FII_SUB_TICKER[t] || null;
