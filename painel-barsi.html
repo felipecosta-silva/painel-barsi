@@ -1242,6 +1242,116 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   color: var(--accent);
   font-weight: 600;
 }
+
+/* ===================== CAIXA PARA INVESTIR & CONFERÊNCIA (15/10/2026) ===================== */
+.caixa-investir-card {
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 14px 0 16px 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  font-family: var(--font-sans);
+}
+.caixa-investir-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.caixa-investir-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.caixa-investir-saldo {
+  font-size: 17px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+.caixa-investir-saldo.is-negative {
+  color: var(--critical);
+}
+.caixa-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.btn-caixa-action {
+  background: var(--surface-2);
+  border: 1px solid var(--rule-strong);
+  color: var(--ink);
+  padding: 5px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11.5px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+.btn-caixa-action:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-caixa-action.primary {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+.btn-caixa-action.primary:hover {
+  filter: brightness(1.1);
+}
+.caixa-conta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+  margin: 6px 0;
+  padding: 6px 10px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  border-left: 3px solid var(--accent);
+}
+.caixa-negativo-aviso {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--critical);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.caixa-toggle-link {
+  font-size: 11.5px;
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 6px;
+  display: inline-block;
+}
+.caixa-lancamentos-container {
+  margin-top: 10px;
+  border-top: 1px solid var(--rule);
+  padding-top: 8px;
+  overflow-x: auto;
+}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 
@@ -1406,20 +1516,23 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 
   <!-- 5 Cards de Resumo do Topo (Fiel ao Investidor 10 - Carteira 1) -->
   <div class="mc-kpis-grid">
-    <div class="mc-kpi-card">
+    <div class="mc-kpi-card" id="kpi-card-patrimonio">
       <div class="lbl">Patrimônio Total</div>
       <div class="val" id="mc-patrimonio">R$ 5.495,59</div>
-      <div class="sub">Valor investido R$ 5.348,26 <span style="color:var(--good); font-weight:700;">(+2,75% ▲)</span></div>
+      <div class="sub" id="mc-patrimonio-sub">Valor investido R$ 5.348,26 <span style="color:var(--good); font-weight:700;">(+2,75% ▲)</span></div>
+      <div id="mc-patrimonio-meta" style="font-size:10.5px; color:var(--muted); margin-top:4px;">
+        <span id="mc-fonte-precos">Preços de 15/10 (robô)</span> · <a href="javascript:void(0)" onclick="openModalConferencia()" style="color:var(--accent); text-decoration:underline; cursor:pointer;">Conferir com a corretora</a>
+      </div>
     </div>
     <div class="mc-kpi-card">
       <div class="lbl">Lucro Total ⓘ</div>
       <div class="val" id="mc-lucro" style="color:var(--good);">R$ 722,83</div>
-      <div class="sub" style="color:var(--ink-2); font-weight:500;">Ganho R$ 147,33 · Prov. R$ 575,50</div>
+      <div class="sub" id="mc-lucro-sub" style="color:var(--ink-2); font-weight:500;">Ganho R$ 147,33 · Prov. R$ 575,50</div>
     </div>
     <div class="mc-kpi-card">
       <div class="lbl">Proventos Recebidos (12M) ⓘ</div>
       <div class="val" id="mc-proventos" style="color:var(--good);">R$ 445,74</div>
-      <div class="sub">Total acumulado: R$ 575,50</div>
+      <div class="sub" id="mc-proventos-sub">Total acumulado: R$ 575,50</div>
     </div>
     <div class="mc-kpi-card">
       <div class="lbl">Rentabilidade (12M) ⓘ</div>
@@ -1428,10 +1541,13 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     </div>
     <div class="mc-kpi-card">
       <div class="lbl">Ativos na Carteira ⓘ</div>
-      <div class="val" style="color:var(--ink);">23 Ativos</div>
-      <div class="sub">10 Ações · 11 FIIs · 1 ETF · Criptos</div>
+      <div class="val" id="mc-total-ativos" style="color:var(--ink);">21 Ativos</div>
+      <div class="sub" id="mc-sub-ativos">8 Ações · 11 FIIs · 1 ETF · Criptos</div>
     </div>
   </div>
+
+  <!-- 💰 Caixa para Investir (Parte A - 15/10/2026) -->
+  <div class="caixa-investir-card" id="caixa-investir-card"></div>
 
   <!-- Resumo do Conselheiro Fehmir (preenchido por renderConselheiro) -->
   <div id="cb-banner"></div>
@@ -2962,7 +3078,8 @@ function aplicarPrecosDoRobo() {
     const hasLive = typeof BASE_STOCKS !== "undefined" && BASE_STOCKS.some(x => x.atual === "AO VIVO");
     if (!hasLive && countAtualizados > 0) {
       badge.style.display = "inline";
-      const dataSelo = latestFechamento || (latestMercado ? latestMercado + " (varredura)" : "09/10");
+      const dataSelo = latestFechamento || (latestMercado ? latestMercado + " (varredura)" : "15/10");
+      window.roboDataSelo = dataSelo;
       badge.textContent = "📦 Preços do robô: " + dataSelo;
     } else {
       badge.style.display = "none";
@@ -4824,12 +4941,14 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
       <div class="modal-form-grid">
         <div class="modal-form-field">
           <label>Operação</label>
-          <select id="lanc-tipo" onchange="calcularTotalLancamento()">
-            <option value="C">Compra (Aporte)</option>
+          <select id="lanc-tipo" onchange="onLancTipoChange()">
+            <option value="C">Compra</option>
             <option value="V">Venda</option>
+            <option value="A">Aporte (Dinheiro Novo)</option>
+            <option value="P">Provento (Dividendo / JCP / Rendimento)</option>
           </select>
         </div>
-        <div class="modal-form-field">
+        <div class="modal-form-field" id="lanc-cat-field">
           <label>Categoria</label>
           <select id="lanc-cat" onchange="updateLancamentoTickers(this.value)">
             <option value="acoes">Ações B.A.S.E.</option>
@@ -4838,8 +4957,8 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
             <option value="cripto">Criptomoedas (BTC/ETH/SOL)</option>
           </select>
         </div>
-        <div class="modal-form-field">
-          <label>Ticker / Código</label>
+        <div class="modal-form-field" id="lanc-ticker-field">
+          <label id="lanc-ticker-label">Ticker / Código</label>
           <input type="text" id="lanc-ticker" list="lanc-datalist" placeholder="Ex: BBAS3, LAVV3, XPML11..." required style="text-transform:uppercase;">
           <datalist id="lanc-datalist"></datalist>
         </div>
@@ -4847,19 +4966,19 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
           <label>Data</label>
           <input type="date" id="lanc-data" required>
         </div>
-        <div class="modal-form-field">
-          <label>Quantidade</label>
+        <div class="modal-form-field" id="lanc-quant-field">
+          <label id="lanc-quant-label">Quantidade</label>
           <input type="number" id="lanc-quant" step="any" min="0.00000001" placeholder="Ex: 5" required oninput="calcularTotalLancamento()">
         </div>
-        <div class="modal-form-field">
-          <label>Preço Unitário (R$)</label>
+        <div class="modal-form-field" id="lanc-preco-field">
+          <label id="lanc-preco-label">Preço Unitário (R$)</label>
           <input type="number" id="lanc-preco" step="0.01" min="0.01" placeholder="Ex: 13.84" required oninput="calcularTotalLancamento()">
         </div>
-        <div class="modal-form-field">
+        <div class="modal-form-field" id="lanc-taxa-field">
           <label>Taxa / Custos B3 (R$)</label>
           <input type="number" id="lanc-taxa" step="0.01" min="0" placeholder="Ex: 0.03" value="0.00" oninput="calcularTotalLancamento()">
         </div>
-        <div class="modal-form-field">
+        <div class="modal-form-field" id="lanc-subtotal-field">
           <label>Subtotal Bruto</label>
           <div id="lanc-subtotal-bruto" style="background:var(--surface-2); border:1px solid var(--rule); border-radius:8px; padding:9px 12px; font-size:13.5px; font-family:var(--font-mono); color:var(--ink-2); font-weight:600; display:flex; align-items:center;">R$ 0,00</div>
         </div>
@@ -4876,6 +4995,63 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
         <button type="submit" class="mc-btn primary" style="padding:9px 20px; font-size:13px; font-weight:700;">💾 Salvar Lançamento</button>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- ===================== MODAL DE CONFERÊNCIA COM A CORRETORA (15/10/2026) ===================== -->
+<div class="modal-overlay" id="modal-conferencia">
+  <div class="modal-content" style="max-width: 760px; max-height: 85vh; display:flex; flex-direction:column;">
+    <button class="modal-close" onclick="closeModalConferencia()">✕</button>
+    <div class="modal-header" style="margin-bottom:12px;">
+      <span style="font-size:11px; text-transform:uppercase; font-weight:700; color:var(--accent); letter-spacing:0.05em;">Auditoria de Posições</span>
+      <h2 style="font-size:22px; margin:4px 0 6px; font-family:var(--font-serif); font-weight:700;">Conferência com a Corretora (Investidor 10)</h2>
+      <p style="font-size:12.5px; color:var(--ink-2); margin:0;">Lista completa de posições abertas ordenadas por saldo em carteira (encerrados desconsiderados).</p>
+    </div>
+    <div style="overflow-y:auto; flex:1; border:1px solid var(--rule); border-radius:8px;">
+      <table class="responsive-stack" style="width:100%; border-collapse:collapse; font-size:12px;">
+        <thead style="position:sticky; top:0; background:var(--surface-2); z-index:2; border-bottom:1.5px solid var(--rule-strong);">
+          <tr>
+            <th style="padding:8px 10px; text-align:left;">Ticker</th>
+            <th style="padding:8px 10px; text-align:left;">Categoria</th>
+            <th style="padding:8px 10px; text-align:right;">Quantidade</th>
+            <th style="padding:8px 10px; text-align:right;">Preço Médio (PM)</th>
+            <th style="padding:8px 10px; text-align:right;">Preço Atual</th>
+            <th style="padding:8px 10px; text-align:right;">Saldo Total</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-conferencia"></tbody>
+        <tfoot id="tfoot-conferencia" style="background:var(--surface-2); font-weight:700; border-top:1.5px solid var(--rule-strong);"></tfoot>
+      </table>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; font-size:11.5px; color:var(--muted);">
+      <span id="conferencia-resumo-ativos">21 ativos em carteira</span>
+      <button type="button" class="mc-btn" onclick="closeModalConferencia()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODAL CONFIG CAIXA (15/10/2026) ===================== -->
+<div class="modal-overlay" id="modal-caixa-cfg">
+  <div class="modal-content" style="max-width: 420px;">
+    <button class="modal-close" onclick="closeCaixaConfigModal()">✕</button>
+    <div class="modal-header">
+      <h3 style="font-size:18px; margin:0 0 6px; font-weight:700;">⚙️ Configuração do Caixa para Investir</h3>
+      <p style="font-size:12px; color:var(--ink-2); margin:0;">Defina a data de início da apuração do caixa e o aporte mensal padrão.</p>
+    </div>
+    <div style="margin:14px 0; display:flex; flex-direction:column; gap:12px;">
+      <div>
+        <label style="font-size:12px; font-weight:600; color:var(--ink);">Data de Início do Controle</label>
+        <input type="date" id="cfg-caixa-inicio" style="width:100%; padding:7px 10px; border-radius:6px; border:1px solid var(--rule); margin-top:4px; font-family:var(--font-mono); box-sizing:border-box;">
+      </div>
+      <div>
+        <label style="font-size:12px; font-weight:600; color:var(--ink);">Aporte Mensal Padrão (R$)</label>
+        <input type="number" id="cfg-caixa-aporte" step="10" min="0" style="width:100%; padding:7px 10px; border-radius:6px; border:1px solid var(--rule); margin-top:4px; font-family:var(--font-mono); box-sizing:border-box;">
+      </div>
+    </div>
+    <div style="display:flex; justify-content:flex-end; gap:8px;">
+      <button type="button" class="mc-btn" onclick="closeCaixaConfigModal()">Cancelar</button>
+      <button type="button" class="mc-btn primary" onclick="salvarCaixaConfigModal()">Salvar Configuração</button>
+    </div>
   </div>
 </div>
 
@@ -7527,7 +7703,7 @@ function openLancamentoModal() {
     const dEl = document.getElementById('lanc-data');
     if (dEl && !dEl.value) dEl.value = d;
     updateLancamentoTickers(document.getElementById('lanc-cat').value);
-    calcularTotalLancamento();
+    onLancTipoChange();
   }
 }
 function closeLancamentoModal() {
@@ -7552,16 +7728,87 @@ function updateLancamentoTickers(cat) {
   }
   dl.innerHTML = [...new Set(options)].map(t => `<option value="${t}">`).join('');
 }
+
+function onLancTipoChange() {
+  const tipo = document.getElementById('lanc-tipo') ? document.getElementById('lanc-tipo').value : 'C';
+  const catField = document.getElementById('lanc-cat-field');
+  const tickerField = document.getElementById('lanc-ticker-field');
+  const tickerInput = document.getElementById('lanc-ticker');
+  const tickerLabel = document.getElementById('lanc-ticker-label');
+  const quantField = document.getElementById('lanc-quant-field');
+  const quantInput = document.getElementById('lanc-quant');
+  const precoLabel = document.getElementById('lanc-preco-label');
+  const taxaField = document.getElementById('lanc-taxa-field');
+  const taxaInput = document.getElementById('lanc-taxa');
+  const subtotalField = document.getElementById('lanc-subtotal-field');
+
+  if (tipo === 'A') {
+    // Aporte de dinheiro novo
+    if (catField) catField.style.display = 'none';
+    if (tickerField) tickerField.style.display = 'none';
+    if (tickerInput) {
+      tickerInput.value = '—';
+      tickerInput.required = false;
+    }
+    if (quantField) quantField.style.display = 'none';
+    if (quantInput) quantInput.value = '1';
+    if (precoLabel) precoLabel.textContent = 'Valor do Aporte (R$)';
+    if (taxaField) taxaField.style.display = 'none';
+    if (taxaInput) taxaInput.value = '0.00';
+    if (subtotalField) subtotalField.style.display = 'none';
+  } else if (tipo === 'P') {
+    // Provento recebido
+    if (catField) catField.style.display = 'block';
+    if (tickerField) tickerField.style.display = 'block';
+    if (tickerLabel) tickerLabel.textContent = 'Ticker Pagador';
+    if (tickerInput) {
+      if (tickerInput.value === '—') tickerInput.value = '';
+      tickerInput.required = true;
+    }
+    if (quantField) quantField.style.display = 'none';
+    if (quantInput) quantInput.value = '1';
+    if (precoLabel) precoLabel.textContent = 'Valor Recebido em Proventos (R$)';
+    if (taxaField) taxaField.style.display = 'none';
+    if (taxaInput) taxaInput.value = '0.00';
+    if (subtotalField) subtotalField.style.display = 'none';
+  } else {
+    // Compra ou Venda padrão
+    if (catField) catField.style.display = 'block';
+    if (tickerField) tickerField.style.display = 'block';
+    if (tickerLabel) tickerLabel.textContent = 'Ticker / Código';
+    if (tickerInput) {
+      if (tickerInput.value === '—') tickerInput.value = '';
+      tickerInput.required = true;
+    }
+    if (quantField) quantField.style.display = 'block';
+    if (precoLabel) precoLabel.textContent = 'Preço Unitário (R$)';
+    if (taxaField) taxaField.style.display = 'block';
+    if (subtotalField) subtotalField.style.display = 'block';
+  }
+
+  calcularTotalLancamento();
+}
+
 function calcularTotalLancamento() {
   const tipo = document.getElementById('lanc-tipo') ? document.getElementById('lanc-tipo').value : 'C';
-  const q = parseFloat(document.getElementById('lanc-quant').value) || 0;
-  const p = parseFloat(document.getElementById('lanc-preco').value) || 0;
-  const taxa = parseFloat(document.getElementById('lanc-taxa') ? document.getElementById('lanc-taxa').value : 0) || 0;
+  const q = parseFloat(document.getElementById('lanc-quant')?.value) || 0;
+  const p = parseFloat(document.getElementById('lanc-preco')?.value) || 0;
+  const taxa = parseFloat(document.getElementById('lanc-taxa')?.value || 0) || 0;
   
-  const bruto = q * p;
-  // Na compra: desembolso total = bruto + taxa
-  // Na venda: receita líquida = bruto - taxa
-  const liquido = tipo === 'V' ? Math.max(0, bruto - taxa) : (bruto + taxa);
+  let liquido = 0;
+  let bruto = q * p;
+
+  if (tipo === 'A') {
+    liquido = p;
+    bruto = p;
+  } else if (tipo === 'P') {
+    liquido = p;
+    bruto = p;
+  } else if (tipo === 'V') {
+    liquido = Math.max(0, bruto - taxa);
+  } else {
+    liquido = bruto + taxa;
+  }
 
   const elSub = document.getElementById('lanc-subtotal-bruto');
   if (elSub) elSub.textContent = fmtR(bruto);
@@ -7569,17 +7816,24 @@ function calcularTotalLancamento() {
   const prev = document.getElementById('lanc-total-preview');
   if (prev) {
     prev.textContent = fmtR(liquido);
-    prev.style.color = tipo === 'V' ? 'var(--good)' : 'var(--accent)';
+    prev.style.color = (tipo === 'V' || tipo === 'A' || tipo === 'P') ? 'var(--good)' : 'var(--accent)';
   }
 
   const lbl = document.getElementById('lanc-total-lbl');
   if (lbl) {
-    lbl.textContent = tipo === 'V' ? 'Valor Líquido a Receber (Venda):' : 'Valor Total a Desembolsar (Compra):';
+    if (tipo === 'A') lbl.textContent = 'Valor do Aporte a Entrar no Caixa:';
+    else if (tipo === 'P') lbl.textContent = 'Valor Líquido de Proventos:';
+    else if (tipo === 'V') lbl.textContent = 'Valor Líquido a Receber (Venda):';
+    else lbl.textContent = 'Valor Total a Desembolsar (Compra):';
   }
 
   const sub = document.getElementById('lanc-formula-sub');
   if (sub) {
-    if (taxa > 0) {
+    if (tipo === 'A') {
+      sub.textContent = 'Dinheiro novo para o Caixa de investimentos';
+    } else if (tipo === 'P') {
+      sub.textContent = 'Dividendo / JCP / Rendimento recebido em conta';
+    } else if (taxa > 0) {
       sub.innerHTML = tipo === 'V' 
         ? `Bruto ${fmtR(bruto)} <span style="color:var(--critical); font-weight:600;">− Taxa B3 ${fmtR(taxa)}</span>`
         : `Bruto ${fmtR(bruto)} <span style="color:var(--critical); font-weight:600;">+ Taxa B3 ${fmtR(taxa)}</span>`;
@@ -7588,46 +7842,103 @@ function calcularTotalLancamento() {
     }
   }
 }
+
 function handleSalvarLancamento(e) {
   e.preventDefault();
   const tipo = document.getElementById('lanc-tipo').value;
   const cat = document.getElementById('lanc-cat').value;
-  const ticker = document.getElementById('lanc-ticker').value.trim().toUpperCase();
+  let ticker = document.getElementById('lanc-ticker').value.trim().toUpperCase();
   const quant = parseFloat(document.getElementById('lanc-quant').value) || 0;
   const preco = parseFloat(document.getElementById('lanc-preco').value) || 0;
   const taxa = parseFloat(document.getElementById('lanc-taxa') ? document.getElementById('lanc-taxa').value : 0) || 0;
   const dataLanc = document.getElementById('lanc-data') ? document.getElementById('lanc-data').value : new Date().toISOString().split('T')[0];
 
-  if (!ticker || quant <= 0 || preco <= 0) {
-    alert("Por favor, preencha todos os campos corretamente.");
-    return;
-  }
-
-  const bruto = quant * preco;
-  const totalLiquido = tipo === 'V' ? Math.max(0, bruto - taxa) : (bruto + taxa);
-
-  // Atualizar rebData
-  if (!rebData[ticker]) {
-    rebData[ticker] = { q: 0, i: 2.0 };
-  }
-  if (tipo === 'C') {
-    rebData[ticker].q += quant;
+  if (tipo === 'A') {
+    ticker = '—';
+    if (preco <= 0) {
+      alert("Por favor, preencha o valor do aporte.");
+      return;
+    }
+  } else if (tipo === 'P') {
+    if (!ticker || preco <= 0) {
+      alert("Por favor, preencha o ticker pagador e o valor do provento.");
+      return;
+    }
   } else {
-    rebData[ticker].q = Math.max(0, rebData[ticker].q - quant);
+    if (!ticker || quant <= 0 || preco <= 0) {
+      alert("Por favor, preencha todos os campos corretamente.");
+      return;
+    }
   }
-  localStorage.setItem(REB_DATA_KEY, JSON.stringify(rebData));
 
-  // Registrar no Livro de Transações (Trade Log)
+  let totalLiquido = 0;
+  let tipoNome = 'Compra';
+
+  if (tipo === 'A') {
+    totalLiquido = preco;
+    tipoNome = 'Aporte';
+  } else if (tipo === 'P') {
+    totalLiquido = preco;
+    tipoNome = 'Provento';
+  } else if (tipo === 'V') {
+    totalLiquido = Math.max(0, quant * preco - taxa);
+    tipoNome = 'Venda';
+  } else {
+    totalLiquido = quant * preco + taxa;
+    tipoNome = 'Compra';
+  }
+
+  // Atualizar rebData apenas para Compra ou Venda
+  if (tipo === 'C' || tipo === 'V') {
+    if (!rebData[ticker]) {
+      rebData[ticker] = { q: 0, i: 2.0 };
+    }
+    if (tipo === 'C') {
+      rebData[ticker].q += quant;
+    } else {
+      rebData[ticker].q = Math.max(0, rebData[ticker].q - quant);
+    }
+    try {
+      localStorage.setItem(REB_DATA_KEY, JSON.stringify(rebData));
+    } catch(err) {}
+
+    // Atualizar arrays locais
+    let match = [...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS].find(x => x.t === ticker);
+    if (match) {
+      match.quant = rebData[ticker].q;
+      match.preco = preco;
+      match.saldo = match.quant * preco;
+    } else {
+      if (cat === 'fiis') {
+        FIIS.push({
+          t: ticker, tipo: 'tijolo', quant: quant, pm: preco, preco: preco, carteira: 2.0, ideal: 5.45,
+          saldo: quant * preco, prov: 0, pvp: 0.95, vpa: preco, rend: preco * 0.008, vac: 0, dy: 10.0,
+          range: [preco * 0.9, preco * 1.1], atual: "Recente", tracker: "good", trackerLbl: "Aporte",
+          status: "good", note: "Ativo adicionado via lançamento manual."
+        });
+      } else if (cat === 'acoes') {
+        BASE_STOCKS.push({
+          t: ticker, setor: 'Geral', quant: quant, pm: preco, preco: preco, dy: 6.5, dpa: preco * 0.065,
+          pvp: 1.2, pl: "8,00", roe: 15.0, prov: 0, saldo: quant * preco, pct: 2.0, ideal: 2.0,
+          range: [preco * 0.85, preco * 1.15], atual: "Recente", status: "good", note: "Ativo adicionado via lançamento manual."
+        });
+      }
+    }
+  }
+
+  // Registrar no Extrato
   if (typeof adicionarTransacao === 'function') {
-    const notaTexto = taxa > 0 
-      ? `Ordem com taxa B3 de ${fmtR(taxa)} (Bruto: ${fmtR(bruto)})`
-      : "Lançamento manual registrado na carteira";
+    let notaTexto = "Lançamento manual registrado na carteira";
+    if (tipo === 'A') notaTexto = "Aporte de dinheiro novo para o Caixa";
+    else if (tipo === 'P') notaTexto = `Provento recebido de ${ticker}`;
+    else if (taxa > 0) notaTexto = `Ordem com taxa B3 de ${fmtR(taxa)} (Bruto: ${fmtR(quant * preco)})`;
+
     adicionarTransacao({
       data: dataLanc,
-      tipo: tipo === 'C' ? 'Compra' : 'Venda',
+      tipo: tipoNome,
       ticker: ticker,
-      cat: cat.toUpperCase(),
-      quant: quant,
+      cat: (tipo === 'A' ? 'CAIXA' : cat.toUpperCase()),
+      quant: (tipo === 'A' || tipo === 'P') ? 1 : quant,
       preco: preco,
       taxa: taxa,
       total: totalLiquido,
@@ -7635,32 +7946,10 @@ function handleSalvarLancamento(e) {
     });
   }
 
-  // Atualizar ou adicionar ativo na estrutura correspondente
-  let match = [...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS].find(x => x.t === ticker);
-  if (match) {
-    match.quant = rebData[ticker].q;
-    match.preco = preco;
-    match.saldo = match.quant * preco;
-  } else {
-    if (cat === 'fiis') {
-      FIIS.push({
-        t: ticker, tipo: 'tijolo', quant: quant, pm: preco, preco: preco, carteira: 2.0, ideal: 5.45,
-        saldo: quant * preco, prov: 0, pvp: 0.95, vpa: preco, rend: preco * 0.008, vac: 0, dy: 10.0,
-        range: [preco * 0.9, preco * 1.1], atual: "Recente", tracker: "good", trackerLbl: "Aporte",
-        status: "good", note: "Ativo adicionado via lançamento manual."
-      });
-    } else if (cat === 'acoes') {
-      BASE_STOCKS.push({
-        t: ticker, setor: 'Geral', quant: quant, pm: preco, preco: preco, dy: 6.5, dpa: preco * 0.065,
-        pvp: 1.2, pl: "8,00", roe: 15.0, prov: 0, saldo: quant * preco, pct: 2.0, ideal: 2.0,
-        range: [preco * 0.85, preco * 1.15], atual: "Recente", status: "good", note: "Ativo adicionado via lançamento manual."
-      });
-    }
-  }
-
   recalcularCarteira();
+  if (typeof renderCaixaInvestir === 'function') renderCaixaInvestir();
   closeLancamentoModal();
-  alert(`Lançamento de ${tipo === 'C' ? 'COMPRA' : 'VENDA'} de ${quant} ${ticker} salvo e registrado no Extrato!\nValor Líquido: ${fmtR(totalLiquido)} (Taxa: ${fmtR(taxa)})`);
+  alert(`Lançamento de ${tipoNome.toUpperCase()} salvo com sucesso!\nValor: ${fmtR(totalLiquido)}`);
 }
 
 function openTutorialModal() {
@@ -7678,25 +7967,359 @@ function closeTutorialModal() {
   }
 }
 
-function openExecutiveReport() {
-  const m = document.getElementById('modal-relatorio-executivo');
+/* ===================== CAIXA PARA INVESTIR (15/10/2026) ===================== */
+const CAIXA_CFG_KEY = "barsi-caixa-cfg-v1";
+let caixaLancamentosAberto = false;
+
+function getCaixaCfg() {
+  try {
+    const salvo = JSON.parse(localStorage.getItem(CAIXA_CFG_KEY) || "null");
+    if (salvo && salvo.inicio) {
+      return {
+        inicio: salvo.inicio || "2026-10-01",
+        aporteMensal: parseFloat(salvo.aporteMensal) || 300
+      };
+    }
+  } catch (e) {}
+  return { inicio: "2026-10-01", aporteMensal: 300 };
+}
+
+function setCaixaCfg(cfg) {
+  try {
+    localStorage.setItem(CAIXA_CFG_KEY, JSON.stringify(cfg));
+  } catch (e) {}
+}
+
+function calcularResumoCaixa() {
+  const cfg = getCaixaCfg();
+  const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
+  
+  let aportes = 0;
+  let vendas = 0;
+  let proventos = 0;
+  let compras = 0;
+  const lancamentosPeriodo = [];
+
+  // Filtrar a partir da data de início do controle
+  // Ordenar cronologicamente para compor saldo acumulado
+  const sorted = [...extrato]
+    .filter(t => t.data >= cfg.inicio)
+    .sort((a, b) => (a.data > b.data ? 1 : (a.data < b.data ? -1 : 0)));
+
+  let saldoAcumulado = 0;
+  sorted.forEach(t => {
+    let impacto = 0;
+    const taxa = parseFloat(t.taxa) || 0;
+    const quant = parseFloat(t.quant) || 0;
+    const preco = parseFloat(t.preco) || 0;
+    const total = parseFloat(t.total) || 0;
+
+    if (t.tipo === 'Aporte') {
+      impacto = total;
+      aportes += total;
+    } else if (t.tipo === 'Venda') {
+      const liq = (quant > 0 && preco > 0) ? (quant * preco - taxa) : total;
+      impacto = liq;
+      vendas += liq;
+    } else if (t.tipo === 'Provento') {
+      impacto = total;
+      proventos += total;
+    } else if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
+      const custo = (quant > 0 && preco > 0) ? (quant * preco + taxa) : total;
+      impacto = -custo;
+      compras += custo;
+    }
+
+    saldoAcumulado += impacto;
+    lancamentosPeriodo.push({
+      ...t,
+      impacto,
+      saldoAcumulado
+    });
+  });
+
+  const saldo = aportes + vendas + proventos - compras;
+  return {
+    cfg,
+    aportes,
+    vendas,
+    proventos,
+    compras,
+    saldo,
+    lancamentos: lancamentosPeriodo.reverse()
+  };
+}
+
+function renderCaixaInvestir() {
+  const card = document.getElementById('caixa-investir-card');
+  if (!card) return;
+
+  const res = calcularResumoCaixa();
+  const saldoPositivo = res.saldo >= 0;
+
+  const avisoNegativo = !saldoPositivo ? `
+    <div class="caixa-negativo-aviso">
+      <span>⚠️ Compras acima do caixa: confira se faltou lançar um aporte ou provento.</span>
+    </div>` : "";
+
+  let tabelaLancamentosHtml = "";
+  if (caixaLancamentosAberto) {
+    if (res.lancamentos.length === 0) {
+      tabelaLancamentosHtml = `
+        <div class="caixa-lancamentos-container">
+          <p style="font-size:12px; color:var(--muted); margin:6px 0;">Nenhum lançamento registrado a partir de ${res.cfg.inicio}.</p>
+        </div>`;
+    } else {
+      const rows = res.lancamentos.map(l => {
+        const sinal = l.impacto >= 0 ? "+" : "−";
+        const cor = l.impacto >= 0 ? "var(--good)" : "var(--critical)";
+        const tickerBadge = l.ticker && l.ticker !== '—' ? `<b>${l.ticker}</b>` : `<span style="color:var(--muted);">—</span>`;
+        return `
+          <tr style="border-bottom:1px solid var(--rule);">
+            <td style="padding:6px 8px; font-family:var(--font-mono); font-size:11.5px; color:var(--muted);">${l.data}</td>
+            <td style="padding:6px 8px; font-size:12px;">${l.tipo}</td>
+            <td style="padding:6px 8px; font-family:var(--font-mono); font-size:12px;">${tickerBadge}</td>
+            <td style="padding:6px 8px; text-align:right; font-family:var(--font-mono); font-weight:700; color:${cor}; font-size:12px;">${sinal} ${fmtR(Math.abs(l.impacto))}</td>
+            <td style="padding:6px 8px; text-align:right; font-family:var(--font-mono); font-size:11.5px; color:var(--ink-2);">${fmtR(l.saldoAcumulado)}</td>
+          </tr>
+        `;
+      }).join('');
+
+      tabelaLancamentosHtml = `
+        <div class="caixa-lancamentos-container">
+          <table style="width:100%; border-collapse:collapse; text-align:left; font-size:12px;">
+            <thead>
+              <tr style="border-bottom:1.5px solid var(--rule-strong); font-size:11px; color:var(--muted); text-transform:uppercase;">
+                <th style="padding:5px 8px;">Data</th>
+                <th style="padding:5px 8px;">Tipo</th>
+                <th style="padding:5px 8px;">Ticker</th>
+                <th style="padding:5px 8px; text-align:right;">Valor</th>
+                <th style="padding:5px 8px; text-align:right;">Saldo Acumulado</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
+    }
+  }
+
+  card.innerHTML = `
+    <div class="caixa-investir-head">
+      <div class="caixa-investir-title">
+        <span>💰 Caixa para investir:</span>
+        <span class="caixa-investir-saldo ${saldoPositivo ? '' : 'is-negative'}">${fmtR(res.saldo)}</span>
+      </div>
+      <div class="caixa-actions">
+        <button type="button" class="btn-caixa-action primary" onclick="abrirModalAporteMes()">+ Aporte do mês</button>
+        <button type="button" class="btn-caixa-action" onclick="abrirModalProvento()">+ Provento</button>
+        <button type="button" class="btn-caixa-action" onclick="openCaixaConfigModal()" title="Configurar data de início e aporte padrão">⚙️</button>
+      </div>
+    </div>
+    <div class="caixa-conta-row">
+      <span><b>Aportes</b> ${fmtR(res.aportes)}</span>
+      <span>+</span>
+      <span><b>Vendas</b> ${fmtR(res.vendas)}</span>
+      <span>+</span>
+      <span><b>Proventos</b> ${fmtR(res.proventos)}</span>
+      <span>−</span>
+      <span><b>Compras</b> ${fmtR(res.compras)}</span>
+      <span>=</span>
+      <span style="font-weight:700; color:${saldoPositivo ? 'var(--good)' : 'var(--critical)'};">${fmtR(res.saldo)}</span>
+    </div>
+    ${avisoNegativo}
+    <div>
+      <button type="button" class="caixa-toggle-link" onclick="toggleCaixaLancamentos()">
+        ${caixaLancamentosAberto ? '▲ Ocultar lançamentos do caixa' : '▶ Ver lançamentos do caixa (' + res.lancamentos.length + ')'}
+      </button>
+    </div>
+    ${tabelaLancamentosHtml}
+  `;
+}
+
+function toggleCaixaLancamentos() {
+  caixaLancamentosAberto = !caixaLancamentosAberto;
+  renderCaixaInvestir();
+}
+
+function abrirModalAporteMes() {
+  const cfg = getCaixaCfg();
+  openLancamentoModal();
+  const tipoSelect = document.getElementById('lanc-tipo');
+  if (tipoSelect) {
+    tipoSelect.value = 'A';
+    onLancTipoChange();
+  }
+  const precoInput = document.getElementById('lanc-preco');
+  if (precoInput) precoInput.value = cfg.aporteMensal;
+  const quantInput = document.getElementById('lanc-quant');
+  if (quantInput) quantInput.value = '1';
+  calcularTotalLancamento();
+}
+
+function adicionarAporteDoMes(valorCustom) {
+  const cfg = getCaixaCfg();
+  const valor = (typeof valorCustom === 'number' && valorCustom > 0) ? valorCustom : cfg.aporteMensal;
+  const hoje = new Date().toISOString().split('T')[0];
+  if (typeof adicionarTransacao === 'function') {
+    adicionarTransacao({
+      data: hoje,
+      tipo: 'Aporte',
+      ticker: '—',
+      cat: 'CAIXA',
+      quant: 1,
+      preco: valor,
+      taxa: 0,
+      total: valor,
+      nota: 'Aporte do mês registrado'
+    });
+  }
+  recalcularCarteira();
+  if (typeof renderCaixaInvestir === 'function') renderCaixaInvestir();
+}
+window.adicionarAporteDoMes = adicionarAporteDoMes;
+
+function abrirModalProvento(tickerPadrao) {
+  openLancamentoModal();
+  const tipoSelect = document.getElementById('lanc-tipo');
+  if (tipoSelect) {
+    tipoSelect.value = 'P';
+    onLancTipoChange();
+  }
+  if (tickerPadrao) {
+    const tInput = document.getElementById('lanc-ticker');
+    if (tInput) tInput.value = tickerPadrao;
+  }
+  const quantInput = document.getElementById('lanc-quant');
+  if (quantInput) quantInput.value = '1';
+  calcularTotalLancamento();
+}
+
+function openCaixaConfigModal() {
+  const cfg = getCaixaCfg();
+  const m = document.getElementById('modal-caixa-cfg');
   if (m) {
+    document.getElementById('cfg-caixa-inicio').value = cfg.inicio;
+    document.getElementById('cfg-caixa-aporte').value = cfg.aporteMensal;
     m.style.display = 'flex';
     m.classList.add('active');
   }
 }
-function closeExecutiveReport() {
-  const m = document.getElementById('modal-relatorio-executivo');
+
+function closeCaixaConfigModal() {
+  const m = document.getElementById('modal-caixa-cfg');
   if (m) {
     m.classList.remove('active');
     m.style.display = 'none';
   }
 }
-window.openExecutiveReport = openExecutiveReport;
-window.closeExecutiveReport = closeExecutiveReport;
+
+function salvarCaixaConfigModal() {
+  const inicio = document.getElementById('cfg-caixa-inicio').value || "2026-10-01";
+  const aporte = parseFloat(document.getElementById('cfg-caixa-aporte').value) || 300;
+  setCaixaCfg({ inicio, aporteMensal: aporte });
+  closeCaixaConfigModal();
+  renderCaixaInvestir();
+}
+
+/* ================= MODAL DE CONFERÊNCIA COM A CORRETORA (15/10/2026) ================= */
+function openModalConferencia() {
+  const modal = document.getElementById('modal-conferencia');
+  if (!modal) return;
+
+  const ativos = [];
+  let totalInvestido = 0;
+  let totalSaldo = 0;
+
+  function registrar(t, cat, q, pm, preco) {
+    if (q <= 0) return;
+    const p = preco || 0;
+    const pmVal = pm != null ? pm : p;
+    const investido = q * pmVal;
+    const saldo = q * p;
+    totalInvestido += investido;
+    totalSaldo += saldo;
+    ativos.push({ t, cat, q, pm: pmVal, preco: p, investido, saldo });
+  }
+
+  BASE_STOCKS.forEach(s => {
+    const q = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
+    registrar(s.t, 'Ação B.A.S.E.', q, s.pm, s.preco);
+  });
+  OUT_OF_BASE.forEach(s => {
+    const q = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
+    registrar(s.t, 'Ação Fora', q, s.pm, s.preco);
+  });
+  FIIS.forEach(f => {
+    const q = f.quant != null ? f.quant : (rebData[f.t] ? rebData[f.t].q : 0);
+    registrar(f.t, 'FII', q, f.pm, f.preco);
+  });
+
+  const qVti = rebData.VTI ? rebData.VTI.q : 0.05209268;
+  registrar('VTI', 'ETF Intl', qVti, 1973.00, 1973.00);
+
+  const qSol = rebData.SOL ? rebData.SOL.q : 0.04888403;
+  registrar('SOL', 'Cripto', qSol, 594.67, 594.67);
+
+  // Ordenar por saldo decrescente
+  ativos.sort((a, b) => b.saldo - a.saldo);
+
+  const tbody = document.getElementById('tbody-conferencia');
+  if (tbody) {
+    tbody.innerHTML = ativos.map(a => {
+      const qFmt = typeof a.q === 'number' && a.q < 1 ? a.q.toFixed(6) : a.q;
+      const rentPct = a.investido > 0 ? ((a.saldo - a.investido) / a.investido) * 100 : 0;
+      return `
+        <tr style="border-bottom:1px solid var(--rule);">
+          <td style="padding:6px 10px; font-weight:700; font-family:var(--font-mono);">${a.t}</td>
+          <td style="padding:6px 10px; color:var(--muted);">${a.cat}</td>
+          <td style="padding:6px 10px; text-align:right; font-family:var(--font-mono);">${qFmt}</td>
+          <td style="padding:6px 10px; text-align:right; font-family:var(--font-mono);">${fmtR(a.pm)}</td>
+          <td style="padding:6px 10px; text-align:right; font-family:var(--font-mono); font-weight:600; color:var(--accent);">${fmtR(a.preco)}</td>
+          <td style="padding:6px 10px; text-align:right; font-family:var(--font-mono); font-weight:700;">
+            ${fmtR(a.saldo)}
+            <span style="font-size:10px; color:${rentPct >= 0 ? 'var(--good)' : 'var(--critical)'}; display:block;">${rentPct >= 0 ? '+' : ''}${rentPct.toFixed(1)}%</span>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  const tfoot = document.getElementById('tfoot-conferencia');
+  if (tfoot) {
+    const ganho = totalSaldo - totalInvestido;
+    const rentTot = totalInvestido > 0 ? (ganho / totalInvestido) * 100 : 0;
+    tfoot.innerHTML = `
+      <tr>
+        <td colspan="3" style="padding:8px 10px;"><b>TOTAL (${ativos.length} ATIVOS ABERTOS)</b></td>
+        <td style="padding:8px 10px; text-align:right; font-family:var(--font-mono); font-size:11.5px; color:var(--ink-2);">${fmtR(totalInvestido)}</td>
+        <td style="padding:8px 10px; text-align:right; font-size:11px; color:var(--muted);">Valor Investido</td>
+        <td style="padding:8px 10px; text-align:right; font-family:var(--font-mono); color:var(--accent); font-size:13px;">
+          ${fmtR(totalSaldo)}
+          <span style="font-size:10.5px; color:${rentTot >= 0 ? 'var(--good)' : 'var(--critical)'}; display:block;">${rentTot >= 0 ? '+' : ''}${rentTot.toFixed(2)}% ▲</span>
+        </td>
+      </tr>
+    `;
+  }
+
+  const elResumo = document.getElementById('conferencia-resumo-ativos');
+  if (elResumo) {
+    elResumo.textContent = `${ativos.length} ativos em carteira · Total Investido: ${fmtR(totalInvestido)} · Patrimônio: ${fmtR(totalSaldo)}`;
+  }
+
+  modal.style.display = 'flex';
+  modal.classList.add('active');
+}
+
+function closeModalConferencia() {
+  const modal = document.getElementById('modal-conferencia');
+  if (modal) {
+    modal.classList.remove('active');
+    modal.style.display = 'none';
+  }
+}
 
 // Fechar modais ao clicar no overlay de fundo
-['ticket-modal', 'modal-lancamento', 'modal-tutorial', 'modal-relatorio-executivo'].forEach(id => {
+['ticket-modal', 'modal-lancamento', 'modal-tutorial', 'modal-relatorio-executivo', 'modal-conferencia', 'modal-caixa-cfg'].forEach(id => {
   const el = document.getElementById(id);
   if (el) {
     el.addEventListener('click', (e) => {
@@ -7754,38 +8377,70 @@ function simularOscilacao(factor) {
 }
 
 function recalcularCarteira() {
-  // 1. Somar saldos de ações e FIIs
   let totalAcoes = 0;
+  let totalFiis = 0;
+  let totalInvestido = 0;
+  let acoesAbertasCount = 0;
+  let fiisAbertosCount = 0;
+
   BASE_STOCKS.forEach(s => {
     const q = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
     s.saldo = q * (s.preco || 0);
     totalAcoes += s.saldo;
+    if (q > 0) {
+      acoesAbertasCount++;
+      totalInvestido += q * (s.pm || s.preco || 0);
+    }
   });
+
   OUT_OF_BASE.forEach(s => {
     const q = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
     s.saldo = q * (s.preco || 0);
     totalAcoes += s.saldo;
+    if (q > 0) {
+      acoesAbertasCount++;
+      totalInvestido += q * (s.pm || s.preco || 0);
+    }
   });
 
-  let totalFiis = 0;
   FIIS.forEach(f => {
     const q = f.quant != null ? f.quant : (rebData[f.t] ? rebData[f.t].q : 0);
     f.saldo = q * (f.preco || 0);
     totalFiis += f.saldo;
+    if (q > 0) {
+      fiisAbertosCount++;
+      totalInvestido += q * (f.pm || f.preco || 0);
+    }
   });
 
   // ETFs e Criptos
-  const precoVtiBase = 102.78;
-  const saldoEtf = Number((precoVtiBase * (1 + marketFactor * 0.7)).toFixed(2));
-  const precoCriptoBase = 29.07;
-  const saldoCripto = Number((precoCriptoBase * (1 + marketFactor * 1.5)).toFixed(2));
+  const qVti = rebData.VTI ? rebData.VTI.q : 0.05209268;
+  const pmVti = 1973.00;
+  const precoVti = pmVti * (1 + marketFactor * 0.7);
+  const saldoEtf = Number((qVti * precoVti).toFixed(2));
+  if (qVti > 0) totalInvestido += Number((qVti * pmVti).toFixed(2));
 
+  const qSol = rebData.SOL ? rebData.SOL.q : 0.04888403;
+  const pmSol = 594.67;
+  const precoSol = pmSol * (1 + marketFactor * 1.5);
+  const saldoCripto = Number((qSol * precoSol).toFixed(2));
+  if (qSol > 0) totalInvestido += Number((qSol * pmSol).toFixed(2));
+
+  totalInvestido = Number(totalInvestido.toFixed(2));
   const totalPatrimonio = totalAcoes + totalFiis + saldoEtf + saldoCripto;
-  const totalInvestido = 5348.26;
   const ganhoCapital = totalPatrimonio - totalInvestido;
-  const proventosAcum = 575.50;
+
+  // Proventos Acumulados do Extrato
+  const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
+  const proventosLancados = extrato
+    .filter(t => t.tipo === 'Provento')
+    .reduce((acc, t) => acc + (parseFloat(t.total) || 0), 0);
+  const temProventosLancados = extrato.some(t => t.tipo === 'Provento');
+  const proventosAcum = temProventosLancados ? proventosLancados : 575.50;
+  const provSubNota = temProventosLancados ? "" : " (saldo inicial manual)";
+
   const lucroTotal = ganhoCapital + proventosAcum;
-  const rentabilidadePct = (ganhoCapital / totalInvestido) * 100;
+  const rentabilidadePct = totalInvestido > 0 ? (ganhoCapital / totalInvestido) * 100 : 0;
 
   const pctFiis = totalPatrimonio > 0 ? (totalFiis / totalPatrimonio) * 100 : 0;
   const pctAcoes = totalPatrimonio > 0 ? (totalAcoes / totalPatrimonio) * 100 : 0;
@@ -7796,21 +8451,41 @@ function recalcularCarteira() {
   const elPat = document.getElementById('mc-patrimonio');
   if (elPat) {
     elPat.textContent = fmtR(totalPatrimonio);
-    const sub = elPat.nextElementSibling;
+    const sub = document.getElementById('mc-patrimonio-sub') || elPat.nextElementSibling;
     if (sub) {
       sub.innerHTML = `Valor investido ${fmtR(totalInvestido)} <span style="color:${rentabilidadePct >= 0 ? 'var(--good)' : 'var(--critical)'}; font-weight:700;">(${rentabilidadePct >= 0 ? '+' : ''}${rentabilidadePct.toFixed(2)}% ${rentabilidadePct >= 0 ? '▲' : '▼'})</span>`;
     }
+  }
+
+  // Data dos Preços abaixo do Patrimônio
+  const elFontePrecos = document.getElementById('mc-fonte-precos');
+  if (elFontePrecos) {
+    const hasLive = typeof BASE_STOCKS !== "undefined" && BASE_STOCKS.some(x => x.atual === "AO VIVO");
+    elFontePrecos.textContent = hasLive ? "ao vivo (Brapi)" : (window.roboDataSelo ? `Preços de ${window.roboDataSelo} (robô)` : "Preços de 15/10 (robô)");
   }
 
   const elLucro = document.getElementById('mc-lucro');
   if (elLucro) {
     elLucro.textContent = fmtR(lucroTotal);
     elLucro.style.color = lucroTotal >= 0 ? 'var(--good)' : 'var(--critical)';
-    const sub = elLucro.nextElementSibling;
+    const sub = document.getElementById('mc-lucro-sub');
     if (sub) {
-      sub.innerHTML = `Ganho ${fmtR(ganhoCapital)} · Prov. ${fmtR(proventosAcum)}`;
+      sub.innerHTML = `Ganho ${fmtR(ganhoCapital)} · Prov. ${fmtR(proventosAcum)}${provSubNota}`;
     }
   }
+
+  const elProvSub = document.getElementById('mc-proventos-sub');
+  if (elProvSub) {
+    elProvSub.textContent = `Total acumulado: ${fmtR(proventosAcum)}${provSubNota}`;
+  }
+
+  // Contagem de Ativos (21 Ativos)
+  const totalAtivos = acoesAbertasCount + fiisAbertosCount + (qVti > 0 ? 1 : 0) + (qSol > 0 ? 1 : 0);
+  const elTotalAtivos = document.getElementById('mc-total-ativos');
+  if (elTotalAtivos) elTotalAtivos.textContent = `${totalAtivos} Ativos`;
+
+  const elSubAtivos = document.getElementById('mc-sub-ativos');
+  if (elSubAtivos) elSubAtivos.textContent = `${acoesAbertasCount} Ações · ${fiisAbertosCount} FIIs · 1 ETF · Criptos`;
 
   // Atualizar Tabela de Alocação
   const tbodyAlloc = document.getElementById('mc-alloc-tbody');
@@ -7867,13 +8542,14 @@ function recalcularCarteira() {
   const badgeBarTxt = document.getElementById('mc-bar-badge-txt');
   if (badgeBarTxt) badgeBarTxt.textContent = `R$${Math.round(totalPatrimonio).toLocaleString('pt-BR')}`;
 
-  // Atualizar tabelas
+  // Atualizar tabelas e Caixa
   renderFiis();
   if (typeof renderBaseTable === 'function') renderBaseTable(getPressedK("base"));
   if (typeof renderForaTable === 'function') renderForaTable(getPressedK("fora"));
   if (typeof renderRebalanceamento === 'function') renderRebalanceamento();
   renderCalendarioDividendos();
   calcularAporteInteligente();
+  renderCaixaInvestir();
 }
 
 /* ================= MAPA ANUAL DE DIVIDENDOS (12 MESES) ================= */
@@ -8683,40 +9359,47 @@ const TRANSACOES_KEY = "barsi-transacoes-v2";
 const DEFAULT_TRANSACOES = [
   { data: "2026-10-08", tipo: "Venda", ticker: "LAVV3", cat: "AÇÕES", quant: 5, preco: 13.84, taxa: 0.03, total: 69.17, nota: "Venda total realizada no topo de ciclo a R$ 13,84 (topo 52 sem.) · Líquido R$ 69,17 (tx R$ 0,03)" },
   { data: "2026-10-08", tipo: "Venda", ticker: "MELK3", cat: "AÇÕES", quant: 2, preco: 3.35, taxa: 0.01, total: 6.69, nota: "Venda total realizada a R$ 3,35 (lucro sobre PM R$ 3,34) · Líquido R$ 6,69 (tx R$ 0,01)" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "BBAS3", cat: "AÇÕES", quant: 23, preco: 21.61, total: 497.03, nota: "Aporte disciplina banco público ROE" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "TRXF11", cat: "FIIS", quant: 11, preco: 87.58, total: 963.38, nota: "Renda urbana contratos atípicos" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "RECR11", cat: "FIIS", quant: 9, preco: 80.07, total: 720.63, nota: "Crédito imobiliário papel" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "PETR4", cat: "AÇÕES", quant: 7, preco: 30.61, total: 214.27, nota: "Commodity óleo e dividendos" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "GARE11", cat: "FIIS", quant: 51, preco: 8.44, total: 430.44, nota: "Galpões logísticos last-mile" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "MXRF11", cat: "FIIS", quant: 46, preco: 9.02, total: 414.92, nota: "Papel e CRIs Maxi Renda" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "CMIG4", cat: "AÇÕES", quant: 5, preco: 10.37, total: 51.85, nota: "Elétrica B.A.S.E. com margem" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "TAEE11", cat: "AÇÕES", quant: 4, preco: 34.17, total: 136.68, nota: "Transmissão RAP contratada" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "BBSE3", cat: "AÇÕES", quant: 3, preco: 34.07, total: 102.21, nota: "Seguradora capital leve e alto ROE" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "XPML11", cat: "FIIS", quant: 3, preco: 102.88, total: 308.64, nota: "Shoppings consolidados" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "VILG11", cat: "FIIS", quant: 3, preco: 89.94, total: 269.82, nota: "Logística Vinci vacância baixa" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "RZTR11", cat: "FIIS", quant: 3, preco: 89.19, total: 267.57, nota: "Crédito agro distribuição regular" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "GGRC11", cat: "FIIS", quant: 22, preco: 9.62, total: 211.64, nota: "Inquilinos Ambev VW Renault" },
-  { data: "2026-10-06", tipo: "Reinvestimento", ticker: "RZAG11", cat: "FIIS", quant: 20, preco: 8.68, total: 173.60, nota: "Bola de neve: proventos reinvestidos" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "KNCA11", cat: "FIIS", quant: 2, preco: 93.51, total: 187.02, nota: "Crédito agro Kinea" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "HGRE11", cat: "FIIS", quant: 1, preco: 114.54, total: 114.54, nota: "Lajes corporativas com desconto" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "VTI", cat: "ETFS", quant: 0.05209268, preco: 1973.00, total: 102.78, nota: "Proteção geográfica dólar" },
-  { data: "2026-10-06", tipo: "Compra", ticker: "SOL", cat: "CRIPTO", quant: 0.04888403, preco: 594.67, total: 29.07, nota: "Alocação descentralizada" }
+  { data: "2026-09-30", tipo: "Compra", ticker: "BBAS3", cat: "AÇÕES", quant: 23, preco: 21.61, total: 497.03, nota: "Aporte disciplina banco público ROE" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "TRXF11", cat: "FIIS", quant: 11, preco: 87.58, total: 963.38, nota: "Renda urbana contratos atípicos" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "RECR11", cat: "FIIS", quant: 9, preco: 80.07, total: 720.63, nota: "Crédito imobiliário papel" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "PETR4", cat: "AÇÕES", quant: 7, preco: 30.61, total: 214.27, nota: "Commodity óleo e dividendos" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "GARE11", cat: "FIIS", quant: 51, preco: 8.44, total: 430.44, nota: "Galpões logísticos last-mile" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "MXRF11", cat: "FIIS", quant: 46, preco: 9.02, total: 414.92, nota: "Papel e CRIs Maxi Renda" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "CMIG4", cat: "AÇÕES", quant: 5, preco: 10.37, total: 51.85, nota: "Elétrica B.A.S.E. com margem" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "TAEE11", cat: "AÇÕES", quant: 4, preco: 34.17, total: 136.68, nota: "Transmissão RAP contratada" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "BBSE3", cat: "AÇÕES", quant: 3, preco: 34.07, total: 102.21, nota: "Seguradora capital leve e alto ROE" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "XPML11", cat: "FIIS", quant: 3, preco: 102.88, total: 308.64, nota: "Shoppings consolidados" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "VILG11", cat: "FIIS", quant: 3, preco: 89.94, total: 269.82, nota: "Logística Vinci vacância baixa" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "RZTR11", cat: "FIIS", quant: 3, preco: 89.19, total: 267.57, nota: "Crédito agro distribuição regular" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "GGRC11", cat: "FIIS", quant: 22, preco: 9.62, total: 211.64, nota: "Inquilinos Ambev VW Renault" },
+  { data: "2026-09-30", tipo: "Reinvestimento", ticker: "RZAG11", cat: "FIIS", quant: 20, preco: 8.68, total: 173.60, nota: "Bola de neve: proventos reinvestidos" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "KNCA11", cat: "FIIS", quant: 2, preco: 93.51, total: 187.02, nota: "Crédito agro Kinea" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "HGRE11", cat: "FIIS", quant: 1, preco: 114.54, total: 114.54, nota: "Lajes corporativas com desconto" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "VTI", cat: "ETFS", quant: 0.05209268, preco: 1973.00, total: 102.78, nota: "Proteção geográfica dólar" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "SOL", cat: "CRIPTO", quant: 0.04888403, preco: 594.67, total: 29.07, nota: "Alocação descentralizada" }
 ];
 
 function carregarExtrato() {
   try {
     const salvo = JSON.parse(localStorage.getItem(TRANSACOES_KEY) || 'null');
     if (salvo && Array.isArray(salvo) && salvo.length > 0) {
+      let alterou = false;
+      // Migração de segurança: carga inicial de compras pré-outubro ajustada para 2026-09-30
+      salvo.forEach(t => {
+        if (t.data === "2026-10-06" && (t.tipo === "Compra" || t.tipo === "Reinvestimento")) {
+          t.data = "2026-09-30";
+          alterou = true;
+        }
+      });
       // Sincronizar vendas de 08/10 caso ainda não constem no cache do usuário
       const temLavv3 = salvo.some(t => t.ticker === "LAVV3" && t.tipo === "Venda" && t.data === "2026-10-08");
       const temMelk3 = salvo.some(t => t.ticker === "MELK3" && t.tipo === "Venda" && t.data === "2026-10-08");
-      let alterou = false;
       if (!temMelk3) {
         salvo.unshift({ data: "2026-10-08", tipo: "Venda", ticker: "MELK3", cat: "AÇÕES", quant: 2, preco: 3.35, taxa: 0.01, total: 6.69, nota: "Venda total realizada a R$ 3,35 (lucro sobre PM R$ 3,34) · Líquido R$ 6,69 (tx R$ 0,01)" });
         alterou = true;
       }
       if (!temLavv3) {
-        salvo.unshift({ data: "2026-10-08", tipo: "Venda", ticker: "LAVV3", cat: "AÇÕES", quant: 5, preco: 13.84, taxa: 0.03, total: 69.17, nota: "Venda total realizada no pico de ciclo a R$ 13,84 (topo 52 sem.) · Líquido R$ 69,17 (tx R$ 0,03)" });
+        salvo.unshift({ data: "2026-10-08", tipo: "Venda", ticker: "LAVV3", cat: "AÇÕES", quant: 5, preco: 13.84, taxa: 0.03, total: 69.17, nota: "Venda total realizada no topo de ciclo a R$ 13,84 (topo 52 sem.) · Líquido R$ 69,17 (tx R$ 0,03)" });
         alterou = true;
       }
       if (alterou) {
