@@ -22,8 +22,15 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --accent-soft:#DBEAFE;
   --gold:#D97706;
   --gold-soft:#FEF3C7;
-  --series-aportado:#3B82F6;
-  --series-rendimento:#F59E0B;
+  --series-aportado:var(--data-2);
+  --series-rendimento:var(--data-4);
+  --serie-carteira:#2563EB;
+  --serie-cdi:#16A34A;
+  --serie-ipca:#EA580C;
+  --serie-ibov:#DC2626;
+  --serie-ifix:#0D9488;
+  --serie-fii:#9333EA;
+  --serie-acao:#0284C7;
   --danger:#DC2626;
   --focus:#2563EB;
   --good:#059669;
@@ -66,8 +73,15 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
     --accent-soft:#1E3A8A;
     --gold:#F59E0B;
     --gold-soft:rgba(245, 158, 11, 0.15);
-    --series-aportado:#60A5FA;
-    --series-rendimento:#FBBF24;
+    --series-aportado:var(--data-2);
+    --series-rendimento:var(--data-4);
+    --serie-carteira:#60A5FA;
+    --serie-cdi:#4ADE80;
+    --serie-ipca:#FB923C;
+    --serie-ibov:#F87171;
+    --serie-ifix:#2DD4BF;
+    --serie-fii:#C084FC;
+    --serie-acao:#38BDF8;
     --danger:#EF4444;
     --focus:#3B82F6;
     --good:#10B981;
@@ -106,8 +120,15 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --accent-soft:#1E3A8A;
   --gold:#F59E0B;
   --gold-soft:rgba(245, 158, 11, 0.15);
-  --series-aportado:#60A5FA;
-  --series-rendimento:#FBBF24;
+  --series-aportado:var(--data-2);
+  --series-rendimento:var(--data-4);
+  --serie-carteira:#60A5FA;
+  --serie-cdi:#4ADE80;
+  --serie-ipca:#FB923C;
+  --serie-ibov:#F87171;
+  --serie-ifix:#2DD4BF;
+  --serie-fii:#C084FC;
+  --serie-acao:#38BDF8;
   --danger:#EF4444;
   --focus:#3B82F6;
   --good:#10B981;
@@ -957,7 +978,10 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 .veredito-pill.info, .veredito-pill.neutral { background: var(--surface-2); color: var(--ink-2); }
 
 /* Layouts Ward: Rentabilidade e Proventos (16/10/2026) */
-.rent-ward-block, .prov-ward-block {
+.rent-ward-block {
+  display: grid; grid-template-columns: 240px 1fr; gap: 24px; align-items: start;
+}
+.prov-ward-block {
   display: grid; grid-template-columns: minmax(240px, 320px) 1fr; gap: 24px; align-items: start;
 }
 @media (max-width: 900px) {
@@ -984,11 +1008,29 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 .rent-range-btn:hover { color: var(--ink); }
 .rent-range-btn.active { background: var(--surface); color: var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-weight: 700; }
 
-.rent-legend, .prov-legend { display: flex; gap: 16px; font-size: 11.5px; color: var(--ink-2); flex-wrap: wrap; margin-top: 4px; }
+.rent-legend, .prov-legend { display: flex; gap: 8px; font-size: 11.5px; color: var(--ink-2); flex-wrap: wrap; margin-top: 4px; }
 .rent-legend-item, .prov-legend-item { display: flex; align-items: center; gap: 6px; }
 .rent-legend-item span, .prov-legend-item span { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 
-.rent-chart-wrap { position: relative; background: var(--bg); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 12px 12px 12px; }
+.rent-legend-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--surface-2); border: 1px solid var(--rule);
+  padding: 4px 8px; border-radius: 6px; cursor: pointer;
+  font-size: 11.5px; color: var(--ink-2); transition: all 0.15s ease;
+  user-select: none;
+}
+.rent-legend-btn:hover { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
+.rent-legend-btn.active { background: var(--surface); border-color: var(--rule-strong); color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+.rent-legend-btn.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+.rent-legend-btn .swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; flex: none; }
+.rent-legend-btn .rent-leg-val { font-family: var(--font-mono); font-size: 11px; margin-left: 2px; }
+
+.caixa-badge { display: inline-flex; align-items: center; padding: 2px 6px; border-radius: 4px; font-size: 10.5px; font-weight: 600; text-transform: uppercase; }
+.caixa-badge.previsto { background: rgba(59, 130, 246, 0.12); color: var(--data-3); border: 1px solid rgba(59, 130, 246, 0.25); }
+.caixa-badge.estimado { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.25); }
+.caixa-badge.lancado { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--rule); }
+
+.rent-chart-wrap { position: relative; background: var(--bg); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 12px 12px 12px; min-height: 420px; display: flex; flex-direction: column; justify-content: center; }
 .rent-chart-tooltip {
   position: absolute; display: none; background: var(--surface); border: 1px solid var(--rule-strong);
   box-shadow: 0 4px 14px rgba(0,0,0,0.12); border-radius: 6px; padding: 8px 12px; font-size: 11.5px;
@@ -2555,31 +2597,35 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 
         <!-- Coluna do Gráfico (Direita) -->
         <div class="rent-chart-col">
-          <div class="rent-chart-header">
+          <div class="rent-chart-header" style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
             <div>
               <h3 style="margin:0; font-size:15px; font-weight:600; color:var(--ink);">Retorno Acumulado vs. Benchmarks</h3>
-              <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Cotação da carteira confrontada diariamente com CDI, IPCA e Ibovespa.</p>
+              <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Cotação da carteira confrontada diariamente com CDI, IPCA, Ibovespa e IFIX.</p>
             </div>
-            <!-- Seletor de Período -->
-            <div class="rent-range-tabs">
-              <button type="button" class="rent-range-btn" data-range="6m" onclick="setRentabilidadeRange('6m')">6M</button>
-              <button type="button" class="rent-range-btn" data-range="12m" onclick="setRentabilidadeRange('12m')">12M</button>
-              <button type="button" class="rent-range-btn" data-range="2a" onclick="setRentabilidadeRange('2a')">2A</button>
-              <button type="button" class="rent-range-btn active" data-range="inicio" onclick="setRentabilidadeRange('inicio')">Início</button>
+            <!-- Atalhos de Visão por Classe e Seletor de Período -->
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <div class="rent-range-tabs" id="rent-pair-tabs" title="Atalhos rápidos por classe" style="background:var(--surface-2); padding:2px; border-radius:8px; border:1px solid var(--rule);">
+                <button type="button" class="rent-range-btn active" data-pair="total" onclick="setRentabilidadePair('total')">Total</button>
+                <button type="button" class="rent-range-btn" data-pair="fiis" onclick="setRentabilidadePair('fiis')">FIIs × IFIX</button>
+                <button type="button" class="rent-range-btn" data-pair="acoes" onclick="setRentabilidadePair('acoes')">Ações × Ibovespa</button>
+              </div>
+              <div class="rent-range-tabs" style="background:var(--surface-2); padding:2px; border-radius:8px; border:1px solid var(--rule);">
+                <button type="button" class="rent-range-btn" data-range="6m" onclick="setRentabilidadeRange('6m')">6M</button>
+                <button type="button" class="rent-range-btn" data-range="12m" onclick="setRentabilidadeRange('12m')">12M</button>
+                <button type="button" class="rent-range-btn" data-range="2a" onclick="setRentabilidadeRange('2a')">2A</button>
+                <button type="button" class="rent-range-btn active" data-range="inicio" onclick="setRentabilidadeRange('inicio')">Início</button>
+              </div>
             </div>
           </div>
 
-          <!-- Legenda de Cores -->
-          <div class="rent-legend">
-            <div class="rent-legend-item"><span style="background:var(--accent);"></span> Carteira</div>
-            <div class="rent-legend-item"><span style="background:var(--data-3);"></span> CDI</div>
-            <div class="rent-legend-item"><span style="background:var(--data-4);"></span> IPCA</div>
-            <div class="rent-legend-item"><span style="background:var(--data-5);"></span> Ibovespa</div>
+          <!-- Legenda Clicável Interativa Padrão Ward -->
+          <div class="rent-legend" id="rent-series-legend" style="margin:12px 0; gap:8px;">
+            <!-- Preenchido dinamicamente via renderRentabilidade() -->
           </div>
 
           <!-- Gráfico SVG Responsivo -->
           <div class="rent-chart-wrap" id="rent-chart-wrap">
-            <svg id="rent-chart-svg" viewBox="0 0 680 260" style="width:100%; height:auto; display:block;"></svg>
+            <svg id="rent-chart-svg" viewBox="0 0 680 320" style="width:100%; height:auto; display:block;"></svg>
             <div id="rent-chart-tooltip" class="rent-chart-tooltip"></div>
           </div>
 
@@ -2614,7 +2660,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
       <div class="rent-dd-section">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <div>
-            <h3 style="margin:0; font-size:15px; font-weight:600; color:var(--ink);">Quedas da Carteira (Drawdown) vs. Ibovespa</h3>
+            <h3 style="margin:0; font-size:15px; font-weight:600; color:var(--ink);">Quedas da Carteira (Drawdown) vs. Benchmarks</h3>
             <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Distância percentual em relação à máxima histórica acumulada.</p>
           </div>
           <div class="rent-dd-stats">
@@ -2623,8 +2669,13 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
             <div class="rent-dd-stat"><span>Volatilidade:</span> <b id="dd-stat-vol" style="color:var(--ink);">0,0% a.a.</b></div>
           </div>
         </div>
-        <div class="rent-chart-wrap" style="background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:12px;">
-          <svg id="rent-dd-svg" viewBox="0 0 680 140" style="width:100%; height:auto; display:block;"></svg>
+        <!-- Legenda Clicável do Drawdown (Padrão Ward) -->
+        <div class="rent-legend" id="dd-series-legend" style="margin-bottom:10px; gap:8px;">
+          <!-- Preenchido dinamicamente via renderDrawdownSvg() -->
+        </div>
+        <div class="rent-chart-wrap" style="background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:12px; min-height:180px;">
+          <svg id="rent-dd-svg" viewBox="0 0 680 150" style="width:100%; height:auto; display:block;"></svg>
+          <div id="rent-dd-tooltip" class="rent-chart-tooltip"></div>
         </div>
       </div>
     </div>
@@ -4083,32 +4134,91 @@ function _converterNumRobusto(val) {
   return isNaN(n) ? 0 : n;
 }
 
-function isAtivoEncerrado(ticker) {
-  const p = (typeof rebData !== 'undefined' && rebData && rebData[ticker]) ? rebData[ticker] : null;
+/* ================= POSIÇÕES E PM ACUMULADOS VIA EXTRATO (FONTE ÚNICA - 16/10/2026) ================= */
+function calcularPosicoesExtrato(extrato) {
+  let lista = extrato;
+  if (!lista) {
+    if (typeof carregarExtrato === 'function') {
+      lista = carregarExtrato();
+    } else {
+      try {
+        lista = JSON.parse(localStorage.getItem("barsi-transacoes-v2") || "null");
+      } catch (e) {}
+    }
+  }
+  if (!lista || !Array.isArray(lista) || lista.length === 0) {
+    lista = window.DEFAULT_TRANSACOES || [];
+  }
 
-  // Busca item de cadastro em BASE_STOCKS, OUT_OF_BASE ou FIIS
+  // Ordena cronologicamente para garantir cálculo correto do PM ponderado
+  const txs = [...lista].sort((a, b) => (a.data > b.data ? 1 : (a.data < b.data ? -1 : 0)));
+  const posicoes = {};
+
+  txs.forEach(t => {
+    const ticker = t.ticker;
+    if (!ticker || ticker === '—') return;
+    if (!posicoes[ticker]) {
+      posicoes[ticker] = { quant: 0, pm: 0, temLancamento: true, totalCompras: 0, totalVendas: 0 };
+    }
+    const pos = posicoes[ticker];
+    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
+    const preco = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.preco) : (parseFloat(t.preco) || 0);
+    const taxa = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.taxa) : (parseFloat(t.taxa) || 0);
+    const total = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || 0);
+
+    if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
+      const custo = total > 0 ? total : (q * preco + taxa);
+      if (q > 0) {
+        if (pos.quant <= 0) {
+          pos.pm = custo / q;
+          pos.quant = q;
+        } else {
+          const custoAcum = (pos.quant * pos.pm) + custo;
+          pos.quant += q;
+          pos.pm = custoAcum / pos.quant;
+        }
+      }
+      pos.totalCompras += (total > 0 ? total : (q * preco));
+    } else if (t.tipo === 'Venda') {
+      pos.quant -= q;
+      if (pos.quant <= 0.000001) {
+        pos.quant = 0;
+        pos.pm = 0;
+      }
+      // Venda NÃO altera o PM se a posição continuar > 0 (Regra de IR §8)
+      pos.totalVendas += (total > 0 ? total : (q * preco));
+    }
+  });
+
+  return posicoes;
+}
+window.calcularPosicoesExtrato = calcularPosicoesExtrato;
+
+function isAtivoEncerrado(ticker) {
   let cad = null;
   if (typeof BASE_STOCKS !== 'undefined') cad = BASE_STOCKS.find(x => x.t === ticker);
   if (!cad && typeof OUT_OF_BASE !== 'undefined') cad = OUT_OF_BASE.find(x => x.t === ticker);
   if (!cad && typeof FIIS !== 'undefined') cad = FIIS.find(x => x.t === ticker);
 
-  // 1. Quantidade: primeiro valor disponível entre rebData[t].q e quant do cadastro
   let q = 0;
-  if (p && p.q !== undefined && p.q !== null && String(p.q).trim() !== "") {
-    q = _converterNumRobusto(p.q);
+  const pos = (typeof calcularPosicoesExtrato === 'function') ? calcularPosicoesExtrato() : {};
+  if (pos[ticker] && pos[ticker].temLancamento) {
+    q = pos[ticker].quant;
   } else if (cad && cad.quant !== undefined && cad.quant !== null) {
     q = _converterNumRobusto(cad.quant);
   }
 
-  // 2. Peso Ideal: primeiro valor disponível entre rebData[t].i e ideal do cadastro
+  const p = (typeof rebData !== 'undefined' && rebData && rebData[ticker]) ? rebData[ticker] : null;
   let i = 0;
-  if (p && p.i !== undefined && p.i !== null && String(p.i).trim() !== "") {
+  if (q <= 0 && pos[ticker] && pos[ticker].temLancamento) {
+    // Ativo que zerar pelo Extrato entra na regra de encerrado (quantidade 0 e peso ideal 0)
+    i = 0;
+  } else if (p && p.i !== undefined && p.i !== null && String(p.i).trim() !== "") {
     i = _converterNumRobusto(p.i);
   } else if (cad && cad.ideal !== undefined && cad.ideal !== null) {
     i = _converterNumRobusto(cad.ideal);
   }
 
-  // 3. Encerrado = quantidade 0 E peso ideal 0
   return q <= 0 && i <= 0;
 }
 
@@ -4123,7 +4233,7 @@ function renderEncerradosToggle(containerId, count) {
   const label = ativo ? "Ocultar encerrados" : `Mostrar encerrados (${count})`;
   const eyeSvg = ativo
     ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-2); vertical-align:-2px;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
-    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-2); vertical-align:-2px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-2); vertical-align:-2px;"><path d="M1 backward compatibility 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
   el.innerHTML = `<button type="button" class="btn-toggle-encerrados ${ativo ? 'is-active' : ''}" onclick="toggleMostrarEncerrados()">
     <span>${eyeSvg}</span>
     <span>${label}</span>
@@ -4157,12 +4267,15 @@ function obterInfoNumeroMagico(ticker, tipo, preco) {
   }
 
   let qtd = 0;
-  if (tipo === 'fii') {
-    const item = typeof FIIS !== 'undefined' ? FIIS.find(x => x.t === ticker) : null;
+  const pos = (typeof calcularPosicoesExtrato === 'function') ? calcularPosicoesExtrato() : {};
+  if (pos[ticker] && pos[ticker].temLancamento) {
+    qtd = pos[ticker].quant;
+  } else {
+    const item = [...(typeof BASE_STOCKS !== 'undefined' ? BASE_STOCKS : []),
+                  ...(typeof OUT_OF_BASE !== 'undefined' ? OUT_OF_BASE : []),
+                  ...(typeof FIIS !== 'undefined' ? FIIS : [])].find(x => x.t === ticker);
     if (item && item.quant != null) qtd = item.quant;
     else if (typeof rebData !== 'undefined' && rebData[ticker]) qtd = rebData[ticker].q || 0;
-  } else {
-    if (typeof rebData !== 'undefined' && rebData[ticker]) qtd = rebData[ticker].q || 0;
   }
 
   if (!dpa12 || dpa12 <= 0 || !preco || preco <= 0) {
@@ -5264,8 +5377,15 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
     return sign + 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
   function fmtBRLCompact(v){
-    if (v >= 1000000) return 'R$ ' + (v/1000000).toLocaleString('pt-BR', {maximumFractionDigits:2}) + ' mi';
-    return fmtBRL(v);
+    if (v >= 1000000) {
+      var mi = v / 1000000;
+      return 'R$ ' + (mi % 1 === 0 ? mi.toFixed(0) : mi.toFixed(1)).replace('.', ',') + ' mi';
+    }
+    if (v >= 1000) {
+      var mil = v / 1000;
+      return 'R$ ' + (mil % 1 === 0 ? mil.toFixed(0) : mil.toFixed(1)).replace('.', ',') + ' mil';
+    }
+    return 'R$ ' + Math.round(v).toLocaleString('pt-BR');
   }
   function fmtBRLInt(v){
     return 'R$ ' + Math.round(v).toLocaleString('pt-BR');
@@ -5337,7 +5457,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
   }
 
   function buildChart(series, width, height){
-    var pad = { top: 10, right: 14, bottom: 26, left: 58 };
+    var pad = { top: 10, right: 16, bottom: 26, left: 74 };
     var innerW = width - pad.left - pad.right;
     var innerH = height - pad.top - pad.bottom;
     var maxVal = series[series.length - 1].patrimonio;
@@ -9005,63 +9125,192 @@ function setCaixaCfg(cfg) {
   } catch (e) {}
 }
 
+let _caixaFiltroModal = 'tudo'; // 'tudo' ou 'lancados'
+
+function confirmarAportePrevisto(data, valor) {
+  const valStr = prompt("Confirmar valor do aporte do mês (R$):", (valor || 300).toFixed(2));
+  if (valStr === null) return;
+  const valNum = parseFloat(valStr.replace(',', '.')) || (valor || 300);
+  if (typeof adicionarTransacao === 'function') {
+    adicionarTransacao({
+      data: data || new Date().toISOString().split('T')[0],
+      tipo: 'Aporte',
+      ticker: '—',
+      cat: 'CAIXA',
+      quant: 1,
+      preco: valNum,
+      taxa: 0,
+      total: valNum,
+      nota: 'Aporte do mês confirmado'
+    });
+  }
+  recalcularCarteira();
+  renderCaixaInvestir();
+  renderModalCaixaConteudo();
+}
+window.confirmarAportePrevisto = confirmarAportePrevisto;
+
+function setCaixaFiltroModal(filtro) {
+  _caixaFiltroModal = filtro || 'tudo';
+  renderModalCaixaConteudo();
+}
+window.setCaixaFiltroModal = setCaixaFiltroModal;
+
 function calcularResumoCaixa() {
   const cfg = getCaixaCfg();
   const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
+  const posicoes = (typeof calcularPosicoesExtrato === 'function') ? calcularPosicoesExtrato(extrato) : {};
+  const hist = window.FEHMIR_HIST || {};
+
+  // Determinar meses desde cfg.inicio até 2026-10
+  const mesIniStr = (cfg.inicio || "2026-10-01").substring(0, 7);
+  const anoIni = parseInt(mesIniStr.substring(0, 4), 10);
+  const mIni = parseInt(mesIniStr.substring(5, 7), 10);
   
-  let aportes = 0;
+  const anoFim = 2026;
+  const mFim = 10;
+  
+  const mesesPeriodo = [];
+  for (let a = anoIni; a <= anoFim; a++) {
+    const startM = (a === anoIni) ? mIni : 1;
+    const endM = (a === anoFim) ? mFim : 12;
+    for (let m = startM; m <= endM; m++) {
+      const mm = m < 10 ? '0' + m : '' + m;
+      mesesPeriodo.push(`${a}-${mm}`);
+    }
+  }
+
+  let aportesPrevistos = 0;
+  let aportesReais = 0;
   let vendas = 0;
-  let proventos = 0;
+  let proventosRecebidos = 0;
+  let proventosEstimados = 0;
   let compras = 0;
-  const lancamentosPeriodo = [];
 
-  // Filtrar a partir da data de início do controle
-  // Ordenar cronologicamente para compor saldo acumulado
-  const sorted = [...extrato]
-    .filter(t => t.data >= cfg.inicio)
-    .sort((a, b) => (a.data > b.data ? 1 : (a.data < b.data ? -1 : 0)));
+  const todosLancamentos = [];
 
-  let saldoAcumulado = 0;
-  sorted.forEach(t => {
+  // 1. Aportes mensais (previstos vs reais)
+  mesesPeriodo.forEach(mesKey => {
+    const aportesReaisMes = extrato.filter(t => t.tipo === 'Aporte' && t.data.startsWith(mesKey));
+    if (aportesReaisMes.length > 0) {
+      // Já é processado abaixo como transação real
+    } else {
+      const valor = cfg.aporteMensal || 300;
+      aportesPrevistos += valor;
+      const [ano, mes] = mesKey.split('-');
+      todosLancamentos.push({
+        data: `${mesKey}-01`,
+        tipo: 'Aporte',
+        ticker: '—',
+        cat: 'CAIXA',
+        quant: 1,
+        preco: valor,
+        taxa: 0,
+        total: valor,
+        impacto: valor,
+        virtual: true,
+        subtipo: 'previsto',
+        nota: `Aporte previsto (${mes}/${ano.substring(2)})`
+      });
+    }
+  });
+
+  // 2. Proventos automáticos (estimados a partir de FEHMIR_HIST vs reais)
+  mesesPeriodo.forEach(mesKey => {
+    Object.keys(posicoes).forEach(ticker => {
+      const q = posicoes[ticker].quant;
+      if (q <= 0) return;
+
+      // Se houver lançamento real Provento do mesmo ativo no mesmo mês, o real substitui o estimado
+      const temReal = extrato.some(t => t.tipo === 'Provento' && t.ticker === ticker && t.data.startsWith(mesKey));
+      if (temReal) return;
+
+      const h = hist[ticker];
+      if (h && Array.isArray(h.ev)) {
+        const evs = h.ev.filter(e => e[0].startsWith(mesKey));
+        if (evs.length > 0) {
+          const valUnit = evs.reduce((acc, e) => acc + e[1], 0);
+          const valTot = Number((valUnit * q).toFixed(2));
+          if (valTot > 0) {
+            proventosEstimados += valTot;
+            const dataEv = evs[0][0];
+            todosLancamentos.push({
+              data: dataEv,
+              tipo: 'Provento',
+              ticker: ticker,
+              cat: 'PROVENTO',
+              quant: q,
+              preco: valUnit,
+              taxa: 0,
+              total: valTot,
+              impacto: valTot,
+              virtual: true,
+              subtipo: 'estimado',
+              nota: `Provento estimado (${q} cotas × ${fmtR(valUnit)})`
+            });
+          }
+        }
+      }
+    });
+  });
+
+  // 3. Transações reais no período
+  extrato.filter(t => t.data >= cfg.inicio).forEach(t => {
+    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
+    const preco = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.preco) : (parseFloat(t.preco) || 0);
+    const taxa = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.taxa) : (parseFloat(t.taxa) || 0);
+    const total = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || 0);
+
     let impacto = 0;
-    const taxa = parseFloat(t.taxa) || 0;
-    const quant = parseFloat(t.quant) || 0;
-    const preco = parseFloat(t.preco) || 0;
-    const total = parseFloat(t.total) || 0;
-
     if (t.tipo === 'Aporte') {
-      impacto = total;
-      aportes += total;
+      impacto = total > 0 ? total : preco;
+      aportesReais += impacto;
     } else if (t.tipo === 'Venda') {
-      const liq = (quant > 0 && preco > 0) ? (quant * preco - taxa) : total;
+      const liq = (q > 0 && preco > 0) ? (q * preco - taxa) : total;
       impacto = liq;
       vendas += liq;
     } else if (t.tipo === 'Provento') {
       impacto = total;
-      proventos += total;
+      proventosRecebidos += total;
     } else if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
-      const custo = (quant > 0 && preco > 0) ? (quant * preco + taxa) : total;
+      const custo = (q > 0 && preco > 0) ? (q * preco + taxa) : total;
       impacto = -custo;
       compras += custo;
     }
 
-    saldoAcumulado += impacto;
-    lancamentosPeriodo.push({
+    todosLancamentos.push({
       ...t,
       impacto,
-      saldoAcumulado
+      virtual: false,
+      subtipo: 'lancado'
     });
   });
 
-  const saldo = aportes + vendas + proventos - compras;
+  // Ordenar cronologicamente para calcular saldo acumulado correto
+  todosLancamentos.sort((a, b) => (a.data > b.data ? 1 : (a.data < b.data ? -1 : 0)));
+
+  let saldoAcumulado = 0;
+  todosLancamentos.forEach(l => {
+    saldoAcumulado += l.impacto;
+    l.saldoAcumulado = saldoAcumulado;
+  });
+
+  const totalAportes = aportesReais + aportesPrevistos;
+  const totalProventos = proventosRecebidos + proventosEstimados;
+  const saldoFinal = totalAportes + vendas + totalProventos - compras;
+
   return {
     cfg,
-    aportes,
+    totalAportes,
+    aportesReais,
+    aportesPrevistos,
     vendas,
-    proventos,
+    totalProventos,
+    proventosRecebidos,
+    proventosEstimados,
     compras,
-    saldo,
-    lancamentos: lancamentosPeriodo.reverse()
+    saldoFinal,
+    lancamentos: todosLancamentos.reverse() // mais recentes primeiro para visualização
   };
 }
 
@@ -9070,13 +9319,17 @@ function renderCaixaInvestir() {
   if (!card) return;
 
   const res = calcularResumoCaixa();
-  const saldoPositivo = res.saldo >= 0;
+  const saldoPositivo = res.saldoFinal >= 0;
   const saldoCor = saldoPositivo ? 'var(--good)' : 'var(--critical)';
+
+  const notaEstimado = (res.proventosEstimados > 0 || res.aportesPrevistos > 0)
+    ? `<span style="font-size:11px; color:var(--muted); font-weight:400;">(inclui ${fmtR(res.proventosEstimados)} estimado)</span>`
+    : '';
 
   card.innerHTML = `
     <div style="display:flex; align-items:center; justify-content:space-between; width:100%; font-size:12.5px; color:var(--ink-2); padding:8px 14px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:4px 0 16px;">
       <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-        <span>Caixa para investir: <strong style="color:${saldoCor}; font-family:var(--font-mono); font-size:13px;">${fmtR(res.saldo)}</strong></span>
+        <span>Caixa para investir: <strong style="color:${saldoCor}; font-family:var(--font-mono); font-size:13px;">${fmtR(res.saldoFinal)}</strong> ${notaEstimado}</span>
         ${!saldoPositivo ? '<span style="color:var(--critical); font-size:11px;">(compras acima do caixa)</span>' : ''}
         <span style="color:var(--muted);">·</span>
         <a href="javascript:void(0)" onclick="openCaixaModal()" style="color:var(--accent); text-decoration:underline; font-weight:500;">ver conta</a>
@@ -9105,42 +9358,80 @@ function renderModalCaixaConteudo() {
   const body = document.getElementById('modal-caixa-body');
   if (!body) return;
   const res = calcularResumoCaixa();
-  const saldoPositivo = res.saldo >= 0;
+  const saldoPositivo = res.saldoFinal >= 0;
 
-  const rows = res.lancamentos.map(l => {
+  // Filtrar conforme escolha rápida
+  const exibidos = res.lancamentos.filter(l => {
+    if (_caixaFiltroModal === 'lancados') return !l.virtual;
+    return true;
+  });
+
+  const rows = exibidos.map(l => {
     const sinal = l.impacto >= 0 ? "+" : "−";
     const cor = l.impacto >= 0 ? "var(--good)" : "var(--critical)";
     const tickerBadge = l.ticker && l.ticker !== '—' ? `<b>${l.ticker}</b>` : `<span style="color:var(--muted);">—</span>`;
+
+    let badgeHtml = '';
+    if (l.subtipo === 'previsto') {
+      badgeHtml = `<span class="caixa-badge previsto">previsto</span>`;
+    } else if (l.subtipo === 'estimado') {
+      badgeHtml = `<span class="caixa-badge estimado">estimado</span>`;
+    } else {
+      badgeHtml = `<span class="caixa-badge lancado">lançado</span>`;
+    }
+
+    let acaoHtml = '';
+    if (l.subtipo === 'previsto') {
+      acaoHtml = `<button type="button" class="mc-btn primary" onclick="confirmarAportePrevisto('${l.data}', ${l.total})" style="padding:2px 8px; font-size:11px; margin-left:6px;" title="Confirmar e gravar lançamento real no Extrato">confirmar</button>`;
+    }
+
     return `
       <tr style="border-bottom:1px solid var(--rule);">
         <td style="padding:6px 8px; font-family:var(--font-mono); font-size:11.5px; color:var(--muted);">${l.data}</td>
-        <td style="padding:6px 8px; font-size:12px;">${l.tipo}</td>
+        <td style="padding:6px 8px; font-size:12px;">
+          ${l.tipo} ${badgeHtml} ${acaoHtml}
+        </td>
         <td style="padding:6px 8px; font-family:var(--font-mono); font-size:12px;">${tickerBadge}</td>
+        <td style="padding:6px 8px; font-size:11.5px; color:var(--ink-2); font-family:var(--font-sans);">${l.nota || '—'}</td>
         <td style="padding:6px 8px; text-align:right; font-family:var(--font-mono); font-weight:700; color:${cor}; font-size:12px;">${sinal} ${fmtR(Math.abs(l.impacto))}</td>
         <td style="padding:6px 8px; text-align:right; font-family:var(--font-mono); font-size:11.5px; color:var(--ink-2);">${fmtR(l.saldoAcumulado)}</td>
       </tr>
     `;
   }).join('');
 
+  // Rótulos explicativos da conta
+  const descAportes = res.aportesPrevistos > 0
+    ? (res.aportesReais > 0 ? `(lançado ${fmtR(res.aportesReais)} · previsto ${fmtR(res.aportesPrevistos)})` : `(previsto)`)
+    : `(lançado)`;
+
+  const descProventos = `(recebido ${fmtR(res.proventosRecebidos)} · estimado ${fmtR(res.proventosEstimados)})`;
+
   body.innerHTML = `
     <div style="background:var(--surface-2); border:1px solid var(--rule); border-radius:10px; padding:12px 14px; margin-bottom:14px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:13px;">
-        <span><b>Aportes:</b> ${fmtR(res.aportes)}</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:12.5px;">
+        <span><b>Aportes:</b> ${fmtR(res.totalAportes)} <small style="color:var(--muted);">${descAportes}</small></span>
         <span>+</span>
         <span><b>Vendas:</b> ${fmtR(res.vendas)}</span>
         <span>+</span>
-        <span><b>Proventos:</b> ${fmtR(res.proventos)}</span>
+        <span><b>Proventos:</b> ${fmtR(res.totalProventos)} <small style="color:var(--muted);">${descProventos}</small></span>
         <span>−</span>
         <span><b>Compras:</b> ${fmtR(res.compras)}</span>
         <span>=</span>
-        <span style="font-weight:700; font-family:var(--font-mono); color:${saldoPositivo ? 'var(--good)' : 'var(--critical)'}; font-size:15px;">${fmtR(res.saldo)}</span>
+        <span style="font-weight:700; font-family:var(--font-mono); color:${saldoPositivo ? 'var(--good)' : 'var(--critical)'}; font-size:15px;">${fmtR(res.saldoFinal)}</span>
       </div>
       ${!saldoPositivo ? '<div style="margin-top:8px; font-size:11.5px; color:var(--critical);">Atenção: compras acima do caixa apurado. Confira se faltou lançar um aporte inicial ou provento recebido.</div>' : ''}
     </div>
 
-    <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-      <span style="font-size:12px; font-weight:600; color:var(--ink);">Lançamentos no Período (desde ${res.cfg.inicio})</span>
-      <span style="font-size:11px; color:var(--muted);">${res.lancamentos.length} operação(ões)</span>
+    <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:12px; font-weight:600; color:var(--ink);">Lançamentos no Período (desde ${res.cfg.inicio})</span>
+        <span style="font-size:11px; color:var(--muted);">${exibidos.length} operação(ões)</span>
+      </div>
+      <!-- Filtros Rápidos Ward: Tudo · Só Lançados -->
+      <div class="rent-range-tabs" style="padding:2px;">
+        <button type="button" class="rent-range-btn ${_caixaFiltroModal === 'tudo' ? 'active' : ''}" onclick="setCaixaFiltroModal('tudo')">Tudo</button>
+        <button type="button" class="rent-range-btn ${_caixaFiltroModal === 'lancados' ? 'active' : ''}" onclick="setCaixaFiltroModal('lancados')">Só lançados</button>
+      </div>
     </div>
 
     <div style="border:1px solid var(--rule); border-radius:8px; overflow-x:auto;">
@@ -9148,14 +9439,15 @@ function renderModalCaixaConteudo() {
         <thead>
           <tr style="border-bottom:1.5px solid var(--rule-strong); background:var(--surface-2); font-size:11px; color:var(--muted); text-transform:uppercase;">
             <th style="padding:6px 8px;">Data</th>
-            <th style="padding:6px 8px;">Tipo</th>
+            <th style="padding:6px 8px;">Tipo & Status</th>
             <th style="padding:6px 8px;">Ticker</th>
+            <th style="padding:6px 8px;">Descrição</th>
             <th style="padding:6px 8px; text-align:right;">Impacto</th>
             <th style="padding:6px 8px; text-align:right;">Saldo</th>
           </tr>
         </thead>
         <tbody>
-          ${rows || '<tr><td colspan="5" style="padding:16px; text-align:center; color:var(--muted);">Nenhum lançamento no período.</td></tr>'}
+          ${rows || '<tr><td colspan="6" style="padding:16px; text-align:center; color:var(--muted);">Nenhum lançamento no período.</td></tr>'}
         </tbody>
       </table>
     </div>
@@ -9454,10 +9746,31 @@ function recalcularCarteira() {
   let acoesAbertasCount = 0;
   let fiisAbertosCount = 0;
 
-  BASE_STOCKS.forEach(s => {
-    const rawQ = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
-    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(rawQ) : (parseFloat(rawQ) || 0);
+  const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
+  const posExtrato = (typeof calcularPosicoesExtrato === 'function') ? calcularPosicoesExtrato(extrato) : {};
+
+  function sincronizarAtivo(s) {
+    if (posExtrato[s.t] && posExtrato[s.t].temLancamento) {
+      s.quant = posExtrato[s.t].quant;
+      s.pm = posExtrato[s.t].pm;
+      if (s.quant <= 0) {
+        s.ideal = 0;
+        if (typeof rebData !== 'undefined' && rebData[s.t]) {
+          rebData[s.t].i = 0;
+        }
+      }
+    }
+    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(s.quant) : (parseFloat(s.quant) || 0);
+    // Sincroniza rebData[s.t].q sem apagar a chave
+    if (typeof rebData !== 'undefined' && rebData[s.t]) {
+      rebData[s.t].q = q;
+    }
     s.saldo = q * (s.preco || 0);
+    return q;
+  }
+
+  BASE_STOCKS.forEach(s => {
+    const q = sincronizarAtivo(s);
     totalAcoes += s.saldo;
     if (q > 0 && (typeof isAtivoEncerrado !== 'function' || !isAtivoEncerrado(s.t))) {
       acoesAbertasCount++;
@@ -9466,9 +9779,7 @@ function recalcularCarteira() {
   });
 
   OUT_OF_BASE.forEach(s => {
-    const rawQ = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
-    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(rawQ) : (parseFloat(rawQ) || 0);
-    s.saldo = q * (s.preco || 0);
+    const q = sincronizarAtivo(s);
     totalAcoes += s.saldo;
     if (q > 0 && (typeof isAtivoEncerrado !== 'function' || !isAtivoEncerrado(s.t))) {
       acoesAbertasCount++;
@@ -9477,9 +9788,7 @@ function recalcularCarteira() {
   });
 
   FIIS.forEach(f => {
-    const rawQ = f.quant != null ? f.quant : (rebData[f.t] ? rebData[f.t].q : 0);
-    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(rawQ) : (parseFloat(rawQ) || 0);
-    f.saldo = q * (f.preco || 0);
+    const q = sincronizarAtivo(f);
     totalFiis += f.saldo;
     if (q > 0 && (typeof isAtivoEncerrado !== 'function' || !isAtivoEncerrado(f.t))) {
       fiisAbertosCount++;
@@ -9488,14 +9797,28 @@ function recalcularCarteira() {
   });
 
   // ETFs e Criptos
-  const qVti = rebData.VTI ? rebData.VTI.q : 0.05209268;
-  const pmVti = 1973.00;
+  let qVti = 0.05209268;
+  let pmVti = 1973.00;
+  if (posExtrato.VTI && posExtrato.VTI.temLancamento) {
+    qVti = posExtrato.VTI.quant;
+    pmVti = posExtrato.VTI.pm || pmVti;
+  } else if (rebData.VTI && rebData.VTI.q != null) {
+    qVti = rebData.VTI.q;
+  }
+  if (rebData.VTI) rebData.VTI.q = qVti;
   const precoVti = pmVti * (1 + marketFactor * 0.7);
   const saldoEtf = Number((qVti * precoVti).toFixed(2));
   if (qVti > 0) totalInvestido += Number((qVti * pmVti).toFixed(2));
 
-  const qSol = rebData.SOL ? rebData.SOL.q : 0.04888403;
-  const pmSol = 594.67;
+  let qSol = 0.04888403;
+  let pmSol = 594.67;
+  if (posExtrato.SOL && posExtrato.SOL.temLancamento) {
+    qSol = posExtrato.SOL.quant;
+    pmSol = posExtrato.SOL.pm || pmSol;
+  } else if (rebData.SOL && rebData.SOL.q != null) {
+    qSol = rebData.SOL.q;
+  }
+  if (rebData.SOL) rebData.SOL.q = qSol;
   const precoSol = pmSol * (1 + marketFactor * 1.5);
   const saldoCripto = Number((qSol * precoSol).toFixed(2));
   if (qSol > 0) totalInvestido += Number((qSol * pmSol).toFixed(2));
@@ -9505,7 +9828,6 @@ function recalcularCarteira() {
   const ganhoCapital = totalPatrimonio - totalInvestido;
 
   // Proventos Acumulados do Extrato
-  const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
   const proventosLancados = extrato
     .filter(t => t.tipo === 'Provento')
     .reduce((acc, t) => acc + (parseFloat(t.total) || 0), 0);
@@ -10837,6 +11159,9 @@ function carregarExtrato() {
 
 function salvarExtrato(lista) {
   localStorage.setItem(TRANSACOES_KEY, JSON.stringify(lista));
+  if (typeof recalcularCarteira === 'function') recalcularCarteira();
+  if (typeof renderCaixaInvestir === 'function') renderCaixaInvestir();
+  if (typeof renderRentabilidade === 'function') renderRentabilidade();
   renderExtrato();
 }
 
@@ -10939,16 +11264,120 @@ window.resetarExtratoPadrao = resetarExtratoPadrao;
    ========================================================================== */
 
 let _rentRangeAtual = 'inicio';
+let _rentDadosUltimos = null;
 let _provCacheWard = null;
+
+function carregarRentSeries() {
+  const padrao = ['carteira', 'cdi', 'ibov'];
+  try {
+    const raw = localStorage.getItem('barsi-rent-series');
+    if (!raw) return padrao;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+  } catch (e) {
+    console.warn('Erro ao carregar barsi-rent-series:', e);
+  }
+  return padrao;
+}
+
+function salvarRentSeries(keys) {
+  try {
+    localStorage.setItem('barsi-rent-series', JSON.stringify(keys));
+  } catch (e) {
+    console.warn('Erro ao salvar barsi-rent-series:', e);
+  }
+}
+
+function carregarDdSeries() {
+  const padrao = ['carteira', 'ibov'];
+  try {
+    const raw = localStorage.getItem('barsi-dd-series');
+    if (!raw) return padrao;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+  } catch (e) {
+    console.warn('Erro ao carregar barsi-dd-series:', e);
+  }
+  return padrao;
+}
+
+function salvarDdSeries(keys) {
+  try {
+    localStorage.setItem('barsi-dd-series', JSON.stringify(keys));
+  } catch (e) {
+    console.warn('Erro ao salvar barsi-dd-series:', e);
+  }
+}
 
 function setRentabilidadeRange(range) {
   _rentRangeAtual = range || 'inicio';
-  document.querySelectorAll('.rent-range-btn').forEach(b => {
+  document.querySelectorAll('.rent-range-btn[data-range]').forEach(b => {
     b.classList.toggle('active', b.dataset.range === _rentRangeAtual);
   });
   renderRentabilidade(_rentRangeAtual);
 }
 window.setRentabilidadeRange = setRentabilidadeRange;
+
+function setRentabilidadePair(pair) {
+  let keys = ['carteira', 'cdi', 'ibov'];
+  if (pair === 'fiis') {
+    keys = ['fii', 'ifix'];
+  } else if (pair === 'acoes') {
+    keys = ['acao', 'ibov'];
+  }
+  salvarRentSeries(keys);
+  renderRentabilidade(_rentRangeAtual);
+}
+window.setRentabilidadePair = setRentabilidadePair;
+
+function toggleRentSerie(key) {
+  let active = carregarRentSeries();
+  if (active.includes(key)) {
+    if (active.length > 1) {
+      active = active.filter(k => k !== key);
+    }
+  } else {
+    active.push(key);
+  }
+  salvarRentSeries(active);
+  renderRentabilidade(_rentRangeAtual);
+}
+window.toggleRentSerie = toggleRentSerie;
+
+function toggleDdSerie(key) {
+  let active = carregarDdSeries();
+  if (active.includes(key)) {
+    if (active.length > 1) {
+      active = active.filter(k => k !== key);
+    }
+  } else {
+    active.push(key);
+  }
+  salvarDdSeries(active);
+  if (_rentDadosUltimos) {
+    renderDrawdownSvg(_rentDadosUltimos.serie, active);
+  }
+}
+window.toggleDdSerie = toggleDdSerie;
+
+function _determinarCategoriaTicker(ticker, catInformada) {
+  if (catInformada) {
+    const c = String(catInformada).toUpperCase();
+    if (c === 'FIIS' || c === 'FII' || c === 'FUNDOS IMOBILIÁRIOS') return 'FIIS';
+    if (c === 'AÇÕES' || c === 'ACOES' || c === 'AÇÃO' || c === 'ACAO') return 'AÇÕES';
+    if (c === 'ETFS' || c === 'ETF') return 'ETFS';
+    if (c === 'CRIPTO' || c === 'CRYPTO') return 'CRIPTO';
+  }
+  if (typeof FIIS !== 'undefined' && FIIS.some(f => f.t === ticker)) return 'FIIS';
+  if (typeof RADAR_FIIS !== 'undefined' && RADAR_FIIS.some(f => f.t === ticker)) return 'FIIS';
+  if (typeof BASE_STOCKS !== 'undefined' && BASE_STOCKS.some(b => b.t === ticker)) return 'AÇÕES';
+  if (typeof OUT_OF_BASE !== 'undefined' && OUT_OF_BASE.some(o => o.t === ticker)) return 'AÇÕES';
+  if (typeof RADAR_ACOES !== 'undefined' && RADAR_ACOES.some(a => a.t === ticker)) return 'AÇÕES';
+  if (ticker === 'VTI') return 'ETFS';
+  if (ticker === 'SOL') return 'CRIPTO';
+  if (/11$/.test(ticker)) return 'FIIS';
+  return 'AÇÕES';
+}
 
 function calcularRentabilidadeCota(range) {
   const bench = window.FEHMIR_BENCH;
@@ -10978,138 +11407,203 @@ function calcularRentabilidadeCota(range) {
     return h.c[targetIdx];
   }
 
-  let posicao = {};
-  let serie = [];
-  let cotas = 0;
-  let cotaValor = 100.0;
+  function calcularCotaSubconjunto(extratoFiltrado) {
+    let posicao = {};
+    let cotaValor = 100.0;
+    let cotas = 0;
+    let picoCota = 100.0;
+    const serieSub = [];
 
-  let cdiFator = 1.0;
-  const cdiMap = {};
-  bench.cdi.forEach(r => { cdiMap[r[0]] = r[1]; });
+    for (let i = 0; i < datas.length; i++) {
+      const data = datas[i];
+      const txDia = extratoFiltrado.filter(t => t.data === data);
+      let fluxoCompras = 0;
+      let fluxoVendas = 0;
+      let proventosDia = 0;
 
-  const ibovBase = ibov.find(r => r[0] === '2026-09-30')[1];
-
-  let picoCota = 100.0;
-  let piorQueda = { pct: 0, data: '2026-09-30' };
-
-  for (let i = 0; i < datas.length; i++) {
-    const data = datas[i];
-
-    if (i > 0 && cdiMap[data] != null) {
-      cdiFator *= (1.0 + cdiMap[data] / 100.0);
-    }
-    const ibovAtual = ibov.find(r => r[0] === data)[1];
-    const ibovRetorno = ((ibovAtual / ibovBase) - 1.0) * 100.0;
-    const cdiRetorno = (cdiFator - 1.0) * 100.0;
-
-    const txDia = extrato.filter(t => t.data === data);
-    let fluxoCompras = 0;
-    let fluxoVendas = 0;
-    let proventosDia = 0;
-
-    txDia.forEach(t => {
-      const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
-      const tot = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || 0);
-      if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
-        fluxoCompras += (tot || (q * (parseFloat(t.preco) || 0)));
-      } else if (t.tipo === 'Venda') {
-        fluxoVendas += (tot || (q * (parseFloat(t.preco) || 0)));
-      } else if (t.tipo === 'Provento') {
-        proventosDia += tot;
-      }
-    });
-
-    const fluxoLiquido = fluxoCompras - fluxoVendas;
-
-    if (i === 0) {
-      // Início: 30/09/2026
-      // Montar posição inicial a partir de todas as transações até esta data
-      extrato.filter(t => t.data <= data).forEach(t => {
-        const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
-        if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
-          posicao[t.ticker] = (posicao[t.ticker] || 0) + q;
-        } else if (t.tipo === 'Venda') {
-          posicao[t.ticker] = Math.max(0, (posicao[t.ticker] || 0) - q);
-        }
-      });
-      let valorInicial = 0;
-      Object.keys(posicao).forEach(t => {
-        valorInicial += posicao[t] * obterPreco(t, data);
-      });
-      cotaValor = 100.00;
-      cotas = valorInicial / cotaValor;
-      picoCota = cotaValor;
-
-      serie.push({
-        data,
-        valor: valorInicial,
-        cota: cotaValor,
-        cotas,
-        retornoDia: 0,
-        retornoAcum: 0,
-        cdiAcum: 0,
-        ibovAcum: 0,
-        drawdown: 0
-      });
-    } else {
-      // Reavaliação dos ativos da carteira antes dos novos fluxos
-      let valorAntesFluxo = 0;
-      Object.keys(posicao).forEach(t => {
-        valorAntesFluxo += posicao[t] * obterPreco(t, data);
-      });
-      // Proventos recebidos somam diretamente como rendimento da cota
-      valorAntesFluxo += proventosDia;
-
-      const cotaNova = cotas > 0 ? (valorAntesFluxo / cotas) : cotaValor;
-      const retornoDia = cotaValor > 0 ? (cotaNova / cotaValor - 1.0) : 0;
-      cotaValor = cotaNova;
-
-      if (cotaValor > picoCota) picoCota = cotaValor;
-      const dd = picoCota > 0 ? ((cotaValor - picoCota) / picoCota) * 100.0 : 0;
-      if (dd < piorQueda.pct) {
-        piorQueda = { pct: dd, data: data };
-      }
-
-      // Aplicar os fluxos do dia (novas compras ou vendas)
       txDia.forEach(t => {
         const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
+        const tot = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || (q * (parseFloat(t.preco) || 0)));
         if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
-          posicao[t.ticker] = (posicao[t.ticker] || 0) + q;
+          fluxoCompras += tot;
         } else if (t.tipo === 'Venda') {
-          posicao[t.ticker] = Math.max(0, (posicao[t.ticker] || 0) - q);
+          fluxoVendas += tot;
+        } else if (t.tipo === 'Provento') {
+          proventosDia += tot;
         }
       });
 
-      // Emissão/resgate de cotas pelo valor de cotação do dia (neutralidade matemática do aporte)
-      const deltaCotas = cotaValor > 0 ? (fluxoLiquido / cotaValor) : 0;
-      cotas += deltaCotas;
+      const fluxoLiquido = fluxoCompras - fluxoVendas;
 
-      let valorFinal = 0;
-      Object.keys(posicao).forEach(t => {
-        valorFinal += posicao[t] * obterPreco(t, data);
-      });
+      if (i === 0) {
+        extratoFiltrado.filter(t => t.data <= data).forEach(t => {
+          const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
+          if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
+            posicao[t.ticker] = (posicao[t.ticker] || 0) + q;
+          } else if (t.tipo === 'Venda') {
+            posicao[t.ticker] = Math.max(0, (posicao[t.ticker] || 0) - q);
+          }
+        });
+        let valorInicial = 0;
+        Object.keys(posicao).forEach(t => {
+          valorInicial += posicao[t] * obterPreco(t, data);
+        });
+        cotaValor = 100.0;
+        cotas = valorInicial > 0 ? (valorInicial / cotaValor) : 1.0;
+        picoCota = cotaValor;
 
-      serie.push({
-        data,
-        valor: valorFinal,
-        cota: cotaValor,
-        cotas,
-        retornoDia: retornoDia * 100.0,
-        retornoAcum: (cotaValor / 100.0 - 1.0) * 100.0,
-        cdiAcum: cdiRetorno,
-        ibovAcum: ibovRetorno,
-        drawdown: dd
-      });
+        serieSub.push({
+          data,
+          cota: cotaValor,
+          valor: valorInicial,
+          retornoDia: 0,
+          retornoAcum: 0,
+          drawdown: 0
+        });
+      } else {
+        let valorAntesFluxo = 0;
+        Object.keys(posicao).forEach(t => {
+          valorAntesFluxo += posicao[t] * obterPreco(t, data);
+        });
+        valorAntesFluxo += proventosDia;
+
+        const cotaNova = cotas > 0 ? (valorAntesFluxo / cotas) : cotaValor;
+        const retDia = cotaValor > 0 ? (cotaNova / cotaValor - 1.0) * 100.0 : 0;
+        cotaValor = cotaNova;
+        if (cotaValor > picoCota) picoCota = cotaValor;
+        const dd = picoCota > 0 ? ((cotaValor - picoCota) / picoCota) * 100.0 : 0;
+
+        txDia.forEach(t => {
+          const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
+          if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
+            posicao[t.ticker] = (posicao[t.ticker] || 0) + q;
+          } else if (t.tipo === 'Venda') {
+            posicao[t.ticker] = Math.max(0, (posicao[t.ticker] || 0) - q);
+          }
+        });
+
+        const deltaCotas = cotaValor > 0 ? (fluxoLiquido / cotaValor) : 0;
+        cotas += deltaCotas;
+
+        let valorFinal = 0;
+        Object.keys(posicao).forEach(t => {
+          valorFinal += posicao[t] * obterPreco(t, data);
+        });
+
+        serieSub.push({
+          data,
+          cota: cotaValor,
+          valor: valorFinal,
+          retornoDia: retDia,
+          retornoAcum: (cotaValor / 100.0 - 1.0) * 100.0,
+          drawdown: dd
+        });
+      }
     }
+    return serieSub;
   }
 
-  // Estatísticas finais
+  // 1. Total da carteira
+  const resTotal = calcularCotaSubconjunto(extrato);
+  // 2. FIIs
+  const txFiis = extrato.filter(t => _determinarCategoriaTicker(t.ticker, t.cat) === 'FIIS');
+  const resFiis = calcularCotaSubconjunto(txFiis);
+  // 3. Ações
+  const txAcoes = extrato.filter(t => _determinarCategoriaTicker(t.ticker, t.cat) === 'AÇÕES');
+  const resAcoes = calcularCotaSubconjunto(txAcoes);
+
+  // CDI
+  const cdiMap = {};
+  bench.cdi.forEach(r => { cdiMap[r[0]] = r[1]; });
+  let cdiFator = 1.0;
+  const cdiRetornos = [];
+  datas.forEach((d, idx) => {
+    if (idx > 0 && cdiMap[d] != null) {
+      cdiFator *= (1.0 + cdiMap[d] / 100.0);
+    }
+    cdiRetornos.push((cdiFator - 1.0) * 100.0);
+  });
+
+  // Ibovespa & Drawdown
+  const ibovBase = (ibov.find(r => r[0] === '2026-09-30') || [null, 1])[1];
+  let ibovPeak = -Infinity;
+  const ibovRetornos = [];
+  const ibovDrawdowns = [];
+  datas.forEach(d => {
+    const row = ibov.find(r => r[0] === d);
+    const pt = row ? row[1] : ibovBase;
+    if (pt > ibovPeak) ibovPeak = pt;
+    const ret = ((pt / ibovBase) - 1.0) * 100.0;
+    const dd = ibovPeak > 0 ? ((pt - ibovPeak) / ibovPeak) * 100.0 : 0;
+    ibovRetornos.push(ret);
+    ibovDrawdowns.push(dd);
+  });
+
+  // IFIX & Drawdown
+  const ifix = bench.ifix || [];
+  const temIfix = ifix.length > 0;
+  const ifixBase = temIfix ? (ifix.find(r => r[0] === '2026-09-30') || [null, 1])[1] : 1;
+  let ifixPeak = -Infinity;
+  const ifixRetornos = [];
+  const ifixDrawdowns = [];
+  datas.forEach(d => {
+    if (!temIfix) {
+      ifixRetornos.push(0);
+      ifixDrawdowns.push(0);
+    } else {
+      const row = ifix.find(r => r[0] === d);
+      const pt = row ? row[1] : ifixBase;
+      if (pt > ifixPeak) ifixPeak = pt;
+      const ret = ((pt / ifixBase) - 1.0) * 100.0;
+      const dd = ifixPeak > 0 ? ((pt - ifixPeak) / ifixPeak) * 100.0 : 0;
+      ifixRetornos.push(ret);
+      ifixDrawdowns.push(dd);
+    }
+  });
+
+  // IPCA suave pro-rata diário
+  const ipcaRetornos = datas.map((d, idx) => {
+    return (idx / Math.max(1, datas.length - 1)) * 0.25;
+  });
+
+  // Série unificada consolidada
+  const serie = datas.map((d, idx) => {
+    return {
+      data: d,
+      valor: resTotal[idx].valor,
+      cota: resTotal[idx].cota,
+      retornoDia: resTotal[idx].retornoDia,
+      retornoAcum: resTotal[idx].retornoAcum,
+      cdiAcum: cdiRetornos[idx],
+      ibovAcum: ibovRetornos[idx],
+      // Retornos de cada série
+      carteira: resTotal[idx].retornoAcum,
+      fii: resFiis[idx].retornoAcum,
+      acao: resAcoes[idx].retornoAcum,
+      cdi: cdiRetornos[idx],
+      ipca: ipcaRetornos[idx],
+      ibov: ibovRetornos[idx],
+      ifix: ifixRetornos[idx],
+      // Drawdown de cada ativo
+      drawdown: resTotal[idx].drawdown,
+      ddCarteira: resTotal[idx].drawdown,
+      ddIbov: ibovDrawdowns[idx],
+      ddIfix: ifixDrawdowns[idx]
+    };
+  });
+
   const ult = serie[serie.length - 1];
-  const retornoTotal = ult.retornoAcum;
-  const cdiTotal = ult.cdiAcum;
+  const retornoTotal = ult.carteira;
+  const cdiTotal = ult.cdi;
   const vsCdi = cdiTotal > 0 ? (retornoTotal / cdiTotal) * 100.0 : 0;
 
-  // Volatilidade anualizada (desvio padrão diário * sqrt(252))
+  let piorQueda = { pct: 0, data: '2026-09-30' };
+  serie.forEach(s => {
+    if (s.ddCarteira < piorQueda.pct) {
+      piorQueda = { pct: s.ddCarteira, data: s.data };
+    }
+  });
+
   const retornosDiarios = serie.slice(1).map(s => s.retornoDia / 100.0);
   let volAnual = 0;
   if (retornosDiarios.length > 1) {
@@ -11118,24 +11612,33 @@ function calcularRentabilidadeCota(range) {
     volAnual = Math.sqrt(variancia) * Math.sqrt(252) * 100.0;
   }
 
-  // Retorno no mês atual (outubro/2026): base 30/09/2026 é 100,00
-  const retornoMesAtual = ((ult.cota / 100.00) - 1.0) * 100.0;
-
-  return {
+  const res = {
     serie,
     ult,
+    temIfix,
     kpis: {
       patrimonio: ult.valor,
-      retornoMes: retornoMesAtual,
+      retornoMes: ((ult.cota / 100.0) - 1.0) * 100.0,
       retornoAno: retornoTotal,
       retornoInicio: retornoTotal,
       cdiAcum: cdiTotal,
       vsCdi: vsCdi,
       volatilidade: volAnual,
-      drawdownHoje: ult.drawdown,
-      piorQueda: piorQueda
+      drawdownHoje: ult.ddCarteira,
+      piorQueda: piorQueda,
+      totais: {
+        carteira: ult.carteira,
+        fii: ult.fii,
+        acao: ult.acao,
+        cdi: ult.cdi,
+        ipca: ult.ipca,
+        ibov: ult.ibov,
+        ifix: ult.ifix
+      }
     }
   };
+  _rentDadosUltimos = res;
+  return res;
 }
 window.calcularRentabilidadeCota = calcularRentabilidadeCota;
 
@@ -11150,6 +11653,54 @@ function renderRentabilidade(range) {
   if (aviso) aviso.style.display = 'none';
 
   const k = dados.kpis;
+  const activeKeys = carregarRentSeries();
+  const ddActiveKeys = carregarDdSeries();
+
+  // Sincronizar abas de atalhos rápidos (Total, FIIs × IFIX, Ações × Ibovespa)
+  const pairTabs = document.getElementById('rent-pair-tabs');
+  if (pairTabs) {
+    const isTotal = activeKeys.length === 3 && activeKeys.includes('carteira') && activeKeys.includes('cdi') && activeKeys.includes('ibov');
+    const isFiis = activeKeys.length === 2 && activeKeys.includes('fii') && activeKeys.includes('ifix');
+    const isAcoes = activeKeys.length === 2 && activeKeys.includes('acao') && activeKeys.includes('ibov');
+    
+    pairTabs.querySelectorAll('.rent-range-btn').forEach(btn => {
+      const p = btn.dataset.pair;
+      btn.classList.toggle('active', (p === 'total' && isTotal) || (p === 'fiis' && isFiis) || (p === 'acoes' && isAcoes));
+    });
+  }
+
+  // Renderizar Legenda Clicável Interativa Padrão Ward (#rent-series-legend)
+  const legContainer = document.getElementById('rent-series-legend');
+  if (legContainer && k && k.totais) {
+    const totais = k.totais;
+    const temIfix = dados.temIfix;
+    
+    const seriesConfig = [
+      { key: 'carteira', label: 'Carteira',        color: 'var(--serie-carteira)', val: totais.carteira },
+      { key: 'fii',      label: 'Carteira · FIIs', color: 'var(--serie-fii)',      val: totais.fii },
+      { key: 'acao',     label: 'Carteira · Ações',color: 'var(--serie-acao)',     val: totais.acao },
+      { key: 'cdi',      label: 'CDI',             color: 'var(--serie-cdi)',      val: totais.cdi },
+      { key: 'ipca',     label: 'IPCA',            color: 'var(--serie-ipca)',     val: totais.ipca },
+      { key: 'ibov',     label: 'Ibovespa',        color: 'var(--serie-ibov)',     val: totais.ibov },
+      { key: 'ifix',     label: 'IFIX',            color: 'var(--serie-ifix)',     val: totais.ifix, disabled: !temIfix, title: !temIfix ? 'sem série do IFIX' : '' }
+    ];
+
+    legContainer.innerHTML = seriesConfig.map(s => {
+      const isActive = activeKeys.includes(s.key) && !s.disabled;
+      const v = s.val != null ? s.val : 0;
+      const vStr = s.disabled ? '—' : `${v >= 0 ? '+' : ''}${v.toFixed(2)}%`;
+      const disClass = s.disabled ? 'disabled' : '';
+      const actClass = isActive ? 'active' : '';
+      const tit = s.title ? `title="${s.title}"` : '';
+      return `
+        <button type="button" class="rent-legend-btn ${actClass} ${disClass}" ${tit} onclick="toggleRentSerie('${s.key}')">
+          <span class="swatch" style="background:${s.color};"></span>
+          <span>${s.label}:</span>
+          <span class="rent-leg-val" style="color:${s.color}; font-weight:700;">${vStr}</span>
+        </button>
+      `;
+    }).join('');
+  }
 
   // Atualizar Coluna de Números Ward (Esquerda)
   const elPat = document.getElementById('rent-kpi-patrimonio');
@@ -11173,7 +11724,7 @@ function renderRentabilidade(range) {
     elInicio.style.color = k.retornoInicio >= 0 ? 'var(--good)' : 'var(--critical)';
   }
 
-  // % do CDI: com menos de 3 meses de histórico, mostrar "—" com tooltip "período curto demais para comparar"
+  // % do CDI: com menos de 3 meses de histórico, mostrar "—" com tooltip
   const dtIni = (dados.serie && dados.serie.length > 0) ? new Date(dados.serie[0].data) : null;
   const dtFim = (dados.serie && dados.serie.length > 0) ? new Date(dados.serie[dados.serie.length - 1].data) : null;
   const diffDias = (dtIni && dtFim) ? Math.round((dtFim - dtIni) / (1000 * 60 * 60 * 24)) : 0;
@@ -11234,36 +11785,39 @@ function renderRentabilidade(range) {
   const elDdVol = document.getElementById('dd-stat-vol');
   if (elDdVol) elDdVol.textContent = `${k.volatilidade.toFixed(1)}% a.a.`;
 
-  // Renderizar Gráfico de Evolução Acumulada SVG
-  renderRentabilidadeSvg(dados.serie);
-
-  // Renderizar Tabela Mês a Mês
+  // Renderizar Gráficos SVG
+  renderRentabilidadeSvg(dados.serie, activeKeys);
   renderRentabilidadeTabelaBench(k);
-
-  // Renderizar Gráfico de Drawdown SVG
-  renderDrawdownSvg(dados.serie);
+  renderDrawdownSvg(dados.serie, ddActiveKeys);
 }
 window.renderRentabilidade = renderRentabilidade;
 
-function renderRentabilidadeSvg(serie) {
+function renderRentabilidadeSvg(serie, activeKeys) {
   const svg = document.getElementById('rent-chart-svg');
   if (!svg || !serie || serie.length === 0) return;
 
-  const w = 680, h = 260;
-  const padL = 52, padR = 20, padT = 25, padB = 35;
+  const active = activeKeys || carregarRentSeries();
+  const w = 680, h = 320;
+  const padL = 60, padR = 20, padT = 25, padB = 35;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
 
-  // Determinar limites Y
+  // Determinar limites Y estritamente conforme as séries ativas
   let minVal = 0, maxVal = 0;
   serie.forEach(s => {
-    minVal = Math.min(minVal, s.retornoAcum, s.cdiAcum, s.ibovAcum);
-    maxVal = Math.max(maxVal, s.retornoAcum, s.cdiAcum, s.ibovAcum);
+    active.forEach(k => {
+      const v = s[k];
+      if (v != null && !isNaN(v)) {
+        minVal = Math.min(minVal, v);
+        maxVal = Math.max(maxVal, v);
+      }
+    });
   });
-  // Adicionar margem de respiro
+
+  // Respiro dinâmico no eixo Y
   minVal = Math.floor(Math.min(0, minVal - 0.5));
-  maxVal = Math.ceil(maxVal + 1.0);
-  if (maxVal - minVal < 5) maxVal = minVal + 5;
+  maxVal = Math.ceil(maxVal + 0.5);
+  if (maxVal - minVal < 4) maxVal = minVal + 4;
 
   function toX(idx) {
     if (serie.length <= 1) return padL;
@@ -11286,14 +11840,40 @@ function renderRentabilidadeSvg(serie) {
     `;
   }
 
-  // Construir polylines
   function buildPath(key) {
-    return serie.map((s, idx) => `${toX(idx).toFixed(1)},${toY(s[key]).toFixed(1)}`).join(' ');
+    return serie.map((s, idx) => `${toX(idx).toFixed(1)},${toY(s[key] != null ? s[key] : 0).toFixed(1)}`).join(' ');
   }
 
-  const pathCarteira = buildPath('retornoAcum');
-  const pathCdi = buildPath('cdiAcum');
-  const pathIbov = buildPath('ibovAcum');
+  // Desenhar Polylines das séries ativas
+  let linesHtml = '';
+  // 1. Área suave da carteira (se ligada)
+  if (active.includes('carteira')) {
+    const yZero = toY(0);
+    const pts = serie.map((s, idx) => `${toX(idx).toFixed(1)},${toY(s.carteira).toFixed(1)}`);
+    const areaPts = `${toX(0).toFixed(1)},${yZero.toFixed(1)} ` + pts.join(' ') + ` ${toX(serie.length - 1).toFixed(1)},${yZero.toFixed(1)}`;
+    linesHtml += `<polygon points="${areaPts}" fill="var(--serie-carteira)" opacity="0.08" />`;
+  }
+
+  // Definições de traçado de cada série
+  const seriesStyleMap = {
+    ibov:     { color: 'var(--serie-ibov)', width: 1.8, opacity: 0.85, dash: 'none' },
+    ifix:     { color: 'var(--serie-ifix)', width: 1.8, opacity: 0.9, dash: 'none' },
+    cdi:      { color: 'var(--serie-cdi)', width: 1.8, opacity: 0.9, dash: 'none' },
+    ipca:     { color: 'var(--serie-ipca)', width: 1.8, opacity: 0.9, dash: '3,3' },
+    fii:      { color: 'var(--serie-fii)', width: 2.2, opacity: 1.0, dash: 'none' },
+    acao:     { color: 'var(--serie-acao)', width: 2.2, opacity: 1.0, dash: 'none' },
+    carteira: { color: 'var(--serie-carteira)', width: 2.8, opacity: 1.0, dash: 'none' }
+  };
+
+  // Ordem de sobreposição: benchmarks no fundo, classes no meio, carteira no topo
+  const order = ['ipca', 'cdi', 'ibov', 'ifix', 'fii', 'acao', 'carteira'];
+  order.forEach(k => {
+    if (active.includes(k) && seriesStyleMap[k]) {
+      const st = seriesStyleMap[k];
+      const p = buildPath(k);
+      linesHtml += `<polyline points="${p}" fill="none" stroke="${st.color}" stroke-width="${st.width}" stroke-linecap="round" stroke-linejoin="round" opacity="${st.opacity}" stroke-dasharray="${st.dash}" />`;
+    }
+  });
 
   // Rótulos de datas no eixo X
   let datesHtml = '';
@@ -11306,58 +11886,91 @@ function renderRentabilidadeSvg(serie) {
     }
   });
 
-  // Pontos de hover interativos
-  let dotsHtml = '';
+  // Colunas de Hover para Tooltip
+  let hoverColsHtml = '';
+  const colW = serie.length > 1 ? plotW / (serie.length - 1) : plotW;
   serie.forEach((s, idx) => {
     const cx = toX(idx);
-    const cy = toY(s.retornoAcum);
-    dotsHtml += `
-      <circle cx="${cx}" cy="${cy}" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2" class="rent-dot" data-idx="${idx}" style="cursor:pointer;" />
+    hoverColsHtml += `
+      <rect x="${cx - colW / 2}" y="${padT}" width="${colW}" height="${plotH}" fill="transparent" class="rent-col-hover" data-idx="${idx}" style="cursor:crosshair;" />
+      <line id="rent-crosshair-${idx}" x1="${cx}" y1="${padT}" x2="${cx}" y2="${padT + plotH}" stroke="var(--rule-strong)" stroke-width="1" stroke-dasharray="2,2" style="opacity:0; pointer-events:none;" />
     `;
   });
 
   svg.innerHTML = `
     <!-- Grade -->
     ${gridHtml}
-    <!-- Linhas dos Benchmarks -->
-    <polyline points="${pathIbov}" fill="none" stroke="var(--data-5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
-    <polyline points="${pathCdi}" fill="none" stroke="var(--data-3)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-    <polyline points="${pathCarteira}" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
-    <!-- Pontos e Eixo X -->
-    ${dotsHtml}
+    <!-- Linhas e Áreas -->
+    ${linesHtml}
+    <!-- Datas -->
     ${datesHtml}
+    <!-- Colunas de Interação -->
+    ${hoverColsHtml}
   `;
 
-  // Interatividade Tooltip
+  // Interatividade Tooltip Ward
   const tooltip = document.getElementById('rent-chart-tooltip');
+  const labelsMap = {
+    carteira: { lbl: 'Carteira', color: 'var(--serie-carteira)' },
+    fii:      { lbl: 'Carteira · FIIs', color: 'var(--serie-fii)' },
+    acao:     { lbl: 'Carteira · Ações', color: 'var(--serie-acao)' },
+    cdi:      { lbl: 'CDI', color: 'var(--serie-cdi)' },
+    ipca:     { lbl: 'IPCA', color: 'var(--serie-ipca)' },
+    ibov:     { lbl: 'Ibovespa', color: 'var(--serie-ibov)' },
+    ifix:     { lbl: 'IFIX', color: 'var(--serie-ifix)' }
+  };
+
   if (tooltip) {
-    svg.querySelectorAll('.rent-dot').forEach(dot => {
-      dot.addEventListener('mouseenter', (e) => {
-        const idx = parseInt(dot.dataset.idx, 10);
+    svg.querySelectorAll('.rent-col-hover').forEach(col => {
+      col.addEventListener('mouseenter', () => {
+        const idx = parseInt(col.dataset.idx, 10);
         const s = serie[idx];
         const dataBr = s.data.split('-').reverse().join('/');
+        const cross = svg.querySelector(`#rent-crosshair-${idx}`);
+        if (cross) cross.style.opacity = '1';
+
+        let linhasHtml = '';
+        order.forEach(k => {
+          if (active.includes(k) && labelsMap[k] && s[k] != null) {
+            const item = labelsMap[k];
+            linhasHtml += `
+              <div style="display:flex; justify-content:space-between; gap:16px; color:${item.color}; font-size:11.5px; margin-top:2px;">
+                <span>${item.lbl}:</span> <b style="font-family:var(--font-mono);">${s[k] >= 0 ? '+' : ''}${s[k].toFixed(2)}%</b>
+              </div>
+            `;
+          }
+        });
+
+        let rodapeExtra = '';
+        if (active.includes('carteira')) {
+          rodapeExtra = `
+            <div style="font-size:10px; color:var(--muted); margin-top:4px; border-top:1px solid var(--rule); padding-top:4px;">
+              Cota: ${s.cota.toFixed(2)} · Patr: ${fmtR(s.valor)}
+            </div>
+          `;
+        }
+
         tooltip.innerHTML = `
-          <div style="font-weight:700; color:var(--ink); margin-bottom:4px; font-size:11px;">${dataBr}</div>
-          <div style="display:flex; justify-content:space-between; gap:14px; color:var(--accent); font-weight:600;">
-            <span>Carteira:</span> <span>${s.retornoAcum >= 0 ? '+' : ''}${s.retornoAcum.toFixed(2)}%</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; gap:14px; color:var(--data-3);">
-            <span>CDI:</span> <span>+${s.cdiAcum.toFixed(2)}%</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; gap:14px; color:var(--data-5);">
-            <span>Ibovespa:</span> <span>${s.ibovAcum >= 0 ? '+' : ''}${s.ibovAcum.toFixed(2)}%</span>
-          </div>
-          <div style="font-size:10px; color:var(--muted); margin-top:3px; border-top:1px solid var(--rule); padding-top:2px;">
-            Cota: ${s.cota.toFixed(2)} · Patr: ${fmtR(s.valor)}
-          </div>
+          <div style="font-weight:700; color:var(--ink); margin-bottom:4px; font-size:11.5px;">${dataBr}</div>
+          ${linhasHtml}
+          ${rodapeExtra}
         `;
         tooltip.style.display = 'block';
-        const rect = svg.getBoundingClientRect();
-        const dotRect = dot.getBoundingClientRect();
-        tooltip.style.left = (dotRect.left - rect.left - 40) + 'px';
-        tooltip.style.top = (dotRect.top - rect.top - 85) + 'px';
+
+        const svgRect = svg.getBoundingClientRect();
+        const cx = toX(idx);
+        const tipW = 160;
+        let leftPx = (cx / w) * svgRect.width - (tipW / 2);
+        if (leftPx < 10) leftPx = 10;
+        if (leftPx + tipW > svgRect.width - 10) leftPx = svgRect.width - tipW - 10;
+        tooltip.style.left = leftPx + 'px';
+        tooltip.style.top = '14px';
       });
-      dot.addEventListener('mouseleave', () => {
+
+      col.addEventListener('mouseleave', () => {
+        const idx = parseInt(col.dataset.idx, 10);
+        const cross = svg.querySelector(`#rent-crosshair-${idx}`);
+        if (cross) cross.style.opacity = '0';
         tooltip.style.display = 'none';
       });
     });
@@ -11431,20 +12044,52 @@ function renderRentabilidadeTabelaBench(kpis) {
   tbody.innerHTML = rowCart + rowCdi + rowIpca;
 }
 
-function renderDrawdownSvg(serie) {
+function renderDrawdownSvg(serie, ddActiveKeys) {
   const svg = document.getElementById('rent-dd-svg');
   if (!svg || !serie || serie.length === 0) return;
 
-  const w = 680, h = 140;
-  const padL = 52, padR = 20, padT = 15, padB = 25;
+  const active = ddActiveKeys || carregarDdSeries();
+  const w = 680, h = 150;
+  const padL = 60, padR = 20, padT = 15, padB = 25;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
 
+  // Atualizar botões de legenda de drawdown (#dd-series-legend)
+  const ddLeg = document.getElementById('dd-series-legend');
+  if (ddLeg) {
+    const bench = window.FEHMIR_BENCH || {};
+    const temIfix = (bench.ifix && bench.ifix.length > 0);
+    const ddConfigs = [
+      { key: 'carteira', label: 'Carteira',  color: 'var(--serie-carteira)', prop: 'ddCarteira' },
+      { key: 'ibov',     label: 'Ibovespa',  color: 'var(--serie-ibov)',     prop: 'ddIbov' },
+      { key: 'ifix',     label: 'IFIX',      color: 'var(--serie-ifix)',     prop: 'ddIfix', disabled: !temIfix, title: !temIfix ? 'sem série do IFIX' : '' }
+    ];
+    ddLeg.innerHTML = ddConfigs.map(s => {
+      const isAct = active.includes(s.key) && !s.disabled;
+      const disCls = s.disabled ? 'disabled' : '';
+      const actCls = isAct ? 'active' : '';
+      const tit = s.title ? `title="${s.title}"` : '';
+      return `
+        <button type="button" class="rent-legend-btn ${actCls} ${disCls}" ${tit} onclick="toggleDdSerie('${s.key}')">
+          <span class="swatch" style="background:${s.color};"></span>
+          <span>${s.label}</span>
+        </button>
+      `;
+    }).join('');
+  }
+
+  // Determinar piso do Drawdown conforme as séries ativas
   let minDd = 0;
   serie.forEach(s => {
-    if (s.drawdown < minDd) minDd = s.drawdown;
+    active.forEach(k => {
+      const prop = (k === 'carteira' ? 'ddCarteira' : (k === 'ibov' ? 'ddIbov' : 'ddIfix'));
+      const v = s[prop];
+      if (v != null && !isNaN(v)) {
+        minDd = Math.min(minDd, v);
+      }
+    });
   });
-  minDd = Math.floor(minDd - 1.0);
+  minDd = Math.floor(minDd - 0.8);
   if (minDd > -3) minDd = -3;
 
   function toX(idx) {
@@ -11458,11 +12103,35 @@ function renderDrawdownSvg(serie) {
   const yZero = padT;
   const yMin = padT + plotH;
 
-  let pathD = `M ${toX(0)} ${toY(serie[0].drawdown)}`;
+  function buildDdPath(prop) {
+    return serie.map((s, idx) => `${toX(idx).toFixed(1)},${toY(s[prop] != null ? s[prop] : 0).toFixed(1)}`).join(' ');
+  }
+
+  let linesHtml = '';
+  // Se carteira ativa, preencher área
+  if (active.includes('carteira')) {
+    const pCart = serie.map((s, idx) => `${toX(idx).toFixed(1)},${toY(s.ddCarteira).toFixed(1)}`).join(' ');
+    const areaD = `M ${toX(0).toFixed(1)} ${toY(0).toFixed(1)} L ` + pCart + ` L ${toX(serie.length - 1).toFixed(1)} ${toY(0).toFixed(1)} Z`;
+    linesHtml += `<path d="${areaD}" fill="rgba(37, 99, 235, 0.08)" />`;
+    linesHtml += `<polyline points="${buildDdPath('ddCarteira')}" fill="none" stroke="var(--serie-carteira)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />`;
+  }
+  if (active.includes('ibov')) {
+    linesHtml += `<polyline points="${buildDdPath('ddIbov')}" fill="none" stroke="var(--serie-ibov)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />`;
+  }
+  if (active.includes('ifix')) {
+    linesHtml += `<polyline points="${buildDdPath('ddIfix')}" fill="none" stroke="var(--serie-ifix)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />`;
+  }
+
+  // Hover cols para tooltip do drawdown
+  let hoverColsHtml = '';
+  const colW = serie.length > 1 ? plotW / (serie.length - 1) : plotW;
   serie.forEach((s, idx) => {
-    pathD += ` L ${toX(idx)} ${toY(s.drawdown)}`;
+    const cx = toX(idx);
+    hoverColsHtml += `
+      <rect x="${cx - colW / 2}" y="${padT}" width="${colW}" height="${plotH}" fill="transparent" class="dd-col-hover" data-idx="${idx}" style="cursor:crosshair;" />
+      <line id="dd-crosshair-${idx}" x1="${cx}" y1="${padT}" x2="${cx}" y2="${padT + plotH}" stroke="var(--rule-strong)" stroke-width="1" stroke-dasharray="2,2" style="opacity:0; pointer-events:none;" />
+    `;
   });
-  const areaD = pathD + ` L ${toX(serie.length - 1)} ${yZero} L ${toX(0)} ${yZero} Z`;
 
   svg.innerHTML = `
     <!-- Grade Horizontais -->
@@ -11472,10 +12141,66 @@ function renderDrawdownSvg(serie) {
     <line x1="${padL}" y1="${yMin}" x2="${w - padR}" y2="${yMin}" stroke="var(--rule)" stroke-dasharray="2,2" />
     <text x="${padL - 8}" y="${yMin + 3.5}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-sans)">${minDd.toFixed(1)}%</text>
 
-    <!-- Área de Drawdown -->
-    <path d="${areaD}" fill="rgba(220, 38, 38, 0.12)" />
-    <path d="${pathD}" fill="none" stroke="var(--critical)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Linhas e Áreas -->
+    ${linesHtml}
+
+    <!-- Colunas de Interação -->
+    ${hoverColsHtml}
   `;
+
+  // Tooltip de Drawdown
+  const tooltip = document.getElementById('rent-dd-tooltip');
+  if (tooltip) {
+    const ddLabels = {
+      carteira: { lbl: 'Carteira', color: 'var(--serie-carteira)', prop: 'ddCarteira' },
+      ibov:     { lbl: 'Ibovespa', color: 'var(--serie-ibov)',     prop: 'ddIbov' },
+      ifix:     { lbl: 'IFIX',     color: 'var(--serie-ifix)',     prop: 'ddIfix' }
+    };
+    svg.querySelectorAll('.dd-col-hover').forEach(col => {
+      col.addEventListener('mouseenter', () => {
+        const idx = parseInt(col.dataset.idx, 10);
+        const s = serie[idx];
+        const dataBr = s.data.split('-').reverse().join('/');
+        const cross = svg.querySelector(`#dd-crosshair-${idx}`);
+        if (cross) cross.style.opacity = '1';
+
+        let linhasHtml = '';
+        ['carteira', 'ibov', 'ifix'].forEach(k => {
+          if (active.includes(k) && ddLabels[k]) {
+            const item = ddLabels[k];
+            const v = s[item.prop];
+            linhasHtml += `
+              <div style="display:flex; justify-content:space-between; gap:14px; color:${item.color}; font-size:11px;">
+                <span>${item.lbl}:</span> <b style="font-family:var(--font-mono);">${v != null ? v.toFixed(2) : '0.00'}%</b>
+              </div>
+            `;
+          }
+        });
+
+        tooltip.innerHTML = `
+          <div style="font-weight:700; color:var(--ink); margin-bottom:3px; font-size:11px;">${dataBr}</div>
+          ${linhasHtml}
+        `;
+        tooltip.style.display = 'block';
+
+        const svgRect = svg.getBoundingClientRect();
+        const cx = toX(idx);
+        const tipW = 140;
+        let leftPx = (cx / w) * svgRect.width - (tipW / 2);
+        if (leftPx < 10) leftPx = 10;
+        if (leftPx + tipW > svgRect.width - 10) leftPx = svgRect.width - tipW - 10;
+        tooltip.style.left = leftPx + 'px';
+        tooltip.style.top = '10px';
+      });
+
+      col.addEventListener('mouseleave', () => {
+        const idx = parseInt(col.dataset.idx, 10);
+        const cross = svg.querySelector(`#dd-crosshair-${idx}`);
+        if (cross) cross.style.opacity = '0';
+        tooltip.style.display = 'none';
+      });
+    });
+  }
 }
 
 /* ==========================================================================
