@@ -2,7 +2,8 @@
 body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Fehmir</title>
 <script src="dados/historico.js"></script>
-<script src="dados/mercado.js"></script><script>try{var t=localStorage.getItem("barsi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<script src="dados/mercado.js"></script>
+<script src="dados/novidades.js"></script><script>try{var t=localStorage.getItem("barsi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <style>
 /* layout: tabbed site — Meus Ativos (carteira real) / Radar (watchlist, não é do Felipe) /
    Projeção (simulador de renda passiva) / Calculadora (Preço Teto/Graham/Gordon genérica) */
@@ -31,6 +32,16 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --font-serif:"Outfit",system-ui,sans-serif;
   --font-sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  /* Paleta categórica para gráficos de alocação (15/10/2026 - Ward style) */
+  --alloc-c1: #0284c7;
+  --alloc-c2: #06b6d4;
+  --alloc-c3: #14b8a6;
+  --alloc-c4: #f59e0b;
+  --alloc-c5: #8b5cf6;
+  --alloc-c6: #ec4899;
+  --alloc-c7: #10b981;
+  --alloc-c8: #6366f1;
+  --alloc-outros: #9ca3af;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -55,6 +66,15 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
     --warning:#F59E0B;
     --serious:#F97316;
     --critical:#EF4444;
+    --alloc-c1: #38bdf8;
+    --alloc-c2: #22d3ee;
+    --alloc-c3: #2dd4bf;
+    --alloc-c4: #fbbf24;
+    --alloc-c5: #a78bfa;
+    --alloc-c6: #f472b6;
+    --alloc-c7: #34d399;
+    --alloc-c8: #818cf8;
+    --alloc-outros: #6b7280;
   }
 }
 :root[data-theme="dark"]{
@@ -79,6 +99,15 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --warning:#F59E0B;
   --serious:#F97316;
   --critical:#EF4444;
+  --alloc-c1: #38bdf8;
+  --alloc-c2: #22d3ee;
+  --alloc-c3: #2dd4bf;
+  --alloc-c4: #fbbf24;
+  --alloc-c5: #a78bfa;
+  --alloc-c6: #f472b6;
+  --alloc-c7: #34d399;
+  --alloc-c8: #818cf8;
+  --alloc-outros: #6b7280;
 }
 
 *{box-sizing:border-box}
@@ -1352,6 +1381,481 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   padding-top: 8px;
   overflow-x: auto;
 }
+
+/* ================= GRÁFICOS DE ALOCAÇÃO WARD (15/10/2026) ================= */
+.aloc-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.aloc-sub-info {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--ink-2);
+  background: var(--surface-2);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+}
+.aloc-roscas-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+@media (max-width: 768px) {
+  .aloc-roscas-container {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+.aloc-rosca-col {
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.aloc-col-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+.aloc-chart-wrap {
+  position: relative;
+  width: 144px;
+  height: 144px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aloc-svg-donut {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+.aloc-donut-slice {
+  cursor: pointer;
+  transition: stroke-width 0.15s ease, opacity 0.15s ease, filter 0.15s ease;
+}
+.aloc-donut-slice:hover, .aloc-donut-slice.is-active {
+  stroke-width: 25;
+  filter: brightness(1.12);
+}
+.aloc-donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 80px;
+}
+.aloc-center-label {
+  font-size: 9.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.aloc-center-val {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.aloc-legend {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 11.5px;
+}
+.aloc-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+.aloc-legend-item:hover, .aloc-legend-item.is-active {
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.aloc-legend-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.aloc-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.aloc-legend-name {
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.aloc-legend-right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.aloc-legend-pct {
+  font-weight: 700;
+  color: var(--ink);
+}
+.aloc-legend-val {
+  color: var(--ink-2);
+}
+.aloc-tooltip {
+  position: absolute;
+  z-index: 50;
+  background: var(--ink);
+  color: var(--surface);
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  transform: translate(-50%, -100%) scale(0.95);
+}
+.aloc-tooltip.visible {
+  opacity: 1;
+  transform: translate(-50%, -120%) scale(1);
+}
+.aloc-metas-section {
+  border-top: 1px solid var(--rule);
+  padding-top: 14px;
+}
+.aloc-metas-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.aloc-metas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.aloc-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.aloc-meta-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+}
+.aloc-meta-diff {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.aloc-meta-diff.verde {
+  color: var(--good);
+  background: rgba(5, 150, 105, 0.12);
+}
+.aloc-meta-diff.neutra {
+  color: var(--accent);
+  background: rgba(37, 99, 235, 0.12);
+}
+.aloc-meta-diff.trava {
+  color: var(--critical);
+  background: rgba(220, 38, 38, 0.12);
+}
+.aloc-bar-track {
+  width: 100%;
+  height: 7px;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.aloc-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+.aloc-bar-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--ink);
+  z-index: 2;
+}
+
+/* ================= DDM 2 ESTÁGIOS - ABA ANÁLISE (15/10/2026) ================= */
+.an-ddm-box {
+  margin: 12px 0 8px;
+  padding: 14px 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-left: 3.5px solid var(--accent);
+  border-radius: 10px;
+  font-size: 13px;
+}
+.an-ddm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.an-ddm-title {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.an-ddm-badge {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  color: var(--muted);
+}
+.an-ddm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+@media (max-width: 680px) {
+  .an-ddm-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+.an-ddm-field {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.an-ddm-field-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.an-ddm-val-display {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ink);
+}
+.an-ddm-slider {
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  background: var(--surface-2);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+.an-ddm-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--surface);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.an-ddm-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--surface);
+  cursor: pointer;
+}
+.an-ddm-result-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.an-ddm-metrics {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+}
+.an-ddm-phrase {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.an-ddm-disclaimer {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 8px;
+  border-top: 1px dashed var(--rule);
+  padding-top: 6px;
+}
+
+/* ================= NOVIDADES & DOCUMENTOS (15/10/2026 - Tarefa 3) ================= */
+.an-novidades-card {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+}
+.an-novidades-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.an-novidades-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.an-doc-item {
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.an-doc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.an-doc-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+.an-doc-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.an-doc-badge.info {
+  background: rgba(5, 150, 105, 0.12);
+  color: var(--good);
+}
+.an-doc-badge.atencao {
+  background: rgba(217, 119, 6, 0.12);
+  color: var(--warning);
+}
+.an-doc-badge.critico {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--critical);
+}
+.an-doc-title-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.an-doc-title-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.an-doc-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+.an-doc-list li {
+  margin-bottom: 3px;
+}
+.an-doc-alert-box {
+  padding: 6px 10px;
+  background: rgba(217, 119, 6, 0.08);
+  border-left: 3px solid var(--warning);
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--ink);
+}
+.an-doc-alert-box.critico {
+  background: rgba(220, 38, 38, 0.08);
+  border-left-color: var(--critical);
+}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 
@@ -1607,103 +2111,65 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <p class="panel-note">Alocação por classes (FIIs, Ações, ETFs, Cripto) e evolução gráfica mês a mês.</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-        <span class="collapsed-summary-pill">R$ 5.495,59 · 23 Ativos</span>
+        <span class="collapsed-summary-pill" id="vg-summary-pill">R$ 0,00 · 21 Ativos</span>
         <button class="block-toggle-btn" aria-label="Recolher ou expandir"><span class="icon">▾</span> <span class="txt">Recolher</span></button>
       </div>
     </div>
     <div class="block-body">
       <div class="mc-layout-grid" id="sec-carteira-geral">
-        <!-- Coluna Esquerda: Alocação por Classe & Donuts -->
-        <div class="mc-panel-box">
-      <h3>Ativos na Carteira</h3>
-      <table class="mc-alloc-table">
-        <thead>
-          <tr>
-            <th>Classe</th>
-            <th style="text-align:right">% Ideal</th>
-            <th style="text-align:right">% Atual</th>
-            <th style="text-align:right">Saldo</th>
-          </tr>
-        </thead>
-        <tbody id="mc-alloc-tbody">
-          <tr>
-            <td><span class="mc-dot" style="background:#0284c7"></span>FIIs</td>
-            <td style="text-align:right">60,0%</td>
-            <td style="text-align:right; font-weight:700; color:var(--ink);">69,13%</td>
-            <td style="text-align:right; font-weight:600;">R$ 3.799,07</td>
-          </tr>
-          <tr>
-            <td><span class="mc-dot" style="background:#06b6d4"></span>Ações</td>
-            <td style="text-align:right">20,0%</td>
-            <td style="text-align:right; font-weight:700; color:var(--ink);">28,47%</td>
-            <td style="text-align:right; font-weight:600;">R$ 1.564,67</td>
-          </tr>
-          <tr>
-            <td><span class="mc-dot" style="background:#14b8a6"></span>ETFs Intern.</td>
-            <td style="text-align:right">5,0%</td>
-            <td style="text-align:right; font-weight:700; color:var(--ink);">1,87%</td>
-            <td style="text-align:right; font-weight:600;">R$ 102,78</td>
-          </tr>
-          <tr>
-            <td><span class="mc-dot" style="background:#84cc16"></span>Criptos</td>
-            <td style="text-align:right">5,0%</td>
-            <td style="text-align:right; font-weight:700; color:var(--ink);">0,53%</td>
-            <td style="text-align:right; font-weight:600;">R$ 29,07</td>
-          </tr>
-          <tr style="border-top:1.5px solid var(--rule-strong);">
-            <td><b>TOTAL</b></td>
-            <td style="text-align:right"><b>90,0%</b></td>
-            <td style="text-align:right"><b>100,0%</b></td>
-            <td style="text-align:right; font-weight:700; color:var(--accent);"><b>R$ 5.495,59</b></td>
-          </tr>
-        </tbody>
-      </table>
+        <!-- Coluna Esquerda: Gráficos de Alocação Ward Style (15/10/2026) -->
+        <div class="mc-panel-box" id="mc-box-alocacao">
+          <div class="aloc-header-row">
+            <div>
+              <h3 style="margin:0; font-size:15px; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:8px;">
+                <span>📊 Alocação da Carteira</span>
+              </h3>
+              <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Consolidação por classe (esquerda) e distribuição por ativos (direita)</p>
+            </div>
+            <span class="aloc-sub-info" id="aloc-total-patr">Patrimônio: R$ 0,00</span>
+          </div>
 
-      <!-- Donuts lado a lado / empilhados -->
-      <div class="mc-donuts-row">
-        <div class="mc-donut-item">
-          <div class="mc-donut-title">Alocação Ideal (% Meta) · definida em 11/10/2026</div>
-          <div style="display:flex; align-items:center; gap:16px;">
-            <svg viewBox="0 0 100 100" style="width:70px; height:70px; transform:rotate(-90deg);">
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#06b6d4" stroke-width="16" stroke-dasharray="107.6 239" />
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#0284c7" stroke-width="16" stroke-dasharray="83.6 239" stroke-dashoffset="-107.6" />
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#14b8a6" stroke-width="16" stroke-dasharray="23.9 239" stroke-dashoffset="-191.2" />
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#84cc16" stroke-width="16" stroke-dasharray="12 239" stroke-dashoffset="-215.1" />
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#a78bfa" stroke-width="16" stroke-dasharray="12 239" stroke-dashoffset="-227.1" />
-            </svg>
-            <div style="font-size:11px; display:flex; flex-direction:column; gap:3px;">
-              <div><span class="mc-dot" style="background:#06b6d4"></span>Ações <b>45%</b> <span style="color:var(--muted)">(B.A.S.E. 33 + outras 12)</span></div>
-              <div><span class="mc-dot" style="background:#0284c7"></span>FIIs <b>35%</b></div>
-              <div><span class="mc-dot" style="background:#14b8a6"></span>Internacional <b>10%</b></div>
-              <div><span class="mc-dot" style="background:#84cc16"></span>Cripto <b>5%</b></div>
-              <div><span class="mc-dot" style="background:#a78bfa"></span>Caixa <b>5%</b></div>
+          <!-- Tooltip Flutuante -->
+          <div id="aloc-tooltip" class="aloc-tooltip"></div>
+
+          <!-- As Duas Roscas Lado a Lado (empilham em mobile 390px) -->
+          <div class="aloc-roscas-container">
+            <!-- Rosca 1: Por Classe -->
+            <div class="aloc-rosca-col" id="aloc-col-classes">
+              <div class="aloc-col-title">Por Classe</div>
+              <div class="aloc-chart-wrap">
+                <svg id="svg-rosca-classes" viewBox="0 0 160 160" class="aloc-svg-donut"></svg>
+                <div class="aloc-donut-center" id="aloc-classes-center">
+                  <span class="aloc-center-label">Classes</span>
+                  <span class="aloc-center-val">4</span>
+                </div>
+              </div>
+              <div class="aloc-legend" id="aloc-legend-classes"></div>
+            </div>
+
+            <!-- Rosca 2: Por Ativo da Classe Selecionada -->
+            <div class="aloc-rosca-col" id="aloc-col-ativos">
+              <div class="aloc-col-title" id="aloc-ativos-title">Ativos em FIIs</div>
+              <div class="aloc-chart-wrap">
+                <svg id="svg-rosca-ativos" viewBox="0 0 160 160" class="aloc-svg-donut"></svg>
+                <div class="aloc-donut-center" id="aloc-ativos-center">
+                  <span class="aloc-center-label">Total</span>
+                  <span class="aloc-center-val" id="aloc-ativos-center-val">R$ 0</span>
+                </div>
+              </div>
+              <div class="aloc-legend" id="aloc-legend-ativos"></div>
             </div>
           </div>
-        </div>
 
-        <div class="mc-donut-item">
-          <div class="mc-donut-title">Carteira Atual (Investidor 10)</div>
-          <div style="display:flex; align-items:center; gap:16px;">
-            <svg id="mc-donut-atual-svg" viewBox="0 0 100 100" style="width:70px; height:70px; transform:rotate(-90deg);">
-              <!-- FIIs 69.13% = 165.2 -->
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#0284c7" stroke-width="16" stroke-dasharray="165 239" />
-              <!-- Ações 28.47% = 68.0 -->
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#06b6d4" stroke-width="16" stroke-dasharray="68 239" stroke-dashoffset="-165" />
-              <!-- ETFs 1.87% = 4.5 -->
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#14b8a6" stroke-width="16" stroke-dasharray="4.5 239" stroke-dashoffset="-233" />
-              <!-- Cripto 0.53% = 1.3 -->
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#84cc16" stroke-width="16" stroke-dasharray="1.5 239" stroke-dashoffset="-237.5" />
-            </svg>
-            <div id="mc-donut-atual-legend" style="font-size:11px; display:flex; flex-direction:column; gap:3px;">
-              <div><span class="mc-dot" style="background:#0284c7"></span>FIIs <b>69,13%</b> (R$ 3.799)</div>
-              <div><span class="mc-dot" style="background:#06b6d4"></span>Ações <b>28,47%</b> (R$ 1.564)</div>
-              <div><span class="mc-dot" style="background:#14b8a6"></span>ETFs <b>1,87%</b> (R$ 102)</div>
-              <div><span class="mc-dot" style="background:#84cc16"></span>Criptos <b>0,53%</b> (R$ 29)</div>
+          <!-- Barra Atual vs. Meta (§7.0) -->
+          <div class="aloc-metas-section">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="aloc-metas-title" style="margin:0;">Alocação Atual vs. Meta Canônica (§7.0)</span>
+              <span style="font-size:11px; color:var(--muted);">Bandas de tolerância assimétricas</span>
             </div>
+            <div class="aloc-metas-list" id="aloc-metas-list"></div>
           </div>
         </div>
-      </div>
-    </div>
 
     <!-- Coluna Direita: Gráfico de Evolução do Patrimônio (Fiel ao Investidor 10) -->
     <div class="mc-panel-box">
@@ -8487,62 +8953,11 @@ function recalcularCarteira() {
   const elSubAtivos = document.getElementById('mc-sub-ativos');
   if (elSubAtivos) elSubAtivos.textContent = `${acoesAbertasCount} Ações · ${fiisAbertosCount} FIIs · 1 ETF · Criptos`;
 
-  // Atualizar Tabela de Alocação
-  const tbodyAlloc = document.getElementById('mc-alloc-tbody');
-  if (tbodyAlloc) {
-    const A = typeof ALOCACAO_ALVO !== "undefined" ? ALOCACAO_ALVO : { acoes: 45, fiis: 35, intl: 10, cripto: 5, caixa: 5 };
-    const linhaAloc = (cor, nome, meta, pct, saldo) => `
-      <tr>
-        <td><span class="mc-dot" style="background:${cor}"></span>${nome}</td>
-        <td style="text-align:right">${meta.toFixed(1).replace(".", ",")}%</td>
-        <td style="text-align:right; font-weight:700; color:${pct == null ? "var(--muted)" : (Math.abs(pct - meta) > 10 ? "var(--warning)" : "var(--ink)")};">${pct == null ? "—" : pct.toFixed(2) + "%"}</td>
-        <td style="text-align:right; font-weight:600;">${saldo == null ? "fora do total" : fmtR(saldo)}</td>
-      </tr>`;
-    tbodyAlloc.innerHTML =
-      linhaAloc("#06b6d4", "Ações", A.acoes, pctAcoes, totalAcoes) +
-      linhaAloc("#0284c7", "FIIs", A.fiis, pctFiis, totalFiis) +
-      linhaAloc("#14b8a6", "Internacional", A.intl, pctEtf, saldoEtf) +
-      linhaAloc("#84cc16", "Cripto", A.cripto, pctCripto, saldoCripto) +
-      linhaAloc("#a78bfa", "Caixa (oportunidade)", A.caixa, null, null) + `
-      <tr style="border-top:1.5px solid var(--rule-strong);">
-        <td><b>TOTAL</b></td>
-        <td style="text-align:right"><b>100,0%</b></td>
-        <td style="text-align:right"><b>100,0%</b></td>
-        <td style="text-align:right; font-weight:700; color:var(--accent);"><b>${fmtR(totalPatrimonio)}</b></td>
-      </tr>
-    `;
-  }
-
-  // Atualizar Donut Atual
-  const dashFiis = (pctFiis * 239) / 100;
-  const dashAcoes = (pctAcoes * 239) / 100;
-  const dashEtf = (pctEtf * 239) / 100;
-  const dashCripto = (pctCripto * 239) / 100;
-
-  const donutSvg = document.getElementById('mc-donut-atual-svg');
-  if (donutSvg) {
-    donutSvg.innerHTML = `
-      <circle cx="50" cy="50" r="38" fill="none" stroke="#0284c7" stroke-width="16" stroke-dasharray="${dashFiis.toFixed(1)} 239" />
-      <circle cx="50" cy="50" r="38" fill="none" stroke="#06b6d4" stroke-width="16" stroke-dasharray="${dashAcoes.toFixed(1)} 239" stroke-dashoffset="-${dashFiis.toFixed(1)}" />
-      <circle cx="50" cy="50" r="38" fill="none" stroke="#14b8a6" stroke-width="16" stroke-dasharray="${dashEtf.toFixed(1)} 239" stroke-dashoffset="-${(dashFiis + dashAcoes).toFixed(1)}" />
-      <circle cx="50" cy="50" r="38" fill="none" stroke="#84cc16" stroke-width="16" stroke-dasharray="${dashCripto.toFixed(1)} 239" stroke-dashoffset="-${(dashFiis + dashAcoes + dashEtf).toFixed(1)}" />
-    `;
-  }
-  const donutLegend = document.getElementById('mc-donut-atual-legend');
-  if (donutLegend) {
-    donutLegend.innerHTML = `
-      <div><span class="mc-dot" style="background:#0284c7"></span>FIIs <b>${pctFiis.toFixed(2)}%</b> (${fmtR(totalFiis)})</div>
-      <div><span class="mc-dot" style="background:#06b6d4"></span>Ações <b>${pctAcoes.toFixed(2)}%</b> (${fmtR(totalAcoes)})</div>
-      <div><span class="mc-dot" style="background:#14b8a6"></span>ETFs <b>${pctEtf.toFixed(2)}%</b> (${fmtR(saldoEtf)})</div>
-      <div><span class="mc-dot" style="background:#84cc16"></span>Criptos <b>${pctCripto.toFixed(2)}%</b> (${fmtR(saldoCripto)})</div>
-    `;
-  }
-
   // Atualizar Barra 10/26 do Gráfico de Evolução
   const badgeBarTxt = document.getElementById('mc-bar-badge-txt');
   if (badgeBarTxt) badgeBarTxt.textContent = `R$${Math.round(totalPatrimonio).toLocaleString('pt-BR')}`;
 
-  // Atualizar tabelas e Caixa
+  // Atualizar tabelas, gráficos de alocação e Caixa
   renderFiis();
   if (typeof renderBaseTable === 'function') renderBaseTable(getPressedK("base"));
   if (typeof renderForaTable === 'function') renderForaTable(getPressedK("fora"));
@@ -8550,7 +8965,329 @@ function recalcularCarteira() {
   renderCalendarioDividendos();
   calcularAporteInteligente();
   renderCaixaInvestir();
+  if (typeof renderGraficosAlocacao === 'function') renderGraficosAlocacao();
 }
+
+/* ================= GRÁFICOS DE ALOCAÇÃO WARD (15/10/2026) ================= */
+let alocClasseSelecionada = 'fiis'; // Começa em FIIs (maior classe da carteira)
+
+function renderGraficosAlocacao() {
+  const container = document.getElementById('mc-box-alocacao');
+  if (!container) return;
+
+  // 1. Obter dados atualizados da carteira (mesmo cálculo de recalcularCarteira)
+  let totalAcoes = 0;
+  let totalFiis = 0;
+  const acoesList = [];
+  const fiisList = [];
+
+  BASE_STOCKS.forEach(s => {
+    const q = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
+    const preco = s.preco || 0;
+    const saldo = q * preco;
+    totalAcoes += saldo;
+    if (q > 0 && (typeof isAtivoEncerrado !== 'function' || !isAtivoEncerrado(s.t))) {
+      acoesList.push({ ticker: s.t, tipo: 'Ação B.A.S.E.', saldo, quant: q, preco });
+    }
+  });
+
+  OUT_OF_BASE.forEach(s => {
+    const q = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
+    const preco = s.preco || 0;
+    const saldo = q * preco;
+    totalAcoes += saldo;
+    if (q > 0 && (typeof isAtivoEncerrado !== 'function' || !isAtivoEncerrado(s.t))) {
+      acoesList.push({ ticker: s.t, tipo: 'Ação Fora', saldo, quant: q, preco });
+    }
+  });
+
+  FIIS.forEach(f => {
+    const q = f.quant != null ? f.quant : (rebData[f.t] ? rebData[f.t].q : 0);
+    const preco = f.preco || 0;
+    const saldo = q * preco;
+    totalFiis += saldo;
+    if (q > 0 && (typeof isAtivoEncerrado !== 'function' || !isAtivoEncerrado(f.t))) {
+      fiisList.push({ ticker: f.t, tipo: 'FII', saldo, quant: q, preco });
+    }
+  });
+
+  const qVti = rebData.VTI ? rebData.VTI.q : 0.05209268;
+  const pmVti = 1973.00;
+  const precoVti = pmVti * (1 + (typeof marketFactor !== 'undefined' ? marketFactor : 0) * 0.7);
+  const saldoEtf = Number((qVti * precoVti).toFixed(2));
+  const intlList = qVti > 0 ? [{ ticker: 'VTI', tipo: 'ETF', saldo: saldoEtf, quant: qVti, preco: precoVti }] : [];
+
+  const qSol = rebData.SOL ? rebData.SOL.q : 0.04888403;
+  const pmSol = 594.67;
+  const precoSol = pmSol * (1 + (typeof marketFactor !== 'undefined' ? marketFactor : 0) * 1.5);
+  const saldoCripto = Number((qSol * precoSol).toFixed(2));
+  const criptoList = qSol > 0 ? [{ ticker: 'SOL', tipo: 'Cripto', saldo: saldoCripto, quant: qSol, preco: precoSol }] : [];
+
+  const totalPatrimonio = totalAcoes + totalFiis + saldoEtf + saldoCripto;
+
+  const elPatr = document.getElementById('aloc-total-patr');
+  if (elPatr) elPatr.textContent = `Patrimônio: ${fmtR(totalPatrimonio)}`;
+
+  const summaryPill = document.getElementById('vg-summary-pill');
+  if (summaryPill) {
+    const totalAtivos = acoesList.length + fiisList.length + intlList.length + criptoList.length;
+    summaryPill.textContent = `${fmtR(totalPatrimonio)} · ${totalAtivos} Ativos`;
+  }
+
+  // 2. Montar dados da Rosca 1 (Por Classe)
+  const classesData = [
+    { key: 'fiis', label: 'FIIs', saldo: totalFiis, corToken: 'var(--alloc-c1)', list: fiisList },
+    { key: 'acoes', label: 'Ações', saldo: totalAcoes, corToken: 'var(--alloc-c2)', list: acoesList },
+    { key: 'intl', label: 'Internacional', saldo: saldoEtf, corToken: 'var(--alloc-c3)', list: intlList },
+    { key: 'cripto', label: 'Cripto', saldo: saldoCripto, corToken: 'var(--alloc-c4)', list: criptoList }
+  ].filter(c => c.saldo > 0);
+
+  // 3. Renderizar Rosca 1 (Classes)
+  renderDonutChart('svg-rosca-classes', 'aloc-legend-classes', classesData, totalPatrimonio, {
+    isClassDonut: true,
+    activeKey: alocClasseSelecionada,
+    onSelect: (key) => {
+      alocClasseSelecionada = key;
+      renderGraficosAlocacao();
+    }
+  });
+
+  // 4. Montar dados da Rosca 2 (Ativos da Classe Selecionada)
+  const currentClassObj = classesData.find(c => c.key === alocClasseSelecionada) || classesData[0];
+  const classKey = currentClassObj ? currentClassObj.key : 'fiis';
+  const classLabel = currentClassObj ? currentClassObj.label : 'FIIs';
+  const classList = currentClassObj ? [...currentClassObj.list] : [];
+  const classTotal = currentClassObj ? currentClassObj.saldo : 0;
+
+  const titleAtivos = document.getElementById('aloc-ativos-title');
+  if (titleAtivos) titleAtivos.textContent = `Ativos em ${classLabel}`;
+
+  const centerValAtivos = document.getElementById('aloc-ativos-center-val');
+  if (centerValAtivos) centerValAtivos.textContent = fmtR(classTotal);
+
+  // Ordenar por saldo decrescente
+  classList.sort((a, b) => b.saldo - a.saldo);
+
+  // Até 8 fatias; o resto vira "Outros"
+  let ativosSlices = [];
+  const colorTokens = [
+    'var(--alloc-c1)', 'var(--alloc-c2)', 'var(--alloc-c3)', 'var(--alloc-c4)',
+    'var(--alloc-c5)', 'var(--alloc-c6)', 'var(--alloc-c7)', 'var(--alloc-c8)'
+  ];
+
+  if (classList.length <= 8) {
+    ativosSlices = classList.map((item, idx) => ({
+      key: item.ticker,
+      label: item.ticker,
+      saldo: item.saldo,
+      corToken: colorTokens[idx % colorTokens.length],
+      pctTotal: totalPatrimonio > 0 ? (item.saldo / totalPatrimonio * 100) : 0
+    }));
+  } else {
+    // 7 primeiros individuais + 1 fatia Outros
+    const top7 = classList.slice(0, 7);
+    const rest = classList.slice(7);
+    const saldoRest = rest.reduce((acc, x) => acc + x.saldo, 0);
+
+    ativosSlices = top7.map((item, idx) => ({
+      key: item.ticker,
+      label: item.ticker,
+      saldo: item.saldo,
+      corToken: colorTokens[idx % colorTokens.length],
+      pctTotal: totalPatrimonio > 0 ? (item.saldo / totalPatrimonio * 100) : 0
+    }));
+
+    ativosSlices.push({
+      key: 'outros',
+      label: `Outros (${rest.length})`,
+      saldo: saldoRest,
+      corToken: 'var(--alloc-outros)',
+      pctTotal: totalPatrimonio > 0 ? (saldoRest / totalPatrimonio * 100) : 0
+    });
+  }
+
+  // 5. Renderizar Rosca 2 (Ativos)
+  renderDonutChart('svg-rosca-ativos', 'aloc-legend-ativos', ativosSlices, classTotal, {
+    isClassDonut: false,
+    totalPatrimonioGlobal: totalPatrimonio
+  });
+
+  // 6. Renderizar Barra Atual vs. Meta (§7.0)
+  renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto);
+}
+
+function renderDonutChart(svgId, legendId, items, total, options = {}) {
+  const svg = document.getElementById(svgId);
+  const legend = document.getElementById(legendId);
+  if (!svg || !legend) return;
+
+  const C = 2 * Math.PI * 54; // raio 54 => C ≈ 339.292
+  let offset = 0;
+  let circlesHtml = '';
+  let legendHtml = '';
+
+  items.forEach((item) => {
+    const pct = total > 0 ? (item.saldo / total) * 100 : 0;
+    const strokeLen = (pct / 100) * C;
+    const isActive = options.isClassDonut && options.activeKey === item.key;
+    const pctTotalRef = options.isClassDonut ? pct : (item.pctTotal != null ? item.pctTotal : pct);
+    const tooltipText = `${item.label} · ${fmtR(item.saldo)} · ${pctTotalRef.toFixed(1).replace('.', ',')}%`;
+
+    circlesHtml += `
+      <circle
+        cx="80" cy="80" r="54"
+        fill="none"
+        stroke="${item.corToken}"
+        stroke-width="${isActive ? '25' : '19'}"
+        stroke-dasharray="${strokeLen.toFixed(2)} ${C.toFixed(2)}"
+        stroke-dashoffset="-${offset.toFixed(2)}"
+        class="aloc-donut-slice ${isActive ? 'is-active' : ''}"
+        data-key="${item.key}"
+        data-tooltip="${tooltipText}"
+      />
+    `;
+
+    legendHtml += `
+      <div class="aloc-legend-item ${isActive ? 'is-active' : ''}" data-key="${item.key}" data-tooltip="${tooltipText}">
+        <div class="aloc-legend-left">
+          <span class="aloc-dot" style="background:${item.corToken}"></span>
+          <span class="aloc-legend-name" title="${item.label}">${item.label}</span>
+        </div>
+        <div class="aloc-legend-right">
+          <span class="aloc-legend-pct">${pct.toFixed(1).replace('.', ',')}%</span>
+          <span class="aloc-legend-val">(${fmtR(item.saldo)})</span>
+        </div>
+      </div>
+    `;
+
+    offset += strokeLen;
+  });
+
+  svg.innerHTML = circlesHtml;
+  legend.innerHTML = legendHtml;
+
+  setupDonutInteractions(svg, legend, options);
+}
+
+function setupDonutInteractions(svg, legend, options) {
+  const tooltip = document.getElementById('aloc-tooltip');
+  const box = document.getElementById('mc-box-alocacao');
+
+  function showTooltip(text, clientX, clientY) {
+    if (!tooltip || !box) return;
+    const parentRect = box.getBoundingClientRect();
+    const x = clientX - parentRect.left;
+    const y = clientY - parentRect.top;
+    tooltip.textContent = text;
+    tooltip.style.left = `${Math.max(40, Math.min(parentRect.width - 40, x))}px`;
+    tooltip.style.top = `${y}px`;
+    tooltip.classList.add('visible');
+  }
+
+  function hideTooltip() {
+    if (!tooltip) return;
+    tooltip.classList.remove('visible');
+  }
+
+  const elements = [
+    ...svg.querySelectorAll('.aloc-donut-slice'),
+    ...legend.querySelectorAll('.aloc-legend-item')
+  ];
+
+  elements.forEach(el => {
+    const text = el.getAttribute('data-tooltip');
+    const key = el.getAttribute('data-key');
+
+    el.addEventListener('mouseenter', (e) => {
+      showTooltip(text, e.clientX, e.clientY);
+    });
+
+    el.addEventListener('mousemove', (e) => {
+      showTooltip(text, e.clientX, e.clientY);
+    });
+
+    el.addEventListener('mouseleave', () => {
+      hideTooltip();
+    });
+
+    el.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      if (touch) showTooltip(text, touch.clientX, touch.clientY);
+    }, { passive: true });
+
+    if (options.isClassDonut && typeof options.onSelect === 'function') {
+      el.addEventListener('click', () => {
+        hideTooltip();
+        options.onSelect(key);
+      });
+    }
+  });
+}
+
+function renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto) {
+  const container = document.getElementById('aloc-metas-list');
+  if (!container) return;
+
+  const A = (typeof ALOCACAO_ALVO !== 'undefined') ? ALOCACAO_ALVO : { acoes: 45, fiis: 35, intl: 10, cripto: 5, caixa: 5 };
+  
+  const pctAcoes = totalPatrimonio > 0 ? (totalAcoes / totalPatrimonio * 100) : 0;
+  const pctFiis = totalPatrimonio > 0 ? (totalFiis / totalPatrimonio * 100) : 0;
+  const pctEtf = totalPatrimonio > 0 ? (saldoEtf / totalPatrimonio * 100) : 0;
+  const pctCripto = totalPatrimonio > 0 ? (saldoCripto / totalPatrimonio * 100) : 0;
+
+  const rows = [
+    { nome: 'FIIs (Tijolo / Papel)', meta: A.fiis, atual: pctFiis, corToken: 'var(--alloc-c1)', tolMin: 0.35, tolMax: 0.35 },
+    { nome: 'Ações (B.A.S.E. + Fora)', meta: A.acoes, atual: pctAcoes, corToken: 'var(--alloc-c2)', tolMin: 0.25, tolMax: 0.25 },
+    { nome: 'Internacional (VTI)', meta: A.intl, atual: pctEtf, corToken: 'var(--alloc-c3)', tolMin: 0.50, tolMax: 0.30 },
+    { nome: 'Cripto (Satélite)', meta: A.cripto, atual: pctCripto, corToken: 'var(--alloc-c4)', tolMin: 0.50, tolMax: 0.00 }
+  ];
+
+  let html = '';
+  rows.forEach(r => {
+    const diff = r.atual - r.meta;
+    const bMin = r.meta * (1 - r.tolMin);
+    const bMax = r.meta * (1 + r.tolMax);
+
+    let zonaClass = 'neutra';
+    let zonaLabel = 'Zona Neutra';
+    if (r.atual < bMin) {
+      zonaClass = 'verde';
+      zonaLabel = 'Zona Verde (Sub-alocado)';
+    } else if (r.atual > bMax) {
+      zonaClass = 'trava';
+      zonaLabel = 'Zona de Trava (Sobre-alocado)';
+    } else {
+      zonaLabel = 'Zona Neutra (Equilibrado)';
+    }
+
+    const diffSinal = diff > 0 ? `+${diff.toFixed(1).replace('.', ',')}` : diff.toFixed(1).replace('.', ',');
+    const barWidth = Math.min(100, Math.max(0, r.atual));
+    const markerLeft = Math.min(100, Math.max(0, r.meta));
+
+    html += `
+      <div class="aloc-meta-row">
+        <div class="aloc-meta-labels">
+          <span style="font-weight:600; color:var(--ink);">${r.nome}</span>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-family:var(--font-mono); font-size:11px; color:var(--ink-2);">
+              Atual <b>${r.atual.toFixed(1).replace('.', ',')}%</b> / Meta ${r.meta.toFixed(1).replace('.', ',')}%
+            </span>
+            <span class="aloc-meta-diff ${zonaClass}" title="${zonaLabel}">
+              ${diffSinal} p.p.
+            </span>
+          </div>
+        </div>
+        <div class="aloc-bar-track" title="Meta: ${r.meta}% · Atual: ${r.atual.toFixed(2)}% · ${zonaLabel}">
+          <div class="aloc-bar-fill" style="width:${barWidth}%; background:${r.corToken};"></div>
+          <div class="aloc-bar-marker" style="left:${markerLeft}%;" title="Meta: ${r.meta}%"></div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+window.renderGraficosAlocacao = renderGraficosAlocacao;
 
 /* ================= MAPA ANUAL DE DIVIDENDOS (12 MESES) ================= */
 function renderCalendarioDividendos() {
@@ -10860,7 +11597,30 @@ initCollapsibleBlocks();
         <td data-l="Margem" class="m" style="color:var(--good);font-weight:700">${sgn(o.margem)}</td><td data-l="Método" style="color:var(--ink-2)">${o.src}</td></tr>`).join("") || `<tr><td colspan="6">Nada passa no filtro agora — e isso é normal em euforia. Caixa também é posição.</td></tr>`}
       </tbody></table></div>`;
 
-    document.getElementById("cb-alertas").innerHTML = `<h3>🚨 Alertas</h3><ul class="cb-list">${alertas(m, rows, termo).map(x => `<li><span class="ic">${x[0]}</span><span>${x[1]}</span></li>`).join("")}</ul>`;
+    const novAlertas = [];
+    if (window.FEHMIR_NOVIDADES && typeof window.FEHMIR_NOVIDADES === "object") {
+      const agora = new Date();
+      const limite30d = new Date(agora.getTime() - 30 * 24 * 60 * 60 * 1000);
+      Object.keys(window.FEHMIR_NOVIDADES).forEach(tk => {
+        const docs = window.FEHMIR_NOVIDADES[tk] || [];
+        docs.forEach(doc => {
+          if (doc.gravidade === "atencao" || doc.gravidade === "critico") {
+            const dtDoc = new Date((doc.data || "") + "T00:00:00");
+            if (dtDoc >= limite30d) {
+              const primeiroAlerta = (doc.alertas && doc.alertas[0]) ? doc.alertas[0] : (doc.titulo || doc.tipo);
+              const mesRef = doc.data ? doc.data.slice(5, 7) + "/" + doc.data.slice(0, 4) : "";
+              const rotuloTipo = doc.tipo.toLowerCase().includes("relat") ? "relatório" : "fato relevante";
+              novAlertas.push([
+                doc.gravidade === "critico" ? "🚨" : "📰",
+                `<b>${tk}</b>: ${primeiroAlerta} (${rotuloTipo} de ${mesRef})`
+              ]);
+            }
+          }
+        });
+      });
+    }
+    const todosAlertas = [...novAlertas, ...alertas(m, rows, termo)];
+    document.getElementById("cb-alertas").innerHTML = `<h3>🚨 Alertas</h3><ul class="cb-list">${todosAlertas.map(x => `<li><span class="ic">${x[0]}</span><span>${x[1]}</span></li>`).join("")}</ul>`;
     document.getElementById("cb-agenda").innerHTML = `<h3>📅 Agenda que mexe no preço</h3><ul class="cb-list">${AGENDA.map(e => `<li><span class="dt">${e.data}</span><span>${e.ev} <span class="cb-pill ${e.imp === "alto" ? "bad" : "warn"}" style="padding:1px 8px;font-size:10.5px">${e.imp}</span></span></li>`).join("")}</ul>`;
     renderCardAlvos();
     renderCardIncorp();
@@ -11306,9 +12066,11 @@ function setCarteiraView(v){
   });
   document.querySelectorAll(".mc-nav-tabs .mc-nav-btn[data-view]").forEach(function(b){ b.classList.toggle("active", b.dataset.view === v); });
   try { localStorage.setItem("barsi-carteira-view", v); } catch (e) {}
+  if (v === "geral" && typeof renderGraficosAlocacao === "function") renderGraficosAlocacao();
   var bar = document.querySelector(".mc-nav-tabs");
   if (bar && bar.getBoundingClientRect().top < 0) bar.scrollIntoView({ behavior: "smooth", block: "start" });
 }
+window.setCarteiraView = setCarteiraView;
 (function(){
   // Callout antigo "Resumo para o aporte" ganha id para viver na sub-aba Rebalanceamento
   document.querySelectorAll('.tabpanel[data-tab="ativos"] > .callout').forEach(function(c){
@@ -12029,6 +12791,175 @@ function toggleTheme(){
         ${av.src ? `<div class="cb-sub" style="margin:4px 0 0;font-size:11.5px">${av.src}</div>` : ""}
       </div>` : "";
 
+    /* ---------- Fluxo de Dividendos Descontado DDM (15/10/2026 - Tarefa 2) ---------- */
+    let ddmSecHtml = "";
+    if (ehFii) {
+      ddmSecHtml = `
+        <div class="an-ddm-box" style="border-left-color:var(--muted)">
+          <div class="an-ddm-header" style="margin-bottom:0">
+            <div class="an-ddm-title">
+              <span>🧮 Fluxo de dividendos descontado (conferência)</span>
+              <span class="an-ddm-badge">FII</span>
+            </div>
+          </div>
+          <div style="color:var(--muted);font-size:12px;margin-top:6px">Não se aplica a FIIs (use a régua por tipo, §21.3).</div>
+        </div>`;
+    } else {
+      const S = (typeof setorDe === "function") ? setorDe(a) : { payout: 60, premio: 1.5, haircut: 1 };
+      const split = !!a.splitSuspeito;
+      const pl = !split ? numBR(a.pl) : null;
+      const lpa = !split ? (a.lpa > 0 ? a.lpa : (pl > 0 && a.preco ? a.preco / pl : null)) : null;
+      const HY = window.FEHMIR_HIST && window.FEHMIR_HIST[t];
+
+      let payEmp = !split && a.payout > 0 && a.payout < 100 ? a.payout : S.payout;
+      if (!split && pl > 0) {
+        const dy12Val = (HY && HY.dpa12 && a.preco > 0) ? (HY.dpa12 / a.preco) * 100 : (a.dy || 0);
+        const payoutImplicito = dy12Val * pl;
+        const payCod = a.payout || 0;
+        if (payCod > 0 && Math.abs(payoutImplicito - payCod) > 20) {
+          payEmp = Math.min(payoutImplicito, 100);
+        }
+      }
+      const pay = Math.min(payEmp, S.payout);
+
+      // DPA0 = DPA projetado que tetoAcao usa (LPA × payout); sem LPA, dpa5 do robô
+      let dpa0 = null;
+      if (lpa > 0) {
+        dpa0 = lpa * (S.haircut || 1) * (pay / 100);
+      } else if (HY && (HY.dpa5 > 0 || (split && HY.dpa12 > 0))) {
+        dpa0 = (HY.dpa5 > 0 ? HY.dpa5 : HY.dpa12) * (S.ciclico ? (S.haircut || 1) : 1);
+      } else {
+        const d = a.dpa5a || a.dpa;
+        if (d > 0) dpa0 = d * (S.ciclico ? (S.haircut || 1) : 1);
+      }
+
+      // g1 (anos 1-5) = ROE × (1 - payout), limitado entre 0% e 10%
+      const roe = a.roe || 0;
+      const retencao = Math.max(0, 1 - (pay / 100));
+      let g1Padrao = (roe / 100) * retencao;
+      g1Padrao = Math.max(0, Math.min(0.10, g1Padrao));
+
+      // g2 (perpetuidade) = 3,5% padrão
+      const g2Padrao = 0.035;
+
+      // k = DY exigido do setor (§21.2) + g2
+      const dyExigido = (av && av.req ? av.req : 8.0) / 100;
+      const kPadrao = dyExigido + g2Padrao;
+
+      function calcDDM(g1Val, g2Val, kVal, d0) {
+        if (!d0 || d0 <= 0 || kVal <= g2Val) return null;
+        let s = 0;
+        for (let yr = 1; yr <= 5; yr++) {
+          s += (d0 * Math.pow(1 + g1Val, yr)) / Math.pow(1 + kVal, yr);
+        }
+        const term = (d0 * Math.pow(1 + g1Val, 5) * (1 + g2Val)) / (kVal - g2Val);
+        s += term / Math.pow(1 + kVal, 5);
+        return s;
+      }
+
+      const vDDM = calcDDM(g1Padrao, g2Padrao, kPadrao, dpa0);
+
+      // Crescimento que o preço atual embute (resolver g1 por busca binária para Valor = Preço)
+      let gEmbStr = "—";
+      if (dpa0 > 0 && preco > 0 && kPadrao > g2Padrao) {
+        let low = -0.50, high = 1.00;
+        const vLow = calcDDM(low, g2Padrao, kPadrao, dpa0);
+        const vHigh = calcDDM(high, g2Padrao, kPadrao, dpa0);
+        if (vLow != null && vLow >= preco) {
+          gEmbStr = "< -50% ao ano";
+        } else if (vHigh != null && vHigh <= preco) {
+          gEmbStr = "> 100% ao ano";
+        } else {
+          for (let iter = 0; iter < 40; iter++) {
+            const mid = (low + high) / 2;
+            const vm = calcDDM(mid, g2Padrao, kPadrao, dpa0);
+            if (vm < preco) low = mid; else high = mid;
+          }
+          const gEmb = (low + high) / 2;
+          gEmbStr = (gEmb * 100).toFixed(1).replace(".", ",") + "% ao ano";
+        }
+      }
+
+      // Guardar parâmetros no estado global para reatividade instantânea dos sliders
+      window.__ddmState = {
+        ticker: t,
+        dpa0: dpa0,
+        tetoRegua: teto,
+        preco: preco,
+        dyExigido: dyExigido,
+        g1Padrao: g1Padrao,
+        g2Padrao: g2Padrao,
+        kPadrao: kPadrao
+      };
+
+      const g1Pct = (g1Padrao * 100).toFixed(1);
+      const g2Pct = (g2Padrao * 100).toFixed(1);
+      const kPct = (kPadrao * 100).toFixed(1);
+
+      ddmSecHtml = `
+        <div class="an-ddm-box" id="an-ddm-card">
+          <div class="an-ddm-header">
+            <div class="an-ddm-title">
+              <span>🧮 Fluxo de dividendos descontado</span>
+              <span class="an-ddm-badge">Conferência</span>
+            </div>
+            <button type="button" class="cb-sub" style="background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;font-size:11.5px;color:var(--muted)" onclick="window.resetarDDMSliders()">Restaurar padrões</button>
+          </div>
+
+          <!-- Controles deslizantes (g1, g2, k) -->
+          <div class="an-ddm-grid">
+            <div class="an-ddm-field">
+              <div class="an-ddm-field-head">
+                <span>g1 (anos 1–5):</span>
+                <span class="an-ddm-val-display" id="ddm-val-g1">${g1Pct.replace(".", ",")}%</span>
+              </div>
+              <input type="range" class="an-ddm-slider" id="ddm-slider-g1" min="0" max="15" step="0.1" value="${g1Pct}" oninput="window.atualizarDDMInterativo()">
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>0%</span><span>ROE×(1-payout)</span><span>15%</span></div>
+            </div>
+
+            <div class="an-ddm-field">
+              <div class="an-ddm-field-head">
+                <span>g2 (perpetuidade):</span>
+                <span class="an-ddm-val-display" id="ddm-val-g2">${g2Pct.replace(".", ",")}%</span>
+              </div>
+              <input type="range" class="an-ddm-slider" id="ddm-slider-g2" min="0" max="6" step="0.1" value="${g2Pct}" oninput="window.atualizarDDMInterativo()">
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>0%</span><span>padrão 3,5%</span><span>6%</span></div>
+            </div>
+
+            <div class="an-ddm-field">
+              <div class="an-ddm-field-head">
+                <span>k (taxa desconto):</span>
+                <span class="an-ddm-val-display" id="ddm-val-k">${kPct.replace(".", ",")}%</span>
+              </div>
+              <input type="range" class="an-ddm-slider" id="ddm-slider-k" min="5" max="20" step="0.1" value="${kPct}" oninput="window.atualizarDDMInterativo()">
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>5%</span><span>DY exigido + g2</span><span>20%</span></div>
+            </div>
+          </div>
+
+          <!-- Linha de resultados -->
+          <div class="an-ddm-result-line">
+            <div class="an-ddm-metrics">
+              <span>Valor DDM <b id="ddm-res-valor" style="color:var(--accent);font-size:14px">${R(vDDM)}</b></span>
+              <span style="color:var(--rule-strong)">·</span>
+              <span>Teto da régua <b id="ddm-res-teto">${R(teto)}</b></span>
+              <span style="color:var(--rule-strong)">·</span>
+              <span>Preço <b id="ddm-res-preco">${R(preco)}</b></span>
+            </div>
+            <div id="ddm-res-consistencia" style="font-size:11.5px;color:var(--muted);font-family:var(--font-mono)"></div>
+          </div>
+
+          <!-- Frase: crescimento embutido -->
+          <div class="an-ddm-phrase">
+            <span>Crescimento que o preço atual embute: <b style="color:var(--ink)" id="ddm-res-embutido">${gEmbStr}</b> nos 5 primeiros anos.</span>
+          </div>
+
+          <!-- Aviso fixo -->
+          <div class="an-ddm-disclaimer">
+            Conferência: o teto oficial continua sendo o da régua setorial (§21). Premissas de crescimento são a parte mais frágil do modelo.
+          </div>
+        </div>`;
+    }
+
     const splitAlerta = a.splitSuspeito ? `
       <div style="margin:10px 0;padding:10px 14px;background:color-mix(in srgb,var(--warning) 12%,transparent);border:1px solid var(--warning);border-radius:8px;font-size:12.5px;color:var(--ink);display:flex;gap:8px;align-items:center">
         <span style="font-size:18px">⚠️</span>
@@ -12038,6 +12969,57 @@ function toggleTheme(){
     const modoHist = window.__histModoMap && window.__histModoMap[t] ? window.__histModoMap[t] : 'barra';
     const ignAnom = window.__histAnomaliaMap ? !!window.__histAnomaliaMap[t] : false;
     const histSecHtml = fehmirRenderHistoricoIndicadores(t, modoHist, ignAnom);
+
+    const novidades = (window.FEHMIR_NOVIDADES && window.FEHMIR_NOVIDADES[t]) || [];
+    let novidadesSecHtml = `
+      <div class="an-novidades-card">
+        <div class="an-novidades-head">
+          <div class="an-novidades-title">
+            <span>📰 Novidades & Relatórios</span>
+            <span style="font-size:11px;font-family:var(--font-mono);color:var(--muted)">${novidades.length} doc${novidades.length === 1 ? '' : 's'} (últimos 45d)</span>
+          </div>
+        </div>`;
+
+    if (!novidades.length) {
+      novidadesSecHtml += `
+        <div style="font-size:12.5px;color:var(--muted);padding:4px 0">Nenhum fato relevante ou relatório gerencial nos últimos 45 dias.</div>
+      </div>`;
+    } else {
+      novidadesSecHtml += novidades.map(doc => {
+        const grav = doc.gravidade || "info";
+        const gravLabel = grav === "critico" ? "Crítico" : (grav === "atencao" ? "Atenção" : "Info");
+        const dtBR = doc.data ? doc.data.split("-").reverse().join("/") : "—";
+        const resumoList = (doc.resumo && doc.resumo.length) ? `<ul class="an-doc-list">${doc.resumo.map(p => `<li>${p}</li>`).join("")}</ul>` : "";
+        const mudancasHtml = (doc.mudancas && doc.mudancas.length) ? `
+          <div style="font-size:12px;color:var(--ink-2);margin-top:4px"><b>O que mudou:</b><ul class="an-doc-list" style="margin-top:2px">${doc.mudancas.map(m => `<li>${m}</li>`).join("")}</ul></div>` : "";
+        const alertasHtml = (doc.alertas && doc.alertas.length) ? `
+          <div class="an-doc-alert-box ${grav}"><b>⚠️ Riscos & Alertas:</b> ${doc.alertas.join(" · ")}</div>` : "";
+
+        return `
+          <div class="an-doc-item">
+            <div class="an-doc-top">
+              <div class="an-doc-meta">
+                <span>📅 ${dtBR}</span>
+                <span>·</span>
+                <span style="font-weight:600;color:var(--ink-2)">${doc.tipo}</span>
+              </div>
+              <span class="an-doc-badge ${grav}">${gravLabel}</span>
+            </div>
+            <div>
+              <a href="${doc.url}" target="_blank" rel="noopener noreferrer" class="an-doc-title-link">
+                ${doc.titulo} ↗
+              </a>
+            </div>
+            ${resumoList}
+            ${mudancasHtml}
+            ${alertasHtml}
+          </div>`;
+      }).join("");
+
+      novidadesSecHtml += `
+        <div class="cb-sub" style="margin-top:8px;font-size:11.5px;color:var(--muted)">Resumo gerado por IA a partir do documento oficial: confira no link antes de decidir.</div>
+      </div>`;
+    }
 
     out.innerHTML = `<section class="cb-card">
       <div class="an-head"><div><div class="an-tk">${t}</div><div class="cb-sub" style="margin:0">${a.nome || a.setor || (a.tipo ? "FII " + a.tipo : "")} · régua: <b>${av.metodo}</b></div></div>
@@ -12050,6 +13032,7 @@ function toggleTheme(){
         <div><span>Margem mínima</span><b>${mMin}%</b></div>
       </div>
       ${valExplicado}
+      ${ddmSecHtml}
       ${splitAlerta}
       ${teto ? leque(preco, compra, teto, tol) : ""}
       ${compra ? `<div style="margin:12px 0 6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -12060,6 +13043,7 @@ function toggleTheme(){
       ${histSecHtml}
 
       ${alertas.length ? `<ul class="cb-list" style="margin-top:14px">${alertas.map(x => `<li><span class="ic">⚠️</span><span>${x}</span></li>`).join("")}</ul>` : ""}
+      ${novidadesSecHtml}
       <div id="an-fg" class="fg-idx-row" style="margin-top:12px"></div>
       <p class="cb-disclaimer" style="margin:8px 0 0">Dados do painel (atualização: ${a.atual || "—"}). Antes de decidir, confira em fonte primária (política de dados) e rode o checklist anti-viés (§8).</p>
     </section>`;
@@ -12069,6 +13053,69 @@ function toggleTheme(){
       catch (e) { const el = document.getElementById("an-fg"); if (el) el.innerHTML = `<span class="fg-muted">Medo × Ganância indisponível (${e.message}).</span>`; }
     }
   }
+
+  /* Funções Interativas do DDM (15/10/2026 - Tarefa 2) */
+  window.atualizarDDMInterativo = function() {
+    const st = window.__ddmState;
+    if (!st) return;
+    const sg1 = document.getElementById("ddm-slider-g1");
+    const sg2 = document.getElementById("ddm-slider-g2");
+    const sk = document.getElementById("ddm-slider-k");
+    if (!sg1 || !sg2 || !sk) return;
+
+    const g1 = parseFloat(sg1.value) / 100;
+    const g2 = parseFloat(sg2.value) / 100;
+    const k = parseFloat(sk.value) / 100;
+
+    const valG1 = document.getElementById("ddm-val-g1");
+    const valG2 = document.getElementById("ddm-val-g2");
+    const valK = document.getElementById("ddm-val-k");
+    if (valG1) valG1.innerText = sg1.value.replace(".", ",") + "%";
+    if (valG2) valG2.innerText = sg2.value.replace(".", ",") + "%";
+    if (valK) valK.innerText = sk.value.replace(".", ",") + "%";
+
+    const resVal = document.getElementById("ddm-res-valor");
+    const resCons = document.getElementById("ddm-res-consistencia");
+
+    if (k <= g2) {
+      if (resVal) resVal.innerText = "k deve ser > g2";
+      if (resCons) resCons.innerText = "Taxa k deve superar g2";
+      return;
+    }
+
+    let s = 0;
+    const d0 = st.dpa0;
+    for (let yr = 1; yr <= 5; yr++) {
+      s += (d0 * Math.pow(1 + g1, yr)) / Math.pow(1 + k, yr);
+    }
+    const term = (d0 * Math.pow(1 + g1, 5) * (1 + g2)) / (k - g2);
+    s += term / Math.pow(1 + k, 5);
+
+    if (resVal) {
+      resVal.innerText = "R$ " + s.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    if (resCons) {
+      if (Math.abs(g1 - g2) < 0.001) {
+        resCons.innerText = "✓ g1 = g2: coincide com Bazin (§21.2)";
+      } else {
+        resCons.innerText = "";
+      }
+    }
+  };
+
+  window.resetarDDMSliders = function() {
+    const st = window.__ddmState;
+    if (!st) return;
+    const sg1 = document.getElementById("ddm-slider-g1");
+    const sg2 = document.getElementById("ddm-slider-g2");
+    const sk = document.getElementById("ddm-slider-k");
+    if (!sg1 || !sg2 || !sk) return;
+    sg1.value = (st.g1Padrao * 100).toFixed(1);
+    sg2.value = (st.g2Padrao * 100).toFixed(1);
+    sk.value = (st.kPadrao * 100).toFixed(1);
+    window.atualizarDDMInterativo();
+  };
 
   function initAnalise() {
     const box = document.getElementById("an-box"); if (!box || box.dataset.ready) return;
