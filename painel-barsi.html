@@ -16,8 +16,8 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --ink:#111827;
   --ink-2:#4B5563;
   --muted:#9CA3AF;
-  --rule:rgba(17, 24, 39, 0.1);
-  --rule-strong:rgba(17, 24, 39, 0.2);
+  --rule:rgba(24, 24, 27, 0.1);
+  --rule-strong:rgba(24, 24, 27, 0.2);
   --accent:#2563EB;
   --accent-soft:#DBEAFE;
   --gold:#D97706;
@@ -1099,8 +1099,8 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px;
   display: flex; flex-direction: column; gap: 8px; transition: border-color 0.15s ease, box-shadow 0.15s ease; transform: none !important;
 }
-.cal-month-card:hover { border-color: var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,0.08); transform: none !important; }
-.cal-month-card.is-current { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 1px var(--accent); }
+.cal-month-card:hover { border-color: var(--rule-strong); box-shadow: 0 4px 14px rgba(0,0,0,0.04); transform: none !important; }
+.cal-month-card.is-current { border-color: var(--rule-strong); background: var(--surface-2); }
 .cal-month-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--rule); padding-bottom: 6px; }
 .cal-month-name { font-weight: 700; font-size: 13.5px; color: var(--ink); }
 .cal-month-est { font-size: 12px; font-weight: 700; font-family: var(--font-mono); color: var(--good); }
@@ -1109,8 +1109,8 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   font-size: 10.5px; font-family: var(--font-mono); font-weight: 600; padding: 2px 6px; border-radius: 4px;
   background: var(--surface-2); border: 1px solid var(--rule); color: var(--ink);
 }
-.cal-badge-pill.fii { background: #e0f2fe; color: #0284c7; border-color: #bae6fd; }
-.cal-badge-pill.acao { background: #ecfdf5; color: #059669; border-color: #a7f3d0; }
+.cal-badge-pill.fii { background: var(--surface-2); color: var(--ink); border-color: var(--rule); }
+.cal-badge-pill.acao { background: var(--surface-2); color: var(--ink); border-color: var(--rule); }
 
 /* Estilos da Recomendação de Aporte Inteligente */
 .smart-rec-item {
@@ -1344,9 +1344,9 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 }
 
 .collapsible-block.is-collapsed .block-toggle-btn {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-  color: var(--accent);
+  background: var(--surface-2);
+  border-color: var(--rule-strong);
+  color: var(--ink-2);
 }
 
 .collapsible-block.is-collapsed .block-toggle-btn .icon {
@@ -2206,41 +2206,41 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div class="mc-ward-kpis-col">
       <div class="mc-ward-kpi-main" id="kpi-card-patrimonio">
         <div class="mc-ward-lbl">Patrimônio</div>
-        <div class="mc-ward-val-main" id="mc-patrimonio">R$ 5.505,53</div>
+        <div class="mc-ward-val-main" id="mc-patrimonio">—</div>
         <div class="mc-ward-sub" id="mc-patrimonio-sub">
-          Valor investido <span id="mc-investido-val-sub">R$ 5.300,16</span> <span style="color:var(--good); font-weight:700;">(+3,87% ▲)</span>
+          Valor investido <span id="mc-investido-val-sub">—</span>
         </div>
         <div class="mc-ward-meta" id="mc-patrimonio-meta">
-          <span id="mc-fonte-precos">Preços de 15/10 (robô)</span> · <a href="javascript:void(0)" onclick="openModalConferencia()" class="mc-ward-link">Conferir com a corretora</a>
+          <span id="mc-fonte-precos">Preços pelo robô</span> · <a href="javascript:void(0)" onclick="openModalConferencia()" class="mc-ward-link">Conferir com a corretora</a>
         </div>
       </div>
 
       <div class="mc-ward-kpis-list">
         <div class="mc-ward-kpi-item" id="ward-kpi-investido" title="Total aportado em compras líquidas da carteira">
           <div class="mc-ward-lbl">Valor investido</div>
-          <div class="mc-ward-val" id="mc-investido-val">R$ 5.300,16</div>
+          <div class="mc-ward-val" id="mc-investido-val">—</div>
         </div>
 
-        <div class="mc-ward-kpi-item" id="ward-kpi-lucro" title="Ganho R$ 205,37 · Prov. R$ 575,50">
+        <div class="mc-ward-kpi-item" id="ward-kpi-lucro" title="Lucro total da carteira">
           <div class="mc-ward-lbl">Lucro total</div>
-          <div class="mc-ward-val" id="mc-lucro" style="color:var(--good);">R$ 780,87</div>
+          <div class="mc-ward-val" id="mc-lucro">—</div>
           <span id="mc-lucro-sub" style="display:none;"></span>
         </div>
 
-        <div class="mc-ward-kpi-item" id="ward-kpi-proventos" title="Total acumulado: R$ 575,50">
-          <div class="mc-ward-lbl">Proventos 12m</div>
-          <div class="mc-ward-val" id="mc-proventos" style="color:var(--good);">R$ 445,74</div>
+        <div class="mc-ward-kpi-item" id="ward-kpi-proventos" title="Proventos dos últimos 12 meses">
+          <div class="mc-ward-lbl" id="mc-proventos-lbl">Proventos 12m</div>
+          <div class="mc-ward-val" id="mc-proventos">—</div>
           <span id="mc-proventos-sub" style="display:none;"></span>
         </div>
 
-        <div class="mc-ward-kpi-item" id="ward-kpi-rentab" title="Total acumulado da carteira: +22,87%">
-          <div class="mc-ward-lbl">Rentabilidade 12m</div>
-          <div class="mc-ward-val" id="mc-rentab-val" style="color:var(--good);">+12,57%</div>
+        <div class="mc-ward-kpi-item" id="ward-kpi-rentab" title="Retorno acumulado da carteira por cota (TWR)">
+          <div class="mc-ward-lbl" id="mc-rentab-lbl">Rentabilidade desde 30/09</div>
+          <div class="mc-ward-val" id="mc-rentab-val">—</div>
         </div>
 
-        <div class="mc-ward-kpi-item" id="ward-kpi-ativos" title="8 Ações · 11 FIIs · 1 ETF · Criptos">
+        <div class="mc-ward-kpi-item" id="ward-kpi-ativos" title="Ativos em carteira">
           <div class="mc-ward-lbl">Ativos</div>
-          <div class="mc-ward-val" id="mc-total-ativos">21 Ativos</div>
+          <div class="mc-ward-val" id="mc-total-ativos">—</div>
           <span id="mc-sub-ativos" style="display:none;"></span>
         </div>
       </div>
@@ -2518,38 +2518,38 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <div class="rent-kpis-col">
           <div class="rent-kpi-item">
             <span class="rent-kpi-lbl">Patrimônio da Carteira</span>
-            <div class="rent-kpi-val" id="rent-kpi-patrimonio">R$ 0,00</div>
+            <div class="rent-kpi-val" id="rent-kpi-patrimonio">—</div>
             <span class="rent-kpi-sub" id="rent-kpi-patrimonio-sub">Total consolidado</span>
           </div>
           <div class="rent-kpi-item">
             <span class="rent-kpi-lbl">Retorno no Mês (Out/26)</span>
-            <div class="rent-kpi-val" id="rent-kpi-mes">+0,00%</div>
+            <div class="rent-kpi-val" id="rent-kpi-mes">—</div>
             <span class="rent-kpi-sub" id="rent-kpi-mes-sub">Variação da cota no mês</span>
           </div>
           <div class="rent-kpi-item">
             <span class="rent-kpi-lbl">Retorno no Ano (2026)</span>
-            <div class="rent-kpi-val" id="rent-kpi-ano">+0,00%</div>
+            <div class="rent-kpi-val" id="rent-kpi-ano">—</div>
             <span class="rent-kpi-sub">Acumulado em 2026</span>
           </div>
           <div class="rent-kpi-item">
             <span class="rent-kpi-lbl">Desde o Início</span>
-            <div class="rent-kpi-val" id="rent-kpi-inicio">+0,00%</div>
+            <div class="rent-kpi-val" id="rent-kpi-inicio">—</div>
             <span class="rent-kpi-sub">Cota base 100,00 em 30/09/2026</span>
           </div>
           <div class="rent-kpi-item">
             <span class="rent-kpi-lbl">vs. CDI (% do CDI)</span>
-            <div class="rent-kpi-val" id="rent-kpi-vs-cdi">0% do CDI</div>
-            <span class="rent-kpi-sub" id="rent-kpi-cdi-sub">CDI acumulado: +0,00%</span>
+            <div class="rent-kpi-val" id="rent-kpi-vs-cdi" title="período curto demais para comparar">—</div>
+            <span class="rent-kpi-sub" id="rent-kpi-cdi-sub">CDI acumulado: —</span>
           </div>
           <div class="rent-kpi-item">
             <span class="rent-kpi-lbl">Volatilidade Anualizada</span>
-            <div class="rent-kpi-val" id="rent-kpi-volatilidade">0,0% a.a.</div>
+            <div class="rent-kpi-val" id="rent-kpi-volatilidade">—</div>
             <span class="rent-kpi-sub">Desvio padrão diário anualizado (√252)</span>
           </div>
           <div class="rent-kpi-item">
             <span class="rent-kpi-lbl">Drawdown (Abaixo do Topo)</span>
-            <div class="rent-kpi-val" id="rent-kpi-drawdown">0,00%</div>
-            <span class="rent-kpi-sub" id="rent-kpi-pior-queda">Pior queda: 0,00%</span>
+            <div class="rent-kpi-val" id="rent-kpi-drawdown">—</div>
+            <span class="rent-kpi-sub" id="rent-kpi-pior-queda">Pior queda: —</span>
           </div>
         </div>
 
@@ -6137,23 +6137,23 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
       <div class="mc-kpis-grid" style="margin-bottom:16px;">
         <div class="mc-kpi-card">
           <div class="lbl">Patrimônio Total</div>
-          <div class="val" id="exec-patrimonio">R$ 5.495,59</div>
-          <div class="sub">Investido: R$ 5.348,26 (+2,75%)</div>
+          <div class="val" id="exec-patrimonio">—</div>
+          <div class="sub" id="exec-patrimonio-sub">Investido: —</div>
         </div>
         <div class="mc-kpi-card">
           <div class="lbl">Lucro Acumulado</div>
-          <div class="val" id="exec-lucro" style="color:var(--good);">R$ 722,83</div>
-          <div class="sub">Ganho: R$ 147 · Prov: R$ 575</div>
+          <div class="val" id="exec-lucro" style="color:var(--good);">—</div>
+          <div class="sub" id="exec-lucro-sub">Ganho: — · Prov: —</div>
         </div>
         <div class="mc-kpi-card">
           <div class="lbl">Proventos Últimos 12M</div>
-          <div class="val" id="exec-proventos" style="color:var(--good);">R$ 445,74</div>
-          <div class="sub">Média mensal: ~R$ 37,14/mês</div>
+          <div class="val" id="exec-proventos" style="color:var(--good);">—</div>
+          <div class="sub" id="exec-proventos-sub">Média mensal: —</div>
         </div>
         <div class="mc-kpi-card">
           <div class="lbl">Total de Ativos</div>
-          <div class="val">23 Posições</div>
-          <div class="sub">10 Ações · 11 FIIs · 1 ETF · Cripto</div>
+          <div class="val" id="exec-total-posicoes">—</div>
+          <div class="sub" id="exec-ativos-sub">—</div>
         </div>
       </div>
 
@@ -9554,20 +9554,51 @@ function recalcularCarteira() {
     kpiLucroItem.setAttribute('title', `Ganho ${fmtR(ganhoCapital)} · Prov. ${fmtR(proventosAcum)}${provSubNota}`);
   }
 
+  // Proventos 12m: total da aba Proventos (recebido + estimado)
   const elProventos = document.getElementById('mc-proventos');
-  if (elProventos) elProventos.textContent = fmtR(445.74);
-
+  const elProventosLbl = document.getElementById('mc-proventos-lbl');
   const kpiProvItem = document.getElementById('ward-kpi-proventos');
-  if (kpiProvItem) {
-    kpiProvItem.setAttribute('title', `Total acumulado: ${fmtR(proventosAcum)}${provSubNota}`);
+  const provDados = (typeof calcularProventosMensaisWard === 'function') ? calcularProventosMensaisWard() : null;
+
+  if (provDados && elProventos) {
+    let totRec12m = 0, totEst12m = 0;
+    provDados.meses.forEach(m => { totRec12m += (m.recebido || 0); totEst12m += (m.estimado || 0); });
+    elProventos.textContent = fmtR(provDados.total12m);
+    if (elProventosLbl) {
+      elProventosLbl.textContent = totEst12m > 0 ? "Proventos 12m (estimado)" : "Proventos 12m";
+    }
+    if (kpiProvItem) {
+      const provTooltip = totEst12m > 0
+        ? `Recebido: ${fmtR(totRec12m)} · Estimado: ${fmtR(totEst12m)} (Total: ${fmtR(provDados.total12m)})`
+        : `Total recebido: ${fmtR(provDados.total12m)}`;
+      kpiProvItem.setAttribute('title', provTooltip);
+    }
+  } else if (elProventos) {
+    elProventos.textContent = fmtR(proventosAcum);
+    if (kpiProvItem) kpiProvItem.setAttribute('title', `Total acumulado: ${fmtR(proventosAcum)}${provSubNota}`);
   }
 
+  // Rentabilidade: retorno por cota do módulo de Rentabilidade (TWR)
   const elRentabVal = document.getElementById('mc-rentab-val');
-  if (elRentabVal) {
+  const elRentabLbl = document.getElementById('mc-rentab-lbl');
+  const kpiRentabItem = document.getElementById('ward-kpi-rentab');
+  const rentDados = (typeof calcularRentabilidadeCota === 'function') ? calcularRentabilidadeCota('inicio') : null;
+
+  if (rentDados && rentDados.kpis && elRentabVal) {
+    const rIni = rentDados.kpis.retornoInicio;
+    const rTxt = `${rIni >= 0 ? '+' : ''}${rIni.toFixed(2)}%`;
+    elRentabVal.textContent = rTxt;
+    elRentabVal.style.color = rIni >= 0 ? 'var(--good)' : 'var(--critical)';
+    if (elRentabLbl) {
+      elRentabLbl.textContent = "Rentabilidade desde 30/09";
+    }
+    if (kpiRentabItem) {
+      kpiRentabItem.setAttribute('title', `Retorno acumulado por cota (TWR): ${rTxt} desde 30/09/2026`);
+    }
+  } else if (elRentabVal) {
     const rentabTotTxt = `${rentabilidadePct >= 0 ? '+' : ''}${rentabilidadePct.toFixed(2)}%`;
-    elRentabVal.textContent = "+12,57%";
-    elRentabVal.style.color = "var(--good)";
-    const kpiRentabItem = document.getElementById('ward-kpi-rentab');
+    elRentabVal.textContent = rentabTotTxt;
+    elRentabVal.style.color = rentabilidadePct >= 0 ? 'var(--good)' : 'var(--critical)';
     if (kpiRentabItem) {
       kpiRentabItem.setAttribute('title', `Total acumulado da carteira: ${rentabTotTxt}`);
     }
@@ -10727,23 +10758,31 @@ window.atualizarCalculadoraMeta = atualizarCalculadoraMeta;
 const TRANSACOES_KEY = "barsi-transacoes-v2";
 
 const DEFAULT_TRANSACOES = [
+  // Vendas reais de encerramento em 08/10/2026
   { data: "2026-10-08", tipo: "Venda", ticker: "LAVV3", cat: "AÇÕES", quant: 5, preco: 13.84, taxa: 0.03, total: 69.17, nota: "Venda total realizada no topo de ciclo a R$ 13,84 (topo 52 sem.) · Líquido R$ 69,17 (tx R$ 0,03)" },
   { data: "2026-10-08", tipo: "Venda", ticker: "MELK3", cat: "AÇÕES", quant: 2, preco: 3.35, taxa: 0.01, total: 6.69, nota: "Venda total realizada a R$ 3,35 (lucro sobre PM R$ 3,34) · Líquido R$ 6,69 (tx R$ 0,01)" },
+
+  // Carga inicial em 30/09/2026 (montagem da carteira no painel)
+  { data: "2026-09-30", tipo: "Compra", ticker: "LAVV3", cat: "AÇÕES", quant: 5, preco: 13.56, total: 67.80, nota: "Carga inicial (posição existente em 30/09)" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "MELK3", cat: "AÇÕES", quant: 2, preco: 3.34, total: 6.68, nota: "Carga inicial (posição existente em 30/09)" },
   { data: "2026-09-30", tipo: "Compra", ticker: "BBAS3", cat: "AÇÕES", quant: 23, preco: 21.61, total: 497.03, nota: "Aporte disciplina banco público ROE" },
-  { data: "2026-09-30", tipo: "Compra", ticker: "TRXF11", cat: "FIIS", quant: 11, preco: 87.58, total: 963.38, nota: "Renda urbana contratos atípicos" },
-  { data: "2026-09-30", tipo: "Compra", ticker: "RECR11", cat: "FIIS", quant: 9, preco: 80.07, total: 720.63, nota: "Crédito imobiliário papel" },
-  { data: "2026-09-30", tipo: "Compra", ticker: "PETR4", cat: "AÇÕES", quant: 7, preco: 30.61, total: 214.27, nota: "Commodity óleo e dividendos" },
-  { data: "2026-09-30", tipo: "Compra", ticker: "GARE11", cat: "FIIS", quant: 51, preco: 8.44, total: 430.44, nota: "Galpões logísticos last-mile" },
-  { data: "2026-09-30", tipo: "Compra", ticker: "MXRF11", cat: "FIIS", quant: 46, preco: 9.02, total: 414.92, nota: "Papel e CRIs Maxi Renda" },
   { data: "2026-09-30", tipo: "Compra", ticker: "CMIG4", cat: "AÇÕES", quant: 5, preco: 10.37, total: 51.85, nota: "Elétrica B.A.S.E. com margem" },
   { data: "2026-09-30", tipo: "Compra", ticker: "TAEE11", cat: "AÇÕES", quant: 4, preco: 34.17, total: 136.68, nota: "Transmissão RAP contratada" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "CPLE3", cat: "AÇÕES", quant: 2, preco: 16.00, total: 32.00, nota: "Elétrica Copel Paraná" },
   { data: "2026-09-30", tipo: "Compra", ticker: "BBSE3", cat: "AÇÕES", quant: 3, preco: 34.07, total: 102.21, nota: "Seguradora capital leve e alto ROE" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "PETR4", cat: "AÇÕES", quant: 7, preco: 30.61, total: 214.27, nota: "Commodity óleo e dividendos" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "RECV3", cat: "AÇÕES", quant: 5, preco: 10.67, total: 53.35, nota: "PetroReconcavo produção onshore" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "LOGG3", cat: "AÇÕES", quant: 1, preco: 24.88, total: 24.88, nota: "Log Commercial Properties" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "TRXF11", cat: "FIIS", quant: 11, preco: 87.58, total: 963.38, nota: "Renda urbana contratos atípicos" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "RECR11", cat: "FIIS", quant: 9, preco: 80.07, total: 720.63, nota: "Crédito imobiliário papel" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "GARE11", cat: "FIIS", quant: 51, preco: 8.44, total: 430.44, nota: "Galpões logísticos last-mile" },
+  { data: "2026-09-30", tipo: "Compra", ticker: "MXRF11", cat: "FIIS", quant: 46, preco: 9.02, total: 414.92, nota: "Papel e CRIs Maxi Renda" },
   { data: "2026-09-30", tipo: "Compra", ticker: "XPML11", cat: "FIIS", quant: 3, preco: 102.88, total: 308.64, nota: "Shoppings consolidados" },
   { data: "2026-09-30", tipo: "Compra", ticker: "VILG11", cat: "FIIS", quant: 3, preco: 89.94, total: 269.82, nota: "Logística Vinci vacância baixa" },
   { data: "2026-09-30", tipo: "Compra", ticker: "RZTR11", cat: "FIIS", quant: 3, preco: 89.19, total: 267.57, nota: "Crédito agro distribuição regular" },
   { data: "2026-09-30", tipo: "Compra", ticker: "GGRC11", cat: "FIIS", quant: 22, preco: 9.62, total: 211.64, nota: "Inquilinos Ambev VW Renault" },
-  { data: "2026-09-30", tipo: "Reinvestimento", ticker: "RZAG11", cat: "FIIS", quant: 20, preco: 8.68, total: 173.60, nota: "Bola de neve: proventos reinvestidos" },
   { data: "2026-09-30", tipo: "Compra", ticker: "KNCA11", cat: "FIIS", quant: 2, preco: 93.51, total: 187.02, nota: "Crédito agro Kinea" },
+  { data: "2026-09-30", tipo: "Reinvestimento", ticker: "RZAG11", cat: "FIIS", quant: 20, preco: 8.68, total: 173.60, nota: "Bola de neve: proventos reinvestidos" },
   { data: "2026-09-30", tipo: "Compra", ticker: "HGRE11", cat: "FIIS", quant: 1, preco: 114.54, total: 114.54, nota: "Lajes corporativas com desconto" },
   { data: "2026-09-30", tipo: "Compra", ticker: "VTI", cat: "ETFS", quant: 0.05209268, preco: 1973.00, total: 102.78, nota: "Proteção geográfica dólar" },
   { data: "2026-09-30", tipo: "Compra", ticker: "SOL", cat: "CRIPTO", quant: 0.04888403, preco: 594.67, total: 29.07, nota: "Alocação descentralizada" }
@@ -10754,24 +10793,38 @@ function carregarExtrato() {
     const salvo = JSON.parse(localStorage.getItem(TRANSACOES_KEY) || 'null');
     if (salvo && Array.isArray(salvo) && salvo.length > 0) {
       let alterou = false;
-      // Migração de segurança: carga inicial de compras pré-outubro ajustada para 2026-09-30
+      // 1. Migração de segurança: carga inicial de compras pré-outubro ajustada para 2026-09-30
       salvo.forEach(t => {
         if (t.data === "2026-10-06" && (t.tipo === "Compra" || t.tipo === "Reinvestimento")) {
           t.data = "2026-09-30";
           alterou = true;
         }
       });
-      // Sincronizar vendas de 08/10 caso ainda não constem no cache do usuário
-      const temLavv3 = salvo.some(t => t.ticker === "LAVV3" && t.tipo === "Venda" && t.data === "2026-10-08");
-      const temMelk3 = salvo.some(t => t.ticker === "MELK3" && t.tipo === "Venda" && t.data === "2026-10-08");
-      if (!temMelk3) {
+
+      // 2. Migração de recuperação idempotente: restaurar vendas reais de 08/10 caso faltem
+      const temVendaLavv3 = salvo.some(t => t.ticker === "LAVV3" && t.tipo === "Venda" && t.data === "2026-10-08");
+      const temVendaMelk3 = salvo.some(t => t.ticker === "MELK3" && t.tipo === "Venda" && t.data === "2026-10-08");
+      if (!temVendaMelk3) {
         salvo.unshift({ data: "2026-10-08", tipo: "Venda", ticker: "MELK3", cat: "AÇÕES", quant: 2, preco: 3.35, taxa: 0.01, total: 6.69, nota: "Venda total realizada a R$ 3,35 (lucro sobre PM R$ 3,34) · Líquido R$ 6,69 (tx R$ 0,01)" });
         alterou = true;
       }
-      if (!temLavv3) {
+      if (!temVendaLavv3) {
         salvo.unshift({ data: "2026-10-08", tipo: "Venda", ticker: "LAVV3", cat: "AÇÕES", quant: 5, preco: 13.84, taxa: 0.03, total: 69.17, nota: "Venda total realizada no topo de ciclo a R$ 13,84 (topo 52 sem.) · Líquido R$ 69,17 (tx R$ 0,03)" });
         alterou = true;
       }
+
+      // 3. Migração de recuperação idempotente: restaurar compras correspondentes na carga inicial de 30/09
+      const temCompraLavv3 = salvo.some(t => t.ticker === "LAVV3" && t.tipo === "Compra" && t.data === "2026-09-30");
+      const temCompraMelk3 = salvo.some(t => t.ticker === "MELK3" && t.tipo === "Compra" && t.data === "2026-09-30");
+      if (!temCompraLavv3) {
+        salvo.push({ data: "2026-09-30", tipo: "Compra", ticker: "LAVV3", cat: "AÇÕES", quant: 5, preco: 13.56, total: 67.80, nota: "Carga inicial (posição existente em 30/09)" });
+        alterou = true;
+      }
+      if (!temCompraMelk3) {
+        salvo.push({ data: "2026-09-30", tipo: "Compra", ticker: "MELK3", cat: "AÇÕES", quant: 2, preco: 3.34, total: 6.68, nota: "Carga inicial (posição existente em 30/09)" });
+        alterou = true;
+      }
+
       if (alterou) {
         localStorage.setItem(TRANSACOES_KEY, JSON.stringify(salvo));
       }
@@ -11120,14 +11173,35 @@ function renderRentabilidade(range) {
     elInicio.style.color = k.retornoInicio >= 0 ? 'var(--good)' : 'var(--critical)';
   }
 
+  // % do CDI: com menos de 3 meses de histórico, mostrar "—" com tooltip "período curto demais para comparar"
+  const dtIni = (dados.serie && dados.serie.length > 0) ? new Date(dados.serie[0].data) : null;
+  const dtFim = (dados.serie && dados.serie.length > 0) ? new Date(dados.serie[dados.serie.length - 1].data) : null;
+  const diffDias = (dtIni && dtFim) ? Math.round((dtFim - dtIni) / (1000 * 60 * 60 * 24)) : 0;
+  const menosDe3Meses = diffDias < 90;
+
   const elVsCdi = document.getElementById('rent-kpi-vs-cdi');
   if (elVsCdi) {
-    elVsCdi.textContent = `${k.vsCdi.toFixed(0)}% do CDI`;
-    elVsCdi.style.color = k.vsCdi >= 100 ? 'var(--good)' : 'var(--ink)';
+    if (menosDe3Meses) {
+      elVsCdi.textContent = "—";
+      elVsCdi.style.color = "var(--ink-2)";
+      elVsCdi.setAttribute('title', "período curto demais para comparar");
+    } else {
+      elVsCdi.textContent = `${k.vsCdi.toFixed(0)}% do CDI`;
+      elVsCdi.style.color = k.vsCdi >= 100 ? 'var(--good)' : 'var(--ink)';
+      elVsCdi.removeAttribute('title');
+    }
   }
 
   const elCdiSub = document.getElementById('rent-kpi-cdi-sub');
-  if (elCdiSub) elCdiSub.textContent = `CDI acumulado: +${k.cdiAcum.toFixed(2)}%`;
+  if (elCdiSub) {
+    if (menosDe3Meses) {
+      elCdiSub.textContent = `CDI acumulado: +${k.cdiAcum.toFixed(2)}% (período curto demais para comparar)`;
+      elCdiSub.setAttribute('title', "período curto demais para comparar");
+    } else {
+      elCdiSub.textContent = `CDI acumulado: +${k.cdiAcum.toFixed(2)}%`;
+      elCdiSub.removeAttribute('title');
+    }
+  }
 
   const elVol = document.getElementById('rent-kpi-volatilidade');
   if (elVol) elVol.textContent = `${k.volatilidade.toFixed(1)}% a.a.`;
@@ -11689,13 +11763,23 @@ function openExecutiveReport() {
 
   // Atualizar KPIs
   const elPat = document.getElementById('exec-patrimonio');
-  if (elPat) elPat.textContent = document.getElementById('mc-patrimonio') ? document.getElementById('mc-patrimonio').textContent : "R$ 5.495,59";
+  if (elPat) elPat.textContent = document.getElementById('mc-patrimonio') ? document.getElementById('mc-patrimonio').textContent : "—";
 
   const elLucro = document.getElementById('exec-lucro');
-  if (elLucro) elLucro.textContent = document.getElementById('mc-lucro') ? document.getElementById('mc-lucro').textContent : "R$ 722,83";
+  if (elLucro) elLucro.textContent = document.getElementById('mc-lucro') ? document.getElementById('mc-lucro').textContent : "—";
 
   const elProv = document.getElementById('exec-proventos');
-  if (elProv) elProv.textContent = document.getElementById('mc-proventos') ? document.getElementById('mc-proventos').textContent : "R$ 445,74";
+  if (elProv) {
+    const elMcProv = document.getElementById('mc-proventos');
+    if (elMcProv && elMcProv.textContent && elMcProv.textContent !== "—") {
+      elProv.textContent = elMcProv.textContent;
+    } else if (typeof calcularProventosMensaisWard === 'function') {
+      const pData = calcularProventosMensaisWard();
+      elProv.textContent = pData ? fmtR(pData.total12m) : "—";
+    } else {
+      elProv.textContent = "—";
+    }
+  }
 
   // Preencher Alocação
   const tbodyAlloc = document.getElementById('exec-tbody-alloc');
@@ -13191,7 +13275,7 @@ initCollapsibleBlocks();
   :root:not([data-theme="light"]){
     --bg:#070B14; --surface:#0E1422; --surface-2:#151D2E; --surface-hi:#121A2B;
     --ink:#F1F5F9; --ink-2:#B6C0D4; --muted:#7D889E;
-    --rule:rgba(148,163,184,.12); --rule-strong:rgba(148,163,184,.22);
+    --rule:rgba(255,255,255,.08); --rule-strong:rgba(255,255,255,.16);
     --accent:#8B9DFF; --accent-soft:rgba(139,157,255,.14); --focus:#8B9DFF;
     --good:#34D399; --warning:#FBBF24; --serious:#FB923C; --critical:#F87171;
     --gold:#FBBF24; --gold-soft:rgba(251,191,36,.14);
@@ -13203,7 +13287,7 @@ initCollapsibleBlocks();
 :root[data-theme="dark"]{
   --bg:#070B14; --surface:#0E1422; --surface-2:#151D2E; --surface-hi:#121A2B;
   --ink:#F1F5F9; --ink-2:#B6C0D4; --muted:#7D889E;
-  --rule:rgba(148,163,184,.12); --rule-strong:rgba(148,163,184,.22);
+  --rule:rgba(255,255,255,.08); --rule-strong:rgba(255,255,255,.16);
   --accent:#8B9DFF; --accent-soft:rgba(139,157,255,.14); --focus:#8B9DFF;
   --good:#34D399; --warning:#FBBF24; --serious:#FB923C; --critical:#F87171;
   --gold:#FBBF24; --gold-soft:rgba(251,191,36,.14);
