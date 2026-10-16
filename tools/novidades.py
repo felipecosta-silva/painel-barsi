@@ -370,12 +370,17 @@ def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=
             candidate = res_json.get("candidates", [])[0]
             part_text = candidate.get("content", {}).get("parts", [])[0].get("text", "")
             return json.loads(part_text)
+    except urllib.error.HTTPError as e:
+        corpo = e.read().decode("utf-8", errors="replace")[:500]
+        print(f"Erro Gemini API ({ticker}): HTTP {e.code} · modelo {modelo} · {corpo}", flush=True)
+        return None
     except Exception as e:
-        print(f"Erro Gemini API ({ticker}): {e}")
+        print(f"Erro Gemini API ({ticker}): {e}", flush=True)
         return None
 
 
 def main():
+    falha_ia_total = False
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         print("GEMINI_API_KEY ausente: pulando resumos", flush=True)
@@ -450,6 +455,7 @@ def main():
 
     if api_key and pendentes_ia:
         lote_ia = pendentes_ia[:12]
+        resumidos_ok = 0
         print(f"Processando {len(lote_ia)} resumos com Gemini nesta execução...", flush=True)
         for tk, doc in lote_ia:
             print(f" -> Resumindo {tk}: {doc['tipo']} - {doc['titulo'][:45]} ({doc['data']})", flush=True)
@@ -470,7 +476,14 @@ def main():
                     doc["metricas"] = resumo_data.get("metricas") or {}
                     doc["gravidade"] = resumo_data.get("gravidade") or "info"
                     doc["resumido_ia"] = True
-                time.sleep(2.5)  # Rate limit gratuito
+                    resumidos_ok += 1
+            else:
+                print(f"    PDF não baixado: {doc['url']}", flush=True)
+            time.sleep(2.5)  # Rate limit gratuito
+        print(f"Resumos gerados nesta execução: {resumidos_ok} de {len(lote_ia)}", flush=True)
+        if resumidos_ok == 0:
+            # Falha visível no GitHub Actions: com chave e pendências, zero resumos é erro (ver mensagens acima)
+            falha_ia_total = True
 
     # 4. Ordenação e corte (máximo 6 por ativo, mais recentes primeiro)
     total_docs = 0
@@ -511,6 +524,9 @@ def main():
     else:
         print("\n✅ Integridade de FIIs: 100% dos FIIs possuem documentos recentes catalogados.", flush=True)
 
+    if falha_ia_total:
+        print("ERRO: havia chave e documentos pendentes, mas nenhum resumo foi gerado (ver 'Erro Gemini API' / 'PDF não baixado' acima).", flush=True)
+        return 1
     return 0
 
 
