@@ -264,7 +264,7 @@ def baixar_pdf(url):
     for tentativa in range(2):
         try:
             req = urllib.request.Request(url, headers=UA)
-            with urllib.request.urlopen(req, timeout=30) as r:
+            with urllib.request.urlopen(req, timeout=90) as r:
                 return r.read()
         except Exception as e:
             if tentativa < 1:
@@ -286,7 +286,7 @@ def _versao_modelo(nome):
     return float(nums[0]) if nums else 0.0
 
 
-def descobrir_modelo_flash(api_key):
+def descobrir_modelo_flash(api_key, excluir=None):
     """Lista os modelos da conta e devolve o Flash mais novo que aceita generateContent (sem lite/preview/imagem/áudio)."""
     url = "https://generativelanguage.googleapis.com/v1beta/models?pageSize=200"
     try:
@@ -304,6 +304,7 @@ def descobrir_modelo_flash(api_key):
         if any(x in nome for x in ("lite", "preview", "exp", "image", "tts", "audio", "live", "thinking")):
             continue
         candidatos.append(nome)
+    candidatos = [c for c in candidatos if c != excluir]
     if not candidatos:
         return None
     candidatos.sort(key=_versao_modelo, reverse=True)
@@ -438,8 +439,9 @@ def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=
         break
 
     print(f"Erro Gemini API ({ticker}): HTTP {erro_code} · modelo {modelo} · {corpo}", flush=True)
-    if erro_code == 404 and not _tentou_trocar:
-        novo_modelo = descobrir_modelo_flash(api_key)
+    if erro_code in (404, 503) and not _tentou_trocar:
+        # 404 = modelo aposentado; 503 persistente = modelo sobrecarregado: tenta o outro Flash disponível
+        novo_modelo = descobrir_modelo_flash(api_key, excluir=modelo)
         if novo_modelo and novo_modelo != modelo:
             print(f"Modelo {modelo} indisponível: trocando para {novo_modelo} e tentando de novo.", flush=True)
             _modelo_ativo = novo_modelo
