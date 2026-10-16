@@ -44,3 +44,6 @@ Investimentos/
 brain/
 botArbitragem/
 botArbitragemSpot/
+
+# Skills e configurações do Claude Code (contêm dados da carteira)
+.claude/
