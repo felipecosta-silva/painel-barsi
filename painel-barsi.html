@@ -1975,6 +1975,212 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   padding-top: 6px;
 }
 
+/* ================= CALCULADORAS DE VALUATION - ABA ANÁLISE (16/10/2026 - Rodada 5) ================= */
+.an-calc-container {
+  margin: 14px 0 10px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  box-shadow: var(--shadow-1, 0 1px 3px rgba(0,0,0,0.05));
+}
+.an-calc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+}
+.an-calc-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.an-calc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+@media (max-width: 768px) {
+  .an-calc-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+.an-calc-card {
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  position: relative;
+}
+.an-calc-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.an-calc-card-title {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.an-calc-card-reset {
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 2px 7px;
+  transition: all 0.15s ease;
+}
+.an-calc-card-reset:hover {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--rule-strong);
+}
+.an-calc-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.an-calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.an-calc-label {
+  color: var(--ink-2);
+  font-weight: 500;
+  flex: 1;
+}
+.an-calc-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.an-calc-input {
+  width: 90px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--ink);
+  text-align: right;
+  outline: none;
+}
+.an-calc-input:focus {
+  border-color: var(--accent);
+}
+.an-calc-step-btn {
+  width: 22px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0;
+  user-select: none;
+  line-height: 1;
+}
+.an-calc-step-btn:hover {
+  background: var(--surface-2);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.an-calc-btn-group {
+  display: inline-flex;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
+.an-calc-btn-toggle {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 6px;
+  cursor: pointer;
+  color: var(--muted);
+}
+.an-calc-btn-toggle.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+.an-calc-result-box {
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-top: 4px;
+}
+.an-calc-res-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+.an-calc-res-item:last-child {
+  margin-bottom: 0;
+}
+.an-calc-comp-bar {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12.5px;
+}
+.an-calc-comp-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink-2);
+}
+.an-calc-comp-item.regua-destaque {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 3px 8px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
 /* ================= NOVIDADES & DOCUMENTOS (15/10/2026 - Tarefa 3) ================= */
 .an-novidades-card {
   margin-top: 14px;
@@ -2600,13 +2806,13 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
           <div class="rent-chart-header" style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
             <div>
               <h3 style="margin:0; font-size:15px; font-weight:600; color:var(--ink);">Retorno Acumulado vs. Benchmarks</h3>
-              <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Cotação da carteira confrontada diariamente com CDI, IPCA, Ibovespa e IFIX.</p>
+              <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Cotação da carteira confrontada diariamente com CDI, IPCA, Ibovespa e IFIX (via ETF XFIX11)*.</p>
             </div>
             <!-- Atalhos de Visão por Classe e Seletor de Período -->
             <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
               <div class="rent-range-tabs" id="rent-pair-tabs" title="Atalhos rápidos por classe" style="background:var(--surface-2); padding:2px; border-radius:8px; border:1px solid var(--rule);">
                 <button type="button" class="rent-range-btn active" data-pair="total" onclick="setRentabilidadePair('total')">Total</button>
-                <button type="button" class="rent-range-btn" data-pair="fiis" onclick="setRentabilidadePair('fiis')">FIIs × IFIX</button>
+                <button type="button" class="rent-range-btn" data-pair="fiis" onclick="setRentabilidadePair('fiis')" title="FIIs × IFIX (via ETF XFIX11: ETF de baixa liquidez)">FIIs × IFIX*</button>
                 <button type="button" class="rent-range-btn" data-pair="acoes" onclick="setRentabilidadePair('acoes')">Ações × Ibovespa</button>
               </div>
               <div class="rent-range-tabs" style="background:var(--surface-2); padding:2px; border-radius:8px; border:1px solid var(--rule);">
@@ -2677,6 +2883,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
           <svg id="rent-dd-svg" viewBox="0 0 680 150" style="width:100%; height:auto; display:block;"></svg>
           <div id="rent-dd-tooltip" class="rent-chart-tooltip"></div>
         </div>
+        <p style="font-size:11px; color:var(--muted); margin:8px 0 0; text-align:right;">* IFIX acompanhado via ETF XFIX11 (ETF de baixa liquidez: pode descolar do índice oficial).</p>
       </div>
     </div>
   </section>
@@ -11682,7 +11889,7 @@ function renderRentabilidade(range) {
       { key: 'cdi',      label: 'CDI',             color: 'var(--serie-cdi)',      val: totais.cdi },
       { key: 'ipca',     label: 'IPCA',            color: 'var(--serie-ipca)',     val: totais.ipca },
       { key: 'ibov',     label: 'Ibovespa',        color: 'var(--serie-ibov)',     val: totais.ibov },
-      { key: 'ifix',     label: 'IFIX',            color: 'var(--serie-ifix)',     val: totais.ifix, disabled: !temIfix, title: !temIfix ? 'sem série do IFIX' : '' }
+      { key: 'ifix',     label: 'IFIX (via XFIX11)*', color: 'var(--serie-ifix)', val: totais.ifix, disabled: !temIfix, title: !temIfix ? 'sem série do IFIX' : 'IFIX (via ETF XFIX11) — ETF de baixa liquidez: pode descolar do índice' }
     ];
 
     legContainer.innerHTML = seriesConfig.map(s => {
@@ -11917,7 +12124,7 @@ function renderRentabilidadeSvg(serie, activeKeys) {
     cdi:      { lbl: 'CDI', color: 'var(--serie-cdi)' },
     ipca:     { lbl: 'IPCA', color: 'var(--serie-ipca)' },
     ibov:     { lbl: 'Ibovespa', color: 'var(--serie-ibov)' },
-    ifix:     { lbl: 'IFIX', color: 'var(--serie-ifix)' }
+    ifix:     { lbl: 'IFIX (via XFIX11)*', color: 'var(--serie-ifix)' }
   };
 
   if (tooltip) {
@@ -12062,7 +12269,7 @@ function renderDrawdownSvg(serie, ddActiveKeys) {
     const ddConfigs = [
       { key: 'carteira', label: 'Carteira',  color: 'var(--serie-carteira)', prop: 'ddCarteira' },
       { key: 'ibov',     label: 'Ibovespa',  color: 'var(--serie-ibov)',     prop: 'ddIbov' },
-      { key: 'ifix',     label: 'IFIX',      color: 'var(--serie-ifix)',     prop: 'ddIfix', disabled: !temIfix, title: !temIfix ? 'sem série do IFIX' : '' }
+      { key: 'ifix',     label: 'IFIX (via XFIX11)*', color: 'var(--serie-ifix)', prop: 'ddIfix', disabled: !temIfix, title: !temIfix ? 'sem série do IFIX' : 'IFIX (via ETF XFIX11) — ETF de baixa liquidez: pode descolar do índice' }
     ];
     ddLeg.innerHTML = ddConfigs.map(s => {
       const isAct = active.includes(s.key) && !s.disabled;
@@ -12154,7 +12361,7 @@ function renderDrawdownSvg(serie, ddActiveKeys) {
     const ddLabels = {
       carteira: { lbl: 'Carteira', color: 'var(--serie-carteira)', prop: 'ddCarteira' },
       ibov:     { lbl: 'Ibovespa', color: 'var(--serie-ibov)',     prop: 'ddIbov' },
-      ifix:     { lbl: 'IFIX',     color: 'var(--serie-ifix)',     prop: 'ddIfix' }
+      ifix:     { lbl: 'IFIX (via XFIX11)*', color: 'var(--serie-ifix)', prop: 'ddIfix' }
     };
     svg.querySelectorAll('.dd-col-hover').forEach(col => {
       col.addEventListener('mouseenter', () => {
@@ -14756,6 +14963,28 @@ function toggleTheme(){
       mediaSetor = 7.40;
     }
 
+    // Cálculo dos KPIs de 10 anos completos (Parte B - 16/10/2026)
+    const anosCompletos = serie.filter(s => !s.isAtual && s.dy > 0 && (!ignorarAnomalias || !s.anomalia));
+    let dyMedio10A = null, min10A = null, max10A = null, frasePosicao = "";
+    if (anosCompletos.length > 0) {
+      const somaDy10 = anosCompletos.reduce((acc, s) => acc + s.dy, 0);
+      dyMedio10A = somaDy10 / anosCompletos.length;
+      
+      const ordenadosPorDy = anosCompletos.slice().sort((a, b) => a.dy - b.dy);
+      min10A = ordenadosPorDy[0];
+      max10A = ordenadosPorDy[ordenadosPorDy.length - 1];
+
+      if (max10A.dy > min10A.dy) {
+        let pctPos = Math.round(((dyAtual - min10A.dy) / (max10A.dy - min10A.dy)) * 100);
+        pctPos = Math.max(0, Math.min(100, pctPos));
+        if (pctPos >= 50) {
+          frasePosicao = `DY atual está no <b>${pctPos}% mais alto</b> do histórico de 10 anos`;
+        } else {
+          frasePosicao = `DY atual está no <b>${100 - pctPos}% mais baixo</b> do histórico de 10 anos`;
+        }
+      }
+    }
+
     const W = 680, H_svg = 240, padL = 45, padR = 68, padT = 32, padB = 34;
     const plotW = W - padL - padR;
     const plotH = H_svg - padT - padB;
@@ -14894,18 +15123,36 @@ function toggleTheme(){
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:12px;margin:14px 0 16px;">
-          <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;text-align:center;">
-            <div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">Valor atual</div>
-            <div style="font-size:22px;font-weight:800;font-family:var(--font-mono);color:var(--ink);margin-top:2px;">${fmtN(dyAtual, 2)}%</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;margin:14px 0 16px;">
+          <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">Valor atual (12m)</div>
+            <div style="font-size:20px;font-weight:800;font-family:var(--font-mono);color:var(--ink);margin-top:2px;">${fmtN(dyAtual, 2)}%</div>
+            ${frasePosicao ? `<div style="font-size:10px;color:var(--ink-2);margin-top:4px;line-height:1.2;">${frasePosicao}</div>` : ''}
           </div>
-          <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;text-align:center;">
-            <div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">Média da empresa</div>
-            <div style="font-size:22px;font-weight:800;font-family:var(--font-mono);color:#38bdf8;margin-top:2px;">${fmtN(dyMediaEmpresa, 2)}%</div>
+          <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">DY Médio 10A</div>
+            <div style="font-size:20px;font-weight:800;font-family:var(--font-mono);color:var(--ink);margin-top:2px;">${dyMedio10A != null ? fmtN(dyMedio10A, 2) + '%' : '—'}</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:4px;">anos completos</div>
           </div>
-          <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;text-align:center;">
-            <div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">Média do setor</div>
-            <div style="font-size:22px;font-weight:800;font-family:var(--font-mono);color:#a855f7;margin-top:2px;">${fmtN(mediaSetor, 2)}%</div>
+          <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">DY Mínimo 10A</div>
+            <div style="font-size:20px;font-weight:800;font-family:var(--font-mono);color:var(--ink);margin-top:2px;">${min10A ? fmtN(min10A.dy, 2) + '%' : '—'}</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:4px;">${min10A ? `em ${min10A.ano}` : '—'}</div>
+          </div>
+          <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">DY Máximo 10A</div>
+            <div style="font-size:20px;font-weight:800;font-family:var(--font-mono);color:var(--ink);margin-top:2px;">${max10A ? fmtN(max10A.dy, 2) + '%' : '—'}</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:4px;">${max10A ? `em ${max10A.ano}` : '—'}</div>
+          </div>
+          <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">Média da empresa</div>
+            <div style="font-size:20px;font-weight:800;font-family:var(--font-mono);color:#38bdf8;margin-top:2px;">${fmtN(dyMediaEmpresa, 2)}%</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:4px;">histórico total</div>
+          </div>
+          <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">Média do setor</div>
+            <div style="font-size:20px;font-weight:800;font-family:var(--font-mono);color:#a855f7;margin-top:2px;">${fmtN(mediaSetor, 2)}%</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:4px;">benchmark B3</div>
           </div>
         </div>
 
@@ -15002,6 +15249,714 @@ function toggleTheme(){
     modalEl.classList.add('active');
     modalEl.style.display = 'flex';
   };
+
+
+  /* ================= CALCULADORAS DE VALUATION (16/10/2026 - Rodada 5) ================= */
+// Código de fehmirRenderCalculadorasValuation e handlers interativos
+const ACOES_N_MAP = {
+  TIMS3: 2420804398,
+  BBAS3: 2865417020,
+  TAEE11: 1033496721,
+  BBSE3: 2000000000,
+  PETR4: 13044496930,
+  VALE3: 4539000000,
+  CMIG4: 2204000000,
+  CPLE3: 2732000000,
+  VIVT3: 1653000000
+};
+
+window.__calcValuationState = window.__calcValuationState || {};
+
+function fehmirObterCalcPadroes(t, a, av) {
+  const H = typeof fehmirObterHist === "function" ? fehmirObterHist(t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[t]);
+  const preco = a ? (a.preco || 0) : 0;
+  const split = !!a.splitSuspeito;
+  const pl = (!split && a.pl) ? (typeof numBR === "function" ? numBR(a.pl) : parseFloat(String(a.pl).replace(',', '.'))) : 0;
+  const lpa = (!split && a.lpa > 0) ? a.lpa : (pl > 0 && preco ? preco / pl : (H ? H.lpa || 0 : 0));
+  const vpa = (a && a.vpa) || (H ? H.vpa : 0) || 0;
+  const roe = (a && a.roe) || 0;
+  const dyRobo = (H && H.dpa12 && preco > 0) ? (H.dpa12 / preco) * 100 : (a && a.dy ? a.dy : 0);
+  const dpa5 = (H && H.dpa5) || (a && a.dpa5a) || (a && a.dpa) || 0;
+  const dpa12 = (H && H.dpa12) || (a && a.dpa) || 0;
+
+  const dyExigido = (av && av.req) ? av.req : (a && a.setor ? 8.0 : 6.0);
+  let pay = (a && a.payout) || 60;
+  if (pay <= 0 || pay > 100) pay = 60;
+
+  // Bazin
+  const bazinDpa = dpa5 > 0 ? dpa5 : dpa12;
+  const bazinDy = dyExigido;
+  const bazinTipo = dpa5 > 0 ? 'dpa5' : 'dpa12';
+
+  // Graham
+  const grahamLpa = lpa > 0 ? lpa : 0;
+  const grahamVpa = vpa > 0 ? vpa : 0;
+
+  // Projetivo
+  const nAcoes = ACOES_N_MAP[t] || null;
+  const lucro = (lpa > 0 && nAcoes) ? lpa * nAcoes : null;
+  const projCrescimento = 0;
+  const projPayout = pay;
+  const projDy = dyExigido;
+
+  // Lynch: g = ROE * (1 - payout/100), limitado a 0-15%
+  let gLynch = (roe / 100) * (1 - (pay / 100)) * 100;
+  gLynch = Math.max(0, Math.min(15, gLynch));
+  const lynchDy = dyRobo;
+  const lynchPl = pl;
+
+  return {
+    bazin: { dpa: parseFloat(bazinDpa.toFixed(2)), dy: parseFloat(bazinDy.toFixed(2)), dpaTipo: bazinTipo },
+    graham: { lpa: parseFloat(grahamLpa.toFixed(2)), vpa: parseFloat(grahamVpa.toFixed(2)) },
+    projetivo: { lucro: lucro ? Math.round(lucro) : null, nAcoes: nAcoes, proj: projCrescimento, payout: parseFloat(projPayout.toFixed(1)), dy: parseFloat(projDy.toFixed(2)) },
+    lynch: { g: parseFloat(gLynch.toFixed(1)), dy: parseFloat(lynchDy.toFixed(2)), pl: parseFloat(lynchPl.toFixed(2)) }
+  };
+}
+
+function fehmirCarregarCalcEstado(t, padroes) {
+  let salvo = null;
+  try {
+    const raw = localStorage.getItem("barsi-calc-" + t);
+    if (raw) salvo = JSON.parse(raw);
+  } catch (e) {}
+
+  const estado = JSON.parse(JSON.stringify(padroes));
+  if (salvo && typeof salvo === "object") {
+    if (salvo.bazin) Object.assign(estado.bazin, salvo.bazin);
+    if (salvo.graham) Object.assign(estado.graham, salvo.graham);
+    if (salvo.projetivo) Object.assign(estado.projetivo, salvo.projetivo);
+    if (salvo.lynch) Object.assign(estado.lynch, salvo.lynch);
+  }
+  return estado;
+}
+
+function fehmirSalvarCalcEstado(t, estado) {
+  try {
+    localStorage.setItem("barsi-calc-" + t, JSON.stringify(estado));
+  } catch (e) {}
+}
+
+function fehmirCalcularMetricas(t, estado, preco) {
+  // 1. Bazin
+  let bazinTeto = null, bazinMargem = null;
+  if (estado.bazin && estado.bazin.dpa > 0 && estado.bazin.dy > 0) {
+    bazinTeto = estado.bazin.dpa / (estado.bazin.dy / 100);
+    if (bazinTeto > 0 && preco > 0) {
+      bazinMargem = (1 - preco / bazinTeto) * 100;
+    }
+  }
+
+  // 2. Graham
+  let grahamJusto = null, grahamMargem = null, grahamMsg = null;
+  if (!estado.graham || estado.graham.lpa <= 0 || estado.graham.vpa <= 0) {
+    grahamMsg = "não se aplica (lucro ou patrimônio negativo)";
+  } else {
+    grahamJusto = Math.sqrt(22.5 * estado.graham.lpa * estado.graham.vpa);
+    if (grahamJusto > 0 && preco > 0) {
+      grahamMargem = (1 - preco / grahamJusto) * 100;
+    }
+  }
+
+  // 3. Projetivo
+  let dpaProj = null, projTeto = null, yieldProj = null, projMargem = null, projMsg = null;
+  if (!estado.projetivo || !estado.projetivo.nAcoes || estado.projetivo.nAcoes <= 0) {
+    projMsg = "Onde achar: RI da empresa ou Status Invest";
+  } else if (!estado.projetivo.lucro || estado.projetivo.lucro <= 0) {
+    projMsg = "Informe o lucro projetado";
+  } else if (!estado.projetivo.dy || estado.projetivo.dy <= 0) {
+    projMsg = "Informe o DY desejado";
+  } else {
+    const lucroAjustado = estado.projetivo.lucro * (1 + (estado.projetivo.proj || 0) / 100);
+    dpaProj = (lucroAjustado * (estado.projetivo.payout / 100)) / estado.projetivo.nAcoes;
+    projTeto = dpaProj / (estado.projetivo.dy / 100);
+    if (preco > 0) yieldProj = (dpaProj / preco) * 100;
+    if (projTeto > 0 && preco > 0) projMargem = (1 - preco / projTeto) * 100;
+  }
+
+  // 4. Peter Lynch
+  let lynchVal = null, lynchFaixa = null, lynchCor = null;
+  if (!estado.lynch || !estado.lynch.pl || estado.lynch.pl <= 0) {
+    lynchFaixa = "P/L inválido";
+  } else {
+    lynchVal = (estado.lynch.g + estado.lynch.dy) / estado.lynch.pl;
+    if (lynchVal < 1) {
+      lynchFaixa = "caro para o crescimento + dividendo";
+      lynchCor = "var(--critical)";
+    } else if (lynchVal <= 2) {
+      lynchFaixa = "razoável";
+      lynchCor = "var(--accent)";
+    } else {
+      lynchFaixa = "barato";
+      lynchCor = "var(--good)";
+    }
+  }
+
+  return {
+    bazin: { teto: bazinTeto, margem: bazinMargem },
+    graham: { justo: grahamJusto, margem: grahamMargem, msg: grahamMsg },
+    projetivo: { dpaProj, teto: projTeto, yieldProj, margem: projMargem, msg: projMsg },
+    lynch: { val: lynchVal, faixa: lynchFaixa, cor: lynchCor }
+  };
+}
+
+function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
+  const preco = a ? (a.preco || 0) : 0;
+  const ehFii = a.macro === "fiis" || (a.tipo != null && !a.setor);
+  const tetoRegua = av ? av.teto : null;
+
+  // Carregar padrões e estado salvo
+  const padroes = fehmirObterCalcPadroes(t, a, av);
+  const estado = fehmirCarregarCalcEstado(t, padroes);
+
+  // Se for FII, ajustar Bazin para rendimento 12m e dy da régua FII
+  if (ehFii) {
+    const H = typeof fehmirObterHist === "function" ? fehmirObterHist(t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[t]);
+    const rend12 = (H && H.dpa12) || (a.rend ? a.rend * 12 : (a.dpa || 0));
+    const dyFii = (av && av.req) ? av.req : (a.dy || 9.0);
+    estado.bazin.dpa = parseFloat(rend12.toFixed(2));
+    estado.bazin.dy = parseFloat(dyFii.toFixed(2));
+  }
+
+  // Guardar estado no window
+  window.__calcValuationState[t] = {
+    padroes,
+    estado,
+    preco,
+    ehFii,
+    tetoRegua,
+    vDDM
+  };
+
+  const M = fehmirCalcularMetricas(t, estado, preco);
+
+  const fmtM = (n, d = 2) => n == null || !isFinite(n) ? "—" : n.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fmtRM = n => n == null || !isFinite(n) ? "—" : "R$ " + fmtM(n);
+  const fmtPctM = (n, d = 1) => n == null || !isFinite(n) ? "—" : `${n >= 0 ? '+' : ''}${fmtM(n, d)}%`;
+
+  // Se for FII, renderizar apenas Bazin + nota explicativa
+  if (ehFii) {
+    return `
+      <div class="an-calc-container" id="an-calc-container-${t}">
+        <div class="an-calc-header">
+          <div class="an-calc-title">
+            <span>🧮 Calculadoras de Valuation</span>
+            <span style="font-size:12px;font-weight:400;color:var(--muted);">(simulação: o teto oficial é o da régua)</span>
+          </div>
+          <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'tudo')">↻ Restaurar padrões</button>
+        </div>
+
+        <div class="an-calc-grid" style="grid-template-columns: 1fr;">
+          <!-- 1. Bazin FII -->
+          <div class="an-calc-card">
+            <div class="an-calc-card-head">
+              <div class="an-calc-card-title">
+                <span>📘 1. Décio Bazin (Rendimento)</span>
+              </div>
+              <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'bazin')">↻ Padrão</button>
+            </div>
+            <div class="an-calc-fields">
+              <div class="an-calc-row">
+                <span class="an-calc-label">Rendimento 12m (DPA)</span>
+                <div class="an-calc-input-wrap">
+                  <input type="number" step="0.01" class="an-calc-input" id="calc-bazin-dpa-${t}" value="${estado.bazin.dpa}" oninput="fehmirAtualizarCalc('${t}')">
+                </div>
+              </div>
+              <div class="an-calc-row">
+                <span class="an-calc-label">DY Desejado (% a.a.)</span>
+                <div class="an-calc-input-wrap">
+                  <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','bazin-dy', -0.5)">−</button>
+                  <input type="number" step="0.1" class="an-calc-input" id="calc-bazin-dy-${t}" value="${estado.bazin.dy}" oninput="fehmirAtualizarCalc('${t}')" style="width:65px">
+                  <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','bazin-dy', 0.5)">+</button>
+                </div>
+              </div>
+            </div>
+            <div class="an-calc-result-box" id="calc-res-bazin-${t}">
+              <div class="an-calc-res-item">
+                <span style="color:var(--muted)">Preço teto Bazin:</span>
+                <b style="font-family:var(--font-mono);font-size:14px;color:var(--ink)">${fmtRM(M.bazin.teto)}</b>
+              </div>
+              <div class="an-calc-res-item">
+                <span style="color:var(--muted)">Margem de segurança:</span>
+                <b style="font-family:var(--font-mono);color:${M.bazin.margem >= 0 ? 'var(--good)' : 'var(--critical)'}">${fmtPctM(M.bazin.margem)}</b>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;padding:10px 14px;background:var(--surface-2);border-radius:8px;font-size:12px;color:var(--muted);border-left:3px solid var(--muted);">
+          ℹ️ <b>Graham, Projetivo e Lynch não se aplicam a FIIs:</b> são metodologias para companhias abertas com base em lucro líquido contábil e valor patrimonial por ação. Para fundos imobiliários, utilize a régua setorial oficial por tipo (§21.3) e Bazin com rendimento.
+        </div>
+
+        <!-- Linha Comparativa -->
+        <div class="an-calc-comp-bar" id="calc-comp-bar-${t}">
+          <div class="an-calc-comp-item regua-destaque" title="Teto oficial do setor conforme metodologia §21">
+            <span>Régua (oficial):</span> <b>${fmtRM(tetoRegua)}</b>
+          </div>
+          <div class="an-calc-comp-item">
+            <span>Bazin:</span> <b>${fmtRM(M.bazin.teto)}</b>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // AÇÕES: Renderizar os 4 cartões completos
+  return `
+    <div class="an-calc-container" id="an-calc-container-${t}">
+      <div class="an-calc-header">
+        <div class="an-calc-title">
+          <span>🧮 Calculadoras de Valuation</span>
+          <span style="font-size:12px;font-weight:400;color:var(--muted);">(simulação: o teto oficial é o da régua)</span>
+        </div>
+        <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'tudo')">↻ Restaurar todos os padrões</button>
+      </div>
+
+      <div class="an-calc-grid">
+        <!-- 1. Bazin -->
+        <div class="an-calc-card">
+          <div class="an-calc-card-head">
+            <div class="an-calc-card-title">
+              <span>📘 1. Décio Bazin</span>
+            </div>
+            <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'bazin')">↻ Padrão</button>
+          </div>
+          <div class="an-calc-fields">
+            <div class="an-calc-row">
+              <div style="display:flex;align-items:center;gap:6px">
+                <span class="an-calc-label">DPA Médio</span>
+                <div class="an-calc-btn-group">
+                  <button type="button" class="an-calc-btn-toggle ${estado.bazin.dpaTipo === 'dpa5' ? 'active' : ''}" id="btn-baz-dpa5-${t}" onclick="fehmirAlternarBazinDpa('${t}', 'dpa5')">5A</button>
+                  <button type="button" class="an-calc-btn-toggle ${estado.bazin.dpaTipo === 'dpa12' ? 'active' : ''}" id="btn-baz-dpa12-${t}" onclick="fehmirAlternarBazinDpa('${t}', 'dpa12')">12M</button>
+                </div>
+              </div>
+              <div class="an-calc-input-wrap">
+                <input type="number" step="0.01" class="an-calc-input" id="calc-bazin-dpa-${t}" value="${estado.bazin.dpa}" oninput="fehmirAtualizarCalc('${t}')">
+              </div>
+            </div>
+            <div class="an-calc-row">
+              <span class="an-calc-label">DY Desejado (% a.a.)</span>
+              <div class="an-calc-input-wrap">
+                <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','bazin-dy', -0.5)">−</button>
+                <input type="number" step="0.1" class="an-calc-input" id="calc-bazin-dy-${t}" value="${estado.bazin.dy}" oninput="fehmirAtualizarCalc('${t}')" style="width:60px">
+                <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','bazin-dy', 0.5)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="an-calc-result-box" id="calc-res-bazin-${t}">
+            <div class="an-calc-res-item">
+              <span style="color:var(--muted)">Preço teto Bazin:</span>
+              <b style="font-family:var(--font-mono);font-size:14px;color:var(--ink)">${fmtRM(M.bazin.teto)}</b>
+            </div>
+            <div class="an-calc-res-item">
+              <span style="color:var(--muted)">Margem de segurança:</span>
+              <b style="font-family:var(--font-mono);color:${M.bazin.margem >= 0 ? 'var(--good)' : 'var(--critical)'}">${fmtPctM(M.bazin.margem)}</b>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Graham -->
+        <div class="an-calc-card">
+          <div class="an-calc-card-head">
+            <div class="an-calc-card-title">
+              <span>📗 2. Benjamin Graham</span>
+            </div>
+            <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'graham')">↻ Padrão</button>
+          </div>
+          <div class="an-calc-fields">
+            <div class="an-calc-row">
+              <span class="an-calc-label">LPA (Lucro por Ação)</span>
+              <div class="an-calc-input-wrap">
+                <input type="number" step="0.01" class="an-calc-input" id="calc-graham-lpa-${t}" value="${estado.graham.lpa}" oninput="fehmirAtualizarCalc('${t}')">
+              </div>
+            </div>
+            <div class="an-calc-row">
+              <span class="an-calc-label">VPA (Valor Patrimonial)</span>
+              <div class="an-calc-input-wrap">
+                <input type="number" step="0.01" class="an-calc-input" id="calc-graham-vpa-${t}" value="${estado.graham.vpa}" oninput="fehmirAtualizarCalc('${t}')">
+              </div>
+            </div>
+          </div>
+          <div class="an-calc-result-box" id="calc-res-graham-${t}">
+            ${M.graham.msg ? `
+              <div style="font-size:11.5px;color:var(--muted);">${M.graham.msg}</div>
+            ` : `
+              <div class="an-calc-res-item">
+                <span style="color:var(--muted)">Preço justo Graham:</span>
+                <b style="font-family:var(--font-mono);font-size:14px;color:var(--ink)">${fmtRM(M.graham.justo)}</b>
+              </div>
+              <div class="an-calc-res-item">
+                <span style="color:var(--muted)">Margem de segurança:</span>
+                <b style="font-family:var(--font-mono);color:${M.graham.margem >= 0 ? 'var(--good)' : 'var(--critical)'}">${fmtPctM(M.graham.margem)}</b>
+              </div>
+            `}
+          </div>
+        </div>
+
+        <!-- 3. Projetivo (Barsi) -->
+        <div class="an-calc-card">
+          <div class="an-calc-card-head">
+            <div class="an-calc-card-title">
+              <span>📙 3. Projetivo (Barsi)</span>
+            </div>
+            <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'projetivo')">↻ Padrão</button>
+          </div>
+          <div class="an-calc-fields">
+            <div class="an-calc-row">
+              <span class="an-calc-label">Lucro Total Proj. (R$)</span>
+              <div class="an-calc-input-wrap">
+                <input type="number" step="1000000" class="an-calc-input" id="calc-proj-lucro-${t}" value="${estado.projetivo.lucro || ''}" placeholder="Ex: 4000000000" oninput="fehmirAtualizarCalc('${t}')" style="width:110px">
+              </div>
+            </div>
+            <div class="an-calc-row">
+              <span class="an-calc-label">Nº de Ações</span>
+              <div class="an-calc-input-wrap">
+                <input type="number" step="1" class="an-calc-input" id="calc-proj-nacoes-${t}" value="${estado.projetivo.nAcoes || ''}" placeholder="Ex: 2420804398" oninput="fehmirAtualizarCalc('${t}')" style="width:110px">
+              </div>
+            </div>
+            <div class="an-calc-row">
+              <span class="an-calc-label">Projeção Cresc. (%)</span>
+              <div class="an-calc-input-wrap">
+                <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','proj-proj', -1)">−</button>
+                <input type="number" step="1" class="an-calc-input" id="calc-proj-proj-${t}" value="${estado.projetivo.proj}" oninput="fehmirAtualizarCalc('${t}')" style="width:50px">
+                <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','proj-proj', 1)">+</button>
+              </div>
+            </div>
+            <div class="an-calc-row">
+              <span class="an-calc-label">Payout (%)</span>
+              <div class="an-calc-input-wrap">
+                <input type="number" step="1" class="an-calc-input" id="calc-proj-payout-${t}" value="${estado.projetivo.payout}" oninput="fehmirAtualizarCalc('${t}')" style="width:60px">
+              </div>
+            </div>
+            <div class="an-calc-row">
+              <span class="an-calc-label">DY Desejado (% a.a.)</span>
+              <div class="an-calc-input-wrap">
+                <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','proj-dy', -0.5)">−</button>
+                <input type="number" step="0.1" class="an-calc-input" id="calc-proj-dy-${t}" value="${estado.projetivo.dy}" oninput="fehmirAtualizarCalc('${t}')" style="width:55px">
+                <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','proj-dy', 0.5)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="an-calc-result-box" id="calc-res-proj-${t}">
+            ${M.projetivo.msg ? `
+              <div style="font-size:11.5px;color:var(--muted);">${M.projetivo.msg}</div>
+            ` : `
+              <div class="an-calc-res-item">
+                <span style="color:var(--muted)">DPA projetivo:</span>
+                <b style="font-family:var(--font-mono);color:var(--ink)">${fmtRM(M.projetivo.dpaProj)}</b>
+              </div>
+              <div class="an-calc-res-item">
+                <span style="color:var(--muted)">Preço teto:</span>
+                <b style="font-family:var(--font-mono);font-size:14px;color:var(--ink)">${fmtRM(M.projetivo.teto)}</b>
+              </div>
+              <div class="an-calc-res-item">
+                <span style="color:var(--muted)">Yield projetivo:</span>
+                <b style="font-family:var(--font-mono);color:var(--accent)">${fmtM(M.projetivo.yieldProj, 2)}%</b>
+              </div>
+              <div class="an-calc-res-item">
+                <span style="color:var(--muted)">Margem de segurança:</span>
+                <b style="font-family:var(--font-mono);color:${M.projetivo.margem >= 0 ? 'var(--good)' : 'var(--critical)'}">${fmtPctM(M.projetivo.margem)}</b>
+              </div>
+            `}
+          </div>
+        </div>
+
+        <!-- 4. Peter Lynch -->
+        <div class="an-calc-card">
+          <div class="an-calc-card-head">
+            <div class="an-calc-card-title" title="Peter Lynch: (crescimento do lucro + dividend yield) ÷ P/L; acima de 2 é atrativo.">
+              <span>📈 4. Peter Lynch</span>
+              <span style="font-size:11px;cursor:help;color:var(--muted)">ⓘ</span>
+            </div>
+            <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'lynch')">↻ Padrão</button>
+          </div>
+          <div class="an-calc-fields">
+            <div class="an-calc-row">
+              <span class="an-calc-label" title="ROE × (1 - Payout) limitado a 15%">Cresc. Proj. (% a.a.)</span>
+              <div class="an-calc-input-wrap">
+                <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','lynch-g', -0.5)">−</button>
+                <input type="number" step="0.5" class="an-calc-input" id="calc-lynch-g-${t}" value="${estado.lynch.g}" oninput="fehmirAtualizarCalc('${t}')" style="width:55px">
+                <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','lynch-g', 0.5)">+</button>
+              </div>
+            </div>
+            <div class="an-calc-row">
+              <span class="an-calc-label">DY 12m (% a.a.)</span>
+              <div class="an-calc-input-wrap">
+                <input type="number" step="0.1" class="an-calc-input" id="calc-lynch-dy-${t}" value="${estado.lynch.dy}" oninput="fehmirAtualizarCalc('${t}')" style="width:65px">
+              </div>
+            </div>
+            <div class="an-calc-row">
+              <span class="an-calc-label">P/L</span>
+              <div class="an-calc-input-wrap">
+                <input type="number" step="0.1" class="an-calc-input" id="calc-lynch-pl-${t}" value="${estado.lynch.pl}" oninput="fehmirAtualizarCalc('${t}')" style="width:65px">
+              </div>
+            </div>
+          </div>
+          <div class="an-calc-result-box" id="calc-res-lynch-${t}">
+            <div class="an-calc-res-item">
+              <span style="color:var(--muted)">Índice Lynch:</span>
+              <b style="font-family:var(--font-mono);font-size:15px;color:${M.lynch.cor || 'var(--ink)'}">${M.lynch.val != null ? fmtM(M.lynch.val, 2) : '—'}</b>
+            </div>
+            <div style="font-size:11.5px;color:${M.lynch.cor || 'var(--muted)'};font-weight:600;margin-top:3px">
+              ${M.lynch.faixa}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Linha Comparativa -->
+      <div class="an-calc-comp-bar" id="calc-comp-bar-${t}">
+        <div class="an-calc-comp-item regua-destaque" title="Teto oficial do setor conforme metodologia §21">
+          <span>Régua (oficial):</span> <b>${fmtRM(tetoRegua)}</b>
+        </div>
+        <div class="an-calc-comp-item">
+          <span>Bazin:</span> <b>${fmtRM(M.bazin.teto)}</b>
+        </div>
+        <div class="an-calc-comp-item">
+          <span>Graham:</span> <b>${fmtRM(M.graham.justo)}</b>
+        </div>
+        <div class="an-calc-comp-item">
+          <span>Projetivo:</span> <b>${fmtRM(M.projetivo.teto)}</b>
+        </div>
+        <div class="an-calc-comp-item">
+          <span>DDM:</span> <b>${fmtRM(vDDM)}</b>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Funções de interação:
+window.fehmirAtualizarCalc = function(t) {
+  const S = window.__calcValuationState[t];
+  if (!S) return;
+
+  const getNum = id => {
+    const el = document.getElementById(id);
+    return el && el.value !== "" ? parseFloat(el.value) : null;
+  };
+
+  // Ler inputs
+  const bazinDpa = getNum(`calc-bazin-dpa-${t}`);
+  const bazinDy = getNum(`calc-bazin-dy-${t}`);
+  if (bazinDpa != null) S.estado.bazin.dpa = bazinDpa;
+  if (bazinDy != null) S.estado.bazin.dy = bazinDy;
+
+  if (!S.ehFii) {
+    const grahamLpa = getNum(`calc-graham-lpa-${t}`);
+    const grahamVpa = getNum(`calc-graham-vpa-${t}`);
+    if (grahamLpa != null) S.estado.graham.lpa = grahamLpa;
+    if (grahamVpa != null) S.estado.graham.vpa = grahamVpa;
+
+    const projLucro = getNum(`calc-proj-lucro-${t}`);
+    const projNacoes = getNum(`calc-proj-nacoes-${t}`);
+    const projProj = getNum(`calc-proj-proj-${t}`);
+    const projPayout = getNum(`calc-proj-payout-${t}`);
+    const projDy = getNum(`calc-proj-dy-${t}`);
+    S.estado.projetivo.lucro = projLucro;
+    S.estado.projetivo.nAcoes = projNacoes;
+    if (projProj != null) S.estado.projetivo.proj = projProj;
+    if (projPayout != null) S.estado.projetivo.payout = projPayout;
+    if (projDy != null) S.estado.projetivo.dy = projDy;
+
+    const lynchG = getNum(`calc-lynch-g-${t}`);
+    const lynchDy = getNum(`calc-lynch-dy-${t}`);
+    const lynchPl = getNum(`calc-lynch-pl-${t}`);
+    if (lynchG != null) S.estado.lynch.g = lynchG;
+    if (lynchDy != null) S.estado.lynch.dy = lynchDy;
+    if (lynchPl != null) S.estado.lynch.pl = lynchPl;
+  }
+
+  fehmirSalvarCalcEstado(t, S.estado);
+
+  // Recalcular métricas
+  const M = fehmirCalcularMetricas(t, S.estado, S.preco);
+  const fmtM = (n, d = 2) => n == null || !isFinite(n) ? "—" : n.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fmtRM = n => n == null || !isFinite(n) ? "—" : "R$ " + fmtM(n);
+  const fmtPctM = (n, d = 1) => n == null || !isFinite(n) ? "—" : `${n >= 0 ? '+' : ''}${fmtM(n, d)}%`;
+
+  // Atualizar resultados no DOM
+  const resBazin = document.getElementById(`calc-res-bazin-${t}`);
+  if (resBazin) {
+    resBazin.innerHTML = `
+      <div class="an-calc-res-item">
+        <span style="color:var(--muted)">Preço teto Bazin:</span>
+        <b style="font-family:var(--font-mono);font-size:14px;color:var(--ink)">${fmtRM(M.bazin.teto)}</b>
+      </div>
+      <div class="an-calc-res-item">
+        <span style="color:var(--muted)">Margem de segurança:</span>
+        <b style="font-family:var(--font-mono);color:${M.bazin.margem >= 0 ? 'var(--good)' : 'var(--critical)'}">${fmtPctM(M.bazin.margem)}</b>
+      </div>
+    `;
+  }
+
+  if (!S.ehFii) {
+    const resGraham = document.getElementById(`calc-res-graham-${t}`);
+    if (resGraham) {
+      resGraham.innerHTML = M.graham.msg ? `
+        <div style="font-size:11.5px;color:var(--muted);">${M.graham.msg}</div>
+      ` : `
+        <div class="an-calc-res-item">
+          <span style="color:var(--muted)">Preço justo Graham:</span>
+          <b style="font-family:var(--font-mono);font-size:14px;color:var(--ink)">${fmtRM(M.graham.justo)}</b>
+        </div>
+        <div class="an-calc-res-item">
+          <span style="color:var(--muted)">Margem de segurança:</span>
+          <b style="font-family:var(--font-mono);color:${M.graham.margem >= 0 ? 'var(--good)' : 'var(--critical)'}">${fmtPctM(M.graham.margem)}</b>
+        </div>
+      `;
+    }
+
+    const resProj = document.getElementById(`calc-res-proj-${t}`);
+    if (resProj) {
+      resProj.innerHTML = M.projetivo.msg ? `
+        <div style="font-size:11.5px;color:var(--muted);">${M.projetivo.msg}</div>
+      ` : `
+        <div class="an-calc-res-item">
+          <span style="color:var(--muted)">DPA projetivo:</span>
+          <b style="font-family:var(--font-mono);color:var(--ink)">${fmtRM(M.projetivo.dpaProj)}</b>
+        </div>
+        <div class="an-calc-res-item">
+          <span style="color:var(--muted)">Preço teto:</span>
+          <b style="font-family:var(--font-mono);font-size:14px;color:var(--ink)">${fmtRM(M.projetivo.teto)}</b>
+        </div>
+        <div class="an-calc-res-item">
+          <span style="color:var(--muted)">Yield projetivo:</span>
+          <b style="font-family:var(--font-mono);color:var(--accent)">${fmtM(M.projetivo.yieldProj, 2)}%</b>
+        </div>
+        <div class="an-calc-res-item">
+          <span style="color:var(--muted)">Margem de segurança:</span>
+          <b style="font-family:var(--font-mono);color:${M.projetivo.margem >= 0 ? 'var(--good)' : 'var(--critical)'}">${fmtPctM(M.projetivo.margem)}</b>
+        </div>
+      `;
+    }
+
+    const resLynch = document.getElementById(`calc-res-lynch-${t}`);
+    if (resLynch) {
+      resLynch.innerHTML = `
+        <div class="an-calc-res-item">
+          <span style="color:var(--muted)">Índice Lynch:</span>
+          <b style="font-family:var(--font-mono);font-size:15px;color:${M.lynch.cor || 'var(--ink)'}">${M.lynch.val != null ? fmtM(M.lynch.val, 2) : '—'}</b>
+        </div>
+        <div style="font-size:11.5px;color:${M.lynch.cor || 'var(--muted)'};font-weight:600;margin-top:3px">
+          ${M.lynch.faixa}
+        </div>
+      `;
+    }
+  }
+
+  // Atualizar barra comparativa
+  const compBar = document.getElementById(`calc-comp-bar-${t}`);
+  if (compBar) {
+    if (S.ehFii) {
+      compBar.innerHTML = `
+        <div class="an-calc-comp-item regua-destaque" title="Teto oficial do setor conforme metodologia §21">
+          <span>Régua (oficial):</span> <b>${fmtRM(S.tetoRegua)}</b>
+        </div>
+        <div class="an-calc-comp-item">
+          <span>Bazin:</span> <b>${fmtRM(M.bazin.teto)}</b>
+        </div>
+      `;
+    } else {
+      compBar.innerHTML = `
+        <div class="an-calc-comp-item regua-destaque" title="Teto oficial do setor conforme metodologia §21">
+          <span>Régua (oficial):</span> <b>${fmtRM(S.tetoRegua)}</b>
+        </div>
+        <div class="an-calc-comp-item">
+          <span>Bazin:</span> <b>${fmtRM(M.bazin.teto)}</b>
+        </div>
+        <div class="an-calc-comp-item">
+          <span>Graham:</span> <b>${fmtRM(M.graham.justo)}</b>
+        </div>
+        <div class="an-calc-comp-item">
+          <span>Projetivo:</span> <b>${fmtRM(M.projetivo.teto)}</b>
+        </div>
+        <div class="an-calc-comp-item">
+          <span>DDM:</span> <b>${fmtRM(S.vDDM)}</b>
+        </div>
+      `;
+    }
+  }
+};
+
+window.fehmirPassoCalc = function(t, campo, delta) {
+  const id = `calc-${campo}-${t}`;
+  const el = document.getElementById(id);
+  if (!el) return;
+  let val = parseFloat(el.value || 0);
+  val += delta;
+  if (campo.endsWith('-dy') || campo.endsWith('-proj') || campo.endsWith('-g')) {
+    val = Math.max(0, val);
+  }
+  el.value = (campo.endsWith('-dy') || campo.endsWith('-g')) ? val.toFixed(1) : (campo.endsWith('-proj') ? Math.round(val) : val.toFixed(2));
+  window.fehmirAtualizarCalc(t);
+};
+
+window.fehmirAlternarBazinDpa = function(t, tipo) {
+  const S = window.__calcValuationState[t];
+  if (!S) return;
+  const H = typeof fehmirObterHist === "function" ? fehmirObterHist(t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[t]);
+  const u = typeof window.fehmirUniverso === 'function' ? window.fehmirUniverso() : (typeof universo === 'function' ? universo() : {});
+  const a = u[t] || {};
+  let novoDpa = 0;
+  if (tipo === 'dpa5') {
+    novoDpa = (H && H.dpa5) || a.dpa5a || a.dpa || 0;
+  } else {
+    novoDpa = (H && H.dpa12) || a.dpa || 0;
+  }
+  S.estado.bazin.dpaTipo = tipo;
+  S.estado.bazin.dpa = parseFloat(novoDpa.toFixed(2));
+
+  const inp = document.getElementById(`calc-bazin-dpa-${t}`);
+  if (inp) inp.value = S.estado.bazin.dpa;
+
+  const btn5 = document.getElementById(`btn-baz-dpa5-${t}`);
+  const btn12 = document.getElementById(`btn-baz-dpa12-${t}`);
+  if (btn5) btn5.classList.toggle('active', tipo === 'dpa5');
+  if (btn12) btn12.classList.toggle('active', tipo === 'dpa12');
+
+  window.fehmirAtualizarCalc(t);
+};
+
+window.fehmirResetarCalc = function(t, qual) {
+  const S = window.__calcValuationState[t];
+  if (!S) return;
+
+  if (qual === 'tudo') {
+    S.estado = JSON.parse(JSON.stringify(S.padroes));
+  } else if (S.padroes[qual]) {
+    S.estado[qual] = JSON.parse(JSON.stringify(S.padroes[qual]));
+  }
+  fehmirSalvarCalcEstado(t, S.estado);
+
+  // Re-popular inputs no DOM
+  const setVal = (id, v) => {
+    const el = document.getElementById(id);
+    if (el) el.value = v != null ? v : '';
+  };
+
+  setVal(`calc-bazin-dpa-${t}`, S.estado.bazin.dpa);
+  setVal(`calc-bazin-dy-${t}`, S.estado.bazin.dy);
+  const btn5 = document.getElementById(`btn-baz-dpa5-${t}`);
+  const btn12 = document.getElementById(`btn-baz-dpa12-${t}`);
+  if (btn5) btn5.classList.toggle('active', S.estado.bazin.dpaTipo === 'dpa5');
+  if (btn12) btn12.classList.toggle('active', S.estado.bazin.dpaTipo === 'dpa12');
+
+  if (!S.ehFii) {
+    setVal(`calc-graham-lpa-${t}`, S.estado.graham.lpa);
+    setVal(`calc-graham-vpa-${t}`, S.estado.graham.vpa);
+    setVal(`calc-proj-lucro-${t}`, S.estado.projetivo.lucro);
+    setVal(`calc-proj-nacoes-${t}`, S.estado.projetivo.nAcoes);
+    setVal(`calc-proj-proj-${t}`, S.estado.projetivo.proj);
+    setVal(`calc-proj-payout-${t}`, S.estado.projetivo.payout);
+    setVal(`calc-proj-dy-${t}`, S.estado.projetivo.dy);
+    setVal(`calc-lynch-g-${t}`, S.estado.lynch.g);
+    setVal(`calc-lynch-dy-${t}`, S.estado.lynch.dy);
+    setVal(`calc-lynch-pl-${t}`, S.estado.lynch.pl);
+  }
+
+  window.fehmirAtualizarCalc(t);
+};
+
 
   async function analisar(t) {
     const out = document.getElementById("an-out");
@@ -15209,6 +16164,8 @@ function toggleTheme(){
         </div>`;
     }
 
+    const calcSecHtml = fehmirRenderCalculadorasValuation(t, a, av, (typeof vDDM !== "undefined" ? vDDM : null));
+
     const splitAlerta = a.splitSuspeito ? `
       <div style="margin:10px 0;padding:10px 14px;background:color-mix(in srgb,var(--warning) 12%,transparent);border:1px solid var(--warning);border-radius:8px;font-size:12.5px;color:var(--ink);display:flex;gap:8px;align-items:center">
         <span style="font-size:18px">⚠️</span>
@@ -15281,6 +16238,7 @@ function toggleTheme(){
         <div><span>Margem mínima</span><b>${mMin}%</b></div>
       </div>
       ${valExplicado}
+      ${calcSecHtml}
       ${ddmSecHtml}
       ${splitAlerta}
       ${teto ? leque(preco, compra, teto, tol) : ""}
