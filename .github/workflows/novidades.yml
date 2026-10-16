@@ -16,6 +16,7 @@ jobs:
     timeout-minutes: 20
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}   # opcional: variável do repositório para forçar um modelo
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

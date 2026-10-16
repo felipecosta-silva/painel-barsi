@@ -274,13 +274,52 @@ def baixar_pdf(url):
                 return None
 
 
-def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=None):
+# Modelo padrão (out/2026: o gemini-2.5-flash foi aposentado para contas novas e a própria API indicou o 3.8-flash).
+# Se o Google aposentar este também, o robô consulta a lista de modelos e escolhe sozinho o Flash mais novo.
+MODELO_PADRAO = "gemini-3.8-flash"
+_modelo_ativo = None
+
+
+def _versao_modelo(nome):
+    nums = re.findall(r"\d+(?:\.\d+)?", nome)
+    return float(nums[0]) if nums else 0.0
+
+
+def descobrir_modelo_flash(api_key):
+    """Lista os modelos da conta e devolve o Flash mais novo que aceita generateContent (sem lite/preview/imagem/áudio)."""
+    url = "https://generativelanguage.googleapis.com/v1beta/models?pageSize=200"
+    try:
+        req = urllib.request.Request(url, headers={"x-goog-api-key": api_key})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            modelos = json.loads(r.read().decode("utf-8")).get("models", [])
+    except Exception as e:
+        print(f"Não consegui listar os modelos do Gemini: {e}", flush=True)
+        return None
+    candidatos = []
+    for m in modelos:
+        nome = m.get("name", "").replace("models/", "")
+        if "flash" not in nome or "generateContent" not in m.get("supportedGenerationMethods", []):
+            continue
+        if any(x in nome for x in ("lite", "preview", "exp", "image", "tts", "audio", "live", "thinking")):
+            continue
+        candidatos.append(nome)
+    if not candidatos:
+        return None
+    candidatos.sort(key=_versao_modelo, reverse=True)
+    return candidatos[0]
+
+
+def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=None, _tentou_trocar=False):
     """Chama a API do Gemini via REST para extrair resumo, mudanças e alertas."""
+    global _modelo_ativo
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         return None
 
-    modelo = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+    if _modelo_ativo is None:
+        _modelo_ativo = os.environ.get("GEMINI_MODEL") or MODELO_PADRAO
+        print(f"Modelo Gemini em uso: {_modelo_ativo}", flush=True)
+    modelo = _modelo_ativo
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent"
 
     pdf_b64 = base64.b64encode(pdf_bytes).decode("ascii")
@@ -373,6 +412,12 @@ def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=
     except urllib.error.HTTPError as e:
         corpo = e.read().decode("utf-8", errors="replace")[:500]
         print(f"Erro Gemini API ({ticker}): HTTP {e.code} · modelo {modelo} · {corpo}", flush=True)
+        if e.code == 404 and not _tentou_trocar:
+            novo = descobrir_modelo_flash(api_key)
+            if novo and novo != modelo:
+                print(f"Modelo {modelo} indisponível: trocando para {novo} e tentando de novo.", flush=True)
+                _modelo_ativo = novo
+                return resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores, _tentou_trocar=True)
         return None
     except Exception as e:
         print(f"Erro Gemini API ({ticker}): {e}", flush=True)
@@ -450,6 +495,8 @@ def main():
         for d in cache[tk]:
             if not d.get("resumido_ia", False):
                 pendentes_ia.append((tk, d))
+    # Mais recentes primeiro (o que acabou de sair importa mais); no empate, Fato Relevante antes de relatório
+    pendentes_ia.sort(key=lambda p: (p[1].get("data", ""), "fato" in (p[1].get("tipo", "").lower())), reverse=True)
 
     print(f"Total de documentos pendentes de resumo por IA: {len(pendentes_ia)}", flush=True)
 
