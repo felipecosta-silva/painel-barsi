@@ -522,21 +522,35 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1342523",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-10-07."
+        "Distribuição de rendimentos referente a setembro de 2026 de R$ 0,6182 por cota, equivalente a um dividend yield de 0,83% no mês (99% do CDI líquido).",
+        "Patrimônio líquido encerrou em R$ 2,35 bilhões (R$ 88,94 por cota), enquanto a cota de mercado fechou a R$ 74,35.",
+        "O fundo manteve 96% dos recursos alocados, distribuídos em 99 operações de CRIs e 6 cotas de FIIs.",
+        "O LTV médio ponderado da carteira de CRI encerrou em 51%, com duration média de 3,6 anos.",
+        "No mês foram realizadas aquisições em 8 operações de CRI totalizando mais de R$ 41 milhões e alienação pontual de R$ 80,9 mil em VIC 5."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Redução no dividendo distribuído por cota de R$ 0,7373 (em agosto/2026) para R$ 0,6182 (em setembro/2026).",
+        "Lucro líquido no regime de caixa reduziu de R$ 19,50 milhões em agosto para R$ 16,47 milhões em setembro.",
+        "Receita com CRI/FII recuou de R$ 23,30 milhões em agosto para R$ 20,12 milhões em setembro.",
+        "Aquisições relevantes de novas tranches/CRIs (ex.: Prima Villagio Jardins, VIC FIT, Realiza FIT e Pulverizado Lançamentos Residenciais)."
+      ],
+      "alertas": [
+        "Tendência recente de queda expressiva nos proventos distribuídos (R$ 1,0987 em jul/26 para R$ 0,6182 em set/26).",
+        "Operações CRI Olimpo Sênior e CRI Olimpo 2 Sênior classificadas com status de 'Repactuação'.",
+        "CRI Grupo Cem apresenta LTV elevado de 102%, indicando saldo devedor superior às garantias imobiliárias diretas.",
+        "Despesas com operações compromissadas consumiram R$ 1,37 milhão do resultado no mês."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.51,
+        "provento_por_cota": 0.6182,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.6229,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1316501",
