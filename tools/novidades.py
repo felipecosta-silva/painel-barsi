@@ -278,6 +278,7 @@ def baixar_pdf(url):
 # Se o Google aposentar este também, o robô consulta a lista de modelos e escolhe sozinho o Flash mais novo.
 MODELO_PADRAO = "gemini-3.8-flash"
 _modelo_ativo = None
+_cota_diaria_esgotada = False
 
 
 def _versao_modelo(nome):
@@ -403,25 +404,47 @@ def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=
         }
     )
 
-    try:
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            res_json = json.loads(resp.read().decode("utf-8"))
-            candidate = res_json.get("candidates", [])[0]
-            part_text = candidate.get("content", {}).get("parts", [])[0].get("text", "")
-            return json.loads(part_text)
-    except urllib.error.HTTPError as e:
-        corpo = e.read().decode("utf-8", errors="replace")[:500]
-        print(f"Erro Gemini API ({ticker}): HTTP {e.code} · modelo {modelo} · {corpo}", flush=True)
-        if e.code == 404 and not _tentou_trocar:
-            novo = descobrir_modelo_flash(api_key)
-            if novo and novo != modelo:
-                print(f"Modelo {modelo} indisponível: trocando para {novo} e tentando de novo.", flush=True)
-                _modelo_ativo = novo
-                return resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores, _tentou_trocar=True)
-        return None
-    except Exception as e:
-        print(f"Erro Gemini API ({ticker}): {e}", flush=True)
-        return None
+    global _cota_diaria_esgotada
+    erro_code, corpo = None, ""
+    for tentativa in range(4):
+        try:
+            with urllib.request.urlopen(req, timeout=180) as resp:
+                res_json = json.loads(resp.read().decode("utf-8"))
+                candidate = res_json.get("candidates", [])[0]
+                part_text = candidate.get("content", {}).get("parts", [])[0].get("text", "")
+                return json.loads(part_text)
+        except urllib.error.HTTPError as e:
+            erro_code = e.code
+            corpo = e.read().decode("utf-8", errors="replace")[:800]
+        except Exception as e:
+            print(f"Erro Gemini API ({ticker}): {e}", flush=True)
+            if tentativa >= 1:
+                return None
+            time.sleep(10)
+            req = urllib.request.Request(url, data=req_data, headers={"Content-Type": "application/json", "x-goog-api-key": api_key})
+            continue
+        # 429 = limite do plano gratuito; 500/503 = Google sobrecarregado: espera o que o Google pedir e tenta de novo
+        if erro_code in (429, 500, 503) and tentativa < 3:
+            if erro_code == 429 and re.search(r"(?i)per ?day|PerDay|daily", corpo):
+                print(f"Cota DIÁRIA do Gemini esgotada ({ticker}): o restante fica para a próxima execução.", flush=True)
+                _cota_diaria_esgotada = True
+                return None
+            m = re.search(r'"retryDelay":\s*"(\d+(?:\.\d+)?)s"', corpo)
+            espera = min(float(m.group(1)) + 2, 90) if m else 20 * (tentativa + 1)
+            print(f"Gemini HTTP {erro_code} ({ticker}): aguardando {espera:.0f}s e tentando de novo ({tentativa + 1}/3).", flush=True)
+            time.sleep(espera)
+            req = urllib.request.Request(url, data=req_data, headers={"Content-Type": "application/json", "x-goog-api-key": api_key})
+            continue
+        break
+
+    print(f"Erro Gemini API ({ticker}): HTTP {erro_code} · modelo {modelo} · {corpo}", flush=True)
+    if erro_code == 404 and not _tentou_trocar:
+        novo_modelo = descobrir_modelo_flash(api_key)
+        if novo_modelo and novo_modelo != modelo:
+            print(f"Modelo {modelo} indisponível: trocando para {novo_modelo} e tentando de novo.", flush=True)
+            _modelo_ativo = novo_modelo
+            return resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores, _tentou_trocar=True)
+    return None
 
 
 def main():
@@ -526,9 +549,11 @@ def main():
                     resumidos_ok += 1
             else:
                 print(f"    PDF não baixado: {doc['url']}", flush=True)
-            time.sleep(2.5)  # Rate limit gratuito
+            if _cota_diaria_esgotada:
+                break
+            time.sleep(8)  # plano gratuito: ~7 pedidos por minuto, com folga
         print(f"Resumos gerados nesta execução: {resumidos_ok} de {len(lote_ia)}", flush=True)
-        if resumidos_ok == 0:
+        if resumidos_ok == 0 and not _cota_diaria_esgotada:
             # Falha visível no GitHub Actions: com chave e pendências, zero resumos é erro (ver mensagens acima)
             falha_ia_total = True
 
