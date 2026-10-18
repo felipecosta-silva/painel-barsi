@@ -41,8 +41,8 @@ def e_acao(t, tipos):
     return t[-1] in "3456"  # sem informação do mercado: final 11 (FII/unit) fica de fora
 
 
-def buscar(t, token):
-    url = "https://brapi.dev/api/quote/" + t + "?modules=defaultKeyStatistics,financialData"
+def buscar(t, token, modulos=True):
+    url = "https://brapi.dev/api/quote/" + t + ("?modules=defaultKeyStatistics,financialData" if modulos else "")
     req = urllib.request.Request(url, headers=dict(UA, **({"Authorization": "Bearer " + token} if token else {})))
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
@@ -75,6 +75,8 @@ def extrair(res):
         "fcf": num(f.get("freeCashflow")),
         "atualizado": (f.get("updatedAt") or k.get("updatedAt") or "")[:10] or None,
     }
+    if not k and not f:
+        d["parcial"] = True  # plano gratuito: só LPA e P/L da cotação básica
     problemas = []
     if d["roe"] is not None and not (-100 <= d["roe"] <= 200):
         problemas.append("ROE absurdo %s" % d["roe"]); d["roe"] = None
@@ -84,7 +86,7 @@ def extrair(res):
         if d[c] is not None:
             d[c] = round(d[c], 4)
     if d["lpa"] is None and d["vpa"] is None and d["roe"] is None:
-        problemas.append("sem modules (plano não cobre ou ticker sem dados)")
+        problemas.append("sem dados de fundamentos")
     return d, problemas
 
 
@@ -95,9 +97,15 @@ def main():
     if not token:
         print("BRAPI_TOKEN ausente: só os tickers grátis", GRATIS)
     fund, falhas, req = {}, [], 0
+    modulos = True  # vira False no 1º 403 do plano gratuito: daí em diante só a cotação básica (LPA e P/L)
     for t in lista:
-        res, erro = buscar(t, token)
+        res, erro = buscar(t, token, modulos or t in GRATIS)  # os 4 grátis sempre trazem tudo
         req += 1
+        if erro and modulos and erro.startswith("HTTP 403"):
+            print("Plano sem modules (" + erro[:90] + "...): seguindo só com LPA e P/L da cotação básica")
+            modulos = False
+            res, erro = buscar(t, token, modulos)
+            req += 1
         if erro:
             falhas.append({"t": t, "motivo": erro})
             print("✗", t, erro)
@@ -115,6 +123,7 @@ def main():
         "gerado": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
         "fonte": "Brapi (defaultKeyStatistics, financialData)",
         "ok": len(fund), "falhas": falhas, "requisicoes": req, "comToken": bool(token),
+        "modulos": modulos,  # False = plano gratuito: VPA, ROE e FCF seguem do cadastro
     }
     # Se nada veio (API fora do ar, token inválido), não apaga o arquivo anterior.
     if not fund and SAIDA.exists():

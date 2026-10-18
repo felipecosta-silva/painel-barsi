@@ -6726,7 +6726,7 @@ const RADAR_DATA = [
         a._fundDiverg.push(rotulo[c] + " " + fmtN(velho, 2) + " → " + fmtN(novo[c], 2));
       a[c] = novo[c];
     }
-    a._fundFonte = "Brapi " + data.split("-").reverse().slice(0, 2).join("/");
+    a._fundFonte = "Brapi " + data.split("-").reverse().slice(0, 2).join("/") + (f.parcial ? " (só LPA e P/L; VPA e ROE do cadastro)" : "");
   }
 })();
 window.fehmirFonteFund = function (a) {
