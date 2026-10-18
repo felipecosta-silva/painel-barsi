@@ -4037,13 +4037,14 @@ function pvpCell(pvp, tipo){
 const REB_DATA_KEY = "barsi-reb-data-v2";
 
 /* ===== ALOCAÇÃO-ALVO CANÔNICA (decidida pelo Felipe em 11/10/2026, seção 7.0 do .md) =====
-   Ações 45 (B.A.S.E. 33 + fora da B.A.S.E. 12, máx. 3% por cíclica) · FIIs 35 · Internacional 10 · Cripto 5 · Caixa 5.
+   Ações 45 (B.A.S.E. 33 + fora da B.A.S.E. 12, máx. 3% por cíclica) · FIIs 35 · Internacional 7 · Cripto 8 · Caixa 5.
+   (18/10/2026: cripto 5 → 8 e VTI 10 → 7, decisão do Felipe; teto de cripto controlado pelo botDCA, metodologia §17.5.)
    (1ª versão do mesmo dia era 50/30; o Felipe pediu ações 'levemente acima' de FIIs e deixou o ajuste fino com o Claude.)
    A transição é feita com APORTES NOVOS, nunca vendendo FIIs para "acertar o percentual" (IR de 20% e FIIs hoje descontados).
    Ações só recebem dinheiro quando passam na margem do setor; sem margem, o dinheiro vai para o Caixa. */
-const ALOCACAO_ALVO = { acoes: 45, base: 33, fora: 12, foraMaxAtivo: 3, fiis: 35, intl: 10, cripto: 5, caixa: 5 };
+const ALOCACAO_ALVO = { acoes: 45, base: 33, fora: 12, foraMaxAtivo: 3, fiis: 35, intl: 7, cripto: 8, caixa: 5 };
 const ALOC_VERSION_KEY = "barsi-aloc-version";
-const ALOC_VERSION = "2026-10-11b";
+const ALOC_VERSION = "2026-10-18";
 
 const DEFAULT_CARTEIRA_FELIPE = {
   // Ações (10 ativos - R$ 1.564,67)
@@ -4295,8 +4296,8 @@ const EVENTOS = [
 ];
 
 const BUCKETS = [
-  {nome:"VTI (ETF Internacional)", carteira:1.87, ideal:10.00, status:"good", nota:"Sub-alocado (1,87% vs 5% ideal). Saldo R$ 102,78 (US$ 19.83). PM US$ 281.18 vs Atual US$ 380.60 (+35,36%).", detail:"ETF de mercado total americano (Vanguard Total Stock Market). 0,05209268 cotas. Excelente valorização (+46,32% em reais). Sem trava de preço teto."},
-  {nome:"Criptomoedas (SOL + BTC + ETH)", carteira:0.53, ideal:5.00, status:"good", nota:"Sub-alocado (0,53% vs 5% ideal). Solana cadastrada (R$ 29,07) + Bitcoin e Ethereum a registrar.", detail:"No Investidor 10 consta apenas Solana (0,04888403 SOL a PM R$ 600,51 = R$ 29,35). O Felipe possui também BTC e ETH em carteira. Ao cadastrar os dois no Investidor 10 (via botão + Adicionar Lançamento), a fatia de Cripto vai convergir rumo aos 5% ideais."},
+  {nome:"VTI (ETF Internacional)", carteira:1.87, ideal:7.00, status:"good", nota:"Sub-alocado (1,87% vs 5% ideal). Saldo R$ 102,78 (US$ 19.83). PM US$ 281.18 vs Atual US$ 380.60 (+35,36%).", detail:"ETF de mercado total americano (Vanguard Total Stock Market). 0,05209268 cotas. Excelente valorização (+46,32% em reais). Sem trava de preço teto."},
+  {nome:"Criptomoedas (SOL + BTC + ETH)", carteira:0.53, ideal:8.00, status:"good", nota:"Sub-alocado (0,53% vs 8% ideal; teto de 8% desde 18/10/2026). Solana cadastrada (R$ 29,07) + Bitcoin e Ethereum a registrar.", detail:"No Investidor 10 consta apenas Solana (0,04888403 SOL a PM R$ 600,51 = R$ 29,35). O Felipe possui também BTC e ETH em carteira. Ao cadastrar os dois no Investidor 10 (via botão + Adicionar Lançamento), a fatia de Cripto vai convergir rumo aos 5% ideais."},
   {nome:"Caixinha Turbo / Reserva de Oportunidade", carteira:null, ideal:5.00, status:"neutral", nota:"Caixa de giro e aportes em renda fixa pós-fixada.", detail:"Função: estacionar capital de giro com liquidez diária enquanto aguarda oportunidade de compra no Núcleo de Renda (ações e FIIs descontados)."},
   {nome:"Reserva de Emergência (piso do caixa único)", carteira:null, ideal:null, status:"critical", nota:"Não existe (confirmado pelo Felipe em 11/10/2026): o caixa foi consumido 2x por imprevistos.", detail:"Estratégia do caixa único com piso (seção 25 do .md): um só caixa de liquidez diária. O PISO (1 mês de gasto essencial na fase 1, depois 3) é emergência e nunca vira aporte; só o que passar do piso é Reserva de Oportunidade. Informe caixa atual e gasto essencial no formulário de dados do Conselheiro."}
 ];
@@ -5325,7 +5326,7 @@ function gerarIdealSugerido() {
       [...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS].forEach(x => { if (rebData[x.t]) x.ideal = rebData[x.t].i; });
       renderRebalanceamento();
       if (typeof window.renderConselheiro === "function") window.renderConselheiro();
-      alert("Metas recalculadas pela alocação-alvo: Ações 45% (B.A.S.E. 33 + outras 12, máx. 3% por cíclica) · FIIs 35% · Internacional 10% · Cripto 5% · Caixa 5%. A transição é feita com aportes, não vendendo FIIs.");
+      alert("Metas recalculadas pela alocação-alvo: Ações 45% (B.A.S.E. 33 + outras 12, máx. 3% por cíclica) · FIIs 35% · Internacional 7% · Cripto 8% · Caixa 5%. A transição é feita com aportes, não vendendo FIIs.");
       return;
    }
    const todos = [...BASE_STOCKS, ...FIIS, ...OUT_OF_BASE, ...RADAR_ACOES, ...RADAR_FIIS];
