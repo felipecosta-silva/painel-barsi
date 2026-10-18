@@ -1,0 +1,3 @@
+// Gerado por tools/fundamentos.py — não editar à mão.
+window.FEHMIR_FUND_META = {"gerado": "2026-10-18 02:02", "fonte": "Brapi (defaultKeyStatistics, financialData)", "ok": 4, "falhas": [], "requisicoes": 4, "comToken": false};
+window.FEHMIR_FUND = {"ITUB4": {"atualizado": null, "fcf": 76371000000, "lpa": 4.2467, "pl": 11.8767, "pvp": 2.435, "roe": 21.5, "vpa": 19.74985}, "MGLU3": {"atualizado": null, "fcf": 15453093000, "lpa": 0.1141, "pl": 102.7752, "pvp": 0.772, "roe": 0.79, "vpa": 14.391101}, "PETR4": {"atualizado": null, "fcf": 105334000000, "lpa": 10.3483, "pl": 5.7671, "pvp": 1.5993, "roe": 27.73, "vpa": 37.315536}, "VALE3": {"atualizado": null, "fcf": 15644000000, "lpa": 2.3358, "pl": 27.3358, "pvp": 1.4947, "roe": 5.27, "vpa": 44.295544}};

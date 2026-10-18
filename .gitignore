@@ -47,3 +47,6 @@ botArbitragemSpot/
 
 # Skills e configurações do Claude Code (contêm dados da carteira)
 .claude/
+
+# Bot de DCA de BTC (17/10/2026): projeto local, fora do repositório público
+botDCA/

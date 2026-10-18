@@ -1,0 +1,32 @@
+# Fehmir · robô semanal de fundamentos (ROE, LPA, VPA, P/L, P/VP, FCF) pela Brapi.
+# Roda todo sábado às 9h de Brasília e grava dados/fundamentos.js. Token só no Secret BRAPI_TOKEN.
+name: Atualizar fundamentos semanais
+
+on:
+  schedule:
+    - cron: "0 12 * * 6"     # 9h de Brasília aos sábados (12h UTC)
+  workflow_dispatch: {}        # botão "Run workflow" para rodar manualmente
+
+permissions:
+  contents: write
+
+jobs:
+  fundamentos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BRAPI_TOKEN: ${{ secrets.BRAPI_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Executar robo de fundamentos
+        run: python tools/fundamentos.py
+      - name: Salvar se mudou
+        run: |
+          git config user.name "fehmir-robo"
+          git config user.email "fehmir-robo@users.noreply.github.com"
+          git add dados/fundamentos.js
+          git diff --cached --quiet || git commit -m "dados: fundamentos semanais $(date +%Y-%m-%d)"
+          git pull --rebase origin main && git push

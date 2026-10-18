@@ -311,9 +311,11 @@ def descobrir_modelo_flash(api_key, excluir=None):
     return candidatos[0]
 
 
-def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=None, _tentou_trocar=False):
-    """Chama a API do Gemini via REST para extrair resumo, mudanças e alertas."""
-    global _modelo_ativo
+def chamar_gemini_api(payload_contents, generation_config, context_label="Gemini", _tentou_trocar=False):
+    """Envia requisição para a API do Gemini via REST com retentativas (429/500/503) e fallback de modelo."""
+    global _modelo_ativo, _cota_diaria_esgotada
+    if _cota_diaria_esgotada:
+        return None
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         return None
@@ -324,6 +326,65 @@ def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=
     modelo = _modelo_ativo
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent"
 
+    payload = {
+        "contents": payload_contents,
+        "generationConfig": generation_config
+    }
+    req_data = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(
+        url,
+        data=req_data,
+        headers={
+            "Content-Type": "application/json",
+            "x-goog-api-key": api_key
+        }
+    )
+
+    erro_code, corpo = None, ""
+    for tentativa in range(4):
+        try:
+            with urllib.request.urlopen(req, timeout=180) as resp:
+                res_json = json.loads(resp.read().decode("utf-8"))
+                candidate = res_json.get("candidates", [])[0]
+                part_text = candidate.get("content", {}).get("parts", [])[0].get("text", "")
+                return json.loads(part_text)
+        except urllib.error.HTTPError as e:
+            erro_code = e.code
+            corpo = e.read().decode("utf-8", errors="replace")[:800]
+        except Exception as e:
+            print(f"Erro Gemini API ({context_label}): {e}", flush=True)
+            if tentativa >= 1:
+                return None
+            time.sleep(10)
+            req = urllib.request.Request(url, data=req_data, headers={"Content-Type": "application/json", "x-goog-api-key": api_key})
+            continue
+        # 429 = limite do plano gratuito; 500/503 = Google sobrecarregado: espera o que o Google pedir e tenta de novo
+        if erro_code in (429, 500, 503) and tentativa < 3:
+            if erro_code == 429 and re.search(r"(?i)per ?day|PerDay|daily", corpo):
+                print(f"Cota DIÁRIA do Gemini esgotada ({context_label}): o restante fica para a próxima execução.", flush=True)
+                _cota_diaria_esgotada = True
+                return None
+            m = re.search(r'"retryDelay":\s*"(\d+(?:\.\d+)?)s"', corpo)
+            espera = min(float(m.group(1)) + 2, 90) if m else 20 * (tentativa + 1)
+            print(f"Gemini HTTP {erro_code} ({context_label}): aguardando {espera:.0f}s e tentando de novo ({tentativa + 1}/3).", flush=True)
+            time.sleep(espera)
+            req = urllib.request.Request(url, data=req_data, headers={"Content-Type": "application/json", "x-goog-api-key": api_key})
+            continue
+        break
+
+    print(f"Erro Gemini API ({context_label}): HTTP {erro_code} · modelo {modelo} · {corpo}", flush=True)
+    if erro_code in (404, 503) and not _tentou_trocar:
+        # 404 = modelo aposentado; 503 persistente = modelo sobrecarregado: tenta o outro Flash disponível
+        novo_modelo = descobrir_modelo_flash(api_key, excluir=modelo)
+        if novo_modelo and novo_modelo != modelo:
+            print(f"Modelo {modelo} indisponível: trocando para {novo_modelo} e tentando de novo.", flush=True)
+            _modelo_ativo = novo_modelo
+            return chamar_gemini_api(payload_contents, generation_config, context_label, _tentou_trocar=True)
+    return None
+
+
+def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=None):
+    """Chama a API do Gemini via REST para extrair resumo, mudanças e alertas."""
     pdf_b64 = base64.b64encode(pdf_bytes).decode("ascii")
 
     prompt_texto = (
@@ -339,114 +400,60 @@ def resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores=
         f"6. Defina a gravidade: 'info' (rotina, sem risco novo), 'atencao' (mudança relevante ou alerta leve) ou 'critico' (calote, corte brusco, litígio grave, perda de inquilino âncora).\n"
     )
 
-    payload = {
-        "contents": [
-            {
-                "parts": [
-                    {"text": prompt_texto},
-                    {
-                        "inline_data": {
-                            "mime_type": "application/pdf",
-                            "data": pdf_b64
-                        }
+    contents = [
+        {
+            "parts": [
+                {"text": prompt_texto},
+                {
+                    "inline_data": {
+                        "mime_type": "application/pdf",
+                        "data": pdf_b64
                     }
-                ]
-            }
-        ],
-        "generationConfig": {
-            "responseMimeType": "application/json",
-            "responseSchema": {
-                "type": "OBJECT",
-                "properties": {
-                    "resumo": {
-                        "type": "ARRAY",
-                        "items": {"type": "STRING"},
-                        "description": "Até 5 pontos principais do documento"
-                    },
-                    "mudancas": {
-                        "type": "ARRAY",
-                        "items": {"type": "STRING"},
-                        "description": "O que mudou em relação ao período ou documento anterior"
-                    },
-                    "alertas": {
-                        "type": "ARRAY",
-                        "items": {"type": "STRING"},
-                        "description": "Novos riscos identificados"
-                    },
-                    "metricas": {
-                        "type": "OBJECT",
-                        "properties": {
-                            "vacancia_fisica": {"type": "NUMBER"},
-                            "vacancia_financeira": {"type": "NUMBER"},
-                            "inadimplencia": {"type": "NUMBER"},
-                            "provento_por_cota": {"type": "NUMBER"},
-                            "resultado_por_cota": {"type": "NUMBER"},
-                            "reserva_por_cota": {"type": "NUMBER"},
-                            "ltv": {"type": "NUMBER"}
-                        }
-                    },
-                    "gravidade": {
-                        "type": "STRING",
-                        "enum": ["info", "atencao", "critico"]
+                }
+            ]
+        }
+    ]
+    gen_config = {
+        "responseMimeType": "application/json",
+        "responseSchema": {
+            "type": "OBJECT",
+            "properties": {
+                "resumo": {
+                    "type": "ARRAY",
+                    "items": {"type": "STRING"},
+                    "description": "Até 5 pontos principais do documento"
+                },
+                "mudancas": {
+                    "type": "ARRAY",
+                    "items": {"type": "STRING"},
+                    "description": "O que mudou em relação ao período ou documento anterior"
+                },
+                "alertas": {
+                    "type": "ARRAY",
+                    "items": {"type": "STRING"},
+                    "description": "Novos riscos identificados"
+                },
+                "metricas": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "vacancia_fisica": {"type": "NUMBER"},
+                        "vacancia_financeira": {"type": "NUMBER"},
+                        "inadimplencia": {"type": "NUMBER"},
+                        "provento_por_cota": {"type": "NUMBER"},
+                        "resultado_por_cota": {"type": "NUMBER"},
+                        "reserva_por_cota": {"type": "NUMBER"},
+                        "ltv": {"type": "NUMBER"}
                     }
                 },
-                "required": ["resumo", "mudancas", "alertas", "metricas", "gravidade"]
-            }
+                "gravidade": {
+                    "type": "STRING",
+                    "enum": ["info", "atencao", "critico"]
+                }
+            },
+            "required": ["resumo", "mudancas", "alertas", "metricas", "gravidade"]
         }
     }
-
-    req_data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(
-        url,
-        data=req_data,
-        headers={
-            "Content-Type": "application/json",
-            "x-goog-api-key": api_key
-        }
-    )
-
-    global _cota_diaria_esgotada
-    erro_code, corpo = None, ""
-    for tentativa in range(4):
-        try:
-            with urllib.request.urlopen(req, timeout=180) as resp:
-                res_json = json.loads(resp.read().decode("utf-8"))
-                candidate = res_json.get("candidates", [])[0]
-                part_text = candidate.get("content", {}).get("parts", [])[0].get("text", "")
-                return json.loads(part_text)
-        except urllib.error.HTTPError as e:
-            erro_code = e.code
-            corpo = e.read().decode("utf-8", errors="replace")[:800]
-        except Exception as e:
-            print(f"Erro Gemini API ({ticker}): {e}", flush=True)
-            if tentativa >= 1:
-                return None
-            time.sleep(10)
-            req = urllib.request.Request(url, data=req_data, headers={"Content-Type": "application/json", "x-goog-api-key": api_key})
-            continue
-        # 429 = limite do plano gratuito; 500/503 = Google sobrecarregado: espera o que o Google pedir e tenta de novo
-        if erro_code in (429, 500, 503) and tentativa < 3:
-            if erro_code == 429 and re.search(r"(?i)per ?day|PerDay|daily", corpo):
-                print(f"Cota DIÁRIA do Gemini esgotada ({ticker}): o restante fica para a próxima execução.", flush=True)
-                _cota_diaria_esgotada = True
-                return None
-            m = re.search(r'"retryDelay":\s*"(\d+(?:\.\d+)?)s"', corpo)
-            espera = min(float(m.group(1)) + 2, 90) if m else 20 * (tentativa + 1)
-            print(f"Gemini HTTP {erro_code} ({ticker}): aguardando {espera:.0f}s e tentando de novo ({tentativa + 1}/3).", flush=True)
-            time.sleep(espera)
-            req = urllib.request.Request(url, data=req_data, headers={"Content-Type": "application/json", "x-goog-api-key": api_key})
-            continue
-        break
-
-    print(f"Erro Gemini API ({ticker}): HTTP {erro_code} · modelo {modelo} · {corpo}", flush=True)
-    if erro_code in (404, 503) and not _tentou_trocar:
-        # 404 = modelo aposentado; 503 persistente = modelo sobrecarregado: tenta o outro Flash disponível
-        novo_modelo = descobrir_modelo_flash(api_key, excluir=modelo)
-        if novo_modelo and novo_modelo != modelo:
-            print(f"Modelo {modelo} indisponível: trocando para {novo_modelo} e tentando de novo.", flush=True)
-            _modelo_ativo = novo_modelo
-            return resumir_com_gemini(pdf_bytes, ticker, tipo_doc, titulo, metricas_anteriores, _tentou_trocar=True)
-    return None
+    return chamar_gemini_api(contents, gen_config, context_label=ticker)
 
 
 def main():

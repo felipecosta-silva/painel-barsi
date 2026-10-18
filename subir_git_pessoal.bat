@@ -51,7 +51,7 @@ git config user.email "felipecosta-silva@users.noreply.github.com"
 echo [*] Autor local configurado: Felipe Costa ^<felipecosta-silva@users.noreply.github.com^>
 echo [*] Adicionando arquivos atualizados do Painel...
 
-git add index.html painel-barsi.html README.md .gitignore simulador-renda-passiva.html subir_git_pessoal.bat tools/checar_segredos.py tools/pre-commit tools/atualizar_historico.py tools/benchmarks.py tools/varrer_mercado.py tools/novidades.py dados/historico.js dados/benchmarks.js dados/mercado.js dados/novidades.js .github/workflows/historico.yml .github/workflows/novidades.yml
+git add index.html painel-barsi.html README.md .gitignore simulador-renda-passiva.html subir_git_pessoal.bat tools/checar_segredos.py tools/pre-commit tools/atualizar_historico.py tools/benchmarks.py tools/varrer_mercado.py tools/novidades.py tools/pareceres.py tools/fundamentos.py dados/historico.js dados/benchmarks.js dados/mercado.js dados/novidades.js dados/pareceres.js dados/licoes_candidatas.js dados/fundamentos.js .github/workflows/historico.yml .github/workflows/novidades.yml .github/workflows/pareceres.yml .github/workflows/fundamentos.yml
 git commit -m "chore: atualizacao do painel e dados (%date%)"
 
 echo.

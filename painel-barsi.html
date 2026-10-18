@@ -2,8 +2,11 @@
 body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Fehmir</title>
 <script src="dados/historico.js"></script>
+<script src="dados/fundamentos.js"></script>
 <script src="dados/mercado.js"></script>
 <script src="dados/novidades.js"></script>
+<script src="dados/pareceres.js"></script>
+<script src="dados/licoes_candidatas.js"></script>
 <script src="dados/benchmarks.js"></script><script>try{var t=localStorage.getItem("barsi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <style>
 /* layout: tabbed site — Meus Ativos (carteira real) / Radar (watchlist, não é do Felipe) /
@@ -545,7 +548,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 .radar-sort-select { background: var(--surface-2); border: 1px solid var(--rule); border-radius: 10px; padding: 8px 14px; color: var(--ink); font-size: 13px; font-weight: 500; font-family: var(--font-sans); outline: none; cursor: pointer; }
 
 /* Grid de Cards no Radar */
-.radar-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; margin-bottom: 28px; }
+.radar-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; margin-bottom: 36px; }
 .rc-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 18px; padding: 20px; transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease; cursor: pointer; display: flex; flex-direction: column; position: relative; box-shadow: 0 2px 6px rgba(0,0,0,0.03); transform: none !important; }
 .rc-card:hover { border-color: var(--accent); background: var(--surface-2); box-shadow: 0 6px 20px rgba(0,0,0,0.12); transform: none !important; }
 
@@ -815,7 +818,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 .origin-qa-item .a { font-size: 13px; color: var(--ink-2); line-height: 1.5; }
 
 /* ================= VISÃO SETORIAL (Print 4) ================= */
-.radar-setorial-wrap { display: flex; flex-direction: column; gap: 32px; }
+.radar-setorial-wrap { display: flex; flex-direction: column; gap: 32px; margin-bottom: 36px; }
 .quick-jump-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: var(--surface); padding: 12px 18px; border-radius: 12px; border: 1px solid var(--rule); margin-bottom: 20px; }
 .quick-jump-bar .jump-lbl { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; margin-right: 4px; }
 .jump-pill { background: var(--surface-2); border: 1px solid var(--rule); border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--ink-2); text-decoration: none; cursor: pointer; transition: 0.15s; }
@@ -847,7 +850,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 .sc-metric-val { font-family: var(--font-mono); font-weight: 600; color: var(--ink); }
 
 /* ================= VISÃO PÓDIO DE DIVIDENDOS (Print 5) ================= */
-.radar-podio-wrap { display: flex; flex-direction: column; gap: 24px; }
+.radar-podio-wrap { display: flex; flex-direction: column; gap: 24px; margin-bottom: 36px; }
 .podio-top-three { display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 16px; align-items: end; margin-bottom: 12px; }
 @media (max-width: 768px) { .podio-top-three { grid-template-columns: 1fr; } }
 
@@ -860,7 +863,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 .podio-score-badge .num { font-size: 16px; font-weight: 700; font-family: var(--font-mono); line-height: 1; }
 .podio-score-badge .denom { font-size: 8px; opacity: 0.8; font-weight: 600; }
 
-.podio-grid-bottom { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.podio-grid-bottom { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
 
 /* ================= VALUATION / FCD (Print 1) ================= */
 .fcd-hero-card { background: var(--bg); border: 1px solid var(--rule); border-radius: 16px; padding: 22px; margin-bottom: 24px; }
@@ -1163,7 +1166,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 .smart-rec-action { font-size: 14px; font-weight: 700; color: var(--good); }
 
 /* ================= 1. COMPARADOR DIRETO / DUELO DE ATIVOS ================= */
-.duelo-wrap { display: flex; flex-direction: column; gap: 20px; }
+.duelo-wrap { display: flex; flex-direction: column; gap: 20px; margin-bottom: 36px; }
 .duelo-header-box { background: var(--surface); border: 1px solid var(--rule); border-radius: 16px; padding: 20px 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
 .duelo-clashes-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
 .duelo-clash-btn { background: var(--surface-2); border: 1px solid var(--rule); border-radius: 20px; padding: 5px 12px; font-size: 11.5px; font-weight: 600; color: var(--ink-2); cursor: pointer; transition: 0.15s; }
@@ -2180,6 +2183,35 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   color: var(--accent);
   font-weight: 700;
 }
+.an-calc-shortcut-btn {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--rule-strong);
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.an-calc-shortcut-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.an-metodo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  cursor: help;
+}
+
 
 /* ================= NOVIDADES & DOCUMENTOS (15/10/2026 - Tarefa 3) ================= */
 .an-novidades-card {
@@ -2798,6 +2830,11 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
             <span class="rent-kpi-lbl">Drawdown (Abaixo do Topo)</span>
             <div class="rent-kpi-val" id="rent-kpi-drawdown">—</div>
             <span class="rent-kpi-sub" id="rent-kpi-pior-queda">Pior queda: —</span>
+          </div>
+          <div class="rent-kpi-item">
+            <span class="rent-kpi-lbl">TIR da Carteira (XIRR)</span>
+            <div class="rent-kpi-val" id="rent-kpi-tir" title="TIR considera quando cada real entrou e saiu (inclui aportes); o retorno por cota mede só a gestão. A meta de longo prazo citada no método é 12% a 15% a.a.">—</div>
+            <span class="rent-kpi-sub" id="rent-kpi-tir-sub">Fluxos reais de caixa</span>
           </div>
         </div>
 
@@ -3595,7 +3632,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <section class="panel">
       <div class="panel-head"><div><h2>Lista Consolidada (Radar)</h2></div></div>
       <div class="twrap"><table class="wide responsive-stack">
-        <thead><tr><th>Posição</th><th>Ticker</th><th>Setor/Tipo</th><th>Preço</th><th>DY 12m</th><th>P/VP ou ROE</th><th>Teto Bazin</th><th>Margem</th><th>Score</th><th>Veredito</th></tr></thead>
+        <thead><tr><th>Posição</th><th>Ticker</th><th>Setor/Tipo</th><th>Preço</th><th>DY 12m</th><th>P/VP ou ROE</th><th>Método</th><th>Teto Oficial</th><th>Margem</th><th>Score</th><th>Veredito</th></tr></thead>
         <tbody id="tbody-radar-consolidado"></tbody>
       </table></div>
     </section>
@@ -3658,7 +3695,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     </div>
   </div>
 
-  <section class="panel">
+  <section class="panel" id="panel-inventario-radar" style="margin-top: 40px;">
     <div class="panel-head"><div><h2>Inventário sem análise (carteiras de curso/referência)</h2></div></div>
     <p class="panel-note" style="margin-bottom:10px">Citados em algum momento, nunca analisados a fundo — baixa prioridade.</p>
     <p class="mono" style="font-size:12.5px; line-height:1.8; color:var(--ink-2)" id="inventory-list"></p>
@@ -5857,6 +5894,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
           <span class="m-hero-name" id="m-nome">Nome do Ativo</span>
           <span class="rc-tag" id="m-setor">Setor</span>
           <span class="rc-tag" id="m-class-tag" style="background:var(--accent-soft); color:var(--accent); border-color:var(--accent);">BLUE CHIP</span>
+          <span class="rc-tag" id="m-metodo-tag" style="background:rgba(99,102,241,0.12); color:var(--accent); border-color:var(--accent); cursor:help; font-weight:700; display:none;" title="Método de Valuation">Método</span>
         </div>
         <div style="display:flex; align-items:center; gap:12px; margin-right:40px;">
           <div class="score-badge-wrapper" id="m-score-wrap" tabindex="0" role="button" aria-label="Raio-X da Nota Barsi/Fehmir" onclick="this.classList.toggle('is-open')">
@@ -6013,16 +6051,16 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
             <div class="fcd-val-justo-box">
               <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--muted); letter-spacing:0.05em;">FLUXO DE CAIXA DESCONTADO</span>
               <h4>VALOR JUSTO ESTIMADO</h4>
-              <div class="fcd-val-justo-big" id="fcd-val-justo">R$ 47,57</div>
-              <div style="font-size:13px; color:var(--ink-2); margin-top:4px;">Preço hoje: <b id="fcd-preco-hoje">R$ 48,09</b></div>
+              <div class="fcd-val-justo-big" id="fcd-val-justo" style="font-size:26px;color:var(--muted)">—</div>
+              <div style="font-size:13px; color:var(--ink-2); margin-top:4px;">Preço hoje: <b id="fcd-preco-hoje">—</b></div>
             </div>
             <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
               <div class="fcd-margin-badge" id="fcd-margin-badge">
                 <div class="lbl">MARGEM DE SEGURANÇA</div>
-                <div class="val" id="fcd-margin-val">-1,1%</div>
-                <div style="font-size:10px; color:var(--muted); font-weight:600;" id="fcd-margin-sub">prêmio vs preço</div>
+                <div class="val" id="fcd-margin-val" style="color:var(--muted)">—</div>
+                <div style="font-size:10px; color:var(--muted); font-weight:600;" id="fcd-margin-sub">FCD indisponível</div>
               </div>
-              <div style="font-size:11.5px; color:var(--muted); font-family:var(--font-mono);" id="fcd-fcf-text">Fluxo de caixa: R$ 4.504.702.059/ano</div>
+              <div style="font-size:11.5px; color:var(--muted); font-family:var(--font-mono);" id="fcd-fcf-text">FCD indisponível: sem dados de fluxo de caixa livre</div>
             </div>
           </div>
 
@@ -6032,7 +6070,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
             <span style="font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase;">Valor justo (FCD)</span>
-            <button style="background:var(--surface-2); border:1px solid var(--rule); border-radius:8px; padding:6px 14px; font-size:12px; font-weight:600; cursor:pointer; color:var(--ink-2);" onclick="alert('O Fluxo de Caixa Descontado (FCD) projeta os fluxos operacionais livres futuros da companhia trazidos a valor presente por uma taxa de custo de capital (WACC). O cenário Otimista reflete crescimento superior, o Médio a tendência histórica e o Pessimista um estresse operacional.')">🔍 Como essa projeção foi calculada?</button>
+            <button style="background:var(--surface-2); border:1px solid var(--rule); border-radius:8px; padding:6px 14px; font-size:12px; font-weight:600; cursor:pointer; color:var(--ink-2);" onclick="alert('O Fluxo de Caixa Descontado (FCD) projeta os fluxos operacionais livres futuros da companhia trazidos a valor presente por uma taxa de custo de capital (WACC). No momento, o modelo está desativado por ausência de dados auditados de fluxo de caixa livre.')">🔍 Como essa projeção foi calculada?</button>
           </div>
         </div>
       </div>
@@ -6048,7 +6086,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
         <div class="pt-cards-row">
           <div class="pt-card-box highlight">
             <div class="tag-top" style="color:#d97706;">DY Projetado 12M</div>
-            <div class="big-val" id="pt-card-dy-proj" style="color:#d97706;">8,16%</div>
+            <div class="big-val" id="pt-card-dy-proj" style="color:#d97706;">—</div>
             <div style="font-size:11px; color:var(--muted)">Sobre preço de hoje</div>
           </div>
           <div class="pt-card-box success">
@@ -6077,6 +6115,9 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
         <div id="m-pt-semaforo-box" style="margin-bottom:18px; border-radius:14px; padding:16px 20px;">
           <!-- Preenchido dinamicamente via JS -->
         </div>
+
+        <!-- Linha de Conferência: Retorno Esperado (DY + Crescimento) - Rodada 9 Parte B -->
+        <div id="m-pt-retorno-esperado" style="display:none;margin-bottom:18px;padding:12px 16px;background:var(--surface-2);border-radius:10px;font-size:13px;line-height:1.5;border-left:4px solid var(--accent);"></div>
 
         <!-- Gráfico em Leque traçando Projeções de Preço Teto (Fiel ao Print 3) -->
         <div style="background:var(--bg); border:1px solid var(--rule); border-radius:14px; padding:20px; margin-bottom:18px;">
@@ -6656,6 +6697,41 @@ const RADAR_DATA = [
   { t:"MFII11", nome:"Mérito Desenvolvimento", setor:"Desenvolvimento", macro:"fiis", score:10, tag:"DESENVOLVIMENTO", anosLucro:1, preco:36.44, dy:8.20, dyProj:3.5, roe:null, pl:"—", pvp:0.65, payout:90.0, dpa:2.98, pt6:49.60, pt8:37.25, pt10:29.80, bazin5a:45.00, targetAvg:35.00, targetMin:25.00, targetMax:42.00, targetUpside:-3.9, gaugeAngle:18, gaugeVerdict:"Venda Forte", votes:{cf:0, c:0, m:1, v:5, vf:8}, status:"critical", note:"O maior perigo da bolsa. O provento desabou de R$ 0,91 para R$ 0,30 e a cota caiu 40%. Receita dependia de obras futuras.", q1:"Lucro de vendas de loteamentos e obras residenciais em andamento.", q2:"NÃO É RECORRENTE! Quando as obras atrasam ou as vendas secam, o dividendo colapsa." }
 ];
 
+/* ================= FUNDAMENTOS DO ROBÔ (dados/fundamentos.js, Brapi) =================
+   ROE, LPA, VPA, P/L e P/VP do robô semanal substituem os do cadastro manual, que envelhece.
+   Payout = DPA 12m (robô de dividendos) ÷ LPA (robô de fundamentos). O valor antigo fica em a._cad
+   e divergências > 25% ficam em a._fundDiverg para a ficha pedir conferência. */
+(function aplicarFundamentosRobo() {
+  const F = window.FEHMIR_FUND;
+  if (!F) return;
+  const numBR = v => typeof v === "number" ? v : parseFloat(String(v == null ? "" : v).replace(/\./g, "").replace(",", "."));
+  const fmtN = (n, d) => n.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const data = (window.FEHMIR_FUND_META && window.FEHMIR_FUND_META.gerado || "").slice(0, 10);
+  const rotulo = { lpa: "LPA", vpa: "VPA", roe: "ROE", pl: "P/L", pvp: "P/VP", payout: "payout" };
+  const listas = [typeof BASE_STOCKS !== "undefined" ? BASE_STOCKS : [], typeof OUT_OF_BASE !== "undefined" ? OUT_OF_BASE : [],
+                  typeof RADAR_ACOES !== "undefined" ? RADAR_ACOES : [], typeof RADAR_DATA !== "undefined" ? RADAR_DATA : []];
+  for (const lista of listas) for (const a of lista) {
+    const f = a && F[a.t];
+    if (!f) continue;
+    const novo = { lpa: f.lpa, vpa: f.vpa, roe: f.roe, pl: f.pl, pvp: f.pvp };
+    const H = window.FEHMIR_HIST && window.FEHMIR_HIST[a.t];
+    if (H && H.dpa12 != null && f.lpa > 0) novo.payout = +(H.dpa12 / f.lpa * 100).toFixed(1);
+    a._cad = {}; a._fundDiverg = [];
+    for (const c in novo) {
+      if (novo[c] == null) continue;
+      const velho = c === "pl" ? numBR(a[c]) : a[c];
+      a._cad[c] = a[c];
+      if (velho != null && !isNaN(velho) && velho !== 0 && Math.abs(novo[c] / velho - 1) > 0.25)
+        a._fundDiverg.push(rotulo[c] + " " + fmtN(velho, 2) + " → " + fmtN(novo[c], 2));
+      a[c] = novo[c];
+    }
+    a._fundFonte = "Brapi " + data.split("-").reverse().slice(0, 2).join("/");
+  }
+})();
+window.fehmirFonteFund = function (a) {
+  return a && a._fundFonte ? "Fundamentos: " + a._fundFonte : "Fundamentos: cadastro manual (pode estar desatualizado)";
+};
+
 /* ================= CONTROLE DE FILTROS DO RADAR ================= */
 let radarState = {
   macro: 'all',
@@ -7009,6 +7085,12 @@ function detalharScoreAtivo(r) {
     teto,
     preco,
     margem,
+    metodo: av ? av.metodo : null,
+    motivo: av ? av.motivo : null,
+    taxa: av ? av.taxa : null,
+    taxaExplicada: av ? av.taxaExplicada : null,
+    diverg: av ? av.diverg : null,
+    diverg_par: av ? av.diverg_par : null,
     trapLimit,
     trapMsg,
     pilares: [
@@ -7108,7 +7190,13 @@ function calcularScoreRadar(r) {
     manual: false,
     teto: det.teto,
     margem: det.margem,
-    mMin: 10
+    mMin: 10,
+    metodo: det.metodo,
+    motivo: det.motivo,
+    taxa: det.taxa,
+    taxaExplicada: det.taxaExplicada,
+    diverg: det.diverg,
+    diverg_par: det.diverg_par
   };
 }
 
@@ -7562,6 +7650,11 @@ function renderTableView(list) {
       margemStr = `<span style="color:${cor}; font-weight:700">${(calc.margem > 0 ? '+' : '') + calc.margem.toFixed(1)}%</span>`;
     }
     const roeOrPvp = r.roe != null ? `ROE ${r.roe.toFixed(1)}%` : `P/VP ${(r.pvp||0).toFixed(2)}`;
+    const metodoLabel = calc.metodo || 'Bazin';
+    const temDiverg = calc.diverg != null && calc.diverg > 35;
+    let metodoTooltip = calc.motivo ? `${calc.motivo}${calc.taxaExplicada ? ' · ' + calc.taxaExplicada : ''}` : metodoLabel;
+    if (temDiverg) metodoTooltip += `\n⚠️ Modelos divergem ${calc.diverg.toFixed(0)}% (${calc.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)`;
+    const divergBadge = temDiverg ? `<span title="Modelos divergem (${calc.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)" style="margin-left:3px;font-size:10px;">⚠️</span>` : '';
 
     return `<tr class="clickable-row" onclick="fehmirIrParaAnalise('${r.t}')">
       <td class="tabular" style="font-weight:700">#${rank}</td>
@@ -7570,6 +7663,7 @@ function renderTableView(list) {
       <td class="tabular">${fmtR(r.preco)}</td>
       <td class="tabular" style="color:var(--good); font-weight:600">${fmtPct(r.dy)}</td>
       <td class="tabular">${roeOrPvp}</td>
+      <td class="metodo"><span class="m-metodo-badge" title="${metodoTooltip}" style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;background:rgba(99,102,241,0.12);color:var(--accent);cursor:help;white-space:nowrap;">${metodoLabel}${divergBadge}</span></td>
       <td class="tabular">${teto}</td>
       <td>${margemStr}</td>
       <td class="tabular"><span style="font-weight:700; color:${r.score>=70?'var(--good)':'var(--warning)'}" title="${calc.tooltip}">${r.score}</span></td>
@@ -7815,6 +7909,22 @@ function openModal(ticker) {
   r._tetoRegua = tetoRegua;
   r._av = av;
 
+  // Tag do Método no cabeçalho do Modal
+  const elMetodoTag = document.getElementById('m-metodo-tag');
+  if (elMetodoTag) {
+    if (av && av.metodo) {
+      elMetodoTag.style.display = 'inline-flex';
+      const temDiverg = av.diverg != null && av.diverg > 35;
+      elMetodoTag.textContent = 'Método: ' + av.metodo + (temDiverg ? ' ⚠️' : '');
+      let tt = (av.motivo ? av.motivo + '\n' : '') + (av.taxaExplicada ? 'Taxa: ' + av.taxaExplicada : '');
+      if (window.fehmirFonteFund) tt += '\n' + window.fehmirFonteFund(r) + (r && r._fundDiverg && r._fundDiverg.length ? ' · mudou > 25%: ' + r._fundDiverg.join(' · ') : '');
+      if (temDiverg) tt += `\n⚠️ Modelos divergem ${av.diverg.toFixed(0)}% (${av.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)`;
+      elMetodoTag.setAttribute('title', tt || 'Método de Valuation');
+    } else {
+      elMetodoTag.style.display = 'none';
+    }
+  }
+
   const elTetoVal = document.getElementById('m-kpi-teto-regua');
   const elTetoSub = document.getElementById('m-kpi-teto-sub');
   const cardTeto = document.getElementById('m-kpi-card-teto');
@@ -7828,7 +7938,7 @@ function openModal(ticker) {
       else if (margem >= 0) corMargem = 'var(--accent)';
       elTetoSub.style.color = corMargem;
       if (cardTeto) {
-        cardTeto.setAttribute('title', av.src ? `Teto Régua Setorial (§21):\n${av.src}` : 'Teto oficial pela Régua Setorial (§21)');
+        cardTeto.setAttribute('title', (av.src ? `Teto oficial (${av.metodo || 'Régua §21'}):\n${av.src}` : 'Teto oficial pela Régua Setorial (§21)') + (av.motivo ? `\nMotivo: ${av.motivo}` : '') + (av.taxaExplicada ? `\nTaxa: ${av.taxaExplicada}` : ''));
       }
     } else {
       elTetoVal.textContent = '—';
@@ -7838,12 +7948,21 @@ function openModal(ticker) {
     }
   }
 
-  // Payout com suporte a Payout Implícito (av.payoutDivergente)
+  // Payout com suporte a Payout Implícito (av.payoutDivergente e selo > 100% da Rodada 9 Parte D4)
   const elPayout = document.getElementById('m-payout');
   const elPayoutSub = document.getElementById('m-payout-sub');
   if (elPayout) {
     const payVal = (av && (av.payoutImplicito != null || av.payoutUsado != null)) ? (av.payoutImplicito != null ? av.payoutImplicito : av.payoutUsado) : r.payout;
-    if (av && av.payoutDivergente && payVal != null) {
+    if (av && av.payoutImplicito != null && av.payoutImplicito > 100) {
+      elPayout.textContent = `${Math.round(av.payoutImplicito)}% (implícito)`;
+      elPayout.style.color = 'var(--critical)';
+      if (elPayoutSub) {
+        elPayoutSub.textContent = `Payout ${Math.round(av.payoutImplicito)}%: dividendo acima do lucro, não recorrente`;
+        elPayoutSub.style.display = 'block';
+        elPayoutSub.style.color = 'var(--critical)';
+      }
+      elPayout.setAttribute('title', `Payout implícito de ${Math.round(av.payoutImplicito)}%: dividendo acima do lucro, não recorrente.`);
+    } else if (av && av.payoutDivergente && payVal != null) {
       elPayout.textContent = `${Math.round(payVal)}% (implícito)`;
       elPayout.style.color = 'var(--gold)';
       if (elPayoutSub) {
@@ -7892,26 +8011,32 @@ function openModal(ticker) {
   document.getElementById('m-bi-payout').textContent = r.payout != null ? `${r.payout.toFixed(1)}%` : '—';
   document.getElementById('m-bi-dy').textContent = fmtPct(r.dy);
 
-  // Preencher Aba Valuation (FCD)
-  const valJustoFcd = r.preco ? (r.score >= 70 ? r.preco * 1.05 : r.preco * 0.98) : 47.57;
-  const fcdMargem = r.preco ? ((valJustoFcd - r.preco) / r.preco) * 100 : -1.1;
-  document.getElementById('fcd-val-justo').textContent = fmtR(valJustoFcd);
-  document.getElementById('fcd-val-justo').style.color = fcdMargem >= 0 ? 'var(--good)' : 'var(--critical)';
-  document.getElementById('fcd-preco-hoje').textContent = fmtR(r.preco);
+  // Preencher Aba Valuation (FCD) - (16/10/2026 - Rodada 9 Parte E: sem números inventados)
+  const elFcdVal = document.getElementById('fcd-val-justo');
+  if (elFcdVal) {
+    elFcdVal.textContent = '—';
+    elFcdVal.style.fontSize = '26px';
+    elFcdVal.style.color = 'var(--muted)';
+  }
+  const elFcdPreco = document.getElementById('fcd-preco-hoje');
+  if (elFcdPreco) elFcdPreco.textContent = r.preco ? fmtR(r.preco) : '—';
   
   const fcdBadge = document.getElementById('fcd-margin-badge');
-  fcdBadge.className = 'fcd-margin-badge ' + (fcdMargem >= 0 ? 'pos' : '');
+  if (fcdBadge) fcdBadge.className = 'fcd-margin-badge';
   const fcdValEl = document.getElementById('fcd-margin-val');
-  fcdValEl.textContent = (fcdMargem >= 0 ? '+' : '') + fcdMargem.toFixed(1) + '%';
-  fcdValEl.style.color = fcdMargem >= 0 ? 'var(--good)' : 'var(--critical)';
-  document.getElementById('fcd-margin-sub').textContent = fcdMargem >= 0 ? 'desconto vs preço' : 'prêmio vs preço';
+  if (fcdValEl) {
+    fcdValEl.textContent = '—';
+    fcdValEl.style.color = 'var(--muted)';
+  }
+  const fcdSubEl = document.getElementById('fcd-margin-sub');
+  if (fcdSubEl) fcdSubEl.textContent = 'FCD indisponível';
   
-  const fcfSim = Math.round((r.preco || 20) * 85000000);
-  document.getElementById('fcd-fcf-text').textContent = `Fluxo de caixa: R$ ${fcfSim.toLocaleString('pt-BR')}/ano`;
+  const fcdFcfEl = document.getElementById('fcd-fcf-text');
+  if (fcdFcfEl) fcdFcfEl.textContent = 'FCD indisponível: sem dados de fluxo de caixa livre';
 
-  // Preencher Aba 2: Preço Teto & Bazin
-  const dyProj = r.dyProj != null ? r.dyProj : (r.dy ? r.dy * 0.95 : (ehFoFOuPapel ? 13.0 : 8.16));
-  document.getElementById('pt-card-dy-proj').textContent = fmtPct(dyProj);
+  // Preencher Aba 2: Preço Teto & Bazin (Sem fallback inventado 8,16/13,0)
+  const dyProj = r.dyProj != null ? r.dyProj : (r.dy ? r.dy * 0.95 : null);
+  document.getElementById('pt-card-dy-proj').textContent = dyProj != null ? fmtPct(dyProj) : '—';
 
   function setPtBox(boxId, marginId, val) {
     const elVal = document.getElementById(boxId);
@@ -8022,6 +8147,22 @@ function openModal(ticker) {
           <span class="rc-tag" style="background:#fee2e2; color:#b91c1c; border-color:#fca5a5; font-weight:700;">ALERTA SUPERVALORIZADO</span>
         </div>
       `;
+    }
+  }
+
+  // Conferência Retorno Esperado (DY + Crescimento) - Rodada 9 Parte B
+  const elRetEsp = document.getElementById('m-pt-retorno-esperado');
+  if (elRetEsp) {
+    const mMacro = typeof loadMacro === 'function' ? loadMacro() : { ntnb: 6.5, ipca12: 4.6 };
+    const retEsp = (typeof window.calcRetornoEsperado === 'function') ? window.calcRetornoEsperado(r, mMacro) : (typeof calcRetornoEsperado === 'function' ? calcRetornoEsperado(r, mMacro) : null);
+    if (retEsp) {
+      elRetEsp.style.display = 'block';
+      const rProvStr = (retEsp.r_prov != null ? (retEsp.r_prov * 100).toFixed(1) : '—');
+      const taxaStr = (retEsp.taxa != null ? (retEsp.taxa * 100).toFixed(1) : '—');
+      elRetEsp.innerHTML = `<b>🚀 Retorno esperado (DY + crescimento)</b>: <span style="font-weight:700;color:${retEsp.cor};">${retEsp.veredito}</span> · Teto cresc.: <b>${retEsp.teto_cresc ? fmtR(retEsp.teto_cresc) : 'não limita'}</b> (provável <b>${rProvStr}% a.a.</b> real vs taxa <b>${taxaStr}%</b>) <span style="color:var(--muted);font-size:11px;cursor:help;" title="Retorno = dividendo projetado + crescimento (ROE × lucro retido), descontada a inflação. Se nem o cenário provável bate o Tesouro IPCA+ + prêmio do setor, a qualidade não compensa o preço.">ⓘ</span>`;
+    } else {
+      elRetEsp.style.display = 'none';
+      elRetEsp.innerHTML = '';
     }
   }
 
@@ -8743,51 +8884,14 @@ function drawLequeChart(item) {
   `;
 }
 
-// Gráfico de Cone FCD com os 3 Cenários (Print 1 - CPFE3)
+// Gráfico de Cone FCD - Desativado (Rodada 9 Parte E: sem FCF auditado)
 function drawFcdCone(item) {
   const svg = document.getElementById('m-fcd-cone-svg');
   if (!svg) return;
-  const preco = item.preco || 48.09;
-  const justo = item.preco ? (item.score >= 70 ? item.preco * 1.05 : item.preco * 0.98) : 47.57;
-  const otimista = justo * 1.32;
-  const pessimista = justo * 0.75;
-
-  const upOtimista = ((otimista - preco) / preco) * 100;
-  const upMedio = ((justo - preco) / preco) * 100;
-  const upPessimista = ((pessimista - preco) / preco) * 100;
-
-  const W = 700, H = 240, splitX = 380;
-  const histD = `M 40 180 Q 90 200, 150 145 T 260 135 T 340 170 L ${splitX} 160`;
-
   svg.innerHTML = `
-    <!-- Linha tracejada vertical dividindo histórico e projeção -->
-    <line x1="${splitX}" y1="20" x2="${splitX}" y2="220" stroke="var(--rule-strong)" stroke-dasharray="4,4"/>
-
-    <!-- Curva histórica de cotação -->
-    <path d="${histD}" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
-    
-    <!-- Ponto Atual -->
-    <circle cx="${splitX}" cy="160" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
-    <rect x="${splitX - 45}" y="145" width="90" height="24" rx="6" fill="#1e293b"/>
-    <text x="${splitX}" y="161" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="var(--font-mono)">Atual ${fmtR(preco)}</text>
-
-    <!-- Cone Área Sombreada entre Otimista e Pessimista -->
-    <path d="M ${splitX} 160 L 585 45 L 585 215 Z" fill="rgba(16, 185, 129, 0.06)"/>
-
-    <!-- Linha Otimista (Verde) -->
-    <line x1="${splitX}" y1="160" x2="585" y2="45" stroke="#10b981" stroke-width="2" stroke-dasharray="4,4"/>
-    <rect x="590" y="32" width="105" height="26" rx="6" fill="#10b981"/>
-    <text x="642" y="49" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="var(--font-mono)">Otimista +${upOtimista.toFixed(1)}%</text>
-
-    <!-- Linha Médio (Valor Justo FCD) -->
-    <line x1="${splitX}" y1="160" x2="585" y2="125" stroke="${upMedio >= 0 ? '#10b981' : '#ef4444'}" stroke-width="2" stroke-dasharray="3,3"/>
-    <rect x="590" y="112" width="105" height="26" rx="6" fill="${upMedio >= 0 ? '#10b981' : '#ef4444'}"/>
-    <text x="642" y="129" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="var(--font-mono)">Médio ${upMedio >= 0 ? '+' : ''}${upMedio.toFixed(1)}%</text>
-
-    <!-- Linha Pessimista (Vermelho) -->
-    <line x1="${splitX}" y1="160" x2="585" y2="205" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4"/>
-    <rect x="590" y="192" width="105" height="26" rx="6" fill="#ef4444"/>
-    <text x="642" y="209" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="var(--font-mono)">Pessimista ${upPessimista.toFixed(1)}%</text>
+    <rect x="0" y="0" width="700" height="240" fill="var(--surface-2)" rx="12"/>
+    <text x="350" y="110" fill="var(--muted)" font-size="15" font-weight="700" text-anchor="middle" font-family="var(--font-serif)">FCD indisponível</text>
+    <text x="350" y="138" fill="var(--ink-2)" font-size="12" text-anchor="middle" font-family="var(--font-serif)">Sem dados de fluxo de caixa livre para modelagem de múltiplos estágios</text>
   `;
 }
 
@@ -11849,6 +11953,101 @@ function calcularRentabilidadeCota(range) {
 }
 window.calcularRentabilidadeCota = calcularRentabilidadeCota;
 
+function calcularXIRR(fluxos) {
+  if (!fluxos || fluxos.length < 2) return null;
+  const parseD = d => d instanceof Date ? d : new Date(String(d).includes('T') ? d : d + 'T12:00:00');
+  const d0 = parseD(fluxos[0].data).getTime();
+  const fLimpos = fluxos.map(f => ({
+    t: (parseD(f.data).getTime() - d0) / (365 * 86400000),
+    v: f.valor
+  })).filter(f => isFinite(f.v) && isFinite(f.t));
+
+  const hasPos = fLimpos.some(f => f.v > 0);
+  const hasNeg = fLimpos.some(f => f.v < 0);
+  if (!hasPos || !hasNeg) return null;
+
+  const npv = r => {
+    let s = 0;
+    for (const f of fLimpos) {
+      const denom = Math.pow(1 + r, f.t);
+      if (!isFinite(denom) || denom === 0) return NaN;
+      s += f.v / denom;
+    }
+    return s;
+  };
+
+  const dnpv = r => {
+    let s = 0;
+    for (const f of fLimpos) {
+      const denom = Math.pow(1 + r, f.t + 1);
+      if (!isFinite(denom) || denom === 0) return NaN;
+      s -= f.t * f.v / denom;
+    }
+    return s;
+  };
+
+  let r = 0.10;
+  for (let i = 0; i < 50; i++) {
+    const val = npv(r);
+    const deriv = dnpv(r);
+    if (!isFinite(val) || !isFinite(deriv) || Math.abs(deriv) < 1e-12) break;
+    const nextR = r - val / deriv;
+    if (nextR <= -0.999) { r = -0.5; break; }
+    if (Math.abs(nextR - r) < 1e-6) return nextR;
+    r = nextR;
+  }
+
+  let low = -0.90, high = 5.0;
+  let valLow = npv(low), valHigh = npv(high);
+  if (isFinite(valLow) && isFinite(valHigh) && valLow * valHigh <= 0) {
+    for (let i = 0; i < 100; i++) {
+      const mid = (low + high) / 2;
+      const valMid = npv(mid);
+      if (Math.abs(valMid) < 1e-5 || (high - low) < 1e-5) return mid;
+      if (valLow * valMid <= 0) {
+        high = mid;
+        valHigh = valMid;
+      } else {
+        low = mid;
+        valLow = valMid;
+      }
+    }
+    return (low + high) / 2;
+  }
+  return isFinite(r) && r > -1 ? r : null;
+}
+window.calcularXIRR = calcularXIRR;
+
+function calcularTirCarteira(patrimonioFinal) {
+  const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
+  if (!extrato || extrato.length === 0) return null;
+
+  const fluxos = [];
+  extrato.forEach(t => {
+    if (!t.data || !t.total) return;
+    const tipo = (t.tipo || '').toLowerCase();
+    const taxa = t.taxa || 0;
+    if (tipo.includes('compra') || tipo.includes('reinvest')) {
+      fluxos.push({ data: t.data, valor: -(t.total + taxa) });
+    } else if (tipo.includes('venda')) {
+      fluxos.push({ data: t.data, valor: +(t.total - taxa) });
+    } else if (tipo.includes('provento') || tipo.includes('divid')) {
+      fluxos.push({ data: t.data, valor: +t.total });
+    }
+  });
+
+  const pat = patrimonioFinal || (typeof obterPatrimonioTotal === 'function' ? obterPatrimonioTotal() : 0);
+  if (pat > 0) {
+    const hojeStr = new Date().toISOString().slice(0, 10);
+    fluxos.push({ data: hojeStr, valor: +pat });
+  }
+
+  fluxos.sort((a, b) => new Date(a.data) - new Date(b.data));
+  const tir = calcularXIRR(fluxos);
+  return { tir, fluxos, pat };
+}
+window.calcularTirCarteira = calcularTirCarteira;
+
 function renderRentabilidade(range) {
   const dados = calcularRentabilidadeCota(range);
   const aviso = document.getElementById('rent-aviso-sem-bench');
@@ -11991,6 +12190,26 @@ function renderRentabilidade(range) {
 
   const elDdVol = document.getElementById('dd-stat-vol');
   if (elDdVol) elDdVol.textContent = `${k.volatilidade.toFixed(1)}% a.a.`;
+
+  // TIR (XIRR da Carteira)
+  const elTir = document.getElementById('rent-kpi-tir');
+  const elTirSub = document.getElementById('rent-kpi-tir-sub');
+  if (elTir) {
+    const tirInfo = calcularTirCarteira(k.patrimonio);
+    const tooltipTir = "TIR considera quando cada real entrou e saiu (inclui aportes); o retorno por cota mede só a gestão. A meta de longo prazo citada no método é 12% a 15% a.a.";
+    elTir.setAttribute('title', tooltipTir);
+
+    if (menosDe3Meses || !tirInfo || tirInfo.tir == null) {
+      elTir.textContent = "—";
+      elTir.style.color = "var(--ink-2)";
+      if (elTirSub) elTirSub.textContent = `Período < 90d (${diffDias}d)`;
+    } else {
+      const tirVal = tirInfo.tir * 100;
+      elTir.textContent = `${tirVal >= 0 ? '+' : ''}${tirVal.toFixed(1)}% a.a.`;
+      elTir.style.color = tirVal >= 12 ? 'var(--good)' : (tirVal >= 0 ? 'var(--accent)' : 'var(--critical)');
+      if (elTirSub) elTirSub.textContent = "TIR anualizada (XIRR)";
+    }
+  }
 
   // Renderizar Gráficos SVG
   renderRentabilidadeSvg(dados.serie, activeKeys);
@@ -13351,7 +13570,7 @@ initCollapsibleBlocks();
       chave: "ROIC acima do custo de capital, margem EBITDA, carteira de pedidos, câmbio",
       armadilha: "Lucro de pico de ciclo de investimento: P/L baixo engana" },
     { id: "consumo", margemMin: 25, nome: "Varejo & Consumo", base: false, premio: 4.0, payout: 40, ciclico: true, haircut: 0.85,
-      match: /varejo|consumo|aliment|cal[cç]ado|vestu|educa|sa[uú]de|farm/i, tickers: ["VULC3"],
+      match: /varejo|consumo|aliment|cal[cç]ado|vestu|educa/i, tickers: ["VULC3"],
       metodo: "P/L normalizado + EV/EBITDA",
       chave: "Vendas mesmas lojas, margem bruta, giro de estoque, alavancagem operacional e financeira",
       armadilha: "Margem líquida fina (1-3%): pequena queda de venda zera o lucro" },
@@ -13361,7 +13580,7 @@ initCollapsibleBlocks();
       chave: "VSO, lançamentos em 12m, landbank, distratos, caixa líquido, exposição ao MCMV",
       armadilha: "Inércia contábil (POC): lucro bom sem lançamentos novos, caso LAVV3" },
     { id: "commodity", margemMin: 30, nome: "Commodities (petróleo, mineração, siderurgia, celulose, agro)", base: false, premio: 5.0, payout: 50, ciclico: true, haircut: 0.75,
-      match: /petr[oó]l|g[aá]s|miner|sider|celulose|agro/i, tickers: ["PETR4", "PETR3", "PRIO3", "VALE3", "RECV3", "BRAV3", "SUZB3", "KLBN4", "GGBR4", "CSNA3"],
+      match: /petr[oó]leo|miner|sider|celulose|agroneg/i, tickers: ["PETR4", "PETR3", "PRIO3", "VALE3", "RECV3", "BRAV3", "SUZB3", "KLBN4", "GGBR4", "CSNA3"],
       metodo: "EV/EBITDA de meio de ciclo + Bazin com lucro normalizado (−25%)",
       chave: "Custo de produção na curva global, preço da commodity vs. média de 5 anos, Dív.Líq/EBITDA ≤ 1,5x",
       armadilha: "P/L baixo = topo de ciclo (lógica invertida): comprar quando o setor está odiado" }
@@ -13439,13 +13658,309 @@ initCollapsibleBlocks();
     if (!sub.papel && dy > 13) req += 2;            // tijolo com DY de papel = suspeito
     return req;
   }
-  // Preço-teto de ação: projetivo (LPA × payout sustentável ÷ DY exigido) vs. histórico; usa o MENOR.
+
+  /* ===== RETORNO ESPERADO (DY + CRESCIMENTO) - §21.9 Regra de Ouro (Rodada 9 Parte B / Rodada 10) ===== */
+  function calcRetornoEsperado(a, m) {
+    if (!a || !a.preco || a.preco <= 0) return null;
+    const ehFii = a.macro === "fiis" || (a.tipo != null && !a.setor);
+    if (ehFii) return null;
+
+    // Gatilho B1 estrito: roe >= 15, payout <= 70, pl > 0. Fora disso: return null sem fallback.
+    const roeCad = (a.roe != null) ? numBR(a.roe) : null;
+    const payCad = (a.payout != null) ? numBR(a.payout) : null;
+    const plCad = (a.pl != null) ? numBR(a.pl) : null;
+
+    if (roeCad == null || roeCad < 15 || payCad == null || payCad < 0 || payCad > 70 || plCad == null || plCad <= 0) {
+      return null;
+    }
+
+    m = m || (typeof loadMacro === "function" ? loadMacro() : { ntnb: 6.5, ipca12: 4.6 });
+    const ipca = (m && m.ipca12 != null) ? (numBR(m.ipca12) / 100) : 0.046;
+    const S = setorDe(a);
+    const taxa = (m.ntnb + S.premio) / 100;
+
+    // Entradas conforme B2:
+    // DY_proj = dyProj/100 (se faltar, dpa / preço; se faltar, dy/100)
+    let dy_proj = null;
+    if (a.dyProj != null && numBR(a.dyProj) > 0) {
+      dy_proj = numBR(a.dyProj) / 100;
+    } else if (a.dpa != null && numBR(a.dpa) > 0) {
+      dy_proj = numBR(a.dpa) / a.preco;
+    } else if (a.dy != null && numBR(a.dy) > 0) {
+      dy_proj = numBR(a.dy) / 100;
+    }
+    if (!dy_proj || dy_proj <= 0) return null;
+
+    const dpa_proj = dy_proj * a.preco;
+    const roe = roeCad / 100;
+    const payout = payCad / 100;
+    const pl = plCad;
+
+    // Fórmulas conforme B3 (soma de fatores compostos):
+    // g_base = min(ROE × (1 − payout), 15%)
+    const g_base = Math.min(roe * (1 - payout), 0.15);
+    const g_pess = g_base * (2 / 3);
+    const g_prov = g_base;
+    const g_otim = Math.min(g_base * (4 / 3), 0.20);
+
+    // r_real(g) = (1 + DY_proj) × (1 + g) / (1 + ipca) − 1
+    const r_real_pess = ((1 + dy_proj) * (1 + g_pess) / (1 + ipca)) - 1;
+    const r_real_prov = ((1 + dy_proj) * (1 + g_prov) / (1 + ipca)) - 1;
+    const r_real_otim = ((1 + dy_proj) * (1 + g_otim) / (1 + ipca)) - 1;
+
+    // Compressão de múltiplo no pessimista: se P/L > 20, drag = (20 / P/L)^(1/10) − 1
+    let drag = 0;
+    let r_pess_c = r_real_pess;
+    if (pl > 20) {
+      drag = Math.pow(20 / pl, 1 / 10) - 1;
+      r_pess_c = ((1 + r_real_pess) * (1 + drag)) - 1;
+    }
+
+    // Preço-teto de crescimento (pessimista, sem compressão):
+    // DY_nec = (1 + taxa) × (1 + ipca) / (1 + g_pess) − 1
+    const dy_nec = ((1 + taxa) * (1 + ipca) / (1 + g_pess)) - 1;
+    let teto_cresc = null;
+    if (dy_nec > 0.005) {
+      teto_cresc = dpa_proj / dy_nec;
+    }
+
+    // Veredito conforme B4:
+    // "Atrativo" se r_pess_c >= taxa
+    // "Depende do crescimento" se r_real(g_prov) >= taxa > r_pess_c
+    // "Caro" se r_real(g_prov) < taxa
+    let veredito = "";
+    let cor = "var(--ink)";
+    if (r_pess_c >= taxa) {
+      veredito = "Atrativo";
+      cor = "var(--good)";
+    } else if (r_real_prov >= taxa) {
+      veredito = "Depende do crescimento";
+      cor = "var(--gold)";
+    } else {
+      veredito = "Caro";
+      cor = "var(--critical)";
+    }
+
+    return {
+      dy_proj,
+      dpa_proj,
+      dpaProj: dpa_proj,
+      roe,
+      payout,
+      pl,
+      ipca,
+      taxa,
+      g_base,
+      g_pess,
+      g_prov,
+      g_otim,
+      r_real_pess,
+      r_real_prov,
+      r_real_otim,
+      drag,
+      r_pess_c,
+      r_pess: r_pess_c,
+      r_prov: r_real_prov,
+      r_otim: r_real_otim,
+      dy_nec,
+      teto_cresc,
+      veredito,
+      cor,
+      tooltip: "Retorno = dividendo projetado + crescimento (ROE × lucro retido), descontada a inflação. Se nem o cenário provável bate o Tesouro IPCA+ + prêmio do setor, a qualidade não compensa o preço."
+    };
+  }
+  window.calcRetornoEsperado = calcRetornoEsperado;
+
+  /* ===== MOTOR DE ESCOLHA DO MÉTODO DE VALUATION (§21.9 - 16/10/2026) ===== */
+  function escolherMetodo(a, m) {
+    m = m || (typeof loadMacro === "function" ? loadMacro() : { ntnb: 6.5, ipca12: 4.6 });
+    const ehFii = a.macro === "fiis" || (a.tipo != null && !a.setor);
+    const HY = typeof fehmirObterHist === "function" ? fehmirObterHist(a.t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[a.t]);
+
+    if (ehFii) {
+      const sub = fiiSubDe(a);
+      const req = fiiReq(sub, a.dy || 0, m);
+      const isPapel = sub.papel || sub.id === "papel" || sub.id === "fiagro" || sub.id === "fof";
+
+      if (isPapel) {
+        const spread = (1.5 + (sub.extra || 0));
+        const taxaExplicada = `${fmtN(req, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + inflação ${fmtN(m.ipca12, 1)}% + spread ${fmtN(spread, 1)}% (${sub.nome.replace(/^FII |^Fiagro /i, '')})`;
+        return {
+          metodo: "P/VP perto de 1 + spread",
+          motivo: "FII de papel: o valor é a carteira de crédito; P/VP muito abaixo de 1 costuma ser risco de calote, não desconto.",
+          taxa: req,
+          taxaExplicada
+        };
+      } else {
+        const taxaExplicada = `${fmtN(req, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio ${fmtN(sub.premio, 1)}% (${sub.nome.replace(/^FII /i, '')})`;
+        return {
+          metodo: "Bazin por rendimento",
+          motivo: "FII de tijolo: vale pela renda dos aluguéis; P/VP abaixo de 1 só é desconto se a vacância e os contratos estiverem saudáveis.",
+          taxa: req,
+          taxaExplicada
+        };
+      }
+    }
+
+    // AÇÕES
+    const S = setorDe(a);
+    const req = m.ntnb + S.premio;
+    const taxaExplicada = `${fmtN(req, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio ${fmtN(S.premio, 1)}% (${S.nome})`;
+
+    // Regra 3: Commodities (cíclico - Rodada 9 Parte A & D)
+    if (S.id === "commodity" || /petr[oó]leo|miner|sider|celulose|agroneg/i.test(a.setor || "") || /petr[oó]leo|miner|sider|celulose|agroneg/i.test(S.nome || "")) {
+      const anos5 = ["2021", "2022", "2023", "2024", "2025"];
+      let anosComDiv5 = 5;
+      if (HY && HY.dpaAno) {
+        anosComDiv5 = anos5.filter(y => HY.dpaAno[y] > 0).length;
+      } else if (HY && HY.anos5 != null) {
+        anosComDiv5 = HY.anos5;
+      }
+      // Payout 0 é dado (empresa que não distribui), não ausência: só usa o do setor se o cadastro não tiver payout.
+      const payEmp = (a.payout != null && !isNaN(a.payout)) ? a.payout : S.payout;
+      const plEmp = (a.pl != null) ? numBR(a.pl) : null;
+      const lpaEmp = (a.lpa != null && a.lpa <= 0) ? null : (a.lpa > 0) ? a.lpa : (plEmp > 0 && a.preco ? a.preco / plEmp : null);
+      // Dividendo suspenso (nada nos últimos 12 meses ou em 2025): a mediana dos anos de boom não vale.
+      const divSuspenso = !!(HY && ((HY.dpa12 != null && HY.dpa12 <= 0) || (HY.dpaAno && !(HY.dpaAno["2025"] > 0))));
+
+      if (anosComDiv5 <= 3 || payEmp < 30 || divSuspenso) {
+        if (lpaEmp > 0) {
+          const motivoCiclico = divSuspenso
+            ? "Cíclica com dividendo suspenso (nada nos últimos 12 meses ou em 2025): lucro normalizado por meio de ciclo."
+            : (payEmp < 30)
+            ? "Cíclica que reinveste (payout < 30%): lucro normalizado por meio de ciclo."
+            : "Cíclica com histórico irregular de dividendos (menos de 4 anos em 2021-2025): lucro normalizado por meio de ciclo.";
+          return {
+            metodo: "P/L normalizado",
+            motivo: motivoCiclico,
+            taxa: req,
+            taxaExplicada
+          };
+        } else {
+          return {
+            metodo: "Sem dados aplicáveis",
+            motivo: "Cíclica sem lucro positivo" + (divSuspenso ? " e com dividendo suspenso" : " e com histórico irregular de dividendos") + ": sem base para preço-teto.",
+            taxa: req,
+            taxaExplicada
+          };
+        }
+      }
+
+      return {
+        metodo: "Bazin de meio de ciclo (mediana 5A × 0,75)",
+        motivo: "Cíclica: lucro de pico engana; usa a mediana dos dividendos de 5 anos (2021-2025) com corte de 25%.",
+        taxa: req,
+        taxaExplicada
+      };
+    }
+
+    // Regra Imobiliária de renda (galpões logísticos, shoppings e propriedades para renda)
+    const ehImobRenda = /log[íi]stica|properties|shopping|imobili.*renda/i.test(a.setor || "") ||
+                        /log[íi]stica|properties|shopping|imobili.*renda/i.test(S.nome || "") ||
+                        ["LOGG3", "ALOS3", "MULT3", "IGTI11"].includes(a.t);
+    if (ehImobRenda) {
+      // Taxa do setor "Outros": 10,5% = Tesouro IPCA+ (6,5%) + prêmio 4,0%
+      const taxaImob = m.ntnb + 4.0;
+      return {
+        metodo: "P/VP com desconto + Bazin 5A",
+        motivo: "Empresa de imóveis para renda: o lucro inclui reavaliação de imóveis; usa o patrimônio com desconto e o dividendo médio.",
+        taxa: taxaImob,
+        taxaExplicada: `${fmtN(taxaImob, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio 4,0% (Imóveis para Renda)`
+      };
+    }
+
+    // Regra 4: Industrial & Bens de capital; Construção & Incorporação
+    if (S.id === "industrial" || S.id === "construcao" || /industr|autope|bens de capital|constru|incorpor/i.test(a.setor || "") || /industr|constru/i.test(S.nome || "")) {
+      return {
+        metodo: "Graham",
+        motivo: "Empresa que reinveste o lucro: dividendo não mede o valor; Graham usa lucro e patrimônio.",
+        taxa: req,
+        taxaExplicada
+      };
+    }
+
+    // Regra 5: Varejo & Consumo
+    if (S.id === "consumo" || /varejo|consumo|aliment|cal[cç]ado|vestu|educa/i.test(a.setor || "")) {
+      return {
+        metodo: "P/L normalizado",
+        motivo: "Consumo é cíclico: usa o lucro de meio de ciclo.",
+        taxa: req,
+        taxaExplicada
+      };
+    }
+
+    // Regra 6: Água & Saneamento
+    if (S.id === "saneamento" || /saneamento|[aá]gua/i.test(a.setor || "")) {
+      return {
+        metodo: "Gordon / fluxo de dividendos",
+        motivo: "Saneamento cresce com o investimento regulado: o dividendo futuro é maior que o de hoje.",
+        taxa: req,
+        taxaExplicada
+      };
+    }
+
+    // Regra 7: Bancos
+    if (S.id === "banco" || /banc/i.test(a.setor || "")) {
+      return {
+        metodo: "Bazin projetivo",
+        motivo: "Banco: lucro × payout ÷ DY exigido; equivale ao P/VP justo pelo ROE.",
+        taxa: req,
+        taxaExplicada
+      };
+    }
+
+    // Regra 8: Elétricas, Seguradoras e Telecom
+    const ehBase = S.id === "eletrica" || S.id === "eletrica_trans" || S.id === "seguradora" || S.id === "telecom" || /el[eé]tr|segur|telecom/i.test(a.setor || "");
+    if (ehBase) {
+      return {
+        metodo: "Bazin projetivo",
+        motivo: "Empresa madura que distribui a maior parte do lucro: o dividendo projetado mede o valor.",
+        taxa: req,
+        taxaExplicada
+      };
+    }
+
+    // Regra 9: Payout < 30% ou pagou dividendo em menos de 6 dos últimos 10 anos
+    let anosComDiv = 10;
+    if (HY && HY.dpaAno) {
+      const anos = Object.keys(HY.dpaAno);
+      if (anos.length > 0) {
+        anosComDiv = anos.filter(y => HY.dpaAno[y] > 0).length;
+      }
+    }
+    const pay = a.payout != null ? a.payout : null;
+
+    if ((pay != null && pay > 0 && pay < 30) || anosComDiv < 6) {
+      return {
+        metodo: "Graham",
+        motivo: "Dividendo baixo ou irregular: Bazin subestimaria a empresa.",
+        taxa: req,
+        taxaExplicada
+      };
+    }
+
+    // Demais pagadoras
+    return {
+      metodo: "Bazin projetivo",
+      motivo: "Empresa madura que distribui a maior parte do lucro: o dividendo projetado mede o valor.",
+      taxa: req,
+      taxaExplicada
+    };
+  }
+
+  window.fehmirEscolherMetodo = escolherMetodo;
+
+  // Preço-teto de ação: resultado do método recomendado pelo setor (§21.9)
   function tetoAcao(a, m) {
     const split = !!a.splitSuspeito;
-    const S = setorDe(a), req = m.ntnb + S.premio;
+    const S = setorDe(a);
+    const em = escolherMetodo(a, m);
+    const req = em.taxa;
     const pl = !split ? numBR(a.pl) : null;
+    const pvp = !split ? numBR(a.pvp) : null;
     const lpa = !split ? (a.lpa > 0 ? a.lpa : (pl > 0 && a.preco ? a.preco / pl : null)) : null;
-    const HY = window.FEHMIR_HIST && window.FEHMIR_HIST[a.t];
+    const HY = typeof fehmirObterHist === "function" ? fehmirObterHist(a.t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[a.t]);
+    const vpa = (a.vpa > 0) ? a.vpa : (HY && HY.vpa > 0 ? HY.vpa : (pvp > 0 && a.preco > 0 ? a.preco / pvp : null));
 
     let payEmp = !split && a.payout > 0 && a.payout < 100 ? a.payout : S.payout;
     let paySrcAviso = "";
@@ -13478,13 +13993,215 @@ initCollapsibleBlocks();
     }
     else if (!split && r && r.bazin5a > 0) { hist = r.bazin5a; histSrc = "Bazin 5A " + fR(hist); }
     else if (!split) { const d = a.dpa5a || a.dpa; if (d > 0) { hist = d * (S.ciclico ? (S.haircut || 1) : 1) / (req / 100); histSrc = "DPA/" + fmtN(req, 1) + "% " + fR(hist); } }
-    const vals = [proj, hist].filter(v => v > 0);
-    const teto = vals.length ? Math.min(...vals) : null;
-    const diverg = proj > 0 && hist > 0 ? Math.abs(proj / hist - 1) * 100 : null;
-    const src = (proj ? "Projetivo " + fR(proj) + " (LPA×" + fmtN(pay, 0) + "%" + (S.haircut ? "×" + fmtN(S.haircut * 100, 0) + "%" : "") + "÷" + fmtN(req, 1) + "%)" : "") +
-      (paySrcAviso ? " [" + paySrcAviso + "]" : "") +
-      (proj && hist ? " · " : "") + histSrc + (proj && hist ? " → usa o menor" : "");
-    return { teto, proj, hist, req, S, src, diverg, payoutDivergente, payoutUsado: pay, payoutImplicito: payImplicitoVal };
+
+    let teto = null;
+    let src = "";
+
+    // 1. MÉTODO GRAHAM (Industrial & Bens de capital; Construção & Incorporação; ou Payout < 30% / irregular)
+    if (em.metodo === "Graham") {
+      if (lpa > 0 && vpa > 0) {
+        teto = Math.sqrt(22.5 * lpa * vpa);
+        src = "Graham √[22,5 × LPA " + fR(lpa) + " × VPA " + fR(vpa) + "] = " + fR(teto) + (hist ? " · Bazin 5A " + fR(hist) + " (conferência)" : "");
+      } else {
+        const vals = [proj, hist].filter(v => v > 0);
+        teto = vals.length ? Math.min(...vals) : null;
+        src = "Graham indisponível (" + (!vpa ? "sem VPA/PVP" : "LPA negativo") + "): usando Bazin projetivo · " +
+          (proj ? "Proj " + fR(proj) : "") + (proj && hist ? " · " : "") + histSrc + " → usa o menor";
+      }
+    }
+    // 2. MÉTODO P/L NORMALIZADO (Varejo & Consumo ou Cíclica irregular/reinveste)
+    else if (em.metodo === "P/L normalizado") {
+      const ehCommodity = S.id === "commodity" || /petr[oó]leo|miner|sider|celulose|agroneg/i.test(a.setor || "") || /petr[oó]leo|miner|sider|celulose|agroneg/i.test(S.nome || "");
+      const corteNorm = ehCommodity ? 0.25 : 0.15;
+      if (lpa > 0) {
+        teto = (lpa * (1 - corteNorm)) / (req / 100);
+        src = "P/L normalizado [LPA " + fR(lpa) + " × (1 − " + fmtN(corteNorm * 100, 0) + "%) ÷ " + fmtN(req, 1) + "%] = " + fR(teto) + (hist ? " · Bazin 5A " + fR(hist) + " (conferência)" : "");
+      } else {
+        const vals = [proj, hist].filter(v => v > 0);
+        teto = vals.length ? Math.min(...vals) : null;
+        src = "P/L normalizado indisponível (LPA negativo): usando Bazin · " + (proj ? "Proj " + fR(proj) : "") + histSrc;
+      }
+    }
+    // 3. MÉTODO GORDON / DDM (Água & Saneamento)
+    else if (em.metodo === "Gordon / fluxo de dividendos") {
+      let dpa0 = null;
+      if (lpa > 0) {
+        dpa0 = lpa * (S.haircut || 1) * (pay / 100);
+      } else if (HY && (HY.dpa5 > 0 || (split && HY.dpa12 > 0))) {
+        dpa0 = (HY.dpa5 > 0 ? HY.dpa5 : HY.dpa12) * (S.ciclico ? (S.haircut || 1) : 1);
+      } else {
+        const d = a.dpa5a || a.dpa;
+        if (d > 0) dpa0 = d * (S.ciclico ? (S.haircut || 1) : 1);
+      }
+
+      const roe = a.roe || 0;
+      const retencao = Math.max(0, 1 - (pay / 100));
+      let g1Padrao = (roe / 100) * retencao;
+      g1Padrao = Math.max(0, Math.min(0.10, g1Padrao));
+      const g2Padrao = 0.035;
+      const dyExigido = (req || 8.0) / 100;
+      const kPadrao = dyExigido + g2Padrao;
+
+      function calcDDM(g1Val, g2Val, kVal, d0) {
+        if (!d0 || d0 <= 0 || kVal <= g2Val) return null;
+        let s = 0;
+        for (let yr = 1; yr <= 5; yr++) {
+          s += (d0 * Math.pow(1 + g1Val, yr)) / Math.pow(1 + kVal, yr);
+        }
+        const term = (d0 * Math.pow(1 + g1Val, 5) * (1 + g2Val)) / (kVal - g2Val);
+        s += term / Math.pow(1 + kVal, 5);
+        return s;
+      }
+
+      const vDDM = calcDDM(g1Padrao, g2Padrao, kPadrao, dpa0);
+      if (vDDM != null && vDDM > 0) {
+        teto = (hist != null && hist > 0) ? Math.min(vDDM, hist) : vDDM;
+        src = "Gordon / DDM [2 estágios: g1=" + fmtN(g1Padrao * 100, 1) + "%, g2=3,5%, k=" + fmtN(kPadrao * 100, 1) + "%]: DDM " + fR(vDDM) +
+          (hist ? " · Histórico " + fR(hist) + " → vale o menor (" + fR(teto) + ")" : "");
+      } else {
+        const vals = [proj, hist].filter(v => v > 0);
+        teto = vals.length ? Math.min(...vals) : null;
+        src = "Gordon / DDM indisponível: usando Bazin · " + (proj ? "Proj " + fR(proj) : "") + histSrc;
+      }
+    }
+    // 4. MÉTODO P/VP COM DESCONTO + BAZIN 5A (Imobiliária de renda: galpões, shoppings)
+    else if (em.metodo === "P/VP com desconto + Bazin 5A") {
+      const vpaDesc = vpa > 0 ? vpa * 0.9 : null;
+      if (hist != null && hist > 0 && vpaDesc != null && vpaDesc > 0) {
+        teto = Math.min(hist, vpaDesc);
+        src = "P/VP c/ desconto + Bazin 5A [menor entre VPA×0,9 " + fR(vpaDesc) + " e Bazin 5A " + fR(hist) + "] = " + fR(teto);
+      } else if (hist != null && hist > 0) {
+        teto = hist;
+        src = "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A " + fR(hist);
+      } else if (vpaDesc != null && vpaDesc > 0) {
+        teto = vpaDesc;
+        src = "Bazin 5A indisponível: usando VPA × 0,9 = " + fR(vpaDesc);
+      } else {
+        const vals = [proj, hist].filter(v => v > 0);
+        teto = vals.length ? Math.min(...vals) : null;
+        src = "Imobiliária de renda: usando Bazin · " + (proj ? "Proj " + fR(proj) : "") + histSrc;
+      }
+    }
+    // 5. MÉTODO BAZIN DE MEIO DE CICLO (Commodities com dividendo regular nos 5 anos fechados)
+    else if (em.metodo === "Bazin de meio de ciclo (mediana 5A × 0,75)") {
+      let dpaMediana = null;
+      let tetoCiclo = null;
+      const anos5 = ["2021", "2022", "2023", "2024", "2025"];
+      if (HY && HY.dpaAno) {
+        const vals = anos5.map(y => HY.dpaAno[y] != null ? Number(HY.dpaAno[y]) : 0);
+        const sorted = [...vals].sort((x, y) => x - y);
+        dpaMediana = sorted[2];
+      } else if (HY && HY.dpa5 > 0) {
+        dpaMediana = HY.dpa5;
+      } else if (a.dpa5a > 0) {
+        dpaMediana = a.dpa5a;
+      } else if (a.dpa > 0) {
+        dpaMediana = a.dpa;
+      }
+      const dpaCorte = (dpaMediana != null && dpaMediana > 0) ? dpaMediana * 0.75 : null;
+      tetoCiclo = (dpaCorte != null && dpaCorte > 0) ? dpaCorte / (req / 100) : null;
+      if (tetoCiclo != null && tetoCiclo > 0) {
+        teto = tetoCiclo;
+        src = "Bazin de meio de ciclo [mediana 5A " + fR(dpaMediana) + " × 0,75 = " + fR(dpaCorte) + " ÷ " + fmtN(req, 1) + "% = " + fR(tetoCiclo) + "]" +
+          (proj ? " · Proj " + fR(proj) + " (conferência)" : "");
+      } else {
+        if (lpa > 0) {
+          const corteNorm = (S.haircut != null) ? (1 - S.haircut) : 0.25;
+          teto = (lpa * (1 - corteNorm)) / (req / 100);
+          src = "P/L normalizado (fallback cíclico sem 5 anos de dividendos) [LPA " + fR(lpa) + " × (1 − " + fmtN(corteNorm * 100, 0) + "%) ÷ " + fmtN(req, 1) + "%] = " + fR(teto);
+        } else {
+          teto = null;
+          src = "Sem dados aplicáveis (histórico incompleto de dividendos de 5 anos e sem LPA)";
+        }
+      }
+    }
+    // 6. MÉTODO SEM DADOS APLICÁVEIS
+    else if (em.metodo === "Sem dados aplicáveis") {
+      teto = null;
+      src = "Sem dados aplicáveis: " + em.motivo;
+    }
+    // 7. DEMAIS MÉTODOS DE DIVIDENDO (Bazin projetivo)
+    else {
+      const vals = [proj, hist].filter(v => v > 0);
+      teto = vals.length ? Math.min(...vals) : null;
+      src = (proj ? "Projetivo " + fR(proj) + " (LPA×" + fmtN(pay, 0) + "%" + (S.haircut ? "×" + fmtN(S.haircut * 100, 0) + "%" : "") + "÷" + fmtN(req, 1) + "%)" : "") +
+        (paySrcAviso ? " [" + paySrcAviso + "]" : "") +
+        (proj && hist ? " · " : "") + histSrc + (proj && hist ? " → usa o menor" : "");
+    }
+
+    // Divergência de modelos conceituais (Rodada 9 Parte C)
+    let diverg = null;
+    let diverg_par = null;
+
+    // A. P/VP com desconto vs Bazin 5A (LOGG3 e imóveis de renda)
+    if (em.metodo === "P/VP com desconto + Bazin 5A") {
+      const vpaDesc = vpa > 0 ? vpa * 0.9 : null;
+      if (vpaDesc > 0 && hist > 0) {
+        const dVal = Math.abs(vpaDesc / hist - 1) * 100;
+        if (dVal > 35) {
+          diverg = dVal;
+          diverg_par = "patrimônio (VPA×0,9) " + fR(vpaDesc) + " × dividendo (Bazin 5A) " + fR(hist);
+          src += " · ⚠️ Patrimônio (" + fR(vpaDesc) + ") diverge " + fmtN(diverg, 0) + "% da renda 5A (" + fR(hist) + "): laudos de reavaliação inflaram VPA";
+        }
+      }
+    }
+    // B. Bazin de meio de ciclo vs Projetivo (commodities)
+    else if (em.metodo === "Bazin de meio de ciclo (mediana 5A × 0,75)") {
+      let dpaMed = null;
+      const a5 = ["2021", "2022", "2023", "2024", "2025"];
+      if (HY && HY.dpaAno) {
+        const v5 = a5.map(y => HY.dpaAno[y] != null ? Number(HY.dpaAno[y]) : 0);
+        dpaMed = [...v5].sort((x, y) => x - y)[2];
+      } else if (HY && HY.dpa5 > 0) dpaMed = HY.dpa5;
+      const tCicloVal = (dpaMed > 0) ? (dpaMed * 0.75) / (req / 100) : null;
+      if (proj > 0 && tCicloVal > 0) {
+        const dVal = Math.abs(proj / tCicloVal - 1) * 100;
+        if (dVal > 35) {
+          diverg = dVal;
+          diverg_par = "projetivo " + fR(proj) + " × meio de ciclo " + fR(tCicloVal);
+          src += " · ⚠️ Projetivo (" + fR(proj) + ") diverge " + fmtN(diverg, 0) + "% do meio de ciclo (" + fR(tCicloVal) + "): ciclo de commodities pode estar revertendo";
+        }
+      }
+    }
+    // C. Bazin projetivo vs Bazin 5A (somente métodos puramente de dividendo)
+    else if (!["Graham", "P/L normalizado", "Sem dados aplicáveis"].includes(em.metodo)) {
+      if (proj > 0 && hist > 0) {
+        const dVal = Math.abs(proj / hist - 1) * 100;
+        if (dVal > 35) {
+          diverg = dVal;
+          diverg_par = "projetivo " + fR(proj) + " × histórico 5A " + fR(hist);
+          src += " · ⚠️ Projetivo (" + fR(proj) + ") diverge " + fmtN(diverg, 0) + "% do histórico 5A (" + fR(hist) + "): confira premissa de dividendos";
+        }
+      }
+    }
+
+    // D. Conferência de métodos reinvestidores (Graham e P/L normalizado) vs Teto de crescimento (Item B5)
+    if (diverg == null && teto > 0 && ["Graham", "P/L normalizado"].includes(em.metodo)) {
+      const retEsp = (typeof calcRetornoEsperado === "function") ? calcRetornoEsperado(a, m) : null;
+      if (retEsp && retEsp.teto_cresc > 0 && teto > retEsp.teto_cresc * 1.35) {
+        diverg = ((teto / retEsp.teto_cresc) - 1) * 100;
+        diverg_par = "método oficial " + fR(teto) + " × teto cresc " + fR(retEsp.teto_cresc);
+        src += " · ⚠️ Teto do método (" + fR(teto) + ") bem acima do que o crescimento pessimista sustenta (" + fR(retEsp.teto_cresc) + "): confira se o lucro é recorrente";
+      }
+    }
+
+    return {
+      teto,
+      proj,
+      hist,
+      req,
+      taxa: req,
+      taxaExplicada: em.taxaExplicada,
+      metodo: em.metodo,
+      motivo: em.motivo,
+      S,
+      src,
+      diverg,
+      diverg_par,
+      payoutDivergente,
+      payoutUsado: pay,
+      payoutImplicito: payImplicitoVal
+    };
   }
   const isBaseSetor = s => setorDe({ setor: s }).base;
 
@@ -13499,7 +14216,7 @@ initCollapsibleBlocks();
       const tv = tetoAcao(Object.assign({}, r || {}, s), m);
       const teto = tv.teto, src = tv.src;
       const risco = tv.S.base ? "baixo" : (tv.S.ciclico ? "alto" : "médio");
-      rows.push({ t: s.t, nome: tv.S.nome, diverg: tv.diverg, margemMin: tv.S.margemMin, deterioracao: !!s.deterioracao, quarentena: !!s.quarentena, cls, classe: "acao", q, preco: s.preco, pm: s.pm, teto, src, ideal: s.ideal || 0,
+      rows.push({ t: s.t, nome: tv.S.nome, diverg: tv.diverg, diverg_par: tv.diverg_par, margemMin: tv.S.margemMin, deterioracao: !!s.deterioracao, quarentena: !!s.quarentena, cls, classe: "acao", q, preco: s.preco, pm: s.pm, teto, src, ideal: s.ideal || 0,
         range: s.range, risco, trap: typeof isTrapAsset === "function" ? isTrapAsset(r || s) : false, divHist: s.divHist, saldo: q * s.preco });
     };
     (typeof BASE_STOCKS !== "undefined" ? BASE_STOCKS : []).forEach(s => addStock(s, "base"));
@@ -13558,7 +14275,7 @@ initCollapsibleBlocks();
     if (r.risco === "alto") { s += 15; why.push("cíclica fora da B.A.S.E."); }
     else if (r.risco === "médio") s += 8;
     if (r.trap) { s += 10; why.push("flag de armadilha/risco"); }
-    if (r.diverg != null && r.diverg > 35) why.push("modelos divergem " + fmtN(r.diverg, 0) + "% (projetivo × histórico): conferir o dado");
+    if (r.diverg != null && r.diverg > 35) why.push("modelos divergem " + fmtN(r.diverg, 0) + "% (" + (r.diverg_par || "conferência") + "): conferir o dado");
     if (r.cls !== "fii") {
       const ajuste = { "Euforia": 10, "Otimismo": 5, "Neutro": 0, "Medo": -10, "Pânico": -25 }[reg.nome] || 0;
       s += ajuste;
@@ -14050,6 +14767,20 @@ initCollapsibleBlocks();
         <td data-l="Margem" class="m" style="color:var(--good);font-weight:700">${sgn(o.margem)}</td><td data-l="Método" style="color:var(--ink-2)">${o.src}</td></tr>`).join("") || `<tr><td colspan="6">Nada passa no filtro agora — e isso é normal em euforia. Caixa também é posição.</td></tr>`}
       </tbody></table></div>`;
 
+    const parecerAlertas = [];
+    if (window.FEHMIR_PARECERES && typeof window.FEHMIR_PARECERES === "object") {
+      Object.keys(window.FEHMIR_PARECERES).forEach(tk => {
+        const p = window.FEHMIR_PARECERES[tk];
+        if (p && p.parecer === "reavaliar_tese") {
+          const motivo = p.risco_motivo || (p.gatilhos && p.gatilhos[0]) || "risco à tese identificado pelo robô";
+          parecerAlertas.push([
+            "🚨",
+            `<b>${tk} (Parecer do Robô)</b>: REAVALIAR TESE — ${motivo} (confira na ficha)`
+          ]);
+        }
+      });
+    }
+
     const novAlertas = [];
     if (window.FEHMIR_NOVIDADES && typeof window.FEHMIR_NOVIDADES === "object") {
       const agora = new Date();
@@ -14072,7 +14803,7 @@ initCollapsibleBlocks();
         });
       });
     }
-    const todosAlertas = [...novAlertas, ...alertas(m, rows, termo)];
+    const todosAlertas = [...parecerAlertas, ...novAlertas, ...alertas(m, rows, termo)];
     document.getElementById("cb-alertas").innerHTML = `<h3>🚨 Alertas</h3><ul class="cb-list">${todosAlertas.map(x => `<li><span class="ic">${x[0]}</span><span>${x[1]}</span></li>`).join("")}</ul>`;
     document.getElementById("cb-agenda").innerHTML = `<h3>📅 Agenda que mexe no preço</h3><ul class="cb-list">${AGENDA.map(e => `<li><span class="dt">${e.data}</span><span>${e.ev} <span class="cb-pill ${e.imp === "alto" ? "bad" : "warn"}" style="padding:1px 8px;font-size:10.5px">${e.imp}</span></span></li>`).join("")}</ul>`;
     renderCardAlvos();
@@ -14161,19 +14892,55 @@ initCollapsibleBlocks();
     const m = loadMacro();
     const ehFii = a.macro === "fiis" || (a.tipo != null && !a.setor);
     if (ehFii) {
-      const sub = fiiSubDe(a), req = fiiReq(sub, a.dy || 0, m);
+      const sub = fiiSubDe(a);
+      const em = escolherMetodo(a, m);
+      const req = em.taxa;
       const renda = a.rend ? a.rend * 12 : a.dpa;
       const teto = renda && req ? renda / (req / 100) : null;
-      return { teto, margemMin: sub.margemMin || 10, metodo: sub.nome, proj: null, hist: teto, src: "Renda anual ÷ " + (req ? fmtN(req, 1) + "%" : "—"), req, payoutUsado: a.payout || 95, payoutImplicito: null, payoutDivergente: false };
+      return {
+        teto,
+        margemMin: sub.margemMin || 10,
+        metodo: em.metodo,
+        motivo: em.motivo,
+        taxa: req,
+        taxaExplicada: em.taxaExplicada,
+        setorNome: sub.nome,
+        proj: null,
+        hist: teto,
+        src: "Renda anual ÷ " + (req ? fmtN(req, 1) + "%" : "—"),
+        req,
+        payoutUsado: a.payout || 95,
+        payoutImplicito: null,
+        payoutDivergente: false,
+        diverg: null
+      };
     }
     const tv = tetoAcao(a, m);
-    return { teto: tv.teto, margemMin: tv.S.margemMin, metodo: tv.S.nome, proj: tv.proj, hist: tv.hist, src: tv.src, req: tv.req, payoutDivergente: tv.payoutDivergente, payoutUsado: tv.payoutUsado, payoutImplicito: tv.payoutImplicito };
+    return {
+      teto: tv.teto,
+      margemMin: tv.S.margemMin,
+      metodo: tv.metodo,
+      motivo: tv.motivo,
+      taxa: tv.taxa,
+      taxaExplicada: tv.taxaExplicada,
+      setorNome: tv.S.nome,
+      proj: tv.proj,
+      hist: tv.hist,
+      src: tv.src,
+      req: tv.req,
+      diverg: tv.diverg,
+      diverg_par: tv.diverg_par,
+      payoutDivergente: tv.payoutDivergente,
+      payoutUsado: tv.payoutUsado,
+      payoutImplicito: tv.payoutImplicito
+    };
   };
 
   window.fehmirFiiTipo = t => FII_SUB_TICKER[t] || null;
 
   window.renderConselheiro = function () { try { render(); } catch (e) { console.error("Conselheiro:", e); } };
   window.renderConselheiro();
+  if (typeof filterRadar === 'function') filterRadar();
 
   // Link direto por aba: painel-barsi.html#conselheiro, #radar, #projecao, #calc
   const abrirHash = () => {
@@ -14899,6 +15666,7 @@ function toggleTheme(){
   window.__histAnomaliaMap = window.__histAnomaliaMap || {};
 
   function fehmirRenderHistoricoIndicadores(t, modo = 'barra', ignorarAnomalias = false) {
+    const fmtN = (n, d = 1) => n == null || !isFinite(n) ? "—" : n.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
     t = (t || "").trim().toUpperCase();
     const u = typeof universo === "function" ? universo() : {};
     const a = u[t] || (typeof RADAR_DATA !== "undefined" ? RADAR_DATA.find(x => x.t === t) : null) || { t, preco: 10, dy: 6.0, setor: "Geral" };
@@ -14963,9 +15731,9 @@ function toggleTheme(){
       mediaSetor = 7.40;
     }
 
-    // Cálculo dos KPIs de 10 anos completos (Parte B - 16/10/2026)
+    // Cálculo dos KPIs de 10 anos completos (Parte B & D - 16/10/2026)
     const anosCompletos = serie.filter(s => !s.isAtual && s.dy > 0 && (!ignorarAnomalias || !s.anomalia));
-    let dyMedio10A = null, min10A = null, max10A = null, frasePosicao = "";
+    let dyMedio10A = null, min10A = null, max10A = null, frasePosicao = "", barrinhaHtml = "";
     if (anosCompletos.length > 0) {
       const somaDy10 = anosCompletos.reduce((acc, s) => acc + s.dy, 0);
       dyMedio10A = somaDy10 / anosCompletos.length;
@@ -14974,14 +15742,32 @@ function toggleTheme(){
       min10A = ordenadosPorDy[0];
       max10A = ordenadosPorDy[ordenadosPorDy.length - 1];
 
+      const compMedia = dyAtual >= dyMedio10A ? "acima da média" : "abaixo da média";
+      frasePosicao = `DY atual ${fmtN(dyAtual, 1)}% · ${compMedia} de 10 anos (${fmtN(dyMedio10A, 1)}%) · faixa: ${fmtN(min10A.dy, 1)}% (${min10A.ano}) a ${fmtN(max10A.dy, 1)}% (${max10A.ano})`;
+
       if (max10A.dy > min10A.dy) {
-        let pctPos = Math.round(((dyAtual - min10A.dy) / (max10A.dy - min10A.dy)) * 100);
-        pctPos = Math.max(0, Math.min(100, pctPos));
-        if (pctPos >= 50) {
-          frasePosicao = `DY atual está no <b>${pctPos}% mais alto</b> do histórico de 10 anos`;
-        } else {
-          frasePosicao = `DY atual está no <b>${100 - pctPos}% mais baixo</b> do histórico de 10 anos`;
-        }
+        const pctAtual = Math.max(0, Math.min(100, ((dyAtual - min10A.dy) / (max10A.dy - min10A.dy)) * 100));
+        const pctMedia = Math.max(0, Math.min(100, ((dyMedio10A - min10A.dy) / (max10A.dy - min10A.dy)) * 100));
+        barrinhaHtml = `
+          <div style="margin-top:10px;padding:4px 6px;">
+            <div style="position:relative;height:8px;background:var(--rule-strong);border-radius:4px;margin:22px 0 16px;">
+              <!-- Marcador da média 10A -->
+              <div style="position:absolute;left:${pctMedia.toFixed(1)}%;top:-22px;transform:translateX(-50%);text-align:center;z-index:2;" title="Média 10A: ${fmtN(dyMedio10A, 1)}%">
+                <span style="font-size:9.5px;font-family:var(--font-mono);font-weight:700;color:#38bdf8;white-space:nowrap;">média ${fmtN(dyMedio10A, 1)}%</span>
+                <div style="width:2px;height:26px;background:#38bdf8;margin:2px auto 0;"></div>
+              </div>
+              <!-- Marcador do DY atual -->
+              <div style="position:absolute;left:${pctAtual.toFixed(1)}%;top:-6px;transform:translateX(-50%);text-align:center;z-index:3;" title="DY atual: ${fmtN(dyAtual, 1)}%">
+                <div style="width:14px;height:14px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);margin:0 auto;"></div>
+                <span style="font-size:9.5px;font-family:var(--font-mono);font-weight:800;color:var(--gold);white-space:nowrap;display:block;margin-top:2px;">atual ${fmtN(dyAtual, 1)}%</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);font-family:var(--font-mono);margin-top:12px;">
+              <span>mín: ${fmtN(min10A.dy, 1)}% (${min10A.ano})</span>
+              <span>máx: ${fmtN(max10A.dy, 1)}% (${max10A.ano})</span>
+            </div>
+          </div>
+        `;
       }
     }
 
@@ -15088,8 +15874,7 @@ function toggleTheme(){
       </div>
     `;
 
-    const fmtN = (n, d = 2) => n == null || !isFinite(n) ? "—" : n.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
-    const fmtRVal = n => n == null || !isFinite(n) ? "—" : "R$ " + fmtN(n);
+    const fmtRVal = n => n == null || !isFinite(n) ? "—" : "R$ " + fmtN(n, 2);
 
     const linhasTabela = serie.slice().reverse().map(item => {
       return `<tr>
@@ -15127,7 +15912,7 @@ function toggleTheme(){
           <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
             <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">Valor atual (12m)</div>
             <div style="font-size:20px;font-weight:800;font-family:var(--font-mono);color:var(--ink);margin-top:2px;">${fmtN(dyAtual, 2)}%</div>
-            ${frasePosicao ? `<div style="font-size:10px;color:var(--ink-2);margin-top:4px;line-height:1.2;">${frasePosicao}</div>` : ''}
+            <div style="font-size:10px;color:${dyMedio10A != null ? (dyAtual >= dyMedio10A ? 'var(--good)' : 'var(--warning)') : 'var(--muted)'};margin-top:4px;font-weight:600;">${dyMedio10A != null ? (dyAtual >= dyMedio10A ? '▲ Acima da média 10A' : '▼ Abaixo da média 10A') : '12 meses'}</div>
           </div>
           <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
             <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;color:var(--muted);letter-spacing:0.04em;">DY Médio 10A</div>
@@ -15155,6 +15940,15 @@ function toggleTheme(){
             <div style="font-size:10px;color:var(--muted);margin-top:4px;">benchmark B3</div>
           </div>
         </div>
+
+        ${frasePosicao ? `
+          <div style="margin:0 0 16px;padding:12px 16px;background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;">
+            <div style="font-size:12.5px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px;">
+              <span>🎯</span>
+              <span>${frasePosicao}</span>
+            </div>
+            ${barrinhaHtml}
+          </div>` : ''}
 
         <div style="background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:12px 8px;position:relative;">
           ${svgChart}
@@ -15430,8 +16224,25 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
   const M = fehmirCalcularMetricas(t, estado, preco);
 
   const fmtM = (n, d = 2) => n == null || !isFinite(n) ? "—" : n.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fmtN = (n, d = 1) => fmtM(n, d);
   const fmtRM = n => n == null || !isFinite(n) ? "—" : "R$ " + fmtM(n);
   const fmtPctM = (n, d = 1) => n == null || !isFinite(n) ? "—" : `${n >= 0 ? '+' : ''}${fmtM(n, d)}%`;
+
+  const taxaSetor = (av && (av.taxa || av.req)) ? (av.taxa || av.req) : (ehFii ? 9.0 : 8.0);
+  const H = typeof fehmirObterHist === "function" ? fehmirObterHist(t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[t]);
+  const dyAtualVal = (a && a.dy) ? a.dy : (H && H.dpa12 && preco > 0 ? (H.dpa12 / preco) * 100 : 0);
+
+  const metodoAtivo = (av && av.metodo) ? av.metodo : "Bazin projetivo";
+  let recCardId = "bazin";
+  if (metodoAtivo === "Graham" || metodoAtivo === "P/L normalizado") {
+    recCardId = "graham";
+  } else if (metodoAtivo === "Bazin projetivo" || metodoAtivo.includes("Gordon")) {
+    recCardId = "projetivo";
+  } else {
+    recCardId = "bazin";
+  }
+
+  const badgeRecHtml = `<span class="an-calc-badge-rec" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px;background:rgba(245,158,11,0.15);color:var(--gold);border:1px solid var(--gold);margin-left:6px;display:inline-flex;align-items:center;gap:3px;" title="Método recomendado pelo Conselheiro para este ativo">⭐ Recomendado para este ativo</span>`;
 
   // Se for FII, renderizar apenas Bazin + nota explicativa
   if (ehFii) {
@@ -15447,10 +16258,11 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
 
         <div class="an-calc-grid" style="grid-template-columns: 1fr;">
           <!-- 1. Bazin FII -->
-          <div class="an-calc-card">
+          <div class="an-calc-card" style="border:2px solid var(--gold);position:relative;">
             <div class="an-calc-card-head">
               <div class="an-calc-card-title">
                 <span>📘 1. Décio Bazin (Rendimento)</span>
+                ${badgeRecHtml}
               </div>
               <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'bazin')">↻ Padrão</button>
             </div>
@@ -15468,6 +16280,10 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
                   <input type="number" step="0.1" class="an-calc-input" id="calc-bazin-dy-${t}" value="${estado.bazin.dy}" oninput="fehmirAtualizarCalc('${t}')" style="width:65px">
                   <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','bazin-dy', 0.5)">+</button>
                 </div>
+              </div>
+              <div style="display:flex;gap:6px;justify-content:flex-end;margin:-4px 0 6px;flex-wrap:wrap">
+                <button type="button" class="an-calc-shortcut-btn" onclick="fehmirDefinirDyCalc('${t}','bazin',${taxaSetor.toFixed(1)})" title="Definir taxa do setor">Taxa setor (${fmtN(taxaSetor, 1)}%)</button>
+                ${dyAtualVal > 0 ? `<button type="button" class="an-calc-shortcut-btn" onclick="fehmirDefinirDyCalc('${t}','bazin',${dyAtualVal.toFixed(1)})" title="Definir DY atual do ativo">DY atual (${fmtN(dyAtualVal, 1)}%)</button>` : ''}
               </div>
             </div>
             <div class="an-calc-result-box" id="calc-res-bazin-${t}">
@@ -15500,23 +16316,17 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
     `;
   }
 
-  // AÇÕES: Renderizar os 4 cartões completos
-  return `
-    <div class="an-calc-container" id="an-calc-container-${t}">
-      <div class="an-calc-header">
-        <div class="an-calc-title">
-          <span>🧮 Calculadoras de Valuation</span>
-          <span style="font-size:12px;font-weight:400;color:var(--muted);">(simulação: o teto oficial é o da régua)</span>
-        </div>
-        <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'tudo')">↻ Restaurar todos os padrões</button>
-      </div>
+  // AÇÕES: Renderizar os 4 cartões com reordenação e destaque
+  const isBazinRec = (recCardId === "bazin");
+  const isGrahamRec = (recCardId === "graham");
+  const isProjRec = (recCardId === "projetivo");
 
-      <div class="an-calc-grid">
-        <!-- 1. Bazin -->
-        <div class="an-calc-card">
+  const cardBazinHtml = `
+        <div class="an-calc-card"${isBazinRec ? ' style="border:2px solid var(--gold);position:relative;"' : ''}>
           <div class="an-calc-card-head">
             <div class="an-calc-card-title">
-              <span>📘 1. Décio Bazin</span>
+              <span>📘 Décio Bazin</span>
+              ${isBazinRec ? badgeRecHtml : ''}
             </div>
             <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'bazin')">↻ Padrão</button>
           </div>
@@ -15541,6 +16351,10 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
                 <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','bazin-dy', 0.5)">+</button>
               </div>
             </div>
+            <div style="display:flex;gap:6px;justify-content:flex-end;margin:-4px 0 6px;flex-wrap:wrap">
+              <button type="button" class="an-calc-shortcut-btn" onclick="fehmirDefinirDyCalc('${t}','bazin',${taxaSetor.toFixed(1)})" title="Definir taxa do setor">Taxa setor (${fmtN(taxaSetor, 1)}%)</button>
+              ${dyAtualVal > 0 ? `<button type="button" class="an-calc-shortcut-btn" onclick="fehmirDefinirDyCalc('${t}','bazin',${dyAtualVal.toFixed(1)})" title="Definir DY atual do ativo">DY atual (${fmtN(dyAtualVal, 1)}%)</button>` : ''}
+            </div>
           </div>
           <div class="an-calc-result-box" id="calc-res-bazin-${t}">
             <div class="an-calc-res-item">
@@ -15553,12 +16367,14 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
             </div>
           </div>
         </div>
+  `;
 
-        <!-- 2. Graham -->
-        <div class="an-calc-card">
+  const cardGrahamHtml = `
+        <div class="an-calc-card"${isGrahamRec ? ' style="border:2px solid var(--gold);position:relative;"' : ''}>
           <div class="an-calc-card-head">
             <div class="an-calc-card-title">
-              <span>📗 2. Benjamin Graham</span>
+              <span>📗 Benjamin Graham</span>
+              ${isGrahamRec ? badgeRecHtml : ''}
             </div>
             <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'graham')">↻ Padrão</button>
           </div>
@@ -15591,12 +16407,14 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
             `}
           </div>
         </div>
+  `;
 
-        <!-- 3. Projetivo (Barsi) -->
-        <div class="an-calc-card">
+  const cardProjHtml = `
+        <div class="an-calc-card"${isProjRec ? ' style="border:2px solid var(--gold);position:relative;"' : ''}>
           <div class="an-calc-card-head">
             <div class="an-calc-card-title">
-              <span>📙 3. Projetivo (Barsi)</span>
+              <span>📙 Projetivo (Barsi)</span>
+              ${isProjRec ? badgeRecHtml : ''}
             </div>
             <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'projetivo')">↻ Padrão</button>
           </div>
@@ -15635,6 +16453,10 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
                 <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','proj-dy', 0.5)">+</button>
               </div>
             </div>
+            <div style="display:flex;gap:6px;justify-content:flex-end;margin:-4px 0 6px;flex-wrap:wrap">
+              <button type="button" class="an-calc-shortcut-btn" onclick="fehmirDefinirDyCalc('${t}','projetivo',${taxaSetor.toFixed(1)})" title="Definir taxa do setor">Taxa setor (${fmtN(taxaSetor, 1)}%)</button>
+              ${dyAtualVal > 0 ? `<button type="button" class="an-calc-shortcut-btn" onclick="fehmirDefinirDyCalc('${t}','projetivo',${dyAtualVal.toFixed(1)})" title="Definir DY atual do ativo">DY atual (${fmtN(dyAtualVal, 1)}%)</button>` : ''}
+            </div>
           </div>
           <div class="an-calc-result-box" id="calc-res-proj-${t}">
             ${M.projetivo.msg ? `
@@ -15659,12 +16481,13 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
             `}
           </div>
         </div>
+  `;
 
-        <!-- 4. Peter Lynch -->
+  const cardLynchHtml = `
         <div class="an-calc-card">
           <div class="an-calc-card-head">
             <div class="an-calc-card-title" title="Peter Lynch: (crescimento do lucro + dividend yield) ÷ P/L; acima de 2 é atrativo.">
-              <span>📈 4. Peter Lynch</span>
+              <span>📈 Peter Lynch</span>
               <span style="font-size:11px;cursor:help;color:var(--muted)">ⓘ</span>
             </div>
             <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'lynch')">↻ Padrão</button>
@@ -15701,6 +16524,35 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
             </div>
           </div>
         </div>
+  `;
+
+  const listaCards = [
+    { id: 'bazin', html: cardBazinHtml },
+    { id: 'graham', html: cardGrahamHtml },
+    { id: 'projetivo', html: cardProjHtml },
+    { id: 'lynch', html: cardLynchHtml }
+  ];
+
+  listaCards.sort((c1, c2) => {
+    if (c1.id === recCardId) return -1;
+    if (c2.id === recCardId) return 1;
+    return 0;
+  });
+
+  const cardsHtml = listaCards.map(c => c.html).join('\n');
+
+  return `
+    <div class="an-calc-container" id="an-calc-container-${t}">
+      <div class="an-calc-header">
+        <div class="an-calc-title">
+          <span>🧮 Calculadoras de Valuation</span>
+          <span style="font-size:12px;font-weight:400;color:var(--muted);">(simulação: o teto oficial é o da régua)</span>
+        </div>
+        <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'tudo')">↻ Restaurar todos os padrões</button>
+      </div>
+
+      <div class="an-calc-grid">
+        ${cardsHtml}
       </div>
 
       <!-- Linha Comparativa -->
@@ -15957,11 +16809,26 @@ window.fehmirResetarCalc = function(t, qual) {
   window.fehmirAtualizarCalc(t);
 };
 
+window.fehmirDefinirDyCalc = function(t, card, taxa) {
+  const S = window.__calcValuationState[t];
+  if (!S) return;
+  const numTaxa = parseFloat(taxa);
+  if (!isFinite(numTaxa)) return;
+  const id = `calc-${card}-dy-${t}`;
+  const el = document.getElementById(id);
+  if (el) el.value = numTaxa.toFixed(1);
+  if (card === 'bazin') S.estado.bazin.dy = parseFloat(numTaxa.toFixed(1));
+  else if (card === 'projetivo') S.estado.projetivo.dy = parseFloat(numTaxa.toFixed(1));
+  fehmirSalvarCalcEstado(t, S.estado);
+  window.fehmirAtualizarCalc(t);
+};
+
 
   async function analisar(t) {
     const out = document.getElementById("an-out");
     t = (t || "").trim().toUpperCase();
     if (!out || !t) return;
+    window.__fehmirAnaliseAtiva = t;
     const inp = document.getElementById("an-in");
     if (inp && inp.value !== t) inp.value = t;
     const a = universo()[t];
@@ -15980,12 +16847,18 @@ window.fehmirResetarCalc = function(t, qual) {
     else { ver = "Acima da tolerância de 20%: caro; se for cíclica fora da B.A.S.E., candidata a realização"; cor = "var(--critical)"; }
     const payout = a.payout || (a.dpa && numBR(a.pl) > 0 ? a.dpa / (preco / numBR(a.pl)) * 100 : null);
     const alertas = [];
-    if (payout > 100) alertas.push("Payout acima de 100%: paga mais do que lucra. Pergunta 1 do yield: o dividendo é recorrente? (§19.15)");
+    if (av && av.payoutImplicito != null && av.payoutImplicito > 100) {
+      alertas.push("Payout " + fmt(av.payoutImplicito, 0) + "% (implícito): dividendo acima do lucro, não recorrente.");
+    } else if (payout > 100) {
+      alertas.push("Payout acima de 100%: paga mais do que lucra. Pergunta 1 do yield: o dividendo é recorrente? (§19.15)");
+    }
     if (a.quarentena) alertas.push("Em quarentena: dado crítico não confirmado. Não comprar até resolver.");
     if (typeof isTrapAsset === "function" && isTrapAsset(a)) alertas.push("Flag de armadilha/risco do Scanner de Armadilhas.");
     if (/commod|petr|miner|sider|celulose/i.test(av.metodo || "")) alertas.push("Commodity: se a commodity caiu e a ação subiu, não há margem; se ambas caíram, pode ser momento de compra (§23.3.3).");
     if (a.deterioracao) alertas.push("Marcada com deterioração fundamental (Bloquinho 2).");
-    if (av && av.payoutDivergente) alertas.push("Payout divergente: confira em fonte primária.");
+    if (av && av.payoutDivergente && (!av.payoutImplicito || av.payoutImplicito <= 100)) alertas.push("Payout divergente: confira em fonte primária.");
+    if (av && av.diverg != null && av.diverg > 35) alertas.push("Modelos divergem (" + fmt(av.diverg, 0) + "% " + (av.diverg_par || 'conferência') + "): confira o lucro (pode haver não recorrente, §21.1.3).");
+    if (a && a._fundDiverg && a._fundDiverg.length) alertas.push("Fundamentos do robô mudaram mais de 25% em relação ao cadastro (" + a._fundDiverg.join(" · ") + "): conferir no RI antes de decidir.");
     const valExplicado = (av && (av.proj != null || av.hist != null)) ? `
       <div class="an-val-box" style="margin:12px 0 8px;padding:10px 14px;background:var(--surface-2);border-radius:8px;font-size:13px;border-left:3px solid var(--accent)">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
@@ -16227,8 +17100,103 @@ window.fehmirResetarCalc = function(t, qual) {
       </div>`;
     }
 
+    /* ---------- Parecer do Robô (Gemini) (16/10/2026 - Tarefa C) ---------- */
+    let parecerSecHtml = "";
+    const pareceresObj = (typeof window.FEHMIR_PARECERES === "object" && window.FEHMIR_PARECERES) ? window.FEHMIR_PARECERES : {};
+    const parecerAtivo = pareceresObj[t] || null;
+
+    if (parecerAtivo) {
+      const dtParecer = parecerAtivo.data ? parecerAtivo.data.split("-").reverse().join("/") : "—";
+      const pStatus = parecerAtivo.parecer || "manter";
+      let pCor = "var(--good)", pLabel = "MANTER TESE", pBg = "rgba(16,185,129,0.12)";
+      if (pStatus === "reavaliar_tese") {
+        pCor = "var(--critical)"; pLabel = "🚨 REAVALIAR TESE"; pBg = "rgba(239,68,68,0.14)";
+      } else if (pStatus === "atencao") {
+        pCor = "var(--warning)"; pLabel = "⚠️ ATENÇÃO"; pBg = "rgba(245,158,11,0.14)";
+      }
+
+      const fatosHtml = (parecerAtivo.fatos && parecerAtivo.fatos.length) ? `
+        <div style="font-size:12px;color:var(--ink-2);margin-top:6px;">
+          <b>Fatos analisados:</b>
+          <ul class="an-doc-list" style="margin-top:2px;">
+            ${parecerAtivo.fatos.map(f => `<li>${f}</li>`).join("")}
+          </ul>
+        </div>` : "";
+
+      const gatilhosHtml = (parecerAtivo.gatilhos && parecerAtivo.gatilhos.length) ? `
+        <div style="font-size:12px;color:var(--ink-2);margin-top:6px;">
+          <b>Gatilhos para mudar de ideia:</b>
+          <ul class="an-doc-list" style="margin-top:2px;">
+            ${parecerAtivo.gatilhos.map(g => `<li>${g}</li>`).join("")}
+          </ul>
+        </div>` : "";
+
+      parecerSecHtml = `
+        <div class="an-novidades-card" style="margin-top:14px;border-left:3px solid ${pCor};">
+          <div class="an-novidades-head" style="margin-bottom:8px;">
+            <div class="an-novidades-title">
+              <span>🤖 Parecer do Robô (Gemini)</span>
+              <span style="font-size:11px;font-family:var(--font-mono);color:var(--muted)">📅 ${dtParecer}</span>
+            </div>
+            <span style="display:inline-flex;align-items:center;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;color:${pCor};background:${pBg};border:1px solid ${pCor};">
+              ${pLabel}
+            </span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:8px;font-size:12px;background:var(--surface-2);padding:8px 10px;border-radius:6px;margin-bottom:6px;">
+            <div><span style="color:var(--muted)">Atribuição:</span> <b>${parecerAtivo.atribuicao || '—'}</b></div>
+            <div><span style="color:var(--muted)">Risco:</span> <b style="color:${parecerAtivo.risco === 'estrutural' ? 'var(--critical)' : 'var(--ink)'}">${parecerAtivo.risco || '—'}</b> ${parecerAtivo.risco_motivo ? `<small style="display:block;color:var(--muted);">${parecerAtivo.risco_motivo}</small>` : ''}</div>
+            <div><span style="color:var(--muted)">Caixa vs. Contábil:</span> <b>${parecerAtivo.caixa_vs_contabil || '—'}</b></div>
+            <div><span style="color:var(--muted)">Confiança da IA:</span> <b>${parecerAtivo.confianca || 'média'}</b></div>
+          </div>
+
+          ${fatosHtml}
+          ${gatilhosHtml}
+
+          <div class="cb-sub" style="margin-top:10px;font-size:11.5px;color:var(--muted);border-top:1px dashed var(--rule);padding-top:6px;">
+            ⚖️ <b>Parecer automático:</b> o teto e a decisão continuam sendo os da régua (§21) e do Felipe.
+          </div>
+        </div>
+      `;
+    }
+
+    const temDiverg = av.diverg != null && av.diverg > 35;
+    const metodoSeloTooltip = (window.fehmirFonteFund ? window.fehmirFonteFund(a) + "\n" : "") + (av.motivo ? av.motivo : '') + (av.taxaExplicada ? (av.motivo ? '\n' : '') + 'Taxa: ' + av.taxaExplicada : '') + (temDiverg ? `\n⚠️ Modelos divergem ${fmt(av.diverg, 0)}% (${av.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)` : '');
+    const taxaFormatada = (av.taxa || av.req) ? fmt(av.taxa || av.req, 1) + '%' : '—';
+    const seloMetodoHtml = av.metodo ? `
+      <div style="margin:14px 0 4px;display:flex;align-items:center;gap:8px;">
+        <span class="an-metodo-badge" title="${metodoSeloTooltip}" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:8px;background:rgba(99,102,241,0.12);color:var(--accent);border:1px solid var(--accent);cursor:help;">
+          <span>🎯 Método: ${av.metodo} · taxa ${taxaFormatada}</span>
+          <span style="font-size:10.5px;opacity:0.8;">ⓘ</span>
+          ${temDiverg ? `<span style="color:var(--warning);margin-left:4px;" title="Modelos divergem (${av.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)">⚠️</span>` : ''}
+        </span>
+      </div>` : '';
+
+    // Mini-card de Retorno Esperado (Rodada 9 Parte B item 2)
+    const mMacro = typeof loadMacro === 'function' ? loadMacro() : { ntnb: 6.5, ipca12: 4.6 };
+    const retEsp = (typeof calcRetornoEsperado === 'function') ? calcRetornoEsperado(a, mMacro) : null;
+    const retEspHtml = retEsp ? `
+      <div class="an-ret-box" style="margin:8px 0 10px;padding:10px 14px;background:var(--surface-2);border-radius:8px;font-size:13px;border-left:3px solid var(--accent);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div>
+          <span>🚀 <b>Retorno esperado (DY + crescimento):</b> <span style="font-weight:700;color:${retEsp.cor}">${retEsp.veredito}</span></span>
+          <div style="font-size:11.5px;color:var(--muted);margin-top:2px;">
+            Provável: <b>${fmt(retEsp.r_prov * 100, 1)}% a.a.</b> real vs exigido <b>${fmt(retEsp.taxa * 100, 1)}%</b> · Teto pelo crescimento: <b>${retEsp.teto_cresc ? R(retEsp.teto_cresc) : 'não limita'}</b>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);cursor:help;" title="${retEsp.tooltip}
+
+Cenários de Retorno Real (IPCA 4,6%):
+• Pessimista: ${fmt(retEsp.r_pess * 100, 1)}% a.a. (cresc ${fmt(retEsp.g_pess * 100, 1)}%${retEsp.drag !== 0 ? ` · drag P/L ${fmt(retEsp.drag * 100, 1)}%` : ''})
+• Provável: ${fmt(retEsp.r_prov * 100, 1)}% a.a. (cresc ${fmt(retEsp.g_prov * 100, 1)}%)
+• Otimista: ${fmt(retEsp.r_otim * 100, 1)}% a.a. (cresc ${fmt(retEsp.g_otim * 100, 1)}%)
+Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
+          ⓘ Ver cenários
+        </div>
+      </div>` : '';
+
+    if (window.__fehmirAnaliseAtiva !== t) return;
     out.innerHTML = `<section class="cb-card">
-      <div class="an-head"><div><div class="an-tk">${t}</div><div class="cb-sub" style="margin:0">${a.nome || a.setor || (a.tipo ? "FII " + a.tipo : "")} · régua: <b>${av.metodo}</b></div></div>
+      <div class="an-head"><div><div class="an-tk">${t}</div><div class="cb-sub" style="margin:0">${a.nome || a.setor || (a.tipo ? "FII " + a.tipo : "")} · método: <b>${av.metodo}</b></div></div>
         <div class="an-ver" style="border-color:${cor};color:${cor}">${ver}</div></div>
       <div class="an-kpis">
         <div><span>Preço</span><b>${R(preco)}</b></div><div><span>DY 12m</span><b>${fmt(a.dy, 1)}%</b></div>
@@ -16237,7 +17205,9 @@ window.fehmirResetarCalc = function(t, qual) {
         <div><span>Teto final</span><b>${R(teto)}</b></div><div><span>Margem (desconto)</span><b style="color:${margem >= mMin ? "var(--good)" : margem >= 0 ? "var(--accent)" : "var(--critical)"}">${fmt(margem, 1)}%</b></div>
         <div><span>Margem mínima</span><b>${mMin}%</b></div>
       </div>
+      ${seloMetodoHtml}
       ${valExplicado}
+      ${retEspHtml}
       ${calcSecHtml}
       ${ddmSecHtml}
       ${splitAlerta}
@@ -16251,6 +17221,7 @@ window.fehmirResetarCalc = function(t, qual) {
 
       ${alertas.length ? `<ul class="cb-list" style="margin-top:14px">${alertas.map(x => `<li><span class="ic">⚠️</span><span>${x}</span></li>`).join("")}</ul>` : ""}
       ${novidadesSecHtml}
+      ${parecerSecHtml}
       <div id="an-fg" class="fg-idx-row" style="margin-top:12px"></div>
       <p class="cb-disclaimer" style="margin:8px 0 0">Dados do painel (atualização: ${a.atual || "—"}). Antes de decidir, confira em fonte primária (política de dados) e rode o checklist anti-viés (§8).</p>
     </section>`;
