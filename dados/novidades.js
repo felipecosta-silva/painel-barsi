@@ -125,21 +125,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1339182",
       "resumo": [
-        "Fato Relevante publicado em 2026-10-02."
+        "Aquisição do Complexo Logístico Nova Santa Rita (RS) por R$ 155,87 milhões através do Guardian Prime Log FII.",
+        "O imóvel é um galpão frigorificado com ABL de 18.987 m² e potencial construtivo para expansão acima de 60.000 m².",
+        "Ativo 100% locado para BRF S.A. (45% da ABL) e Reiter Log (55% da ABL) com contratos reajustados pelo IPCA.",
+        "Pagamento parcelado em até 18 meses, gerando running yield médio estimado de 13,5% a.a. nos primeiros 5 anos e 11,75% a.a. estabilizado.",
+        "O Fundo dispõe de mais de R$ 1 bilhão em disponibilidades para fazer frente ao compromisso assumido."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Acréscimo de 18.987 m² de ABL logística ao portfólio do Fundo.",
+        "Aumento da exposição ao segmento logístico na carteira de 36% para 41% pós-transação.",
+        "Assunção de obrigação de pagamento diferido de R$ 155,9 milhões em até 18 meses."
+      ],
+      "alertas": [
+        "Compromisso financeiro de desembolso futuro de R$ 155,9 milhões em até 18 meses.",
+        "Concentração locatícia do ativo em apenas dois inquilinos (BRF e Reiter Log).",
+        "Risco operacional associado a galpões frigorificados e risco de execução na potencial expansão da ABL."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1331301",
@@ -148,21 +160,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1331301",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-09-28."
+        "Distribuição de rendimentos referente ao mês de agosto mantida em R$ 0,083 por cota (DY anualizado de 11,8%), com guidance confirmado entre R$ 0,083 e R$ 0,090 por cota.",
+        "Conclusão da aquisição do ativo logístico Carrefour Itapevi (34,2 mil m² de ABL) por R$ 119,81 milhões, sendo R$ 101,7 milhões à vista e R$ 18 milhões para julho de 2028.",
+        "A venda de 10 ativos ao FII Riza Master teve a captação do fundo comprador (R$ 428 milhões) concluída, mas a liquidação da 1ª tranche foi postergada de agosto para outubro devido a questões operacionais.",
+        "Carteira composta por 34 imóveis, 100% ocupada (vacância zero) e 100% adimplente, com 88% da receita vinda de contratos atípicos e prazo médio remanescente de 9,33 anos.",
+        "Colchão de disponibilidades de R$ 1.014 milhões cobre a totalidade das obrigações financeiras consolidadas (R$ 847 milhões), resultando em alavancagem líquida de -7%."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Provento distribuído no período de R$ 0,083 por cota e resultado apurado de R$ 0,085 por cota.",
+        "Atraso no cronograma de liquidação da primeira tranche da venda ao FII Riza Master, transferida de agosto para outubro.",
+        "Adição de R$ 18 milhões em obrigações financeiras no cronograma de amortização (para 2028), referente à segunda parcela de aquisição do ativo Carrefour Itapevi."
+      ],
+      "alertas": [
+        "Elevada concentração de receita no Grupo Carrefour (41%) e na British American Tobacco - BAT (19%).",
+        "Risco operacional e de execução na liquidação da venda de 10 ativos ao FII Riza Master, que já registrou postergação.",
+        "Ativo recém-adquirido Carrefour Itapevi possui contrato na modalidade típica e vencimento relativamente próximo (dezembro de 2029)."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": -7.0,
+        "provento_por_cota": 0.083,
+        "reserva_por_cota": 0.014,
+        "resultado_por_cota": 0.085,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1306188",
@@ -257,20 +281,28 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1338094",
       "resumo": [
-        "Fato Relevante publicado em 2026-10-01."
+        "Reorganização societária do Grupo Genial transfere a administração fiduciária do Fundo do Banco Genial S.A. para a Genial Investimentos CVM S.A.",
+        "A alteração entra em vigor a partir de 01 de outubro de 2026, juntamente com a vigência do Novo Regulamento.",
+        "A transferência foi autorizada com dispensa de assembleia de cotistas pela CVM no âmbito do Processo 19957.007007/2025-48.",
+        "A mudança tem caráter estritamente organizacional e não altera gestor, taxas, equipe técnica, sistemas nem a política de investimento.",
+        "Serviços de custódia, escrituração e controladoria passam a ser do Novo Administrador ou terceiro credenciado, sem custos adicionais."
       ],
-      "mudancas": [],
+      "mudancas": [
+        "Substituição do Administrador Fiduciário do Fundo: sai Banco Genial S.A. e entra Genial Investimentos Corretora de Valores Mobiliários S.A.",
+        "Adoção de Novo Regulamento do Fundo a partir de 01/10/2026."
+      ],
       "alertas": [],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 2.0,
+        "provento_por_cota": 0.85,
+        "reserva_por_cota": 3.03,
+        "resultado_por_cota": 1.03,
+        "vacancia_financeira": 6.3,
+        "vacancia_fisica": 5.9
       },
-      "gravidade": "info"
+      "gravidade": "info",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1327264",
@@ -464,20 +496,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1339341",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-10-02."
+        "Distribuição de rendimentos de R$ 0,10 por cota referente a agosto/2026, equivalente a 115,88% do CDI (com gross-up).",
+        "Resultado caixa gerado no mês foi de R$ 0,094 por cota (total de R$ 53,20 milhões), impactado pela inflação mais branda no curto prazo.",
+        "O fundo possui reserva acumulada de correção monetária de R$ 19,23 milhões, equivalente a R$ 0,0339 por cota.",
+        "Avanço na alocação dos recursos da 12ª emissão (que captou R$ 1,0 bilhão), superando R$ 530 milhões em aquisições de CRIs primários e secundários.",
+        "Carteira composta por 72,6% em CRIs, 12,0% em FIIs, 7,2% em permutas financeiras e 8,1% em caixa, com LTV médio de 57%."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Captação da 12ª emissão concluída em julho (R$ 1,0 bilhão) com alocação acelerada superior a R$ 530 milhões em agosto.",
+        "Geração de resultado por cota de R$ 0,094, ficando abaixo do provento pago de R$ 0,100.",
+        "Execução de garantias no CRI Arquiplan/Beside após negociação amigável infrutífera, com consolidação da propriedade e início de vendas das unidades."
+      ],
+      "alertas": [
+        "Resultado de caixa mensal (R$ 0,094/cota) inferior à distribuição declarada (R$ 0,100/cota), demandando uso de reservas.",
+        "Processo de execução e liquidação de garantias no CRI Arquiplan/Beside após frustração em acordo amigável.",
+        "Dificuldades financeiras no CRI AIZ/Pesa, com concessão de carência temporária e negociação de venda de imóvel em garantia."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.57,
+        "provento_por_cota": 0.1,
+        "reserva_por_cota": 0.0339,
+        "resultado_por_cota": 0.094,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info"
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1307338",
@@ -503,6 +548,38 @@ window.FEHMIR_NOVIDADES = {
     }
   ],
   "PETR4": [
+    {
+      "id": "cvm_009512IPE131020260134742550-39",
+      "data": "2026-10-13",
+      "tipo": "Fato Relevante",
+      "titulo": "Petrobras assina acordos de equalizações referentes às Jazidas Compartilhadas de Berbigão e Sururu",
+      "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1576827&numSequencia=1101533&numVersao=1",
+      "resumo": [
+        "Assinatura dos Acordos de Equalização de Gastos e Volumes (AEGVs) de Berbigão, Sururu e Ativos Compartilhados com Shell, TotalEnergies e Petrogal.",
+        "Petrobras receberá valor líquido de aproximadamente US$ 859 milhões dos parceiros do Consórcio BM-S-11A.",
+        "Liquidação financeira do montante prevista para ocorrer até novembro de 2026.",
+        "Definição da participação nos AIPs: 45,394% para Petrobras em Sururu e 62,913% em Berbigão.",
+        "Acordo reconcilia receitas de produção, investimentos, despesas operacionais e royalties entre 15/09/2000 e 30/04/2026."
+      ],
+      "mudancas": [
+        "Formalização dos AEGVs após aprovação dos Acordos de Individualização da Produção (AIPs) pela ANP.",
+        "Direito a recebimento líquido de aproximadamente US$ 859 milhões até novembro de 2026."
+      ],
+      "alertas": [
+        "Risco de descumprimento ou atraso na liquidação financeira do valor de US$ 859 milhões pelos consorciados até novembro de 2026."
+      ],
+      "metricas": {
+        "inadimplencia": -1,
+        "ltv": -1,
+        "provento_por_cota": -1,
+        "reserva_por_cota": -1,
+        "resultado_por_cota": -1,
+        "vacancia_financeira": -1,
+        "vacancia_fisica": -1
+      },
+      "gravidade": "info",
+      "resumido_ia": true
+    },
     {
       "id": "cvm_009512IPE081020260138678668-06",
       "data": "2026-10-08",
@@ -733,21 +810,27 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1338101",
       "resumo": [
-        "Fato Relevante publicado em 2026-10-01."
+        "Aprovação da alteração da administração fiduciária do fundo do Banco Genial S.A. para a Genial Investimentos Corretora de Valores Mobiliários S.A.",
+        "A mudança decorre de reorganização societária interna do Grupo Genial para concentração das atividades de administração fiduciária.",
+        "A deliberação em assembleia de cotistas foi dispensada com base em manifestação da CVM no âmbito do Processo 19957.007007/2025-48.",
+        "A substituição tem caráter exclusivamente organizacional, sem alteração de equipe, sistemas, gestor, taxas, política de investimento ou direitos dos cotistas.",
+        "Os serviços de custódia, escrituração, controladoria e tesouraria serão transferidos sem ônus adicional para o fundo."
       ],
-      "mudancas": [],
+      "mudancas": [
+        "Substituição do administrador fiduciário do Fundo de Banco Genial S.A. para Genial Investimentos Corretora de Valores Mobiliários S.A."
+      ],
       "alertas": [],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "fnet_1328924",
@@ -875,21 +958,27 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1338028",
       "resumo": [
-        "Fato Relevante publicado em 2026-10-01."
+        "Aprovação da alteração do administrador fiduciário do Fundo do Banco Genial S.A. para a Genial Investimentos Corretora de Valores Mobiliários S.A.",
+        "A mudança decorre de reorganização societária interna do Grupo Genial para concentração das atividades de administração fiduciária.",
+        "A CVM dispensou a realização de assembleia de cotistas no âmbito do Processo 19957.007007/2025-48.",
+        "A transição possui caráter estritamente organizacional, mantendo inalterados a equipe, controles, gestor, política de investimento e taxas.",
+        "Os serviços de custódia, escrituração, controladoria e tesouraria serão migrados sem ônus adicional ao Fundo."
       ],
-      "mudancas": [],
+      "mudancas": [
+        "Substituição do administrador fiduciário do Banco Genial S.A. para a Genial Investimentos CVM S.A. e entrada em vigor do Novo Regulamento."
+      ],
       "alertas": [],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "fnet_1303778",
@@ -987,6 +1076,37 @@ window.FEHMIR_NOVIDADES = {
   ],
   "TRXF11": [
     {
+      "id": "fnet_1354667",
+      "data": "2026-10-19",
+      "tipo": "Fato Relevante",
+      "titulo": "Fato Relevante",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1354667",
+      "resumo": [
+        "Aprovação do Programa de Recompra de até 10% das cotas do TRXF11 (máximo de 9.591.509 cotas).",
+        "Início previsto para 03 de novembro de 2026 com duração de até 12 meses (término até 19 de outubro de 2027).",
+        "Aquisições serão realizadas a preço de mercado na B3, condicionadas a preço inferior ao valor patrimonial.",
+        "As cotas recompradas serão canceladas imediatamente após a liquidação.",
+        "A Mirae Asset Corretora atuará como intermediária exclusiva das operações."
+      ],
+      "mudancas": [
+        "Instituição do primeiro programa de recompra de cotas do fundo nos últimos 3 exercícios sociais."
+      ],
+      "alertas": [
+        "O programa de recompra é facultativo, sem garantia de aquisição do total previsto, podendo ser suspenso ou encerrado a qualquer tempo a critério da administração/gestão."
+      ],
+      "metricas": {
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
+      },
+      "gravidade": "info",
+      "resumido_ia": true
+    },
+    {
       "id": "fnet_1353805",
       "data": "2026-10-16",
       "tipo": "Fato Relevante",
@@ -1061,21 +1181,35 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1341443",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-10-06."
+        "Encerramento da 13ª emissão de cotas com captação de R$ 3,16 bilhões, sendo R$ 2,63 bilhões liquidados por compensação de créditos na aquisição de ativos.",
+        "Distribuição de rendimentos mantida em R$ 0,93 por cota (DY anualizado de 15,55%), com guidance entre R$ 0,90 e R$ 0,93 para os próximos 12 meses.",
+        "Resultado operacional por cota de R$ 1,19 em setembro (contra R$ 0,72 em agosto), elevando a reserva acumulada para R$ 0,51 por cota.",
+        "Avanço na reciclagem de ativos com a conclusão da venda da loja GPA Goiânia e portfólio de 15 imóveis, mantendo meta de alienar ~R$ 500 milhões no semestre.",
+        "Portfólio ampliado para 129 imóveis e mais de 2 milhões de m² de ABL, com vacância física em 0,5% e vacância financeira em 0,3%."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Vacância física aumentou de 0,0% para 0,5% e vacância financeira passou de 0,0% para 0,3%.",
+        "Resultado operacional por cota aumentou de R$ 0,72 (agosto) para R$ 1,19 (setembro).",
+        "Aumento significativo da base patrimonial e de cotas após encerramento da 13ª emissão de cotas.",
+        "Relação dívida/ativo (securitizações sobre ativo total) consolidada em 24,68%."
+      ],
+      "alertas": [
+        "Endividamento e compromissos futuros: saldo devedor de securitizações atinge R$ 3,16 bilhões, com amortizações e desembolsos expressivos previstos para o fluxo de caixa até 2027.",
+        "Obrigações de parcelas a pagar por aquisições (ex.: R$ 125 milhões em out/2026 e R$ 125 milhões corrigidos por IPCA em out/2027 na compra de ativos logísticos).",
+        "Risco de desenvolvimento/obras em múltiplos ativos (Shopee Londrina/Osório/Criciúma, Einstein Pinheiros/Parque Global, Mercado Livre).",
+        "Desconto relevante de mercado (cota de mercado a R$ 71,79 vs cota patrimonial de R$ 95,99)."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 24.68,
+        "provento_por_cota": 0.93,
+        "reserva_por_cota": 0.51,
+        "resultado_por_cota": 1.19,
+        "vacancia_financeira": 0.3,
+        "vacancia_fisica": 0.5
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1329467",
@@ -1084,21 +1218,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1329467",
       "resumo": [
-        "Fato Relevante publicado em 2026-09-28."
+        "Celebração dos documentos definitivos para a venda de 15 imóveis do TRXF11 ao fundo BRC Renda Urbana FII.",
+        "Valor total da transação de R$ 207.252.400,00, com transferência imediata da posse dos imóveis.",
+        "Pagamento realizado via compensação de créditos pela subscrição e integralização de cotas de emissão do BRC.",
+        "Lucro estimado com a transação de aproximadamente R$ 0,51 por cota, com TIR estimada de 38,49% ao ano.",
+        "Preço de venda alinhado aos últimos laudos de avaliação, representando um cap rate de 8,13% ao ano."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Efetivação e conclusão da venda dos 15 imóveis que constavam sob proposta vinculante desde 10 de junho de 2026.",
+        "Transmissão da posse dos 15 ativos imobiliários ao comprador BRC Renda Urbana FII.",
+        "Substituição de imóveis operacionais diretos por cotas do FII BRC Renda Urbana no patrimônio do fundo."
+      ],
+      "alertas": [
+        "O pagamento não foi realizado em dinheiro líquido (caixa), mas mediante compensação para subscrição e integralização de cotas do BRC FII, sujeitando o fundo aos riscos e liquidez desse veículo.",
+        "O lucro projetado de R$ 0,51 por cota é uma estimativa sujeita a alterações e não constitui garantia de distribuição de rendimentos.",
+        "Desinvestimento de portfólio que gerava aluguéis a um cap rate de 8,13% ao ano, alterando o perfil da receita imobiliária direta."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.51,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1328120",
@@ -1108,29 +1254,6 @@ window.FEHMIR_NOVIDADES = {
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1328120",
       "resumo": [
         "Fato Relevante publicado em 2026-09-25."
-      ],
-      "mudancas": [],
-      "alertas": [],
-      "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
-      },
-      "gravidade": "info",
-      "resumido_ia": false
-    },
-    {
-      "id": "fnet_1327288",
-      "data": "2026-09-24",
-      "tipo": "Fato Relevante",
-      "titulo": "Fato Relevante",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1327288",
-      "resumo": [
-        "Fato Relevante publicado em 2026-09-24."
       ],
       "mudancas": [],
       "alertas": [],
