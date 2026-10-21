@@ -214,6 +214,44 @@ window.FEHMIR_NOVIDADES = {
   ],
   "GGRC11": [
     {
+      "id": "fnet_1355299",
+      "data": "2026-10-20",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1355299",
+      "resumo": [
+        "Distribuição mantida em R$ 0,10 por cota em setembro de 2026, representando dividend yield mensal de 1,11% (13,35% a.a.).",
+        "Resultado gerado foi de R$ 0,096 por cota, exigindo utilização de R$ 0,004 por cota de reserva de caixa para manter o dividendo.",
+        "Atualização sobre Casas Bahia (Triple A FII): 58% do imóvel está sublocado e os aluguéis pós-RJ seguem adimplentes; o fundo representa menos de 5% da receita do GGRC11.",
+        "Avanço na venda de portfólio de 10 imóveis por R$ 530 milhões, com previsão de encerramento para outubro.",
+        "Encerramento do mecanismo de ajuste de preço da transação RELG11, fixado em R$ 6,67 milhões a ser pago em 4 parcelas."
+      ],
+      "mudancas": [
+        "Redução do resultado gerado por cota de R$ 0,101 em agosto para R$ 0,096 em setembro.",
+        "Consumo de caixa/reserva de R$ 1,28 milhão (R$ 0,004/cota) em setembro contra retenção de caixa no mês anterior.",
+        "Apurada a 2ª janela de complemento de preço do portfólio RELG11 no valor de R$ 6,67 milhões parcelado em 4 vezes.",
+        "Recebimento da última parcela da venda do CD Campinas no montante de R$ 2,0 milhões.",
+        "Execução de recompra de 317.018 cotas por R$ 2,86 milhões a preço médio de R$ 9,03."
+      ],
+      "alertas": [
+        "Resultado operacional no mês inferior ao rendimento distribuído, gerando necessidade de complemento via reserva de caixa.",
+        "Risco de crédito decorrente da Recuperação Judicial do Grupo Casas Bahia, que impacta o ativo locado no Triple A FII.",
+        "Atenção regulatória após a emissão do Parecer Técnico CVM nº 16/2026 referente a operações com compensação de créditos.",
+        "Condições precedentes contratuais ainda pendentes para a concretização da venda de ativos de R$ 530 milhões."
+      ],
+      "metricas": {
+        "inadimplencia": 0.0,
+        "ltv": 11.32,
+        "provento_por_cota": 0.1,
+        "reserva_por_cota": 0.004,
+        "resultado_por_cota": 0.096,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.37
+      },
+      "gravidade": "atencao",
+      "resumido_ia": true
+    },
+    {
       "id": "fnet_1321637",
       "data": "2026-09-15",
       "tipo": "Relatório Gerencial",
@@ -311,20 +349,31 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1327264",
       "resumo": [
-        "Fato Relevante publicado em 2026-09-23."
+        "Nova versão do Fato Relevante detalhando os termos da 10ª emissão de cotas do Fundo sob a Resolução CVM 160, destinada a investidores profissionais.",
+        "Oferta no montante inicial de até R$ 699.999.970,80 (4.773.595 novas cotas), admitindo distribuição parcial a partir de R$ 1.000.084,80 (6.820 cotas).",
+        "Preço de emissão fixado em R$ 146,64 acrescido de taxa de distribuição primária de R$ 0,07, totalizando preço de subscrição de R$ 146,71 por cota.",
+        "Fator de proporção para o exercício do direito de preferência estabelecido em 0,40393375499, vedada a cessão de direitos a terceiros.",
+        "Abertura de período de desistência de 24/09/2026 a 01/10/2026 devido à supressão da cláusula que permitia integralização via compensação de ativos."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Modificação na Oferta com a exclusão da previsão de utilização/integralização de novas cotas mediante compensação de obrigações decorrentes de aquisição de ativos pelo Fundo.",
+        "Abertura de prazo prudencial de 5 dias úteis para desistência sem ônus aos cotistas que já haviam exercido ou aderido à Oferta."
+      ],
+      "alertas": [
+        "Risco de diluição relevante para os cotistas que não exercerem seu direito de preferência (proporção de ~40,39%).",
+        "Risco de captação abaixo do montante inicial pretendido, visto que o piso mínimo para eficácia da oferta é baixo (R$ 1.000.084,80)."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 2.0,
+        "provento_por_cota": 0.85,
+        "reserva_por_cota": 3.03,
+        "resultado_por_cota": 1.03,
+        "vacancia_financeira": 6.3,
+        "vacancia_fisica": 5.9
       },
-      "gravidade": "info"
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1316899",
@@ -394,6 +443,29 @@ window.FEHMIR_NOVIDADES = {
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1313741",
       "resumo": [
         "Relatório Gerencial publicado em 2026-09-09."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
+      "id": "fnet_1280657",
+      "data": "2026-08-07",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1280657",
+      "resumo": [
+        "Relatório Gerencial publicado em 2026-08-07."
       ],
       "mudancas": [],
       "alertas": [],
@@ -785,21 +857,29 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Processo de Sucessão de Diretor Estatutário",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1571081&numSequencia=1095787&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-09-24."
+        "O Sr. Troy Patrick Finney comunicou a decisão de concluir seu ciclo como Diretor Estatutário da PetroReconcavo.",
+        "Início de processo estruturado de transição das responsabilidades executivas e estatutárias.",
+        "O Diretor permanecerá no cargo até a conclusão do processo, prevista para o quarto trimestre de 2026.",
+        "Troy Patrick Finney é membro do grupo fundador da PetroReconcavo há 26 anos, com papel relevante no desenvolvimento técnico e operacional.",
+        "A Companhia informará oportunamente sobre a eleição de um substituto."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Início do processo de sucessão e saída de Troy Patrick Finney da diretoria estatutária da companhia."
+      ],
+      "alertas": [
+        "Risco inerente à transição de liderança executiva chave e saída de membro fundador responsável por bases técnicas e operacionais."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "RZAG11": [
@@ -839,21 +919,34 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1328924",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-09-25."
+        "Distribuição de rendimentos referente a agosto de 2026 de R$ 0,125 por cota, representando dividend yield mensal de 1,49%.",
+        "Resultado apurado de R$ 0,1166 por cota no mês, exigindo consumo de R$ 0,0084 por cota de resultado acumulado para sustentar o provento.",
+        "Convocação de Consulta Formal para deliberar sobre a 4ª emissão de cotas visando incorporação da carteira do LSAG11, renúncia a direito de preferência e adaptações à Resolução CVM 175.",
+        "Carteira alocada em 102,27% do patrimônio líquido, 100% indexada ao CDI com spread médio de CDI + 4,52% e duration de 2,10 anos.",
+        "Acompanhamento da recuperação judicial da Uniggel Sementes, que obteve prorrogação do stay period, enquanto a gestão busca a execução da alienação fiduciária de terras."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Provento por cota fixado em R$ 0,125 frente a métricas zeradas do documento anterior.",
+        "Resultado por cota gerado de R$ 0,12 (R$ 0,1166 exato), inferior ao patamar distribuído.",
+        "Apresentação de proposta de incorporação de ativos do fundo LSAG11 via 4ª emissão de cotas com renúncia de preferência."
+      ],
+      "alertas": [
+        "Inadimplência/default confirmado no CRA Uniggel Sementes, com empresa em recuperação judicial e prorrogação de stay period, demandando medidas legais para execução de garantias.",
+        "Distribuição de dividendos superior à geração de caixa operacional do mês (consumo de reserva acumulada de R$ 0,0084 por cota).",
+        "Risco de conflito de interesses e diluição de governança com proposta de incorporação de ativos de partes relacionadas (LSAG11) e renúncia de preferência.",
+        "Cenário macro desafiador para o agronegócio citado pela gestão, incluindo compressão de margens de produtores e restrição de crédito."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 8.1,
+        "ltv": 0.0,
+        "provento_por_cota": 0.125,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.12,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "critico",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1304738",
@@ -1253,21 +1346,34 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1328120",
       "resumo": [
-        "Fato Relevante publicado em 2026-09-25."
+        "Celebração de Acordo de Investimento para aquisição indireta de 2 edifícios de lajes corporativas em São Paulo (Ed. JFL Rebouças e Ed. Passarelli) via HIRE11.",
+        "O valor total do investimento é de R$ 143.795.593,00, sendo R$ 82,59M via compensação da 13ª Emissão, R$ 8,73M à vista e R$ 52,47M parcelados em até 24 meses.",
+        "Os imóveis possuem 100% de ocupação, com cap rates de 8,25% a.a. (JFL Rebouças) e 9,00% a.a. (Passarelli, com Yield on Cost de 16,40% no primeiro ano considerando receitas acessórias).",
+        "A estimativa de distribuição por cota do TRXF11 até dezembro de 2026 permanece inalterada entre R$ 0,90 e R$ 0,93.",
+        "O prazo médio dos contratos da carteira consolidada do TRXF11 é reduzido de 12,34 anos para 10,79 anos após a transação e operações vinculadas à 13ª emissão."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Entrada do segmento de lajes corporativas na carteira (1,65% da ABL pós-aquisição).",
+        "Compromisso financeiro futuro de R$ 52,47 milhões parcelados em 12, 18 e 24 meses.",
+        "Redução no prazo médio dos contratos do portfólio de 12,34 anos para 10,79 anos (-12,56%).",
+        "Aumento da exposição a contratos típicos (representando 39,55% da receita pós-aquisição contra 60,45% atípicos)."
+      ],
+      "alertas": [
+        "Contratos de locação dos novos ativos são de prazo médio curto (aprox. 3 anos) e parte na modalidade típica, aumentando o risco de renovação e vacância futura frente ao perfil histórico atípico do fundo.",
+        "Compromisso de desembolso futuro relevante de R$ 52,47 milhões nos próximos 24 meses.",
+        "O Edifício Passarelli possui classificação C e construção de 1979, o que pode demandar maiores gastos de manutenção e capex futuro."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "VILG11": [
@@ -1407,20 +1513,35 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1342555",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-10-07."
+        "O fundo distribuiu R$ 0,92 por cota referente a agosto de 2026, mantendo o patamar de distribuição dos meses anteriores.",
+        "O resultado contábil/financeiro apurado no mês foi de R$ 33,68 milhões frente a uma distribuição de R$ 59,16 milhões, exigindo uso de reservas acumuladas.",
+        "A reserva acumulada não distribuída encerrou agosto em R$ 96,89 milhões, equivalente a R$ 1,51 por cota.",
+        "A vacância física média encerrou em 5,1% e a inadimplência líquida em 1,2%, com NOI Caixa/m² de R$ 135 (+6,3% ano contra ano).",
+        "Apresentado guidance de distribuição de rendimentos até dezembro de 2026, com faixa estimada entre R$ 0,83 (limite inferior) e R$ 0,92 (limite superior) por cota."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "A vacância física registrou aumento contínuo no ano, atingindo 5,1% em agosto (ante 4,9% em julho e 3,7% no início do ano).",
+        "A reserva acumulada por cota caiu de R$ 1,91 em julho para R$ 1,51 em agosto devido à distribuição superior à geração de caixa mensal.",
+        "Divulgação de cronograma de desembolsos de aquisições com obrigações de R$ 41,1 milhões em 2026 e R$ 151,7 milhões em 2027.",
+        "Inadimplência líquida reportada em 1,2% no mês (frente aos dados zerados da referência anterior)."
+      ],
+      "alertas": [
+        "Geração de caixa mensal insuficiente para cobrir o dividendo corrente de R$ 0,92/cota, pressionando as reservas acumuladas.",
+        "Guidance prevê limite inferior de R$ 0,83 por cota até dez/26, indicando risco real de corte no provento caso o resultado não se recupere.",
+        "Necessidade de capital/caixa para honrar parcelas de aquisições (R$ 192,8 milhões até o fim de 2027), projetando saldo de caixa negativo ao final de 2027 sem novas captações ou retenções.",
+        "Pressão sobre o varejo citada pela gestão, com risco de aumento de pedidos de recuperação judicial de lojistas e desaceleração de vendas."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 1.2,
+        "ltv": 0.0,
+        "provento_por_cota": 0.92,
+        "reserva_por_cota": 1.51,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 5.1
       },
-      "gravidade": "info"
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1324186",
