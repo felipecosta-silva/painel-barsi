@@ -93,4 +93,17 @@ window.FEHMIR_LANC_ASSIST = [
     moeda: "BRL",
     nota: "Venda das 13 ações restantes a R$ 24,30 = R$ 315,90 − R$ 0,11 de taxa = R$ 315,79 líquido (saída do BB: ROE 8,3% em queda, inadimplência agro, DY 2,8%)"
   }
+  ,{
+    id: "2026-10-09-BBAS3-V-1",
+    data: "2026-10-09",
+    tipo: "Venda",
+    ticker: "BBAS3",
+    cat: "AÇÕES",
+    quant: 10,
+    preco: 24.71,
+    taxa: 0.08,
+    total: 247.02,
+    moeda: "BRL",
+    nota: "1ª venda de BBAS3: 10 ações a R$ 24,71 = R$ 247,10 − R$ 0,08 de taxa = R$ 247,02 líquido"
+  }
 ];
