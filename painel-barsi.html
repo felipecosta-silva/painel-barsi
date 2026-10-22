@@ -3432,7 +3432,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 
   <div class="alert">
     <span class="icon">⚠️</span>
-    <div><b>Reserva de emergência — status NÃO CONFIRMADO.</b> Esta é a pendência mais prioritária da carteira inteira, à frente de qualquer ticker novo. Meta: 3 meses de pró-labore/gasto essencial, 100% líquido, até confirmar e bater.</div>
+    <div><b>Reserva de tranquilidade — status NÃO CONFIRMADO.</b> Esta é a pendência mais prioritária da carteira inteira, à frente de qualquer ticker novo. Meta: 3 meses de pró-labore/gasto essencial, 100% líquido, até confirmar e bater.</div>
   </div>
 
   <!-- ===================== SECTION: PROVENTOS (PADRÃO WARD - 16/10/2026) ===================== -->
@@ -3754,7 +3754,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-caixa-rf', event)">
       <div>
         <h2>🏦 Renda Fixa & Estrutura do Caixa Único (§25)</h2>
-        <p class="panel-note">Gestão do caixa de oportunidade e piso intocável de emergência.</p>
+        <p class="panel-note">Gestão do caixa de oportunidade e piso intocável de tranquilidade.</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="collapsed-summary-pill" id="caixa-rf-summary-pill">R$ 0,00</span>
@@ -4239,7 +4239,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
           <div class="stat-tile accent"><div class="stat-label">Patrimônio final</div><div class="stat-value tabular mono" id="out-patrimonio">—</div></div>
           <div class="stat-tile"><div class="stat-label">Total aportado</div><div class="stat-value tabular mono" id="out-aportado">—</div></div>
           <div class="stat-tile"><div class="stat-label">Rendimento ganho</div><div class="stat-value tabular mono" id="out-rendimento">—</div></div>
-          <div class="stat-tile gold"><div class="stat-label">Renda mensal estimada <span title="Patrimônio final × dividend yield de 6% ao ano (meta Bazin) ÷ 12. É o que a carteira pagaria em proventos sem vender nada; a taxa de rendimento acima inclui a valorização das cotas, que não vira renda." style="cursor:help">ⓘ</span></div><div class="stat-value tabular mono" id="out-renda">—</div></div>
+          <div class="stat-tile gold"><div class="stat-label">Renda mensal estimada <span title="Patrimônio final × dividend yield ÷ 12: o que a carteira pagaria em proventos sem vender nada. O rendimento de 10% ao ano soma dividendos + valorização; se você sacar os 10% inteiros, o patrimônio para de crescer e perde para a inflação. Padrão 6% (meta Bazin); ajuste ao lado." style="cursor:help">ⓘ</span> <span style="font-weight:400;font-size:11px">DY <input id="sim-dy" type="number" step="0.5" min="1" max="20" value="6" style="width:46px;font-size:11px;padding:1px 3px">%</span></div><div class="stat-value tabular mono" id="out-renda">—</div></div>
         </div>
 
         <div class="alloc-bar-wrap">
@@ -6171,6 +6171,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
 
   // Renda mensal = patrimônio × DY ÷ 12. DY de 6% = meta Bazin (a mesma da Saúde da carteira).
   var DY_RENDA = 6;
+  function lerDyRenda(){ var el = document.getElementById('sim-dy'); var v = el ? parseFloat(el.value) : NaN; DY_RENDA = (v > 0 && v < 30) ? v : 6; return DY_RENDA; }
   function ipcaAno(){
     try { var m = typeof loadMacro === 'function' ? loadMacro() : null; return (m && m.ipca12 != null && !isNaN(+m.ipca12)) ? +m.ipca12 : 4.6; }
     catch (e) { return 4.6; }
@@ -6304,6 +6305,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
 
     var meses = v.anos * 12;
     var sim = simulate(v.inicial, v.aporte, v.reajuste, v.rendimento, meses);
+    lerDyRenda();
     var serie = ajustarSerie(sim.series);
     var fim = serie[serie.length - 1];
     var rendimentoGanho = fim.patrimonio - fim.aportado;
@@ -6438,6 +6440,11 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
 
   var simRealEl = document.getElementById('sim-real');
   if (simRealEl) simRealEl.addEventListener('change', function(){ render(); });
+  var simDyEl = document.getElementById('sim-dy');
+  if (simDyEl) {
+    try { var dySalvo = localStorage.getItem('barsi-sim-dy'); if (dySalvo) simDyEl.value = dySalvo; } catch (e) {}
+    simDyEl.addEventListener('input', function(){ try { localStorage.setItem('barsi-sim-dy', simDyEl.value); } catch (e) {} render(); });
+  }
 
   [els.rgInicial, els.inInicial, els.rgAporte, els.inAporte, els.rgReajuste, els.inReajuste,
    els.rgRendimento, els.inRendimento, els.rgAnos, els.inAnos].forEach(function(el){
@@ -6952,7 +6959,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
         <input type="number" id="cfg-caixa-aporte" step="10" min="0" style="width:100%; padding:7px 10px; border-radius:6px; border:1px solid var(--rule); margin-top:4px; font-family:var(--font-mono); box-sizing:border-box;">
       </div>
       <div>
-        <label style="font-size:12px; font-weight:600; color:var(--ink);">Reserva de Emergência / Piso do Caixa (R$, opcional)</label>
+        <label style="font-size:12px; font-weight:600; color:var(--ink);">Reserva de Tranquilidade / Piso do Caixa (R$, opcional)</label>
         <input type="number" id="cfg-caixa-reserva" step="100" min="0" placeholder="Ex: 1000.00" style="width:100%; padding:7px 10px; border-radius:6px; border:1px solid var(--rule); margin-top:4px; font-family:var(--font-mono); box-sizing:border-box;">
       </div>
     </div>
@@ -10612,9 +10619,9 @@ function renderModalCaixaConteudo() {
     if (!saldoPositivo) {
       const yVal = Math.abs(res.saldoFinal);
       const zMenosY = zVal - yVal;
-      reservaBanner = `<div style="margin-top:6px; font-size:12px; color:var(--critical); font-weight:600;">Reserva de Emergência: ${fmtR(zVal)} → ${fmtR(zMenosY)} (Usou ${fmtR(yVal)} da reserva para cobrir compras de ativos)</div>`;
+      reservaBanner = `<div style="margin-top:6px; font-size:12px; color:var(--critical); font-weight:600;">Reserva de Tranquilidade: ${fmtR(zVal)} → ${fmtR(zMenosY)} (Usou ${fmtR(yVal)} da reserva para cobrir compras de ativos)</div>`;
     } else {
-      reservaBanner = `<div style="margin-top:6px; font-size:12px; color:var(--ink-2);">Reserva de Emergência intacta: <b>${fmtR(zVal)}</b></div>`;
+      reservaBanner = `<div style="margin-top:6px; font-size:12px; color:var(--ink-2);">Reserva de Tranquilidade intacta: <b>${fmtR(zVal)}</b></div>`;
     }
   }
 
@@ -11903,7 +11910,7 @@ function calcularSaudeCarteira(dadosContexto) {
     ptsReserva = 0;
     valorReservaStr = "Sem dado";
     detalheReservaStr = "Gasto mensal pessoal não informado";
-    avisos.push("Informe seu gasto mensal na configuração do Caixa para calcular a cobertura da reserva de emergência.");
+    avisos.push("Informe seu gasto mensal na configuração do Caixa para calcular a cobertura da reserva de tranquilidade.");
   } else {
     const mesesCobertura = caixaTotal / gastoMensal;
     ptsReserva = Math.round(100 * Math.min(1, mesesCobertura / 3));
@@ -12179,7 +12186,7 @@ function calcularSaudeCarteira(dadosContexto) {
     } else if (p.item === 'reserva') {
       sugestoes.push({
         tipo: "reserva",
-        texto: "Reserva de emergência abaixo do piso: canalizar realizações e parte dos aportes para recompor a reserva pessoal."
+        texto: "Reserva de tranquilidade abaixo do piso: canalizar realizações e parte dos aportes para recompor a reserva pessoal."
       });
     } else if (p.item === 'esticados') {
       sugestoes.push({
@@ -15716,7 +15723,7 @@ initCollapsibleBlocks();
     ibov: 209067, ibovMax52: 209606, ibovMin52: 158000, mm200: 180000,
     var30: 12.2, plIbov: 10.5, plMedia: 10.5,
     ntnb: 6.5, selic: 13.75, ipca12: 4.6, dolar: 5.00,
-    caixa: 0, gastoMensal: 300, aporteBase: 300,
+    caixa: 0, gastoMensal: 300, aporteBase: 300, pctCDI: 115,
     est: ["ibovMin52", "mm200", "plIbov"]
   };
   const MACRO_FIELDS = [
@@ -15734,6 +15741,7 @@ initCollapsibleBlocks();
     ["dolar", "Dólar (R$)", "number", ""],
     ["caixa", "Seu caixa atual (R$)", "number", "Tudo que está em liquidez diária (Caixinha etc.)"],
     ["gastoMensal", "Seu gasto pessoal por mês (R$)", "number", "O que fica com você (as contas da casa são geridas à parte)"],
+    ["pctCDI", "Rendimento da caixinha (% do CDI)", "number", "Ex.: 115. Tranquilidade e oportunidade ficam na mesma caixinha; a divisão é só de conta"],
     ["aporteBase", "Aporte base por mês (R$)", "number", "Valor fixo; o extra do pessoal só vai para oportunidade com margem"]
   ];
 
@@ -16875,17 +16883,17 @@ initCollapsibleBlocks();
       }
     });
 
-    // Caixa único com piso (seção 25): reserva de emergência vem do getCaixaCfg()
+    // Caixa único com piso (seção 25): reserva de tranquilidade vem do getCaixaCfg()
     const cxCfg = typeof getCaixaCfg === "function" ? getCaixaCfg() : null;
     const g = +m.gastoMensal || 0;
     const cx = (cxCfg && cxCfg.reserva != null) ? cxCfg.reserva : (+m.caixa || 0);
     if (!g || (cxCfg && cxCfg.reserva == null && !cx)) {
-      a.push(["🛑", "<b>Sem reserva pessoal configurada.</b> Defina a <b>Reserva de emergência</b> na configuração do Caixa (ou gasto no formulário) para o painel calcular o piso."]);
+      a.push(["🛑", "<b>Sem reserva pessoal configurada.</b> Defina a <b>Reserva de tranquilidade</b> na configuração do Caixa (ou gasto no formulário) para o painel calcular o piso."]);
     } else {
       const piso1 = g, piso3 = 3 * g;
       if (cx < piso1) a.push(["🛑", "<b>Caixa abaixo do piso pessoal</b>: " + fR(cx) + " de " + fR(piso1) + " (fase 1 = 1 mês do seu gasto pessoal). Faltam <b>" + fR(piso1 - cx) + "</b>. Realizações e metade do aporte base vão para o caixa até bater o piso; munição de oportunidade = R$ 0."]);
       else if (cx < piso3) a.push(["🟡", "<b>Piso fase 1 completo</b> (" + fR(piso1) + "). Munição de oportunidade: <b>" + fR(cx - piso1) + "</b>. Próximo degrau: 3 meses (" + fR(piso3) + "), com 25% dos aportes."]);
-      else a.push(["✅", "<b>Reserva de emergência completa</b> (3 meses = " + fR(piso3) + "). Munição de oportunidade: <b>" + fR(cx - piso3) + "</b>."]);
+      else a.push(["✅", "<b>Reserva de tranquilidade completa</b> (3 meses = " + fR(piso3) + "). Munição de oportunidade: <b>" + fR(cx - piso3) + "</b>."]);
     }
     rows.filter(r => r.peso > 10).forEach(r => a.push(["⚖️", "<b>" + r.t + "</b> pesa " + fmtN(r.peso, 1) + "% da carteira (ideal " + fmtN(r.ideal, 1) + "%). Concentração: não reforçar."]));
     rows.filter(r => r.divHist && r.divHist.length >= 2).forEach(r => {
@@ -17015,7 +17023,7 @@ initCollapsibleBlocks();
     const grupos = [["🔻 Realizar parcialmente (escada)", realizar], ["✋ Segurar, sem novos aportes", sinais.filter(r => r.sg.acao.startsWith("Segurar"))],
       ["🟢 Reforçar com dinheiro novo", reforcar], ["⚪ Manter", sinais.filter(r => r.sg.acao.startsWith("Manter"))]];
     const destino = [];
-    if (alertas(m, rows, termo).some(x => x[0] === "🛑")) destino.push("1º o <b>piso de emergência do caixa</b> (1 mês de gasto essencial)");
+    if (alertas(m, rows, termo).some(x => x[0] === "🛑")) destino.push("1º o <b>piso de tranquilidade do caixa</b> (1 mês de gasto essencial)");
     if (reforcar.length || ops.length) destino.push("depois <b>" + [...new Set([...reforcar.map(r => r.t), ...ops.filter(o => o.base).map(o => o.t)])].slice(0, 4).join(", ") + "</b> (margem + B.A.S.E./FII)");
     destino.push("o que sobrar vai para a <b>Reserva de Oportunidade</b> (CDI) esperando a correção");
     document.getElementById("cb-plano").innerHTML = `<h3>♻️ Plano de Realização & Rotação para a B.A.S.E.</h3>
@@ -20307,6 +20315,8 @@ function renderAbaCaixaRf() {
   const caixaTotal = (resCaixa.cfg && resCaixa.cfg.reserva != null && resCaixa.cfg.reserva > 0) ? resCaixa.cfg.reserva : (Number(m.caixa) || 0);
   const caixaOportunidade = Math.max(0, caixaTotal - piso1);
   const selic = Number(m.selic) || 13.75;
+  const pctCdi = Number(m.pctCDI) || 115;              // rendimento da caixinha em % do CDI (formulário macro)
+  const rendCaixa = (selic - 0.10) * pctCdi / 100;     // CDI ≈ Selic − 0,10 p.p.
 
   let statusBadge = '';
   let statusCor = '';
@@ -20329,10 +20339,10 @@ function renderAbaCaixaRf() {
         <div class="stat-card">
           <div class="stat-label">Caixa Total Disponível</div>
           <div class="stat-val" style="color:var(--cor-classe-caixa);">${typeof fmtR === 'function' ? fmtR(caixaTotal) : 'R$ ' + caixaTotal.toFixed(2)}</div>
-          <div class="stat-sub">Liquidez imediata (100% CDI)</div>
+          <div class="stat-sub">Liquidez imediata (${pctCdi.toFixed(0)}% do CDI)</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Piso de Emergência (Fase 1)</div>
+          <div class="stat-label">Piso de Tranquilidade (Fase 1)</div>
           <div class="stat-val">${typeof fmtR === 'function' ? fmtR(piso1) : 'R$ ' + piso1.toFixed(2)}</div>
           <div class="stat-sub">1 mês de gasto (${typeof fmtR === 'function' ? fmtR(gastoMensal) : 'R$ ' + gastoMensal.toFixed(2)}/mês)</div>
         </div>
@@ -20343,8 +20353,8 @@ function renderAbaCaixaRf() {
         </div>
         <div class="stat-card">
           <div class="stat-label">Rentabilidade de Referência</div>
-          <div class="stat-val">${selic.toFixed(2).replace('.', ',')}% a.a.</div>
-          <div class="stat-sub">Taxa Selic Over / CDI</div>
+          <div class="stat-val">${rendCaixa.toFixed(2).replace('.', ',')}% a.a.</div>
+          <div class="stat-sub">${pctCdi.toFixed(0)}% do CDI (Selic ${selic.toFixed(2).replace('.', ',')}%) · um só caixa: tranquilidade + oportunidade</div>
         </div>
       </div>
     </div>
@@ -20355,11 +20365,11 @@ function renderAbaCaixaRf() {
         <h3 style="font-size:14px; margin:0; color:var(--ink); font-weight:700;">Estrutura do Caixa Único com Piso (§25)</h3>
         <span style="font-size:12px; font-weight:700; color:${statusCor};">${statusBadge}</span>
       </div>
-      <p style="font-size:12px; color:var(--muted); margin:0 0 14px 0;">Um só caixa de liquidez diária: o piso de emergência é intocável para aportes; somente o excedente financia as oportunidades no Preço Teto.</p>
+      <p style="font-size:12px; color:var(--muted); margin:0 0 14px 0;">Um só caixa de liquidez diária: o piso de tranquilidade é intocável para aportes; somente o excedente financia as oportunidades no Preço Teto.</p>
 
       <div style="height:24px; background:var(--surface-2); border-radius:12px; overflow:hidden; display:flex; border:1px solid var(--rule); margin-bottom:10px;">
-        <div style="width:${caixaTotal > 0 ? Math.min(100, (piso1 / Math.max(caixaTotal, piso3)) * 100) : 0}%; background:var(--critical); display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:700;" title="Piso de Emergência: ${typeof fmtR === 'function' ? fmtR(piso1) : 'R$ ' + piso1.toFixed(2)}">
-          Piso Emergência
+        <div style="width:${caixaTotal > 0 ? Math.min(100, (piso1 / Math.max(caixaTotal, piso3)) * 100) : 0}%; background:var(--critical); display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:700;" title="Piso de Tranquilidade: ${typeof fmtR === 'function' ? fmtR(piso1) : 'R$ ' + piso1.toFixed(2)}">
+          Piso Tranquilidade
         </div>
         <div style="width:${caixaTotal > piso1 ? Math.min(100, ((caixaTotal - piso1) / Math.max(caixaTotal, piso3)) * 100) : 0}%; background:var(--good); display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:700;" title="Munição de Oportunidade: ${typeof fmtR === 'function' ? fmtR(caixaOportunidade) : 'R$ ' + caixaOportunidade.toFixed(2)}">
           Munição
