@@ -16,6 +16,9 @@ RAIZ = pathlib.Path(__file__).resolve().parent.parent
 PAINEL = RAIZ / "painel-barsi.html"
 SAIDA = RAIZ / "dados" / "historico.js"
 INDICES = {"^BVSP": "^BVSP", "SMAL11": "SMAL11.SA", "IVVB11": "IVVB11.SA", "XFIX11": "XFIX11.SA"}
+INTL_ATIVOS = {"VTI": "VTI", "SCHD": "SCHD"}
+CAMBIO = {"USDBRL": "USDBRL=X"}
+CRIPTO_ATIVOS = {"BTC": "BTC-USD", "ETH": "ETH-USD", "SOL": "SOL-USD"}
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Fehmir/1.0"}
 
 try:
@@ -130,14 +133,58 @@ def processar(js, diario=None, nome=""):
     dois_anos_atras = time.time() - 2 * 365 * 86400
     ev = [[utc(t).strftime("%Y-%m-%d"), round(a, 4)] for t, a in lista if t >= dois_anos_atras]
 
+    # Detecção de proventos extraordinários pelo critério do excesso do ano
+    # Para cada ano y dos 5 anos fechados: excesso = dpaAno[y] - mediana(dpaAno dos outros anos dos 5)
+    # Se excesso <= 0.3 * mediana: nenhum extra no ano
+    # Senão: entre os eventos do ano com valor > 2.5x mediana dos eventos, marcar do maior para o menor enquanto excesso restante >= 50% do evento
+    extras = []
+    por_ano_extra = {}
+    anos_5a = [ano_atual - 5, ano_atual - 4, ano_atual - 3, ano_atual - 2, ano_atual - 1]
+    dpas_anuais_5a = {y: por_ano.get(y, 0.0) for y in anos_5a}
+
+    # Eventos de referência nos 5 anos fechados (filtrando micro-proventos mensais de JCP < 0.05 para não distorcer)
+    divs_5a = [a for t, a in lista if (ano_atual - 5) <= utc(t).year <= (ano_atual - 1) and a >= 0.05]
+    if not divs_5a:
+        divs_5a = [a for t, a in lista if (ano_atual - 5) <= utc(t).year <= (ano_atual - 1)]
+
+    if len(divs_5a) >= 1 and any(d > 0 for d in dpas_anuais_5a.values()):
+        import statistics
+        med_div = statistics.median(divs_5a)
+
+        for y in anos_5a:
+            outros_dpas = [dpas_anuais_5a[yo] for yo in anos_5a if yo != y]
+            med_outros = statistics.median(outros_dpas) if outros_dpas else 0.0
+            dpa_y = dpas_anuais_5a[y]
+            excesso = dpa_y - med_outros
+
+            if excesso <= 0.3 * med_outros:
+                continue
+
+            # Mediana de eventos de referência (garantindo piso proporcional ao DPA anual dos outros anos)
+            med_ev = max(med_div, med_outros / 2.5) if med_outros > 0 else med_div
+            cand = [(t, a) for t, a in lista if utc(t).year == y and a > 2.5 * med_ev]
+            cand.sort(key=lambda x: x[1], reverse=True)
+
+            exc_rest = excesso
+            for t, a in cand:
+                if exc_rest >= 0.5 * a:
+                    extras.append([utc(t).strftime("%Y-%m-%d"), round(a, 4), round(excesso, 4), round(med_outros, 4)])
+                    por_ano_extra[y] = por_ano_extra.get(y, 0.0) + a
+                    exc_rest -= a
+
+    dpaAnoExtra = {str(y): round(por_ano_extra.get(y, 0.0), 4) for y in range(ano_atual - 10, ano_atual + 1)}
+
     return {
         "d0": utc(ano[0][0]).strftime("%Y-%m-%d"),
         "d1": utc(ano[-1][0]).strftime("%Y-%m-%d"),
+        "d": [utc(t).strftime("%Y-%m-%d") for t, _, _ in ano],
         "anos5": len(anos_ok),
         "anos10": len(anos_ok_10),
         "c": [round(c, 2) for _, c, _ in ano],
         "v": [int(v // 100) for _, _, v in ano],  # volume em centenas (economiza espaço)
         "dpaAno": {str(y): round(por_ano.get(y, 0.0), 4) for y in range(ano_atual - 10, ano_atual + 1)},
+        "dpaAnoExtra": dpaAnoExtra,
+        "extras": extras,
         "pmAno": pmAno,
         "nPagAno": nPagAno,
         "dpa12": dpa12,
@@ -156,6 +203,9 @@ ALIASES_YAHOO = {
     "BRIT3": "BRST3.SA",
     "BRST3": "BRST3.SA",
     "XBCI11": "XPCI11.SA",
+    "BTC-BRL": "BTC-USD",
+    "ETH-BRL": "ETH-USD",
+    "SOL-BRL": "SOL-USD",
 }
 
 
@@ -163,6 +213,9 @@ def main():
     tickers = tickers_do_painel()
     alvos = {t: t + ".SA" for t in tickers}
     alvos.update(INDICES)
+    alvos.update(INTL_ATIVOS)
+    alvos.update(CAMBIO)
+    alvos.update(CRIPTO_ATIVOS)
     print(f"Baixando {len(alvos)} ativos do Yahoo Finance…")
     dados, falhas = {}, []
     for nome, simbolo in alvos.items():
@@ -170,6 +223,12 @@ def main():
         js = baixar(sym)
         reg = processar(js, baixar_diario(sym), nome) if js else None
         if reg:
+            if nome in INTL_ATIVOS:
+                reg["moeda"] = "USD"
+            elif nome in CRIPTO_ATIVOS:
+                reg["moeda"] = "BRL"
+                usd_rate = dados.get("USDBRL", {}).get("c", [5.03])[-1] if "USDBRL" in dados else 5.03
+                reg["c"] = [round(c * usd_rate, 2) for c in reg["c"]]
             dados[nome] = reg
             if nome == "TRPL4":
                 dados["ISAE4"] = reg

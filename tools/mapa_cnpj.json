@@ -1,0 +1,307 @@
+{
+  "ALUP11": {
+    "cnpj": "08.364.948/0001-38",
+    "nome": "ALUPAR INVESTIMENTO S/A",
+    "cd_cvm": "21490"
+  },
+  "ALUP3": {
+    "cnpj": "08.364.948/0001-38",
+    "nome": "ALUPAR INVESTIMENTO S/A",
+    "cd_cvm": "21490"
+  },
+  "ALUP4": {
+    "cnpj": "08.364.948/0001-38",
+    "nome": "ALUPAR INVESTIMENTO S/A",
+    "cd_cvm": "21490"
+  },
+  "AURE3": {
+    "cnpj": "28.594.234/0001-23",
+    "nome": "AUREN ENERGIA S.A",
+    "cd_cvm": "26620"
+  },
+  "AXIA3": {
+    "cnpj": "00.001.180/0001-26",
+    "nome": "AXIA ENERGIA S.A.",
+    "cd_cvm": "2437"
+  },
+  "BBAS3": {
+    "cnpj": "00.000.000/0001-91",
+    "nome": "BANCO DO BRASIL S.A.",
+    "cd_cvm": "1023"
+  },
+  "BBDC4": {
+    "cnpj": "60.746.948/0001-12",
+    "nome": "BANCO BRADESCO S.A.",
+    "cd_cvm": "906"
+  },
+  "BBSE3": {
+    "cnpj": "17.344.597/0001-94",
+    "nome": "BB SEGURIDADE PARTICIPAÇÕES S.A.",
+    "cd_cvm": "23159"
+  },
+  "BRAV3": {
+    "cnpj": "12.091.809/0001-55",
+    "nome": "BRAVA ENERGIA S.A.",
+    "cd_cvm": "25291"
+  },
+  "BRIT3": {
+    "cnpj": "04.601.397/0001-28",
+    "nome": "BRISANET SERVIÇOS DE TELECOMUNICAÇÕES S.A.",
+    "cd_cvm": "27693"
+  },
+  "BRSR6": {
+    "cnpj": "92.702.067/0001-96",
+    "nome": "BANCO DO ESTADO DO RIO GRANDE DO SUL S.A.",
+    "cd_cvm": "1112"
+  },
+  "CMIG4": {
+    "cnpj": "17.155.730/0001-64",
+    "nome": "COMPANHIA ENERGETICA DE MINAS GERAIS - CEMIG",
+    "cd_cvm": "2453"
+  },
+  "CPFE3": {
+    "cnpj": "02.474.103/0001-19",
+    "nome": "CPFL ENERGIA S.A.",
+    "cd_cvm": "18660"
+  },
+  "CPLE3": {
+    "cnpj": "76.483.817/0001-20",
+    "nome": "COMPANHIA PARANAENSE DE ENERGIA COPEL",
+    "cd_cvm": "14311"
+  },
+  "CSMG3": {
+    "cnpj": "17.281.106/0001-03",
+    "nome": "COMPANHIA DE SANEAMENTO DE MINAS GERAIS COPASA MG",
+    "cd_cvm": "19780"
+  },
+  "CSNA3": {
+    "cnpj": "33.042.730/0001-04",
+    "nome": "CIA SIDERURGICA NACIONAL",
+    "cd_cvm": "4030"
+  },
+  "CURY3": {
+    "cnpj": "08.797.760/0001-83",
+    "nome": "CURY CONSTRUTORA E INCORPORADORA S.A.",
+    "cd_cvm": "25135"
+  },
+  "CXSE3": {
+    "cnpj": "22.543.331/0001-00",
+    "nome": "CAIXA SEGURIDADE PARTICIPAÇÕES S.A.",
+    "cd_cvm": "23795"
+  },
+  "CYRE3": {
+    "cnpj": "73.178.600/0001-18",
+    "nome": "CYRELA BRAZIL REALTY S.A.EMPREEND E NEGOCIOS",
+    "cd_cvm": "14460"
+  },
+  "DIRR3": {
+    "cnpj": "16.614.075/0001-00",
+    "nome": "DIRECIONAL ENGENHARIA SA",
+    "cd_cvm": "21350"
+  },
+  "EGIE3": {
+    "cnpj": "02.474.103/0001-19",
+    "nome": "ENGIE BRASIL ENERGIA S.A.",
+    "cd_cvm": "17329"
+  },
+  "ENEV3": {
+    "cnpj": "04.423.567/0001-21",
+    "nome": "ENEVA S.A.",
+    "cd_cvm": "20079"
+  },
+  "ENGI11": {
+    "cnpj": "00.864.214/0001-06",
+    "nome": "ENERGISA SA",
+    "cd_cvm": "15253"
+  },
+  "EQTL3": {
+    "cnpj": "03.220.438/0001-73",
+    "nome": "EQUATORIAL ENERGIA S.A.",
+    "cd_cvm": "20044"
+  },
+  "FIQE3": {
+    "cnpj": "02.255.187/0001-08",
+    "nome": "UNIFIQUE TELECOMUNICAÇÕES S.A.",
+    "cd_cvm": "26050"
+  },
+  "GGBR4": {
+    "cnpj": "33.611.500/0001-19",
+    "nome": "GERDAU S.A.",
+    "cd_cvm": "19615"
+  },
+  "GMAT3": {
+    "cnpj": "24.990.777/0001-09",
+    "nome": "GRUPO MATEUS S.A.",
+    "cd_cvm": "25186"
+  },
+  "IRBR3": {
+    "cnpj": "33.376.989/0001-91",
+    "nome": "IRB - BRASIL RESSEGUROS S.A.",
+    "cd_cvm": "24180"
+  },
+  "ISAE4": {
+    "cnpj": "02.998.611/0001-04",
+    "nome": "ISA ENERGIA BRASIL S.A.",
+    "cd_cvm": "18376"
+  },
+  "ITSA4": {
+    "cnpj": "61.532.644/0001-15",
+    "nome": "ITAUSA S.A.",
+    "cd_cvm": "7617"
+  },
+  "ITUB4": {
+    "cnpj": "60.872.504/0001-23",
+    "nome": "ITAÚ UNIBANCO HOLDING S.A.",
+    "cd_cvm": "19348"
+  },
+  "JHSF3": {
+    "cnpj": "08.294.224/0001-65",
+    "nome": "JHSF PARTICIPAÇÕES SA",
+    "cd_cvm": "20605"
+  },
+  "KLBN4": {
+    "cnpj": "89.637.490/0001-45",
+    "nome": "KLABIN S.A.",
+    "cd_cvm": "12629"
+  },
+  "LAVV3": {
+    "cnpj": "26.462.693/0001-28",
+    "nome": "LAVVI EMPREENDIMENTOS IMOBILIÁRIOS S.A",
+    "cd_cvm": "25062"
+  },
+  "LEVE3": {
+    "cnpj": "60.476.884/0001-87",
+    "nome": "MAHLE METAL LEVE S.A.",
+    "cd_cvm": "8575"
+  },
+  "LOGG3": {
+    "cnpj": "09.041.168/0001-10",
+    "nome": "LOG COMMERCIAL PROPERTIES E PARTICIPAÇÕES",
+    "cd_cvm": "23272"
+  },
+  "MELK3": {
+    "cnpj": "12.181.987/0001-77",
+    "nome": "MELNICK DESENVOLVIMENTO IMOBILIÁRIO S.A.",
+    "cd_cvm": "25119"
+  },
+  "MTRE3": {
+    "cnpj": "07.882.930/0001-65",
+    "nome": "MITRE REALTY EMPREENDIMENTOS E PARTICIPAÇÕES S.A.",
+    "cd_cvm": "24902"
+  },
+  "PETR4": {
+    "cnpj": "33.000.167/0001-01",
+    "nome": "PETRÓLEO BRASILEIRO S.A. - PETROBRAS",
+    "cd_cvm": "9512"
+  },
+  "POMO4": {
+    "cnpj": "88.611.835/0001-29",
+    "nome": "MARCOPOLO SA",
+    "cd_cvm": "8451"
+  },
+  "PRIO3": {
+    "cnpj": "10.629.105/0001-68",
+    "nome": "PRIO S.A.",
+    "cd_cvm": "22187"
+  },
+  "PSSA3": {
+    "cnpj": "02.149.205/0001-69",
+    "nome": "PORTO SEGURO SA",
+    "cd_cvm": "16659"
+  },
+  "RANI3": {
+    "cnpj": "92.791.243/0001-03",
+    "nome": "IRANI PAPEL E EMBALAGEM S.A.",
+    "cd_cvm": "2429"
+  },
+  "RECV3": {
+    "cnpj": "03.342.704/0001-30",
+    "nome": "PETRORECÔNCAVO S.A.",
+    "cd_cvm": "25780"
+  },
+  "SANB11": {
+    "cnpj": "90.400.888/0001-42",
+    "nome": "BANCO SANTANDER (BRASIL) S.A.",
+    "cd_cvm": "20532"
+  },
+  "SAPR11": {
+    "cnpj": "76.484.013/0001-45",
+    "nome": "COMPANHIA DE SANEAMENTO DO PARANA - SANEPAR",
+    "cd_cvm": "14834"
+  },
+  "SAPR4": {
+    "cnpj": "76.484.013/0001-45",
+    "nome": "COMPANHIA DE SANEAMENTO DO PARANA - SANEPAR",
+    "cd_cvm": "14834"
+  },
+  "SBSP3": {
+    "cnpj": "43.776.517/0001-80",
+    "nome": "CIA SANEAMENTO BASICO ESTADO SAO PAULO",
+    "cd_cvm": "14443"
+  },
+  "SUZB3": {
+    "cnpj": "16.404.287/0001-55",
+    "nome": "SUZANO S.A.",
+    "cd_cvm": "13986"
+  },
+  "TAEE11": {
+    "cnpj": "07.859.971/0001-30",
+    "nome": "TRANSMISSORA ALIANÇA DE ENERGIA ELÉTRICA S.A.",
+    "cd_cvm": "20257"
+  },
+  "TEND3": {
+    "cnpj": "71.476.527/0001-35",
+    "nome": "CONSTRUTORA TENDA S.A.",
+    "cd_cvm": "20761"
+  },
+  "TIMS3": {
+    "cnpj": "02.421.421/0001-11",
+    "nome": "TIM S.A.",
+    "cd_cvm": "24929"
+  },
+  "TRPL4": {
+    "cnpj": "02.998.611/0001-04",
+    "nome": "ISA ENERGIA BRASIL S.A.",
+    "cd_cvm": "18376"
+  },
+  "TUPY3": {
+    "cnpj": "84.683.374/0001-49",
+    "nome": "TUPY SA",
+    "cd_cvm": "6343"
+  },
+  "VALE3": {
+    "cnpj": "33.592.510/0001-54",
+    "nome": "VALE S.A.",
+    "cd_cvm": "4170"
+  },
+  "VAMO3": {
+    "cnpj": "23.373.000/0001-32",
+    "nome": "VAMOS LOCAÇÃO DE CAMINHÕES, MÁQUINAS E EQUIPAMENTOS S.A.",
+    "cd_cvm": "24716"
+  },
+  "VBBR3": {
+    "cnpj": "34.274.233/0001-02",
+    "nome": "VIBRA ENERGIA S/A",
+    "cd_cvm": "24295"
+  },
+  "VITT3": {
+    "cnpj": "45.365.558/0001-09",
+    "nome": "VITTIA S.A.",
+    "cd_cvm": "25763"
+  },
+  "VIVT3": {
+    "cnpj": "02.558.157/0001-62",
+    "nome": "TELEFÔNICA BRASIL S.A.",
+    "cd_cvm": "17671"
+  },
+  "VULC3": {
+    "cnpj": "50.926.955/0001-42",
+    "nome": "VULCABRAS S.A.",
+    "cd_cvm": "11762"
+  },
+  "WEGE3": {
+    "cnpj": "84.429.695/0001-11",
+    "nome": "WEG S.A.",
+    "cd_cvm": "5410"
+  }
+}
