@@ -50,3 +50,7 @@ botArbitragemSpot/
 
 # Bot de DCA de BTC (17/10/2026): projeto local, fora do repositório público
 botDCA/
+
+# Spec Kit (processo local dos agentes; specs/ vai junto)
+.specify/
+specs/
