@@ -9,6 +9,27 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
 <script src="dados/pareceres.js"></script>
 <script src="dados/licoes_candidatas.js"></script>
 <script src="dados/lancamentos_assistente.js"></script>
+<script src="dados/config_assistente.js"></script>
+<script>
+/* Aplica uma vez cada configuração contada ao assistente (dados/config_assistente.js) no formulário macro. */
+(function () {
+  try {
+    var itens = window.FEHMIR_CONFIG_ASSIST || [];
+    var feitos = JSON.parse(localStorage.getItem("barsi-config-assist-aplicados") || "[]");
+    var m = JSON.parse(localStorage.getItem("barsi-macro-v1") || "{}") || {};
+    var mudou = false;
+    itens.forEach(function (it) {
+      if (!it.id || feitos.indexOf(it.id) >= 0 || !it.macro) return;
+      Object.keys(it.macro).forEach(function (k) { m[k] = it.macro[k]; });
+      feitos.push(it.id); mudou = true;
+    });
+    if (mudou) {
+      localStorage.setItem("barsi-macro-v1", JSON.stringify(m));
+      localStorage.setItem("barsi-config-assist-aplicados", JSON.stringify(feitos));
+    }
+  } catch (e) {}
+})();
+</script>
 <script src="dados/benchmarks.js"></script><script>try{var t=localStorage.getItem("barsi-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <style>
 /* layout: tabbed site — Meus Ativos (carteira real) / Radar (watchlist, não é do Felipe) /
@@ -4219,7 +4240,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
           <input type="range" id="rg-rendimento" min="0" max="25" step="0.5">
           <div class="value-box"><input type="number" id="in-rendimento" min="0" max="100" step="0.5"><span class="suffix">%</span></div>
         </div>
-        <div class="field-help">Taxa hipotética, não uma promessa — trate como cenário, não previsão (ver nota no rodapé).</div>
+        <div class="field-help"><b id="rend-equivalente">—</b><br>Meta mínima do Felipe: <b>12% ao ano</b> (dividendos reinvestidos + valorização). Taxa hipotética, não uma promessa — trate como cenário, não previsão (ver nota no rodapé).</div>
       </div>
 
       <div class="field">
@@ -6083,7 +6104,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
 (function(){
   "use strict";
 
-  var DEFAULTS = { inicial: 5924, aporte: 300, reajuste: 10, rendimento: 10, anos: 20 };
+  var DEFAULTS = { inicial: 5924, aporte: 300, reajuste: 10, rendimento: 12, anos: 20 };
 
   var els = {
     rgInicial: document.getElementById('rg-inicial'), inInicial: document.getElementById('in-inicial'),
@@ -6306,6 +6327,12 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
     var meses = v.anos * 12;
     var sim = simulate(v.inicial, v.aporte, v.reajuste, v.rendimento, meses);
     lerDyRenda();
+    var eqEl = document.getElementById('rend-equivalente');
+    if (eqEl) {
+      var ipcaEq = ipcaAno(), realEq = ((1 + v.rendimento / 100) / (1 + ipcaEq / 100) - 1) * 100;
+      eqEl.textContent = v.rendimento.toLocaleString('pt-BR') + '% ao ano = ' + (sim.rMensal * 100).toFixed(2).replace('.', ',') + '% ao mês · ' +
+        realEq.toFixed(1).replace('.', ',') + '% acima da inflação (IPCA ' + ipcaEq.toLocaleString('pt-BR') + '%)';
+    }
     var serie = ajustarSerie(sim.series);
     var fim = serie[serie.length - 1];
     var rendimentoGanho = fim.patrimonio - fim.aportado;

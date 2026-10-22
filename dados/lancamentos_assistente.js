@@ -80,4 +80,17 @@ window.FEHMIR_LANC_ASSIST = [
     moeda: "BRL",
     nota: "Posição inicial apurada no Investidor 10: 0,00794523 ETH (PM R$ 12.360,87)"
   }
+  ,{
+    id: "2026-10-21-BBAS3-V-1",
+    data: "2026-10-21",
+    tipo: "Venda",
+    ticker: "BBAS3",
+    cat: "AÇÕES",
+    quant: 13,
+    preco: 24.30,
+    taxa: 0.11,
+    total: 315.79,
+    moeda: "BRL",
+    nota: "Venda das 13 ações restantes a R$ 24,30 = R$ 315,90 − R$ 0,11 de taxa = R$ 315,79 líquido (saída do BB: ROE 8,3% em queda, inadimplência agro, DY 2,8%)"
+  }
 ];
