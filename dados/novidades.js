@@ -520,21 +520,32 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Conclusão de venda de ativo",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1570951&numSequencia=1095657&numVersao=1",
       "resumo": [
-        "Comunicado ao Mercado publicado em 2026-09-23."
+        "Conclusão da venda do ativo LOG Recife II para o TRX Real Estate FII pelo valor total de R$ 210 milhões (R$ 4.375/m²).",
+        "A transação foi realizada em linha com o NAV, gerando margem bruta de 41% e TIR do projeto de 26,1%.",
+        "Forma de pagamento: 62% na data de fechamento (R$ 55 milhões em dinheiro e R$ 75 milhões em cotas do FII), 19% até 30/12/2026 (IPCA) e 19% no 14º mês (IPCA).",
+        "Com a transação, a LOG atinge cerca de R$ 1,3 bilhão em vendas concluídas em 2026 no âmbito de sua estratégia de reciclagem de capital.",
+        "A LOG continuará prestando serviços de administração imobiliária no ativo, fortalecendo o modelo asset-light."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Efetivação e fechamento da alienação do ativo LOG Recife II, que havia sido anunciada em fato relevante de 05/08/2026.",
+        "Entrada de R$ 55 milhões em caixa imediato e incorporação de R$ 75 milhões em cotas do TRX Real Estate FII ao patrimônio.",
+        "Volume acumulado de reciclagem de ativos da companhia em 2026 subiu para R$ 1,3 bilhão."
+      ],
+      "alertas": [
+        "Risco de crédito/liquidação futura para o recebimento das duas parcelas a prazo (38% do montante total diferido em dez/2026 e 14º mês).",
+        "Risco de mercado e oscilação patrimonial decorrente da parcela de R$ 75 milhões recebida em cotas do TRX Real Estate FII."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "cvm_023272IPE210920260142288480-55",
@@ -543,21 +554,27 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Aquisição/Alienação de Participação Acionária (art. 12 da Instr. CVM nº 358)",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1570215&numSequencia=1094921&numVersao=1",
       "resumo": [
-        "Comunicado ao Mercado publicado em 2026-09-21."
+        "O acionista FIP Multiestratégia Multisetorial Plus, gerido pela 2bCapital, alienou 530.000 ações ordinárias da LOG Commercial Properties em 21 de setembro de 2026.",
+        "Com a alienação, a participação do fundo foi reduzida para 4.220.195 ações ordinárias, totalizando aproximadamente 4,8% do capital social da Companhia.",
+        "A redução da participação para patamar inferior a 5% motivou a divulgação nos termos da Resolução CVM nº 44/2021.",
+        "O fundo declarou que a alienação visa cumprir sua estratégia de investimentos e que não pretende adquirir o controle ou alterar a administração da Companhia.",
+        "Fundos geridos pela 2bCapital informaram que não detêm derivativos referenciados em ações da LOGG3 nem celebram acordos de acionistas."
       ],
-      "mudancas": [],
+      "mudancas": [
+        "Redução da participação acionária do FIP Multisetorial para 4,8% (abaixo do patamar de 5%), após venda de 530.000 ações ordinárias."
+      ],
       "alertas": [],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     }
   ],
   "MXRF11": [
@@ -692,20 +709,30 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Petrobras informa sobre adesão à nova subvenção econômica",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1569745&numSequencia=1094451&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-09-19."
+        "Aprovação pelo Conselho de Administração da adesão à nova subvenção econômica a produtores e importadores de óleo diesel, instituída pela Medida Provisória nº 1.391/2026.",
+        "Valor unitário da subvenção estabelecido em R$ 1,00 por litro de óleo diesel 'A' rodoviário pela Portaria MF nº 2.813, com vigência de 30 dias prorrogáveis por igual período.",
+        "Os benefícios são cumulativos com a subvenção da MP nº 1.363/2026 (R$ 1,12 por litro de óleo diesel 'A'), preservando os direitos aos valores anteriores.",
+        "A assinatura efetiva do termo de adesão permanece condicionada à publicação e à análise do regulamento operacional da MP nº 1.391/2026.",
+        "Reiteração da estratégia comercial de não repassar de forma imediata aos preços internos a volatilidade internacional de cotações e do câmbio."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Adesão a um novo mecanismo de subvenção econômica temporário de R$ 1,00 por litro de diesel 'A', somando-se cumulativamente ao programa vigente da MP nº 1.363/2026 de R$ 1,12 por litro."
+      ],
+      "alertas": [
+        "Condicionamento da adesão à publicação e análise de regulamento ainda pendente para operacionalização do subsídio.",
+        "Risco regulatório e governamental associado à adoção de subvenções econômicas de preços de combustíveis e manutenção da diretriz de não repasse imediato da volatilidade de cotações internacionais."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 1,
+        "ltv": -1,
+        "provento_por_cota": -1,
+        "reserva_por_cota": -1,
+        "resultado_por_cota": -1,
+        "vacancia_financeira": -1,
+        "vacancia_fisica": -1
       },
-      "gravidade": "info"
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "RECR11": [
@@ -1550,20 +1577,32 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1324186",
       "resumo": [
-        "Fato Relevante publicado em 2026-09-18."
+        "Celebração de compromisso de cessão para a alienação de 16,99% do Shopping Cidade Jardim pelo valor de R$ 454.000.000,00.",
+        "O comprador é o JHSF Capital SCJ Fundo de Investimento Imobiliário - Responsabilidade Limitada.",
+        "O montante total será corrigido monetariamente pelo IPCA até as datas de pagamento.",
+        "A estrutura prevê R$ 272,4 milhões à vista no fechamento (composta pela assunção de ~R$ 153,62 milhões em CRI e saldo em dinheiro) e duas parcelas de R$ 90,8 milhões em 6 e 12 meses.",
+        "A conclusão do negócio está condicionada ao cumprimento de condições precedentes, incluindo aprovação prévia pelo CADE."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Alienação da fatia de 16,99% detida pelo fundo no Shopping Cidade Jardim.",
+        "Desalavancagem/redução de passivo com a transferência do saldo devedor de CRI vinculado ao ativo (~R$ 153,62 milhões) para o comprador."
+      ],
+      "alertas": [
+        "Risco de não concretização da venda caso as condições precedentes, em especial a anuência do CADE, não sejam superadas.",
+        "Risco de crédito/parcelamento referente às parcelas de R$ 90,8 milhões a serem quitadas em 6 e 12 meses.",
+        "Cessação do fluxo de renda imobiliária recorrente gerado pela participação no ativo após a conclusão da alienação."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.92,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info"
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1319388",
