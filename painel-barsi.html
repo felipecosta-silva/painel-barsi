@@ -2850,7 +2850,6 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <option value="SANB11">Santander BR</option>
         <option value="EGIE3">Engie Brasil</option>
         <option value="TAEE11">Taesa</option>
-        <option value="TRPL4">Transmissão Paulista</option>
         <option value="VIVT3">Telefônica Brasil</option>
         <option value="CSMG3">Copasa</option>
         <option value="SAPR11">Sanepar</option>
@@ -7244,7 +7243,6 @@ const RADAR_DATA = [
   // --- ENERGIA ELÉTRICA ---
   { t:"EGIE3", nome:"Engie Brasil Energia", setor:"Elétrica", macro:"acoes", score:89, tag:"BLUE CHIP", anosLucro:11, preco:41.80, dy:7.20, dyProj:7.6, roe:22.50, pl:"10,80", pvp:2.65, payout:75.0, dpa:3.01, pt6:50.16, pt8:37.62, pt10:30.10, bazin5a:43.00, targetAvg:48.00, targetMin:40.00, targetMax:54.00, targetUpside:14.8, gaugeAngle:126, gaugeVerdict:"Compra", votes:{cf:4, c:8, m:2, v:0, vf:0}, status:"good", note:"Líder privada 100% renovável. Governança internacional (Engie), diversificada em transmissão e gás natural (TAG). Payout histórico de 75%+.", q1:"Venda de energia por contratos de longo prazo (PPA) e tarifas de transporte de gás.", q2:"Quase 100% da capacidade é contratada com correção monetária pelo IPCA." },
   { t:"CPFE3", nome:"CPFL Energia", setor:"Elétrica", macro:"acoes", score:88, tag:"BLUE CHIP", anosLucro:10, preco:48.09, dy:7.76, dyProj:8.2, roe:26.40, pl:"9,23", pvp:2.44, payout:71.62, dpa:3.73, pt6:62.20, pt8:46.65, pt10:37.32, bazin5a:49.50, targetAvg:54.00, targetMin:46.00, targetMax:60.00, targetUpside:12.3, gaugeAngle:126, gaugeVerdict:"Compra", votes:{cf:3, c:7, m:3, v:0, vf:0}, status:"good", note:"Excelente elétrica do pilar B.A.S.E. Concessões longas, histórico consistente e repasse de inflação contratual.", q1:"Distribuição, transmissão e geração de energia elétrica com tarifas reajustadas por IGPM/IPCA.", q2:"100% recorrente. Monopólio regional das distribuidoras." },
-  { t:"TRPL4", nome:"ISA CTEEP", setor:"Elétrica", macro:"acoes", score:87, tag:"DIVIDENDOS", anosLucro:10, preco:25.40, dy:8.45, dyProj:8.5, roe:18.20, pl:"6,90", pvp:0.98, payout:75.0, dpa:2.15, pt6:35.83, pt8:26.87, pt10:21.50, bazin5a:26.50, targetAvg:30.00, targetMin:25.00, targetMax:34.00, targetUpside:18.1, gaugeAngle:126, gaugeVerdict:"Compra", votes:{cf:4, c:7, m:3, v:0, vf:0}, status:"good", note:"Monopólio de transmissão no estado de SP. RAP contratada blindada contra volume de consumo. Preço teto confortável e P/VP de 0,98.", q1:"Receita Anual Permitida (RAP) regulada pela ANEEL paga pela disponibilidade das linhas de transmissão.", q2:"100% previsível e recorrente por décadas com baixo custo operacional marginal." },
   { t:"CMIG4", nome:"Cemig", setor:"Elétrica", macro:"acoes", score:80, tag:"BLUE CHIP", anosLucro:8, preco:11.41, dy:9.99, dyProj:8.5, roe:15.75, pl:"7,11", pvp:1.12, payout:46.1, dpa:0.79, pt6:13.13, pt8:9.85, pt10:7.88, bazin5a:11.20, targetAvg:13.20, targetMin:11.00, targetMax:15.00, targetUpside:15.7, gaugeAngle:90, gaugeVerdict:"Manutenção", votes:{cf:1, c:4, m:8, v:1, vf:0}, status:"warning", note:"Candidata limpa do B.A.S.E., mas margem está encolhendo conforme o preço sobe. Alavancagem em 5,1x EBITDA.", q1:"Distribuição e geração de energia no estado de Minas Gerais.", q2:"Recorrente, mas com risco de interferência política por ser estatal." },
   { t:"TAEE11", nome:"Taesa", setor:"Elétrica", macro:"acoes", score:68, tag:"BLUE CHIP", anosLucro:10, preco:42.85, dy:7.02, dyProj:6.5, roe:20.14, pl:"9,08", pvp:1.83, payout:61.2, dpa:3.01, pt6:50.16, pt8:37.62, pt10:30.10, bazin5a:38.00, targetAvg:39.00, targetMin:34.00, targetMax:43.00, targetUpside:-8.9, gaugeAngle:54, gaugeVerdict:"Venda", votes:{cf:0, c:1, m:6, v:4, vf:1}, status:"serious", note:"Perto da máxima de 52 semanas. Preço esticado e sem margem de segurança na taxa de 8%.", q1:"Transmissão de energia elétrica (RAP contratada e indexada por IPCA/IGP-M).", q2:"100% recorrente e previsível por 30 anos de concessão." },
   { t:"CPLE3", nome:"Copel", setor:"Elétrica", macro:"acoes", score:65, tag:"BLUE CHIP", anosLucro:8, preco:16.61, dy:6.40, dyProj:6.0, roe:12.99, pl:"15,81", pvp:2.05, payout:98.4, dpa:1.06, pt6:17.71, pt8:13.28, pt10:10.62, bazin5a:12.50, targetAvg:16.00, targetMin:13.00, targetMax:18.50, targetUpside:-3.6, gaugeAngle:90, gaugeVerdict:"Manutenção", votes:{cf:1, c:3, m:7, v:2, vf:0}, status:"serious", note:"Sub-alocada na carteira, mas negociando no topo histórico (+52% em 12 meses). Não comprar esticado.", q1:"Geração, transmissão e distribuição de energia no Paraná.", q2:"Recorrente e melhorando pós-privatização." },
@@ -8587,9 +8585,34 @@ function openModal(ticker) {
   // KPIs
   document.getElementById('m-preco').textContent = fmtR(r.preco);
   const varEl = document.getElementById('m-variacao');
-  const varPct = ((Math.sin(r.preco || 10) * 2.5) + 0.8);
-  varEl.textContent = (varPct >= 0 ? '+' : '') + varPct.toFixed(2) + '%';
-  varEl.style.color = varPct >= 0 ? 'var(--good)' : 'var(--critical)';
+  // Variação do último pregão pelo robô (antes era um número simulado).
+  const Hv = (typeof fehmirObterHist === 'function' ? fehmirObterHist(r.t) : null) || (window.FEHMIR_HIST && window.FEHMIR_HIST[r.t]);
+  const cV = Hv && Array.isArray(Hv.c) ? Hv.c : [];
+  if (cV.length >= 2 && cV[cV.length - 2] > 0) {
+    const varPct = (cV[cV.length - 1] / cV[cV.length - 2] - 1) * 100;
+    varEl.textContent = (varPct >= 0 ? '+' : '') + varPct.toFixed(2) + '% no dia';
+    varEl.style.color = varPct >= 0 ? 'var(--good)' : 'var(--critical)';
+  } else {
+    varEl.textContent = 'sem histórico';
+    varEl.style.color = 'var(--muted)';
+  }
+  // Dividend yield de 12 meses pelo robô; avisa quando há provento extraordinário no período.
+  const elDy = document.getElementById('m-dy');
+  if (elDy) {
+    const pDy = cV.length ? cV[cV.length - 1] : r.preco;
+    if (Hv && Hv.dpa12 != null && pDy > 0) {
+      const ult = Hv.d && Hv.d.length ? Hv.d[Hv.d.length - 1] : '';
+      const desde = ult ? (+ult.slice(0, 4) - 1) + ult.slice(4) : '';
+      const extra = (Hv.extras || []).filter(e => e[0] > desde).reduce((acc, e) => acc + e[1], 0);
+      const dy12 = Hv.dpa12 / pDy * 100;
+      elDy.textContent = dy12.toFixed(1).replace('.', ',') + '%';
+      elDy.title = extra > 0 ? 'Inclui R$ ' + extra.toFixed(2).replace('.', ',') + ' de provento extraordinário; recorrente ≈ ' +
+        (Math.max(0, Hv.dpa12 - extra) / pDy * 100).toFixed(1).replace('.', ',') + '%' : 'Proventos dos últimos 12 meses ÷ preço (robô)';
+    } else {
+      elDy.textContent = '—';
+      elDy.title = 'Sem proventos no robô';
+    }
+  }
 
   document.getElementById('m-roe').textContent = r.roe != null ? `${r.roe.toFixed(1)}%` : (r.macro==='fiis'?'—':fmtPct(r.roe));
   document.getElementById('m-pl').textContent = r.pl || '—';
@@ -8598,7 +8621,7 @@ function openModal(ticker) {
   const av = typeof window.fehmirAvaliar === "function" ? window.fehmirAvaliar(r) : { teto: null, margemMin: 10, margemSeguranca: null, src: "" };
   const tetoRegua = av ? av.teto : null;
   const margemMin = (av && av.margemMin != null) ? av.margemMin : 10;
-  r._tetoRegua = tetoRegua;
+  r._tetoRegua = (ehAcao && tetoRegua > 0) ? tetoRegua : null;
   r._av = av;
 
   // Tag do Método no cabeçalho do Modal
@@ -8679,7 +8702,8 @@ function openModal(ticker) {
   const lblRoe = document.getElementById('m-kpi-lbl-roe');
   if (lblRoe) lblRoe.textContent = r.macro === 'fiis' ? (ehFoFOuPapel ? 'Inadimplência' : 'Vacância') : 'ROE';
   if (r.macro === 'fiis') {
-    document.getElementById('m-roe').textContent = ehFoFOuPapel ? '0,0%' : (r.t.includes('LOG') || r.t.includes('XPLG') ? '4,1%' : '2,9%');
+    const vacInad = ehFoFOuPapel ? r.inad : r.vac;
+    document.getElementById('m-roe').textContent = (vacInad != null && isFinite(vacInad)) ? Number(vacInad).toFixed(1).replace('.', ',') + '%' : '—';
   }
   const lblPl = document.getElementById('m-kpi-lbl-pl');
   if (lblPl) lblPl.textContent = r.macro === 'fiis' ? 'Tipo' : 'P/L';
@@ -8915,8 +8939,9 @@ function drawCotacaoChart(item, period) {
   const baseP = item.preco || 20;
   const isFoF = item._categoriaFii === 'fof_papel';
   const isTijolo = item._categoriaFii === 'tijolo';
-  const ptVal = item._pt1Val != null ? item._pt1Val : (item.pt6 || (item.dpa ? item.dpa / (isFoF ? 0.12 : (isTijolo ? 0.07 : 0.06)) : null));
-  const ptLabelText = isFoF ? `TETO 12% ${fmtR(ptVal)}` : (isTijolo ? `TETO 7% ${fmtR(ptVal)}` : `TETO BARSI ${fmtR(ptVal)}`);
+  // Ações: o teto oficial da régua (§21), o mesmo do cartão "Teto (régua)". FIIs: teto do tipo de fundo.
+  const ptVal = item._tetoRegua > 0 ? item._tetoRegua : (item._pt1Val != null ? item._pt1Val : (item.pt6 || (item.dpa ? item.dpa / (isFoF ? 0.12 : (isTijolo ? 0.07 : 0.06)) : null)));
+  const ptLabelText = item._tetoRegua > 0 ? `TETO RÉGUA ${fmtR(ptVal)}` : (isFoF ? `TETO 12% ${fmtR(ptVal)}` : (isTijolo ? `TETO 7% ${fmtR(ptVal)}` : `TETO BARSI ${fmtR(ptVal)}`));
   const ptSideLabel = item._pt1Lbl || (isFoF ? 'Preço Teto Mínimo (12%)' : (isTijolo ? 'Preço Teto Defensivo (7%)' : 'Preço Teto Fehmir (6%)'));
 
   // Atualizar badge de período no cabeçalho
@@ -8932,107 +8957,25 @@ function drawCotacaoChart(item, period) {
     badgePeriodEl.textContent = periodMap[period] || period;
   }
 
-  // Semente determinística por ticker para consistência visual sem oscilações aleatórias espúrias
-  let seed = 0;
-  for (let c of (item.t || 'ATIVO')) seed += c.charCodeAt(0);
-
-  // Configuração por Período
-  let pointsCount = 30;
-  let dates = [];
-  let fullDates = [];
-  let diasSemana = [];
-  let prices = [];
-  const now = new Date(2026, 9, 8); // 08/Out/2026 (data base atual)
+  // Série REAL do robô (dados/historico.js): fechamentos diários de ~1 ano. Sem histórico ⇒ aviso; nada simulado.
+  const Hs = (typeof fehmirObterHist === 'function' ? fehmirObterHist(item.t) : null) || (window.FEHMIR_HIST && window.FEHMIR_HIST[item.t]);
   const dSemanaNomes = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-
-  function pad(n) { return String(n).padStart(2, '0'); }
-
-  if (period === '1M') {
-    pointsCount = 30; // Exatamente 30 dias de calendário corridos
-    // Preço 30 dias atrás: variação realista em torno de 4% a 8%
-    const startP = baseP * (1 - 0.06 * Math.sin(seed * 0.18));
-    for (let i = 0; i < pointsCount; i++) {
-      const d = new Date(now);
-      d.setDate(d.getDate() - (pointsCount - 1 - i));
-      dates.push(`${pad(d.getDate())}/${pad(d.getMonth() + 1)}`);
-      fullDates.push(`${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`);
-      diasSemana.push(dSemanaNomes[d.getDay()]);
-
-      const progress = i / (pointsCount - 1);
-      // Ruído orgânico diário simulando o livro de ofertas da B3
-      const dailyNoise = Math.sin((i * 1.37) + seed) * (baseP * 0.018) + Math.cos((i * 0.65) + seed) * (baseP * 0.012);
-      const val = startP + (baseP - startP) * progress + dailyNoise * (1 - progress * 0.2);
-      prices.push(Math.max(0.5, val));
-    }
-  } else if (period === '3M') {
-    pointsCount = 45; // 45 pontos (a cada 2 dias durante 90 dias)
-    const startP = baseP * (1 - 0.10 * Math.cos(seed * 0.22));
-    for (let i = 0; i < pointsCount; i++) {
-      const d = new Date(now);
-      d.setDate(d.getDate() - (pointsCount - 1 - i) * 2);
-      dates.push(`${pad(d.getDate())}/${pad(d.getMonth() + 1)}`);
-      fullDates.push(`${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`);
-      diasSemana.push(dSemanaNomes[d.getDay()]);
-
-      const progress = i / (pointsCount - 1);
-      const wave = Math.sin((i / 2.2) + seed) * (baseP * 0.035) + Math.cos(i * 0.4 + seed) * (baseP * 0.02);
-      const val = startP + (baseP - startP) * progress + wave * (1 - progress * 0.3);
-      prices.push(Math.max(0.5, val));
-    }
-  } else if (period === '6M') {
-    pointsCount = 26; // 26 semanas
-    const startP = baseP * (1 - 0.14 * Math.sin(seed * 0.25));
-    for (let i = 0; i < pointsCount; i++) {
-      const d = new Date(now);
-      d.setDate(d.getDate() - (pointsCount - 1 - i) * 7);
-      dates.push(`${pad(d.getDate())}/${pad(d.getMonth() + 1)}`);
-      fullDates.push(`${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`);
-      diasSemana.push(dSemanaNomes[d.getDay()]);
-
-      const progress = i / (pointsCount - 1);
-      const wave = Math.sin((i / 2.5) + seed) * (baseP * 0.05);
-      const val = startP + (baseP - startP) * progress + wave;
-      prices.push(Math.max(0.5, val));
-    }
-  } else if (period === '1A') {
-    pointsCount = 24; // 24 quinzenas (12 meses)
-    const rangeMin = (item.range && item.range[0]) ? item.range[0] : baseP * 0.82;
-    const rangeMax = (item.range && item.range[1]) ? item.range[1] : baseP * 1.18;
-    const startP = (rangeMin + rangeMax) / 2;
-    const mNames = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-    for (let i = 0; i < pointsCount; i++) {
-      const d = new Date(now);
-      d.setDate(d.getDate() - (pointsCount - 1 - i) * 15);
-      dates.push(`${mNames[d.getMonth()]}/${String(d.getFullYear()).slice(2)}`);
-      fullDates.push(`${pad(d.getDate())}/${mNames[d.getMonth()]}/${d.getFullYear()}`);
-      diasSemana.push(dSemanaNomes[d.getDay()]);
-
-      const progress = i / (pointsCount - 1);
-      const wave = Math.sin((i / 2) + seed) * ((rangeMax - rangeMin) * 0.35);
-      let val = startP + (baseP - startP) * Math.pow(progress, 1.2) + wave;
-      if (val < rangeMin) val = rangeMin;
-      if (val > rangeMax) val = rangeMax;
-      prices.push(Math.max(0.5, val));
-    }
-  } else { // '5A'
-    pointsCount = 30; // Trimestres ao longo de 5 anos
-    const startP = baseP * 0.55 + (seed % 8);
-    for (let i = 0; i < pointsCount; i++) {
-      const d = new Date(now);
-      d.setMonth(d.getMonth() - (pointsCount - 1 - i) * 2);
-      dates.push(`${d.getFullYear()}`);
-      fullDates.push(`${pad(d.getMonth() + 1)}/${d.getFullYear()}`);
-      diasSemana.push(dSemanaNomes[d.getDay()]);
-
-      const progress = i / (pointsCount - 1);
-      const wave = Math.sin((i / 3) + seed) * (baseP * 0.08);
-      const val = startP + (baseP - startP) * progress + wave;
-      prices.push(Math.max(0.5, val));
-    }
+  const nPorPeriodo = { '1M': 22, '3M': 63, '6M': 126, '1A': 252, '5A': 1e9 };
+  const dates = [], fullDates = [], diasSemana = [], prices = [];
+  if (!Hs || !Array.isArray(Hs.c) || !Array.isArray(Hs.d) || Hs.c.length < 2) {
+    svg.innerHTML = '<text x="300" y="110" text-anchor="middle" fill="var(--muted)" font-size="13">Sem histórico de cotação no robô para ' + item.t + '.</text>';
+    return;
   }
-
-  // O último ponto é RIGOROSAMENTE a cotação real de hoje
-  prices[prices.length - 1] = baseP;
+  const nPts = Math.min(nPorPeriodo[period] || 22, Hs.c.length);
+  for (let i = Hs.c.length - nPts; i < Hs.c.length; i++) {
+    const [yy, mm, dd] = String(Hs.d[i]).split('-');
+    dates.push(dd + '/' + mm);
+    fullDates.push(dd + '/' + mm + '/' + yy);
+    diasSemana.push(dSemanaNomes[new Date(+yy, +mm - 1, +dd).getDay()]);
+    prices.push(Hs.c[i]);
+  }
+  const pointsCount = prices.length;
+  if (badgePeriodEl && period === '5A' && pointsCount < 1000) badgePeriodEl.textContent = 'TODO O HISTÓRICO DIÁRIO DO ROBÔ (' + pointsCount + ' PREGÕES)';
 
   // Variações diárias e acumuladas
   const varDiaR = [];
@@ -9042,7 +8985,7 @@ function drawCotacaoChart(item, period) {
 
   for (let i = 0; i < prices.length; i++) {
     const curP = prices[i];
-    const prevP = i > 0 ? prices[i - 1] : (curP * 0.995);
+    const prevP = i > 0 ? prices[i - 1] : curP;
     const dR = curP - prevP;
     const dPct = (dR / prevP) * 100;
     const aR = curP - prices[0];
@@ -15315,7 +15258,7 @@ const BUSSOLA_DADOS = {
       { label: "🎯 Foco do Acumulador", desc: "Ignore o saldo financeiro total subindo na corretora. O que aposenta o investidor é a <b>quantidade de ações possuídas</b> gerando dividendos perenes, e não a oscilação da tela." }
     ],
     setores: [
-      { setor: "Energia Elétrica", impacto: "Geração e transmissão possuem receitas contratadas por RAP/PPA blindadas à inflação. Sobem com estabilidade.", risco: "Baixa", riscoCls: "baixa", acao: "Comprar c/ Teto", acaoCls: "comprar", tickers: ["CPFE3", "TAEE11", "EGIE3", "TRPL4"] },
+      { setor: "Energia Elétrica", impacto: "Geração e transmissão possuem receitas contratadas por RAP/PPA blindadas à inflação. Sobem com estabilidade.", risco: "Baixa", riscoCls: "baixa", acao: "Comprar c/ Teto", acaoCls: "comprar", tickers: ["CPFE3", "TAEE11", "EGIE3", "ISAE4"] },
       { setor: "Saneamento Básico", impacto: "Costuma ficar para trás nos ralis de euforia por falta de apelo especulativo. Negocia com alto desconto sobre o valor patrimonial.", risco: "Baixa", riscoCls: "baixa", acao: "Forte Compra 🏆", acaoCls: "ouro", tickers: ["CSMG3", "SAPR11"] },
       { setor: "Seguradoras", impacto: "Flutuam com menos volatilidade. Seus caixas aplicados rendem juros altos na Selic de 2 dígitos, turbinando o lucro e os dividendos.", risco: "Baixa", riscoCls: "baixa", acao: "Compra Segura", acaoCls: "comprar", tickers: ["BBSE3", "CXSE3"] },
       { setor: "Bancos Tradicionais", impacto: "Podem esticar múltiplos em euforia. Monitorar P/VP: se passar de 1,1x, frear novos aportes e preferir bancos defasados.", risco: "Média", riscoCls: "media", acao: "Seletividade", acaoCls: "cautela", tickers: ["BBAS3", "ITUB4", "SANB11"] },
@@ -15325,7 +15268,7 @@ const BUSSOLA_DADOS = {
       { setor: "Fundos Imobiliários", impacto: "Frequentemente não acompanham o rali das ações, mantendo P/VP descontado (< 0,90) e rendimentos isentos de 10-11% a.a.", risco: "Baixa", riscoCls: "baixa", acao: "Excelente Aporte", acaoCls: "comprar", tickers: ["VILG11", "XPLG11", "XPML11", "MXRF11"] }
     ],
     patinhos: [
-      { t: "TRPL4", nome: "ISA CTEEP", motivo: "P/VP 0,98 · DY 8,5% · Transmissão de energia com RAP protegida da inflação, ignorada no rali de ativos de risco.", score: "88" },
+      { t: "ISAE4", nome: "ISA Energia (ex-TRPL4)", motivo: "P/VP 0,98 · DY 8,5% · Transmissão de energia com RAP protegida da inflação, ignorada no rali de ativos de risco.", score: "88" },
       { t: "BBSE3", nome: "BB Seguridade", motivo: "Margem Bazin +41,8% · ROE 84,4% · Seguradora geradora de caixa livre e balanço sem dívida.", score: "96" },
       { t: "XPLG11", nome: "XP Log FII", motivo: "P/VP 0,88 · DY 10,6% · Galpões logísticos de primeira linha com desconto patrimonial de 12%.", score: "89" },
       { t: "SAPR11", nome: "Sanepar Unit", motivo: "P/VP 0,72 · DY 7,9% · Monopólio de saneamento no Paraná a preço de liquidação fora dos holofotes.", score: "90" }
@@ -15344,7 +15287,7 @@ const BUSSOLA_DADOS = {
       { label: "🎯 Efeito Bola de Neve", desc: "Com os preços lá embaixo, o Dividend Yield salta para 12% a 15% ao ano. Cada dividendo reinvestido agora compra o dobro de ações!" }
     ],
     setores: [
-      { setor: "Energia Elétrica", impacto: "Zero impacto na geração de caixa. A população e as indústrias continuam consumindo luz. Ação desaba por puro pânico da manada.", risco: "Mínima", riscoCls: "baixa", acao: "Compra Histórica 🏆", acaoCls: "ouro", tickers: ["CPFE3", "TAEE11", "CMIG4", "TRPL4"] },
+      { setor: "Energia Elétrica", impacto: "Zero impacto na geração de caixa. A população e as indústrias continuam consumindo luz. Ação desaba por puro pânico da manada.", risco: "Mínima", riscoCls: "baixa", acao: "Compra Histórica 🏆", acaoCls: "ouro", tickers: ["CPFE3", "TAEE11", "CMIG4", "ISAE4"] },
       { setor: "Saneamento Básico", impacto: "Monopólio absoluto. Ninguém corta o consumo de água por causa de crise na Bolsa de Valores. O fluxo de proventos é blindado.", risco: "Mínima", riscoCls: "baixa", acao: "Compra Forte 🟢", acaoCls: "comprar", tickers: ["CSMG3", "SAPR11"] },
       { setor: "Bancos Sólidos", impacto: "Inadimplência pode subir temporariamente, mas os maiores bancos do país têm provisões bilionárias e cobram spreads maiores.", risco: "Baixa", riscoCls: "baixa", acao: "Comprar no Pânico", acaoCls: "comprar", tickers: ["BBAS3", "ITUB4"] },
       { setor: "Seguradoras", impacto: "Não têm fábricas nem dívidas com bancos. Operam com float gigantesco aplicado em títulos do Tesouro Nacional.", risco: "Mínima", riscoCls: "baixa", acao: "Compra Segura 🟢", acaoCls: "comprar", tickers: ["BBSE3", "CXSE3"] },
@@ -15558,6 +15501,29 @@ function renderBussolaCenario(cenarioId) {
 
     const tooltip = scoreDet ? scoreDet.tooltip : `Nota Fehmir: ${scoreNum}/100`;
 
+    // Números sempre do dia (robô + régua); do texto cadastrado fica só a tese qualitativa.
+    let vivo = '';
+    try {
+      const U = typeof window.fehmirUniverso === 'function' ? window.fehmirUniverso() : {};
+      const aP = U[p.t], hP = window.FEHMIR_HIST && window.FEHMIR_HIST[p.t], cP = window.FEHMIR_FUND_CVM && window.FEHMIR_FUND_CVM[p.t];
+      const preco = hP && hP.c && hP.c.length ? hP.c[hP.c.length - 1] : (aP && aP.preco);
+      const partes = [];
+      const vpaP = (cP && cP.vpa) || (aP && aP.vpa);
+      if (preco && vpaP) partes.push('P/VP ' + (preco / vpaP).toFixed(2).replace('.', ','));
+      if (preco && hP && hP.dpa12) partes.push('DY ' + (hP.dpa12 / preco * 100).toFixed(1).replace('.', ',') + '%');
+      const avP = aP && typeof window.fehmirAvaliar === 'function' ? window.fehmirAvaliar(aP) : null;
+      if (preco && avP && avP.teto > 0) {
+        const mg = (1 - preco / avP.teto) * 100;
+        partes.push((mg >= 0 ? 'margem +' : 'acima do teto ') + Math.abs(mg).toFixed(0) + '%');
+        const mMin = avP.margemMin || 10;
+        if (mg < mMin) partes.push('<b style="color:var(--warning)">sem margem hoje' + (mg > 0 ? ' (setor pede ' + mMin + '%)' : '') + '</b>');
+      }
+      vivo = partes.join(' · ');
+    } catch (e) {}
+    // Frases cadastradas com número envelhecem: ficam só as qualitativas (os números do dia estão na linha acima).
+    const tese = String(p.motivo || '').replace(/^(?:[^·]*\d[^·]*·\s*)+/, '')
+      .split(/(?<=[.;])\s+|\s+·\s+/).filter(f => !/\d/.test(f)).join(' ');
+
     return `
     <div class="bussola-patinho-card" onclick="openModal('${p.t}')">
       <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -15567,7 +15533,8 @@ function renderBussolaCenario(cenarioId) {
         </div>
         <span class="rc-tag" style="background:${badgeBg}; color:${badgeColor}; border:1px solid ${badgeBorder}; font-size:11px; font-weight:700;" title="${tooltip}">Score ${scoreNum}/100</span>
       </div>
-      <div style="font-size:12px; color:var(--ink-2); line-height:1.45;">${p.motivo}</div>
+      ${vivo ? `<div style="font-size:12px; color:var(--ink); font-family:var(--font-mono);">${vivo}</div>` : ''}
+      <div style="font-size:12px; color:var(--ink-2); line-height:1.45;">${tese}</div>
       <div style="font-size:11px; color:var(--accent); font-weight:600; text-align:right;">Ver Raio-X Completo ⚡</div>
     </div>
   `;}).join('');
@@ -15831,7 +15798,7 @@ initCollapsibleBlocks();
      Corte de lucro (haircut) = desconto no LPA de cíclicas para chegar ao lucro de meio de ciclo. */
   const SETORES = [
     { id: "transmissao", margemMin: 5, nome: "Elétricas · Transmissão", base: true, premio: 0.5, payout: 90,
-      match: /transmiss/i, tickers: ["TAEE11", "TRPL4", "ISAE4", "ALUP11"],
+      match: /transmiss/i, tickers: ["TAEE11", "ISAE4", "ALUP11"],
       metodo: "Bazin projetivo + TIR real implícita",
       chave: "RAP corrigida pela inflação, prazo das concessões, Dív.Líq/EBITDA até 4x, payout",
       armadilha: "Concessão vencendo sem renovação; revisão de RAP para baixo" },
