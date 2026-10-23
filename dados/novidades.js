@@ -1178,23 +1178,58 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Eleição de Presidente do Conselho de Administração",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1568852&numSequencia=1093558&numVersao=1",
       "resumo": [
-        "Comunicado ao Mercado publicado em 2026-09-16."
+        "Eleição da Sra. Andrea Marques de Almeida como Presidente do Conselho de Administração da TAESA.",
+        "A nova Presidente possui passagens como VP de Finanças e RI da CEMIG (2024-2026), VP de Finanças e Estratégia do Santander Brasil (2021-2024) e Diretora de Finanças e RI da Petrobras (2019-2021).",
+        "Comunicado divulgado ao mercado em 16 de setembro de 2026."
       ],
-      "mudancas": [],
+      "mudancas": [
+        "Alteração na presidência do Conselho de Administração da companhia com a posse da Sra. Andrea Marques de Almeida."
+      ],
       "alertas": [],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0,
+        "ltv": 0,
+        "provento_por_cota": 0,
+        "reserva_por_cota": 0,
+        "resultado_por_cota": 0,
+        "vacancia_financeira": 0,
+        "vacancia_fisica": 0
       },
-      "gravidade": "info"
+      "gravidade": "info",
+      "resumido_ia": true
     }
   ],
   "TRXF11": [
+    {
+      "id": "fnet_1356811",
+      "data": "2026-10-22",
+      "tipo": "Fato Relevante",
+      "titulo": "Fato Relevante",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1356811",
+      "resumo": [
+        "Contratação da SUNO S.A. para atuar como formadora de mercado das cotas do fundo TRXF11 na B3.",
+        "O objetivo da contratação é fomentar a liquidez das cotas em circulação no mercado secundário.",
+        "O contrato possui prazo de vigência determinado de 12 (doze) meses.",
+        "A contratação foi realizada nos termos da Resolução CVM nº 133 e demais regulamentos da B3."
+      ],
+      "mudancas": [
+        "Início da prestação de serviços de formador de mercado pela Suno S.A. para as cotas do fundo."
+      ],
+      "alertas": [
+        "Nenhum risco financeiro, operacional, de crédito ou de vacância foi apontado no documento."
+      ],
+      "metricas": {
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
+      },
+      "gravidade": "info",
+      "resumido_ia": true
+    },
     {
       "id": "fnet_1354667",
       "data": "2026-10-19",
@@ -1360,42 +1395,6 @@ window.FEHMIR_NOVIDADES = {
         "provento_por_cota": 0.0,
         "reserva_por_cota": 0.0,
         "resultado_por_cota": 0.51,
-        "vacancia_financeira": 0.0,
-        "vacancia_fisica": 0.0
-      },
-      "gravidade": "atencao",
-      "resumido_ia": true
-    },
-    {
-      "id": "fnet_1328120",
-      "data": "2026-09-25",
-      "tipo": "Fato Relevante",
-      "titulo": "Fato Relevante",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1328120",
-      "resumo": [
-        "Celebração de Acordo de Investimento para aquisição indireta de 2 edifícios de lajes corporativas em São Paulo (Ed. JFL Rebouças e Ed. Passarelli) via HIRE11.",
-        "O valor total do investimento é de R$ 143.795.593,00, sendo R$ 82,59M via compensação da 13ª Emissão, R$ 8,73M à vista e R$ 52,47M parcelados em até 24 meses.",
-        "Os imóveis possuem 100% de ocupação, com cap rates de 8,25% a.a. (JFL Rebouças) e 9,00% a.a. (Passarelli, com Yield on Cost de 16,40% no primeiro ano considerando receitas acessórias).",
-        "A estimativa de distribuição por cota do TRXF11 até dezembro de 2026 permanece inalterada entre R$ 0,90 e R$ 0,93.",
-        "O prazo médio dos contratos da carteira consolidada do TRXF11 é reduzido de 12,34 anos para 10,79 anos após a transação e operações vinculadas à 13ª emissão."
-      ],
-      "mudancas": [
-        "Entrada do segmento de lajes corporativas na carteira (1,65% da ABL pós-aquisição).",
-        "Compromisso financeiro futuro de R$ 52,47 milhões parcelados em 12, 18 e 24 meses.",
-        "Redução no prazo médio dos contratos do portfólio de 12,34 anos para 10,79 anos (-12,56%).",
-        "Aumento da exposição a contratos típicos (representando 39,55% da receita pós-aquisição contra 60,45% atípicos)."
-      ],
-      "alertas": [
-        "Contratos de locação dos novos ativos são de prazo médio curto (aprox. 3 anos) e parte na modalidade típica, aumentando o risco de renovação e vacância futura frente ao perfil histórico atípico do fundo.",
-        "Compromisso de desembolso futuro relevante de R$ 52,47 milhões nos próximos 24 meses.",
-        "O Edifício Passarelli possui classificação C e construção de 1979, o que pode demandar maiores gastos de manutenção e capex futuro."
-      ],
-      "metricas": {
-        "inadimplencia": 0.0,
-        "ltv": 0.0,
-        "provento_por_cota": 0.0,
-        "reserva_por_cota": 0.0,
-        "resultado_por_cota": 0.0,
         "vacancia_financeira": 0.0,
         "vacancia_fisica": 0.0
       },
