@@ -1,15 +1,16 @@
 /* Gerado por tools/fundamentos_cvm.py — não editar à mão. */
 window.FEHMIR_FUND_CVM_META = {
-  "gerado": "2026-10-20 13:03",
+  "gerado": "2026-10-22 21:12",
   "fonte": "CVM Dados Abertos (ITR/DFP consolidado/individual 2026/2025)",
-  "total_ativos": 61,
-  "ok": 61,
+  "total_ativos": 64,
+  "ok": 64,
   "falhas": [],
-  "sanidade_auditada": 54,
+  "sanidade_auditada": 56,
   "sem_referencia": [
     "ALUP11",
     "ALUP3",
     "ALUP4",
+    "BPAC11",
     "BRIT3",
     "ENGI11",
     "MELK3",
@@ -55,6 +56,17 @@ window.FEHMIR_FUND_CVM_META = {
   ]
 };
 window.FEHMIR_FUND_CVM = {
+  "ABCB4": {
+    "lpa": 3.95,
+    "vpa": 28.14,
+    "roe": 14.05,
+    "pl_liquido": 7258915000.0,
+    "lucro12m": 1019867000.0,
+    "acoes": 257959688,
+    "ref": "2T26",
+    "demo": "ind",
+    "fonte": "ITR/DFP CVM (2T26)"
+  },
   "ALUP11": {
     "lpa": 6.11,
     "vpa": 29.25,
@@ -121,6 +133,17 @@ window.FEHMIR_FUND_CVM = {
     "demo": "con",
     "fonte": "ITR/DFP CVM (2T26)"
   },
+  "BBDC3": {
+    "lpa": 2.33,
+    "vpa": 17.15,
+    "roe": 13.56,
+    "pl_liquido": 181281460000.0,
+    "lucro12m": 24586062000.0,
+    "acoes": 10570712028,
+    "ref": "2T26",
+    "demo": "con",
+    "fonte": "ITR/DFP CVM (2T26)"
+  },
   "BBDC4": {
     "lpa": 2.33,
     "vpa": 17.15,
@@ -139,6 +162,17 @@ window.FEHMIR_FUND_CVM = {
     "pl_liquido": 10890345000.0,
     "lucro12m": 9189317000.0,
     "acoes": 1941248544,
+    "ref": "2T26",
+    "demo": "con",
+    "fonte": "ITR/DFP CVM (2T26)"
+  },
+  "BPAC11": {
+    "lpa": 4.98,
+    "vpa": 21.52,
+    "roe": 23.16,
+    "pl_liquido": 83132955000.0,
+    "lucro12m": 19251424000.0,
+    "acoes": 3862551555,
     "ref": "2T26",
     "demo": "con",
     "fonte": "ITR/DFP CVM (2T26)"

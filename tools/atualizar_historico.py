@@ -18,6 +18,9 @@ SAIDA = RAIZ / "dados" / "historico.js"
 INDICES = {"^BVSP": "^BVSP", "SMAL11": "SMAL11.SA", "IVVB11": "IVVB11.SA", "XFIX11": "XFIX11.SA"}
 INTL_ATIVOS = {"VTI": "VTI", "SCHD": "SCHD"}
 CAMBIO = {"USDBRL": "USDBRL=X"}
+# Ativos acompanhados em estudos (ex.: bancos) que não aparecem como t:"XXXX" no painel.
+# Fonte dos CNPJs na CVM: dados.cvm.gov.br/dados/CIA_ABERTA/CAD/DADOS/cad_cia_aberta.csv
+TICKERS_EXTRAS = ["ABCB4", "BBDC3", "BPAC11"]
 CRIPTO_ATIVOS = {"BTC": "BTC-USD", "ETH": "ETH-USD", "SOL": "SOL-USD"}
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Fehmir/1.0"}
 
@@ -210,7 +213,7 @@ ALIASES_YAHOO = {
 
 
 def main():
-    tickers = tickers_do_painel()
+    tickers = sorted(set(tickers_do_painel()) | set(TICKERS_EXTRAS))
     alvos = {t: t + ".SA" for t in tickers}
     alvos.update(INDICES)
     alvos.update(INTL_ATIVOS)
