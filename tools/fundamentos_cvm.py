@@ -91,6 +91,75 @@ def indexar_por_cnpj(linhas):
     return idx
 
 
+def buscar_lucro(tabela_rows, dt_ref, dti, dtf):
+    cand_ctrl = None
+    cand_cons = None
+    for r in tabela_rows:
+        if r.get("DT_REFER") == dt_ref and r.get("ORDEM_EXERC") in ["ÚLTIMO", "ULTIMO"]:
+            if r.get("DT_INI_EXERC") == dti and r.get("DT_FIM_EXERC") == dtf:
+                esc = 1000.0 if r.get("ESCALA_MOEDA") == "MIL" else 1.0
+                ds = norm(r.get("DS_CONTA", ""))
+                cd = r.get("CD_CONTA", "")
+                vl = float(r.get("VL_CONTA") or 0) * esc
+                if "ANTES" in ds or "TRIBUTOS SOBRE" in ds:
+                    continue
+                if cd in ["3.11", "3.09", "3.13"] and ("LUCRO" in ds or "PREJUIZO" in ds or "CONSOLIDADO" in ds or "RESULTADO LIQUIDO" in ds):
+                    cand_cons = vl
+                elif ("ATRIBUIDO A SOCIOS DA EMPRESA CONTROLADORA" in ds or "CONTROLADOR" in ds or cd in ["3.11.01", "3.09.01", "3.13.01"]) and ("NAO CONTROLADOR" not in ds):
+                    if vl != 0:
+                        cand_ctrl = vl
+                    elif cand_ctrl is None:
+                        cand_ctrl = vl
+    if cand_cons is not None and cand_cons != 0:
+        return cand_cons
+
+
+def roe_anual(cnpjs, ano_atual):
+    """ROE anual (lucro do ano ÷ PL médio dos controladores no ano) dos 5 anos fechados, pelas DFPs da CVM.
+    Devolve {cnpj: {"2021": 23.4, ...}}. Ano sem DFP ou sem dado fica de fora (nunca vira 0)."""
+    saida = {c: {} for c in cnpjs}
+    for ano in range(ano_atual - 5, ano_atual):
+        caminho = baixar_zip_se_necessario(
+            f"https://dados.cvm.gov.br/dados/CIA_ABERTA/DOC/DFP/DADOS/dfp_cia_aberta_{ano}.zip", f"dfp_{ano}.zip")
+        if not caminho:
+            continue
+        z = zipfile.ZipFile(caminho)
+        for demo in ("con", "ind"):
+            dre = indexar_por_cnpj([r for r in ler_csv_zip(z, f"DRE_{demo}_{ano}") if r.get("CNPJ_CIA") in saida])
+            bpp = indexar_por_cnpj([r for r in ler_csv_zip(z, f"BPP_{demo}_{ano}") if r.get("CNPJ_CIA") in saida])
+            for cnpj in saida:
+                if str(ano) in saida[cnpj] or cnpj not in bpp:
+                    continue
+                dt = f"{ano}-12-31"
+                # PL dos controladores no fim do ano (ÚLTIMO) e no fim do ano anterior (PENÚLTIMO): ROE sobre o PL médio
+                pls = {}
+                for r in bpp[cnpj]:
+                    ordem = norm(r.get("ORDEM_EXERC", ""))
+                    if r.get("DT_REFER") != dt or ordem not in ("ULTIMO", "PENULTIMO"):
+                        continue
+                    cd, ds = r.get("CD_CONTA", ""), norm(r.get("DS_CONTA", ""))
+                    vl = float(r.get("VL_CONTA") or 0) * (1000.0 if r.get("ESCALA_MOEDA") == "MIL" else 1.0)
+                    reg = pls.setdefault(ordem, {"pl": None, "nc": 0.0})
+                    if cd in ("2.03", "2.07", "2.08", "2.09") and "PATRIMONIO LIQUIDO" in ds:
+                        reg["pl"] = vl
+                    elif cd.startswith(("2.03", "2.07", "2.08", "2.09")) and ("NAO CONTROLADOR" in ds or "NAO-CONTROLADOR" in ds):
+                        reg["nc"] = vl
+                def ctrl(reg):
+                    if not reg or reg["pl"] is None:
+                        return None
+                    v = reg["pl"] - reg["nc"]
+                    return v if v > 0 else reg["pl"]
+                pl_fim, pl_ini = ctrl(pls.get("ULTIMO")), ctrl(pls.get("PENULTIMO"))
+                if pl_fim is None:
+                    continue
+                pl_medio = (pl_fim + pl_ini) / 2 if pl_ini and pl_ini > 0 else pl_fim
+                lucro = buscar_lucro(dre.get(cnpj, []), dt, f"{ano}-01-01", dt)
+                if lucro is None or pl_medio <= 0:
+                    continue
+                saida[cnpj][str(ano)] = round(lucro / pl_medio * 100, 2)
+    return saida
+
+
 def main():
     if not MAPA_PATH.exists():
         print(f"Erro: {MAPA_PATH} não encontrado.")
@@ -272,27 +341,6 @@ def main():
             continue
 
         # 2. DRE
-        def buscar_lucro(tabela_rows, dt_ref, dti, dtf):
-            cand_ctrl = None
-            cand_cons = None
-            for r in tabela_rows:
-                if r.get("DT_REFER") == dt_ref and r.get("ORDEM_EXERC") in ["ÚLTIMO", "ULTIMO"]:
-                    if r.get("DT_INI_EXERC") == dti and r.get("DT_FIM_EXERC") == dtf:
-                        esc = 1000.0 if r.get("ESCALA_MOEDA") == "MIL" else 1.0
-                        ds = norm(r.get("DS_CONTA", ""))
-                        cd = r.get("CD_CONTA", "")
-                        vl = float(r.get("VL_CONTA") or 0) * esc
-                        if "ANTES" in ds or "TRIBUTOS SOBRE" in ds:
-                            continue
-                        if cd in ["3.11", "3.09", "3.13"] and ("LUCRO" in ds or "PREJUIZO" in ds or "CONSOLIDADO" in ds or "RESULTADO LIQUIDO" in ds):
-                            cand_cons = vl
-                        elif ("ATRIBUIDO A SOCIOS DA EMPRESA CONTROLADORA" in ds or "CONTROLADOR" in ds or cd in ["3.11.01", "3.09.01", "3.13.01"]) and ("NAO CONTROLADOR" not in ds):
-                            if vl != 0:
-                                cand_ctrl = vl
-                            elif cand_ctrl is None:
-                                cand_ctrl = vl
-            if cand_cons is not None and cand_cons != 0:
-                return cand_cons
             if cand_ctrl is not None:
                 return cand_ctrl
             return cand_cons
@@ -363,6 +411,12 @@ def main():
             "demo": tipo_demo,
             "fonte": f"ITR/DFP CVM ({ref_label})"
         }
+
+    # ROE anual dos 5 anos fechados (régua de bancos: qualidade comprovada = ROE >= 18% em 5 de 5 anos)
+    hist_roe = roe_anual({info["cnpj"] for info in mapa.values()}, ano_atual)
+    for ticker, info in mapa.items():
+        if ticker in dados and hist_roe.get(info["cnpj"]):
+            dados[ticker]["roeAnual"] = hist_roe[info["cnpj"]]
 
     meta = {
         "gerado": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),

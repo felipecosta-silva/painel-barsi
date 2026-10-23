@@ -1,6 +1,6 @@
 /* Gerado por tools/fundamentos_cvm.py — não editar à mão. */
 window.FEHMIR_FUND_CVM_META = {
-  "gerado": "2026-10-22 21:12",
+  "gerado": "2026-10-23 06:54",
   "fonte": "CVM Dados Abertos (ITR/DFP consolidado/individual 2026/2025)",
   "total_ativos": 64,
   "ok": 64,
@@ -65,7 +65,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 257959688,
     "ref": "2T26",
     "demo": "ind",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 12.47,
+      "2022": 15.88,
+      "2023": 14.42,
+      "2024": 15.85,
+      "2025": 14.82
+    }
   },
   "ALUP11": {
     "lpa": 6.11,
@@ -76,7 +83,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 329626867,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 34.51,
+      "2022": 24.63,
+      "2023": 16.08,
+      "2024": 23.85,
+      "2025": 19.92
+    }
   },
   "ALUP3": {
     "lpa": 2.04,
@@ -87,7 +101,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 988880601,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 34.51,
+      "2022": 24.63,
+      "2023": 16.08,
+      "2024": 23.85,
+      "2025": 19.92
+    }
   },
   "ALUP4": {
     "lpa": 2.04,
@@ -98,7 +119,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 988880601,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 34.51,
+      "2022": 24.63,
+      "2023": 16.08,
+      "2024": 23.85,
+      "2025": 19.92
+    }
   },
   "AURE3": {
     "lpa": -0.99,
@@ -109,7 +137,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1044635000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 7.48,
+      "2022": 27.18,
+      "2023": -2.3,
+      "2024": 2.13,
+      "2025": -4.34
+    }
   },
   "AXIA3": {
     "lpa": 4.21,
@@ -120,7 +155,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 2867341000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 7.64,
+      "2022": 3.9,
+      "2023": 3.94,
+      "2024": 8.86,
+      "2025": 5.46
+    }
   },
   "BBAS3": {
     "lpa": 2.69,
@@ -131,7 +173,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 5708971478,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 14.73,
+      "2022": 19.79,
+      "2023": 20.17,
+      "2024": 16.72,
+      "2025": 9.1
+    }
   },
   "BBDC3": {
     "lpa": 2.33,
@@ -142,7 +191,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 10570712028,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 15.83,
+      "2022": 13.78,
+      "2023": 8.9,
+      "2024": 10.48,
+      "2025": 13.8
+    }
   },
   "BBDC4": {
     "lpa": 2.33,
@@ -153,7 +209,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 10570712028,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 15.83,
+      "2022": 13.78,
+      "2023": 8.9,
+      "2024": 10.48,
+      "2025": 13.8
+    }
   },
   "BBSE3": {
     "lpa": 4.73,
@@ -164,7 +227,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1941248544,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 57.54,
+      "2022": 81.26,
+      "2023": 89.03,
+      "2024": 89.21,
+      "2025": 89.81
+    }
   },
   "BPAC11": {
     "lpa": 4.98,
@@ -175,7 +245,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 3862551555,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 20.35,
+      "2022": 18.82,
+      "2023": 21.17,
+      "2024": 19.85,
+      "2025": 25.06
+    }
   },
   "BRAV3": {
     "lpa": 0.12,
@@ -186,7 +263,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 464543102,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 0.62,
+      "2022": 3.04,
+      "2023": 8.7,
+      "2024": -11.36,
+      "2025": 12.66
+    }
   },
   "BRIT3": {
     "lpa": 0.14,
@@ -197,7 +281,12 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 438007537,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2023": 11.89,
+      "2024": 3.98,
+      "2025": 2.67
+    }
   },
   "BRSR6": {
     "lpa": 4.02,
@@ -208,7 +297,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 408974000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 12.51,
+      "2022": 9.06,
+      "2023": 10.45,
+      "2024": 7.18,
+      "2025": 15.67
+    }
   },
   "CMIG4": {
     "lpa": 1.61,
@@ -219,7 +315,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 2860682000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 20.32,
+      "2022": 19.86,
+      "2023": 24.84,
+      "2024": 27.37,
+      "2025": 17.51
+    }
   },
   "CPFE3": {
     "lpa": 3.69,
@@ -230,7 +333,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1142298836,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 19.98,
+      "2022": 32.56,
+      "2023": 39.64,
+      "2024": 42.75,
+      "2025": 23.79
+    }
   },
   "CPLE3": {
     "lpa": 1.07,
@@ -241,7 +351,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 2970119787,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 24.16,
+      "2022": 5.39,
+      "2023": 10.41,
+      "2024": 11.3,
+      "2025": 11.02
+    }
   },
   "CSMG3": {
     "lpa": 3.4,
@@ -252,7 +369,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 380251928,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 8.14,
+      "2022": 12.04,
+      "2023": 18.6,
+      "2024": 16.86,
+      "2025": 17.03
+    }
   },
   "CSNA3": {
     "lpa": -1.49,
@@ -263,7 +387,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1326093947,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 89.95,
+      "2022": 10.89,
+      "2023": 2.18,
+      "2024": -10.33,
+      "2025": -11.98
+    }
   },
   "CURY3": {
     "lpa": 4.03,
@@ -274,7 +405,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 308047594,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 58.36,
+      "2022": 51.9,
+      "2023": 61.31,
+      "2024": 71.29,
+      "2025": 87.29
+    }
   },
   "CXSE3": {
     "lpa": 1.51,
@@ -285,7 +423,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 3000000000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 19.3,
+      "2022": 27.54,
+      "2023": 28.76,
+      "2024": 29.56,
+      "2025": 32.46
+    }
   },
   "CYRE3": {
     "lpa": 5.3,
@@ -296,7 +441,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 453428311,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 17.39,
+      "2022": 12.89,
+      "2023": 14.93,
+      "2024": 23.17,
+      "2025": 25.06
+    }
   },
   "DIRR3": {
     "lpa": 2.1,
@@ -307,7 +459,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 520003784,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 16.53,
+      "2022": 19.91,
+      "2023": 23.86,
+      "2024": 36.67,
+      "2025": 49.83
+    }
   },
   "EGIE3": {
     "lpa": 3.69,
@@ -318,7 +477,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1142298836,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 19.98,
+      "2022": 32.56,
+      "2023": 39.64,
+      "2024": 42.75,
+      "2025": 23.79
+    }
   },
   "ENEV3": {
     "lpa": 0.8,
@@ -329,7 +495,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1913005000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 13.86,
+      "2022": 3.31,
+      "2023": 2.33,
+      "2024": 3.51,
+      "2025": 8.74
+    }
   },
   "ENGI11": {
     "lpa": 4.29,
@@ -340,7 +513,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 503066277,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 38.78,
+      "2022": 25.48,
+      "2023": 22.55,
+      "2024": 31.78,
+      "2025": 17.22
+    }
   },
   "EQTL3": {
     "lpa": 1.41,
@@ -351,7 +531,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1255031275,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 37.06,
+      "2022": 13.09,
+      "2023": 15.26,
+      "2024": 15.96,
+      "2025": 9.66
+    }
   },
   "FIQE3": {
     "lpa": 0.58,
@@ -362,7 +549,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 389383694,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 14.96,
+      "2022": 13.31,
+      "2023": 13.86,
+      "2024": 15.21,
+      "2025": 18.05
+    }
   },
   "GGBR4": {
     "lpa": 1.16,
@@ -373,7 +567,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1963180639,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 42.36,
+      "2022": 25.88,
+      "2023": 15.84,
+      "2024": 8.6,
+      "2025": 2.54
+    }
   },
   "GMAT3": {
     "lpa": 0.7,
@@ -384,7 +585,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 2302281840,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 12.76,
+      "2022": 15.37,
+      "2023": 15.31,
+      "2024": 14.41,
+      "2025": 19.01
+    }
   },
   "IRBR3": {
     "lpa": 2.96,
@@ -395,7 +603,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 81168797,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": -16.96,
+      "2022": -16.36,
+      "2023": -2.88,
+      "2024": 17.55,
+      "2025": 7.66
+    }
   },
   "ISAE4": {
     "lpa": 4.37,
@@ -406,7 +621,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 658883304,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 21.58,
+      "2022": 15.17,
+      "2023": 17.24,
+      "2024": 19.15,
+      "2025": 12.29
+    }
   },
   "ITSA4": {
     "lpa": 1.63,
@@ -417,7 +639,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 11207350000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 21.57,
+      "2022": 20.41,
+      "2023": 17.95,
+      "2024": 17.17,
+      "2025": 18.47
+    }
   },
   "ITUB4": {
     "lpa": 4.35,
@@ -428,7 +657,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 11021872000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 19.19,
+      "2022": 19.16,
+      "2023": 18.93,
+      "2024": 21.0,
+      "2025": 22.06
+    }
   },
   "JHSF3": {
     "lpa": 3.17,
@@ -439,7 +675,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 662749556,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 23.89,
+      "2022": 13.51,
+      "2023": 10.42,
+      "2024": 16.86,
+      "2025": 30.75
+    }
   },
   "KLBN4": {
     "lpa": 0.09,
@@ -450,7 +693,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 6152895333,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 71.31,
+      "2022": 61.3,
+      "2023": 26.93,
+      "2024": 22.45,
+      "2025": 23.09
+    }
   },
   "LAVV3": {
     "lpa": 2.17,
@@ -461,7 +711,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 195434352,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 17.06,
+      "2022": 11.14,
+      "2023": 20.18,
+      "2024": 28.45,
+      "2025": 31.12
+    }
   },
   "LEVE3": {
     "lpa": 5.14,
@@ -472,7 +729,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 135539000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 37.0,
+      "2022": 34.07,
+      "2023": 59.89,
+      "2024": 64.47,
+      "2025": 74.7
+    }
   },
   "LOGG3": {
     "lpa": 4.36,
@@ -483,7 +747,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 87858582,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 12.03,
+      "2022": 11.62,
+      "2023": 5.33,
+      "2024": 9.41,
+      "2025": 10.11
+    }
   },
   "MELK3": {
     "lpa": 0.81,
@@ -494,7 +765,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 202921814,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 7.45,
+      "2022": 10.64,
+      "2023": 12.6,
+      "2024": 11.32,
+      "2025": 13.19
+    }
   },
   "MTRE3": {
     "lpa": 0.94,
@@ -505,7 +783,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 105774820,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 2.75,
+      "2022": 3.76,
+      "2023": 9.56,
+      "2024": 7.0,
+      "2025": 7.81
+    }
   },
   "PETR4": {
     "lpa": 10.38,
@@ -516,7 +801,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 12888732761,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 30.83,
+      "2022": 50.41,
+      "2023": 33.69,
+      "2024": 9.92,
+      "2025": 28.3
+    }
   },
   "POMO4": {
     "lpa": 0.97,
@@ -527,7 +819,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1241400346,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 13.13,
+      "2022": 14.4,
+      "2023": 24.17,
+      "2024": 32.29,
+      "2025": 31.44
+    }
   },
   "PRIO3": {
     "lpa": 4.85,
@@ -538,7 +837,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 798178706,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 27.29,
+      "2022": 41.51,
+      "2023": 43.58,
+      "2024": 51.76,
+      "2025": 8.71
+    }
   },
   "PSSA3": {
     "lpa": 5.8,
@@ -549,7 +855,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 640992323,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 16.81,
+      "2022": 11.55,
+      "2023": 20.19,
+      "2024": 20.33,
+      "2025": 22.99
+    }
   },
   "RANI3": {
     "lpa": 0.56,
@@ -560,7 +873,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 230500395,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 32.73,
+      "2022": 36.32,
+      "2023": 31.89,
+      "2024": 23.02,
+      "2025": 17.18
+    }
   },
   "RECV3": {
     "lpa": 1.7,
@@ -571,7 +891,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 293482126,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 12.41,
+      "2022": 40.6,
+      "2023": 17.02,
+      "2024": 10.0,
+      "2025": 14.9
+    }
   },
   "SANB11": {
     "lpa": 4.25,
@@ -582,7 +909,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 3743763500,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 14.72,
+      "2022": 13.29,
+      "2023": 8.46,
+      "2024": 11.47,
+      "2025": 10.6
+    }
   },
   "SAPR11": {
     "lpa": 1.51,
@@ -593,7 +927,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 302241103,
     "ref": "2T26",
     "demo": "ind",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 15.95,
+      "2022": 13.86,
+      "2023": 16.23,
+      "2024": 15.02,
+      "2025": 17.95
+    }
   },
   "SAPR4": {
     "lpa": 0.3,
@@ -604,7 +945,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1511205519,
     "ref": "2T26",
     "demo": "ind",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 15.95,
+      "2022": 13.86,
+      "2023": 16.23,
+      "2024": 15.02,
+      "2025": 17.95
+    }
   },
   "SBSP3": {
     "lpa": 2.3,
@@ -615,7 +963,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 3506830477,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 9.66,
+      "2022": 11.94,
+      "2023": 11.8,
+      "2024": 28.69,
+      "2025": 21.33
+    }
   },
   "SUZB3": {
     "lpa": 6.65,
@@ -626,7 +981,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1233136722,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 77.42,
+      "2022": 97.2,
+      "2023": 36.28,
+      "2024": -18.3,
+      "2025": 35.32
+    }
   },
   "TAEE11": {
     "lpa": 4.72,
@@ -637,7 +999,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 344499000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 34.83,
+      "2022": 21.87,
+      "2023": 20.65,
+      "2024": 25.16,
+      "2025": 21.72
+    }
   },
   "TEND3": {
     "lpa": 4.53,
@@ -648,7 +1017,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 122512852,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": -14.45,
+      "2022": -58.02,
+      "2023": -13.04,
+      "2024": 11.15,
+      "2025": 45.14
+    }
   },
   "TIMS3": {
     "lpa": 1.5,
@@ -659,7 +1035,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 2388668322,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 12.25,
+      "2022": 6.58,
+      "2023": 11.04,
+      "2024": 12.03,
+      "2025": 17.12
+    }
   },
   "TRPL4": {
     "lpa": 4.37,
@@ -670,7 +1053,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 658883304,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 21.58,
+      "2022": 15.17,
+      "2023": 17.24,
+      "2024": 19.15,
+      "2025": 12.29
+    }
   },
   "TUPY3": {
     "lpa": -5.82,
@@ -681,7 +1071,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 132448631,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 7.65,
+      "2022": 17.34,
+      "2023": 16.25,
+      "2024": 2.42,
+      "2025": -21.84
+    }
   },
   "VALE3": {
     "lpa": 2.13,
@@ -692,7 +1089,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 4072366000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 64.17,
+      "2022": 50.77,
+      "2023": 21.45,
+      "2024": 15.3,
+      "2025": 6.04
+    }
   },
   "VAMO3": {
     "lpa": 0.26,
@@ -703,7 +1107,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1221740534,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 25.58,
+      "2022": 21.3,
+      "2023": 14.02,
+      "2024": 10.62,
+      "2025": 13.14
+    }
   },
   "VBBR3": {
     "lpa": 4.22,
@@ -714,7 +1125,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 1196213000,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 20.37,
+      "2022": 12.33,
+      "2023": 33.63,
+      "2024": 35.26,
+      "2025": 9.66
+    }
   },
   "VITT3": {
     "lpa": 0.41,
@@ -725,7 +1143,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 156832579,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 28.11,
+      "2022": 27.88,
+      "2023": 16.25,
+      "2024": 12.0,
+      "2025": 10.34
+    }
   },
   "VIVT3": {
     "lpa": 2.07,
@@ -736,7 +1161,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 3195606352,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 8.93,
+      "2022": 5.87,
+      "2023": 7.31,
+      "2024": 7.98,
+      "2025": 8.92
+    }
   },
   "VULC3": {
     "lpa": 2.92,
@@ -747,7 +1179,14 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 317978131,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 25.3,
+      "2022": 30.64,
+      "2023": 26.7,
+      "2024": 27.76,
+      "2025": 51.37
+    }
   },
   "WEGE3": {
     "lpa": 1.59,
@@ -758,6 +1197,13 @@ window.FEHMIR_FUND_CVM = {
     "acoes": 4195829691,
     "ref": "2T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)"
+    "fonte": "ITR/DFP CVM (2T26)",
+    "roeAnual": {
+      "2021": 29.06,
+      "2022": 30.05,
+      "2023": 36.47,
+      "2024": 31.96,
+      "2025": 34.2
+    }
   }
 };

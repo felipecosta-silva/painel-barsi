@@ -4537,9 +4537,11 @@ const REB_DATA_KEY = "barsi-reb-data-v2";
    (1ª versão do mesmo dia era 50/30; o Felipe pediu ações 'levemente acima' de FIIs e deixou o ajuste fino com o Claude.)
    A transição é feita com APORTES NOVOS, nunca vendendo FIIs para "acertar o percentual" (IR de 20% e FIIs hoje descontados).
    Ações só recebem dinheiro quando passam na margem do setor; sem margem, o dinheiro vai para o Caixa. */
-const ALOCACAO_ALVO = { acoes: 45, base: 33, fora: 12, foraMaxAtivo: 3, fiis: 35, intl: 7, cripto: 8, caixa: 5 };
+/* 23/10/2026: o Felipe escolheu a meta intermediária de 35% em ações (antes 45%) e 45% em FIIs (antes 35%),
+   mais perto da carteira real (17% ações / 70% FIIs). B.A.S.E. 26 + fora 9 mantém a proporção anterior (~3:1). */
+const ALOCACAO_ALVO = { acoes: 35, base: 26, fora: 9, foraMaxAtivo: 3, fiis: 45, intl: 7, cripto: 8, caixa: 5 };
 const ALOC_VERSION_KEY = "barsi-aloc-version";
-const ALOC_VERSION = "2026-10-18";
+const ALOC_VERSION = "2026-10-23";
 
 const DEFAULT_CARTEIRA_FELIPE = {
   // Ações (10 ativos - R$ 1.564,67)
@@ -11723,7 +11725,7 @@ function renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, sal
   const container = document.getElementById('aloc-metas-list');
   if (!container) return;
 
-  const A = (typeof ALOCACAO_ALVO !== 'undefined') ? ALOCACAO_ALVO : { acoes: 45, fiis: 35, intl: 10, cripto: 5, caixa: 5 };
+  const A = ALOCACAO_ALVO;
   
   const pctAcoes = totalPatrimonio > 0 ? (totalAcoes / totalPatrimonio * 100) : 0;
   const pctFiis = totalPatrimonio > 0 ? (totalFiis / totalPatrimonio * 100) : 0;
@@ -11821,7 +11823,7 @@ function calcularSaudeCarteira(dadosContexto) {
   const prov12m = ctx.prov12m || 0;
   const provMeses = ctx.provMeses || [];
   const gastoMensal = ctx.gastoMensal != null ? ctx.gastoMensal : null;
-  const metas = ctx.metas || { acoes: 45, fiis: 35, intl: 7, cripto: 8, caixa: 5 };
+  const metas = ctx.metas || ALOCACAO_ALVO;
   const retornoPeriodo = ctx.retornoPeriodo != null ? ctx.retornoPeriodo : 0;
 
   const avisos = [];
@@ -12384,7 +12386,7 @@ function extrairContextoSaudePainel() {
     intl: ALOCACAO_ALVO.intl,
     cripto: ALOCACAO_ALVO.cripto,
     caixa: ALOCACAO_ALVO.caixa
-  } : { acoes: 45, fiis: 35, intl: 7, cripto: 8, caixa: 5 };
+  } : null;
 
   const provDados = (typeof calcularProventosMensaisWard === 'function') ? calcularProventosMensaisWard() : null;
   const prov12m = (provDados && typeof provDados.total12m === 'number') ? Number(provDados.total12m.toFixed(2)) : 0;
@@ -16480,6 +16482,24 @@ initCollapsibleBlocks();
       }
     }
 
+    // Banco de qualidade comprovada (decisão do Felipe, 23/10/2026): ROE >= 18% em cada um dos 5 anos
+    // fechados (DFPs da CVM, PL médio) ⇒ teto = P/VP justo × VPA, com k nominal = taxa do setor + IPCA e
+    // g = IPCA (crescimento real zero). O Bazin pelo DPA de 5 anos fica só como conferência.
+    let metodoOut = em.metodo, motivoOut = em.motivo;
+    const CV = window.FEHMIR_FUND_CVM && window.FEHMIR_FUND_CVM[a.t];
+    const roesAno = (CV && CV.roeAnual) ? Object.keys(CV.roeAnual).sort().map(k => [k, CV.roeAnual[k]]) : [];
+    if (S.nome === "Bancos" && !split && roesAno.length >= 5 && roesAno.every(x => x[1] >= 18) && CV.vpa > 0 && CV.roe > 0 && m && m.ipca12 != null) {
+      const ipcaB = +m.ipca12, kNom = req + ipcaB;
+      const pvpJusto = (CV.roe - ipcaB) / (kNom - ipcaB);
+      teto = pvpJusto * CV.vpa;
+      const bazinConf = HY && HY.dpa5 > 0 ? HY.dpa5 / (req / 100) : null;
+      metodoOut = "P/VP justo (banco forte)";
+      motivoOut = "Banco de qualidade comprovada: ROE de 18% ou mais nos 5 anos fechados; o preço justo vem da rentabilidade sobre o patrimônio.";
+      src = "Banco forte [ROE " + roesAno.map(x => x[0] + " " + fmtN(x[1], 1) + "%").join(" · ") + "] → P/VP justo = (ROE " + fmtN(CV.roe, 1) +
+        "% − g " + fmtN(ipcaB, 1) + "%) ÷ (k " + fmtN(kNom, 1) + "% − g) = " + fmtN(pvpJusto, 2) + " × VPA " + fR(CV.vpa) + " = " + fR(teto) +
+        (bazinConf ? " · conferência Bazin (DPA 5A " + fR(HY.dpa5) + " ÷ " + fmtN(req, 1) + "%) = " + fR(bazinConf) : "");
+    }
+
     return {
       teto,
       proj,
@@ -16489,8 +16509,8 @@ initCollapsibleBlocks();
       pay,
       taxa: req,
       taxaExplicada: em.taxaExplicada,
-      metodo: em.metodo,
-      motivo: em.motivo,
+      metodo: metodoOut,
+      motivo: motivoOut,
       S,
       src,
       diverg,
