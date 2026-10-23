@@ -11838,18 +11838,17 @@ function calcularSaudeCarteira(dadosContexto) {
     else if (p.cat === 'CRIPTO' || p.tipo === 'Cripto') saldoCripto += p.saldo;
   });
 
-  const totCalc = totalPatrimonio > 0 ? totalPatrimonio : (saldoAcoes + saldoFiis + saldoIntl + saldoCripto + caixaTotal);
+  // O caixa (caixinha) faz parte da carteira para medir a alocação: o denominador inclui o próprio caixa,
+  // senão as porcentagens somam mais de 100%.
+  const totCalc = (totalPatrimonio > 0 ? totalPatrimonio : (saldoAcoes + saldoFiis + saldoIntl + saldoCripto)) + caixaTotal;
   const pAcoes = totCalc > 0 ? (saldoAcoes / totCalc) * 100 : 0;
   const pFiis = totCalc > 0 ? (saldoFiis / totCalc) * 100 : 0;
   const pIntl = totCalc > 0 ? (saldoIntl / totCalc) * 100 : 0;
   const pCripto = totCalc > 0 ? (saldoCripto / totCalc) * 100 : 0;
   const pCaixa = totCalc > 0 ? (caixaTotal / totCalc) * 100 : 0;
 
-  const desvioTotal = Math.abs(pAcoes - (metas.acoes || 45)) +
-                     Math.abs(pFiis - (metas.fiis || 35)) +
-                     Math.abs(pIntl - (metas.intl || 7)) +
-                     Math.abs(pCripto - (metas.cripto || 8)) +
-                     Math.abs(pCaixa - (metas.caixa || 5));
+  const desvioTotal = Math.abs(pAcoes - metas.acoes) + Math.abs(pFiis - metas.fiis) + Math.abs(pIntl - metas.intl) +
+                     Math.abs(pCripto - metas.cripto) + Math.abs(pCaixa - metas.caixa);
 
   const fAderencia = lin(desvioTotal, 0, 60);
   const ptsAderencia = Math.round(100 * fAderencia);
@@ -11912,7 +11911,7 @@ function calcularSaudeCarteira(dadosContexto) {
         pts: ptsAderencia,
         max: 100,
         valor: `Desvio ${desvioTotal.toFixed(1)}%`,
-        detalhe: `Alocação atual (FIIs ${pFiis.toFixed(0)}%, Ações ${pAcoes.toFixed(0)}%, Cripto ${pCripto.toFixed(0)}%, Intl ${pIntl.toFixed(0)}%) vs metas`
+        detalhe: `Carteira hoje → meta: Ações ${pAcoes.toFixed(0)}% → ${metas.acoes}% · FIIs ${pFiis.toFixed(0)}% → ${metas.fiis}% · Intl ${pIntl.toFixed(0)}% → ${metas.intl}% · Cripto ${pCripto.toFixed(0)}% → ${metas.cripto}% · Caixa ${pCaixa.toFixed(0)}% → ${metas.caixa}%. A carteira só muda com os aportes (FIIs nunca são vendidos para rebalancear).`
       },
       {
         nome: "Concentração por ativo",
