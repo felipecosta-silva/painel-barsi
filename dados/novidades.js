@@ -101,20 +101,29 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "FR 06/26 - Deslistagem das Ações da Latibex",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1569123&numSequencia=1093829&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-09-17."
+        "O Conselho de Administração da Copel aprovou, em 17 de setembro de 2026, a solicitação de deslistagem de suas ações ordinárias do mercado Latibex (Bolsa de Madri).",
+        "A justificativa é a simplificação corporativa, motivada pela liquidez irrelevante e baixíssimo volume negociado no Latibex, associados a custos regulatórios e administrativos desproporcionais.",
+        "O Banco Santander, S.A. foi contratado como entidade agente para conduzir os procedimentos de deslistagem.",
+        "As ações custodiadas no sistema Iberclear poderão ser transferidas para a B3 conforme procedimentos a serem detalhados.",
+        "A negociação das ações da companhia continuará normalmente na B3 e na New York Stock Exchange (NYSE)."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Início formal do processo de cancelamento de listagem (deslistagem) das ações ordinárias no mercado Latibex (Espanha)."
+      ],
+      "alertas": [
+        "Investidores que detêm ações custodiadas via Latibex/Iberclear precisarão acompanhar os procedimentos operacionais para transferência de custódia para a B3."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info"
+      "gravidade": "info",
+      "resumido_ia": true
     }
   ],
   "GARE11": [
@@ -911,6 +920,43 @@ window.FEHMIR_NOVIDADES = {
   ],
   "RZAG11": [
     {
+      "id": "fnet_1357806",
+      "data": "2026-10-23",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1357806",
+      "resumo": [
+        "Distribuição de rendimentos de R$ 0,125 por cota em setembro/2026, com resultado mensal de R$ 0,1239 por cota e pequeno consumo de reserva acumulada (R$ 0,0011/cota).",
+        "Consulta formal em andamento para aprovar a 4ª emissão de cotas com incorporação da carteira do LSAG11 via integralização em ativos e renúncia de direito de preferência.",
+        "A alocação do patrimônio caiu para 78,91% (21,09% em caixa) devido à pré-liquidação de R$ 112 milhões de CRAs da Sementes Produtiva e amortização de R$ 10 milhões do Grupo Richart.",
+        "Identificação de inconsistências no valor do Patrimônio Líquido do fundo divulgado no 3T26, com ajustes em andamento para alinhar a cota patrimonial entre R$ 9,70 e R$ 9,75.",
+        "Acompanhamento da recuperação judicial e execução das garantias de terras do CRA Uniggel Sementes, que obteve prorrogação judicial de stay period."
+      ],
+      "mudancas": [
+        "Provento por cota registrado em R$ 0,125 e resultado por cota de R$ 0,12 (R$ 0,1239 exato).",
+        "Elevação expressiva do caixa para 21,09% após a pré-liquidação de R$ 112 milhões pela Sementes Produtiva.",
+        "Detecção e correção de inconsistências no Patrimônio Líquido divulgado referente ao 3º trimestre de 2026.",
+        "Proposta de reestruturação com nova emissão e admissão de integralização de ativos e CPR-F direta para incorporar portfólio do LSAG11."
+      ],
+      "alertas": [
+        "Calote/default em curso na operação de Uniggel Sementes (em recuperação judicial, com extensão do stay period e tentativa de execução de alienação fiduciária).",
+        "Inconsistências identificadas na apuração contábil do Patrimônio Líquido no 3T26 pela gestão e administradora.",
+        "Risco de conflito de interesses na 4ª emissão de cotas para incorporação de ativos de fundo gerido pela mesma casa (LSAG11), com renúncia de direito de preferência.",
+        "Risco de reinvestimento do caixa elevado (21,09% do PL) decorrente da quitação antecipada de R$ 112 milhões."
+      ],
+      "metricas": {
+        "inadimplencia": 8.1,
+        "ltv": 0.0,
+        "provento_por_cota": 0.125,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.1239,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
+      },
+      "gravidade": "critico",
+      "resumido_ia": true
+    },
+    {
       "id": "fnet_1338101",
       "data": "2026-10-01",
       "tipo": "Fato Relevante",
@@ -1000,6 +1046,43 @@ window.FEHMIR_NOVIDADES = {
     }
   ],
   "RZTR11": [
+    {
+      "id": "fnet_1358017",
+      "data": "2026-10-23",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1358017",
+      "resumo": [
+        "Distribuição de rendimentos referente a setembro/2026 de R$ 0,85 por cota (dividend yield mensal de 1,01%), com resultado de R$ 0,85 por cota.",
+        "Conclusão da alienação da Fazenda Vale do Rio Celeste por R$ 109 milhões à vista a terceiro, após rescisão amigável de opção de compra com Grupo Lermen.",
+        "Gestão informou que acompanha ativamente o processo de reintegração de posse da Fazenda Bom Jardim perante o Judiciário.",
+        "Identificação de erro relevante pelo administrador no cálculo do PL divulgado (que apontava R$ 195,67/cota), o qual está sendo corrigido para a faixa de R$ 99,00 a R$ 100,00.",
+        "Alerta formal da gestão sobre a possibilidade de redução no valor das distribuições de rendimentos ao longo do próximo semestre."
+      ],
+      "mudancas": [
+        "Provento e resultado do período estabelecidos em R$ 0,85/cota (reserva/saldo acumulado em R$ 0,01/cota).",
+        "Alienação e liquidação integral da Fazenda Vale do Rio Celeste por R$ 109 milhões.",
+        "Passou a ser divulgada a DRE histórica completa do fundo no relatório gerencial.",
+        "Identificação e ajuste de inconsistência nos valores patrimoniais divulgados pelo administrador fiduciário."
+      ],
+      "alertas": [
+        "Alerta explícito da gestão de que poderá ocorrer redução no valor das distribuições ao longo do próximo semestre devido à menor expectativa de fluxo de recebimentos recorrentes.",
+        "Litígio judicial em curso para retomada da posse da Fazenda Bom Jardim.",
+        "Risco de crédito/liquidez de arrendatários evidenciado pelo caso do Grupo Lermen, que não teve capacidade financeira para exercer recompra de ativo.",
+        "Falha operacional do administrador fiduciário na apuração e divulgação prévia do valor patrimonial do fundo."
+      ],
+      "metricas": {
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.85,
+        "reserva_por_cota": 0.01,
+        "resultado_por_cota": 0.85,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
+      },
+      "gravidade": "atencao",
+      "resumido_ia": true
+    },
     {
       "id": "fnet_1348111",
       "data": "2026-10-13",
@@ -1131,29 +1214,6 @@ window.FEHMIR_NOVIDADES = {
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1284317",
       "resumo": [
         "Fato Relevante publicado em 2026-08-11."
-      ],
-      "mudancas": [],
-      "alertas": [],
-      "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
-      },
-      "gravidade": "info",
-      "resumido_ia": false
-    },
-    {
-      "id": "fnet_1272426",
-      "data": "2026-07-31",
-      "tipo": "Relatório Gerencial",
-      "titulo": "Relatório Gerencial",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1272426",
-      "resumo": [
-        "Relatório Gerencial publicado em 2026-07-31."
       ],
       "mudancas": [],
       "alertas": [],
