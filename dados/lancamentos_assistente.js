@@ -106,4 +106,17 @@ window.FEHMIR_LANC_ASSIST = [
     moeda: "BRL",
     nota: "1ª venda de BBAS3: 10 ações a R$ 24,71 = R$ 247,10 − R$ 0,08 de taxa = R$ 247,02 líquido"
   }
+  ,{
+    id: "2026-10-16-RZTR11-V-1",
+    data: "2026-10-16",
+    tipo: "Venda",
+    ticker: "RZTR11",
+    cat: "FIIS",
+    quant: 3,
+    preco: 78.72,
+    taxa: 0.08,
+    total: 236.08,
+    moeda: "BRL",
+    nota: "Venda total (risco jurídico no arrendamento agro): 3 × R$ 78,72 = R$ 236,16 − R$ 0,08 = R$ 236,08. Prejuízo de R$ 31,49 a compensar em FIIs no IR"
+  }
 ];

@@ -20,7 +20,8 @@ INTL_ATIVOS = {"VTI": "VTI", "SCHD": "SCHD"}
 CAMBIO = {"USDBRL": "USDBRL=X"}
 # Ativos acompanhados em estudos (ex.: bancos) que não aparecem como t:"XXXX" no painel.
 # Fonte dos CNPJs na CVM: dados.cvm.gov.br/dados/CIA_ABERTA/CAD/DADOS/cad_cia_aberta.csv
-TICKERS_EXTRAS = ["ABCB4", "BBDC3", "BPAC11"]
+TICKERS_EXTRAS = ["ABCB4", "BBDC3", "BPAC11",
+                  "KNCR11", "KNIP11", "HGLG11", "BTLG11", "ISNT11", "ISEN11", "RURA11", "VGIA11", "SNAG11"]
 CRIPTO_ATIVOS = {"BTC": "BTC-USD", "ETH": "ETH-USD", "SOL": "SOL-USD"}
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Fehmir/1.0"}
 

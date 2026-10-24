@@ -8077,154 +8077,89 @@ function renderCardsView(list) {
 }
 
 function renderSetorialView(list) {
+  // Ranking por segmento (23/10/2026): todo o universo do painel (carteira + radar + varredura do mercado),
+  // agrupado pelo setor da régua (§21) e ordenado pela margem sobre o teto oficial. Só dados do robô.
   const container = document.getElementById('radar-setorial-container');
   if (!container) return;
-  if (list.length === 0) {
-    container.innerHTML = `<div style="text-align:center; padding:40px; color:var(--muted); font-size:15px;">Nenhum ativo encontrado para os filtros selecionados.</div>`;
+  const U = typeof window.fehmirUniverso === 'function' ? window.fehmirUniverso() : {};
+  const H = window.FEHMIR_HIST || {};
+  const CV = window.FEHMIR_FUND_CVM || {};
+  const M = {};
+  (Array.isArray(window.FEHMIR_MERCADO) ? window.FEHMIR_MERCADO : []).forEach(x => { M[x.t] = x; });
+  let carteira = {};
+  try { carteira = calcularPosicoesExtrato(carregarExtrato()); } catch (e) {}
+  const busca = ((document.getElementById('radar-search-input') || {}).value || '').trim().toUpperCase();
+  let soLiquidos = true;
+  try { soLiquidos = localStorage.getItem('barsi-ranking-liquidos') !== '0'; } catch (e) {}
+
+  const linhas = [];
+  Object.keys(U).forEach(t => {
+    const a = U[t]; if (!a) return;
+    const h = H[t], m = M[t] || {};
+    const preco = h && h.c && h.c.length ? h.c[h.c.length - 1] : (m.p || a.preco);
+    if (!(preco > 0)) return;
+    const liq = m.liq != null ? m.liq : null;
+    if (soLiquidos && liq != null && liq < 1) return;
+    const av = typeof window.fehmirAvaliar === 'function' ? window.fehmirAvaliar(a) : null;
+    const setor = (av && av.setorNome) || a.setor || 'Outros';
+    const nome = String(a.nome || m.n || '');
+    if (busca && !(t.includes(busca) || nome.toUpperCase().includes(busca) || setor.toUpperCase().includes(busca))) return;
+    const dpa12 = h && h.dpa12 != null ? h.dpa12 : (m.dpa12 != null ? m.dpa12 : null);
+    const vpa = (CV[t] && CV[t].vpa) || (a.vpa > 0 ? a.vpa : null);
+    const teto = av && av.teto > 0 ? av.teto : null;
+    const margem = teto ? (1 - preco / teto) * 100 : null;
+    const mMin = (av && av.margemMin) || 10;
+    linhas.push({ t, nome, setor, preco, liq, teto, margem, mMin,
+      dy: dpa12 != null ? dpa12 / preco * 100 : null,
+      pvp: vpa ? preco / vpa : (a.pvp > 0 ? a.pvp : null),
+      tenho: !!(carteira[t] && carteira[t].quant > 0) });
+  });
+
+  if (!linhas.length) {
+    container.innerHTML = `<div style="text-align:center; padding:40px; color:var(--muted); font-size:15px;">Nenhum ativo encontrado para a busca.</div>`;
     return;
   }
 
-  // Agrupar por setor
-  const grouped = {};
-  list.forEach(item => {
-    const s = item.setor || 'Outros';
-    if (!grouped[s]) grouped[s] = [];
-    grouped[s].push(item);
+  const grupos = {};
+  linhas.forEach(l => { (grupos[l.setor] = grupos[l.setor] || []).push(l); });
+  const setores = Object.keys(grupos).sort((x, y) => {
+    const best = s => Math.max(...grupos[s].map(l => l.margem != null ? l.margem : -999));
+    return best(y) - best(x);
   });
 
-  const sectors = Object.keys(grouped);
+  const f = (v, d = 1) => v == null || !isFinite(v) ? '—' : v.toFixed(d).replace('.', ',');
+  const situacao = l => {
+    if (l.margem == null) return '<span style="color:var(--muted)">sem teto</span>';
+    if (l.margem >= l.mMin) return '<b style="color:var(--good)">🟢 compra</b>';
+    if (l.margem >= 0) return '<span style="color:var(--warning)">🟡 no teto</span>';
+    return '<span style="color:var(--critical)">🔴 acima</span>';
+  };
+  const slug = s => 'sec-' + s.toLowerCase().replace(/[^a-z0-9]/g, '-');
 
-  // Barra de pulo rápido
-  let jumpHtml = `<div class="quick-jump-bar">
-    <span class="jump-lbl">IR PARA O SETOR:</span>
-    ${sectors.map(s => {
-      const slug = s.toLowerCase().replace(/[^a-z0-9]/g, '-');
-      return `<a class="jump-pill" href="#sec-${slug}">${s}</a>`;
-    }).join('')}
-  </div>`;
+  const topo = `<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div style="font-size:12.5px;color:var(--ink-2)">${linhas.length} ativos · ${setores.length} setores da régua · ordenados pela margem sobre o teto oficial (🟢 margem ≥ mínimo do setor · 🟡 entre 0 e o mínimo · 🔴 acima do teto) · ★ = na carteira</div>
+      <label style="font-size:12.5px;cursor:pointer;display:inline-flex;gap:6px;align-items:center"><input type="checkbox" ${soLiquidos ? 'checked' : ''} onchange="try{localStorage.setItem('barsi-ranking-liquidos', this.checked ? '1' : '0')}catch(e){}; filterRadar()"> só com liquidez ≥ R$ 1 mi/dia</label>
+    </div>
+    <div class="quick-jump-bar"><span class="jump-lbl">IR PARA O SETOR:</span>${setores.map(s => `<a class="jump-pill" href="#${slug(s)}">${s} (${grupos[s].length})</a>`).join('')}</div>`;
 
-  // Blocos de cada setor
-  let blocksHtml = sectors.map(s => {
-    const slug = s.toLowerCase().replace(/[^a-z0-9]/g, '-');
-    const items = grouped[s];
-    items.sort((a,b) => (b.score || 0) - (a.score || 0));
-
-    const cardsHtml = items.map((r, idx) => {
-      const rank = idx + 1;
-      const calc = r._calc || calcularScoreRadar(r);
-      const scoreVal = calc.score;
-      let scoreBorder = '#10b981';
-      let scoreColor = '#059669';
-      if (scoreVal < 60) { scoreBorder = '#ef4444'; scoreColor = '#dc2626'; }
-      else if (scoreVal < 80) { scoreBorder = '#3b82f6'; scoreColor = '#2563eb'; }
-
-      // 10 barras de lucro
-      let lBars = '';
-      for (let b = 0; b < 10; b++) {
-        const isPos = b < (r.anosLucro || 3);
-        lBars += `<div class="sc-lbar" style="background:${isPos ? 'var(--good)' : 'var(--critical)'}"></div>`;
-      }
-
-      // Margem da régua
-      const margemVal = calc.margem;
-      const mMin = calc.mMin || 10;
-      let fcdMargin = margemVal != null ? margemVal : (r.score >= 70 ? (r.score - 70) * 1.8 : -(80 - r.score) * 1.1);
-      const fcdSign = fcdMargin >= 0 ? '+' : '';
-      const fcdColor = fcdMargin >= mMin ? 'var(--good)' : (fcdMargin >= 0 ? 'var(--accent)' : 'var(--critical)');
-
-      // DY do robô
-      const HY = window.FEHMIR_HIST && window.FEHMIR_HIST[r.t];
-      const dy5Robo = (HY && HY.dpa5 && r.preco > 0) ? (HY.dpa5 / r.preco) * 100 : (r.dy ? r.dy * 0.9 : 7.0);
-
-      // 5 Barras de DY Médio
-      const dyVal = r.dy || 8.0;
-      let dyBars = '';
-      for (let db = 0; db < 5; db++) {
-        const hPct = Math.min(100, Math.max(30, (dyVal / 14) * 100 - (2 - db) * 10));
-        dyBars += `<div style="flex:1; background:#38bdf8; border-radius:1px; height:${hPct}%;"></div>`;
-      }
-
-      const roeDisplay = r.roe != null ? `${r.roe.toFixed(1)}%` : (r.macro==='fiis'?'2,9%':'—');
-      const dyProjDisplay = r.dyProj != null ? `${r.dyProj.toFixed(1)}%` : '—';
-      const plCagr = r.pl ? (parseFloat(String(r.pl).replace(',','.'))/15).toFixed(2) : '0,45';
-
-      return `
-      <div class="sc-card" onclick="fehmirIrParaAnalise('${r.t}')">
-        <div class="sc-top">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <div class="sc-rank-badge">${rank}</div>
-            <h4 class="sc-ticker-title">${r.t}</h4>
-          </div>
-          <div class="sc-score-ring" style="border-color:${scoreBorder}; color:${scoreColor};" title="${calc.tooltip}">
-            <span class="val">${scoreVal}</span>
-            <span class="lbl">${calc.manual ? "MAN" : "NOTA"}</span>
-          </div>
-        </div>
-
-        <div class="sc-lucro-row">
-          <div class="sc-lucro-lbl">
-            <span>LUCRO (10 ANOS)</span>
-            <span style="color:var(--good); font-family:var(--font-mono);">${r.anosLucro || 5} anos seguidos</span>
-          </div>
-          <div class="sc-lucro-bars">${lBars}</div>
-        </div>
-
-        <div class="sc-metric-line">
-          <span class="sc-metric-lbl">Margem Régua</span>
-          <span class="sc-metric-val" style="color:${fcdColor}">${fcdSign}${fcdMargin.toFixed(1)}%</span>
-        </div>
-        <div class="sc-metric-line">
-          <span class="sc-metric-lbl">${r.macro==='fiis'?'Vacância':'ROE atual'}</span>
-          <span class="sc-metric-val">${roeDisplay}</span>
-        </div>
-        <div class="sc-metric-line">
-          <span class="sc-metric-lbl">DY atual</span>
-          <span class="sc-metric-val" style="color:var(--good)">${fmtPct(r.dy)}</span>
-        </div>
-        <div class="sc-metric-line">
-          <span class="sc-metric-lbl">DY projetado</span>
-          <span class="sc-metric-val">${dyProjDisplay}</span>
-        </div>
-        <div class="sc-metric-line" style="border-bottom:none; margin-bottom:4px;">
-          <span class="sc-metric-lbl">DY MÉDIO 5A</span>
-          <span class="sc-metric-val">${fmtPct(dy5Robo)}</span>
-        </div>
-        <div style="height:12px; display:flex; gap:2.5px; align-items:flex-end; margin-bottom:8px;">
-          ${dyBars}
-        </div>
-
-        <div class="sc-metric-line">
-          <span class="sc-metric-lbl">P/L ou Tipo</span>
-          <span class="sc-metric-val">${r.pl || r.tag}</span>
-        </div>
-        <div class="sc-metric-line">
-          <span class="sc-metric-lbl">P.L / CAGR.L</span>
-          <span class="sc-metric-val">${plCagr}</span>
-        </div>
-
-        <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
-          <span class="rc-tag">${r.tag || 'VALOR'}</span>
-          <div style="display:flex;gap:6px">
-            <button class="cb-btn" style="background:transparent;border:none;font-size:11px;color:var(--muted);cursor:pointer;padding:0" onclick="event.stopPropagation(); openModal('${r.t}')">Raio-X</button>
-            <span style="font-size:11px; color:var(--accent); font-weight:600;">Ver Análise ➔</span>
-          </div>
-        </div>
-      </div>`;
-    }).join('');
-
-    return `
-    <div class="sector-section-block" id="sec-${slug}">
-      <div class="sector-section-title">
-        <span class="bullet">•</span>
-        <span>${s.toUpperCase()}</span>
-      </div>
-      <div class="sector-cards-row">
-        ${cardsHtml}
-      </div>
-    </div>`;
+  const blocos = setores.map(s => {
+    const itens = grupos[s].sort((x, y) => (y.margem != null ? y.margem : -999) - (x.margem != null ? x.margem : -999));
+    const comMargem = itens.filter(l => l.margem != null && l.margem >= l.mMin).length;
+    const rows = itens.map((l, i) => `<tr style="cursor:pointer" onclick="openModal('${l.t}')">
+        <td style="text-align:left">${i + 1}</td>
+        <td style="text-align:left;white-space:nowrap"><b style="font-family:var(--font-mono)">${l.t}</b>${l.tenho ? ' ★' : ''}<div style="font-size:11px;color:var(--muted);max-width:180px;overflow:hidden;text-overflow:ellipsis">${l.nome}</div></td>
+        <td>${f(l.preco, 2)}</td><td>${f(l.dy)}%</td><td>${f(l.pvp, 2)}</td><td>${l.liq != null ? f(l.liq, 1) : '—'}</td>
+        <td>${f(l.teto, 2)}</td><td style="font-weight:700;color:${l.margem == null ? 'var(--muted)' : (l.margem >= l.mMin ? 'var(--good)' : (l.margem >= 0 ? 'var(--warning)' : 'var(--critical)'))}">${l.margem == null ? '—' : (l.margem >= 0 ? '+' : '') + f(l.margem, 0) + '%'}</td>
+        <td style="white-space:nowrap">${situacao(l)}</td></tr>`).join('');
+    return `<div class="panel" id="${slug(s)}" style="margin-bottom:14px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h3 style="margin:0;font-size:15px">${s}</h3>
+        <span style="font-size:12px;color:${comMargem ? 'var(--good)' : 'var(--muted)'}">${comMargem ? comMargem + ' com margem' : 'nenhum com margem'} · margem mínima ${itens[0].mMin}%</span></div>
+      <div style="overflow-x:auto;margin-top:8px"><table style="width:100%;border-collapse:collapse;font-size:12.5px;text-align:right">
+        <thead><tr style="color:var(--ink-2);font-size:11px;text-transform:uppercase"><th style="text-align:left">#</th><th style="text-align:left">Ativo</th><th>Preço</th><th>DY 12m</th><th>P/VP</th><th>Liq. R$ mi</th><th>Teto</th><th>Margem</th><th>Situação</th></tr></thead>
+        <tbody>${rows}</tbody></table></div></div>`;
   }).join('');
 
-  container.innerHTML = jumpHtml + blocksHtml;
+  container.innerHTML = topo + blocos;
 }
 
 function renderPodioView(list) {
@@ -16280,9 +16215,9 @@ initCollapsibleBlocks();
         teto = (lpa * (1 - corteNorm)) / (req / 100);
         src = "P/L normalizado [LPA " + fR(lpa) + " × (1 − " + fmtN(corteNorm * 100, 0) + "%) ÷ " + fmtN(req, 1) + "%] = " + fR(teto) + (hist ? " · Bazin 5A " + fR(hist) + " (conferência)" : "");
       } else {
-        const vals = [proj, hist].filter(v => v > 0);
-        teto = vals.length ? Math.min(...vals) : null;
-        src = "P/L normalizado indisponível (LPA negativo): usando Bazin · " + (proj ? "Proj " + fR(proj) : "") + histSrc;
+        // Empresa com prejuízo: sem teto. Dividendo passado não sustenta preço de quem perde dinheiro (23/10/2026).
+        teto = null;
+        src = "Sem teto: prejuízo nos últimos 12 meses (LPA negativo) — fora do método até voltar ao lucro";
       }
     }
     // 3. MÉTODO GORDON / DDM (Água & Saneamento)
@@ -16446,6 +16381,14 @@ initCollapsibleBlocks();
         diverg_par = "método oficial " + fR(teto) + " × teto cresc " + fR(retEsp.teto_cresc);
         src += " · ⚠️ Teto do método (" + fR(teto) + ") bem acima do que o crescimento pessimista sustenta (" + fR(retEsp.teto_cresc) + "): confira se o lucro é recorrente";
       }
+    }
+
+    // Trava de sanidade (23/10/2026): teto acima de 3× o preço implica DY de 25%+ — quase sempre provento
+    // inflado por amortização, grupamento ou extraordinário. Sem teto até conferir; nunca vira "compra".
+    const precoSan = (HY && HY.c && HY.c.length) ? HY.c[HY.c.length - 1] : a.preco;
+    if (teto > 0 && precoSan > 0 && teto > 3 * precoSan) {
+      src = "⚠️ Dado suspeito: o teto calculado (" + fR(teto) + ") é " + fmtN(teto / precoSan, 1) + "× o preço — conferir proventos (amortização? grupamento? extraordinário?). " + src;
+      teto = null;
     }
 
     // Banco de qualidade comprovada (decisão do Felipe, 23/10/2026): ROE >= 18% em cada um dos 5 anos
@@ -17190,7 +17133,15 @@ initCollapsibleBlocks();
       const em = escolherMetodo(a, m);
       const req = em.taxa;
       const renda = a.rend ? a.rend * 12 : a.dpa;
-      const teto = renda && req ? renda / (req / 100) : null;
+      let teto = renda && req ? renda / (req / 100) : null;
+      let srcFii = "Renda anual ÷ " + (req ? fmtN(req, 1) + "%" : "—");
+      // Mesma trava de sanidade das ações: teto acima de 3× o preço = provento inflado (amortização etc.).
+      const hF = typeof fehmirObterHist === "function" ? fehmirObterHist(a.t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[a.t]);
+      const pF = hF && hF.c && hF.c.length ? hF.c[hF.c.length - 1] : a.preco;
+      if (teto > 0 && pF > 0 && teto > 3 * pF) {
+        srcFii = "⚠️ Dado suspeito: o teto calculado (" + fR(teto) + ") é " + fmtN(teto / pF, 1) + "× o preço — rendimento provavelmente inclui amortização. " + srcFii;
+        teto = null;
+      }
       return {
         teto,
         margemMin: sub.margemMin || 10,
@@ -17201,7 +17152,7 @@ initCollapsibleBlocks();
         setorNome: sub.nome,
         proj: null,
         hist: teto,
-        src: "Renda anual ÷ " + (req ? fmtN(req, 1) + "%" : "—"),
+        src: srcFii,
         req,
         payoutUsado: a.payout || 95,
         payoutImplicito: null,
