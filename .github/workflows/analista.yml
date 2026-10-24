@@ -1,0 +1,42 @@
+# Fehmir · analista automático (specs/001): tetos pela régua do painel + alertas da carteira e do radar.
+# Roda todo dia útil às 20h30 de Brasília, depois dos robôs de preços (19h30) e de novidades (20h).
+name: Analista automatico
+
+on:
+  schedule:
+    - cron: "30 23 * * 1-5"    # 20h30 de Brasília, seg-sex
+  workflow_dispatch: {}        # botão "Run workflow" (dá para rodar pelo app do GitHub no celular)
+
+permissions:
+  contents: write
+
+jobs:
+  analista:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # usado só na etapa de pareceres (próxima fase)
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pegar os dados mais recentes dos outros robôs
+        run: git pull --rebase origin main || true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Exportar tetos da régua (mesma função do painel, Chrome headless)
+        env:
+          CHROME_PATH: google-chrome
+        run: node tools/exportar_tetos.js
+      - name: Executar analista (alertas)
+        run: python tools/analista.py
+      - name: Salvar se mudou
+        if: always()
+        run: |
+          git config user.name "fehmir-robo"
+          git config user.email "fehmir-robo@users.noreply.github.com"
+          git add dados/tetos.js dados/alertas.js
+          git diff --cached --quiet || git commit -m "dados: analista $(date +%Y-%m-%d)"
+          git pull --rebase origin main && git push
