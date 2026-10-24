@@ -1,10 +1,15 @@
 /* Gerado por tools/fundamentos_cvm.py — não editar à mão. */
 window.FEHMIR_FUND_CVM_META = {
-  "gerado": "2026-10-23 06:54",
+  "gerado": "2026-10-24 14:55",
   "fonte": "CVM Dados Abertos (ITR/DFP consolidado/individual 2026/2025)",
-  "total_ativos": 64,
-  "ok": 64,
-  "falhas": [],
+  "total_ativos": 63,
+  "ok": 63,
+  "falhas": [
+    {
+      "t": "EGIE3",
+      "motivo": "Valor de mercado implícito R$ 35.17 bi diverge -20.1% do mercado de referência R$ 44.04 bi (razão 0.80x)"
+    }
+  ],
   "sanidade_auditada": 56,
   "sem_referencia": [
     "ALUP11",
@@ -13,7 +18,6 @@ window.FEHMIR_FUND_CVM_META = {
     "BPAC11",
     "BRIT3",
     "ENGI11",
-    "MELK3",
     "VITT3"
   ],
   "ajustes_escala": [
@@ -466,24 +470,6 @@ window.FEHMIR_FUND_CVM = {
       "2023": 23.86,
       "2024": 36.67,
       "2025": 49.83
-    }
-  },
-  "EGIE3": {
-    "lpa": 3.69,
-    "vpa": 13.14,
-    "roe": 28.1,
-    "pl_liquido": 15012810000.0,
-    "lucro12m": 4218079000.0,
-    "acoes": 1142298836,
-    "ref": "2T26",
-    "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)",
-    "roeAnual": {
-      "2021": 19.98,
-      "2022": 32.56,
-      "2023": 39.64,
-      "2024": 42.75,
-      "2025": 23.79
     }
   },
   "ENEV3": {
