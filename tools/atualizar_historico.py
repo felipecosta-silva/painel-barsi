@@ -113,6 +113,15 @@ def processar(js, diario=None, nome=""):
         anos_ok = [y for y in anos_ok if y > primeiro_div or (y == primeiro_div and utc(lista[0][0]).month <= 2)]
     if nome.endswith("11"):
         anos_ok = [y for y in anos_ok if por_ano.get(y, 0) > 0]
+    # Lacuna da fonte (25/10/2026): ano sem provento ENTRE anos pagos (antes e depois, até o ano corrente) é
+    # quase sempre falha do Yahoo (ex.: CPFE3 2024–2025 pagou ~R$ 2,75 e ~R$ 2,79 e veio zero). Sai da média e
+    # fica registrado em "lacunas". Zero no fim da série (corte real) continua contando: zero não é ausência.
+    lacunas = []
+    for y in anos_ok:
+        if por_ano.get(y, 0) == 0 and any(por_ano.get(z, 0) > 0 for z in por_ano if z < y) \
+                and any(por_ano.get(z, 0) > 0 for z in range(y + 1, ano_atual + 1)):
+            lacunas.append(y)
+    anos_ok = [y for y in anos_ok if y not in lacunas]
     dpa5 = round(sum(por_ano.get(y, 0.0) for y in anos_ok) / len(anos_ok), 4) if anos_ok and any(por_ano.get(y, 0) for y in anos_ok) else None
 
     # Anos válidos dos últimos 10 fechados
@@ -193,6 +202,7 @@ def processar(js, diario=None, nome=""):
         "nPagAno": nPagAno,
         "dpa12": dpa12,
         "dpa5": dpa5,
+        "lacunas": lacunas,
         "dpa10": dpa10,
         "cagrDiv5": cagrDiv5,
         "ev": ev,

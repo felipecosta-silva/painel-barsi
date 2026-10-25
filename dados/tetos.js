@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-10-24 03:05",
+ "gerado": "2026-10-25 23:56",
  "ativos": 234,
  "carteira": 21,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
@@ -98,22 +98,22 @@ window.FEHMIR_TETOS = {
   "data": "2026-10-23"
  },
  "EGIE3": {
-  "teto": 13.93,
-  "compra": 12.54,
+  "teto": 13.95,
+  "compra": 12.56,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$13,93 (LPA×30%÷8,0%) · DPA 5A R$1,73 (robô)÷8,0% = R$21,67 → usa o menor · ⚠️ Projetivo (R$13,93) diverge 36% do histórico 5A (R$21,67): confira premissa de dividendos",
+  "src": "Projetivo R$13,95 (LPA×32%÷8,0%) · DPA 5A R$1,73 (robô)÷8,0% = R$21,67 → usa o menor · ⚠️ Projetivo (R$13,95) diverge 36% do histórico 5A (R$21,67): confira premissa de dividendos",
   "preco": 30.79,
   "data": "2026-10-23"
  },
  "CPFE3": {
-  "teto": 24.57,
-  "compra": 22.12,
+  "teto": 27.68,
+  "compra": 24.91,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$27,68 (LPA×60%÷8,0%) · DPA 5A R$1,97 (robô)÷8,0% = R$24,57 → usa o menor",
+  "src": "Projetivo R$27,68 (LPA×60%÷8,0%) · DPA 3A R$3,28 (robô)÷8,0% = R$40,96 → usa o menor",
   "preco": 49.79,
   "data": "2026-10-23"
  },
@@ -138,22 +138,22 @@ window.FEHMIR_TETOS = {
   "data": "2026-10-23"
  },
  "CPLE3": {
-  "teto": 5.62,
-  "compra": 5.06,
+  "teto": 7.03,
+  "compra": 6.33,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$8,03 (LPA×60%÷8,0%) · DPA 5A R$0,45 (robô)÷8,0% = R$5,62 → usa o menor · ⚠️ Projetivo (R$8,03) diverge 43% do histórico 5A (R$5,62): confira premissa de dividendos",
+  "src": "Projetivo R$8,03 (LPA×60%÷8,0%) · DPA 4A R$0,56 (robô)÷8,0% = R$7,03 → usa o menor",
   "preco": 17.34,
   "data": "2026-10-23"
  },
  "ISAE4": {
-  "teto": 28.98,
-  "compra": 27.53,
+  "teto": 29.15,
+  "compra": 27.7,
   "margemMin": 5,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$29,15 (LPA×47%÷7,0%) · DPA 5A R$2,03 (robô)÷7,0% = R$28,98 → usa o menor",
+  "src": "Projetivo R$29,15 (LPA×47%÷7,0%) · DPA 4A R$2,54 (robô)÷7,0% = R$36,22 → usa o menor",
   "preco": 28.32,
   "data": "2026-10-23"
  },
@@ -353,7 +353,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 25,
   "metodo": "Graham",
   "setor": "Construção & Incorporação",
-  "src": "Graham √[22,5 × LPA R$4,53 × VPA R$12,56] = R$35,78 · Bazin 5A R$2,44 (conferência) · ⚠️ Teto do método (R$35,78) bem acima do que o crescimento pessimista sustenta (R$22,99): confira se o lucro é recorrente",
+  "src": "Graham √[22,5 × LPA R$4,53 × VPA R$12,56] = R$35,78 · Bazin 5A R$4,06 (conferência) · ⚠️ Teto do método (R$35,78) bem acima do que o crescimento pessimista sustenta (R$22,99): confira se o lucro é recorrente",
   "preco": 28.36,
   "data": "2026-10-23"
  },
@@ -423,7 +423,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 30,
   "metodo": "P/L normalizado",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "P/L normalizado [LPA R$6,65 × (1 − 25%) ÷ 11,5%] = R$43,37 · Bazin 5A R$9,69 (conferência) · ⚠️ Teto do método (R$43,37) bem acima do que o crescimento pessimista sustenta (R$28,22): confira se o lucro é recorrente",
+  "src": "P/L normalizado [LPA R$6,65 × (1 − 25%) ÷ 11,5%] = R$43,37 · Bazin 5A R$12,11 (conferência) · ⚠️ Teto do método (R$43,37) bem acima do que o crescimento pessimista sustenta (R$28,22): confira se o lucro é recorrente",
   "preco": 43.06,
   "data": "2026-10-23"
  },
@@ -2328,12 +2328,12 @@ window.FEHMIR_TETOS = {
   "data": null
  },
  "TRPL4": {
-  "teto": 25.35,
-  "compra": 22.82,
+  "teto": 25.51,
+  "compra": 22.96,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$25,51 (LPA×47%÷8,0%) · DPA 5A R$2,03 (robô)÷8,0% = R$25,35 → usa o menor",
+  "src": "Projetivo R$25,51 (LPA×47%÷8,0%) · DPA 4A R$2,54 (robô)÷8,0% = R$31,69 → usa o menor",
   "preco": 28.32,
   "data": "2026-10-23"
  },
