@@ -142,7 +142,10 @@ def main(argv):
             elif na_cart and preco >= tt["teto"] * LIMIARES["realizacao"]:
                 alerta(t, "zona_realizacao", "media",
                        f"{t} na zona de realização: R$ {br(preco)} ≥ teto × {br(LIMIARES['realizacao'], 1)} (R$ {br(tt['teto'] * LIMIARES['realizacao'])}). "
-                       "B.A.S.E. só se vende por fundamento; FII nunca por rebalanceamento.",
+                       + ("Cíclica: realizar parte em escada (até 60%; metade a mercado, metade com ordem +5%); "
+                          "vendas de ações até R$ 20 mil/mês são isentas e o que sobra segue pagando dividendos."
+                          if (setor.startswith("Commodities") or "Construção" in setor or "Varejo" in setor)
+                          else "B.A.S.E. só se vende por fundamento; FII nunca por rebalanceamento."),
                        {"preco": preco, "teto": tt["teto"]}, origem_preco)
 
     # 3 e 4. Proventos e fundamentos contra a base anterior (primeira execução só grava a base)
