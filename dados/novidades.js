@@ -46,7 +46,31 @@ window.FEHMIR_NOVIDADES = {
       "gravidade": "info"
     }
   ],
-  "BBSE3": [],
+  "BBSE3": [
+    {
+      "id": "cvm_023159IPE231020260110957071-32",
+      "data": "2026-10-23",
+      "tipo": "Fato Relevante",
+      "titulo": "Renúncia membro do Conselho de Administração e CTPR",
+      "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1579928&numSequencia=1104634&numVersao=1",
+      "resumo": [
+        "Fato Relevante publicado em 2026-10-23."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    }
+  ],
   "CMIG4": [
     {
       "id": "cvm_002453IPE110920260124477976-55",
@@ -854,6 +878,29 @@ window.FEHMIR_NOVIDADES = {
   ],
   "RECV3": [
     {
+      "id": "cvm_025780IPE201020260114078862-28",
+      "data": "2026-10-20",
+      "tipo": "Fato Relevante",
+      "titulo": "Proposta de Reorganização Societária envolvendo a SPE Tiêta",
+      "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1578872&numSequencia=1103578&numVersao=1",
+      "resumo": [
+        "Fato Relevante publicado em 2026-10-20."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
       "id": "cvm_025780IPE071020260183698677-53",
       "data": "2026-10-07",
       "tipo": "Comunicado ao Mercado",
@@ -1525,6 +1572,39 @@ window.FEHMIR_NOVIDADES = {
   ],
   "XPML11": [
     {
+      "id": "fnet_1358969",
+      "data": "2026-10-26",
+      "tipo": "Fato Relevante",
+      "titulo": "Fato Relevante",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1358969",
+      "resumo": [
+        "Conclusão da aquisição de 60,00% do São Bernardo Plaza Shopping, em São Bernardo do Campo/SP, anteriormente detida pela ALLOS S.A.",
+        "O empreendimento possui aproximadamente 42 mil m² de ABL e mais de 200 operações comerciais.",
+        "Estrutura financeira prevê 30,00% do valor total da transação parcelado para pagamento em até 24 meses.",
+        "Impacto estimado no resultado operacional do fundo de aproximadamente R$ 30,79 milhões nos próximos 12 meses (~R$ 0,48/cota considerando cotas até a 14ª emissão).",
+        "Com a transação, o ativo passa a representar cerca de 6% do NOI do portfólio do XPML11."
+      ],
+      "mudancas": [
+        "Fechamento efetivo da aquisição anunciada previamente, incorporando 60% do ativo ao portfólio do fundo.",
+        "Estimativa de incremento no resultado operacional de cerca de R$ 0,48/cota ao longo dos próximos 12 meses."
+      ],
+      "alertas": [
+        "Compromisso financeiro futuro decorrente da estrutura a prazo: 30% do valor total da aquisição a ser pago em até 24 meses.",
+        "Dependência do cumprimento das projeções operacionais e otimização do mix comercial para confirmação da receita estimada."
+      ],
+      "metricas": {
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.92,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
+      },
+      "gravidade": "atencao",
+      "resumido_ia": true
+    },
+    {
       "id": "fnet_1353649",
       "data": "2026-10-16",
       "tipo": "Fato Relevante",
@@ -1671,28 +1751,6 @@ window.FEHMIR_NOVIDADES = {
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1319388",
       "resumo": [
         "Fato Relevante publicado em 2026-09-14."
-      ],
-      "mudancas": [],
-      "alertas": [],
-      "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
-      },
-      "gravidade": "info"
-    },
-    {
-      "id": "fnet_1312452",
-      "data": "2026-09-08",
-      "tipo": "Relatório Gerencial",
-      "titulo": "Relatório Gerencial",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1312452",
-      "resumo": [
-        "Relatório Gerencial publicado em 2026-09-08."
       ],
       "mudancas": [],
       "alertas": [],
