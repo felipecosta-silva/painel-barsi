@@ -1,9 +1,9 @@
 /* Gerado por tools/analista.py — não editar à mão. */
 window.FEHMIR_ALERTAS = {
  "meta": {
-  "gerado": "2026-10-27 02:16",
+  "gerado": "2026-10-27 08:22",
   "verificados": 105,
-  "ativos": 54,
+  "ativos": 64,
   "limiares": {
    "movimento_pp": 8,
    "janela": 5,
@@ -541,7 +541,16 @@ window.FEHMIR_ALERTAS = {
     "roe": 13.71
    }
   },
-  "pareceres_pendentes": []
+  "pareceres_pendentes": [
+   "BBSE3",
+   "LOGG3",
+   "XPML11",
+   "AURE3",
+   "BBAS3",
+   "BPAC11",
+   "BRIT3",
+   "BRST3"
+  ]
  },
  "itens": [
   {
@@ -741,6 +750,27 @@ window.FEHMIR_ALERTAS = {
    "estado": "ativo"
   },
   {
+   "id": "CPLE3:politica_dividendos",
+   "ticker": "CPLE3",
+   "tipo": "politica_dividendos",
+   "prioridade": "info",
+   "texto": "CPLE3: possível mudança de política de dividendos — confirmar documento (payout 3A 26% vs 5A 59%, razão 0,44×, dif 32 p.p.)",
+   "numeros": {
+    "payout3a": 26.0,
+    "payout5a": 58.5,
+    "razao": 0.44,
+    "diff_pp": 32.5
+   },
+   "origem": {
+    "fonte": "histórico e CVM (payout)",
+    "data": "2021–2025"
+   },
+   "carteira": true,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-27",
+   "estado": "ativo"
+  },
+  {
    "id": "GARE11:zona_compra",
    "ticker": "GARE11",
    "tipo": "zona_compra",
@@ -758,7 +788,8 @@ window.FEHMIR_ALERTAS = {
    "carteira": true,
    "desde": "2026-10-24",
    "ultimo": "2026-10-27",
-   "estado": "ativo"
+   "estado": "ativo",
+   "parecer": true
   },
   {
    "id": "GGRC11:zona_compra",
@@ -778,7 +809,8 @@ window.FEHMIR_ALERTAS = {
    "carteira": true,
    "desde": "2026-10-24",
    "ultimo": "2026-10-27",
-   "estado": "ativo"
+   "estado": "ativo",
+   "parecer": true
   },
   {
    "id": "RZAG11:zona_compra",
@@ -798,7 +830,8 @@ window.FEHMIR_ALERTAS = {
    "carteira": true,
    "desde": "2026-10-27",
    "ultimo": "2026-10-27",
-   "estado": "ativo"
+   "estado": "ativo",
+   "parecer": true
   },
   {
    "id": "TRXF11:zona_compra",
@@ -901,6 +934,48 @@ window.FEHMIR_ALERTAS = {
    "estado": "ativo"
   },
   {
+   "id": "BBDC3:politica_dividendos",
+   "ticker": "BBDC3",
+   "tipo": "politica_dividendos",
+   "prioridade": "info",
+   "texto": "BBDC3: possível mudança de política de dividendos — confirmar documento (payout 3A 70% vs 5A 51%, razão 1,36×, dif 18 p.p.)",
+   "numeros": {
+    "payout3a": 69.5,
+    "payout5a": 51.1,
+    "razao": 1.36,
+    "diff_pp": 18.4
+   },
+   "origem": {
+    "fonte": "histórico e CVM (payout)",
+    "data": "2021–2025"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-27",
+   "estado": "ativo"
+  },
+  {
+   "id": "BBDC4:politica_dividendos",
+   "ticker": "BBDC4",
+   "tipo": "politica_dividendos",
+   "prioridade": "info",
+   "texto": "BBDC4: possível mudança de política de dividendos — confirmar documento (payout 3A 77% vs 5A 56%, razão 1,36×, dif 20 p.p.)",
+   "numeros": {
+    "payout3a": 76.5,
+    "payout5a": 56.2,
+    "razao": 1.36,
+    "diff_pp": 20.3
+   },
+   "origem": {
+    "fonte": "histórico e CVM (payout)",
+    "data": "2021–2025"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-27",
+   "estado": "ativo"
+  },
+  {
    "id": "BPAC11:movimento",
    "ticker": "BPAC11",
    "tipo": "movimento",
@@ -974,6 +1049,27 @@ window.FEHMIR_ALERTAS = {
    "origem": {
     "fonte": "robô de preços (Yahoo)",
     "data": "2026-10-26"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-27",
+   "estado": "ativo"
+  },
+  {
+   "id": "CPFE3:politica_dividendos",
+   "ticker": "CPFE3",
+   "tipo": "politica_dividendos",
+   "prioridade": "info",
+   "texto": "CPFE3: possível mudança de política de dividendos — confirmar documento (payout 3A 18% vs 5A 54%, razão 0,34×, dif 36 p.p.)",
+   "numeros": {
+    "payout3a": 18.5,
+    "payout5a": 54.4,
+    "razao": 0.34,
+    "diff_pp": 36.0
+   },
+   "origem": {
+    "fonte": "histórico e CVM (payout)",
+    "data": "2021–2025"
    },
    "carteira": false,
    "desde": "2026-10-27",
@@ -1121,6 +1217,27 @@ window.FEHMIR_ALERTAS = {
    "estado": "ativo"
   },
   {
+   "id": "GGBR4:politica_dividendos",
+   "ticker": "GGBR4",
+   "tipo": "politica_dividendos",
+   "prioridade": "info",
+   "texto": "GGBR4: possível mudança de política de dividendos — confirmar documento (payout 3A 51% vs 5A 36%, razão 1,42×, dif 15 p.p.)",
+   "numeros": {
+    "payout3a": 51.3,
+    "payout5a": 36.1,
+    "razao": 1.42,
+    "diff_pp": 15.2
+   },
+   "origem": {
+    "fonte": "histórico e CVM (payout)",
+    "data": "2021–2025"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-27",
+   "estado": "ativo"
+  },
+  {
    "id": "GMAT3:movimento",
    "ticker": "GMAT3",
    "tipo": "movimento",
@@ -1181,6 +1298,27 @@ window.FEHMIR_ALERTAS = {
    "estado": "ativo"
   },
   {
+   "id": "KLBN4:politica_dividendos",
+   "ticker": "KLBN4",
+   "tipo": "politica_dividendos",
+   "prioridade": "info",
+   "texto": "KLBN4: possível mudança de política de dividendos — confirmar documento (payout 3A 76% vs 5A 53%, razão 1,45×, dif 24 p.p.)",
+   "numeros": {
+    "payout3a": 76.5,
+    "payout5a": 52.8,
+    "razao": 1.45,
+    "diff_pp": 23.6
+   },
+   "origem": {
+    "fonte": "histórico e CVM (payout)",
+    "data": "2021–2025"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-27",
+   "estado": "ativo"
+  },
+  {
    "id": "LAVV3:movimento",
    "ticker": "LAVV3",
    "tipo": "movimento",
@@ -1214,6 +1352,48 @@ window.FEHMIR_ALERTAS = {
    "origem": {
     "fonte": "robô de preços (Yahoo)",
     "data": "2026-10-26"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-27",
+   "estado": "ativo"
+  },
+  {
+   "id": "LEVE3:politica_dividendos",
+   "ticker": "LEVE3",
+   "tipo": "politica_dividendos",
+   "prioridade": "info",
+   "texto": "LEVE3: possível mudança de política de dividendos — confirmar documento (payout 3A 47% vs 5A 69%, razão 0,68×, dif 22 p.p.)",
+   "numeros": {
+    "payout3a": 47.1,
+    "payout5a": 69.4,
+    "razao": 0.68,
+    "diff_pp": 22.3
+   },
+   "origem": {
+    "fonte": "histórico e CVM (payout)",
+    "data": "2021–2025"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-27",
+   "estado": "ativo"
+  },
+  {
+   "id": "MTRE3:politica_dividendos",
+   "ticker": "MTRE3",
+   "tipo": "politica_dividendos",
+   "prioridade": "info",
+   "texto": "MTRE3: possível mudança de política de dividendos — confirmar documento (payout 3A 46% vs 5A 88%, razão 0,52×, dif 42 p.p.)",
+   "numeros": {
+    "payout3a": 46.2,
+    "payout5a": 88.1,
+    "razao": 0.52,
+    "diff_pp": 41.9
+   },
+   "origem": {
+    "fonte": "histórico e CVM (payout)",
+    "data": "2021–2025"
    },
    "carteira": false,
    "desde": "2026-10-27",
@@ -1297,6 +1477,27 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
+   "ultimo": "2026-10-27",
+   "estado": "ativo"
+  },
+  {
+   "id": "RECV3:politica_dividendos",
+   "ticker": "RECV3",
+   "tipo": "politica_dividendos",
+   "prioridade": "info",
+   "texto": "RECV3: possível mudança de política de dividendos — confirmar documento (payout 3A 87% vs 5A 55%, razão 1,59×, dif 32 p.p.)",
+   "numeros": {
+    "payout3a": 86.9,
+    "payout5a": 54.6,
+    "razao": 1.59,
+    "diff_pp": 32.2
+   },
+   "origem": {
+    "fonte": "histórico e CVM (payout)",
+    "data": "2021–2025"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
    "ultimo": "2026-10-27",
    "estado": "ativo"
   },
@@ -1454,6 +1655,27 @@ window.FEHMIR_ALERTAS = {
    "origem": {
     "fonte": "robô de preços (Yahoo)",
     "data": "2026-10-26"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-27",
+   "estado": "ativo"
+  },
+  {
+   "id": "VALE3:politica_dividendos",
+   "ticker": "VALE3",
+   "tipo": "politica_dividendos",
+   "prioridade": "info",
+   "texto": "VALE3: possível mudança de política de dividendos — confirmar documento (payout 3A 131% vs 5A 89%, razão 1,47×, dif 42 p.p.)",
+   "numeros": {
+    "payout3a": 130.8,
+    "payout5a": 88.8,
+    "razao": 1.47,
+    "diff_pp": 42.0
+   },
+   "origem": {
+    "fonte": "histórico e CVM (payout)",
+    "data": "2021–2025"
    },
    "carteira": false,
    "desde": "2026-10-27",
@@ -1638,7 +1860,8 @@ window.FEHMIR_ALERTAS = {
    "desde": "2026-10-24",
    "ultimo": "2026-10-24",
    "estado": "resolvido",
-   "resolvido": "2026-10-27"
+   "resolvido": "2026-10-27",
+   "parecer": true
   },
   {
    "id": "HGRE11:zona_realizacao",
@@ -1678,7 +1901,8 @@ window.FEHMIR_ALERTAS = {
    "desde": "2026-10-24",
    "ultimo": "2026-10-24",
    "estado": "resolvido",
-   "resolvido": "2026-10-27"
+   "resolvido": "2026-10-27",
+   "parecer": true
   },
   {
    "id": "TRXF11:documento",

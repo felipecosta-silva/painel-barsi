@@ -28,7 +28,9 @@ const EXPR = `(() => {
     const mMin = av.margemMin != null ? av.margemMin : 10;
     tetos[t] = { teto: +av.teto.toFixed(2), compra: +(av.teto * (1 - mMin / 100)).toFixed(2), margemMin: mMin,
       metodo: av.metodo || '', setor: av.setorNome || a.setor || '', src: String(av.src || '').slice(0, 400),
-      preco: preco != null ? +(+preco).toFixed(2) : null, data: h && h.d ? h.d[h.d.length - 1] : null };
+      preco: preco != null ? +(+preco).toFixed(2) : null, data: h && h.d ? h.d[h.d.length - 1] : null,
+      base_dpa: av.base_dpa || 'historico_5a' };
+
   }
   const pos = calcularPosicoesExtrato(carregarExtrato()), carteira = {};
   for (const [t, p] of Object.entries(pos)) if (p && p.quant > 1e-9) carteira[t] = +p.quant.toFixed(8);

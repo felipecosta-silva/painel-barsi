@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-10-27 02:16",
+ "gerado": "2026-10-27 11:22",
  "ativos": 251,
  "carteira": 21,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
@@ -15,7 +15,8 @@ window.FEHMIR_TETOS = {
   "setor": "Seguradoras",
   "src": "Projetivo R$53,61 (LPA×85%÷7,5%) · DPA 5A R$2,67 (robô)÷7,5% = R$35,64 → usa o menor · ⚠️ Projetivo (R$53,61) diverge 50% do histórico 5A (R$35,64): confira premissa de dividendos",
   "preco": 43.14,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "CXSE3": {
   "teto": 13.34,
@@ -25,7 +26,8 @@ window.FEHMIR_TETOS = {
   "setor": "Seguradoras",
   "src": "Projetivo R$17,11 (LPA×85%÷7,5%) · DPA 4A R$1,00 (robô)÷7,5% = R$13,34 → usa o menor",
   "preco": 21.1,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "PSSA3": {
   "teto": 20.77,
@@ -35,7 +37,8 @@ window.FEHMIR_TETOS = {
   "setor": "Seguradoras",
   "src": "Projetivo R$39,98 (LPA×52%÷7,5%) · DPA 5A R$1,56 (robô)÷7,5% = R$20,77 → usa o menor · ⚠️ Projetivo (R$39,98) diverge 92% do histórico 5A (R$20,77): confira premissa de dividendos",
   "preco": 48.18,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "IRBR3": {
   "teto": 18,
@@ -45,7 +48,8 @@ window.FEHMIR_TETOS = {
   "setor": "Seguradoras",
   "src": "Projetivo R$21,08 (LPA×53%÷7,5%) · Bazin 5A R$18,00 → usa o menor",
   "preco": 61.71,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "ITUB4": {
   "teto": 43,
@@ -55,7 +59,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "Banco forte [ROE 2021 19,2% · 2022 19,2% · 2023 18,9% · 2024 21,0% · 2025 22,1%] → P/VP justo = (ROE 22,0% − g 4,6%) ÷ (k 12,6% − g) = 2,18 × VPA R$19,76 = R$43,00 · conferência Bazin (DPA 5A R$1,88 ÷ 8,0%) = R$23,47",
   "preco": 41.7,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "ITSA4": {
   "teto": 9.17,
@@ -65,7 +70,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "Projetivo R$9,17 (LPA×45%÷8,0%) · DPA 5A R$0,74 (robô)÷8,0% = R$9,20 → usa o menor",
   "preco": 13.39,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "SANB11": {
   "teto": 23.91,
@@ -75,7 +81,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "Projetivo R$23,91 (LPA×45%÷8,0%) · DPA 5A R$2,05 (robô)÷8,0% = R$25,58 → usa o menor",
   "preco": 26.3,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "BBDC4": {
   "teto": 13.11,
@@ -85,7 +92,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "Projetivo R$13,11 (LPA×45%÷8,0%) · DPA 5A R$1,12 (robô)÷8,0% = R$13,95 → usa o menor",
   "preco": 15.95,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "BBAS3": {
   "teto": 8.17,
@@ -95,7 +103,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "Projetivo R$8,17 (LPA×24%÷8,0%) · DPA 5A R$1,70 (robô)÷8,0% = R$21,21 → usa o menor · ⚠️ Projetivo (R$8,17) diverge 61% do histórico 5A (R$21,21): confira premissa de dividendos",
   "preco": 17.47,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "EGIE3": {
   "teto": 13.95,
@@ -105,7 +114,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$13,95 (LPA×32%÷8,0%) · DPA 5A R$1,73 (robô)÷8,0% = R$21,67 → usa o menor · ⚠️ Projetivo (R$13,95) diverge 36% do histórico 5A (R$21,67): confira premissa de dividendos",
   "preco": 27.5,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "CPFE3": {
   "teto": 27.68,
@@ -115,7 +125,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$27,68 (LPA×60%÷8,0%) · DPA 3A R$3,28 (robô)÷8,0% = R$40,96 → usa o menor",
   "preco": 42.7,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "CMIG4": {
   "teto": 12.07,
@@ -125,7 +136,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$12,08 (LPA×60%÷8,0%) · DPA 5A R$1,26 (robô)÷8,0% = R$15,72 → usa o menor",
   "preco": 10.34,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "TAEE11": {
   "teto": 42.95,
@@ -135,7 +147,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Transmissão",
   "src": "Projetivo R$42,95 (LPA×64%÷7,0%) · DPA 5A R$3,81 (robô)÷7,0% = R$54,38 → usa o menor",
   "preco": 40.5,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "CPLE3": {
   "teto": 7.03,
@@ -145,7 +158,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$8,03 (LPA×60%÷8,0%) · DPA 4A R$0,56 (robô)÷8,0% = R$7,03 → usa o menor",
   "preco": 15.1,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "ISAE4": {
   "teto": 29.15,
@@ -155,7 +169,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Transmissão",
   "src": "Projetivo R$29,15 (LPA×47%÷7,0%) · DPA 4A R$2,54 (robô)÷7,0% = R$36,22 → usa o menor",
   "preco": 26,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "ALUP11": {
   "teto": 15.45,
@@ -165,7 +180,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Transmissão",
   "src": "Projetivo R$15,45 (LPA×18%÷7,0%) · DPA 5A R$1,23 (robô)÷7,0% = R$17,57 → usa o menor",
   "preco": 32.05,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "ALUP4": {
   "teto": 4.49,
@@ -175,7 +191,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$4,49 (LPA×18%÷8,0%) · DPA 5A R$0,41 (robô)÷8,0% = R$5,13 → usa o menor",
   "preco": 10.56,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "ALUP3": {
   "teto": 4.49,
@@ -185,7 +202,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$4,49 (LPA×18%÷8,0%) · DPA 5A R$0,41 (robô)÷8,0% = R$5,13 → usa o menor",
   "preco": 11.35,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "EQTL3": {
   "teto": 10.57,
@@ -195,7 +213,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$10,58 (LPA×60%÷8,0%) · DPA 5A R$0,90 (robô)÷8,0% = R$11,29 → usa o menor",
   "preco": 34.84,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "ENGI11": {
   "teto": 14.21,
@@ -205,7 +224,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$14,21 (LPA×27%÷8,0%) · DPA 5A R$2,22 (robô)÷8,0% = R$27,75 → usa o menor · ⚠️ Projetivo (R$14,21) diverge 49% do histórico 5A (R$27,75): confira premissa de dividendos",
   "preco": 47.29,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "AURE3": {
   "teto": 14.4,
@@ -215,7 +235,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "DPA 3A R$1,15 (robô)÷8,0% = R$14,40",
   "preco": 10.76,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "ENEV3": {
   "teto": 6,
@@ -225,7 +246,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$6,00 (LPA×60%÷8,0%)",
   "preco": 26.67,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "CSMG3": {
   "teto": 24.74,
@@ -235,7 +257,8 @@ window.FEHMIR_TETOS = {
   "setor": "Água & Saneamento",
   "src": "Gordon / DDM [2 estágios: g1=7,3%, g2=3,5%, k=11,0%]: DDM R$27,49 · Histórico R$24,74 → vale o menor (R$24,74)",
   "preco": 49.25,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "SAPR11": {
   "teto": 7.27,
@@ -245,7 +268,8 @@ window.FEHMIR_TETOS = {
   "setor": "Água & Saneamento",
   "src": "Gordon / DDM [2 estágios: g1=2,4%, g2=3,5%, k=11,0%]: DDM R$7,27 · Histórico R$20,17 → vale o menor (R$7,27) · ⚠️ Projetivo (R$7,37) diverge 63% do histórico 5A (R$20,17): confira premissa de dividendos",
   "preco": 34.17,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "SBSP3": {
   "teto": 5.43,
@@ -255,7 +279,8 @@ window.FEHMIR_TETOS = {
   "setor": "Água & Saneamento",
   "src": "Gordon / DDM [2 estágios: g1=10,0%, g2=3,5%, k=11,0%]: DDM R$12,54 · Histórico R$5,43 → vale o menor (R$5,43) · ⚠️ Projetivo (R$9,26) diverge 70% do histórico 5A (R$5,43): confira premissa de dividendos",
   "preco": 25.27,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "SAPR4": {
   "teto": 1.48,
@@ -265,7 +290,8 @@ window.FEHMIR_TETOS = {
   "setor": "Água & Saneamento",
   "src": "Gordon / DDM [2 estágios: g1=2,3%, g2=3,5%, k=11,0%]: DDM R$1,48 · Histórico R$4,11 → vale o menor (R$1,48) · ⚠️ Projetivo (R$1,50) diverge 63% do histórico 5A (R$4,11): confira premissa de dividendos",
   "preco": 6.8,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "VIVT3": {
   "teto": 17.22,
@@ -275,17 +301,19 @@ window.FEHMIR_TETOS = {
   "setor": "Telecom",
   "src": "DPA 5A R$1,46 (robô)÷8,5% = R$17,22",
   "preco": 30.69,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "TIMS3": {
-  "teto": 15.06,
-  "compra": 12.8,
+  "teto": 17.32,
+  "compra": 14.72,
   "margemMin": 15,
   "metodo": "Bazin projetivo",
   "setor": "Telecom",
-  "src": "Projetivo R$15,88 (LPA×90%÷8,5%) · DPA 5A R$1,28 (robô)÷8,5% = R$15,06 → usa o menor",
+  "src": "Política nova [guidance R$2,22 limitado ao DPA 12m pago (caixa livre não conferido)] ÷ 8,5% = R$17,32",
   "preco": 18.1,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "guidance_piso"
  },
  "FIQE3": {
   "teto": 3.7,
@@ -295,7 +323,8 @@ window.FEHMIR_TETOS = {
   "setor": "Telecom",
   "src": "Projetivo R$6,14 (LPA×90%÷8,5%) · DPA 4A R$0,31 (robô)÷8,5% = R$3,70 → usa o menor · ⚠️ Projetivo (R$6,14) diverge 66% do histórico 5A (R$3,70): confira premissa de dividendos",
   "preco": 4.99,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "BRIT3": {
   "teto": 0.48,
@@ -305,7 +334,8 @@ window.FEHMIR_TETOS = {
   "setor": "Telecom",
   "src": "Projetivo R$0,48 (LPA×29%÷8,5%) · Bazin 5A R$2,70 → usa o menor · ⚠️ Projetivo (R$0,48) diverge 82% do histórico 5A (R$2,70): confira premissa de dividendos",
   "preco": 2.49,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "DIRR3": {
   "teto": 14.53,
@@ -315,7 +345,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham √[22,5 × LPA R$2,10 × VPA R$4,47] = R$14,53 · Bazin 5A R$6,34 (conferência)",
   "preco": 8.78,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "LAVV3": {
   "teto": 19.03,
@@ -325,7 +356,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham √[22,5 × LPA R$2,17 × VPA R$7,42] = R$19,03 · Bazin 5A R$7,75 (conferência)",
   "preco": 9.34,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "CYRE3": {
   "teto": 54.2,
@@ -335,7 +367,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham √[22,5 × LPA R$5,30 × VPA R$24,63] = R$54,20 · Bazin 5A R$10,65 (conferência) · ⚠️ Teto do método (R$54,20) bem acima do que o crescimento pessimista sustenta (R$17,21): confira se o lucro é recorrente",
   "preco": 19.63,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "CURY3": {
   "teto": 22.07,
@@ -345,7 +378,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham √[22,5 × LPA R$4,03 × VPA R$5,37] = R$22,07 · Bazin 5A R$15,13 (conferência)",
   "preco": 27.08,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "TEND3": {
   "teto": 35.78,
@@ -355,7 +389,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham √[22,5 × LPA R$4,53 × VPA R$12,56] = R$35,78 · Bazin 5A R$4,06 (conferência) · ⚠️ Teto do método (R$35,78) bem acima do que o crescimento pessimista sustenta (R$16,93): confira se o lucro é recorrente",
   "preco": 20.88,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "PRIO3": {
   "teto": 31.63,
@@ -365,7 +400,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "P/L normalizado [LPA R$4,85 × (1 − 25%) ÷ 11,5%] = R$31,63",
   "preco": 71.14,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "VBBR3": {
   "teto": 13.74,
@@ -375,7 +411,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Bazin de meio de ciclo [mediana 5A R$1,47 × 0,75 = R$1,10 ÷ 8,0% = R$13,74] · Proj R$24,74 (conferência) · ⚠️ Projetivo (R$24,74) diverge 80% do meio de ciclo (R$13,74): ciclo de commodities pode estar revertendo",
   "preco": 32.21,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "PETR4": {
   "teto": 47.9,
@@ -385,7 +422,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$7,34 × 0,75 = R$5,51 ÷ 11,5% = R$47,90] · Proj R$23,89 (conferência) · ⚠️ Projetivo (R$23,89) diverge 50% do meio de ciclo (R$47,90): ciclo de commodities pode estar revertendo",
   "preco": 53.88,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "RECV3": {
   "teto": 5.87,
@@ -395,7 +433,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,90 × 0,75 = R$0,68 ÷ 11,5% = R$5,87] · Proj R$5,54 (conferência)",
   "preco": 11.14,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "BRAV3": {
   "teto": 0.78,
@@ -405,7 +444,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "P/L normalizado [LPA R$0,12 × (1 − 25%) ÷ 11,5%] = R$0,78 · Bazin 5A R$11,00 (conferência)",
   "preco": 19.09,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "RANI3": {
   "teto": 4.17,
@@ -415,7 +455,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,64 × 0,75 = R$0,48 ÷ 11,5% = R$4,17] · Proj R$1,83 (conferência) · ⚠️ Projetivo (R$1,83) diverge 56% do meio de ciclo (R$4,17): ciclo de commodities pode estar revertendo",
   "preco": 7.38,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "SUZB3": {
   "teto": 43.37,
@@ -425,7 +466,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "P/L normalizado [LPA R$6,65 × (1 − 25%) ÷ 11,5%] = R$43,37 · Bazin 5A R$12,11 (conferência) · ⚠️ Teto do método (R$43,37) bem acima do que o crescimento pessimista sustenta (R$31,06): confira se o lucro é recorrente",
   "preco": 47.4,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "KLBN4": {
   "teto": 1.72,
@@ -435,7 +477,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,26 × 0,75 = R$0,20 ÷ 11,5% = R$1,72] · Proj R$0,29 (conferência) · ⚠️ Projetivo (R$0,29) diverge 83% do meio de ciclo (R$1,72): ciclo de commodities pode estar revertendo",
   "preco": 3.7,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "POMO4": {
   "teto": 8.64,
@@ -445,7 +488,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham √[22,5 × LPA R$0,97 × VPA R$3,42] = R$8,64 · Bazin 5A R$4,22 (conferência)",
   "preco": 4.09,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "VULC3": {
   "teto": 23.64,
@@ -455,7 +499,8 @@ window.FEHMIR_TETOS = {
   "setor": "Varejo & Consumo",
   "src": "P/L normalizado [LPA R$2,92 × (1 − 15%) ÷ 10,5%] = R$23,64 · Bazin 5A R$19,25 (conferência)",
   "preco": 12.58,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "WEGE3": {
   "teto": 12.69,
@@ -465,7 +510,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham √[22,5 × LPA R$1,59 × VPA R$4,50] = R$12,69 · Bazin 5A R$9,52 (conferência)",
   "preco": 44.53,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "LEVE3": {
   "teto": 28.68,
@@ -475,7 +521,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham √[22,5 × LPA R$5,14 × VPA R$7,11] = R$28,68 · Bazin 5A R$41,58 (conferência)",
   "preco": 32,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "TUPY3": {
   "teto": 7.38,
@@ -485,7 +532,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (LPA negativo): usando Bazin projetivo · DPA 5A R$0,74 (robô)÷10,0% = R$7,38 → usa o menor",
   "preco": 15.59,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "VAMO3": {
   "teto": 2.5,
@@ -495,7 +543,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (LPA negativo): usando Bazin projetivo · DPA 4A R$0,25 (robô)÷10,0% = R$2,50 → usa o menor",
   "preco": 2.77,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "VALE3": {
   "teto": 49.46,
@@ -505,7 +554,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$7,58 × 0,75 = R$5,69 ÷ 11,5% = R$49,46] · Proj R$7,62 (conferência) · ⚠️ Projetivo (R$7,62) diverge 85% do meio de ciclo (R$49,46): ciclo de commodities pode estar revertendo",
   "preco": 64.38,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "GGBR4": {
   "teto": 8.7,
@@ -515,7 +565,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$1,33 × 0,75 = R$1,00 ÷ 11,5% = R$8,70] · Proj R$3,78 (conferência) · ⚠️ Projetivo (R$3,78) diverge 57% do meio de ciclo (R$8,70): ciclo de commodities pode estar revertendo",
   "preco": 25.45,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "AXIA3": {
   "teto": 23,
@@ -525,7 +576,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$23,63 (LPA×45%÷8,0%) · DPA 5A R$1,84 (robô)÷8,0% = R$23,01 → usa o menor",
   "preco": 50.8,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "XPLG11": {
   "teto": 115.76,
@@ -535,7 +587,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 93.12,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "VILG11": {
   "teto": 115.76,
@@ -545,7 +598,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 92.97,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "HGLG11": {
   "teto": 157.88,
@@ -555,7 +609,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 151.7,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "BTLG11": {
   "teto": 113.18,
@@ -565,7 +620,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 100.15,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "GARE11": {
   "teto": 11.29,
@@ -575,7 +631,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 8.35,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "VISC11": {
   "teto": 122.47,
@@ -585,7 +642,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Shoppings",
   "src": "Renda anual ÷ 8,5%",
   "preco": 104.62,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "PMLL11": {
   "teto": 136.24,
@@ -595,7 +653,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Shoppings",
   "src": "Renda anual ÷ 8,5%",
   "preco": 102.91,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "HSML11": {
   "teto": 108.24,
@@ -605,7 +664,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Shoppings",
   "src": "Renda anual ÷ 8,5%",
   "preco": 83.56,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "XPML11": {
   "teto": 129.88,
@@ -615,7 +675,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Shoppings",
   "src": "Renda anual ÷ 8,5%",
   "preco": 100.2,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "KNCA11": {
   "teto": 82.06,
@@ -625,7 +686,8 @@ window.FEHMIR_TETOS = {
   "setor": "Fiagro · Crédito agro",
   "src": "Renda anual ÷ 13,6%",
   "preco": 88,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "KNIP11": {
   "teto": 85.71,
@@ -635,7 +697,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 87.54,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "RZTR11": {
   "teto": 88.7,
@@ -645,7 +708,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Terras agrícolas (arrendamento)",
   "src": "Renda anual ÷ 11,5%",
   "preco": 76,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "RZAG11": {
   "teto": 10.33,
@@ -655,7 +719,8 @@ window.FEHMIR_TETOS = {
   "setor": "Fiagro · Crédito agro",
   "src": "Renda anual ÷ 15,1%",
   "preco": 8.63,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "RBRR11": {
   "teto": 84.52,
@@ -665,7 +730,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 69.7,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "RECR11": {
   "teto": 70.48,
@@ -675,7 +741,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 72.76,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "MXRF11": {
   "teto": 9.52,
@@ -685,7 +752,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 9.11,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "PCIP11": {
   "teto": 83.81,
@@ -695,7 +763,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 76.8,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "VGHF11": {
   "teto": 6.18,
@@ -705,7 +774,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 5.08,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "KFOF11": {
   "teto": 77.1,
@@ -715,7 +785,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 76.59,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "XPSF11": {
   "teto": 6.87,
@@ -725,7 +796,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 6.4,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "HFOF11": {
   "teto": 5.34,
@@ -735,7 +807,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 6.22,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "ALZR11": {
   "teto": 11.11,
@@ -745,7 +818,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 9,0%",
   "preco": 10.06,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "TRXF11": {
   "teto": 106.29,
@@ -755,7 +829,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 10,5%",
   "preco": 69.71,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "GGRC11": {
   "teto": 14.12,
@@ -765,7 +840,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 8.85,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "LOGG3": {
   "teto": 16.17,
@@ -775,7 +851,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "P/VP c/ desconto + Bazin 5A [menor entre VPA×0,9 R$36,05 e Bazin 5A R$16,17] = R$16,17 · ⚠️ Patrimônio (R$36,05) diverge 123% da renda 5A (R$16,17): laudos de reavaliação inflaram VPA",
   "preco": 22.12,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "HGRE11": {
   "teto": 107.37,
@@ -785,7 +862,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Lajes corporativas",
   "src": "Renda anual ÷ 9,5%",
   "preco": 118.5,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "B3SA3": {
   "teto": 4.66,
@@ -795,7 +873,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$4,66",
   "preco": 15.07,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CSAN3": {
   "teto": 2.53,
@@ -805,7 +884,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,39 × 0,75 = R$0,29 ÷ 11,5% = R$2,53]",
   "preco": 2.77,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BPAC11": {
   "teto": 49.93,
@@ -815,7 +895,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "Banco forte [ROE 2021 20,4% · 2022 18,8% · 2023 21,2% · 2024 19,9% · 2025 25,1%] → P/VP justo = (ROE 23,2% − g 4,6%) ÷ (k 12,6% − g) = 2,32 × VPA R$21,52 = R$49,93 · conferência Bazin (DPA 5A R$0,82 ÷ 8,0%) = R$10,21",
   "preco": 60,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "ECOR3": {
   "teto": 1.42,
@@ -825,7 +906,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$1,42",
   "preco": 5.19,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BBDC3": {
   "teto": 12.68,
@@ -835,7 +917,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "DPA 5A R$1,01 (robô)÷8,0% = R$12,68",
   "preco": 14.33,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "MOTV3": {
   "teto": 2.82,
@@ -845,7 +928,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$2,82",
   "preco": 14.76,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RENT3": {
   "teto": 13.66,
@@ -855,7 +939,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$13,66 → usa o menor",
   "preco": 31.67,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "PETR3": {
   "teto": 53.45,
@@ -865,7 +950,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$8,20 × 0,75 = R$6,15 ÷ 11,5% = R$53,45]",
   "preco": 60.8,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RAIL3": {
   "teto": 3.08,
@@ -875,7 +961,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$3,08",
   "preco": 15.5,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "MRVE3": {
   "teto": 1.6,
@@ -885,7 +972,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,0% R$1,60 → usa o menor",
   "preco": 4.73,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BEEF3": {
   "teto": 3.49,
@@ -895,7 +983,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,54 × 0,75 = R$0,40 ÷ 11,5% = R$3,49]",
   "preco": 3.32,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "GOAU4": {
   "teto": 5.88,
@@ -905,7 +994,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,90 × 0,75 = R$0,68 ÷ 11,5% = R$5,88]",
   "preco": 11.52,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "MOVI3": {
   "teto": 5.89,
@@ -915,7 +1005,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$5,90 → usa o menor",
   "preco": 7.75,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "MULT3": {
   "teto": 8.13,
@@ -925,7 +1016,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$8,13",
   "preco": 28.05,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "USIM5": {
   "teto": 3.48,
@@ -935,7 +1027,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,53 × 0,75 = R$0,40 ÷ 11,5% = R$3,48]",
   "preco": 5.92,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "ALOS3": {
   "teto": 8.62,
@@ -945,7 +1038,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$8,62",
   "preco": 26.19,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "UGPA3": {
   "teto": 4.87,
@@ -955,7 +1049,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,75 × 0,75 = R$0,56 ÷ 11,5% = R$4,87]",
   "preco": 35.24,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RAPT4": {
   "teto": 5.01,
@@ -965,7 +1060,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$5,01 → usa o menor",
   "preco": 4.16,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "GGPS3": {
   "teto": 3.62,
@@ -975,7 +1071,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$3,62",
   "preco": 12.05,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "SIMH3": {
   "teto": 4.36,
@@ -985,7 +1082,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$4,36",
   "preco": 5.85,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CMIN3": {
   "teto": 4.7,
@@ -995,7 +1093,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,72 × 0,75 = R$0,54 ÷ 11,5% = R$4,70]",
   "preco": 4.68,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KLBN11": {
   "teto": 7.7,
@@ -1005,7 +1104,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$1,18 × 0,75 = R$0,89 ÷ 11,5% = R$7,70]",
   "preco": 18.81,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TOTS3": {
   "teto": 4.04,
@@ -1015,7 +1115,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$4,04",
   "preco": 37.92,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "AUAU3": {
   "teto": 0.3,
@@ -1025,7 +1126,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$0,30 → usa o menor",
   "preco": 4.11,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "EMBJ3": {
   "teto": 7.48,
@@ -1035,7 +1137,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$7,48",
   "preco": 96.2,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "IGTI11": {
   "teto": 5.44,
@@ -1045,7 +1148,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$5,44",
   "preco": 24.51,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "EZTC3": {
   "teto": 4.91,
@@ -1055,7 +1159,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,0% R$4,91 → usa o menor",
   "preco": 11.2,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "DXCO3": {
   "teto": 3.88,
@@ -1065,7 +1170,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$3,88 → usa o menor",
   "preco": 4.9,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "JHSF3": {
   "teto": 2.73,
@@ -1075,7 +1181,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA 5A R$0,35 (robô)÷11,0% = R$2,73 → usa o menor",
   "preco": 10.69,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "BRAP4": {
   "teto": 42.92,
@@ -1085,7 +1192,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$42,92",
   "preco": 19.26,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "LIGT3": {
   "teto": 1.28,
@@ -1095,7 +1203,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "DPA/8,0% R$1,28",
   "preco": 2.72,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CBAV3": {
   "teto": 2.25,
@@ -1105,7 +1214,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,35 × 0,75 = R$0,26 ÷ 11,5% = R$2,25]",
   "preco": 11.24,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "LWSA3": {
   "teto": 0.56,
@@ -1115,7 +1225,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$0,56",
   "preco": 3.88,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "SLCE3": {
   "teto": 8.83,
@@ -1125,7 +1236,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$8,83",
   "preco": 17.45,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TTEN3": {
   "teto": 1.41,
@@ -1135,7 +1247,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$1,41 → usa o menor",
   "preco": 10.9,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RIAA3": {
   "teto": 9.11,
@@ -1145,7 +1258,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$9,11",
   "preco": 6.44,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "PLPL3": {
   "teto": 4.49,
@@ -1155,7 +1269,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,0% R$4,49 → usa o menor",
   "preco": 5.28,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "POMO3": {
   "teto": 4.17,
@@ -1165,7 +1280,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$4,17 → usa o menor",
   "preco": 3.81,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KEPL3": {
   "teto": 10.69,
@@ -1175,7 +1291,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$10,69 → usa o menor",
   "preco": 6.55,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "ITUB3": {
   "teto": 23.47,
@@ -1185,7 +1302,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "DPA/8,0% R$23,47",
   "preco": 45.99,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "ARML3": {
   "teto": 2.77,
@@ -1195,7 +1313,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$2,77 → usa o menor",
   "preco": 3.31,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "MDNE3": {
   "teto": 9.14,
@@ -1205,7 +1324,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,0% R$9,14 → usa o menor",
   "preco": 19.04,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "OPCT3": {
   "teto": 0.93,
@@ -1215,7 +1335,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$0,93",
   "preco": 8.77,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "MLAS3": {
   "teto": 0.48,
@@ -1225,7 +1346,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$0,48",
   "preco": 1.88,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "EVEN3": {
   "teto": 4.87,
@@ -1235,7 +1357,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,0% R$4,87 → usa o menor",
   "preco": 3.86,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TASA4": {
   "teto": 5.49,
@@ -1245,7 +1368,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$5,49",
   "preco": 5.1,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BRSR6": {
   "teto": 10.34,
@@ -1255,7 +1379,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA 5A R$1,09 (robô)÷10,5% = R$10,34",
   "preco": 14.53,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "INTB3": {
   "teto": 7.11,
@@ -1265,7 +1390,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$7,11",
   "preco": 13.31,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "SMTO3": {
   "teto": 12.4,
@@ -1275,7 +1401,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$12,40",
   "preco": 20.07,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KLBN3": {
   "teto": 1.54,
@@ -1285,7 +1412,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,24 × 0,75 = R$0,18 ÷ 11,5% = R$1,54]",
   "preco": 3.86,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "JSLG3": {
   "teto": 6.47,
@@ -1295,7 +1423,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$6,47",
   "preco": 6.16,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "WIZC3": {
   "teto": 4.68,
@@ -1305,7 +1434,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$4,68",
   "preco": 6.12,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "POSI3": {
   "teto": 4.25,
@@ -1315,7 +1445,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$4,25",
   "preco": 3.59,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "FESA4": {
   "teto": 4.58,
@@ -1325,7 +1456,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,70 × 0,75 = R$0,53 ÷ 11,5% = R$4,58]",
   "preco": 5.64,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "PINE4": {
   "teto": 3.64,
@@ -1335,7 +1467,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$3,64",
   "preco": 12.13,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "MILS3": {
   "teto": 4.15,
@@ -1345,7 +1478,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$4,15 → usa o menor",
   "preco": 15.8,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BRBI11": {
   "teto": 21.38,
@@ -1355,7 +1489,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "DPA/8,0% R$21,38",
   "preco": 13,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "HBRE3": {
   "teto": 4.62,
@@ -1365,7 +1500,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$4,62",
   "preco": 2.34,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TAEE4": {
   "teto": 18.13,
@@ -1375,7 +1511,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Transmissão",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/7,0% R$18,13 → usa o menor",
   "preco": 14.04,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "PRNR3": {
   "teto": 1.4,
@@ -1385,7 +1522,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$1,40 → usa o menor",
   "preco": 13.99,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "HBOR3": {
   "teto": 0.9,
@@ -1395,7 +1533,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,0% R$0,90 → usa o menor",
   "preco": 1.74,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "JALL3": {
   "teto": 2.29,
@@ -1405,7 +1544,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$2,29 → usa o menor",
   "preco": 2.47,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "ABCB4": {
   "teto": 20.7,
@@ -1415,7 +1555,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "DPA 5A R$1,66 (robô)÷8,0% = R$20,70",
   "preco": 24.03,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "BMGB4": {
   "teto": 4.87,
@@ -1425,7 +1566,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "DPA/8,0% R$4,87",
   "preco": 6.16,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "SAPR3": {
   "teto": 3.33,
@@ -1435,7 +1577,8 @@ window.FEHMIR_TETOS = {
   "setor": "Água & Saneamento",
   "src": "Gordon / DDM [2 estágios: g1=0,0%, g2=3,5%, k=11,0%]: DDM R$3,33 · Histórico R$3,73 → vale o menor (R$3,33)",
   "preco": 7.49,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "USIM3": {
   "teto": 3.16,
@@ -1445,7 +1588,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,48 × 0,75 = R$0,36 ÷ 11,5% = R$3,16]",
   "preco": 5.69,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BRST3": {
   "teto": 0.48,
@@ -1455,7 +1599,8 @@ window.FEHMIR_TETOS = {
   "setor": "Telecom",
   "src": "DPA/8,5% R$0,48",
   "preco": 2.49,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "SOJA3": {
   "teto": 4.74,
@@ -1465,7 +1610,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$4,74",
   "preco": 6.9,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BMOB3": {
   "teto": 12.82,
@@ -1475,7 +1621,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$12,82",
   "preco": 25.04,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "SHUL4": {
   "teto": 3.42,
@@ -1485,7 +1632,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$3,42 → usa o menor",
   "preco": 4.37,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TRIS3": {
   "teto": 2.63,
@@ -1495,7 +1643,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,0% R$2,63 → usa o menor",
   "preco": 4.75,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "VLID3": {
   "teto": 15.16,
@@ -1505,7 +1654,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$15,16",
   "preco": 15.25,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "ITSA3": {
   "teto": 9.16,
@@ -1515,7 +1665,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "DPA/8,0% R$9,16",
   "preco": 14.1,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "PTBL3": {
   "teto": 2.62,
@@ -1525,7 +1676,8 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,0% R$2,62 → usa o menor",
   "preco": 1.91,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TAEE3": {
   "teto": 18.13,
@@ -1535,7 +1687,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Transmissão",
   "src": "DPA/7,0% R$18,13",
   "preco": 13.38,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "FRAS3": {
   "teto": 4.94,
@@ -1545,7 +1698,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$4,94 → usa o menor",
   "preco": 22.65,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "DESK3": {
   "teto": 0.79,
@@ -1555,7 +1709,8 @@ window.FEHMIR_TETOS = {
   "setor": "Telecom",
   "src": "DPA/8,5% R$0,79",
   "preco": 19.28,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "UNIP6": {
   "teto": 90.35,
@@ -1565,7 +1720,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$90,35 → usa o menor",
   "preco": 53.96,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "AGRO3": {
   "teto": 25.52,
@@ -1575,7 +1731,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$25,52",
   "preco": 17.3,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "ROMI3": {
   "teto": 7.14,
@@ -1585,7 +1742,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,0% R$7,14 → usa o menor",
   "preco": 6.38,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TGMA3": {
   "teto": 20.49,
@@ -1595,7 +1753,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$20,49",
   "preco": 39.6,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "SANB4": {
   "teto": 10.21,
@@ -1605,7 +1764,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$10,21",
   "preco": 13.15,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CMIG3": {
   "teto": 16.87,
@@ -1615,7 +1775,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "DPA/8,0% R$16,87",
   "preco": 17.04,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "DEXP3": {
   "teto": 2.93,
@@ -1625,7 +1786,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,45 × 0,75 = R$0,34 ÷ 11,5% = R$2,93]",
   "preco": 6.85,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RENT4": {
   "teto": 15.37,
@@ -1635,7 +1797,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$15,37",
   "preco": 32.27,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "SANB3": {
   "teto": 12.18,
@@ -1645,7 +1808,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "DPA/8,0% R$12,18",
   "preco": 13.07,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BPAC3": {
   "teto": 3.4,
@@ -1655,7 +1819,8 @@ window.FEHMIR_TETOS = {
   "setor": "Bancos",
   "src": "DPA/8,0% R$3,40",
   "preco": 23.74,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BPAC5": {
   "teto": 2.59,
@@ -1665,7 +1830,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$2,59",
   "preco": 21.99,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BRAP3": {
   "teto": 26.72,
@@ -1675,7 +1841,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$4,10 × 0,75 = R$3,07 ÷ 11,5% = R$26,72]",
   "preco": 17.45,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "GGBR3": {
   "teto": 10.51,
@@ -1685,7 +1852,8 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$1,61 × 0,75 = R$1,21 ÷ 11,5% = R$10,51]",
   "preco": 21.85,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CSUD3": {
   "teto": 12,
@@ -1695,7 +1863,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$12,00",
   "preco": 15.58,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "EUCA4": {
   "teto": 7.31,
@@ -1705,7 +1874,8 @@ window.FEHMIR_TETOS = {
   "setor": "Industrial & Bens de capital",
   "src": "Bazin de meio de ciclo [mediana 5A R$0,97 × 0,75 = R$0,73 ÷ 10,0% = R$7,31]",
   "preco": 20.4,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BMEB4": {
   "teto": 9.67,
@@ -1715,7 +1885,8 @@ window.FEHMIR_TETOS = {
   "setor": "Outros",
   "src": "DPA/10,5% R$9,67",
   "preco": 64,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CLSC4": {
   "teto": 81.81,
@@ -1725,7 +1896,8 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "DPA/8,0% R$81,81",
   "preco": 169.27,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KNSC11": {
   "teto": 8.95,
@@ -1735,7 +1907,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 8.98,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KISU11": {
   "teto": 6.33,
@@ -1745,7 +1918,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 6.2,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CPTS11": {
   "teto": 8.57,
@@ -1755,7 +1929,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 7.34,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "VGIR11": {
   "teto": 11.98,
@@ -1765,7 +1940,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 9.49,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BTHF11": {
   "teto": 9.15,
@@ -1775,7 +1951,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 8.63,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "JSAF11": {
   "teto": 7.37,
@@ -1785,7 +1962,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 6.99,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CPUR11": {
   "teto": 12.69,
@@ -1795,7 +1973,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 9,0%",
   "preco": 10.49,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "HGBS11": {
   "teto": 23.18,
@@ -1805,7 +1984,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Shoppings",
   "src": "Renda anual ÷ 8,5%",
   "preco": 18.59,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TEPP11": {
   "teto": 10.11,
@@ -1815,7 +1995,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Lajes corporativas",
   "src": "Renda anual ÷ 11,5%",
   "preco": 7.03,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KNCR11": {
   "teto": 110.42,
@@ -1825,7 +2006,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 104.3,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "MCRE11": {
   "teto": 11.73,
@@ -1835,7 +2017,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 7.83,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RIFF11": {
   "teto": 7.45,
@@ -1845,7 +2028,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 7.3,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RBRX11": {
   "teto": 8.24,
@@ -1855,7 +2039,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 7.15,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RBVA11": {
   "teto": 11.65,
@@ -1865,7 +2050,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 8.41,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RURA11": {
   "teto": 8.88,
@@ -1875,7 +2061,8 @@ window.FEHMIR_TETOS = {
   "setor": "Fiagro · Crédito agro",
   "src": "Renda anual ÷ 13,6%",
   "preco": 8.04,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "BODB11": {
   "teto": 9.05,
@@ -1885,7 +2072,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 7.48,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "VGIA11": {
   "teto": 10.73,
@@ -1895,7 +2083,8 @@ window.FEHMIR_TETOS = {
   "setor": "Fiagro · Crédito agro",
   "src": "Renda anual ÷ 15,1%",
   "preco": 8.72,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "SNAG11": {
   "teto": 10.46,
@@ -1905,7 +2094,8 @@ window.FEHMIR_TETOS = {
   "setor": "Fiagro · Crédito agro",
   "src": "Renda anual ÷ 15,1%",
   "preco": 9.69,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  },
  "BTCI11": {
   "teto": 9.29,
@@ -1915,7 +2105,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 8.8,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "MANA11": {
   "teto": 11.5,
@@ -1925,7 +2116,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 8.95,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TRXB11": {
   "teto": 306.74,
@@ -1935,7 +2127,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 192.3,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CPSH11": {
   "teto": 13.05,
@@ -1945,7 +2138,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Shoppings",
   "src": "Renda anual ÷ 10,5%",
   "preco": 9.52,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CYCR11": {
   "teto": 11.56,
@@ -1955,7 +2149,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 8.54,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "PVBI11": {
   "teto": 52.53,
@@ -1965,7 +2160,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Lajes corporativas",
   "src": "Renda anual ÷ 9,5%",
   "preco": 64.74,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "LIFE11": {
   "teto": 12.95,
@@ -1975,7 +2171,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 7,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BRCO11": {
   "teto": 129.41,
@@ -1985,7 +2182,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 106.99,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "MIDW11": {
   "teto": 4.02,
@@ -1995,7 +2193,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 11,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "XPCA11": {
   "teto": 8.48,
@@ -2005,7 +2204,8 @@ window.FEHMIR_TETOS = {
   "setor": "Fiagro · Crédito agro",
   "src": "Renda anual ÷ 15,1%",
   "preco": 7.37,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "AAZQ11": {
   "teto": 12.43,
@@ -2015,7 +2215,8 @@ window.FEHMIR_TETOS = {
   "setor": "Fiagro · Crédito agro",
   "src": "Renda anual ÷ 15,1%",
   "preco": 5.6,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "FGAA11": {
   "teto": 9.11,
@@ -2025,7 +2226,8 @@ window.FEHMIR_TETOS = {
   "setor": "Fiagro · Crédito agro",
   "src": "Renda anual ÷ 15,1%",
   "preco": 7.84,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KNHF11": {
   "teto": 91.6,
@@ -2035,7 +2237,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 92.32,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CDII11": {
   "teto": 115.79,
@@ -2045,7 +2248,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 91.6,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "HGRU11": {
   "teto": 128.76,
@@ -2055,7 +2259,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 117.35,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "PORD11": {
   "teto": 10.82,
@@ -2065,7 +2270,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 8.26,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "JSRE11": {
   "teto": 61.26,
@@ -2075,7 +2281,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Lajes corporativas",
   "src": "Renda anual ÷ 9,5%",
   "preco": 61.8,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KNRI11": {
   "teto": 146.78,
@@ -2085,7 +2292,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 9,0%",
   "preco": 153.45,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "IRIM11": {
   "teto": 71.13,
@@ -2095,7 +2303,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 14,1%",
   "preco": 62.6,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "MCCI11": {
   "teto": 95.24,
@@ -2105,7 +2314,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 92.37,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "LVBI11": {
   "teto": 107.06,
@@ -2115,7 +2325,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 98.91,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "JURO11": {
   "teto": 77.38,
@@ -2125,7 +2336,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 94.99,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KDIF11": {
   "teto": 112.3,
@@ -2135,7 +2347,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 111.5,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BDIF11": {
   "teto": 78.97,
@@ -2145,7 +2358,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 67.22,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KORE11": {
   "teto": 83.18,
@@ -2155,7 +2369,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 66.1,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "IFRA11": {
   "teto": 71.67,
@@ -2165,7 +2380,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 88.18,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "FATN11": {
   "teto": 112.94,
@@ -2175,7 +2391,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 8,5%",
   "preco": 81.91,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BRCR11": {
   "teto": 51.79,
@@ -2185,7 +2402,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Lajes corporativas",
   "src": "Renda anual ÷ 9,5%",
   "preco": 42.17,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KNHY11": {
   "teto": 98.25,
@@ -2195,7 +2413,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 94.35,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KNUQ11": {
   "teto": 131.46,
@@ -2205,7 +2424,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 100.4,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "PSEC11": {
   "teto": 32.54,
@@ -2215,7 +2435,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 49.61,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "CPTI11": {
   "teto": 87.7,
@@ -2225,7 +2446,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 80.99,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "DIVS11": {
   "teto": 114.29,
@@ -2235,7 +2457,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 90.99,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RBRY11": {
   "teto": 103.57,
@@ -2245,7 +2468,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 82.71,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "URPR11": {
   "teto": 35.36,
@@ -2255,7 +2479,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 20,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "VCJR11": {
   "teto": 80.57,
@@ -2265,7 +2490,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 14,1%",
   "preco": 70.82,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "GTWR11": {
   "teto": 98.18,
@@ -2275,7 +2501,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 75.69,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "IFRI11": {
   "teto": 103.97,
@@ -2285,7 +2512,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 90.6,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BINC11": {
   "teto": 111.43,
@@ -2295,7 +2523,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 89.52,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "VRTA11": {
   "teto": 80.95,
@@ -2305,7 +2534,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 73.72,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "VGIP11": {
   "teto": 81.67,
@@ -2315,7 +2545,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 72.9,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "XPCI11": {
   "teto": 84.84,
@@ -2325,7 +2556,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 78.55,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "HGCR11": {
   "teto": 92.86,
@@ -2335,7 +2567,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 93.8,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TOPP11": {
   "teto": 71.83,
@@ -2345,7 +2578,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII · Fundo de fundos",
   "src": "Renda anual ÷ 13,1%",
   "preco": 64.98,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TVRI11": {
   "teto": 114.55,
@@ -2355,7 +2589,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 84.07,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "AFHI11": {
   "teto": 95.52,
@@ -2365,7 +2600,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 94.75,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RZAK11": {
   "teto": 91.49,
@@ -2375,7 +2611,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 14,1%",
   "preco": 77.26,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "HABT11": {
   "teto": 80.78,
@@ -2385,7 +2622,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 14,1%",
   "preco": 65.13,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BROF11": {
   "teto": 74.44,
@@ -2395,7 +2633,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 9,0%",
   "preco": 57.62,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "HSLG11": {
   "teto": 97.33,
@@ -2405,7 +2644,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 9,0%",
   "preco": 78.78,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BCDI11": {
   "teto": 19.05,
@@ -2415,7 +2655,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 92.8,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "JMBI11": {
   "teto": 44.6,
@@ -2425,7 +2666,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Papel · CRI",
   "src": "Renda anual ÷ 12,6%",
   "preco": 76.26,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "BTAL11": {
   "teto": 87.13,
@@ -2435,7 +2677,8 @@ window.FEHMIR_TETOS = {
   "setor": "Fiagro · Crédito agro",
   "src": "Renda anual ÷ 13,6%",
   "preco": 83.77,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "KIVO11": {
   "teto": 96.73,
@@ -2445,7 +2688,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 55,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "ITRI11": {
   "teto": 99.43,
@@ -2455,7 +2699,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Renda anual ÷ 10,5%",
   "preco": 76.04,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "OUJP11": {
   "teto": 128.91,
@@ -2465,7 +2710,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 67.13,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RZAT11": {
   "teto": 128.18,
@@ -2475,7 +2721,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 11,0%",
   "preco": 81.58,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RINV11": {
   "teto": 149.67,
@@ -2485,7 +2732,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 9,0%",
   "preco": 103.99,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RCRB11": {
   "teto": 138.53,
@@ -2495,7 +2743,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Lajes corporativas",
   "src": "Renda anual ÷ 9,5%",
   "preco": 132.9,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "RZZI11": {
   "teto": 816.48,
@@ -2505,7 +2754,8 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Híbrido",
   "src": "Renda anual ÷ 9,0%",
   "preco": 1300,
-  "data": null
+  "data": null,
+  "base_dpa": "historico_5a"
  },
  "TRPL4": {
   "teto": 25.51,
@@ -2515,6 +2765,7 @@ window.FEHMIR_TETOS = {
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$25,51 (LPA×47%÷8,0%) · DPA 4A R$2,54 (robô)÷8,0% = R$31,69 → usa o menor",
   "preco": 26,
-  "data": "2026-10-26"
+  "data": "2026-10-26",
+  "base_dpa": "historico_5a"
  }
 };

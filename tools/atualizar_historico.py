@@ -67,7 +67,7 @@ def baixar_diario(simbolo):
         return None
 
 
-def processar(js, diario=None, nome=""):
+def processar(js, diario=None, nome="", falhas_b3=None):
     try:
         res = js["chart"]["result"][0]
     except (KeyError, IndexError, TypeError):
@@ -121,6 +121,48 @@ def processar(js, diario=None, nome=""):
         if por_ano.get(y, 0) == 0 and any(por_ano.get(z, 0) > 0 for z in por_ano if z < y) \
                 and any(por_ano.get(z, 0) > 0 for z in range(y + 1, ano_atual + 1)):
             lacunas.append(y)
+
+    fonte_proventos = {}
+    divergencias = []
+    if lacunas:
+        eh_unit = nome.endswith("11") and nome in {"TAEE11", "ALUP11", "KLBN11", "SANB11", "BPAC11", "SAPR11", "ENGI11", "SULA11"}
+        eh_acao = nome.endswith(("3", "4")) or eh_unit
+        if eh_acao:
+            try:
+                from b3_proventos import buscar_proventos_b3
+                res_b3 = buscar_proventos_b3(nome)
+                if res_b3 and res_b3.get("ok"):
+                    b3_ano = res_b3.get("por_ano", {})
+                    novas_lacunas = []
+                    for y in lacunas:
+                        if y in b3_ano and b3_ano[y] > 0:
+                            # Calibração obrigatória (§item 1 da Rodada 16b):
+                            # O ano vizinho anterior e o posterior com dado nas duas fontes precisam ter razão Yahoo / B3 entre 0,9 e 1,1
+                            anos_ant = [a for a in por_ano if a < y and por_ano.get(a, 0) > 0 and b3_ano.get(a, 0) > 0]
+                            anos_pos = [a for a in por_ano if a > y and por_ano.get(a, 0) > 0 and b3_ano.get(a, 0) > 0]
+                            calibrado = False
+                            if anos_ant and anos_pos:
+                                v_ant = max(anos_ant)
+                                v_pos = min(anos_pos)
+                                r_ant = por_ano[v_ant] / b3_ano[v_ant]
+                                r_pos = por_ano[v_pos] / b3_ano[v_pos]
+                                if 0.90 <= r_ant <= 1.10 and 0.90 <= r_pos <= 1.10:
+                                    calibrado = True
+                            if calibrado:
+                                por_ano[y] = b3_ano[y]
+                                fonte_proventos[str(y)] = "B3"
+                            else:
+                                novas_lacunas.append(y)
+                        else:
+                            novas_lacunas.append(y)
+                    lacunas = novas_lacunas
+                    # Divergência NUNCA substitui: fica apenas no relatório de auditoria
+                elif res_b3 and not res_b3.get("ok"):
+                    if falhas_b3 is not None:
+                        falhas_b3.append(f"{nome}: {res_b3.get('erro')}")
+            except Exception:
+                pass
+
     anos_ok = [y for y in anos_ok if y not in lacunas]
     dpa5 = round(sum(por_ano.get(y, 0.0) for y in anos_ok) / len(anos_ok), 4) if anos_ok and any(por_ano.get(y, 0) for y in anos_ok) else None
 
@@ -130,6 +172,7 @@ def processar(js, diario=None, nome=""):
         anos_ok_10 = [y for y in anos_ok_10 if y > primeiro_div or (y == primeiro_div and utc(lista[0][0]).month <= 2)]
     if nome.endswith("11"):
         anos_ok_10 = [y for y in anos_ok_10 if por_ano.get(y, 0) > 0]
+    anos_ok_10 = [y for y in anos_ok_10 if y not in lacunas]
     dpa10 = round(sum(por_ano.get(y, 0.0) for y in anos_ok_10) / len(anos_ok_10), 4) if anos_ok_10 and any(por_ano.get(y, 0) for y in anos_ok_10) else None
 
     # Crescimento do dividendo em 5 anos (CAGR)
@@ -203,6 +246,8 @@ def processar(js, diario=None, nome=""):
         "dpa12": dpa12,
         "dpa5": dpa5,
         "lacunas": lacunas,
+        "fonte_proventos": fonte_proventos,
+        "divergencias": divergencias,
         "dpa10": dpa10,
         "cagrDiv5": cagrDiv5,
         "ev": ev,
@@ -231,11 +276,11 @@ def main():
     alvos.update(CAMBIO)
     alvos.update(CRIPTO_ATIVOS)
     print(f"Baixando {len(alvos)} ativos do Yahoo Finance…")
-    dados, falhas = {}, []
+    dados, falhas, falhas_b3 = {}, [], []
     for nome, simbolo in alvos.items():
         sym = ALIASES_YAHOO.get(nome, simbolo)
         js = baixar(sym)
-        reg = processar(js, baixar_diario(sym), nome) if js else None
+        reg = processar(js, baixar_diario(sym), nome, falhas_b3) if js else None
         if reg:
             if nome in INTL_ATIVOS:
                 reg["moeda"] = "USD"
@@ -255,7 +300,8 @@ def main():
         else:
             falhas.append(nome)
         time.sleep(0.4)  # educado com o servidor
-    meta = {"gerado": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), "fonte": "Yahoo Finance (gratuito, sem chave)",
+    falhas.extend(falhas_b3)
+    meta = {"gerado": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), "fonte": "Yahoo Finance (gratuito, sem chave) + B3 Oficial",
             "ativos": len(dados), "falhas": falhas}
     SAIDA.parent.mkdir(exist_ok=True)
     conteudo = ("/* Gerado por tools/atualizar_historico.py — não editar à mão. */\n"

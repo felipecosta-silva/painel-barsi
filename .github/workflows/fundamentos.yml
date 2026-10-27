@@ -26,6 +26,9 @@ jobs:
         run: python tools/fundamentos_cvm.py
       - name: Executar robo de fundamentos Brapi
         run: python tools/fundamentos.py
+      - name: Auditoria semanal de proventos (Yahoo x B3)
+        continue-on-error: true
+        run: python tools/auditar_proventos.py
       - name: Salvar se mudou
         run: |
           git config user.name "fehmir-robo"
