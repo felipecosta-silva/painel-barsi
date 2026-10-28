@@ -110,8 +110,13 @@ def buscar_lucro(tabela_rows, dt_ref, dti, dtf):
                         cand_ctrl = vl
                     elif cand_ctrl is None:
                         cand_ctrl = vl
+    if cand_ctrl is not None and cand_ctrl != 0:
+        return cand_ctrl
     if cand_cons is not None and cand_cons != 0:
         return cand_cons
+    if cand_ctrl is not None:
+        return cand_ctrl
+    return cand_cons
 
 
 def roe_anual(cnpjs, ano_atual):
@@ -154,7 +159,7 @@ def roe_anual(cnpjs, ano_atual):
                     continue
                 pl_medio = (pl_fim + pl_ini) / 2 if pl_ini and pl_ini > 0 else pl_fim
                 lucro = buscar_lucro(dre.get(cnpj, []), dt, f"{ano}-01-01", dt)
-                if lucro is None or pl_medio <= 0:
+                if not lucro or pl_medio <= 0:
                     continue
                 saida[cnpj][str(ano)] = round(lucro / pl_medio * 100, 2)
     return saida
@@ -251,7 +256,11 @@ def main():
         r_cap_recente = rows_cap_ordenadas[0]
 
         h = hist_dict.get(ticker)
-        preco_robo = h["c"][-1] if (h and h.get("c")) else None
+        if h and h.get("c"):
+            ultimos_c = h["c"][-5:]
+            preco_robo = sorted(ultimos_c)[len(ultimos_c) // 2]
+        else:
+            preco_robo = None
 
         mc_ref = merc_dict.get(ticker, {}).get("mc")
         if (not mc_ref or mc_ref == 0) and ticker in UNITS:
@@ -341,10 +350,6 @@ def main():
             continue
 
         # 2. DRE
-            if cand_ctrl is not None:
-                return cand_ctrl
-            return cand_cons
-
         tab_dre_atual = dre_con_atual_idx.get(cnpj, []) if tipo_demo == "con" else dre_ind_atual_idx.get(cnpj, [])
         tab_dfp_ant = dre_con_dfp_ant_idx.get(cnpj, []) if tipo_demo == "con" else dre_ind_dfp_ant_idx.get(cnpj, [])
         tab_dre_ant = dre_con_itr_ant_idx.get(cnpj, []) if tipo_demo == "con" else dre_ind_itr_ant_idx.get(cnpj, [])
