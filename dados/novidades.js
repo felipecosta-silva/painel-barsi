@@ -54,21 +54,28 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Renúncia membro do Conselho de Administração e CTPR",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1579928&numSequencia=1104634&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-10-23."
+        "A Sra. Maria Carolina Ferreira Lacerda renunciou com efeitos imediatos aos cargos de membro do Conselho de Administração e do Comitê de Transações com Partes Relacionadas (CTPR).",
+        "A conselheira exercia mandato na condição de representante eleita pelos acionistas minoritários.",
+        "A renúncia ocorreu por motivos de natureza pessoal e profissional.",
+        "A Companhia adotará as providências cabíveis para a recomposição da vaga no Conselho de Administração conforme a legislação e o Estatuto Social."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Vacância do assento ocupado pela representante dos acionistas minoritários no Conselho de Administração e no Comitê de Transações com Partes Relacionadas."
+      ],
+      "alertas": [
+        "Vacância temporária da representação dos minoritários no Conselho de Administração e no Comitê de Transações com Partes Relacionadas até a devida recomposição."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0,
+        "ltv": 0,
+        "provento_por_cota": 0,
+        "reserva_por_cota": 0,
+        "resultado_por_cota": 0,
+        "vacancia_financeira": 0,
+        "vacancia_fisica": 0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "CMIG4": [
