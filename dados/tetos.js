@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-10-27 11:22",
+ "gerado": "2026-10-28 02:29",
  "ativos": 251,
  "carteira": 21,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"

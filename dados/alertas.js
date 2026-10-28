@@ -1,7 +1,7 @@
 /* Gerado por tools/analista.py — não editar à mão. */
 window.FEHMIR_ALERTAS = {
  "meta": {
-  "gerado": "2026-10-27 08:22",
+  "gerado": "2026-10-28 02:29",
   "verificados": 105,
   "ativos": 64,
   "limiares": {
@@ -570,7 +570,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -590,7 +590,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -610,7 +610,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -630,7 +630,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -650,7 +650,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -669,7 +669,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -688,7 +688,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -708,7 +708,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -727,7 +727,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -746,7 +746,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -767,7 +767,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -787,7 +787,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo",
    "parecer": true
   },
@@ -808,7 +808,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo",
    "parecer": true
   },
@@ -829,7 +829,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo",
    "parecer": true
   },
@@ -850,7 +850,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -870,7 +870,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -890,7 +890,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -910,7 +910,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -930,7 +930,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -951,7 +951,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -972,7 +972,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -992,7 +992,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1012,7 +1012,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1032,7 +1032,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1052,7 +1052,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1073,7 +1073,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1093,7 +1093,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1113,7 +1113,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1133,7 +1133,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1153,7 +1153,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1173,7 +1173,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1193,7 +1193,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1213,7 +1213,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1234,7 +1234,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1254,7 +1254,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1274,7 +1274,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1294,7 +1294,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1315,7 +1315,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1335,7 +1335,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1355,7 +1355,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1376,7 +1376,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1397,7 +1397,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1417,7 +1417,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1437,7 +1437,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1457,7 +1457,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1477,7 +1477,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1498,7 +1498,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1518,7 +1518,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1538,7 +1538,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1558,7 +1558,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1578,7 +1578,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1598,7 +1598,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1618,7 +1618,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1638,7 +1638,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1658,7 +1658,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1679,7 +1679,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1699,7 +1699,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1719,7 +1719,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1739,7 +1739,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1759,7 +1759,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1779,7 +1779,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1799,7 +1799,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1819,7 +1819,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
@@ -1839,7 +1839,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-27",
+   "ultimo": "2026-10-28",
    "estado": "ativo"
   },
   {
