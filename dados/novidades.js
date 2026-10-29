@@ -1315,6 +1315,39 @@ window.FEHMIR_NOVIDADES = {
   ],
   "TRXF11": [
     {
+      "id": "fnet_1360869",
+      "data": "2026-10-28",
+      "tipo": "Fato Relevante",
+      "titulo": "Fato Relevante",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1360869",
+      "resumo": [
+        "Conclusão da alienação do imóvel localizado na Av. Ricardo Jafet (SP), locado à DASA, pelo montante de R$ 77.000.000,00, integralmente quitado à vista.",
+        "Apuração de lucro de capital estimado em R$ 3.600.000,00, equivalente a aproximadamente R$ 0,04 por cota emitida do Fundo.",
+        "Preço de venda realizado 14,60% acima do valor contido no último laudo de avaliação patrimonial.",
+        "Transação realizada a um cap rate de 7,03%, considerando o valor do aluguel mensal então vigente.",
+        "Taxa Interna de Retorno (TIR) aproximada de 16,28% ao ano no ciclo do ativo, correspondente a IPCA + 15,03% ou 131,61% do CDI líquido."
+      ],
+      "mudancas": [
+        "Conclusão e liquidação financeira integral da venda do imóvel locado à DASA, que estava sob memorando de entendimentos (MOU).",
+        "Entrada de R$ 77 milhões em caixa e reconhecimento de lucro extraordinário estimado de R$ 0,04 por cota."
+      ],
+      "alertas": [
+        "Cessação da receita de locação recorrente gerada pelo imóvel DASA até a efetiva alocação/reinvestimento do caixa.",
+        "O lucro de R$ 0,04 por cota é uma estimativa contábil suﬁjeita a alterações e não vincula garantia ou promessa de distribuição imediata de proventos."
+      ],
+      "metricas": {
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.04,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
+      },
+      "gravidade": "info",
+      "resumido_ia": true
+    },
+    {
       "id": "fnet_1356811",
       "data": "2026-10-22",
       "tipo": "Fato Relevante",
@@ -1476,41 +1509,6 @@ window.FEHMIR_NOVIDADES = {
         "resultado_por_cota": 1.19,
         "vacancia_financeira": 0.3,
         "vacancia_fisica": 0.5
-      },
-      "gravidade": "atencao",
-      "resumido_ia": true
-    },
-    {
-      "id": "fnet_1329467",
-      "data": "2026-09-28",
-      "tipo": "Fato Relevante",
-      "titulo": "Fato Relevante",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1329467",
-      "resumo": [
-        "Celebração dos documentos definitivos para a venda de 15 imóveis do TRXF11 ao fundo BRC Renda Urbana FII.",
-        "Valor total da transação de R$ 207.252.400,00, com transferência imediata da posse dos imóveis.",
-        "Pagamento realizado via compensação de créditos pela subscrição e integralização de cotas de emissão do BRC.",
-        "Lucro estimado com a transação de aproximadamente R$ 0,51 por cota, com TIR estimada de 38,49% ao ano.",
-        "Preço de venda alinhado aos últimos laudos de avaliação, representando um cap rate de 8,13% ao ano."
-      ],
-      "mudancas": [
-        "Efetivação e conclusão da venda dos 15 imóveis que constavam sob proposta vinculante desde 10 de junho de 2026.",
-        "Transmissão da posse dos 15 ativos imobiliários ao comprador BRC Renda Urbana FII.",
-        "Substituição de imóveis operacionais diretos por cotas do FII BRC Renda Urbana no patrimônio do fundo."
-      ],
-      "alertas": [
-        "O pagamento não foi realizado em dinheiro líquido (caixa), mas mediante compensação para subscrição e integralização de cotas do BRC FII, sujeitando o fundo aos riscos e liquidez desse veículo.",
-        "O lucro projetado de R$ 0,51 por cota é uma estimativa sujeita a alterações e não constitui garantia de distribuição de rendimentos.",
-        "Desinvestimento de portfólio que gerava aluguéis a um cap rate de 8,13% ao ano, alterando o perfil da receita imobiliária direta."
-      ],
-      "metricas": {
-        "inadimplencia": 0.0,
-        "ltv": 0.0,
-        "provento_por_cota": 0.0,
-        "reserva_por_cota": 0.0,
-        "resultado_por_cota": 0.51,
-        "vacancia_financeira": 0.0,
-        "vacancia_fisica": 0.0
       },
       "gravidade": "atencao",
       "resumido_ia": true
