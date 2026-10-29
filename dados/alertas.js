@@ -1,9 +1,9 @@
 /* Gerado por tools/analista.py — não editar à mão. */
 window.FEHMIR_ALERTAS = {
  "meta": {
-  "gerado": "2026-10-28 02:29",
+  "gerado": "2026-10-29 02:37",
   "verificados": 105,
-  "ativos": 64,
+  "ativos": 79,
   "limiares": {
    "movimento_pp": 8,
    "janela": 5,
@@ -22,8 +22,8 @@ window.FEHMIR_ALERTAS = {
    },
    "ITSA4": {
     "dpa12": 1.1278,
-    "lucro12m": 18228000000.0,
-    "roe": 19.43
+    "lucro12m": 18161000000.0,
+    "roe": 19.36
    },
    "VGHF11": {
     "dpa12": 0.81,
@@ -37,7 +37,7 @@ window.FEHMIR_ALERTAS = {
    },
    "VULC3": {
     "dpa12": 3.1,
-    "lucro12m": 929826000.0,
+    "lucro12m": 929819000.0,
     "roe": 35.06
    },
    "BTC": {
@@ -62,8 +62,8 @@ window.FEHMIR_ALERTAS = {
    },
    "ENEV3": {
     "dpa12": 0,
-    "lucro12m": 1535519000.0,
-    "roe": 7.54
+    "lucro12m": 962660000.0,
+    "roe": 4.73
    },
    "MFII11": {
     "dpa12": 10.0,
@@ -72,13 +72,13 @@ window.FEHMIR_ALERTAS = {
    },
    "ALUP11": {
     "dpa12": 1.08,
-    "lucro12m": 2014377000.0,
-    "roe": 20.89
+    "lucro12m": 1386608000.0,
+    "roe": 14.38
    },
    "BPAC11": {
     "dpa12": 1.4201,
-    "lucro12m": 19251424000.0,
-    "roe": 23.16
+    "lucro12m": 18458126000.0,
+    "roe": 22.2
    },
    "RZAG11": {
     "dpa12": 1.375,
@@ -87,18 +87,18 @@ window.FEHMIR_ALERTAS = {
    },
    "PETR4": {
     "dpa12": 3.6643,
-    "lucro12m": 133756000000.0,
-    "roe": 27.81
+    "lucro12m": 133376000000.0,
+    "roe": 27.73
    },
    "AXIA3": {
     "dpa12": 1.8895,
-    "lucro12m": 12059812000.0,
-    "roe": 9.87
+    "lucro12m": 12056946000.0,
+    "roe": 9.86
    },
    "SBSP3": {
     "dpa12": 0.6946,
-    "lucro12m": 8057470000.0,
-    "roe": 17.84
+    "lucro12m": 8040221000.0,
+    "roe": 17.8
    },
    "ISNT11": {
     "dpa12": 0,
@@ -122,18 +122,18 @@ window.FEHMIR_ALERTAS = {
    },
    "TEND3": {
     "dpa12": 1.4615,
-    "lucro12m": 554928000.0,
-    "roe": 36.06
+    "lucro12m": 578815000.0,
+    "roe": 37.61
    },
    "DIRR3": {
     "dpa12": 1.55,
-    "lucro12m": 1090558000.0,
-    "roe": 46.87
+    "lucro12m": 855893000.0,
+    "roe": 36.78
    },
    "PSSA3": {
     "dpa12": 2.9995,
-    "lucro12m": 3717184000.0,
-    "roe": 23.05
+    "lucro12m": 3684011000.0,
+    "roe": 22.84
    },
    "BRST3": {
     "dpa12": 0.0411,
@@ -147,38 +147,38 @@ window.FEHMIR_ALERTAS = {
    },
    "BBDC4": {
     "dpa12": 1.6124,
-    "lucro12m": 24586062000.0,
-    "roe": 13.56
+    "lucro12m": 24318943000.0,
+    "roe": 13.42
    },
    "VITT3": {
     "dpa12": 0.2143,
-    "lucro12m": 64894000.0,
-    "roe": 10.74
+    "lucro12m": 65232000.0,
+    "roe": 10.79
    },
    "KLBN4": {
     "dpa12": 0.2322,
-    "lucro12m": 535987000.0,
-    "roe": 5.65
+    "lucro12m": 594507000.0,
+    "roe": 6.27
    },
    "BBDC3": {
     "dpa12": 1.4658,
-    "lucro12m": 24586062000.0,
-    "roe": 13.56
+    "lucro12m": 24318943000.0,
+    "roe": 13.42
    },
    "SANB11": {
     "dpa12": 2.1724,
-    "lucro12m": 15929645000.0,
-    "roe": 12.52
+    "lucro12m": 13840790000.0,
+    "roe": 10.87
    },
    "ITUB4": {
     "dpa12": 3.0996,
-    "lucro12m": 47943000000.0,
-    "roe": 22.01
+    "lucro12m": 46828000000.0,
+    "roe": 21.5
    },
    "BRSR6": {
     "dpa12": 1.5379,
-    "lucro12m": 1642557000.0,
-    "roe": 13.87
+    "lucro12m": 1641805000.0,
+    "roe": 13.86
    },
    "SAPR11": {
     "dpa12": 0.5524,
@@ -187,8 +187,8 @@ window.FEHMIR_ALERTAS = {
    },
    "SUZB3": {
     "dpa12": 1.1211,
-    "lucro12m": 8197013000.0,
-    "roe": 16.49
+    "lucro12m": 8168699000.0,
+    "roe": 16.44
    },
    "TRXF11": {
     "dpa12": 10.87,
@@ -217,7 +217,7 @@ window.FEHMIR_ALERTAS = {
    },
    "CMIG4": {
     "dpa12": 1.1394,
-    "lucro12m": 4597019000.0,
+    "lucro12m": 4595105000.0,
     "roe": 15.75
    },
    "KNCA11": {
@@ -227,8 +227,8 @@ window.FEHMIR_ALERTAS = {
    },
    "BBAS3": {
     "dpa12": 0.655,
-    "lucro12m": 15384783000.0,
-    "roe": 8.27
+    "lucro12m": 12272045000.0,
+    "roe": 6.6
    },
    "BBSE3": {
     "dpa12": 4.5901,
@@ -242,13 +242,13 @@ window.FEHMIR_ALERTAS = {
    },
    "POMO4": {
     "dpa12": 0.9241,
-    "lucro12m": 1207170000.0,
-    "roe": 28.47
+    "lucro12m": 1200686000.0,
+    "roe": 28.32
    },
    "MTRE3": {
     "dpa12": 0.3593,
-    "lucro12m": 99000000.0,
-    "roe": 9.66
+    "lucro12m": 65630000.0,
+    "roe": 6.4
    },
    "VTI": {
     "dpa12": 3.949,
@@ -272,33 +272,33 @@ window.FEHMIR_ALERTAS = {
    },
    "EQTL3": {
     "dpa12": 1.5833,
-    "lucro12m": 1767778000.0,
-    "roe": 6.77
+    "lucro12m": 958423000.0,
+    "roe": 3.67
    },
    "WEGE3": {
     "dpa12": 2.0032,
-    "lucro12m": 6672361000.0,
-    "roe": 35.38
+    "lucro12m": 6254051000.0,
+    "roe": 33.16
    },
    "CPLE3": {
     "dpa12": 1.0626,
-    "lucro12m": 3191211000.0,
-    "roe": 13.23
+    "lucro12m": 3134132000.0,
+    "roe": 12.99
    },
    "VBBR3": {
     "dpa12": 1.9774,
-    "lucro12m": 5051000000.0,
-    "roe": 21.46
+    "lucro12m": 5056000000.0,
+    "roe": 21.49
    },
    "VIVT3": {
     "dpa12": 2.5468,
-    "lucro12m": 6606579000.0,
-    "roe": 10.07
+    "lucro12m": 6598880000.0,
+    "roe": 10.05
    },
    "FIQE3": {
     "dpa12": 0.682,
-    "lucro12m": 224813000.0,
-    "roe": 18.49
+    "lucro12m": 223743000.0,
+    "roe": 18.4
    },
    "HSML11": {
     "dpa12": 8.66,
@@ -307,8 +307,8 @@ window.FEHMIR_ALERTAS = {
    },
    "EGIE3": {
     "dpa12": 1.1156,
-    "lucro12m": null,
-    "roe": null
+    "lucro12m": 3959345000.0,
+    "roe": 26.37
    },
    "VGIA11": {
     "dpa12": 1.62,
@@ -317,8 +317,8 @@ window.FEHMIR_ALERTAS = {
    },
    "ENGI11": {
     "dpa12": 1.1374,
-    "lucro12m": 2158738000.0,
-    "roe": 11.07
+    "lucro12m": 1516835000.0,
+    "roe": 7.78
    },
    "ALZR11": {
     "dpa12": 1.0049,
@@ -327,13 +327,13 @@ window.FEHMIR_ALERTAS = {
    },
    "CYRE3": {
     "dpa12": 2.7299,
-    "lucro12m": 2401799000.0,
-    "roe": 21.51
+    "lucro12m": 2039669000.0,
+    "roe": 18.26
    },
    "MELK3": {
     "dpa12": 0.4166,
-    "lucro12m": 165059000.0,
-    "roe": 15.19
+    "lucro12m": 127063000.0,
+    "roe": 11.7
    },
    "KNIP11": {
     "dpa12": 10.11,
@@ -352,8 +352,8 @@ window.FEHMIR_ALERTAS = {
    },
    "TUPY3": {
     "dpa12": 0,
-    "lucro12m": -771337000.0,
-    "roe": -33.72
+    "lucro12m": -773241000.0,
+    "roe": -33.8
    },
    "VAMO3": {
     "dpa12": 0.1401,
@@ -362,8 +362,8 @@ window.FEHMIR_ALERTAS = {
    },
    "VALE3": {
     "dpa12": 5.6125,
-    "lucro12m": 8691000000.0,
-    "roe": 4.42
+    "lucro12m": 10369000000.0,
+    "roe": 5.27
    },
    "HFOF11": {
     "dpa12": 0.708,
@@ -387,8 +387,8 @@ window.FEHMIR_ALERTAS = {
    },
    "GGBR4": {
     "dpa12": 0.79,
-    "lucro12m": 2275538000.0,
-    "roe": 4.25
+    "lucro12m": 2237081000.0,
+    "roe": 4.18
    },
    "SOL": {
     "dpa12": 0,
@@ -407,8 +407,8 @@ window.FEHMIR_ALERTAS = {
    },
    "LAVV3": {
     "dpa12": 2.4289,
-    "lucro12m": 423885000.0,
-    "roe": 29.23
+    "lucro12m": 361088000.0,
+    "roe": 24.9
    },
    "TIMS3": {
     "dpa12": 1.4723,
@@ -417,13 +417,13 @@ window.FEHMIR_ALERTAS = {
    },
    "BRIT3": {
     "dpa12": 0.0411,
-    "lucro12m": 59395000.0,
-    "roe": 3.76
+    "lucro12m": 59478000.0,
+    "roe": 3.77
    },
    "LEVE3": {
     "dpa12": 2.8514,
-    "lucro12m": 697046000.0,
-    "roe": 72.3
+    "lucro12m": 697012000.0,
+    "roe": 72.29
    },
    "CXSE3": {
     "dpa12": 1.3521,
@@ -442,23 +442,23 @@ window.FEHMIR_ALERTAS = {
    },
    "ISAE4": {
     "dpa12": 2.0395,
-    "lucro12m": 2876554000.0,
-    "roe": 12.98
+    "lucro12m": 2817169000.0,
+    "roe": 12.71
    },
    "CURY3": {
     "dpa12": 4.3044,
-    "lucro12m": 1242776000.0,
-    "roe": 75.09
+    "lucro12m": 1098648000.0,
+    "roe": 66.38
    },
    "JHSF3": {
     "dpa12": 0.7518,
-    "lucro12m": 2098838000.0,
-    "roe": 27.96
+    "lucro12m": 2131408000.0,
+    "roe": 28.4
    },
    "ALUP4": {
     "dpa12": 0.36,
-    "lucro12m": 2014377000.0,
-    "roe": 20.89
+    "lucro12m": 1386608000.0,
+    "roe": 14.38
    },
    "GGRC11": {
     "dpa12": 1.2,
@@ -472,13 +472,13 @@ window.FEHMIR_ALERTAS = {
    },
    "AURE3": {
     "dpa12": 0,
-    "lucro12m": -1029686000.0,
-    "roe": -8.95
+    "lucro12m": -1089423000.0,
+    "roe": -9.47
    },
    "TRPL4": {
     "dpa12": 2.0395,
-    "lucro12m": 2876554000.0,
-    "roe": 12.98
+    "lucro12m": 2817169000.0,
+    "roe": 12.71
    },
    "RZTR11": {
     "dpa12": 11.5,
@@ -487,8 +487,8 @@ window.FEHMIR_ALERTAS = {
    },
    "GMAT3": {
     "dpa12": 0.0496,
-    "lucro12m": 1622393000.0,
-    "roe": 14.51
+    "lucro12m": 1624497000.0,
+    "roe": 14.52
    },
    "RBRR11": {
     "dpa12": 9.86,
@@ -497,13 +497,13 @@ window.FEHMIR_ALERTAS = {
    },
    "CSNA3": {
     "dpa12": 0,
-    "lucro12m": -1972858000.0,
-    "roe": -16.22
+    "lucro12m": -2626882000.0,
+    "roe": -21.59
    },
    "CPFE3": {
     "dpa12": 3.7315,
-    "lucro12m": 4218079000.0,
-    "roe": 28.1
+    "lucro12m": 6004881000.0,
+    "roe": 26.43
    },
    "KNCR11": {
     "dpa12": 13.9124,
@@ -522,13 +522,13 @@ window.FEHMIR_ALERTAS = {
    },
    "ALUP3": {
     "dpa12": 0.36,
-    "lucro12m": 2014377000.0,
-    "roe": 20.89
+    "lucro12m": 1386608000.0,
+    "roe": 14.38
    },
    "LOGG3": {
     "dpa12": 6.8749,
-    "lucro12m": 382802000.0,
-    "roe": 10.88
+    "lucro12m": 374063000.0,
+    "roe": 10.63
    },
    "SCHD": {
     "dpa12": 1.055,
@@ -545,11 +545,11 @@ window.FEHMIR_ALERTAS = {
    "BBSE3",
    "LOGG3",
    "XPML11",
-   "AURE3",
-   "BBAS3",
-   "BPAC11",
-   "BRIT3",
-   "BRST3"
+   "TRXF11",
+   "ALUP11",
+   "ALUP3",
+   "ALUP4",
+   "AURE3"
   ]
  },
  "itens": [
@@ -570,7 +570,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -590,7 +590,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -610,7 +610,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -618,11 +618,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "ISAE4",
    "tipo": "zona_compra",
    "prioridade": "alta",
-   "texto": "ISAE4 abaixo do preço de compra: R$ 26,00 ≤ R$ 27,70 (teto R$ 29,15, Bazin projetivo)",
+   "texto": "ISAE4 abaixo do preço de compra: R$ 26,00 ≤ R$ 27,71 (teto R$ 29,17, Bazin projetivo)",
    "numeros": {
     "preco": 26.0,
-    "compra": 27.7,
-    "teto": 29.15
+    "compra": 27.71,
+    "teto": 29.17
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -630,7 +630,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -650,7 +650,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -669,7 +669,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -688,7 +688,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -708,7 +708,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -727,7 +727,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -746,7 +746,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -754,12 +754,12 @@ window.FEHMIR_ALERTAS = {
    "ticker": "CPLE3",
    "tipo": "politica_dividendos",
    "prioridade": "info",
-   "texto": "CPLE3: possível mudança de política de dividendos — confirmar documento (payout 3A 26% vs 5A 59%, razão 0,44×, dif 32 p.p.)",
+   "texto": "CPLE3: possível mudança de política de dividendos — confirmar documento (payout 3A 26% vs 5A 60%, razão 0,44×, dif 34 p.p.)",
    "numeros": {
-    "payout3a": 26.0,
-    "payout5a": 58.5,
+    "payout3a": 26.3,
+    "payout5a": 60.1,
     "razao": 0.44,
-    "diff_pp": 32.5
+    "diff_pp": 33.8
    },
    "origem": {
     "fonte": "histórico e CVM (payout)",
@@ -767,7 +767,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -787,7 +787,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo",
    "parecer": true
   },
@@ -808,7 +808,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo",
    "parecer": true
   },
@@ -829,7 +829,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo",
    "parecer": true
   },
@@ -850,7 +850,26 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "TRXF11:documento",
+   "ticker": "TRXF11",
+   "tipo": "documento",
+   "prioridade": "info",
+   "texto": "TRXF11: Fato Relevante",
+   "numeros": {
+    "documentos": 1
+   },
+   "origem": {
+    "fonte": "CVM/Fundos.NET",
+    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1360869",
+    "data": "2026-10-28"
+   },
+   "carteira": true,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -870,7 +889,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -890,7 +909,67 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "ALUP11:fundamento",
+   "ticker": "ALUP11",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "ALUP11: lucro de 12 meses caiu 31% na CVM (2T26); ROE 14,4%",
+   "numeros": {
+    "lucro12m": 1386608000.0,
+    "lucro12m_antes": 2014377000.0,
+    "roe": 14.38
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "ALUP3:fundamento",
+   "ticker": "ALUP3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "ALUP3: lucro de 12 meses caiu 31% na CVM (2T26); ROE 14,4%",
+   "numeros": {
+    "lucro12m": 1386608000.0,
+    "lucro12m_antes": 2014377000.0,
+    "roe": 14.38
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "ALUP4:fundamento",
+   "ticker": "ALUP4",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "ALUP4: lucro de 12 meses caiu 31% na CVM (2T26); ROE 14,4%",
+   "numeros": {
+    "lucro12m": 1386608000.0,
+    "lucro12m_antes": 2014377000.0,
+    "roe": 14.38
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -910,7 +989,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -930,7 +1009,27 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "BBAS3:fundamento",
+   "ticker": "BBAS3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "BBAS3: lucro de 12 meses caiu 20% na CVM (2T26); ROE 6,6%",
+   "numeros": {
+    "lucro12m": 12272045000.0,
+    "lucro12m_antes": 15384783000.0,
+    "roe": 6.6
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -938,12 +1037,12 @@ window.FEHMIR_ALERTAS = {
    "ticker": "BBDC3",
    "tipo": "politica_dividendos",
    "prioridade": "info",
-   "texto": "BBDC3: possível mudança de política de dividendos — confirmar documento (payout 3A 70% vs 5A 51%, razão 1,36×, dif 18 p.p.)",
+   "texto": "BBDC3: possível mudança de política de dividendos — confirmar documento (payout 3A 71% vs 5A 52%, razão 1,36×, dif 19 p.p.)",
    "numeros": {
-    "payout3a": 69.5,
-    "payout5a": 51.1,
+    "payout3a": 70.6,
+    "payout5a": 51.8,
     "razao": 1.36,
-    "diff_pp": 18.4
+    "diff_pp": 18.8
    },
    "origem": {
     "fonte": "histórico e CVM (payout)",
@@ -951,7 +1050,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -959,12 +1058,12 @@ window.FEHMIR_ALERTAS = {
    "ticker": "BBDC4",
    "tipo": "politica_dividendos",
    "prioridade": "info",
-   "texto": "BBDC4: possível mudança de política de dividendos — confirmar documento (payout 3A 77% vs 5A 56%, razão 1,36×, dif 20 p.p.)",
+   "texto": "BBDC4: possível mudança de política de dividendos — confirmar documento (payout 3A 78% vs 5A 57%, razão 1,36×, dif 21 p.p.)",
    "numeros": {
-    "payout3a": 76.5,
-    "payout5a": 56.2,
+    "payout3a": 77.7,
+    "payout5a": 57.0,
     "razao": 1.36,
-    "diff_pp": 20.3
+    "diff_pp": 20.6
    },
    "origem": {
     "fonte": "histórico e CVM (payout)",
@@ -972,7 +1071,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -992,7 +1091,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1012,7 +1111,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1032,7 +1131,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1052,7 +1151,27 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "CPFE3:fundamento",
+   "ticker": "CPFE3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "CPFE3: lucro de 12 meses subiu 42% na CVM (2T26); ROE 26,4%",
+   "numeros": {
+    "lucro12m": 6004881000.0,
+    "lucro12m_antes": 4218079000.0,
+    "roe": 26.43
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1060,12 +1179,12 @@ window.FEHMIR_ALERTAS = {
    "ticker": "CPFE3",
    "tipo": "politica_dividendos",
    "prioridade": "info",
-   "texto": "CPFE3: possível mudança de política de dividendos — confirmar documento (payout 3A 18% vs 5A 54%, razão 0,34×, dif 36 p.p.)",
+   "texto": "CPFE3: possível mudança de política de dividendos — confirmar documento (payout 3A 16% vs 5A 31%, razão 0,50×, dif 15 p.p.)",
    "numeros": {
-    "payout3a": 18.5,
-    "payout5a": 54.4,
-    "razao": 0.34,
-    "diff_pp": 36.0
+    "payout3a": 15.5,
+    "payout5a": 30.9,
+    "razao": 0.5,
+    "diff_pp": 15.4
    },
    "origem": {
     "fonte": "histórico e CVM (payout)",
@@ -1073,7 +1192,27 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "CSNA3:fundamento",
+   "ticker": "CSNA3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "CSNA3: lucro de 12 meses subiu 33% na CVM (2T26); ROE -21,6%",
+   "numeros": {
+    "lucro12m": -2626882000.0,
+    "lucro12m_antes": -1972858000.0,
+    "roe": -21.59
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1093,7 +1232,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1113,7 +1252,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1121,11 +1260,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "CYRE3",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "CYRE3 abaixo do preço de compra: R$ 19,63 ≤ R$ 40,65 (teto R$ 54,20, Graham)",
+   "texto": "CYRE3 abaixo do preço de compra: R$ 19,63 ≤ R$ 37,45 (teto R$ 49,94, Graham)",
    "numeros": {
     "preco": 19.63,
-    "compra": 40.65,
-    "teto": 54.2
+    "compra": 37.45,
+    "teto": 49.94
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -1133,7 +1272,27 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "CYRE3:fundamento",
+   "ticker": "CYRE3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "CYRE3: lucro de 12 meses caiu 15% na CVM (2T26); ROE 18,3%",
+   "numeros": {
+    "lucro12m": 2039669000.0,
+    "lucro12m_antes": 2401799000.0,
+    "roe": 18.26
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1141,11 +1300,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "DIRR3",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "DIRR3 abaixo do preço de compra: R$ 8,78 ≤ R$ 10,90 (teto R$ 14,53, Graham)",
+   "texto": "DIRR3 abaixo do preço de compra: R$ 8,78 ≤ R$ 9,66 (teto R$ 12,88, Graham)",
    "numeros": {
     "preco": 8.78,
-    "compra": 10.9,
-    "teto": 14.53
+    "compra": 9.66,
+    "teto": 12.88
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -1153,7 +1312,47 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "DIRR3:fundamento",
+   "ticker": "DIRR3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "DIRR3: lucro de 12 meses caiu 22% na CVM (2T26); ROE 36,8%",
+   "numeros": {
+    "lucro12m": 855893000.0,
+    "lucro12m_antes": 1090558000.0,
+    "roe": 36.78
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "ENEV3:fundamento",
+   "ticker": "ENEV3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "ENEV3: lucro de 12 meses caiu 37% na CVM (2T26); ROE 4,7%",
+   "numeros": {
+    "lucro12m": 962660000.0,
+    "lucro12m_antes": 1535519000.0,
+    "roe": 4.73
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1173,7 +1372,27 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "ENGI11:fundamento",
+   "ticker": "ENGI11",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "ENGI11: lucro de 12 meses caiu 30% na CVM (2T26); ROE 7,8%",
+   "numeros": {
+    "lucro12m": 1516835000.0,
+    "lucro12m_antes": 2158738000.0,
+    "roe": 7.78
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1193,7 +1412,27 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "EQTL3:fundamento",
+   "ticker": "EQTL3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "EQTL3: lucro de 12 meses caiu 46% na CVM (2T26); ROE 3,7%",
+   "numeros": {
+    "lucro12m": 958423000.0,
+    "lucro12m_antes": 1767778000.0,
+    "roe": 3.67
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1213,7 +1452,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1221,12 +1460,12 @@ window.FEHMIR_ALERTAS = {
    "ticker": "GGBR4",
    "tipo": "politica_dividendos",
    "prioridade": "info",
-   "texto": "GGBR4: possível mudança de política de dividendos — confirmar documento (payout 3A 51% vs 5A 36%, razão 1,42×, dif 15 p.p.)",
+   "texto": "GGBR4: possível mudança de política de dividendos — confirmar documento (payout 3A 52% vs 5A 37%, razão 1,42×, dif 15 p.p.)",
    "numeros": {
-    "payout3a": 51.3,
-    "payout5a": 36.1,
+    "payout3a": 52.0,
+    "payout5a": 36.5,
     "razao": 1.42,
-    "diff_pp": 15.2
+    "diff_pp": 15.5
    },
    "origem": {
     "fonte": "histórico e CVM (payout)",
@@ -1234,7 +1473,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1254,7 +1493,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1274,7 +1513,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1294,7 +1533,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1302,12 +1541,12 @@ window.FEHMIR_ALERTAS = {
    "ticker": "KLBN4",
    "tipo": "politica_dividendos",
    "prioridade": "info",
-   "texto": "KLBN4: possível mudança de política de dividendos — confirmar documento (payout 3A 76% vs 5A 53%, razão 1,45×, dif 24 p.p.)",
+   "texto": "KLBN4: possível mudança de política de dividendos — confirmar documento (payout 3A 81% vs 5A 55%, razão 1,45×, dif 25 p.p.)",
    "numeros": {
-    "payout3a": 76.5,
-    "payout5a": 52.8,
+    "payout3a": 80.6,
+    "payout5a": 55.4,
     "razao": 1.45,
-    "diff_pp": 23.6
+    "diff_pp": 25.1
    },
    "origem": {
     "fonte": "histórico e CVM (payout)",
@@ -1315,7 +1554,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1335,7 +1574,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1343,11 +1582,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "LAVV3",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "LAVV3 abaixo do preço de compra: R$ 9,34 ≤ R$ 14,28 (teto R$ 19,03, Graham)",
+   "texto": "LAVV3 abaixo do preço de compra: R$ 9,34 ≤ R$ 13,18 (teto R$ 17,57, Graham)",
    "numeros": {
     "preco": 9.34,
-    "compra": 14.28,
-    "teto": 19.03
+    "compra": 13.18,
+    "teto": 17.57
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -1355,7 +1594,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1366,9 +1605,9 @@ window.FEHMIR_ALERTAS = {
    "texto": "LEVE3: possível mudança de política de dividendos — confirmar documento (payout 3A 47% vs 5A 69%, razão 0,68×, dif 22 p.p.)",
    "numeros": {
     "payout3a": 47.1,
-    "payout5a": 69.4,
+    "payout5a": 69.2,
     "razao": 0.68,
-    "diff_pp": 22.3
+    "diff_pp": 22.1
    },
    "origem": {
     "fonte": "histórico e CVM (payout)",
@@ -1376,7 +1615,47 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "MELK3:fundamento",
+   "ticker": "MELK3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "MELK3: lucro de 12 meses caiu 23% na CVM (2T26); ROE 11,7%",
+   "numeros": {
+    "lucro12m": 127063000.0,
+    "lucro12m_antes": 165059000.0,
+    "roe": 11.7
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "MTRE3:fundamento",
+   "ticker": "MTRE3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "MTRE3: lucro de 12 meses caiu 34% na CVM (2T26); ROE 6,4%",
+   "numeros": {
+    "lucro12m": 65630000.0,
+    "lucro12m_antes": 99000000.0,
+    "roe": 6.4
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1384,11 +1663,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "MTRE3",
    "tipo": "politica_dividendos",
    "prioridade": "info",
-   "texto": "MTRE3: possível mudança de política de dividendos — confirmar documento (payout 3A 46% vs 5A 88%, razão 0,52×, dif 42 p.p.)",
+   "texto": "MTRE3: possível mudança de política de dividendos — confirmar documento (payout 3A 63% vs 5A 105%, razão 0,60×, dif 42 p.p.)",
    "numeros": {
-    "payout3a": 46.2,
-    "payout5a": 88.1,
-    "razao": 0.52,
+    "payout3a": 62.9,
+    "payout5a": 104.7,
+    "razao": 0.6,
     "diff_pp": 41.9
    },
    "origem": {
@@ -1397,7 +1676,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1417,7 +1696,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1437,7 +1716,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1457,7 +1736,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1477,7 +1756,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1498,7 +1777,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1518,7 +1797,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1538,7 +1817,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1558,7 +1837,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1566,11 +1845,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "TEND3",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "TEND3 abaixo do preço de compra: R$ 20,88 ≤ R$ 26,83 (teto R$ 35,78, Graham)",
+   "texto": "TEND3 abaixo do preço de compra: R$ 20,88 ≤ R$ 27,39 (teto R$ 36,52, Graham)",
    "numeros": {
     "preco": 20.88,
-    "compra": 26.83,
-    "teto": 35.78
+    "compra": 27.39,
+    "teto": 36.52
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -1578,7 +1857,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1598,7 +1877,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1618,7 +1897,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1638,7 +1917,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1658,7 +1937,27 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
+   "estado": "ativo"
+  },
+  {
+   "id": "VALE3:fundamento",
+   "ticker": "VALE3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "VALE3: lucro de 12 meses subiu 19% na CVM (2T26); ROE 5,3%",
+   "numeros": {
+    "lucro12m": 10369000000.0,
+    "lucro12m_antes": 8691000000.0,
+    "roe": 5.27
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "2T26"
+   },
+   "carteira": false,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1666,12 +1965,12 @@ window.FEHMIR_ALERTAS = {
    "ticker": "VALE3",
    "tipo": "politica_dividendos",
    "prioridade": "info",
-   "texto": "VALE3: possível mudança de política de dividendos — confirmar documento (payout 3A 131% vs 5A 89%, razão 1,47×, dif 42 p.p.)",
+   "texto": "VALE3: possível mudança de política de dividendos — confirmar documento (payout 3A 118% vs 5A 81%, razão 1,45×, dif 37 p.p.)",
    "numeros": {
-    "payout3a": 130.8,
-    "payout5a": 88.8,
-    "razao": 1.47,
-    "diff_pp": 42.0
+    "payout3a": 117.6,
+    "payout5a": 80.9,
+    "razao": 1.45,
+    "diff_pp": 36.7
    },
    "origem": {
     "fonte": "histórico e CVM (payout)",
@@ -1679,7 +1978,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1699,7 +1998,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1719,7 +2018,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1739,7 +2038,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1759,7 +2058,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1779,7 +2078,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1799,7 +2098,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1819,7 +2118,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1839,7 +2138,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-28",
+   "ultimo": "2026-10-29",
    "estado": "ativo"
   },
   {
@@ -1903,26 +2202,6 @@ window.FEHMIR_ALERTAS = {
    "estado": "resolvido",
    "resolvido": "2026-10-27",
    "parecer": true
-  },
-  {
-   "id": "TRXF11:documento",
-   "ticker": "TRXF11",
-   "tipo": "documento",
-   "prioridade": "info",
-   "texto": "TRXF11: Fato Relevante",
-   "numeros": {
-    "documentos": 1
-   },
-   "origem": {
-    "fonte": "CVM/Fundos.NET",
-    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1356811",
-    "data": "2026-10-22"
-   },
-   "carteira": true,
-   "desde": "2026-10-24",
-   "ultimo": "2026-10-24",
-   "estado": "resolvido",
-   "resolvido": "2026-10-27"
   },
   {
    "id": "DIRR3:movimento",
