@@ -10,6 +10,7 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
 <script src="dados/novidades.js"></script>
 <script src="dados/pareceres.js"></script>
 <script src="dados/licoes_candidatas.js"></script>
+<script src="dados/lancamentos_painel.js"></script>
 <script src="dados/lancamentos_assistente.js"></script>
 <script src="dados/config_assistente.js"></script>
 <script src="dados/tetos.js"></script>
@@ -3401,6 +3402,9 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
         <span class="collapsed-summary-pill">23 ordens · R$ 5.348,26</span>
+        <input type="search" id="extrato-busca-input" placeholder="Pesquisar ticker, tipo, categoria, nota ou data…" oninput="onExtratoBuscaInput(this.value)" onclick="event.stopPropagation()" style="padding:6px 12px; font-size:12.5px; border:1px solid var(--rule); border-radius:6px; background:var(--bg); color:var(--ink); min-width:240px;">
+        <button class="mc-btn" id="btn-sync-assistente" onclick="event.stopPropagation(); sincronizarLancamentosPainel(true)" title="Sincronizar lançamentos do painel com a pasta dados/">📤 Sincronizar com o Assistente</button>
+        <span id="extrato-sync-status" style="font-size:11.5px; color:var(--ink-2); font-weight:500;"></span>
         <button class="mc-btn primary" onclick="openLancamentoModal()">+ Novo Registro</button>
         <button class="mc-btn" onclick="exportarExtratoCSV()">Exportar CSV (Excel)</button>
         <button class="mc-btn" onclick="resetarExtratoPadrao()" title="Restaurar ordens reais de aporte">↻ Restaurar</button>
@@ -3432,6 +3436,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         </div>
       </div>
 
+      <div id="extrato-filtro-contagem" style="font-size:12px; color:var(--ink-2); font-weight:600; margin:8px 0 8px 2px; display:none;"></div>
       <!-- Tabela Responsiva de Transações -->
       <div class="twrap">
         <table class="wide responsive-stack">
@@ -8590,7 +8595,7 @@ function openModal(ticker) {
     }
   }
 
-  // Linha da Política Nova de Dividendos (§21.9.5)
+  // Linha da Política Nova de Dividendos (§21.9.5) ou Empresa Regulada Estável (Rodada 18)
   const elPolRow = document.getElementById('m-politica-nova-row');
   if (elPolRow) {
     const polData = (typeof window !== "undefined" && window.FEHMIR_POLITICA_DIV) ? window.FEHMIR_POLITICA_DIV[r.t] : null;
@@ -8609,6 +8614,12 @@ function openModal(ticker) {
       const baseDesc = baseMap[av.base_dpa] || av.base_dpa || "guidance";
       elPolRow.innerHTML = `<div style="padding:8px 14px; background:rgba(79,70,229,0.08); border:1px solid rgba(79,70,229,0.2); border-radius:8px; font-size:12.5px; color:var(--ink); line-height:1.4;">
         📢 <b>Política nova desde ${mmAaaa} (${docLink})</b> · Base utilizada: <b>${baseDesc}</b>
+      </div>`;
+    } else if (av && av.base_dpa === "projetivo_regulada") {
+      elPolRow.style.display = 'block';
+      const cvTxt = (av.cvLucro != null) ? ` · CV do lucro 5A: <b>${av.cvLucro.toFixed(1)}%</b>` : '';
+      elPolRow.innerHTML = `<div style="padding:8px 14px; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-radius:8px; font-size:12.5px; color:var(--ink); line-height:1.4;">
+        ⚡ <b>Empresa regulada de lucro estável</b> · Base do teto: <b>projetivo (remuneração regulatória)</b>${cvTxt} · DPA histórico fica como conferência
       </div>`;
     } else {
       elPolRow.style.display = 'none';
@@ -8668,8 +8679,14 @@ function openModal(ticker) {
       elPayout.textContent = payShow != null ? `${payShow.toFixed(1)}%` : '—';
       elPayout.style.color = 'var(--ink)';
       if (elPayoutSub) {
-        elPayoutSub.textContent = '';
-        elPayoutSub.style.display = 'none';
+        if (av && av.payout_proprio != null) {
+          elPayoutSub.textContent = `payout próprio (5A: ${av.payout_proprio}%)`;
+          elPayoutSub.style.display = 'block';
+          elPayoutSub.style.color = 'var(--good)';
+        } else {
+          elPayoutSub.textContent = '';
+          elPayoutSub.style.display = 'none';
+        }
       }
       elPayout.removeAttribute('title');
     }
@@ -9828,6 +9845,7 @@ window.jumpCarteiraSection = jumpCarteiraSection;
 
 // Alias global para garantir compatibilidade
 window.openDetailModal = openModal;
+window.openModal = openModal;
 
 function searchTickerGlobal(query) {
   let q = (query || "").trim().toUpperCase();
@@ -13594,9 +13612,27 @@ function carregarExtrato() {
   const novosInseridos = [];
 
   // Mesmo ticker, tipo e quantidade (8 casas) = mesma operação, ainda que lançada com outra data.
+  // Preço diferente (meio centavo de tolerância) = ordens distintas no mesmo dia (ex.: 2 ISAE4 a 24,95 e 2 a 24,91).
+  const mesmoPreco = (a, b) => !(Number(a.preco) > 0 && Number(b.preco) > 0) ||
+    Math.abs(Number(a.preco) - Number(b.preco)) < 0.005;
   const mesmaOperacao = (a, b) => a.ticker === b.ticker && a.tipo === b.tipo &&
-    Math.abs((Number(a.quant) || 0) - (Number(b.quant) || 0)) < 1e-8 &&
+    Math.abs((Number(a.quant) || 0) - (Number(b.quant) || 0)) < 1e-8 && mesmoPreco(a, b) &&
     (a.data === b.data || String(b.quant).replace(/^\d+\./, "").length >= 6);
+
+  // Semear perfil limpo com lançamentos do painel salvos em arquivo (Rodada 19 Parte B)
+  const painelLancs = window.FEHMIR_LANC_PAINEL || [];
+  if (Array.isArray(painelLancs) && painelLancs.length > 0) {
+    painelLancs.forEach(pl => {
+      if (!pl) return;
+      const itemExistente = salvo.find(t => (pl.id && t.id && t.id === pl.id) || mesmaOperacao(t, pl));
+      if (!itemExistente) {
+        const item = { ...pl };
+        delete item.origem; // sem origem: "assistente" (é operação do Felipe)
+        salvo.unshift(item);
+        alterou = true;
+      }
+    });
+  }
 
   // Limpa cópias que o assistente criou de operações que o Felipe já tinha lançado à mão.
   for (let i = salvo.length - 1; i >= 0; i--) {
@@ -13643,12 +13679,219 @@ function carregarExtrato() {
   return salvo;
 }
 
+/* ================= SINCRONIZAÇÃO PAINEL -> ARQUIVO (Rodada 19 Parte B) ================= */
+function fehmirSerializarLancPainel(lista) {
+  const camposPermitidos = ['id', 'data', 'tipo', 'ticker', 'cat', 'quant', 'preco', 'taxa', 'total', 'moeda', 'cambio', 'destino', 'nota'];
+  const filtrados = (lista || [])
+    .filter(it => it && it.origem !== 'assistente')
+    .map(it => {
+      const limpo = {};
+      for (const c of camposPermitidos) {
+        if (it[c] !== undefined) limpo[c] = it[c];
+      }
+      return limpo;
+    })
+    .sort((a, b) => {
+      if ((a.data || '') < (b.data || '')) return -1;
+      if ((a.data || '') > (b.data || '')) return 1;
+      return 0;
+    });
+  const meta = {
+    gerado: new Date().toISOString(),
+    total: filtrados.length
+  };
+  return (
+    '/* Gerado pelo painel — operações lançadas à mão no Livro. Não editar à mão. */\n' +
+    'window.FEHMIR_LANC_PAINEL = ' + JSON.stringify(filtrados, null, 2) + ';\n' +
+    'window.FEHMIR_LANC_PAINEL_META = ' + JSON.stringify(meta, null, 2) + ';\n'
+  );
+}
+window.fehmirSerializarLancPainel = fehmirSerializarLancPainel;
+
+function _abrirDbBarsiFs() {
+  return new Promise((resolve, reject) => {
+    if (!window.indexedDB) return reject(new Error("IndexedDB não suportado"));
+    const req = indexedDB.open("barsi-fs", 1);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains("handles")) {
+        db.createObjectStore("handles");
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function _obterHandleDados() {
+  try {
+    const db = await _abrirDbBarsiFs();
+    return new Promise((resolve) => {
+      const tx = db.transaction("handles", "readonly");
+      const store = tx.objectStore("handles");
+      const req = store.get("dados");
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => resolve(null);
+    });
+  } catch (e) {
+    return null;
+  }
+}
+
+async function _salvarHandleDados(handle) {
+  try {
+    const db = await _abrirDbBarsiFs();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction("handles", "readwrite");
+      const store = tx.objectStore("handles");
+      const req = store.put(handle, "dados");
+      req.onsuccess = () => resolve(true);
+      req.onerror = () => reject(req.error);
+    });
+  } catch (e) {
+    console.warn("Erro ao salvar handle no IndexedDB:", e);
+  }
+}
+
+function fehmirMostrarToast(mensagem) {
+  let el = document.getElementById('fehmir-toast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'fehmir-toast';
+    el.style.cssText = 'position:fixed; bottom:24px; right:24px; z-index:99999; background:var(--surface, #1f2937); color:var(--ink, #fff); border:1px solid var(--rule, rgba(255,255,255,0.2)); padding:10px 16px; border-radius:8px; font-size:13px; font-weight:500; box-shadow:0 4px 12px rgba(0,0,0,0.25); transition:opacity 0.3s ease; opacity:0; pointer-events:none;';
+    document.body.appendChild(el);
+  }
+  el.textContent = mensagem;
+  el.style.opacity = '1';
+  clearTimeout(el._timer);
+  el._timer = setTimeout(() => {
+    el.style.opacity = '0';
+  }, 3500);
+}
+
+const _chaveOpSync = op => (op.id || '') + '|' + (op.data || '') + '|' + (op.tipo || '') + '|' + (op.ticker || '') + '|' + (op.quant || '') + '|' + (op.preco || '') + '|' + (op.total || '');
+
+function atualizarIndicadorSync() {
+  const el = document.getElementById('extrato-sync-status');
+  if (!el) return;
+  const lista = carregarExtrato();
+  const manuais = (lista || []).filter(it => it && it.origem !== 'assistente');
+  const syncIso = localStorage.getItem('barsi-lanc-painel-sync');
+
+  if (!syncIso) {
+    el.textContent = `⚠️ ${manuais.length} operações ainda não sincronizadas`;
+    el.style.color = 'var(--warning, #f59e0b)';
+    return;
+  }
+
+  let chavesSinc = [];
+  try {
+    chavesSinc = JSON.parse(localStorage.getItem('barsi-lanc-painel-sync-chaves') || '[]');
+  } catch (e) {}
+
+  const setSinc = new Set(chavesSinc);
+  const naoSinc = manuais.filter(op => !setSinc.has(_chaveOpSync(op)));
+  const diff = Math.max(naoSinc.length, Math.abs(manuais.length - chavesSinc.length));
+
+  if (diff > 0) {
+    el.textContent = `⚠️ ${diff} ${diff === 1 ? 'operação ainda não sincronizada' : 'operações ainda não sincronizadas'}`;
+    el.style.color = 'var(--warning, #f59e0b)';
+  } else {
+    const d = new Date(syncIso);
+    const hhmm = !isNaN(d.getTime())
+      ? String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0')
+      : '--:--';
+    el.textContent = `✅ sincronizado às ${hhmm}`;
+    el.style.color = 'var(--good, #10b981)';
+  }
+}
+
+async function _registrarSucessoSync(totalOps, listaManuais) {
+  const agoraIso = new Date().toISOString();
+  localStorage.setItem('barsi-lanc-painel-sync', agoraIso);
+  localStorage.setItem('barsi-lanc-painel-sync-chaves', JSON.stringify((listaManuais || []).map(_chaveOpSync)));
+  fehmirMostrarToast(`Sincronizado: ${totalOps} operações → dados/lancamentos_painel.js`);
+  atualizarIndicadorSync();
+}
+
+async function sincronizarLancamentosPainel(origemClique) {
+  const lista = carregarExtrato();
+  const manuais = (lista || []).filter(it => it && it.origem !== 'assistente');
+  const conteudo = fehmirSerializarLancPainel(lista);
+  const totalOps = manuais.length;
+
+  if (window.showDirectoryPicker) {
+    try {
+      let handle = await _obterHandleDados();
+      let permissaoConcedida = false;
+      if (handle && handle.queryPermission) {
+        let status = await handle.queryPermission({ mode: 'readwrite' });
+        if (status === 'granted') {
+          permissaoConcedida = true;
+        } else if (origemClique && handle.requestPermission) {
+          status = await handle.requestPermission({ mode: 'readwrite' });
+          permissaoConcedida = (status === 'granted');
+        }
+      }
+      if (!handle || !permissaoConcedida) {
+        if (!origemClique) return; // auto-sync silencioso se não há permissão
+        handle = await window.showDirectoryPicker();
+        await _salvarHandleDados(handle);
+        if (handle.queryPermission) {
+          let status = await handle.queryPermission({ mode: 'readwrite' });
+          if (status !== 'granted' && handle.requestPermission) {
+            status = await handle.requestPermission({ mode: 'readwrite' });
+          }
+          permissaoConcedida = (status === 'granted');
+        } else {
+          permissaoConcedida = true;
+        }
+      }
+      if (handle && permissaoConcedida) {
+        const fileHandle = await handle.getFileHandle('lancamentos_painel.js', { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(conteudo);
+        await writable.close();
+        await _registrarSucessoSync(totalOps, manuais);
+        return;
+      }
+    } catch (e) {
+      if (e.name === 'AbortError') return;
+      console.warn('Falha ao sincronizar com File System Access API:', e);
+      if (!origemClique) return;
+    }
+  }
+
+  // Fallback: download no navegador
+  if (origemClique) {
+    try {
+      const blob = new Blob([conteudo], { type: 'text/javascript;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'lancamentos_painel.js';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      alert('Mova o arquivo baixado para a pasta dados/ do projeto');
+      await _registrarSucessoSync(totalOps, manuais);
+    } catch (err) {
+      console.warn('Falha no fallback de download:', err);
+    }
+  }
+}
+window.sincronizarLancamentosPainel = sincronizarLancamentosPainel;
+
 function salvarExtrato(lista) {
   localStorage.setItem(TRANSACOES_KEY, JSON.stringify(lista));
   if (typeof recalcularCarteira === 'function') recalcularCarteira();
   if (typeof renderCaixaInvestir === 'function') renderCaixaInvestir();
   if (typeof renderRentabilidade === 'function') renderRentabilidade();
   renderExtrato();
+  if (typeof sincronizarLancamentosPainel === 'function') {
+    sincronizarLancamentosPainel(false).catch(e => console.warn('Auto-sync silencioso falhou:', e));
+  }
 }
 
 function adicionarTransacao(tx) {
@@ -13677,10 +13920,33 @@ function removerTransacao(index) {
 }
 window.removerTransacao = removerTransacao;
 
+/* ================= FILTRO DE PESQUISA DO LIVRO (Rodada 19 Parte A) ================= */
+let _termoBuscaExtrato = '';
+
+function normalizarTextoBusca(txt) {
+  return String(txt || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+function onExtratoBuscaInput(val) {
+  _termoBuscaExtrato = val || '';
+  renderExtrato();
+}
+window.onExtratoBuscaInput = onExtratoBuscaInput;
+
 function renderExtrato() {
   const tbody = document.getElementById('tbody-extrato-transacoes');
   if (!tbody) return;
   const lista = carregarExtrato();
+
+  const inputEl = document.getElementById('extrato-busca-input');
+  const termo = inputEl ? inputEl.value : _termoBuscaExtrato;
+  _termoBuscaExtrato = termo;
+
+  const termos = normalizarTextoBusca(termo).split(/\s+/).filter(Boolean);
+  const temFiltro = termos.length > 0;
 
   const avisoBox = document.getElementById('extrato-aviso-assistente');
   if (avisoBox) {
@@ -13707,15 +13973,36 @@ function renderExtrato() {
     }
   }
 
+  // Os 4 cartões de totais continuam somando TUDO (não filtrar os totais)
   let totalAportado = 0;
   let totalReinv = 0;
   let totalVendas = 0;
-
-  tbody.innerHTML = lista.map((t, idx) => {
+  lista.forEach(t => {
     if (t.tipo === 'Compra') totalAportado += (t.total || 0);
     if (t.tipo === 'Reinvestimento') totalReinv += (t.total || 0);
     if (t.tipo === 'Venda') totalVendas += (t.total || 0);
+  });
 
+  // Filtragem das linhas da tabela
+  const filtradas = lista.filter(t => {
+    if (!temFiltro) return true;
+    const txtLinha = normalizarTextoBusca([t.ticker, t.tipo, t.cat, t.nota, t.data].filter(Boolean).join(' '));
+    return termos.every(term => txtLinha.includes(term));
+  });
+
+  const elFiltroContador = document.getElementById('extrato-filtro-contagem');
+  if (elFiltroContador) {
+    if (temFiltro) {
+      elFiltroContador.textContent = `${filtradas.length} de ${lista.length} ordens`;
+      elFiltroContador.style.display = 'block';
+    } else {
+      elFiltroContador.textContent = '';
+      elFiltroContador.style.display = 'none';
+    }
+  }
+
+  tbody.innerHTML = filtradas.map((t) => {
+    const originalIdx = lista.indexOf(t);
     const badgeCls = t.tipo === 'Compra' ? 'compra' : (t.tipo === 'Reinvestimento' ? 'reinv' : (t.tipo === 'Remessa' ? 'reinv' : 'venda'));
     const valorCor = t.tipo === 'Venda' ? 'var(--good)' : (t.tipo === 'Compra' ? 'var(--ink)' : 'var(--accent)');
     const seloAssist = (t.origem === 'assistente' || (t.id && t.id.startsWith('2026-')))
@@ -13737,7 +14024,7 @@ function renderExtrato() {
         </td>
         <td style="font-size:12px; color:var(--ink-2); font-family:var(--font-sans);">${t.nota || '—'}</td>
         <td style="text-align:center;">
-          <button type="button" onclick="removerTransacao(${idx})" style="background:none; border:none; cursor:pointer; color:var(--muted); padding:4px; display:inline-flex; align-items:center; justify-content:center;" title="Excluir do histórico">
+          <button type="button" onclick="removerTransacao(${originalIdx})" style="background:none; border:none; cursor:pointer; color:var(--muted); padding:4px; display:inline-flex; align-items:center; justify-content:center;" title="Excluir do histórico">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
           </button>
         </td>
@@ -13756,6 +14043,8 @@ function renderExtrato() {
 
   const elVendas = document.getElementById('extrato-total-vendas');
   if (elVendas) elVendas.textContent = fmtR(totalVendas);
+
+  atualizarIndicadorSync();
 }
 
 function exportarExtratoCSV() {
@@ -15892,6 +16181,8 @@ initCollapsibleBlocks();
     return Object.assign({}, MACRO_DEFAULT, m || {});
   }
   function saveMacro(m) { try { localStorage.setItem(MACRO_KEY, JSON.stringify(m)); } catch (e) {} }
+  window.loadMacro = loadMacro;
+  window.saveMacro = saveMacro;
 
   /* ---------- MATRIZ SETORIAL (seção 21 do .md): banana com banana ----------
      DY exigido = Tesouro IPCA+ (juro real) + prêmio do setor. É um retorno real porque o dividendo de
@@ -16024,6 +16315,98 @@ initCollapsibleBlocks();
     return req;
   }
 
+  /* ===== PRÊMIO DE RISCO POR EMPRESA, HOLDING & RECUPERAÇÃO (Spec 002) ===== */
+  const PREMIO_EMPRESA = {
+    // estatal/capex > valor de mercado (+1.0 p.p.)
+    CMIG4: { pp: 1.0, motivo: "estatal/capex > valor de mercado" },
+    SAPR11: { pp: 1.0, motivo: "estatal/capex > valor de mercado" },
+    SAPR4: { pp: 1.0, motivo: "estatal/capex > valor de mercado" },
+    BBAS3: { pp: 1.0, motivo: "estatal/capex > valor de mercado" },
+    CSMG3: { pp: 1.0, motivo: "estatal/capex > valor de mercado" },
+    // banco em recuperação (+3.0 p.p.)
+    BBDC4: { pp: 3.0, motivo: "banco em recuperação" },
+    BBDC3: { pp: 3.0, motivo: "banco em recuperação" }
+  };
+
+  const HOLDINGS = new Set(["ITSA4", "ITSA3"]);
+
+  function fehmirPremioEmpresa(t) {
+    if (t && PREMIO_EMPRESA[t]) {
+      return { pp: PREMIO_EMPRESA[t].pp, motivo: PREMIO_EMPRESA[t].motivo };
+    }
+    return { pp: 0, motivo: "" };
+  }
+  window.fehmirPremioEmpresa = fehmirPremioEmpresa;
+  window.PREMIO_EMPRESA = PREMIO_EMPRESA;
+  window.HOLDINGS = HOLDINGS;
+
+  function fehmirChecarRecuperacao(t, S) {
+    const isBanco = S && (S.id === "banco" || S.nome === "Bancos");
+    const roeMin = isBanco ? 15 : 10;
+    const CVM = (typeof window !== "undefined" && window.FEHMIR_FUND_CVM) ? window.FEHMIR_FUND_CVM[t] : null;
+    if (!CVM) return { emRecuperacao: false, roeMin, motivo: "sem dado CVM" };
+
+    const ult = new Date().getFullYear() - 1;
+    const roesAno = (CVM.roeAnual) ? Object.keys(CVM.roeAnual).filter(y => Number(y) <= ult).sort().slice(-5).map(y => Number(CVM.roeAnual[y])).filter(v => !isNaN(v)) : [];
+    const roe5 = roesAno.length > 0 ? (roesAno.reduce((acc, v) => acc + v, 0) / roesAno.length) : null;
+
+    if (roe5 != null && roe5 < roeMin) {
+      return { emRecuperacao: true, roeMin, motivo: "ROE 5A " + fmtN(roe5, 1) + "% < " + roeMin + "%" };
+    }
+
+    const a1 = CVM.lpaAnual && CVM.lpaAnual[String(ult - 2)] != null ? Number(CVM.lpaAnual[String(ult - 2)]) : null;
+    const a2 = CVM.lpaAnual && CVM.lpaAnual[String(ult - 1)] != null ? Number(CVM.lpaAnual[String(ult - 1)]) : null;
+    const a3 = CVM.lpaAnual && CVM.lpaAnual[String(ult)] != null ? Number(CVM.lpaAnual[String(ult)]) : null;
+    if (a1 != null && a2 != null && a3 != null && CVM.lpa != null) {
+      const media3A = (a1 + a2 + a3) / 3;
+      if (media3A > 0 && CVM.lpa <= 0.8 * media3A) {
+        const quedaPct = Math.round((1 - CVM.lpa / media3A) * 100);
+        return { emRecuperacao: true, roeMin, motivo: "LPA 12m " + quedaPct + "% abaixo da média 3A" };
+      }
+    }
+    return { emRecuperacao: false, roeMin, motivo: "" };
+  }
+  window.fehmirChecarRecuperacao = fehmirChecarRecuperacao;
+
+  /* ===== CRESCIMENTO REAL LIMITADO g (Spec 002 / US3) ===== */
+  function fehmirCrescimentoReal(t, S, pay, m, rec) {
+    m = m || (typeof loadMacro === "function" ? loadMacro() : { ntnb: 6.5, ipca12: 4.6 });
+    const ipca = (m && m.ipca12 != null) ? numBR(m.ipca12) : 4.6;
+    const CVM = (typeof window !== "undefined" && window.FEHMIR_FUND_CVM) ? window.FEHMIR_FUND_CVM[t] : null;
+
+    let roe5 = null;
+    let numRoes = 0;
+    if (CVM && CVM.roeAnual) {
+      const ult = new Date().getFullYear() - 1;
+      const roesAno = Object.keys(CVM.roeAnual).filter(y => Number(y) <= ult).sort().slice(-5).map(y => Number(CVM.roeAnual[y])).filter(v => !isNaN(v));
+      numRoes = roesAno.length;
+      if (numRoes > 0) {
+        roe5 = roesAno.reduce((acc, v) => acc + v, 0) / numRoes;
+      }
+    }
+
+    if (S && S.ciclico) {
+      return { g: 0, roe5, ipca, limitado: false, motivoZero: "cíclica" };
+    }
+    if (rec && rec.emRecuperacao) {
+      return { g: 0, roe5, ipca, limitado: false, motivoZero: "recuperação" };
+    }
+    if (numRoes < 3 || roe5 == null) {
+      return { g: 0, roe5: null, ipca, limitado: false, motivoZero: "sem ROE" };
+    }
+
+    const payVal = (pay != null && !isNaN(pay)) ? pay : (S ? S.payout : 60);
+    const bruto = roe5 * (1 - payVal / 100) - ipca;
+    if (bruto <= 0) {
+      return { g: 0, roe5, ipca, limitado: false, motivoZero: "retém pouco" };
+    }
+
+    const limitado = bruto > 1.5;
+    const g = Math.min(1.5, Math.max(0, bruto));
+    return { g, roe5, ipca, limitado, motivoZero: null };
+  }
+  window.fehmirCrescimentoReal = fehmirCrescimentoReal;
+
   /* ===== RETORNO ESPERADO (DY + CRESCIMENTO) - §21.9 Regra de Ouro (Rodada 9 Parte B / Rodada 10) ===== */
   function calcRetornoEsperado(a, m) {
     if (!a || !a.preco || a.preco <= 0) return null;
@@ -16042,7 +16425,7 @@ initCollapsibleBlocks();
     m = m || (typeof loadMacro === "function" ? loadMacro() : { ntnb: 6.5, ipca12: 4.6 });
     const ipca = (m && m.ipca12 != null) ? (numBR(m.ipca12) / 100) : 0.046;
     const S = setorDe(a);
-    const taxa = (m.ntnb + S.premio) / 100;
+    const taxa = (m.ntnb + S.premio + fehmirPremioEmpresa(a.t).pp) / 100;
 
     // Entradas conforme B2:
     // DY_proj = dyProj/100 (se faltar, dpa / preço; se faltar, dy/100)
@@ -16134,8 +16517,6 @@ initCollapsibleBlocks();
       tooltip: "Retorno = dividendo projetado + crescimento (ROE × lucro retido), descontada a inflação. Se nem o cenário provável bate o Tesouro IPCA+ + prêmio do setor, a qualidade não compensa o preço."
     };
   }
-  window.calcRetornoEsperado = calcRetornoEsperado;
-
   /* ===== MOTOR DE ESCOLHA DO MÉTODO DE VALUATION (§21.9 - 16/10/2026) ===== */
   function escolherMetodo(a, m) {
     m = m || (typeof loadMacro === "function" ? loadMacro() : { ntnb: 6.5, ipca12: 4.6 });
@@ -16169,8 +16550,12 @@ initCollapsibleBlocks();
 
     // AÇÕES
     const S = setorDe(a);
-    const req = m.ntnb + S.premio;
-    const taxaExplicada = `${fmtN(req, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio ${fmtN(S.premio, 1)}% (${S.nome})`;
+    const pe = fehmirPremioEmpresa(a.t);
+    const req = m.ntnb + S.premio + pe.pp;
+    let taxaExplicada = `${fmtN(req, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio ${fmtN(S.premio, 1)}% (${S.nome})`;
+    if (pe.pp > 0) {
+      taxaExplicada += ` + ${fmtN(pe.pp, 1)} p.p. risco da empresa (${pe.motivo})`;
+    }
 
     // Regra 3: Commodities (cíclico - Rodada 9 Parte A & D)
     if (S.id === "commodity" || /petr[oó]leo|miner|sider|celulose|agroneg/i.test(a.setor || "") || /petr[oó]leo|miner|sider|celulose|agroneg/i.test(S.nome || "")) {
@@ -16225,12 +16610,16 @@ initCollapsibleBlocks();
                         ["LOGG3", "ALOS3", "MULT3", "IGTI11"].includes(a.t);
     if (ehImobRenda) {
       // Taxa do setor "Outros": 10,5% = Tesouro IPCA+ (6,5%) + prêmio 4,0%
-      const taxaImob = m.ntnb + 4.0;
+      const taxaImob = m.ntnb + 4.0 + pe.pp;
+      let taxaExplicadaImob = `${fmtN(taxaImob, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio 4,0% (Imóveis para Renda)`;
+      if (pe.pp > 0) {
+        taxaExplicadaImob += ` + ${fmtN(pe.pp, 1)} p.p. risco da empresa (${pe.motivo})`;
+      }
       return {
         metodo: "P/VP com desconto + Bazin 5A",
         motivo: "Empresa de imóveis para renda: o lucro inclui reavaliação de imóveis; usa o patrimônio com desconto e o dividendo médio.",
         taxa: taxaImob,
-        taxaExplicada: `${fmtN(taxaImob, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio 4,0% (Imóveis para Renda)`
+        taxaExplicada: taxaExplicadaImob
       };
     }
 
@@ -16314,6 +16703,114 @@ initCollapsibleBlocks();
   }
 
   window.fehmirEscolherMetodo = escolherMetodo;
+
+  // Setores regulados com remuneração sobre base de ativos (distribuição, transmissão, saneamento)
+  // Rodada 18 Parte B: lista explícita comentada
+  const REGULADAS_ESTAVEIS = new Set([
+    "CPFE3", "EQTL3", "ENGI11", "CMIG4", "CPLE3", "NEOE3",
+    "TAEE11", "ISAE4", "TRPL4", "ALUP11", "ALUP3", "ALUP4",
+    "SBSP3", "SAPR11", "SAPR4", "CSMG3"
+  ]);
+
+  // Janela do payout realista (Spec 002 / US1): 3 anos fechados (ult-3 a ult-1).
+  // Se houver 2 ou mais eventos de extras recorrentes na janela recente (>= ult-2), usa dpaAno cheio.
+  function fehmirCalcularPayoutProprio(t, HY, S, payEmp) {
+    let payout_proprio = null;
+    let payoutProprioAnos = 0;
+    let comExtras = false;
+    const excluidos = [];
+    const CVM_D = (typeof window !== "undefined" && window.FEHMIR_FUND_CVM) ? window.FEHMIR_FUND_CVM[t] : null;
+
+    if (CVM_D && HY && HY.dpaAno) {
+      const ultimoFechado = new Date().getFullYear() - 1;
+
+      // Extras recorrentes: contar eventos em HY.extras com ano >= ult - 2
+      let countExtrasRec = 0;
+      if (Array.isArray(HY.extras)) {
+        for (const ev of HY.extras) {
+          const dt = Array.isArray(ev) ? ev[0] : (ev && ev.data);
+          if (dt && typeof dt === "string") {
+            const anoEv = Number(dt.slice(0, 4));
+            if (!isNaN(anoEv) && anoEv >= ultimoFechado - 2) {
+              countExtrasRec++;
+            }
+          }
+        }
+      }
+      comExtras = (countExtrasRec >= 2);
+
+      const anosCandidatos = [ultimoFechado - 3, ultimoFechado - 2, ultimoFechado - 1];
+      const lacunas = Array.isArray(HY.lacunas) ? HY.lacunas.map(Number) : [];
+      const paysValidos = [];
+
+      for (const y of anosCandidatos) {
+        const anoPagto = y + 1;
+        if (lacunas.includes(y) || lacunas.includes(anoPagto)) {
+          excluidos.push({ ano: anoPagto, motivo: "lacuna" });
+          continue;
+        }
+        const lpaY = (CVM_D.lpaAnual && CVM_D.lpaAnual[String(y)] != null) ? Number(CVM_D.lpaAnual[String(y)]) :
+                     ((CVM_D.lucroAnual && CVM_D.lucroAnual[String(y)] != null && CVM_D.acoes > 0) ? Number(CVM_D.lucroAnual[String(y)]) / CVM_D.acoes : null);
+        if (lpaY == null || lpaY <= 0) {
+          excluidos.push({ ano: anoPagto, motivo: "sem LPA" });
+          continue;
+        }
+
+        const dpaTot = Number(HY.dpaAno[String(anoPagto)] || 0);
+        const dpaExt = Number((HY.dpaAnoExtra && HY.dpaAnoExtra[String(anoPagto)]) || 0);
+        const dpaEfetivo = comExtras ? dpaTot : Math.max(0, dpaTot - dpaExt);
+
+        const pRaw = dpaEfetivo / lpaY;
+        if (pRaw > 1.5) {
+          excluidos.push({ ano: anoPagto, motivo: "atipico" });
+          continue;
+        }
+
+        const pLimitado = Math.min(1.0, Math.max(0.0, pRaw));
+        paysValidos.push(pLimitado);
+      }
+
+      if (paysValidos.length >= 2) {
+        const mediaP = paysValidos.reduce((acc, v) => acc + v, 0) / paysValidos.length;
+        payout_proprio = Math.round(mediaP * 100);
+        payoutProprioAnos = paysValidos.length;
+      }
+    }
+
+    const payBase = (payEmp != null && !isNaN(payEmp)) ? Math.min(payEmp, S.payout) : S.payout;
+    const pay = payout_proprio != null ? Math.min(payout_proprio, 90) : Math.min(payBase, 90);
+
+    let payLabel = "";
+    if (payout_proprio != null) {
+      const extrasTxt = comExtras ? "com extras recorrentes" : "sem extras";
+      payLabel = `payout realista ${pay}% (${payoutProprioAnos}A, ${extrasTxt})`;
+      const atipicos = excluidos.filter(e => e.motivo === "atipico");
+      for (const at of atipicos) {
+        payLabel += `; ano atípico ${at.ano} excluído`;
+      }
+    } else {
+      payLabel = ((payBase < S.payout ? "payout da empresa " : "payout do setor ") + fmtN(pay, 0) + "%");
+    }
+
+    return { payout_proprio, payoutProprioAnos, pay, payLabel, comExtras, excluidos };
+  }
+  window.fehmirCalcularPayoutProprio = fehmirCalcularPayoutProprio;
+
+  function fehmirChecarReguladaEstavel(t) {
+    if (!REGULADAS_ESTAVEIS.has(t)) return { pass: false, cv: null };
+    const CVM_D = (typeof window !== "undefined" && window.FEHMIR_FUND_CVM) ? window.FEHMIR_FUND_CVM[t] : null;
+    if (!CVM_D || !CVM_D.lucroAnual) return { pass: false, cv: null };
+    // Últimos 5 anos fechados com DFP publicada (a janela anda sozinha com o calendário)
+    const ultimoFechado = new Date().getFullYear() - 1;
+    const anos5 = Object.keys(CVM_D.lucroAnual).filter(y => Number(y) <= ultimoFechado).sort().slice(-5);
+    const lucros5 = anos5.map(y => CVM_D.lucroAnual[y]).filter(v => v != null);
+    if (lucros5.length !== 5 || lucros5.some(v => v <= 0)) return { pass: false, cv: null };
+    const meanL = lucros5.reduce((acc, v) => acc + v, 0) / 5;
+    const varL = lucros5.reduce((acc, v) => acc + Math.pow(v - meanL, 2), 0) / 5;
+    const cv = (Math.sqrt(varL) / meanL) * 100;
+    return { pass: cv <= 15.0, cv };
+  }
+  window.fehmirChecarReguladaEstavel = fehmirChecarReguladaEstavel;
 
   // Preço-teto de ação: resultado do método recomendado pelo setor (§21.9)
   function tetoAcao(a, m) {
@@ -16431,8 +16928,30 @@ initCollapsibleBlocks();
       }
     }
 
-    const pay = Math.min(payEmp, S.payout);
-    const proj = lpa > 0 ? lpa * (S.haircut || 1) * (pay / 100) / (req / 100) : null;
+    // Recuperação (Spec 002 / US2)
+    const rec = fehmirChecarRecuperacao(a.t, S);
+
+    // Rodada 18 Parte A / Spec 002 — Payout próprio do ativo
+    const payInfo = fehmirCalcularPayoutProprio(a.t, HY, S, payEmp);
+    const payout_proprio = payInfo.payout_proprio;
+    const pay = payInfo.pay;
+    const payLabel = payInfo.payLabel;
+
+    // Spec 002 / US3 — Crescimento real limitado g
+    const gi = fehmirCrescimentoReal(a.t, S, pay, m, rec);
+    const g = gi.g;
+    let proj = null;
+    let projMotivo = "";
+    if (lpa > 0) {
+      if (req - g <= 2) {
+        proj = null;
+        projMotivo = "— taxa − g ≤ 2 p.p.: projetivo não calculado";
+      } else {
+        proj = lpa * (S.haircut || 1) * (pay / 100) * (1 + g / 100) / ((req - g) / 100);
+      }
+    }
+    const gTxt = gi.limitado ? ("g real " + fmtN(g, 1) + "% (limite)") : (g > 0 ? ("g real " + fmtN(g, 1) + "%") : ("g 0 (" + gi.motivoZero + ")"));
+
     const radar = typeof RADAR_DATA !== "undefined" ? RADAR_DATA : [];
     const r = radar.find(x => x.t === a.t);
     let hist = null, histSrc = "";
@@ -16448,10 +16967,29 @@ initCollapsibleBlocks();
 
     let teto = null;
     let src = "";
+    let baseTeto = "outro_metodo";
+    let motivoBase = em.metodo;
 
+    // Rodada 18 Parte B — Setores regulados de lucro estável: projetivo vira o teto
+    const regCheck = fehmirChecarReguladaEstavel(a.t);
+    const ehReguladaEstavel = regCheck.pass;
+    const cvLucroVal = regCheck.cv;
 
+    // 0. EMPRESA REGULADA DE LUCRO ESTÁVEL (Rodada 18 Parte B: distribuição, transmissão, saneamento com CV <= 15% e sem prejuízo)
+    if (ehReguladaEstavel && proj != null && proj > 0) {
+      teto = proj;
+      base_dpa = "projetivo_regulada";
+      baseTeto = "projetivo";
+      motivoBase = "regulada";
+      let aviso30 = "";
+      if (hist != null && hist > 0 && proj > 1.30 * hist) {
+        aviso30 = " · ⚠️ projetivo 30%+ acima do pago — confirmar";
+      }
+      src = "Projetivo " + fR(proj) + " (LPA " + fR(lpa) + " × " + payLabel + " × (1 + g) ÷ (taxa − g)) · " + gTxt +
+        (hist ? " · " + histSrc + " (conferência)" : "") + aviso30;
+    }
     // 1. MÉTODO GRAHAM (Industrial & Bens de capital; Construção & Incorporação; ou Payout < 30% / irregular)
-    if (em.metodo === "Graham") {
+    else if (em.metodo === "Graham") {
       if (lpa > 0 && vpa > 0) {
         teto = Math.sqrt(22.5 * lpa * vpa);
         src = "Graham √[22,5 × LPA " + fR(lpa) + " × VPA " + fR(vpa) + "] = " + fR(teto) + (hist ? " · Bazin 5A " + fR(hist) + " (conferência)" : "");
@@ -16578,12 +17116,37 @@ initCollapsibleBlocks();
       if (polDpa != null && polDpa > 0) {
         teto = polDpa / (req / 100);
         src = polSrc + " ÷ " + fmtN(req, 1) + "% = " + fR(teto);
-      } else {
-        const vals = [proj, hist].filter(v => v > 0);
+        baseTeto = "projetivo";
+        motivoBase = "qualidade";
+      } else if (S.ciclico || rec.emRecuperacao) {
+        const vals = [proj, hist].filter(v => v != null && v > 0);
         teto = vals.length ? Math.min(...vals) : null;
-        src = (proj ? "Projetivo " + fR(proj) + " (LPA×" + fmtN(pay, 0) + "%" + (S.haircut ? "×" + fmtN(S.haircut * 100, 0) + "%" : "") + "÷" + fmtN(req, 1) + "%)" : "") +
-          (paySrcAviso ? " [" + paySrcAviso + "]" : "") +
-          (proj && hist ? " · " : "") + histSrc + (proj && hist ? " → usa o menor" : "");
+        baseTeto = "menor";
+        motivoBase = S.ciclico ? "ciclica" : "recuperacao";
+        const motivoMenor = S.ciclico ? " (cíclica)" : (" (recuperação: " + rec.motivo + ")");
+        const projParte = (proj != null && proj > 0)
+          ? ("Projetivo " + fR(proj) + " (LPA " + fR(lpa) + " × " + payLabel + (S.haircut ? " × " + fmtN(S.haircut * 100, 0) + "%" : "") + " × (1 + g) ÷ (taxa − g)) · " + gTxt)
+          : (projMotivo ? ("Projetivo indisponível " + projMotivo) : "");
+        src = (projParte ? projParte + (paySrcAviso ? " [" + paySrcAviso + "]" : "") : "") +
+          (projParte && hist ? " · " : "") + (hist ? histSrc : "") + " → usa o menor" + motivoMenor;
+      } else {
+        if (proj != null && proj > 0) {
+          teto = proj;
+          baseTeto = "projetivo";
+          motivoBase = "qualidade";
+          let aviso30 = "";
+          if (hist != null && hist > 0 && proj > 1.30 * hist) {
+            aviso30 = " · ⚠️ projetivo 30%+ acima do pago — confirmar";
+          }
+          src = "Projetivo " + fR(proj) + " (LPA " + fR(lpa) + " × " + payLabel + (S.haircut ? " × " + fmtN(S.haircut * 100, 0) + "%" : "") + " × (1 + g) ÷ (taxa − g)) · " + gTxt +
+            (paySrcAviso ? " [" + paySrcAviso + "]" : "") +
+            (hist ? " · " + histSrc + " (conferência)" : "") + aviso30;
+        } else {
+          teto = hist;
+          baseTeto = "historico";
+          motivoBase = "qualidade";
+          src = (projMotivo ? "Projetivo indisponível " + projMotivo + " · " : "") + (hist ? histSrc : "Sem dados para teto");
+        }
       }
     }
 
@@ -16655,7 +17218,8 @@ initCollapsibleBlocks();
     // Banco de qualidade comprovada (decisão do Felipe, 23/10/2026): ROE >= 18% em cada um dos 5 anos
     // fechados (DFPs da CVM, PL médio) ⇒ teto = P/VP justo × VPA, com k nominal = taxa do setor + IPCA e
     // g = IPCA (crescimento real zero). O Bazin pelo DPA de 5 anos fica só como conferência.
-    let metodoOut = em.metodo, motivoOut = em.motivo;
+    let metodoOut = (ehReguladaEstavel && proj != null && proj > 0) ? "Bazin projetivo" : em.metodo;
+    let motivoOut = (ehReguladaEstavel && proj != null && proj > 0) ? "Empresa regulada de lucro estável: remuneração regulatória sobre a base de ativos, projetivo vira o teto." : em.motivo;
     const CV = window.FEHMIR_FUND_CVM && window.FEHMIR_FUND_CVM[a.t];
     const roesAno = (CV && CV.roeAnual) ? Object.keys(CV.roeAnual).sort().map(k => [k, CV.roeAnual[k]]) : [];
     if (S.nome === "Bancos" && !split && roesAno.length >= 5 && roesAno.every(x => x[1] >= 18) && CV.vpa > 0 && CV.roe > 0 && m && m.ipca12 != null) {
@@ -16668,6 +17232,13 @@ initCollapsibleBlocks();
       src = "Banco forte [ROE " + roesAno.map(x => x[0] + " " + fmtN(x[1], 1) + "%").join(" · ") + "] → P/VP justo = (ROE " + fmtN(CV.roe, 1) +
         "% − g " + fmtN(ipcaB, 1) + "%) ÷ (k " + fmtN(kNom, 1) + "% − g) = " + fmtN(pvpJusto, 2) + " × VPA " + fR(CV.vpa) + " = " + fR(teto) +
         (bazinConf ? " · conferência Bazin (DPA 5A " + fR(HY.dpa5) + " ÷ " + fmtN(req, 1) + "%) = " + fR(bazinConf) : "");
+      baseTeto = "outro_metodo";
+      motivoBase = "P/VP justo (banco forte)";
+    }
+
+    const pe = fehmirPremioEmpresa(a.t);
+    if (pe.pp > 0) {
+      src += " · +" + fmtN(pe.pp, 1) + " p.p. risco da empresa (" + pe.motivo + ")";
     }
 
     return {
@@ -16679,6 +17250,8 @@ initCollapsibleBlocks();
 
       lpa,
       pay,
+      payout_proprio,
+      cvLucro: cvLucroVal,
       taxa: req,
       taxaExplicada: em.taxaExplicada,
       metodo: metodoOut,
@@ -16689,7 +17262,14 @@ initCollapsibleBlocks();
       diverg_par,
       payoutDivergente,
       payoutUsado: pay,
-      payoutImplicito: payImplicitoVal
+      payoutImplicito: payImplicitoVal,
+
+      // Novos campos Spec 002
+      baseTeto,
+      motivoBase,
+      recuperacao: rec,
+      g,
+      premioEmpresa: pe.pp
     };
   }
   const isBaseSetor = s => setorDe({ setor: s }).base;
@@ -17421,7 +18001,12 @@ initCollapsibleBlocks();
         payoutImplicito: null,
         payoutDivergente: false,
         diverg: null,
-        base_dpa: "historico_5a"
+        base_dpa: "historico_5a",
+        baseTeto: "outro_metodo",
+        motivoBase: em.metodo,
+        recuperacao: { emRecuperacao: false, roeMin: 10, motivo: "" },
+        g: 0,
+        premioEmpresa: 0
       };
     }
     const tv = tetoAcao(a, m);
@@ -17438,14 +18023,21 @@ initCollapsibleBlocks();
       src: tv.src,
       req: tv.req,
       base_dpa: tv.base_dpa || "historico_5a",
+      payoutUsado: tv.payoutUsado,
+      payout_proprio: tv.payout_proprio,
+      cvLucro: tv.cvLucro,
       diverg: tv.diverg,
       diverg_par: tv.diverg_par,
       payoutDivergente: tv.payoutDivergente,
-      payoutUsado: tv.payoutUsado,
       payoutImplicito: tv.payoutImplicito,
       lpa: tv.lpa,
       pay: tv.pay,
-      S: tv.S
+      S: tv.S,
+      baseTeto: tv.baseTeto,
+      motivoBase: tv.motivoBase,
+      recuperacao: tv.recuperacao,
+      g: tv.g,
+      premioEmpresa: tv.premioEmpresa
     };
 
   };
@@ -19441,7 +20033,8 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
           payEmp = Math.min(payoutImplicito, 100);
         }
       }
-      const pay = Math.min(payEmp, S.payout);
+      const payInfo = (typeof fehmirCalcularPayoutProprio === "function") ? fehmirCalcularPayoutProprio(t, HY, S, payEmp) : null;
+      const pay = payInfo ? payInfo.pay : Math.min(payEmp, S.payout);
 
       // DPA0 = DPA projetado que tetoAcao usa (LPA × payout); sem LPA, dpa5 do robô
       let dpa0 = null;
@@ -19736,6 +20329,11 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
         </span>
       </div>` : '';
 
+    const holdingNotaHtml = (window.HOLDINGS && window.HOLDINGS.has(t)) ? `
+      <div class="an-holding-nota" style="margin:4px 0 8px;font-size:12px;color:var(--ink-2);background:var(--surface-2);padding:6px 12px;border-radius:8px;border-left:3px solid var(--accent);">
+        Holding: desconto sobre o valor das participações é informativo, não entra no teto
+      </div>` : '';
+
     // Mini-card de Retorno Esperado (Rodada 9 Parte B item 2)
     const mMacro = typeof loadMacro === 'function' ? loadMacro() : { ntnb: 6.5, ipca12: 4.6 };
     const retEsp = (typeof calcRetornoEsperado === 'function') ? calcRetornoEsperado(a, mMacro) : null;
@@ -19770,6 +20368,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
         <div><span>Margem mínima</span><b>${mMin}%</b></div>
       </div>
       ${seloMetodoHtml}
+      ${holdingNotaHtml}
       ${valExplicado}
       ${retEspHtml}
       ${calcSecHtml}

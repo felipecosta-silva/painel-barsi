@@ -54,3 +54,6 @@ botDCA/
 # Spec Kit (processo local dos agentes; specs/ vai junto)
 .specify/
 specs/
+
+# Estudos de vídeos de terceiros (transcrições/resumos do Adeus INSS etc.): só local
+estudos/

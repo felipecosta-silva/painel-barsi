@@ -120,22 +120,30 @@ def buscar_lucro(tabela_rows, dt_ref, dti, dtf):
 
 
 def roe_anual(cnpjs, ano_atual):
-    """ROE anual (lucro do ano ÷ PL médio dos controladores no ano) dos 5 anos fechados, pelas DFPs da CVM.
-    Devolve {cnpj: {"2021": 23.4, ...}}. Ano sem DFP ou sem dado fica de fora (nunca vira 0)."""
-    saida = {c: {} for c in cnpjs}
-    for ano in range(ano_atual - 5, ano_atual):
+    """ROE anual (lucro do ano ÷ PL médio dos controladores no ano) e Lucro Líquido anual (controladores) dos 5 anos fechados, pelas DFPs da CVM.
+    Devolve ({cnpj: {"2021": 23.4, ...}}, {cnpj: {"2020": 3601000000.0, ...}}).
+    O lucro vem de 6 DFPs (o payout próprio pareia o lucro de Y com o DPA pago em Y+1, ambos fechados);
+    o ROE fica nos 5 anos de sempre (régua dos bancos)."""
+    saida_roe = {c: {} for c in cnpjs}
+    saida_lucro = {c: {} for c in cnpjs}
+    for ano in range(ano_atual - 6, ano_atual):
         caminho = baixar_zip_se_necessario(
             f"https://dados.cvm.gov.br/dados/CIA_ABERTA/DOC/DFP/DADOS/dfp_cia_aberta_{ano}.zip", f"dfp_{ano}.zip")
         if not caminho:
             continue
         z = zipfile.ZipFile(caminho)
         for demo in ("con", "ind"):
-            dre = indexar_por_cnpj([r for r in ler_csv_zip(z, f"DRE_{demo}_{ano}") if r.get("CNPJ_CIA") in saida])
-            bpp = indexar_por_cnpj([r for r in ler_csv_zip(z, f"BPP_{demo}_{ano}") if r.get("CNPJ_CIA") in saida])
-            for cnpj in saida:
-                if str(ano) in saida[cnpj] or cnpj not in bpp:
-                    continue
+            dre = indexar_por_cnpj([r for r in ler_csv_zip(z, f"DRE_{demo}_{ano}") if r.get("CNPJ_CIA") in cnpjs])
+            bpp = indexar_por_cnpj([r for r in ler_csv_zip(z, f"BPP_{demo}_{ano}") if r.get("CNPJ_CIA") in cnpjs])
+            for cnpj in cnpjs:
                 dt = f"{ano}-12-31"
+                if str(ano) not in saida_lucro[cnpj] and cnpj in dre:
+                    lucro = buscar_lucro(dre.get(cnpj, []), dt, f"{ano}-01-01", dt)
+                    if lucro is not None:
+                        saida_lucro[cnpj][str(ano)] = lucro
+
+                if ano < ano_atual - 5 or str(ano) in saida_roe[cnpj] or cnpj not in bpp or cnpj not in dre:
+                    continue
                 # PL dos controladores no fim do ano (ÚLTIMO) e no fim do ano anterior (PENÚLTIMO): ROE sobre o PL médio
                 pls = {}
                 for r in bpp[cnpj]:
@@ -158,11 +166,11 @@ def roe_anual(cnpjs, ano_atual):
                 if pl_fim is None:
                     continue
                 pl_medio = (pl_fim + pl_ini) / 2 if pl_ini and pl_ini > 0 else pl_fim
-                lucro = buscar_lucro(dre.get(cnpj, []), dt, f"{ano}-01-01", dt)
+                lucro = saida_lucro[cnpj].get(str(ano))
                 if not lucro or pl_medio <= 0:
                     continue
-                saida[cnpj][str(ano)] = round(lucro / pl_medio * 100, 2)
-    return saida
+                saida_roe[cnpj][str(ano)] = round(lucro / pl_medio * 100, 2)
+    return saida_roe, saida_lucro
 
 
 def main():
@@ -417,11 +425,21 @@ def main():
             "fonte": f"ITR/DFP CVM ({ref_label})"
         }
 
-    # ROE anual dos 5 anos fechados (régua de bancos: qualidade comprovada = ROE >= 18% em 5 de 5 anos)
-    hist_roe = roe_anual({info["cnpj"] for info in mapa.values()}, ano_atual)
+    # ROE anual e Lucro anual dos 5 anos fechados
+    hist_roe, hist_lucro = roe_anual({info["cnpj"] for info in mapa.values()}, ano_atual)
     for ticker, info in mapa.items():
-        if ticker in dados and hist_roe.get(info["cnpj"]):
-            dados[ticker]["roeAnual"] = hist_roe[info["cnpj"]]
+        if ticker in dados:
+            cnpj = info["cnpj"]
+            if hist_roe.get(cnpj):
+                dados[ticker]["roeAnual"] = hist_roe[cnpj]
+            if hist_lucro.get(cnpj):
+                dados[ticker]["lucroAnual"] = hist_lucro[cnpj]
+                acoes = dados[ticker].get("acoes")
+                if acoes and acoes > 0:
+                    dados[ticker]["lpaAnual"] = {
+                        ano: round(lucro / acoes, 4)
+                        for ano, lucro in hist_lucro[cnpj].items()
+                    }
 
     meta = {
         "gerado": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),

@@ -13,6 +13,7 @@ desdobramento; conferir em fonte primária antes de decidir (política de dados 
 import json, re, sys, time, datetime, pathlib, urllib.request, urllib.error
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(RAIZ / "tools"))
 PAINEL = RAIZ / "painel-barsi.html"
 SAIDA = RAIZ / "dados" / "historico.js"
 INDICES = {"^BVSP": "^BVSP", "SMAL11": "SMAL11.SA", "IVVB11": "IVVB11.SA", "XFIX11": "XFIX11.SA"}
@@ -269,14 +270,27 @@ ALIASES_YAHOO = {
 
 
 def main():
-    tickers = sorted(set(tickers_do_painel()) | set(TICKERS_EXTRAS))
-    alvos = {t: t + ".SA" for t in tickers}
-    alvos.update(INDICES)
-    alvos.update(INTL_ATIVOS)
-    alvos.update(CAMBIO)
-    alvos.update(CRIPTO_ATIVOS)
-    print(f"Baixando {len(alvos)} ativos do Yahoo Finance…")
+    args = [a.upper() for a in sys.argv[1:] if not a.startswith("-")]
     dados, falhas, falhas_b3 = {}, [], []
+    meta = {}
+    if args:
+        if SAIDA.exists():
+            texto = SAIDA.read_text(encoding="utf-8")
+            pos_meta = texto.find("window.FEHMIR_HIST_META = ")
+            pos_hist = texto.find("window.FEHMIR_HIST = ")
+            if pos_meta != -1 and pos_hist != -1:
+                meta = json.loads(texto[pos_meta + len("window.FEHMIR_HIST_META = "):pos_hist].strip().rstrip(";"))
+                dados = json.loads(texto[pos_hist + len("window.FEHMIR_HIST = "):].strip().rstrip(";"))
+        alvos = {t: t + ".SA" for t in args}
+        print(f"Atualizando especificamente {len(alvos)} ativo(s): {', '.join(args)}...")
+    else:
+        tickers = sorted(set(tickers_do_painel()) | set(TICKERS_EXTRAS))
+        alvos = {t: t + ".SA" for t in tickers}
+        alvos.update(INDICES)
+        alvos.update(INTL_ATIVOS)
+        alvos.update(CAMBIO)
+        alvos.update(CRIPTO_ATIVOS)
+        print(f"Baixando {len(alvos)} ativos do Yahoo Finance…")
     for nome, simbolo in alvos.items():
         sym = ALIASES_YAHOO.get(nome, simbolo)
         js = baixar(sym)
@@ -301,8 +315,14 @@ def main():
             falhas.append(nome)
         time.sleep(0.4)  # educado com o servidor
     falhas.extend(falhas_b3)
-    meta = {"gerado": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), "fonte": "Yahoo Finance (gratuito, sem chave) + B3 Oficial",
-            "ativos": len(dados), "falhas": falhas}
+    agora = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    if args and meta:
+        # Modo parcial: os demais ativos não foram baixados, então "gerado" e as falhas deles ficam como estavam
+        falhas = [f for f in meta.get("falhas", []) if f not in args] + falhas
+        meta = {**meta, "ativos": len(dados), "falhas": falhas, "parcial": {"tickers": args, "em": agora}}
+    else:
+        meta = {"gerado": agora, "fonte": "Yahoo Finance (gratuito, sem chave) + B3 Oficial",
+                "ativos": len(dados), "falhas": falhas}
     SAIDA.parent.mkdir(exist_ok=True)
     conteudo = ("/* Gerado por tools/atualizar_historico.py — não editar à mão. */\n"
                 "window.FEHMIR_HIST_META = " + json.dumps(meta, ensure_ascii=False) + ";\n"
