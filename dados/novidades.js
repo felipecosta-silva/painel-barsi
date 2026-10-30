@@ -891,21 +891,32 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Proposta de Reorganização Societária envolvendo a SPE Tiêta",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1578872&numSequencia=1103578&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-10-20."
+        "A PetroReconcavo aprovou proposta de reorganização societária envolvendo sua controlada SPE Tiêta Ltda. para simplificar a estrutura e reduzir despesas administrativas.",
+        "Será realizada a cisão parcial da SPE Tiêta, transferindo todos os ativos operacionais de E&P (Campos Tiê e Tartaruga e blocos exploratórios REC-T-155, REC-T-129 e REC-T-142) para uma 'NewCo'.",
+        "Após a cisão e transferência dos ativos à NewCo, 100% das quotas da SPE Tiêta remanescente serão alienadas para a KEO Capital AB por R$ 2,6 milhões.",
+        "A NewCo será oportunamente incorporada pela PetroReconcavo, sujeita à aprovação em Assembleia Geral Extraordinária (AGE).",
+        "A transação está sujeita a aprovações regulatórias, incluindo a autorização da ANP para mudança de concessionária decorrente de cisão."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Início do processo de reestruturação com cisão de ativos de exploração e produção da SPE Tiêta para NewCo.",
+        "Alienação futura da SPE Tiêta (sem os ativos operacionais) para a KEO Capital AB por R$ 2.600.000,00.",
+        "Planejamento para incorporação direta da NewCo pela PetroReconcavo, eliminando camadas societárias intermediárias."
+      ],
+      "alertas": [
+        "Risco regulatório: a operação depende de autorização prévia da ANP referente à cessão/mudança de concessionária.",
+        "Risco de condições precedentes: a conclusão dos atos societários e da alienação depende do cumprimento de condições precedentes usuais e de aprovação em AGE."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "cvm_025780IPE071020260183698677-53",
