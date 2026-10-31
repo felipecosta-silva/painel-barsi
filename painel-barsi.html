@@ -4944,7 +4944,10 @@ function aplicarPrecosDoRobo() {
         if (precoOrig && cand.preco > 0) {
           const rz = precoOrig / cand.preco;
           if (rz > 1.6 || rz < 0.625) {
-            item.splitSuspeito = true;
+            const hS = window.FEHMIR_HIST && window.FEHMIR_HIST[t];
+            const ult = hS && Array.isArray(hS.c) ? hS.c.slice(-30).filter(v => v > 0) : [];
+            const negociou = ult.length && Math.max(...ult) >= precoOrig * 0.8 && Math.min(...ult) <= precoOrig * 1.25;
+            if (!negociou) item.splitSuspeito = true;
           }
         }
         const currTime = parseDataStr(item.atual);
@@ -18330,7 +18333,7 @@ initCollapsibleBlocks();
       } else {
         const vals = [proj, hist].filter(v => v > 0);
         teto = vals.length ? Math.min(...vals) : null;
-        src = "Graham indisponível (" + (!vpa ? "sem VPA/PVP" : "LPA negativo") + "): usando Bazin projetivo · " +
+        src = "Graham indisponível (" + (!vpa ? "sem VPA/PVP" : split ? "possível desdobramento/grupamento: preço do cadastro e do robô muito diferentes" : "LPA negativo") + "): usando Bazin projetivo · " +
           (proj ? "Proj " + fR(proj) : "") + (proj && hist ? " · " : "") + histSrc + " → usa o menor";
       }
     }
@@ -18568,6 +18571,23 @@ initCollapsibleBlocks();
         (bazinConf ? " · conferência Bazin (DPA 5A " + fR(HY.dpa5) + " ÷ " + fmtN(req, 1) + "%) = " + fR(bazinConf) : "");
       baseTeto = "outro_metodo";
       motivoBase = "P/VP justo (banco forte)";
+    }
+
+    // Incorporadora (31/10/2026): o lucro dos 12 meses ainda vem de obras antigas (POC), então o Graham sozinho infla o teto.
+    // Vale o menor entre Graham e P/VP justo = (ROE − g) ÷ (k − g) × VPA, com o ROE mais baixo entre o atual e a média dos
+    // anos fechados (cíclica), k nominal = taxa do setor + IPCA e g = IPCA (crescimento real zero) — como no banco forte.
+    if (S.id === "construcao" && em.metodo === "Graham" && teto > 0 && CV && CV.vpa > 0 && CV.roe > 0 && m && m.ipca12 != null) {
+      const ultAno = new Date().getFullYear() - 1;
+      const rf = roesAno.filter(x => Number(x[0]) <= ultAno).slice(-5).map(x => x[1]);
+      const roeBase = Math.min(CV.roe, rf.length ? rf.reduce((x, y) => x + y, 0) / rf.length : CV.roe);
+      const ipcaC = +m.ipca12, kNomC = req + ipcaC;
+      const pvpJ = Math.max(0, (roeBase - ipcaC) / (kNomC - ipcaC));
+      const tetoPVP = pvpJ * CV.vpa;
+      if (tetoPVP < teto) {
+        src += " · limitado pelo P/VP justo = (ROE " + fmtN(roeBase, 1) + "% − g " + fmtN(ipcaC, 1) + "%) ÷ (k " + fmtN(kNomC, 1) + "% − g) = " +
+          fmtN(pvpJ, 2) + " × VPA " + fR(CV.vpa) + " = " + fR(tetoPVP) + " (incorporadora: lucro de obras antigas infla o Graham)";
+        teto = tetoPVP;
+      }
     }
 
     const pe = fehmirPremioEmpresa(a.t);

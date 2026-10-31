@@ -36,5 +36,13 @@ window.FEHMIR_CONFIG_ASSIST = [
       { t: "LAVV3", cond: "abaixo", preco: 4.50, nota: "2ª parcela (~0,6× o patrimônio), mesmas condições" }
     ],
     nota: "Alertas pedidos no chat de 31/10/2026 (ITSA4 perto de R$ 12; LAVV3 pela análise completa)"
+  },
+  {
+    id: "2026-10-31-alertas-2",
+    data: "2026-10-31",
+    alertas: [
+      { t: "LAVV3", cond: "abaixo", preco: 6.84, nota: "Preço de compra da régua (teto R$ 9,12 pelo P/VP justo, margem 25%). Lote de 5 só depois do release do 3T26; R$ 5,40 e R$ 4,50 viram 2ª e 3ª parcelas" }
+    ],
+    nota: "Régua das incorporadoras revista em 31/10/2026: Graham limitado pelo P/VP justo pela rentabilidade"
   }
 ];

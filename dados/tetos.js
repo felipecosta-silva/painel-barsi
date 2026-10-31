@@ -1,7 +1,7 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-10-31 21:28",
- "ativos": 227,
+ "gerado": "2026-10-31 22:29",
+ "ativos": 226,
  "carteira": 23,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
 };
@@ -316,34 +316,34 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "DIRR3": {
-  "teto": 12.88,
-  "compra": 9.66,
+  "teto": 7.3,
+  "compra": 5.48,
   "margemMin": 25,
   "metodo": "Graham",
   "setor": "Construção & Incorporação",
-  "src": "Graham √[22,5 × LPA R$ 1,65 × VPA R$ 4,47] = R$ 12,88 · Bazin 5A R$ 5,86 (conferência)",
+  "src": "Graham √[22,5 × LPA R$ 1,65 × VPA R$ 4,47] = R$ 12,88 · Bazin 5A R$ 5,86 (conferência) · limitado pelo P/VP justo = (ROE 24,0% − g 4,6%) ÷ (k 16,5% − g) = 1,63 × VPA R$ 4,47 = R$ 7,30 (incorporadora: lucro de obras antigas infla o Graham)",
   "preco": 8.23,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
  },
  "LAVV3": {
-  "teto": 7.17,
-  "compra": 5.38,
+  "teto": 9.12,
+  "compra": 6.84,
   "margemMin": 25,
   "metodo": "Graham",
   "setor": "Construção & Incorporação",
-  "src": "Graham indisponível (LPA negativo): usando Bazin projetivo · DPA 4A R$ 1,00 (robô)÷11,9% = R$ 7,17 → usa o menor",
+  "src": "Graham √[22,5 × LPA R$ 1,85 × VPA R$ 7,42] = R$ 17,57 · Bazin 5A R$ 7,17 (conferência) · limitado pelo P/VP justo = (ROE 19,2% − g 4,6%) ÷ (k 16,5% − g) = 1,23 × VPA R$ 7,42 = R$ 9,12 (incorporadora: lucro de obras antigas infla o Graham)",
   "preco": 7.61,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
  },
  "CYRE3": {
-  "teto": 49.94,
-  "compra": 37.45,
+  "teto": 24.17,
+  "compra": 18.12,
   "margemMin": 25,
   "metodo": "Graham",
   "setor": "Construção & Incorporação",
-  "src": "Graham √[22,5 × LPA R$ 4,50 × VPA R$ 24,63] = R$ 49,94 · Bazin 5A R$ 9,85 (conferência) · ⚠️ Teto do método (R$ 49,94) bem acima do que o crescimento pessimista sustenta (R$ 11,13): confira se o lucro é recorrente",
+  "src": "Graham √[22,5 × LPA R$ 4,50 × VPA R$ 24,63] = R$ 49,94 · Bazin 5A R$ 9,85 (conferência) · ⚠️ Teto do método (R$ 49,94) bem acima do que o crescimento pessimista sustenta (R$ 11,13): confira se o lucro é recorrente · limitado pelo P/VP justo = (ROE 16,3% − g 4,6%) ÷ (k 16,5% − g) = 0,98 × VPA R$ 24,63 = R$ 24,17 (incorporadora: lucro de obras antigas infla o Graham)",
   "preco": 17.37,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
@@ -356,17 +356,6 @@ window.FEHMIR_TETOS = {
   "setor": "Construção & Incorporação",
   "src": "Graham √[22,5 × LPA R$ 3,57 × VPA R$ 5,37] = R$ 20,77 · Bazin 5A R$ 13,99 (conferência)",
   "preco": 26.16,
-  "data": "2026-10-29",
-  "base_dpa": "historico_5a"
- },
- "TEND3": {
-  "teto": 36.52,
-  "compra": 27.39,
-  "margemMin": 25,
-  "metodo": "Graham",
-  "setor": "Construção & Incorporação",
-  "src": "Graham √[22,5 × LPA R$ 4,72 × VPA R$ 12,56] = R$ 36,52 · Bazin 5A R$ 3,76 (conferência) · ⚠️ Teto do método (R$ 36,52) bem acima do que o crescimento pessimista sustenta (R$ 14,29): confira se o lucro é recorrente",
-  "preco": 20.34,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
  },
@@ -514,12 +503,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "VAMO3": {
-  "teto": 2.29,
-  "compra": 1.83,
+  "teto": 3.97,
+  "compra": 3.18,
   "margemMin": 20,
   "metodo": "Graham",
   "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (LPA negativo): usando Bazin projetivo · DPA 4A R$ 0,25 (robô)÷10,9% = R$ 2,29 → usa o menor",
+  "src": "Graham √[22,5 × LPA R$ 0,26 × VPA R$ 2,70] = R$ 3,97 · Bazin 5A R$ 2,29 (conferência)",
   "preco": 2.46,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
