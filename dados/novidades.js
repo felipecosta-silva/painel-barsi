@@ -159,6 +159,44 @@ window.FEHMIR_NOVIDADES = {
   ],
   "GARE11": [
     {
+      "id": "fnet_1366160",
+      "data": "2026-10-30",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1366160",
+      "resumo": [
+        "Aquisição do Complexo Logístico Nova Santa Rita (RS) por R$ 155,87 milhões, 100% locado para BRF e Reiter Log, elevando a exposição logística para cerca de 40%.",
+        "Distribuição mantida em R$ 0,083 por cota no mês de setembro, com guidance de rendimentos reiterado entre R$ 0,083 e R$ 0,090 por cota para os 12 meses de 2026.",
+        "Operação de venda de 10 imóveis ao FII Riza Master segue em andamento, com captação de R$ 428 milhões pelo fundo comprador concluída e primeira liquidação prevista para novembro.",
+        "Portfólio composto por 35 imóveis, mantendo 100% de adimplência, vacância física e financeira em 0% e 82% dos contratos em modelo atípico.",
+        "Colchão de disponibilidades de R$ 1,004 bilhão supera integralmente as obrigações financeiras consolidadas de R$ 847 milhões, resultando em alavancagem líquida de -6% sobre o ativo."
+      ],
+      "mudancas": [
+        "Aquisição do galpão logístico Nova Santa Rita concluída no início de outubro, com desembolso a ser feito em até 18 meses.",
+        "Redução da concentração de receita no Grupo Carrefour de 41% para 38%.",
+        "Atraso operacional no cronograma de liquidação da venda de 10 ativos ao FII Riza Master, agora postergada para novembro.",
+        "Aumento leve do resultado por cota de R$ 0,085 (agosto) para R$ 0,086 (setembro), frente ao dividendo distribuído de R$ 0,083.",
+        "Início de cobertura de research pela XP Investimentos com recomendação de compra e preço-alvo de R$ 9,33 por cota."
+      ],
+      "alertas": [
+        "Atrasos operacionais na conclusão e liquidação financeira da venda bilionária de 10 imóveis ao FII Riza Master.",
+        "Novo passivo a prazo assumido de R$ 155,87 milhões referente à aquisição do Complexo Nova Santa Rita a ser quitado em até 18 meses.",
+        "Concentração relevante de receita nos inquilinos Carrefour (38%), BAT (18%) e GPA (12%).",
+        "Presença de R$ 847 milhões em obrigações de amortização de CRIs até 2043 e obrigação descasada de R$ 18 milhões do ativo Carrefour Itapevi."
+      ],
+      "metricas": {
+        "inadimplencia": 0.0,
+        "ltv": -6.0,
+        "provento_por_cota": 0.083,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.086,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
+      },
+      "gravidade": "atencao",
+      "resumido_ia": true
+    },
+    {
       "id": "fnet_1339182",
       "data": "2026-10-02",
       "tipo": "Fato Relevante",
@@ -253,6 +291,66 @@ window.FEHMIR_NOVIDADES = {
     }
   ],
   "GGRC11": [
+    {
+      "id": "fnet_1366052",
+      "data": "2026-10-30",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1366052",
+      "resumo": [
+        "Distribuição mantida em R$ 0,10 por cota referente a setembro de 2026 (dividend yield anualizado de 13,35%).",
+        "Resultado contábil/caixa gerado no mês foi de R$ 0,096 por cota, complementado com R$ 0,004 por cota de caixa para manter a distribuição.",
+        "Avanço na reciclagem do portfólio de 10 imóveis avaliados em R$ 530 milhões, com expectativa de fechamento para outubro.",
+        "Definição da última parcela de complemento de preço da carteira RELG11 em R$ 6,67 milhões (a pagar em 4 parcelas corrigidas pelo CDI).",
+        "Atualização sobre a recuperação judicial do Grupo Casas Bahia no Triple A FII: pagamentos pós-pedido em dia e 58% da área já sublocada."
+      ],
+      "mudancas": [
+        "Redução do resultado gerado por cota de R$ 0,101 (agosto/26) para R$ 0,096 (setembro/26), demandando distribuição de caixa acumulado de R$ 0,004/cota.",
+        "Encerramento do mecanismo de ajuste de preço do portfólio RELG11 com apuração da 2ª janela (R$ 6,67 milhões a pagar).",
+        "Continuidade do programa de recompra com aquisição de 317.018 cotas a preço médio de R$ 9,03 no mês.",
+        "Aumento da base de cotistas em mais de 12 mil investidores, totalizando 423.361 cotistas."
+      ],
+      "alertas": [
+        "Resultado mensal gerado abaixo do patamar de distribuição (R$ 0,096 gerado vs. R$ 0,100 pago), consumindo reservas de caixa.",
+        "Risco de crédito decorrente da Recuperação Judicial do Grupo Casas Bahia (locatário indireto via Triple A FII, que representa menos de 5% das receitas do fundo).",
+        "Atenção regulatória após o Parecer Técnico nº 16/2026 da CVM sobre aquisições mediante compensação de créditos.",
+        "Concentração de vencimentos de contratos a curto prazo (14% da receita imobiliária com vencimento em 2026 e 10% em 2027)."
+      ],
+      "metricas": {
+        "inadimplencia": 0.0,
+        "ltv": 11.32,
+        "provento_por_cota": 0.1,
+        "reserva_por_cota": 0.004,
+        "resultado_por_cota": 0.096,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.37
+      },
+      "gravidade": "atencao",
+      "resumido_ia": true
+    },
+    {
+      "id": "fnet_1366307",
+      "data": "2026-10-30",
+      "tipo": "Fato Relevante",
+      "titulo": "Fato Relevante",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1366307",
+      "resumo": [
+        "Fato Relevante publicado em 2026-10-30."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
     {
       "id": "fnet_1355299",
       "data": "2026-10-20",
