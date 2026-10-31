@@ -25,7 +25,15 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
     var m = JSON.parse(localStorage.getItem("barsi-macro-v1") || "{}") || {};
     var mudou = false;
     itens.forEach(function (it) {
-      if (!it.id || feitos.indexOf(it.id) >= 0 || !(it.macro || it.caixaCfg)) return;
+      if (!it.id || feitos.indexOf(it.id) >= 0 || !(it.macro || it.caixaCfg || it.alertas)) return;
+      if (it.alertas) {
+        var al = JSON.parse(localStorage.getItem("barsi-alertas-v1") || "[]") || [];
+        it.alertas.forEach(function (x, i) {
+          if (al.some(function (y) { return y.t === x.t && y.cond === x.cond && Math.abs(y.preco - x.preco) < 0.005; })) return;
+          al.push({ id: it.id + "-" + i, t: x.t, cond: x.cond, preco: x.preco, criado: it.data, nota: x.nota || "" });
+        });
+        localStorage.setItem("barsi-alertas-v1", JSON.stringify(al));
+      }
       if (it.macro) Object.keys(it.macro).forEach(function (k) { m[k] = it.macro[k]; });
       if (it.caixaCfg) {
         var cc = JSON.parse(localStorage.getItem("barsi-caixa-cfg-v1") || "null") || { inicio: "2026-10-01", aporteMensal: 300 };
@@ -6185,7 +6193,7 @@ function renderMeusAtivos() {
         <div class="ma-seta">${aberto ? '▴' : '▾'}</div>
       </div>`;
     if (!aberto || !ls.length) return `<div class="ma-card">${head}</div>`;
-    const ths = ['Ativo', 'Quant.', 'Preço médio', 'Preço atual', 'Variação', 'Rentab.', 'Saldo', 'Proventos', ...(rendaVar ? ['P/L', 'P/VP', 'DY 12m', 'ROE'] : []), '% Carteira', '% Ideal', ...(rendaVar ? ['Veredito'] : [])];
+    const ths = ['Ativo', 'Quant.', 'Preço médio', 'Preço atual', 'Variação', 'Rentab.', 'Saldo', 'Proventos', ...(rendaVar ? ['P/L', 'P/VP', 'DY 12m', 'DY s/ PM', 'ROE'] : []), '% Carteira', '% Ideal', ...(rendaVar ? ['Veredito'] : [])];
     const trs = ls.map(x => `<tr class="clickable-row" onclick="openModal('${x.t}')">
         <td class="ticker"><b>${x.t}</b></td>
         <td class="tabular">${fmtQ(x.q)}</td>
@@ -6195,7 +6203,7 @@ function renderMeusAtivos() {
         <td class="tabular" style="color:${cor(x.rent)}">${pct(x.rent)}</td>
         <td class="tabular" style="font-weight:600">${fmtR(x.saldo)}</td>
         <td class="tabular" title="Recebidos desde 30/09 (robô: data ex × cotas; ou lançados)">${x.prov > 0 ? fmtR(x.prov) : '—'}</td>
-        ${rendaVar ? `<td class="tabular">${num(x.r.pl)}</td><td class="tabular">${num(x.r.pvp)}</td><td class="tabular">${x.r.dy != null ? num(x.r.dy) + '%' : '—'}</td><td class="tabular">${x.r.roe != null ? num(x.r.roe, 1) + '%' : '—'}</td>` : ''}
+        ${rendaVar ? `<td class="tabular">${num(x.r.pl)}</td><td class="tabular">${num(x.r.pvp)}</td><td class="tabular">${x.r.dy != null ? num(x.r.dy) + '%' : '—'}</td><td class="tabular" style="color:var(--muted)" title="Dividendo dos últimos 12 meses ÷ seu preço médio (yield on cost). Só informativo: o preço médio nunca decide compra ou venda.">${(() => { const h = (window.FEHMIR_HIST || {})[x.t]; return h && h.dpa12 > 0 && x.pm > 0 ? num(h.dpa12 / x.pm * 100) + '%' : '—'; })()}</td><td class="tabular">${x.r.roe != null ? num(x.r.roe, 1) + '%' : '—'}</td>` : ''}
         <td class="tabular">${patr > 0 ? (x.saldo / patr * 100).toFixed(2).replace('.', ',') + '%' : '—'}</td>
         <td class="tabular" style="color:var(--muted)">${x.ideal != null ? Number(x.ideal).toFixed(2).replace('.', ',') + '%' : 'sem meta'}</td>
         ${rendaVar ? `<td>${typeof vereditoPill === 'function' ? vereditoPill(Object.assign({}, x.r, { t: x.t, preco: x.preco })) : '—'}</td>` : ''}
@@ -11123,6 +11131,19 @@ function fehmirEhAjuste(t) {
   return !!(t && (t.ajuste || (/^\d{4}-\d{2}-\d{2}-/.test(t.id || '') && t.id.slice(0, 7) !== String(t.data).slice(0, 7))));
 }
 window.fehmirEhAjuste = fehmirEhAjuste;
+
+// Holding × controlada: razão de preços (ITSA4 ÷ ITUB4) hoje contra a média do histórico do robô.
+// Razão acima da média = desconto de holding menor que o normal (holding relativamente cara).
+function fehmirHoldingRelativo(t) {
+  const H = window.FEHMIR_HIST || {}, a = H[t], b = H.ITUB4;
+  if (!a || !b || !Array.isArray(a.d) || !Array.isArray(b.d)) return null;
+  const mb = new Map(b.d.map((d, i) => [d, b.c[i]]));
+  const r = a.d.map((d, i) => mb.get(d) > 0 && a.c[i] > 0 ? a.c[i] / mb.get(d) : null).filter(v => v != null);
+  if (r.length < 60) return null;
+  const media = r.reduce((x, y) => x + y, 0) / r.length, atual = r[r.length - 1];
+  return { atual, media, rel: (atual / media - 1) * 100, meses: Math.round(r.length / 21) };
+}
+window.fehmirHoldingRelativo = fehmirHoldingRelativo;
 
 function fehmirAportesMes(mes) {
   const k = mes || new Date().toISOString().slice(0, 7);
@@ -17546,7 +17567,7 @@ initCollapsibleBlocks();
       chave: "Cronograma de obra, vendas de unidades, fonte da distribuição", armadilha: "Dividendo que depende do futuro não é renda (MFII11)" },
     { id: "fof", margemMin: 15, nome: "FII · Fundo de fundos", papel: true, extra: 0.5, match: /\bfof\b|fundo de fundos|hedge fund/i,
       chave: "Desconto duplo, taxas em cascata, risco de crédito e ativos subjacentes", armadilha: "Taxa dupla de gestão; corte mínimo de 12% de retorno para valer a pena" },
-    { id: "fiagro", margemMin: 15, nome: "Fiagro · Crédito agro", papel: true, extra: 1.0, match: /fiagro|cr[eé]dito agro|cra/i,
+    { id: "fiagro", margemMin: 15, nome: "Fiagro · Crédito agro", papel: true, extra: 1.0, match: /fiagro|cr[eé]dito agro|\bcra\b/i,
       chave: "Devedores, garantias (terra, CPR), safra, indexador", armadilha: "Quebra de safra e recuperação judicial de produtor" },
     { id: "terras", margemMin: 15, nome: "FII · Terras agrícolas (arrendamento)", premio: 3.0, match: /terras|agr[ií]col/i,
       chave: "Contratos de arrendamento (prazo, indexador), qualidade do arrendatário, valorização da terra", armadilha: "Arrendatário único em crise de safra; laudo de terra otimista" },
@@ -18266,10 +18287,11 @@ initCollapsibleBlocks();
     else if (!split) { const d = a.dpa5a || a.dpa; if (d > 0) { hist = d * (S.ciclico ? (S.haircut || 1) : 1) / (req / 100); histSrc = "DPA/" + fmtN(req, 1) + "% " + fR(hist); } }
     // Transmissora: o lucro IFRS fica acima do regulatório (o que vira caixa), então o histórico é o dividendo PAGO
     // nos 3 últimos anos fechados (sem extras; ano zerado = lacuna do robô, fica de fora; mínimo 2 anos)
-    if (S.id === "transmissao" && HY && HY.dpaAno) {
+    // Banco: idem — a média de 5 anos carrega 2020–21, quando o Banco Central limitou o dividendo a 25% do lucro
+    if ((S.id === "transmissao" || S.id === "banco") && HY && HY.dpaAno) {
       const ultAno = new Date().getFullYear() - 1;
       const anos = Object.keys(HY.dpaAno).filter(y => Number(y) <= ultAno).sort().slice(-3)
-        .map(y => [y, Number(HY.dpaAno[y]) - Number((HY.dpaAnoExtra && HY.dpaAnoExtra[y]) || 0)]).filter(([, v]) => v > 0);
+        .map(y => [y, Number(HY.dpaAno[y]) - (S.id === "banco" ? 0 : Number((HY.dpaAnoExtra && HY.dpaAnoExtra[y]) || 0))]).filter(([, v]) => v > 0);
       if (anos.length >= 2) {
         const dpa3 = anos.reduce((acc, [, v]) => acc + v, 0) / anos.length;
         hist = dpa3 / (req / 100);
@@ -18503,7 +18525,7 @@ initCollapsibleBlocks();
         const dVal = Math.abs(proj / hist - 1) * 100;
         if (dVal > 35) {
           diverg = dVal;
-          diverg_par = "projetivo " + fR(proj) + " × histórico 5A " + fR(hist);
+          diverg_par = "projetivo " + fR(proj) + " × histórico " + ((histSrc.match(/(\d)A\b/) || [])[1] || "5") + "A " + fR(hist);
           src += " · ⚠️ Projetivo (" + fR(proj) + ") diverge " + fmtN(diverg, 0) + "% do histórico (" + fR(hist) + "): confira premissa de dividendos";
         }
       }
@@ -20969,7 +20991,7 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
               </div>
             </div>
             <div class="an-calc-row">
-              <span class="an-calc-label">Projeção Cresc. (%) <span class="an-info" tabindex="0" title="Quanto o lucro deve crescer no próximo ano. Padrão 0%: a régua não paga por crescimento que ainda não aconteceu.">ⓘ</span></span>
+              <span class="an-calc-label">Projeção Cresc. (%) <span class="an-info" tabindex="0" title="Quanto o lucro deve crescer no próximo ano. Padrão 0%: mostra o teto sem nenhum crescimento (visão conservadora). O teto oficial da régua usa o crescimento real limitado do setor na fórmula de Gordon, por isso pode ficar acima deste.">ⓘ</span></span>
               <div class="an-calc-input-wrap">
                 <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','proj-proj', -1)">−</button>
                 <input type="number" step="1" class="an-calc-input" id="calc-proj-proj-${t}" value="${estado.projetivo.proj}" oninput="fehmirAtualizarCalc('${t}')" style="width:50px">
@@ -21378,6 +21400,7 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
     const margem = teto ? (1 - preco / teto) * 100 : null;
     let ver, cor;
     if (!teto) { ver = "Sem teto de renda calculável"; cor = "var(--muted)"; }
+    else if (preco <= compra && av.diverg != null && av.diverg > 35) { ver = "Margem só no modelo otimista: conferir o teto antes de comprar"; cor = "var(--warning)"; }
     else if (preco <= compra) { ver = "Na zona de compra (com margem do setor)"; cor = "var(--good)"; }
     else if (preco <= teto) { ver = "Abaixo do teto, mas sem a margem mínima: observar"; cor = "var(--accent)"; }
     else if (preco <= tol) { ver = "Acima do teto, dentro da tolerância: manter, sem aportes"; cor = "var(--warning)"; }
@@ -21400,7 +21423,7 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
     const valExplicado = (av && (av.proj != null || av.hist != null)) ? `
       <div class="an-val-box" style="margin:12px 0 8px;padding:10px 14px;background:var(--surface-2);border-radius:8px;font-size:13px;border-left:3px solid var(--accent)">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-          <span><b>Valuation explicado:</b> ${av.proj != null ? `Projetivo <b>${R(av.proj)}</b> · ` : ""}${av.hist != null ? `Histórico <b>${R(av.hist)}</b>` : ""}${av.proj != null && av.hist != null ? ` → <b>vale o menor (${R(teto)})</b>` : ""}</span>
+          <span><b>Valuation explicado:</b> ${av.proj != null ? `Projetivo <b>${R(av.proj)}</b> · ` : ""}${av.hist != null ? `Histórico <b>${R(av.hist)}</b>` : ""}${av.proj != null && av.hist != null ? (Math.abs(teto - Math.min(av.proj, av.hist)) < 0.01 ? ` → <b>vale o menor (${R(teto)})</b>` : ` → <b>teto pelo projetivo (${R(teto)})</b>; o histórico só confere`) : ""}</span>
           ${av.req ? `<span style="font-family:var(--font-mono);color:var(--muted)">DY exigido: ${fmt(av.req, 1)}%</span>` : ""}
         </div>
         ${av.src ? `<div class="cb-sub" style="margin:4px 0 0;font-size:11.5px">${av.src}</div>` : ""}
@@ -21733,7 +21756,7 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
 
     const holdingNotaHtml = (window.HOLDINGS && window.HOLDINGS.has(t)) ? `
       <div class="an-holding-nota" style="margin:4px 0 8px;font-size:12px;color:var(--ink-2);background:var(--surface-2);padding:6px 12px;border-radius:8px;border-left:3px solid var(--accent);">
-        Holding: desconto sobre o valor das participações é informativo, não entra no teto
+        Holding: desconto sobre o valor das participações é informativo, não entra no teto.${(() => { const d = fehmirHoldingRelativo(t); return d ? ` ${t} ÷ ITUB4 hoje ${d.atual.toFixed(3).replace('.', ',')} contra média de ${d.media.toFixed(3).replace('.', ',')} em ${d.meses} meses: a holding está <b>${Math.abs(d.rel).toFixed(1).replace('.', ',')}% ${d.rel > 0 ? 'mais cara' : 'mais barata'}</b> que o normal em relação ao Itaú (${d.rel > 0 ? 'desconto de holding menor que a média' : 'desconto de holding maior que a média'}).` : ''; })()}
       </div>` : '';
 
     // Mini-card de Retorno Esperado (Rodada 9 Parte B item 2)

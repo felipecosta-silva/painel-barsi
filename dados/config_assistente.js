@@ -26,5 +26,15 @@ window.FEHMIR_CONFIG_ASSIST = [
     macro: { caixa: 749.89 },
     caixaCfg: { reserva: 500 },
     nota: "Nubank em 31/10/2026: R$ 4.759,79 investidos (ações e FIIs; a única corretora fora é a Nomad) e R$ 749,89 na caixinha = R$ 500,00 de reserva de tranquilidade + R$ 249,89 de oportunidade. As vendas de outubro foram reinvestidas em compras; a sobra é do aporte normal e passa para 11/2026 como oportunidade"
+  },
+  {
+    id: "2026-10-31-alertas-1",
+    data: "2026-10-31",
+    alertas: [
+      { t: "ITSA4", cond: "abaixo", preco: 12.00, nota: "Itaúsa a R$ 12: teto sem crescimento (~R$ 11,83) e ~17% abaixo do teto da régua (R$ 14,44)" },
+      { t: "LAVV3", cond: "abaixo", preco: 5.40, nota: "1ª parcela (lote de 5) só depois do release do 3T26: conferir lucro, dívida líquida, VSO e distratos" },
+      { t: "LAVV3", cond: "abaixo", preco: 4.50, nota: "2ª parcela (~0,6× o patrimônio), mesmas condições" }
+    ],
+    nota: "Alertas pedidos no chat de 31/10/2026 (ITSA4 perto de R$ 12; LAVV3 pela análise completa)"
   }
 ];

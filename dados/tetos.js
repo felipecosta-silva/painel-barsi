@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-10-31 17:15",
+ "gerado": "2026-10-31 21:28",
  "ativos": 227,
  "carteira": 23,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
@@ -68,29 +68,29 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 14,44 (LPA R$ 1,62 × payout realista 65% (3A, com extras recorrentes) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 0,74 (robô)÷8,9% = R$ 8,27 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 14,44) diverge 75% do histórico (R$ 8,27): confira premissa de dividendos",
+  "src": "Projetivo R$ 14,44 (LPA R$ 1,62 × payout realista 65% (3A, com extras recorrentes) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA pago 3A (2023, 2024, 2025) R$ 0,96 ÷ 8,9% = R$ 10,73 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar",
   "preco": 12.85,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
  },
  "SANB11": {
-  "teto": 22.03,
-  "compra": 19.83,
+  "teto": 19.3,
+  "compra": 17.37,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 22,03 (LPA R$ 3,70 × payout realista 53% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 2,05 (robô)÷8,9% = R$ 22,99 → usa o menor (recuperação: ROE 5A 11,6% < 15%)",
+  "src": "Projetivo R$ 22,03 (LPA R$ 3,70 × payout realista 53% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,72 ÷ 8,9% = R$ 19,30 → usa o menor (recuperação: ROE 5A 11,6% < 15%)",
   "preco": 24.64,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
  },
  "BBDC4": {
-  "teto": 9.38,
-  "compra": 8.44,
+  "teto": 11.88,
+  "compra": 10.69,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 17,02 (LPA R$ 2,47 × payout realista 82% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 1,12 (robô)÷11,9% = R$ 9,38 → usa o menor (recuperação: ROE 5A 12,4% < 15%) · ⚠️ Projetivo (R$ 17,02) diverge 81% do histórico (R$ 9,38): confira premissa de dividendos · +3,0 p.p. risco da empresa (banco em recuperação)",
+  "src": "Projetivo R$ 17,02 (LPA R$ 2,47 × payout realista 82% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,41 ÷ 11,9% = R$ 11,88 → usa o menor (recuperação: ROE 5A 12,4% < 15%) · ⚠️ Projetivo (R$ 17,02) diverge 43% do histórico (R$ 11,88): confira premissa de dividendos · +3,0 p.p. risco da empresa (banco em recuperação)",
   "preco": 14.16,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
@@ -101,7 +101,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 7,82 (LPA R$ 2,15 × payout realista 36% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 1,70 (robô)÷9,9% = R$ 17,14 → usa o menor (recuperação: ROE 5A 14,5% < 15%) · ⚠️ Projetivo (R$ 7,82) diverge 54% do histórico (R$ 17,14): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "src": "Projetivo R$ 7,82 (LPA R$ 2,15 × payout realista 36% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,75 ÷ 9,9% = R$ 17,73 → usa o menor (recuperação: ROE 5A 14,5% < 15%) · ⚠️ Projetivo (R$ 7,82) diverge 56% do histórico (R$ 17,73): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
   "preco": 16.46,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
@@ -910,12 +910,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "BPAC11": {
-  "teto": 9.18,
-  "compra": 8.26,
+  "teto": 11.36,
+  "compra": 10.23,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "DPA 5A R$ 0,82 (robô)÷8,9% = R$ 9,18",
+  "src": "DPA pago 3A (2023, 2024, 2025) R$ 1,01 ÷ 8,9% = R$ 11,36",
   "preco": 54.04,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
@@ -954,12 +954,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "BBDC3": {
-  "teto": 8.53,
-  "compra": 7.67,
+  "teto": 10.8,
+  "compra": 9.72,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "DPA 5A R$ 1,01 (robô)÷11,9% = R$ 8,53 → usa o menor (recuperação: ROE 5A 12,4% < 15%) · +3,0 p.p. risco da empresa (banco em recuperação)",
+  "src": "DPA pago 3A (2023, 2024, 2025) R$ 1,28 ÷ 11,9% = R$ 10,80 → usa o menor (recuperação: ROE 5A 12,4% < 15%) · +3,0 p.p. risco da empresa (banco em recuperação)",
   "preco": 12.95,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
@@ -1559,12 +1559,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "ABCB4": {
-  "teto": 18.61,
-  "compra": 16.75,
+  "teto": 22.8,
+  "compra": 20.52,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "DPA 5A R$ 1,66 (robô)÷8,9% = R$ 18,61 → usa o menor (recuperação: ROE 5A 14,7% < 15%)",
+  "src": "DPA pago 3A (2023, 2024, 2025) R$ 2,03 ÷ 8,9% = R$ 22,80 → usa o menor (recuperação: ROE 5A 14,7% < 15%)",
   "preco": 22.32,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
