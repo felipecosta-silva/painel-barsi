@@ -4,6 +4,7 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
 <script src="dados/historico.js"></script>
 <script src="dados/fundamentos_cvm.js"></script>
 <script src="dados/fundamentos.js"></script>
+<script src="dados/fii_pvp.js"></script>
 <script src="dados/politica_dividendos.js"></script>
 <script src="dados/mercado.js"></script>
 
@@ -4852,6 +4853,9 @@ function fehmirHidratarIndicadores(listas) {
       item.fonteFund = C.fonte || 'CVM';
       if (H && H.dpa12 > 0 && C.lpa > 0) item.payout12 = n2(H.dpa12 / C.lpa * 100);
     }
+    // FII: P/VP pelo VPA do robô (Fundamentus) e o preço do dia — mesma conta do sinal de venda de papel
+    const F = ehFii && window.FEHMIR_FII_PVP ? window.FEHMIR_FII_PVP[t] : null;
+    if (F && F.vpa > 0) { item.vpa = F.vpa; item.pvp = n2(item.preco / F.vpa); item.fonteFund = 'Fundamentus (VPA)'; }
   }));
 }
 window.fehmirHidratarIndicadores = fehmirHidratarIndicadores;
@@ -5649,7 +5653,7 @@ function renderFiis(){
     const rentPct = pm > 0 ? ((preco - pm) / pm) * 100 : 0;
     const pct = getPctCarteira(r.t, preco);
     return `<tr class="clickable-row" onclick="openModal('${r.t}')">
-    <td class="ticker" data-label="Ticker">${r.t}${renderNmIcon(r.t, 'fii', preco)}</td>
+    <td class="ticker" data-label="Ticker">${r.t}${renderNmIcon(r.t, 'fii', preco)}${(typeof fehmirIconeVendaPapel === 'function' ? fehmirIconeVendaPapel(r.t, preco) : '')}</td>
     <td class="fii-type" data-label="Tipo">${tipoLabel(r.tipo)}</td>
     <td class="tabular" data-label="Quant.">${q}</td>
     <td class="tabular" data-label="PM">${fmtR(pm)}</td>
@@ -6198,7 +6202,7 @@ function renderMeusAtivos() {
     if (!aberto || !ls.length) return `<div class="ma-card">${head}</div>`;
     const ths = ['Ativo', 'Quant.', 'Preço médio', 'Preço atual', 'Variação', 'Rentab.', 'Saldo', 'Proventos', ...(rendaVar ? ['P/L', 'P/VP', 'DY 12m', 'DY s/ PM', 'ROE'] : []), '% Carteira', '% Ideal', ...(rendaVar ? ['Veredito'] : [])];
     const trs = ls.map(x => `<tr class="clickable-row" onclick="openModal('${x.t}')">
-        <td class="ticker"><b>${x.t}</b></td>
+        <td class="ticker"><b>${x.t}</b>${(typeof fehmirIconeVendaPapel === 'function' ? fehmirIconeVendaPapel(x.t, x.preco) : '')}</td>
         <td class="tabular">${fmtQ(x.q)}</td>
         <td class="tabular">${fmtR(x.pm)}</td>
         <td class="tabular" style="font-weight:700">${fmtR(x.preco)}</td>
@@ -7905,6 +7909,7 @@ const RADAR_DATA = [
   { t:"RZAG11", nome:"Riza Agro Fiagro", setor:"Papel/Agro", macro:"fiis", score:84, tag:"AGRO", anosLucro:3, preco:9.02, dy:14.20, dyProj:13.8, roe:null, pl:"—", pvp:0.91, payout:95.0, dpa:1.28, pt6:21.33, pt8:16.00, pt10:12.80, bazin5a:9.80, targetAvg:10.10, targetMin:9.20, targetMax:10.80, targetUpside:12.0, gaugeAngle:126, gaugeVerdict:"Compra", votes:{cf:3, c:5, m:2, v:0, vf:0}, status:"good", note:"Fiagro estruturado pela Riza com foco em crédito para médios e grandes produtores rurais. Carteira CDI + spread com desconto de 9% sobre VP.", q1:"Rendimentos mensais de Certificados de Recebíveis do Agronegócio com alienação de terras.", q2:"Renda mensal distribuída com base nos financiamentos de safra e armazenagem." },
   { t:"RBRR11", nome:"RBR Rendimento High Grade", setor:"Crédito Imobiliário", macro:"fiis", score:78, tag:"PAPEL", anosLucro:6, preco:73.00, dy:14.60, dyProj:13.0, roe:null, pl:"—", pvp:0.73, payout:95.0, dpa:10.65, pt6:177.50, pt8:133.12, pt10:106.50, bazin5a:88.00, targetAvg:85.00, targetMin:76.00, targetMax:90.00, targetUpside:16.4, gaugeAngle:90, gaugeVerdict:"Manutenção", votes:{cf:1, c:4, m:7, v:1, vf:0}, status:"warning", note:"P/VP de 0,73 e yield de dois dígitos. Monitorar variação do IPCA e renegociação pontual de crédito.", q1:"Juros e correção monetária de Certificados de Recebíveis Imobiliários (CRIs) de empresas sólidas.", q2:"Fluxo financeiro contínuo com indexação à inflação e CDI." },
   { t:"RECR11", nome:"REC Renda Imob.", setor:"Crédito Imobiliário", macro:"fiis", score:68, tag:"PAPEL", anosLucro:6, preco:73.40, dy:14.77, dyProj:12.0, roe:null, pl:"—", pvp:0.85, payout:95.0, dpa:10.84, pt6:180.60, pt8:135.50, pt10:108.40, bazin5a:84.00, targetAvg:82.00, targetMin:74.00, targetMax:88.00, targetUpside:11.7, gaugeAngle:90, gaugeVerdict:"Manutenção", votes:{cf:0, c:3, m:7, v:2, vf:0}, status:"serious", note:"2ª maior posição da carteira (12,7%). Dividendo caiu 33% em setembro. Monitorar recuperação de recebíveis.", q1:"Pagamento de juros e amortizações de carteira diversificada de CRIs médios.", q2:"Recorrente, mas sensível a atrasos e repactuações de taxas com devedores." },
+  { t:"PORD11", nome:"Polo Crédito Imobiliário", setor:"Crédito Imobiliário", macro:"fiis", score:55, tag:"PAPEL", anosLucro:5, preco:8.25, dy:14.24, dyProj:13.0, roe:null, pl:"—", pvp:0.86, payout:95.0, dpa:1.175, pt6:null, pt8:null, pt10:null, bazin5a:null, targetAvg:null, targetMin:null, targetMax:null, targetUpside:null, gaugeAngle:90, gaugeVerdict:"Manutenção", votes:{cf:0, c:0, m:0, v:0, vf:0}, status:"neutral", note:"Multiestratégia de crédito (CRI), reclassificado como papel em 31/10/2026 (spec 003). Teto do Léo nos ep. #31/#32: R$ 9,33. Preço e dividendo do cadastro até o robô de histórico coletar.", q1:"CRIs pulverizados e multiestratégia de crédito imobiliário.", q2:"Rendimento mensal indexado a CDI/IPCA." },
   { t:"MXRF11", nome:"Maxi Renda", setor:"Crédito Imobiliário", macro:"fiis", score:60, tag:"PAPEL", anosLucro:8, preco:9.09, dy:13.15, dyProj:12.0, roe:null, pl:"—", pvp:0.98, payout:95.0, dpa:1.19, pt6:19.83, pt8:14.87, pt10:11.90, bazin5a:10.20, targetAvg:10.00, targetMin:9.20, targetMax:10.50, targetUpside:10.0, gaugeAngle:90, gaugeVerdict:"Manutenção", votes:{cf:0, c:2, m:8, v:2, vf:0}, status:"neutral", note:"Fundo mais popular da Bolsa. Sem desconto patrimonial (P/VP 0,98) nem gatilho forte de reprecificação.", q1:"CRIs imobiliários, cotas de outros FIIs e permutas financeiras residenciais.", q2:"Fluxo estável de juros mensais." },
   { t:"PCIP11", nome:"Plural Crédito", setor:"Crédito Imobiliário", macro:"fiis", score:45, tag:"PAPEL", anosLucro:3, preco:72.98, dy:14.47, dyProj:11.0, roe:null, pl:"—", pvp:0.80, payout:95.0, dpa:10.56, pt6:176.00, pt8:132.00, pt10:105.60, bazin5a:85.00, targetAvg:80.00, targetMin:70.00, targetMax:86.00, targetUpside:9.6, gaugeAngle:54, gaugeVerdict:"Venda", votes:{cf:0, c:0, m:4, v:6, vf:2}, status:"serious", note:"Proventos em queda consecutiva (1,07 -> 1,00 -> 0,80). Possível armadilha de valor até confirmar estabilização.", q1:"Juros de títulos de dívida imobiliária (CRIs).", q2:"Queda nos proventos indica inadimplência ou perda de yield da carteira." },
 
@@ -8602,7 +8607,7 @@ function renderCardsView(list) {
             <span class="rank-num">#${rank}</span>
             <span>${r.setor}</span>
           </div>
-          <h3 class="rc-ticker">${r.t}</h3>
+          <h3 class="rc-ticker">${r.t}${r.macro === 'fiis' && typeof fehmirIconeVendaPapel === 'function' ? fehmirIconeVendaPapel(r.t, r.preco) : ''}</h3>
           <div class="rc-meta-line">
             <span>${r.nome}</span>
             <span class="rc-tag">${r.tag}</span>
@@ -11147,6 +11152,52 @@ function fehmirHoldingRelativo(t) {
   return { atual, media, rel: (atual / media - 1) * 100, meses: Math.round(r.length / 21) };
 }
 window.fehmirHoldingRelativo = fehmirHoldingRelativo;
+
+/* ---------- Spec 003 · sinal de possível venda em FII de papel (CRI e fiagro de crédito) ----------
+   Regra do Léo: P/VP > 1,00 (VPA do robô Fundamentus, P/VP recalculado com o preço do dia).
+   Nossa régua: preço acima do teto oficial. Só informativo: não muda veredito, margem nem rebalanceamento. */
+function fehmirSinalVendaPapel(t, preco) {
+  if (!t || typeof window.fiiSubDe !== 'function') return null;
+  const cad = (typeof FIIS !== 'undefined' ? FIIS.find(x => x.t === t) : null) || (typeof RADAR_DATA !== 'undefined' ? RADAR_DATA.find(x => x.t === t) : null) || { t };
+  const sub = window.fiiSubDe(cad);
+  if (!sub || !['papel', 'fiagro'].includes(sub.id)) return null;
+  const p = preco > 0 ? preco : cad.preco;
+  if (!(p > 0)) return null;
+  const P = (window.FEHMIR_FII_PVP || {})[t];
+  const pvp = P && P.vpa > 0 ? p / P.vpa : null;
+  const tv = typeof window.tetoOficial === 'function' ? window.tetoOficial(Object.assign({}, cad, { preco: p })) : null;
+  const teto = tv && tv.teto > 0 ? tv.teto : null;
+  const leo = pvp != null && pvp > 1.00 + 1e-9, nossa = teto != null && p > teto;
+  if (!leo && !nossa) return null;
+  const f2 = v => v.toFixed(2).replace('.', ',');
+  const linhas = [];
+  if (leo) linhas.push(`Possível venda (regra do Léo): P/VP ${f2(pvp)} acima de 1 — fundo de papel acima do valor patrimonial.`);
+  if (nossa) linhas.push(`Possível venda (nossa régua): preço R$ ${f2(p)} acima do teto R$ ${f2(teto)}.`);
+  linhas.push(`Preço R$ ${f2(p)} · teto ${teto ? 'R$ ' + f2(teto) : 'sem teto'} · P/VP ${pvp != null ? f2(pvp) : 'sem dado'}.`);
+  linhas.push('Sinal informativo — a decisão de vender é sua.');
+  return { t, nivel: leo && nossa ? 2 : 1, leo, nossa, pvp, teto, preco: p, texto: linhas.join('\n') };
+}
+window.fehmirSinalVendaPapel = fehmirSinalVendaPapel;
+function fehmirIconeVendaPapel(t, preco) {
+  const s = fehmirSinalVendaPapel(t, preco);
+  if (!s) return '';
+  const tip = s.texto.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+  return ` <span class="fii-venda fii-venda-${s.nivel}" tabindex="0" role="note" title="${tip}" aria-label="${tip}" data-tip="${tip}" onclick="event.stopPropagation(); fehmirMostrarDica(this)" onkeydown="if(event.key==='Enter'){event.stopPropagation(); fehmirMostrarDica(this)}">${s.nivel === 2 ? '▲▲ venda? ×2' : '▲ venda?'}</span>`;
+}
+window.fehmirIconeVendaPapel = fehmirIconeVendaPapel;
+// Balão flutuante (toque no celular / clique): fica por cima de tabelas com rolagem, fecha no próximo toque
+function fehmirMostrarDica(el) {
+  let d = document.getElementById('fehmir-dica');
+  if (d && d._de === el) { d.remove(); return; }
+  if (d) d.remove();
+  d = document.createElement('div'); d.id = 'fehmir-dica'; d.className = 'fehmir-dica'; d.textContent = el.getAttribute('data-tip'); d._de = el;
+  document.body.appendChild(d);
+  const r = el.getBoundingClientRect(), w = d.offsetWidth;
+  d.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, r.left)) + 'px';
+  d.style.top = (r.bottom + 6) + 'px';
+  setTimeout(() => document.addEventListener('click', function fechar() { d.remove(); document.removeEventListener('click', fechar); }), 0);
+}
+window.fehmirMostrarDica = fehmirMostrarDica;
 
 function fehmirAportesMes(mes) {
   const k = mes || new Date().toISOString().slice(0, 7);
@@ -17578,13 +17629,13 @@ initCollapsibleBlocks();
       chave: "Contratos de arrendamento (prazo, indexador), qualidade do arrendatário, valorização da terra", armadilha: "Arrendatário único em crise de safra; laudo de terra otimista" },
     { id: "papel", margemMin: 10, nome: "FII Papel · CRI", papel: true, extra: 0, match: /papel|cr[eé]dito|\bcri|receb/i,
       chave: "Indexador (IPCA × CDI), spread médio, LTV, High Grade × High Yield, concentração, PDD, reserva", armadilha: "DY alto = crédito pior; inadimplência marcada com atraso" },
-    { id: "shopping", margemMin: 10, nome: "FII Tijolo · Shoppings", premio: 2.0, match: /shopping|malls/i,
+    { id: "shopping", margemMin: 5, nome: "FII Tijolo · Shoppings", premio: 2.8, match: /shopping|malls/i,
       chave: "Vendas/m², NOI/m², ocupação, inadimplência, vendas mesmas lojas", armadilha: "DY inflado por venda de participação (PMLL11)" },
-    { id: "lajes", margemMin: 15, nome: "FII Tijolo · Lajes corporativas", premio: 3.0, match: /laje|corporat|escrit/i,
+    { id: "lajes", margemMin: 15, nome: "FII Tijolo · Lajes corporativas", premio: 3.8, match: /laje|corporat|escrit/i,
       chave: "Vacância por imóvel, região (Faria Lima/Paulista), aluguel/m² vs. mercado", armadilha: "Vacância estrutural fora das regiões nobres" },
-    { id: "logistica", margemMin: 10, nome: "FII Tijolo · Logística/Renda urbana", premio: 2.0, match: /log[ií]st|renda urbana|galp|industrial/i,
+    { id: "logistica", margemMin: 5, nome: "FII Tijolo · Logística/Renda urbana", premio: 2.8, match: /log[ií]st|renda urbana|galp|industrial/i,
       chave: "Vacância física e financeira, WAULT, contratos atípicos, raio de 30 km das capitais", armadilha: "Inquilino concentrado; contrato típico vencendo" },
-    { id: "hibrido", margemMin: 10, nome: "FII Tijolo · Híbrido", premio: 2.5, match: /misto|h[ií]brid|tijolo/i,
+    { id: "hibrido", margemMin: 10, nome: "FII Tijolo · Híbrido", premio: 3.3, match: /misto|h[ií]brid|tijolo/i,
       chave: "Diversificação de inquilinos e de tipos de imóvel, vacância", armadilha: "Gestão sem foco; difícil de comparar com pares" }
   ];
   const FII_SUB_TICKER = {
@@ -17604,7 +17655,7 @@ initCollapsibleBlocks();
     RECR11: "papel", MXRF11: "papel", KNIP11: "papel", RBRR11: "papel", PCIP11: "papel", KNCR11: "papel",
     CPTS11: "papel", KNSC11: "papel", VGIR11: "papel", BTCI11: "papel", MCCI11: "papel", KNHY11: "papel",
     RBRY11: "papel", IRIM11: "papel", PSEC11: "papel", VGII11: "papel", VCJR11: "papel", VRTA11: "papel",
-    HABT11: "papel", VGIP11: "papel", XPCI11: "papel", RPRI11: "papel", HGCR11: "papel", RZAK11: "papel",
+    HABT11: "papel", VGIP11: "papel", PORD11: "papel", XPCI11: "papel", RPRI11: "papel", HGCR11: "papel", RZAK11: "papel",
     AFHI11: "papel", BISE11: "papel", KDIF11: "papel", JURO11: "papel", JMBI11: "papel", AZIN11: "papel",
     // Terras / Agrícola
     RZTR11: "terras", RZLC11: "terras",
@@ -18652,7 +18703,7 @@ initCollapsibleBlocks();
       const tOf = typeof window.tetoOficial === "function" ? window.tetoOficial(f) : null;
       const teto = (tOf && tOf.teto) || (f.rend && req ? (f.rend * 12) / (req / 100) : null);
       rows.push({ t: f.t, nome: sub.nome, margemMin: sub.margemMin, quarentena: !!f.quarentena, cls: "fii", classe: "fii", tipo: f.tipo, q, preco: f.preco, pm: f.pm, teto,
-        src: req ? "Renda×12 ÷ " + fmtN(req, 1) + "% (" + sub.nome.replace(/^FII /, "") + ")" : "Sem teto de renda", ideal: f.ideal !== undefined ? f.ideal : null, range: f.range, dy: f.dy,
+        src: (tOf && tOf.src) ? tOf.src + " (" + sub.nome.replace(/^FII /, "") + ")" : (req ? "Renda×12 ÷ " + fmtN(req, 1) + "% (" + sub.nome.replace(/^FII /, "") + ")" : "Sem teto de renda"), ideal: f.ideal !== undefined ? f.ideal : null, range: f.range, dy: f.dy,
         risco: f.tipo === "papel" && f.dy > 16 ? "médio" : "baixo", trap: f.status === "critical", divHist: f.divHist, saldo: q * f.preco });
     });
     let extras = 0;
@@ -18774,7 +18825,8 @@ initCollapsibleBlocks();
       let teto, src, mMin;
       if (x.macro === "fiis") {
         const sub = fiiSubDe(x), req = fiiReq(sub, x.dy || 0, m);
-        teto = x.dpa && req ? x.dpa / (req / 100) : null; src = sub.nome.replace(/^FII /, "") + " · renda ÷ " + fmtN(req || 0, 1) + "%"; mMin = sub.margemMin;
+        const tOfR = typeof window.tetoOficial === "function" ? window.tetoOficial(x) : null;
+        teto = tOfR && tOfR.teto ? tOfR.teto : (x.dpa && req ? x.dpa / (req / 100) : null); src = sub.nome.replace(/^FII /, "") + " · renda ÷ " + fmtN(req || 0, 1) + "%"; mMin = sub.margemMin;
       } else { const tv = tetoAcao(x, m); if (tv.diverg != null && tv.diverg > 35) return; teto = tv.teto; src = tv.S.nome + " · " + tv.src; mMin = tv.S.margemMin; }
       if (!teto) return;
       const margem = (1 - x.preco / teto) * 100;
@@ -19346,11 +19398,15 @@ initCollapsibleBlocks();
       const sub = fiiSubDe(a);
       const em = escolherMetodo(a, m);
       const req = em.taxa;
-      const renda = a.rend ? a.rend * 12 : a.dpa;
-      let teto = renda && req ? renda / (req / 100) : null;
-      let srcFii = "Renda anual ÷ " + (req ? fmtN(req, 1) + "%" : "—");
-      // Mesma trava de sanidade das ações: teto acima de 3× o preço = provento inflado (amortização etc.).
+      // Dividendo de 12 meses pago segundo o robô (spec 003, FR-013); sem robô, o cadastro — com aviso
       const hF = typeof fehmirObterHist === "function" ? fehmirObterHist(a.t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[a.t]);
+      const doRobo = hF && hF.dpa12 > 0;
+      const renda = doRobo ? hF.dpa12 : (a.rend ? a.rend * 12 : a.dpa);
+      let teto = renda && req ? renda / (req / 100) : null;
+      let srcFii = renda && req
+        ? "Dividendo 12m " + fR(renda) + (doRobo ? " (robô)" : " (dividendo do cadastro, não do robô — conferir)") + " ÷ " + fmtN(req, 1) + "% = " + fR(teto)
+        : "Renda anual ÷ " + (req ? fmtN(req, 1) + "%" : "—");
+      // Mesma trava de sanidade das ações: teto acima de 3× o preço = provento inflado (amortização etc.).
       const pF = hF && hF.c && hF.c.length ? hF.c[hF.c.length - 1] : a.preco;
       if (teto > 0 && pF > 0 && teto > 3 * pF) {
         srcFii = "⚠️ Dado suspeito: o teto calculado (" + fR(teto) + ") é " + fmtN(teto / pF, 1) + "× o preço — rendimento provavelmente inclui amortização. " + srcFii;
@@ -22080,7 +22136,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
 
   function linha(r) {
     const fx = r.x.fg >= 80 ? "var(--critical)" : r.x.fg >= 60 ? "var(--warning)" : r.x.fg >= 40 ? "var(--muted)" : "var(--accent)";
-    return `<tr><td data-l="Ativo"><span class="tk" onclick="typeof searchTickerGlobal==='function'&&searchTickerGlobal('${r.x.t}')">${r.x.t}</span>${naCarteira(r.x.t) ? ' <span class="cb-pill" style="padding:0 6px;font-size:10px">carteira</span>' : ""} <span class="fg-muted">${r.x.n}</span></td>
+    return `<tr><td data-l="Ativo"><span class="tk" onclick="typeof searchTickerGlobal==='function'&&searchTickerGlobal('${r.x.t}')">${r.x.t}</span>${r.x.tp === "fii" && typeof fehmirIconeVendaPapel === "function" ? fehmirIconeVendaPapel(r.x.t, r.x.p) : ""}${naCarteira(r.x.t) ? ' <span class="cb-pill" style="padding:0 6px;font-size:10px">carteira</span>' : ""} <span class="fg-muted">${r.x.n}</span></td>
       <td data-l="Régua">${r.av.metodo.replace(/^FII · |^FII /, "")}</td><td data-l="Preço" class="m">${R(r.x.p)}</td>
       <td data-l="DY 12m" class="m">${fmt(r.dy12)}%</td><td data-l="DY médio 5A" class="m">${fmt(r.dy5)}%</td>
       <td data-l="Teto" class="m">${R(r.av.teto)}</td><td data-l="Margem" class="m" style="font-weight:700;color:${r.margem >= (r.av.margemMin || 10) ? "var(--good)" : r.margem >= 0 ? "var(--accent)" : "var(--critical)"}">${fmt(r.margem)}%</td>
@@ -22124,7 +22180,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
     box.innerHTML = `<h3>Cíclicas na baixa & recompra</h3>
       <p class="cb-sub"><b>Filtro de qualidade:</b> ativo cujo dividendo parou ou caiu forte, com dado suspeito ou yield extremo, fica <b>fora</b> (yield do retrovisor), mesmo que o preço pareça barato. A regra: cíclica só vale o risco quando <b>o dividendo médio de 5 anos (com corte de ciclo) paga o DY exigido do setor</b> e o preço está <b>na baixa</b> (Medo × Ganância abaixo de 45). Assim o dividendo paga a espera e a alta seguinte é lucro (exemplos: Vale a R$ 45, Petrobras abaixo de R$ 30). Inclui ${VENDIDOS.join(" e ")}, vendidas na alta de outubro, para eventual recompra na baixa. Ordem: as mais próximas do preço de compra.</p>
       <div style="overflow-x:auto"><table class="cb-opp"><thead><tr><th>Ativo</th><th>Preço</th><th>Preço de compra</th><th>Distância</th><th>DY médio 5A</th><th>Medo×G</th><th>Status</th></tr></thead><tbody>
-      ${lst.map(r => `<tr><td data-l="Ativo"><span class="tk" onclick="typeof searchTickerGlobal==='function'&&searchTickerGlobal('${r.x.t}')">${r.x.t}</span>${VENDIDOS.includes(r.x.t) ? ' <span class="cb-pill" style="padding:0 6px;font-size:10px">vendida</span>' : ""} <span class="fg-muted">${r.av.metodo.split(" (")[0]}</span></td>
+      ${lst.map(r => `<tr><td data-l="Ativo"><span class="tk" onclick="typeof searchTickerGlobal==='function'&&searchTickerGlobal('${r.x.t}')">${r.x.t}</span>${r.x.tp === "fii" && typeof fehmirIconeVendaPapel === "function" ? fehmirIconeVendaPapel(r.x.t, r.x.p) : ""}${VENDIDOS.includes(r.x.t) ? ' <span class="cb-pill" style="padding:0 6px;font-size:10px">vendida</span>' : ""} <span class="fg-muted">${r.av.metodo.split(" (")[0]}</span></td>
         <td data-l="Preço" class="m">${R(r.x.p)}</td><td data-l="Preço de compra" class="m">${R(r.compra)}</td>
         <td data-l="Distância" class="m">${r.st[2] > 0 ? "+" : ""}${fmt(r.st[2], 0)}%</td><td data-l="DY médio 5A" class="m">${fmt(r.dy5)}%</td>
         <td data-l="Medo×G" class="m">${Math.round(r.x.fg)}</td><td data-l="Status" style="font-weight:700;color:${r.st[1]}">${r.st[0]}</td></tr>`).join("")}
@@ -23451,6 +23507,15 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   .pev-table td:first-child{grid-column:1 / -1; font-size:14.5px}
   .pev-table td:first-child::before{content:none}
 }
+
+/* Spec 003: sinal de possível venda (FII de papel). Laranja = uma regra; vermelho-escuro com ×2 = as duas */
+.fii-venda{display:inline-flex; align-items:center; gap:3px; margin-left:6px; padding:1px 7px; border-radius:999px; font:600 10.5px/1.6 var(--font-sans); letter-spacing:0; vertical-align:middle; cursor:help; position:relative; white-space:nowrap}
+.fii-venda-1{color:#C2410C; background:rgba(234,88,12,.12); border:1px solid rgba(234,88,12,.45)}
+.fii-venda-2{color:#fff; background:#991B1B; border:1px solid #7F1D1D}
+:root[data-theme="dark"] .fii-venda-1{color:#FDBA74}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .fii-venda-1{color:#FDBA74} }
+.fehmir-dica{position:fixed; z-index:9999; max-width:300px; white-space:pre-line; background:var(--surface); color:var(--ink-2); border:1px solid var(--rule-strong); border-radius:10px; padding:9px 11px; font:500 12.5px/1.45 var(--font-sans); box-shadow:0 10px 28px rgba(0,0,0,.3)}
+.rc-ticker .fii-venda{font-size:11px}
 </style>
 <script>
 /* Resumo: patrimônio → evolução/alocação → Meus Ativos → alertas → saúde (recolhida) → eventos (recolhidos).

@@ -26,6 +26,9 @@ jobs:
         run: python tools/fundamentos_cvm.py
       - name: Executar robo de fundamentos Brapi
         run: python tools/fundamentos.py
+      - name: Executar robo de P/VP dos FIIs (Fundamentus)
+        continue-on-error: true
+        run: python tools/fii_pvp.py
       - name: Auditoria semanal de proventos (Yahoo x B3)
         continue-on-error: true
         run: python tools/auditar_proventos.py
@@ -33,6 +36,6 @@ jobs:
         run: |
           git config user.name "fehmir-robo"
           git config user.email "fehmir-robo@users.noreply.github.com"
-          git add dados/fundamentos.js dados/fundamentos_cvm.js
+          git add dados/fundamentos.js dados/fundamentos_cvm.js dados/fii_pvp.js
           git diff --cached --quiet || git commit -m "dados: fundamentos semanais $(date +%Y-%m-%d)"
           git pull --rebase origin main && git push
