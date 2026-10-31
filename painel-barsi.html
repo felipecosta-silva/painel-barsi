@@ -11114,7 +11114,9 @@ function fehmirAportesMes(mes) {
   const k = mes || new Date().toISOString().slice(0, 7);
   const ext = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
   let compras = 0, vendas = 0; const porTicker = {};
-  ext.filter(t => t && String(t.data).startsWith(k) && /^(Compra|Venda)$/.test(t.tipo) && String(t.cat || '').toUpperCase() !== 'CAIXA').forEach(t => {
+  // Lançamento de ajuste (o id traz a data real, ex.: a CPLE3 vendida em 11/2025 e lançada em 10/2026 só para zerar a carga) não é aporte do mês
+  const ajuste = t => t.ajuste || (/^\d{4}-\d{2}-\d{2}-/.test(t.id || '') && t.id.slice(0, 7) !== String(t.data).slice(0, 7));
+  ext.filter(t => t && String(t.data).startsWith(k) && /^(Compra|Venda)$/.test(t.tipo) && String(t.cat || '').toUpperCase() !== 'CAIXA' && !ajuste(t)).forEach(t => {
     const v = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || 0);
     if (t.tipo === 'Compra') compras += v; else vendas += v;
     porTicker[t.ticker] = (porTicker[t.ticker] || 0) + (t.tipo === 'Compra' ? v : -v);

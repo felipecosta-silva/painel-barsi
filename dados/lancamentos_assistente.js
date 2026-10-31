@@ -121,6 +121,7 @@ window.FEHMIR_LANC_ASSIST = [
   },
   {
     id: "2025-11-12-CPLE3-V-1",
+    ajuste: true,
     data: "2026-10-01",
     tipo: "Venda",
     ticker: "CPLE3",
