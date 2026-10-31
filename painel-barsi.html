@@ -14,6 +14,7 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
 <script src="dados/lancamentos_assistente.js"></script>
 <script src="dados/config_assistente.js"></script>
 <script src="dados/tetos.js"></script>
+<script src="dados/historico_investidor10.js"></script>
 <script src="dados/alertas.js"></script>
 <script>
 /* Aplica uma vez cada configuração contada ao assistente (dados/config_assistente.js) no formulário macro. */
@@ -338,6 +339,28 @@ header.top .sub{color:var(--ink-2); font-size:13px; margin-top:2px; line-height:
 .alert b{color:var(--ink)}
 .alert .icon{font-size:16px; line-height:1.4}
 
+#panel-meus-ativos .ma-card{border:1px solid var(--rule); border-radius:14px; background:var(--surface); margin-bottom:12px; overflow:hidden}
+#panel-meus-ativos .ma-head{display:flex; align-items:center; gap:18px; padding:14px 18px; cursor:pointer; flex-wrap:wrap}
+#panel-meus-ativos .ma-head:hover{background:var(--surface-2)}
+#panel-meus-ativos .ma-nome{flex:1 1 200px; font-size:17px; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:10px}
+#panel-meus-ativos .ma-ic{display:inline-flex; width:32px; height:32px; align-items:center; justify-content:center; border:1px solid var(--rule-strong); border-radius:10px; font-size:16px}
+#panel-meus-ativos .ma-kpi{display:flex; flex-direction:column; align-items:flex-end; min-width:96px; gap:2px}
+#panel-meus-ativos .ma-kpi span{font-size:11.5px; color:var(--muted)}
+#panel-meus-ativos .ma-kpi b{font-family:var(--font-mono); font-size:14px; color:var(--ink)}
+#panel-meus-ativos .ma-seta{width:28px; height:28px; border-radius:50%; background:var(--surface-2); display:flex; align-items:center; justify-content:center; color:var(--ink-2)}
+#panel-meus-ativos .ma-twrap{overflow-x:auto; border-top:1px solid var(--rule)}
+#panel-meus-ativos .ma-table{width:100%; border-collapse:collapse; font-size:13px; white-space:nowrap}
+#panel-meus-ativos .ma-table th{text-align:right; font-size:11.5px; font-weight:600; color:var(--muted); padding:9px 10px; background:var(--surface-2)}
+#panel-meus-ativos .ma-table th:first-child, #panel-meus-ativos .ma-table td:first-child{text-align:left; position:sticky; left:0; background:var(--surface)}
+#panel-meus-ativos .ma-table th:first-child{background:var(--surface-2)}
+#panel-meus-ativos .ma-table td{text-align:right; padding:9px 10px; border-top:1px solid var(--rule)}
+@media (max-width:640px){
+  #panel-meus-ativos .ma-head{gap:10px 14px; padding:12px}
+  #panel-meus-ativos .ma-nome{flex-basis:100%}
+  #panel-meus-ativos .ma-kpi{align-items:flex-start; min-width:0; flex:1 1 40%}
+  #panel-meus-ativos .ma-seta{position:absolute; right:12px}
+  #panel-meus-ativos .ma-card{position:relative}
+}
 .callout{
   background:var(--accent-soft); border:1px solid var(--rule); border-radius:10px;
   padding:16px 18px; margin:0 0 18px;
@@ -3246,6 +3269,16 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 </section>
 
   <!-- ===================== SECTION: RENTABILIDADE (PADRÃO WARD - 16/10/2026) ===================== -->
+  <section class="panel" id="panel-meus-ativos">
+    <div class="panel-head" style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;">
+      <div>
+        <h2>Meus Ativos <span id="ma-count" style="color:var(--muted); font-weight:500; font-size:0.8em;"></span></h2>
+        <p class="panel-note">Posições do extrato com preço médio, preço do robô, variação, proventos e indicadores. Clique numa classe para abrir; clique num ativo para a ficha.</p>
+      </div>
+    </div>
+    <div id="ma-body"></div>
+  </section>
+
   <section class="panel collapsible-block" id="panel-rentabilidade">
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-rentabilidade', event)" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
       <div>
@@ -4721,6 +4754,39 @@ function fehmirObterHist(ticker) {
 }
 window.fehmirObterHist = fehmirObterHist;
 
+/* ---------- Fonte única dos indicadores (31/10/2026) ----------
+   O cadastro tem dy/pl/pvp/roe digitados no início de outubro; parte das telas lia esse valor e parte o do robô
+   (achado: DY diferente nos 18 ativos da carteira dentro do próprio modal). Aqui, uma vez por carga de preços:
+   DY = DPA 12m do robô ÷ preço; P/L, P/VP e ROE = CVM (LPA, VPA, ROE 12m) com o preço do robô.
+   O valor antigo fica em item._cad para conferência. payout NÃO muda aqui (é insumo da régua). */
+function fehmirHidratarIndicadores(listas) {
+  const hist = window.FEHMIR_HIST || {}, cvm = window.FEHMIR_FUND_CVM || {};
+  const n2 = v => Math.round(v * 100) / 100;
+  listas.forEach(arr => arr.forEach(item => {
+    if (!item || !item.t || !(item.preco > 0)) return;
+    const t = item.t;
+    if (!item._cad) item._cad = { dy: item.dy, pl: item.pl, pvp: item.pvp, roe: item.roe, dpa: item.dpa };
+    const H = (typeof fehmirObterHist === 'function' ? fehmirObterHist(t) : null) || hist[t];
+    if (H && H.dpa12 != null && H.dpa12 >= 0) {
+      item.dpa12 = H.dpa12;
+      item.dy = n2(H.dpa12 / item.preco * 100);
+      item.fonteDy = 'robô (DPA 12m ' + H.dpa12.toFixed(2) + ' ÷ preço)';
+    }
+    const C = cvm[t];
+    const ehFii = item.macro === 'fiis' || (item.tipo != null && !item.setor);
+    if (C && !ehFii) {
+      if (C.lpa > 0) item.pl = n2(item.preco / C.lpa).toFixed(2).replace('.', ',');
+      else if (C.lpa < 0) item.pl = '—';
+      if (C.vpa > 0) item.pvp = n2(item.preco / C.vpa);
+      if (C.roe != null && isFinite(C.roe)) item.roe = n2(C.roe);
+      item.lpa = C.lpa; item.vpa = C.vpa;
+      item.fonteFund = C.fonte || 'CVM';
+      if (H && H.dpa12 > 0 && C.lpa > 0) item.payout12 = n2(H.dpa12 / C.lpa * 100);
+    }
+  }));
+}
+window.fehmirHidratarIndicadores = fehmirHidratarIndicadores;
+
 function aplicarPrecosDoRobo() {
   if (typeof window.FEHMIR_HIST === "undefined" && typeof window.FEHMIR_MERCADO === "undefined") return;
 
@@ -4828,6 +4894,8 @@ function aplicarPrecosDoRobo() {
       }
     });
   });
+
+  fehmirHidratarIndicadores(listas);
 
   const badge = document.getElementById("robo-preco-status");
   if (badge) {
@@ -5968,6 +6036,88 @@ setTimeout(fetchBrapiQuotes, 500);
 
 /* ---------- Rebalanceamento (Meus Ativos) ---------- */
 
+/* ---------- Meus Ativos (no estilo do Investidor10): classes com as posições do extrato ---------- */
+const MA_CLASSES = [
+  { cat: 'AÇÕES', nome: 'Ações', icone: '📈', meta: () => ALOCACAO_ALVO.acoes },
+  { cat: 'FIIS', nome: 'FIIs', icone: '🏢', meta: () => ALOCACAO_ALVO.fiis },
+  { cat: 'ETFS', nome: 'ETFs internacionais', icone: '🌎', meta: () => ALOCACAO_ALVO.intl },
+  { cat: 'CRIPTO', nome: 'Criptomoedas', icone: '🪙', meta: () => ALOCACAO_ALVO.cripto }
+];
+function _maAberto(cat) { try { return (JSON.parse(localStorage.getItem('barsi-ma-abertos') || '{}'))[cat] === true; } catch (e) { return false; } }
+function maToggle(cat) {
+  let o = {}; try { o = JSON.parse(localStorage.getItem('barsi-ma-abertos') || '{}'); } catch (e) {}
+  o[cat] = !o[cat]; try { localStorage.setItem('barsi-ma-abertos', JSON.stringify(o)); } catch (e) {}
+  renderMeusAtivos();
+}
+window.maToggle = maToggle;
+function renderMeusAtivos() {
+  const body = document.getElementById('ma-body');
+  if (!body || typeof calcularPosicoesExtrato !== 'function') return;
+  const pos = calcularPosicoesExtrato();
+  const prov = (typeof fehmirProventosRecebidos === 'function') ? fehmirProventosRecebidos() : { itens: [] };
+  const provT = {}; prov.itens.forEach(x => { provT[x.t] = (provT[x.t] || 0) + x.total; });
+  const cad = t => [...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS].find(x => x.t === t) || (typeof RADAR_DATA !== 'undefined' ? RADAR_DATA.find(x => x.t === t) : null) || {};
+  const pct = (v, d = 2) => (v == null || !isFinite(v)) ? '—' : (v >= 0 ? '+' : '') + v.toFixed(d).replace('.', ',') + '%';
+  const cor = v => v == null ? 'var(--muted)' : (v >= 0 ? 'var(--good)' : 'var(--critical)');
+  const num = (v, d = 2) => { const n = Number(String(v == null ? '' : v).replace(',', '.')); return (v == null || v === '' || v === '—' || !isFinite(n)) ? '—' : n.toFixed(d).replace('.', ','); };
+  const fmtQ = q => Number.isInteger(q) ? String(q) : q.toLocaleString('pt-BR', { maximumFractionDigits: 8 });
+  const linhas = Object.entries(pos).filter(([, p]) => p.quant > 0).map(([t, p]) => {
+    const cat = (typeof _determinarCategoriaTicker === 'function') ? _determinarCategoriaTicker(t) : (p.cat || '');
+    const preco = (obterPrecoAtivo(t) || {}).preco || 0;
+    const saldo = p.quant * preco, custo = p.quant * p.pm, pv = provT[t] || 0;
+    const r = cad(t);
+    const ideal = (rebData[t] && rebData[t].i != null) ? rebData[t].i : (r.ideal != null ? r.ideal : null);
+    return { t, cat, q: p.quant, pm: p.pm, preco, saldo, custo, prov: pv,
+      variacao: custo > 0 ? (saldo / custo - 1) * 100 : null,
+      rent: custo > 0 ? ((saldo - custo + pv) / custo) * 100 : null, r, ideal };
+  });
+  const patr = linhas.reduce((a, x) => a + x.saldo, 0);
+  let caixa = 0; try { caixa = Number(window.loadMacro().caixa) || 0; } catch (e) {}
+  const cnt = document.getElementById('ma-count'); if (cnt) cnt.textContent = '(' + linhas.length + ')';
+  const cards = MA_CLASSES.map(C => {
+    const ls = linhas.filter(x => x.cat === C.cat).sort((a, b) => b.saldo - a.saldo);
+    const saldo = ls.reduce((a, x) => a + x.saldo, 0), custo = ls.reduce((a, x) => a + x.custo, 0), pv = ls.reduce((a, x) => a + x.prov, 0);
+    const pc = patr > 0 ? saldo / patr * 100 : 0;
+    const vCls = custo > 0 ? (saldo / custo - 1) * 100 : null, rCls = custo > 0 ? (saldo - custo + pv) / custo * 100 : null;
+    const aberto = _maAberto(C.cat);
+    const rendaVar = C.cat === 'AÇÕES' || C.cat === 'FIIS';
+    const head = `<div class="ma-head" onclick="maToggle('${C.cat}')" role="button" tabindex="0" aria-expanded="${aberto}" onkeydown="if(event.key==='Enter')maToggle('${C.cat}')">
+        <div class="ma-nome"><span class="ma-ic">${C.icone}</span>${C.nome}</div>
+        <div class="ma-kpi"><span>Ativos</span><b>${ls.length}</b></div>
+        <div class="ma-kpi"><span>Valor total</span><b>${fmtR(saldo)}</b></div>
+        <div class="ma-kpi" title="Preço atual contra o preço médio"><span>Variação</span><b style="color:${cor(vCls)}">${pct(vCls)}</b></div>
+        <div class="ma-kpi" title="Variação + proventos recebidos desde 30/09 (robô ou lançados)"><span>Rentabilidade</span><b style="color:${cor(rCls)}">${pct(rCls)}</b></div>
+        <div class="ma-kpi"><span>% na carteira</span><b>${pc.toFixed(0)}% <span style="color:var(--muted); font-weight:500">/ ${C.meta()}%</span></b></div>
+        <div class="ma-seta">${aberto ? '▴' : '▾'}</div>
+      </div>`;
+    if (!aberto || !ls.length) return `<div class="ma-card">${head}</div>`;
+    const ths = ['Ativo', 'Quant.', 'Preço médio', 'Preço atual', 'Variação', 'Rentab.', 'Saldo', 'Proventos', ...(rendaVar ? ['P/L', 'P/VP', 'DY 12m', 'ROE'] : []), '% Carteira', '% Ideal', ...(rendaVar ? ['Veredito'] : [])];
+    const trs = ls.map(x => `<tr class="clickable-row" onclick="openModal('${x.t}')">
+        <td class="ticker"><b>${x.t}</b></td>
+        <td class="tabular">${fmtQ(x.q)}</td>
+        <td class="tabular">${fmtR(x.pm)}</td>
+        <td class="tabular" style="font-weight:700">${fmtR(x.preco)}</td>
+        <td class="tabular" style="color:${cor(x.variacao)}; font-weight:700">${pct(x.variacao)}</td>
+        <td class="tabular" style="color:${cor(x.rent)}">${pct(x.rent)}</td>
+        <td class="tabular" style="font-weight:600">${fmtR(x.saldo)}</td>
+        <td class="tabular" title="Recebidos desde 30/09 (robô: data ex × cotas; ou lançados)">${x.prov > 0 ? fmtR(x.prov) : '—'}</td>
+        ${rendaVar ? `<td class="tabular">${num(x.r.pl)}</td><td class="tabular">${num(x.r.pvp)}</td><td class="tabular">${x.r.dy != null ? num(x.r.dy) + '%' : '—'}</td><td class="tabular">${x.r.roe != null ? num(x.r.roe, 1) + '%' : '—'}</td>` : ''}
+        <td class="tabular">${patr > 0 ? (x.saldo / patr * 100).toFixed(2).replace('.', ',') + '%' : '—'}</td>
+        <td class="tabular" style="color:var(--muted)">${x.ideal != null ? Number(x.ideal).toFixed(2).replace('.', ',') + '%' : 'sem meta'}</td>
+        ${rendaVar ? `<td>${typeof vereditoPill === 'function' ? vereditoPill(Object.assign({}, x.r, { t: x.t, preco: x.preco })) : '—'}</td>` : ''}
+      </tr>`).join('');
+    return `<div class="ma-card open">${head}<div class="twrap ma-twrap"><table class="ma-table"><thead><tr>${ths.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${trs}</tbody></table></div></div>`;
+  }).join('');
+  const caixaCard = `<div class="ma-card"><div class="ma-head" style="cursor:default">
+      <div class="ma-nome"><span class="ma-ic">🏦</span>Renda fixa e caixa</div>
+      <div class="ma-kpi"><span>Valor</span><b>${fmtR(caixa)}</b></div>
+      <div class="ma-kpi"><span>% do total com caixa</span><b>${(patr + caixa) > 0 ? (caixa / (patr + caixa) * 100).toFixed(0) : 0}% <span style="color:var(--muted); font-weight:500">/ ${ALOCACAO_ALVO.caixa}%</span></b></div>
+      <div class="ma-kpi"><span>&nbsp;</span><a href="javascript:void(0)" onclick="setCarteiraView('caixa')" style="font-size:12.5px">ver reserva e caixinhas</a></div>
+    </div></div>`;
+  body.innerHTML = cards + caixaCard;
+}
+window.renderMeusAtivos = renderMeusAtivos;
+
 // "Resumo para o aporte deste mês": gerado dos vereditos de hoje (antes era texto fixo de outubro)
 function renderResumoAporteMes() {
   const box = document.getElementById("resumo-aporte-mes") || document.getElementById("mc-callout-aporte");
@@ -6986,7 +7136,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
             <div class="basic-ind-item"><span class="lbl">VPA</span><span class="val" id="m-bi-vpa">—</span></div>
             <div class="basic-ind-item"><span class="lbl">LPA</span><span class="val" id="m-bi-lpa">—</span></div>
             <div class="basic-ind-item"><span class="lbl">DPA (12M)</span><span class="val" id="m-bi-dpa" style="color:var(--good)">R$ 0,00</span></div>
-            <div class="basic-ind-item"><span class="lbl">Payout</span><span class="val" id="m-bi-payout">—</span></div>
+            <div class="basic-ind-item"><span class="lbl" title="DPA 12m do robô ÷ LPA 12m da CVM">Payout 12m (pago ÷ lucro)</span><span class="val" id="m-bi-payout">—</span></div>
             <div class="basic-ind-item"><span class="lbl">DY (12M)</span><span class="val" id="m-bi-dy" style="color:var(--good)">0,0%</span></div>
           </div>
         </div>
@@ -8874,7 +9024,7 @@ function openModal(ticker) {
       const desde = ult ? (+ult.slice(0, 4) - 1) + ult.slice(4) : '';
       const extra = (Hv.extras || []).filter(e => e[0] > desde).reduce((acc, e) => acc + e[1], 0);
       const dy12 = Hv.dpa12 / pDy * 100;
-      elDy.textContent = dy12.toFixed(1).replace('.', ',') + '%';
+      elDy.textContent = dy12.toFixed(2).replace('.', ',') + '%';
       elDy.title = extra > 0 ? 'Inclui R$ ' + extra.toFixed(2).replace('.', ',') + ' de provento extraordinário; recorrente ≈ ' +
         (Math.max(0, Hv.dpa12 - extra) / pDy * 100).toFixed(1).replace('.', ',') + '%' : 'Proventos dos últimos 12 meses ÷ preço (robô)';
     } else {
@@ -9042,8 +9192,9 @@ function openModal(ticker) {
   document.getElementById('m-bi-vpa').textContent = r.pvp && r.preco ? (r.preco / r.pvp).toFixed(2) : (r.pvp ? fmtR(r.preco / r.pvp) : '—');
   document.getElementById('m-bi-lpa').textContent = r.pl && r.preco && parseFloat(String(r.pl).replace(',','.')) ? (r.preco / parseFloat(String(r.pl).replace(',','.'))).toFixed(2) : '—';
   document.getElementById('m-bi-dpa').textContent = dpaBase != null ? fmtR(dpaBase) : '—';
-  document.getElementById('m-bi-payout').textContent = r.payout != null ? `${r.payout.toFixed(1)}%` : '—';
+  document.getElementById('m-bi-payout').textContent = r.payout12 != null ? `${r.payout12.toFixed(1)}%` : '—';
   document.getElementById('m-bi-dy').textContent = fmtPct(r.dy);
+  const biDy = document.getElementById('m-bi-dy'); if (biDy && r.fonteDy) biDy.setAttribute('title', r.fonteDy);
 
   // Preencher Aba Valuation (FCD) - (16/10/2026 - Rodada 9 Parte E: sem números inventados)
   const elFcdVal = document.getElementById('fcd-val-justo');
@@ -10864,6 +11015,20 @@ function calcularResumoCaixa() {
   };
 }
 
+// Aportado no mês corrente pelo extrato: compras (com taxas) − vendas, por classe
+function fehmirAportesMes(mes) {
+  const k = mes || new Date().toISOString().slice(0, 7);
+  const ext = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
+  let compras = 0, vendas = 0; const porTicker = {};
+  ext.filter(t => t && String(t.data).startsWith(k) && /^(Compra|Venda)$/.test(t.tipo) && String(t.cat || '').toUpperCase() !== 'CAIXA').forEach(t => {
+    const v = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || 0);
+    if (t.tipo === 'Compra') compras += v; else vendas += v;
+    porTicker[t.ticker] = (porTicker[t.ticker] || 0) + (t.tipo === 'Compra' ? v : -v);
+  });
+  return { mes: k, compras, vendas, liquido: compras - vendas, porTicker };
+}
+window.fehmirAportesMes = fehmirAportesMes;
+
 function renderCaixaInvestir() {
   const card = document.getElementById('caixa-investir-card');
   if (!card) return;
@@ -10893,6 +11058,8 @@ function renderCaixaInvestir() {
   card.innerHTML = `
     <div style="display:flex; align-items:center; justify-content:space-between; width:100%; font-size:12.5px; color:var(--ink-2); padding:8px 14px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:4px 0 16px;">
       <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span title="Compras − vendas lançadas no extrato neste mês">${(() => { const am = fehmirAportesMes(); const det = Object.entries(am.porTicker).sort((x, y) => y[1] - x[1]).map(([t, v]) => t + ' ' + fmtR(v)).join(' · '); return `Aportado em ${am.mes.slice(5, 7)}/${am.mes.slice(2, 4)}: <strong style="font-family:var(--font-mono); font-size:13px; color:var(--ink);" title="${det.replace(/"/g, '&quot;')}">${fmtR(am.liquido)}</strong> <span style="font-size:11px; color:var(--muted);">(compras ${fmtR(am.compras)} − vendas ${fmtR(am.vendas)})</span>`; })()}</span>
+        <span style="color:var(--muted);">·</span>
         <span>Caixa para investir: <strong style="color:${saldoCor}; font-family:var(--font-mono); font-size:13px;">${fmtR(res.saldoFinal)}</strong> ${notaEstimado}</span>
         <span style="color:var(--muted);">·</span>
         ${msgStatus}
@@ -11793,6 +11960,7 @@ function recalcularCarteira() {
   if (typeof renderResumoAporteMes === 'function') renderResumoAporteMes();
   if (typeof atualizarBotaoReinvestir === 'function') atualizarBotaoReinvestir();
   if (typeof renderEventos === 'function') { try { renderEventos(); } catch (e) {} }
+  if (typeof renderMeusAtivos === 'function') { try { renderMeusAtivos(); } catch (e) { console.error('Meus Ativos:', e); } }
   const badgeBarTxt = null;
   if (badgeBarTxt) badgeBarTxt.textContent = `R$${Math.round(totalPatrimonio).toLocaleString('pt-BR')}`;
 
@@ -14980,6 +15148,19 @@ function renderEvolucaoPatrimonio(periodo) {
       ${barsHtml}
     </svg>
   `;
+  // Período pedido maior que o histórico: avisar em vez de parecer que o filtro não funciona
+  const hojeEv = new Date();
+  const inicioPedido = per === '12m' ? (() => { const d = new Date(hojeEv.getFullYear(), hojeEv.getMonth() - 11, 1); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'); })()
+    : (per === 'ano' ? hojeEv.getFullYear() + '-01' : null);
+  const primeiroMes = dados[0].mes;
+  const fmtMes = k => k.slice(5, 7) + '/' + k.slice(2, 4);
+  const doI10 = dados.filter(d => d.fonte);
+  const partes = [];
+  if (doI10.length) partes.push(`${fmtMes(doI10[0].mes)} a ${fmtMes(doI10[doI10.length - 1].mes)}: <b>Investidor10</b> (prints de 31/10, patrimônio e aplicado de fim de mês)`);
+  partes.push(`a partir de ${fmtMes((dados.find(d => !d.fonte) || dados[dados.length - 1]).mes)}: <b>painel</b> (extrato + preços do robô)`);
+  const falta = inicioPedido && primeiroMes > inicioPedido;
+  container.insertAdjacentHTML('beforeend', `<div style="margin-top:10px; font-size:12.5px; color:var(--muted); line-height:1.5;">
+    ℹ️ Fontes: ${partes.join(' · ')}.${falta || per === 'inicio' ? ` Antes de ${fmtMes(primeiroMes)} não há dado (para completar, mande os tooltips do Investidor10 desses meses ou o extrato da B3).` : ''}</div>`);
 }
 window.renderEvolucaoPatrimonio = renderEvolucaoPatrimonio;
 setTimeout(() => { if (typeof renderEvolucaoPatrimonio === 'function') renderEvolucaoPatrimonio(); }, 0);
@@ -15918,7 +16099,21 @@ function renderRentabilidadeTabelaBench(kpis) {
   }
   rowIpca += `<td style="font-weight:700;">${fmtCell(ipcaAnoPct)}</td></tr>`;
 
-  tbody.innerHTML = rowCart + rowCdi + rowIpca;
+  // Linha de referência: rentabilidade mensal do Investidor10 (antes do painel não há cota própria)
+  let rowI10 = '';
+  const I10r = window.FEHMIR_I10 && window.FEHMIR_I10.rentabilidade;
+  if (I10r) {
+    let acc = 1, tem = false;
+    rowI10 = `<tr title="${window.FEHMIR_I10.fonte}: rentabilidade mensal calculada por lá (inclui renda fixa e proventos)"><td style="font-weight:600; text-align:left; color:var(--ink-2);">Carteira (Investidor10)</td>`;
+    for (let m = 1; m <= 12; m++) {
+      const k = '2026-' + (m < 10 ? '0' + m : '' + m);
+      const v = I10r[k];
+      if (v != null) { acc *= 1 + v / 100; tem = true; }
+      rowI10 += `<td>${v != null ? fmtCell(v) : '—'}</td>`;
+    }
+    rowI10 += `<td style="font-weight:700;">${tem ? fmtCell((acc - 1) * 100) : '—'}</td></tr>`;
+  }
+  tbody.innerHTML = rowCart + rowI10 + rowCdi + rowIpca;
 }
 
 function renderDrawdownSvg(serie, ddActiveKeys) {
@@ -16133,6 +16328,8 @@ function fehmirProventosRecebidos(desde, ate) {
 window.fehmirProventosRecebidos = fehmirProventosRecebidos;
 // Proventos de antes do painel (Investidor10), guardados no macro pelo assistente com a fonte; nunca no código
 function fehmirProventosAntesDoPainel() {
+  const I = window.FEHMIR_I10;
+  if (I && I.proventos) return Number(Object.entries(I.proventos).filter(([k]) => k < '2026-10').reduce((a, [, v]) => a + v, 0).toFixed(2));
   try { const m = (typeof window.loadMacro === 'function') ? window.loadMacro() : {}; return Number(m.provAntesPainel) || 0; } catch (e) { return 0; }
 }
 window.fehmirProventosAntesDoPainel = fehmirProventosAntesDoPainel;
@@ -16244,6 +16441,18 @@ function calcularProventosMensaisWard() {
     });
   });
 
+  // Meses antes da carga do painel: o que o Felipe recebeu de fato (Investidor10), no lugar da estimativa com a posição de hoje
+  const I10 = window.FEHMIR_I10 && window.FEHMIR_I10.proventos;
+  if (I10) {
+    meses.forEach(mm => {
+      if (mm.chave >= '2026-10' || I10[mm.chave] == null) return;
+      const v = I10[mm.chave];
+      mm.recebido = v; mm.estimado = 0; mm.total = v; mm.fonte = 'Investidor10';
+      mm.pagadores = [{ ticker: 'Total do mês (Investidor10)', tipo: 'recebido', valor: v, pagamentos: 1, pct: 100 }];
+    });
+    total12m = meses.reduce((a, mm) => a + mm.total, 0);
+    maiorMes = meses.reduce((b, mm) => mm.total > b.total ? { chave: mm.chave, label: mm.label, total: mm.total } : b, { chave: '', label: '', total: 0 });
+  }
   const mediaMensal = total12m / 12.0;
   const mesAtual = meses[meses.length - 1];
 
@@ -17268,6 +17477,10 @@ initCollapsibleBlocks();
     if (S && S.ciclico) {
       return { g: 0, roe5, ipca, limitado: false, motivoZero: "cíclica" };
     }
+    // Transmissora (31/10/2026): a RAP da concessão só repõe a inflação e a taxa já é real; crescer exige leilão novo e consome caixa
+    if (S && S.id === "transmissao") {
+      return { g: 0, roe5, ipca, limitado: false, motivoZero: "concessão: RAP só repõe a inflação" };
+    }
     if (rec && rec.emRecuperacao) {
       return { g: 0, roe5, ipca, limitado: false, motivoZero: "recuperação" };
     }
@@ -17844,6 +18057,18 @@ initCollapsibleBlocks();
     }
     else if (!split && r && r.bazin5a > 0) { hist = r.bazin5a; histSrc = "Bazin 5A " + fR(hist); }
     else if (!split) { const d = a.dpa5a || a.dpa; if (d > 0) { hist = d * (S.ciclico ? (S.haircut || 1) : 1) / (req / 100); histSrc = "DPA/" + fmtN(req, 1) + "% " + fR(hist); } }
+    // Transmissora: o lucro IFRS fica acima do regulatório (o que vira caixa), então o histórico é o dividendo PAGO
+    // nos 3 últimos anos fechados (sem extras; ano zerado = lacuna do robô, fica de fora; mínimo 2 anos)
+    if (S.id === "transmissao" && HY && HY.dpaAno) {
+      const ultAno = new Date().getFullYear() - 1;
+      const anos = Object.keys(HY.dpaAno).filter(y => Number(y) <= ultAno).sort().slice(-3)
+        .map(y => [y, Number(HY.dpaAno[y]) - Number((HY.dpaAnoExtra && HY.dpaAnoExtra[y]) || 0)]).filter(([, v]) => v > 0);
+      if (anos.length >= 2) {
+        const dpa3 = anos.reduce((acc, [, v]) => acc + v, 0) / anos.length;
+        hist = dpa3 / (req / 100);
+        histSrc = "DPA pago " + anos.length + "A (" + anos.map(([y]) => y).join(", ") + ") " + fR(dpa3) + " ÷ " + fmtN(req, 1) + "% = " + fR(hist);
+      }
+    }
 
     let teto = null;
     let src = "";
@@ -17998,12 +18223,12 @@ initCollapsibleBlocks();
         src = polSrc + " ÷ " + fmtN(req, 1) + "% = " + fR(teto);
         baseTeto = "projetivo";
         motivoBase = "qualidade";
-      } else if (S.ciclico || rec.emRecuperacao) {
+      } else if (S.ciclico || rec.emRecuperacao || S.id === "transmissao") {
         const vals = [proj, hist].filter(v => v != null && v > 0);
         teto = vals.length ? Math.min(...vals) : null;
         baseTeto = "menor";
-        motivoBase = S.ciclico ? "ciclica" : "recuperacao";
-        const motivoMenor = S.ciclico ? " (cíclica)" : (" (recuperação: " + rec.motivo + ")");
+        motivoBase = S.ciclico ? "ciclica" : (rec.emRecuperacao ? "recuperacao" : "transmissora");
+        const motivoMenor = S.ciclico ? " (cíclica)" : (rec.emRecuperacao ? (" (recuperação: " + rec.motivo + ")") : " (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)");
         const projParte = (proj != null && proj > 0)
           ? ("Projetivo " + fR(proj) + " (LPA " + fR(lpa) + " × " + payLabel + (S.haircut ? " × " + fmtN(S.haircut * 100, 0) + "%" : "") + " × (1 + g) ÷ (taxa − g)) · " + gTxt)
           : (projMotivo ? ("Projetivo indisponível " + projMotivo) : "");
@@ -18072,7 +18297,7 @@ initCollapsibleBlocks();
         if (dVal > 35) {
           diverg = dVal;
           diverg_par = "projetivo " + fR(proj) + " × histórico 5A " + fR(hist);
-          src += " · ⚠️ Projetivo (" + fR(proj) + ") diverge " + fmtN(diverg, 0) + "% do histórico 5A (" + fR(hist) + "): confira premissa de dividendos";
+          src += " · ⚠️ Projetivo (" + fR(proj) + ") diverge " + fmtN(diverg, 0) + "% do histórico (" + fR(hist) + "): confira premissa de dividendos";
         }
       }
     }
@@ -19311,7 +19536,7 @@ body.nav-collapsed .side-nav .sn-foot{width:48px}
 
 /* ===== Sub-abas da carteira (11/10/2026): a página mostra só a sub-aba escolhida ===== */
 var CARTEIRA_VIEWS = {
-  geral: ["panel-alertas-analista", "panel-saude-carteira", "panel-visao-geral", "mc-alerta-reserva", "mc-stat-grid", "panel-eventos"],
+  geral: ["panel-alertas-analista", "panel-saude-carteira", "panel-visao-geral", "panel-meus-ativos", "mc-alerta-reserva", "mc-stat-grid", "panel-eventos"],
   rentabilidade: ["panel-rentabilidade"],
   acoes: ["panel-base", "panel-fora"],
   fiis: ["panel-fiis"],
@@ -19340,6 +19565,7 @@ function setCarteiraView(v){
   try { localStorage.setItem("barsi-carteira-view", v); } catch (e) {}
   if (v === "geral" && typeof renderGraficosAlocacao === "function") renderGraficosAlocacao();
   if (v === "geral" && typeof renderSaudeCarteira === "function") renderSaudeCarteira();
+  if (v === "geral" && typeof renderMeusAtivos === "function") renderMeusAtivos();
   if (v === "rentabilidade" && typeof renderRentabilidade === "function") renderRentabilidade();
   if (v === "proventos" && typeof renderProventosWard === "function") renderProventosWard();
   if (v === "intl" && typeof renderAbaInternacional === "function") renderAbaInternacional();
