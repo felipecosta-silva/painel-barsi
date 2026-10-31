@@ -15344,6 +15344,16 @@ function renderAportesMensais(periodo) {
   container.insertAdjacentHTML('beforeend', `<div class="ev-fonte">Fontes: ${partes.join(' · ')}. Valores sem o caixa e sem reinvestimento automático.</div>`);
 }
 window.renderAportesMensais = renderAportesMensais;
+
+/* Botões do termômetro: rolam até o bloco do plano/radar (e o destacam); se o grupo estiver vazio, vai para o plano */
+function cbIrPara(id) {
+  if (typeof switchMainTab === 'function' && !document.querySelector('.tabpanel[data-tab="conselheiro"][data-active="true"]')) switchMainTab('conselheiro');
+  const el = document.getElementById(id) || document.getElementById('cb-plano');
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  el.classList.remove('cb-alvo-pisca'); void el.offsetWidth; el.classList.add('cb-alvo-pisca');
+}
+window.cbIrPara = cbIrPara;
 setTimeout(() => { if (typeof renderAportesMensais === 'function') renderAportesMensais(); }, 0);
 let _aportesResizeTimer = null;
 window.addEventListener('resize', () => { clearTimeout(_aportesResizeTimer); _aportesResizeTimer = setTimeout(() => renderAportesMensais(), 150); });
@@ -17273,6 +17283,10 @@ initCollapsibleBlocks();
 .cb-regime-name{font-family:var(--font-serif);font-size:28px;font-weight:700;margin:2px 0 8px;color:var(--cb-regime,var(--ink))}
 .cb-regime-txt{font-size:14px;line-height:1.55;color:var(--ink);margin:0 0 12px}
 .cb-actions{display:flex;flex-wrap:wrap;gap:8px}
+.cb-pill-link{cursor:pointer;font:inherit;font-size:12px;font-weight:600;transition:border-color .15s, transform .15s}
+.cb-pill-link:hover{border-color:var(--accent);transform:translateY(-1px)}
+.cb-alvo-pisca{animation:cbPisca 1.6s ease-out}
+@keyframes cbPisca{0%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
 .cb-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--surface-2);color:var(--ink);border:1px solid var(--rule)}
 .cb-pill.good{color:var(--good);border-color:color-mix(in srgb,var(--good) 40%,transparent)}
 .cb-pill.warn{color:var(--warning);border-color:color-mix(in srgb,var(--warning) 40%,transparent)}
@@ -19050,9 +19064,9 @@ initCollapsibleBlocks();
         <div class="cb-regime-name">${reg.nome}</div>
         <p class="cb-regime-txt">${reg.txt}</p>
         <div class="cb-actions">
-          <span class="cb-pill bad">🔻 Realizar: ${realizar.length} ativo(s) · ≈ ${fR(caixa)}</span>
-          <span class="cb-pill good">🟢 Reforçar: ${reforcar.length} na carteira</span>
-          <span class="cb-pill">🔎 ${ops.length} oportunidades no radar</span>
+          <button type="button" class="cb-pill cb-pill-link bad" onclick="cbIrPara('cb-grp-0')" title="${realizar.length ? realizar.map(r => r.t).join(', ') + ' · ' : ''}ver o plano de realização">🔻 Realizar: ${realizar.length} ativo(s) · ≈ ${fR(caixa)} <span aria-hidden="true">›</span></button>
+          <button type="button" class="cb-pill cb-pill-link good" onclick="cbIrPara('cb-grp-2')" title="${reforcar.length ? reforcar.map(r => r.t).join(', ') + ' · ' : ''}ver onde reforçar">🟢 Reforçar: ${reforcar.length} na carteira <span aria-hidden="true">›</span></button>
+          <button type="button" class="cb-pill cb-pill-link" onclick="cbIrPara('cb-oportunidades')" title="${ops.slice(0, 8).map(o => o.t).join(', ')}${ops.length > 8 ? '…' : ''} · ver o radar">🔎 ${ops.length} oportunidades no radar <span aria-hidden="true">›</span></button>
           <span class="cb-pill warn">Selic ${fmtN(m.selic, 2)}% · IPCA+ ${fmtN(m.ntnb, 2)}% · Dólar R$ ${fmtN(m.dolar, 2)}</span>
         </div>
       </div>`;
@@ -19134,7 +19148,7 @@ initCollapsibleBlocks();
         <div><div class="l">Ativos a realizar</div><div class="n">${realizar.length}</div></div>
         <div><div class="l">Para onde vai o dinheiro</div><div style="font-size:12.5px;line-height:1.5;margin-top:4px;color:var(--ink)">${destino.join(" → ")}</div></div>
       </div>
-      ${grupos.filter(g => g[1].length).map(g => `<div class="cb-group-title">${g[0]} <span class="cb-pill">${g[1].length}</span></div><div class="cb-plan-grid">${g[1].map(card).join("")}</div>`).join("")}`;
+      ${grupos.map((g, gi) => [g, gi]).filter(([g]) => g[1].length).map(([g, gi]) => `<div class="cb-group-title" id="cb-grp-${gi}">${g[0]} <span class="cb-pill">${g[1].length}</span></div><div class="cb-plan-grid">${g[1].map(card).join("")}</div>`).join("")}`;
 
     document.getElementById("cb-oportunidades").innerHTML = `<h3>Radar de Oportunidades</h3>
       <p class="cb-sub">Ativos com margem acima da mínima do próprio setor (5% em transmissão até 30% em commodities), sem flag de armadilha e, se já estão na carteira, sub-alocados. Margem é condição necessária, nunca suficiente: rode o checklist da seção 8 antes de comprar.</p>

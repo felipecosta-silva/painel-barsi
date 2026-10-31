@@ -12,7 +12,12 @@ window.FEHMIR_I10 = {
     "2026-07": 39.35, "2026-08": 38.28, "2026-09": 45.27, "2026-10": 39.97
   },
   // fim de mês: patrimônio (mercado) e valor aplicado; meses sem tooltip enviado ficam de fora
+  // 11 e 12/2025 sem tooltip: calculados de trás para frente com a rentabilidade e os proventos do próprio Investidor10
+  // (mercado do mês = mercado anterior × (1 + rent.) + compras − vendas − proventos; a fórmula reproduz 02–08/2026 com erro < R$ 5).
+  // Sem compra nem venda em 12/2025 e 01/2026, o aplicado fica igual ao de 01/2026.
   patrimonio: [
+    { mes: "2025-11", mercado: 3924.69, aplicado: 3748.26, calculado: true },
+    { mes: "2025-12", mercado: 3926.33, aplicado: 3748.26, calculado: true },
     { mes: "2026-01", mercado: 4015.72, aplicado: 3748.26 },
     { mes: "2026-02", mercado: 4144.83, aplicado: 3839.39 },
     { mes: "2026-03", mercado: 4218.23, aplicado: 3959.07 },
@@ -41,4 +46,4 @@ window.FEHMIR_I10 = {
   }
 };
 // Formato que o gráfico de evolução já lê (meses antes da carga do painel)
-window.FEHMIR_PATR_HIST = window.FEHMIR_I10.patrimonio.map(x => Object.assign({ fonte: window.FEHMIR_I10.fonte }, x));
+window.FEHMIR_PATR_HIST = window.FEHMIR_I10.patrimonio.map(x => Object.assign({ fonte: x.calculado ? "Investidor10 (calculado pela rentabilidade e proventos do mês seguinte)" : window.FEHMIR_I10.fonte }, x));
