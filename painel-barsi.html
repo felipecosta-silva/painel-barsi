@@ -25,8 +25,13 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
     var m = JSON.parse(localStorage.getItem("barsi-macro-v1") || "{}") || {};
     var mudou = false;
     itens.forEach(function (it) {
-      if (!it.id || feitos.indexOf(it.id) >= 0 || !it.macro) return;
-      Object.keys(it.macro).forEach(function (k) { m[k] = it.macro[k]; });
+      if (!it.id || feitos.indexOf(it.id) >= 0 || !(it.macro || it.caixaCfg)) return;
+      if (it.macro) Object.keys(it.macro).forEach(function (k) { m[k] = it.macro[k]; });
+      if (it.caixaCfg) {
+        var cc = JSON.parse(localStorage.getItem("barsi-caixa-cfg-v1") || "null") || { inicio: "2026-10-01", aporteMensal: 300 };
+        Object.keys(it.caixaCfg).forEach(function (k) { cc[k] = it.caixaCfg[k]; });
+        localStorage.setItem("barsi-caixa-cfg-v1", JSON.stringify(cc));
+      }
       feitos.push(it.id); mudou = true;
     });
     if (mudou) {
@@ -4580,6 +4585,8 @@ function fehmirVeredito(r) {
   const margem = (1 - preco / tv.teto) * 100;
   const compra = tv.compra || tv.teto * (1 - (tv.margemMin || 10) / 100);
   const base = `preço ${fmt(preco)} · teto ${fmt(tv.teto)} (${tv.metodo || "régua"}) · margem ${margem.toFixed(1).replace(".", ",")}% (mínima ${tv.margemMin}%)`;
+  if (preco <= compra && tv.diverg != null && tv.diverg > 35)
+    return { label: "Conferir teto", status: "warning", motivo: `${base}. A margem só existe no modelo otimista: os modelos divergem ${Math.round(tv.diverg)}% (${tv.diverg_par || "projetivo × histórico"}). Não aportar até o dividendo confirmar o teto.` };
   if (preco <= compra) {
     const pc = _pesoClasses();
     const pesoCls = ehFii ? pc.fiis : pc.acoes;
@@ -11008,7 +11015,7 @@ function calcularResumoCaixa() {
   });
 
   // 3. Transações reais no período
-  extrato.filter(t => t.data >= cfg.inicio).forEach(t => {
+  extrato.filter(t => t.data >= cfg.inicio && !fehmirEhAjuste(t)).forEach(t => {
     const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
     const preco = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.preco) : (parseFloat(t.preco) || 0);
     const taxa = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.taxa) : (parseFloat(t.taxa) || 0);
@@ -11110,13 +11117,18 @@ function calcularResumoCaixa() {
 }
 
 // Aportado no mês corrente pelo extrato: compras (com taxas) − vendas, por classe
+// Lançamento de ajuste (o id traz a data real, ex.: a CPLE3 vendida em 11/2025 e lançada em 10/2026 só para zerar a carga):
+// mexe na posição, mas não é dinheiro do mês — fica fora dos aportes e do caixa
+function fehmirEhAjuste(t) {
+  return !!(t && (t.ajuste || (/^\d{4}-\d{2}-\d{2}-/.test(t.id || '') && t.id.slice(0, 7) !== String(t.data).slice(0, 7))));
+}
+window.fehmirEhAjuste = fehmirEhAjuste;
+
 function fehmirAportesMes(mes) {
   const k = mes || new Date().toISOString().slice(0, 7);
   const ext = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
   let compras = 0, vendas = 0; const porTicker = {};
-  // Lançamento de ajuste (o id traz a data real, ex.: a CPLE3 vendida em 11/2025 e lançada em 10/2026 só para zerar a carga) não é aporte do mês
-  const ajuste = t => t.ajuste || (/^\d{4}-\d{2}-\d{2}-/.test(t.id || '') && t.id.slice(0, 7) !== String(t.data).slice(0, 7));
-  ext.filter(t => t && String(t.data).startsWith(k) && /^(Compra|Venda)$/.test(t.tipo) && String(t.cat || '').toUpperCase() !== 'CAIXA' && !ajuste(t)).forEach(t => {
+  ext.filter(t => t && String(t.data).startsWith(k) && /^(Compra|Venda)$/.test(t.tipo) && String(t.cat || '').toUpperCase() !== 'CAIXA' && !fehmirEhAjuste(t)).forEach(t => {
     const v = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || 0);
     if (t.tipo === 'Compra') compras += v; else vendas += v;
     porTicker[t.ticker] = (porTicker[t.ticker] || 0) + (t.tipo === 'Compra' ? v : -v);
@@ -18675,6 +18687,8 @@ initCollapsibleBlocks();
     else if (s >= 65 && semMeta) { acao = "Segurar · sem aportes"; cor = "var(--warning)"; }
     else if (s >= 45) { acao = "Segurar · sem aportes"; cor = "var(--warning)"; }
     else if (r.quarentena && r.margem != null && r.margem > (r.margemMin || 5)) { acao = "Manter"; cor = "var(--warning)"; why.push("margem passa, mas está em quarentena (dado crítico não confirmado): não reforçar"); }
+    // Margem que só existe no modelo otimista não é margem de segurança (31/10/2026): com os modelos divergindo, não reforçar até confirmar
+    else if (r.diverg != null && r.diverg > 35 && r.margem != null && r.margem > (r.margemMin || 5)) { acao = "Manter · conferir teto"; cor = "var(--warning)"; why.push("a margem depende do modelo otimista: não reforçar até o dividendo confirmar o teto"); }
     else if (r.margem != null && r.margem > (r.margemMin || 5) && (r.ideal != null && r.peso < r.ideal) && !r.trap) { acao = "Reforçar"; cor = "var(--good)"; why.push("margem acima da mínima do setor (" + (r.margemMin || 5) + "%) e sub-alocado"); }
     else if (sobre >= 1.4) { acao = "Manter · não reforçar"; cor = "var(--muted)"; if (!why.length) why.push("concentrado"); }
     else { acao = "Manter"; cor = "var(--accent)"; if (!why.length) why.push("sem gatilho de compra ou venda"); }
@@ -18707,7 +18721,7 @@ initCollapsibleBlocks();
   function oportunidades(m, rows) {
     const out = [];
     rows.forEach(r => {
-      if (r.margem != null && r.margem > (r.margemMin || 5) && r.peso < r.ideal && !r.trap && !r.quarentena)
+      if (r.margem != null && r.margem > (r.margemMin || 5) && r.peso < r.ideal && !r.trap && !r.quarentena && !(r.diverg != null && r.diverg > 35))
         out.push({ t: r.t, nome: r.nome, margem: r.margem, base: r.cls === "base" || r.cls === "fii", onde: "Na carteira · sub-alocado", score: 60 + Math.min(r.margem, 40) * 0.6 + (r.ideal - r.peso) * 3, preco: r.preco, teto: r.teto, src: r.src });
     });
     (typeof RADAR_DATA !== "undefined" ? RADAR_DATA : []).forEach(x => {
@@ -18717,7 +18731,7 @@ initCollapsibleBlocks();
       if (x.macro === "fiis") {
         const sub = fiiSubDe(x), req = fiiReq(sub, x.dy || 0, m);
         teto = x.dpa && req ? x.dpa / (req / 100) : null; src = sub.nome.replace(/^FII /, "") + " · renda ÷ " + fmtN(req || 0, 1) + "%"; mMin = sub.margemMin;
-      } else { const tv = tetoAcao(x, m); teto = tv.teto; src = tv.S.nome + " · " + tv.src; mMin = tv.S.margemMin; }
+      } else { const tv = tetoAcao(x, m); if (tv.diverg != null && tv.diverg > 35) return; teto = tv.teto; src = tv.S.nome + " · " + tv.src; mMin = tv.S.margemMin; }
       if (!teto) return;
       const margem = (1 - x.preco / teto) * 100;
       if (margem <= (mMin || 5)) return;   // margem mínima cresce com o risco do setor

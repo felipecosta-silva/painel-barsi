@@ -19,5 +19,12 @@ window.FEHMIR_CONFIG_ASSIST = [
     data: "2026-10-30",
     macro: { provAntesPainel: 575.50 },
     nota: "Proventos recebidos antes da carga do painel (30/09/2026): R$ 575,50 de dividendos acumulados, segundo o Investidor10 (sincronização de 06/10/2026). Os de depois de 30/09 o painel calcula pelo robô (data ex × cotas) ou pelos lançamentos."
+  },
+  {
+    id: "2026-10-31-caixa-1",
+    data: "2026-10-31",
+    macro: { caixa: 749.89 },
+    caixaCfg: { reserva: 500 },
+    nota: "Nubank em 31/10/2026: R$ 4.759,79 investidos (ações e FIIs; a única corretora fora é a Nomad) e R$ 749,89 na caixinha = R$ 500,00 de reserva de tranquilidade + R$ 249,89 de oportunidade. As vendas de outubro foram reinvestidas em compras; a sobra é do aporte normal e passa para 11/2026 como oportunidade"
   }
 ];
