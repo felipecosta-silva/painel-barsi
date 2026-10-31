@@ -343,28 +343,32 @@ header.top .sub{color:var(--ink-2); font-size:13px; margin-top:2px; line-height:
 :root{ --ev-bar:#2a78d6; --ev-line:#eb6834; --ev-ring:#ffffff; }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --ev-bar:#3987e5; --ev-line:#d95926; --ev-ring:#0b1220; } }
 :root[data-theme="dark"]{ --ev-bar:#3987e5; --ev-line:#d95926; --ev-ring:#0b1220; }
-#evolucao-chart-container .ev-grid{stroke:var(--rule); stroke-width:1; stroke-dasharray:2 4}
-#evolucao-chart-container .ev-base{stroke:var(--rule-strong); stroke-width:1}
-#evolucao-chart-container .ev-ax{fill:var(--muted); font-size:12px; font-family:var(--font-sans)}
-#evolucao-chart-container .ev-ax-ult{fill:var(--ink); font-weight:700}
-#evolucao-chart-container .ev-val{fill:var(--ink); font-size:12.5px; font-weight:700; font-family:var(--font-mono)}
-#evolucao-chart-container .ev-bar{fill:var(--ev-bar); opacity:.85; transition:opacity .15s}
-#evolucao-chart-container .ev-bar-ult{opacity:1}
-#evolucao-chart-container .ev-bar-ext{opacity:.6}
-#evolucao-chart-container .ev-bar.ev-dim{opacity:.45}
-#evolucao-chart-container .ev-line{fill:none; stroke:var(--ev-line); stroke-width:2; stroke-linejoin:round}
-#evolucao-chart-container .ev-dot{fill:var(--ev-line); stroke:var(--ev-ring); stroke-width:2}
-#evolucao-chart-container .ev-cross{stroke:var(--muted); stroke-width:1; stroke-dasharray:3 3}
-#evolucao-chart-container .ev-hit{fill:transparent; cursor:crosshair}
-#evolucao-chart-container .ev-tip{position:absolute; z-index:5; pointer-events:none; background:var(--surface); border:1px solid var(--rule-strong); border-radius:10px; padding:10px 12px; font-size:12.5px; color:var(--ink-2); box-shadow:0 8px 24px rgba(0,0,0,.25); min-width:190px; display:flex; flex-direction:column; gap:4px}
-#evolucao-chart-container .ev-tip b{color:var(--ink); font-family:var(--font-mono)}
-#evolucao-chart-container .ev-tip-t{font-weight:700; color:var(--ink); margin-bottom:2px}
-#evolucao-chart-container .ev-tip-f{font-size:11px; color:var(--muted); margin-top:2px}
-#evolucao-chart-container .ev-fonte{margin-top:8px; font-size:11.5px; color:var(--muted)}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-grid{stroke:var(--rule); stroke-width:1; stroke-dasharray:2 4}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-base{stroke:var(--rule-strong); stroke-width:1}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-ax{fill:var(--muted); font-size:12px; font-family:var(--font-sans)}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-ax-ult{fill:var(--ink); font-weight:700}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-val{fill:var(--ink); font-size:12.5px; font-weight:700; font-family:var(--font-mono)}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-bar{fill:var(--ev-bar); opacity:.85; transition:opacity .15s}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-bar-ult{opacity:1}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-bar-ext{opacity:.6}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-bar.ev-dim{opacity:.45}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-line{fill:none; stroke:var(--ev-line); stroke-width:2; stroke-linejoin:round}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-dot{fill:var(--ev-line); stroke:var(--ev-ring); stroke-width:2}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-cross{stroke:var(--muted); stroke-width:1; stroke-dasharray:3 3}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-hit{fill:transparent; cursor:crosshair}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-tip{position:absolute; z-index:5; pointer-events:none; background:var(--surface); border:1px solid var(--rule-strong); border-radius:10px; padding:10px 12px; font-size:12.5px; color:var(--ink-2); box-shadow:0 8px 24px rgba(0,0,0,.25); min-width:190px; display:flex; flex-direction:column; gap:4px}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-tip b{color:var(--ink); font-family:var(--font-mono)}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-tip-t{font-weight:700; color:var(--ink); margin-bottom:2px}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-tip-f{font-size:11px; color:var(--muted); margin-top:2px}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-fonte{margin-top:8px; font-size:11.5px; color:var(--muted)}
 .ev-leg{display:inline-flex; align-items:center; gap:6px}
 .ev-leg b{color:var(--ink); font-family:var(--font-mono)}
 .ev-sw{display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:4px; vertical-align:-1px}
 .ev-sw-bar{background:var(--ev-bar)}
+.ev-sw-venda{background:var(--ev-line)}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-venda{fill:var(--ev-line); opacity:.85; transition:opacity .15s}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-venda.ev-dim{opacity:.45}
+:is(#evolucao-chart-container, #aportes-chart-container) .ev-bar-aprox{opacity:.6}
 .ev-sw-line{background:var(--ev-line); height:3px; width:14px; border-radius:2px; vertical-align:3px}
 #panel-meus-ativos .ma-card{border:1px solid var(--rule); border-radius:14px; background:var(--surface); margin-bottom:12px; overflow:hidden}
 #panel-meus-ativos .ma-head{display:flex; align-items:center; gap:18px; padding:14px 18px; cursor:pointer; flex-wrap:wrap}
@@ -3198,6 +3202,17 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
       <!-- Legenda Calculada Dinamicamente (US4) -->
       <div id="evolucao-legenda" style="display:flex; gap:16px; font-size:12px; color:var(--ink-2); margin-bottom:14px; flex-wrap:wrap;"></div>
       <div id="evolucao-chart-container" style="background:var(--bg); border:1px solid var(--rule); border-radius:12px; padding:16px; min-height:320px;"></div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin:22px 0 14px; flex-wrap:wrap; gap:8px;">
+        <h3 style="margin:0;">Aportes por mês</h3>
+        <select id="aportes-periodo-select" onchange="renderAportesMensais(this.value)" aria-label="Período dos aportes" style="background:var(--surface-2); border:1px solid var(--rule); border-radius:8px; padding:4px 10px; font-size:12px; color:var(--ink-2); font-weight:600;">
+          <option value="inicio" selected>Desde o início</option>
+          <option value="12m">Últimos 12 meses</option>
+          <option value="ano">Ano atual</option>
+        </select>
+      </div>
+      <div id="aportes-legenda" style="display:flex; gap:16px; font-size:12px; color:var(--ink-2); margin-bottom:14px; flex-wrap:wrap;"></div>
+      <div id="aportes-chart-container" style="background:var(--bg); border:1px solid var(--rule); border-radius:12px; padding:16px; min-height:280px;"></div>
       <div style="display:none">
 
 
@@ -12033,6 +12048,7 @@ function recalcularCarteira() {
 
   // Atualizar Barra 10/26 do Gráfico de Evolução
   if (typeof renderEvolucaoPatrimonio === 'function') renderEvolucaoPatrimonio();
+  if (typeof renderAportesMensais === 'function') renderAportesMensais();
   if (typeof atualizarCalculadoraMeta === 'function') atualizarCalculadoraMeta();
   if (typeof renderResumoAporteMes === 'function') renderResumoAporteMes();
   if (typeof atualizarBotaoReinvestir === 'function') atualizarBotaoReinvestir();
@@ -15224,6 +15240,111 @@ window.renderEvolucaoPatrimonio = renderEvolucaoPatrimonio;
 setTimeout(() => { if (typeof renderEvolucaoPatrimonio === 'function') renderEvolucaoPatrimonio(); }, 0);
 let _evolResizeTimer = null;
 window.addEventListener('resize', () => { clearTimeout(_evolResizeTimer); _evolResizeTimer = setTimeout(() => renderEvolucaoPatrimonio(), 150); });
+
+/* ---------- Aportes por mês: compras para cima, vendas para baixo (como a "Consolidação de aportes" do Investidor10) ----------
+   Antes de 10/2026 vem de FEHMIR_I10.aportes (prints); desde a carga do painel, do extrato (fehmirAportesMes). */
+function fehmirAportesMensais(per) {
+  const hist = (window.FEHMIR_I10 && window.FEHMIR_I10.aportes) || {};
+  const hoje = new Date();
+  const mesHoje = hoje.getFullYear() + '-' + String(hoje.getMonth() + 1).padStart(2, '0');
+  const corte = '2026-10';
+  const chaves = Object.keys(hist).sort();
+  let ini = chaves[0] || corte;
+  if (per === '12m') { const d = new Date(hoje.getFullYear(), hoje.getMonth() - 11, 1); const k = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'); if (k > ini) ini = k; }
+  if (per === 'ano') { const k = hoje.getFullYear() + '-01'; if (k > ini) ini = k; }
+  const out = [];
+  for (let [a, m] = ini.split('-').map(Number); ; m++) {
+    if (m > 12) { m = 1; a++; }
+    const k = a + '-' + String(m).padStart(2, '0');
+    if (k > mesHoje) break;
+    if (k < corte) {
+      const h = hist[k] || { c: 0, v: 0 };
+      out.push({ mes: k, compras: h.c || 0, vendas: h.v || 0, aprox: !!h.aprox, fonte: window.FEHMIR_I10.fonte });
+    } else {
+      const r = fehmirAportesMes(k);
+      out.push({ mes: k, compras: r.compras, vendas: r.vendas, aprox: false, fonte: null });
+    }
+  }
+  return out;
+}
+window.fehmirAportesMensais = fehmirAportesMensais;
+
+function renderAportesMensais(periodo) {
+  const sel = document.getElementById('aportes-periodo-select');
+  const per = periodo || (sel ? sel.value : 'inicio') || 'inicio';
+  const container = document.getElementById('aportes-chart-container');
+  const legendaEl = document.getElementById('aportes-legenda');
+  if (!container || typeof fehmirAportesMes !== 'function') return;
+  const dados = fehmirAportesMensais(per);
+  if (!dados.length) { container.innerHTML = '<div style="padding:40px 16px; text-align:center; color:var(--muted); font-size:13px;">Sem compras ou vendas no período.</div>'; return; }
+  const fmtMes = k => k.slice(5, 7) + '/' + k.slice(2, 4);
+  const totC = dados.reduce((a, d) => a + d.compras, 0), totV = dados.reduce((a, d) => a + d.vendas, 0);
+  if (legendaEl) legendaEl.innerHTML = `
+    <span class="ev-leg"><span class="ev-sw ev-sw-bar"></span>Compras <b>${fmtR(totC)}</b></span>
+    <span class="ev-leg"><span class="ev-sw ev-sw-venda"></span>Vendas <b>${fmtR(totV)}</b></span>
+    <span class="ev-leg">Aporte líquido <b>${fmtR(totC - totV)}</b></span>`;
+
+  const W = Math.max(300, Math.round(container.clientWidth || 760)), H = 280;
+  const padL = 64, padR = 16, padT = 16, padB = 34;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const maxC = Math.max(1, ...dados.map(d => d.compras)), maxV = Math.max(0, ...dados.map(d => d.vendas));
+  const passo = [100, 250, 500, 1000, 2000, 2500, 5000, 10000, 25000].find(p => (maxC + maxV) * 1.1 / p <= 6) || 50000;
+  const topo = Math.ceil(maxC * 1.08 / passo) * passo, fundo = maxV > 0 ? Math.ceil(maxV * 1.08 / passo) * passo : 0;
+  const y = v => padT + (topo - v) / (topo + fundo) * plotH, y0 = y(0);
+  const n = dados.length, slot = plotW / n;
+  const barW = Math.max(5, Math.min(40, slot * 0.56));
+  const passoMes = Math.max(1, Math.ceil(46 / slot));
+  const eixo = v => Math.abs(v) >= 1000 ? 'R$ ' + (v / 1000).toLocaleString('pt-BR') + ' mil' : 'R$ ' + v;
+  let grid = '';
+  for (let v = -fundo; v <= topo + 1e-6; v += passo)
+    grid += `<line x1="${padL}" x2="${W - padR}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" class="${v === 0 ? 'ev-base' : 'ev-grid'}"/>` +
+      `<text x="${padL - 8}" y="${(y(v) + 4).toFixed(1)}" class="ev-ax" text-anchor="end">${eixo(v)}</text>`;
+  // barra com a ponta de dado arredondada (4 px) e a base reta no zero
+  const barra = (cls, bx, yv, para) => {
+    const h = Math.abs(yv - y0); if (h < 0.5) return '';
+    const r = Math.min(4, barW / 2, h), s = para === 'cima' ? 1 : -1;
+    return `<path class="${cls}" d="M${bx.toFixed(1)},${y0.toFixed(1)} V${(yv + s * r).toFixed(1)} Q${bx.toFixed(1)},${yv.toFixed(1)} ${(bx + r).toFixed(1)},${yv.toFixed(1)} H${(bx + barW - r).toFixed(1)} Q${(bx + barW).toFixed(1)},${yv.toFixed(1)} ${(bx + barW).toFixed(1)},${(yv + s * r).toFixed(1)} V${y0.toFixed(1)} Z"/>`;
+  };
+  let marcas = '', rotulos = '', hits = '';
+  dados.forEach((d, i) => {
+    const cx = padL + slot * (i + 0.5), bx = cx - barW / 2, ax = d.aprox ? ' ev-bar-aprox' : '';
+    marcas += `<g class="ap-m" data-i="${i}">${barra('ev-bar' + ax, bx, y(d.compras), 'cima')}${barra('ev-venda' + ax, bx, y(-d.vendas), 'baixo')}</g>`;
+    if ((n - 1 - i) % passoMes === 0) rotulos += `<text x="${cx.toFixed(1)}" y="${H - 10}" class="ev-ax${i === n - 1 ? ' ev-ax-ult' : ''}" text-anchor="middle">${fmtMes(d.mes)}</text>`;
+    hits += `<rect class="ev-hit" data-i="${i}" data-mes="${d.mes}" data-compras="${d.compras.toFixed(2)}" data-vendas="${d.vendas.toFixed(2)}" x="${(padL + slot * i).toFixed(1)}" y="${padT}" width="${slot.toFixed(1)}" height="${plotH}"/>`;
+  });
+  container.style.position = 'relative';
+  container.innerHTML = `
+    <svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="width:100%; height:${H}px; display:block;" role="img" aria-label="Compras e vendas por mês">
+      ${grid}${marcas}${rotulos}${hits}
+    </svg>
+    <div class="ev-tip" role="tooltip" style="display:none"></div>`;
+  const svg = container.querySelector('svg'), tip = container.querySelector('.ev-tip');
+  const mostrar = i => {
+    const d = dados[i], liq = d.compras - d.vendas, cx = padL + slot * (i + 0.5);
+    svg.querySelectorAll('.ap-m').forEach((g, k) => g.querySelectorAll('path').forEach(p => p.classList.toggle('ev-dim', k !== i)));
+    tip.innerHTML = `<div class="ev-tip-t">${fmtMes(d.mes)}</div>
+      <div><span class="ev-sw ev-sw-bar"></span>Compras <b>${fmtR(d.compras)}</b></div>
+      <div><span class="ev-sw ev-sw-venda"></span>Vendas <b>${fmtR(d.vendas)}</b></div>
+      <div>Líquido <b>${(liq < 0 ? '−' : '') + fmtR(Math.abs(liq))}</b></div>
+      <div class="ev-tip-f">${d.fonte ? 'Fonte: ' + d.fonte + (d.aprox ? ' · lido do gráfico, aproximado' : '') : 'Fonte: extrato do painel'}</div>`;
+    tip.style.display = 'block';
+    const box = container.getBoundingClientRect(), sv = svg.getBoundingClientRect();
+    const px = sv.left - box.left + cx * (sv.width / W), tw = tip.offsetWidth;
+    tip.style.left = Math.max(4, Math.min(box.width - tw - 4, px + 14 > box.width - tw - 4 ? px - tw - 14 : px + 14)) + 'px';
+    tip.style.top = (sv.top - box.top + padT) + 'px';
+  };
+  svg.querySelectorAll('.ev-hit').forEach(h => { h.addEventListener('mouseenter', () => mostrar(+h.dataset.i)); h.addEventListener('click', () => mostrar(+h.dataset.i)); });
+  svg.addEventListener('mouseleave', () => { tip.style.display = 'none'; svg.querySelectorAll('.ap-m path').forEach(p => p.classList.remove('ev-dim')); });
+  const temAprox = dados.some(d => d.aprox), doI10 = dados.filter(d => d.fonte);
+  const partes = [];
+  if (doI10.length) partes.push(`${fmtMes(doI10[0].mes)}–${fmtMes(doI10[doI10.length - 1].mes)} Investidor10${temAprox ? ' (2025 lido do gráfico, aproximado)' : ''}`);
+  if (dados.some(d => !d.fonte)) partes.push(`desde ${fmtMes(dados.find(d => !d.fonte).mes)} extrato do painel`);
+  container.insertAdjacentHTML('beforeend', `<div class="ev-fonte">Fontes: ${partes.join(' · ')}. Valores sem o caixa e sem reinvestimento automático.</div>`);
+}
+window.renderAportesMensais = renderAportesMensais;
+setTimeout(() => { if (typeof renderAportesMensais === 'function') renderAportesMensais(); }, 0);
+let _aportesResizeTimer = null;
+window.addEventListener('resize', () => { clearTimeout(_aportesResizeTimer); _aportesResizeTimer = setTimeout(() => renderAportesMensais(), 150); });
 
 function calcularRentabilidadeCota(range) {
   const bench = window.FEHMIR_BENCH;

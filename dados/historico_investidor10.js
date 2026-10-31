@@ -22,6 +22,16 @@ window.FEHMIR_I10 = {
     { mes: "2026-07", mercado: 4319.57, aplicado: 4234.18 },
     { mes: "2026-08", mercado: 4628.74, aplicado: 4642.19 }
   ],
+  // compras (c) e vendas (v) por mês — Lançamentos › Consolidação de aportes.
+  // 2025: lido do gráfico (aprox., ±R$ 15). 02–08/2026: variação do valor aplicado (meses sem venda). 09/2026: soma da lista de lançamentos.
+  aportes: {
+    "2025-04": { c: 1760, v: 0, aprox: true }, "2025-05": { c: 740, v: 90, aprox: true }, "2025-06": { c: 410, v: 20, aprox: true },
+    "2025-07": { c: 1080, v: 0, aprox: true }, "2025-08": { c: 660, v: 520, aprox: true }, "2025-09": { c: 360, v: 510, aprox: true },
+    "2025-10": { c: 200, v: 90, aprox: true }, "2025-11": { c: 0, v: 320, aprox: true }, "2025-12": { c: 0, v: 0 },
+    "2026-01": { c: 0, v: 0 }, "2026-02": { c: 91.13, v: 0 }, "2026-03": { c: 119.68, v: 0 }, "2026-04": { c: 62.17, v: 0 },
+    "2026-05": { c: 22.99, v: 0 }, "2026-06": { c: 42.18, v: 0 }, "2026-07": { c: 147.77, v: 0 }, "2026-08": { c: 408.01, v: 0 },
+    "2026-09": { c: 653.45, v: 0 }
+  },
   // rentabilidade mensal da carteira (%)
   rentabilidade: {
     "2025-04": 3.83, "2025-05": 1.62, "2025-06": 0.97, "2025-07": -1.33, "2025-08": 1.71, "2025-09": 2.09,
