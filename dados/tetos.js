@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-10-31 22:29",
+ "gerado": "2026-10-31 23:11",
  "ativos": 226,
  "carteira": 23,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
@@ -503,12 +503,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "VAMO3": {
-  "teto": 3.97,
-  "compra": 3.18,
+  "teto": 1.23,
+  "compra": 0.98,
   "margemMin": 20,
   "metodo": "Graham",
   "setor": "Industrial & Bens de capital",
-  "src": "Graham √[22,5 × LPA R$ 0,26 × VPA R$ 2,70] = R$ 3,97 · Bazin 5A R$ 2,29 (conferência)",
+  "src": "Graham √[22,5 × LPA R$ 0,26 × VPA R$ 2,70] = R$ 3,97 · Bazin 5A R$ 2,29 (conferência) · limitado pelo P/VP justo = (ROE 9,6% − g 4,6%) ÷ (k 15,5% − g) = 0,46 × VPA R$ 2,70 = R$ 1,23 (lucro em queda: o Graham não enxerga juros nem dívida)",
   "preco": 2.46,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"

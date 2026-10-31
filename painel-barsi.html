@@ -3833,7 +3833,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-fiis', event)">
       <div>
         <h2>FIIs (11 posições reais)</h2>
-        <p class="panel-note"><b>"Sinal do tracker" é o sinal bruto do seu app de carteira (peso vs. %ideal) — nunca uma recomendação do Conselheiro Fehmir.</b> O veredito desta metodologia é sempre a última coluna, e as duas podem discordar. <b>P/VP não vale o mesmo para todo FII</b> — em tijolo o valor patrimonial depende de laudo de avaliação (pode estar desatualizado) e é indicador secundário (itálico, com ⓘ); em papel/crédito ele é mais direto, mas ainda precisa cruzar com inadimplência e tendência do dividendo (seção 5 do doc mestre).</p>
+        <p class="panel-note"><b>"Sinal do tracker" é o sinal bruto do seu app de carteira (peso vs. %ideal) — nunca uma recomendação do Conselheiro Fehmir.</b> O veredito desta metodologia é sempre a última coluna, e as duas podem discordar. <b>P/VP não vale o mesmo para todo FII</b> — em tijolo o valor patrimonial depende de laudo de avaliação (pode estar desatualizado) e é indicador secundário (itálico, com ⓘ); em papel/crédito ele é mais direto, mas ainda precisa cruzar com inadimplência e tendência do dividendo.</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
         <span class="collapsed-summary-pill">11 Fundos · R$ 3.799,07</span>
@@ -3933,7 +3933,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div id="cb-macro-form"></div>
   </details>
 
-  <p class="cb-disclaimer">O Conselheiro Fehmir aplica as regras do <code>Barsi_Bot_Metodologia.md</code> sobre os dados do painel. Metodologia própria, inspirada em Luiz Barsi, Décio Bazin, Benjamin Graham e Charlie Munger, sem vínculo com eles. É apoio à decisão, não recomendação de investimento. Ninguém prevê topo ou fundo: as probabilidades dos cenários são estimativas subjetivas, e todo sinal de compra ainda passa pelo checklist anti-viés.</p>
+  <p class="cb-disclaimer">O Conselheiro Fehmir aplica as regras da metodologia do painel sobre os seus dados. Metodologia própria, inspirada em Luiz Barsi, Décio Bazin, Benjamin Graham e Charlie Munger, sem vínculo com eles. É apoio à decisão, não recomendação de investimento. Ninguém prevê topo ou fundo: as probabilidades dos cenários são estimativas subjetivas, e todo sinal de compra ainda passa pelo checklist anti-viés.</p>
 </div>
 
 <!-- ===================== TAB: ANÁLISE (11/10/2026) ===================== -->
@@ -4607,7 +4607,7 @@ function fehmirVeredito(r) {
   if (!ehFii && preco > tv.teto * 1.2) {
     const S = typeof window.setorDe === "function" ? window.setorDe(r) : null;
     if (S && S.ciclico) return { label: "Realizar", status: "critical", motivo: `${base}. Cíclica mais de 20% acima do teto: realizar parte em escada.` };
-    return { label: "Travar compra", status: "serious", motivo: `${base}. Mais de 20% acima do teto, mas não é cíclica: segurar sem compras (vaca leiteira, §22.3).` };
+    return { label: "Travar compra", status: "serious", motivo: `${base}. Mais de 20% acima do teto, mas não é cíclica: segurar sem compras (vaca leiteira).` };
   }
   return { label: "Travar compra", status: "warning", motivo: `${base}. Acima do teto: ${ehFii ? "FII não se vende por preço; " : ""}sem novas compras.` };
 }
@@ -9222,7 +9222,7 @@ function openModal(ticker) {
       else if (margem >= 0) corMargem = 'var(--accent)';
       elTetoSub.style.color = corMargem;
       if (cardTeto) {
-        cardTeto.setAttribute('title', (av.src ? `Teto oficial (${av.metodo || 'Régua §21'}):\n${av.src}` : 'Teto oficial pela Régua Setorial') + (av.motivo ? `\nMotivo: ${av.motivo}` : '') + (av.taxaExplicada ? `\nTaxa: ${av.taxaExplicada}` : ''));
+        cardTeto.setAttribute('title', (av.src ? `Teto oficial (${av.metodo || 'régua do setor'}):\n${av.src}` : 'Teto oficial pela Régua Setorial') + (av.motivo ? `\nMotivo: ${av.motivo}` : '') + (av.taxaExplicada ? `\nTaxa: ${av.taxaExplicada}` : ''));
       }
     } else {
       elTetoVal.textContent = '—';
@@ -12987,7 +12987,7 @@ function calcularSaudeCarteira(dadosContexto) {
     max: 200,
     itens: [
       {
-        nome: "Qualidade (travas §20.1)",
+        nome: "Qualidade (travas)",
         pts: ptsQualidade,
         max: 100,
         valor: `${String(((fracQualidade * 100)).toFixed(1)).replace('.', ',')}%`,
@@ -13092,7 +13092,7 @@ function calcularSaudeCarteira(dadosContexto) {
     } else if (p.item === 'esticados') {
       sugestoes.push({
         tipo: "esticados",
-        texto: "Ativos acima do teto tolerado: acionar plano de rotação e saída escalonada §22 do Conselheiro para proteger lucros."
+        texto: "Ativos acima do teto tolerado: acionar plano de rotação e saída escalonada do Conselheiro para proteger lucros."
       });
     } else if (p.item === 'concentracao') {
       sugestoes.push({
@@ -14111,7 +14111,7 @@ window.atualizarDuelo = atualizarDuelo;
 function isTrapAsset(item) {
   if (!item) return false;
   if (item.payout && item.payout > 100) return true;
-  const knownTraps = ["CURY3", "TIMS3", "POMO4", "KLBN4", "CSNA3", "SAPR4", "MTRE3", "TEND3", "MFII11", "HFOF11", "PCIP11", "RBRR11", "SNEL11", "XBCI11", "PMLL11"];
+  const knownTraps = ["CURY3", "TIMS3", "POMO4", "KLBN4", "CSNA3", "SAPR4", "MTRE3", "TEND3", "MFII11", "HFOF11", "PCIP11", "RBRR11", "SNEL11", "XBCI11", "PMLL11", "RZTR11", "VAMO3"];
   if (knownTraps.includes(item.t)) return true;
   if (item.status === 'critical') return true;
   if (item.roe != null && item.roe < 6 && item.macro === 'acoes') return true;
@@ -14121,6 +14121,8 @@ function isTrapAsset(item) {
 
 function getTrapReason(item) {
   if (item.payout && item.payout > 100) return `Payout insustentável de ${String((item.payout).toFixed(0)).replace('.', ',')}% (distribui mais que o lucro operacional).`;
+  if (item.t === "VAMO3") return "Locadora alavancada: dívida de 2,9x o EBITDA com ~55% do EBITDA indo para juros, ROE abaixo do custo de capital, lucro por ação −51% desde 2022 e dividendo abaixo do Tesouro IPCA+.";
+  if (item.t === "RZTR11") return "Risco jurídico no arrendamento de terras agrícolas: vendido em 16/10/2026 por isso; não volta como oportunidade só pelo preço.";
   if (item.t === "MFII11") return "Lição MFII11: Receita de desenvolvimento/obras futuras que secou (-40% num único dia).";
   if (item.t === "HFOF11") return "FOF com taxa de administração em dobro e conflito de cotas da própria gestora.";
   if (item.t === "SAPR4") return "Dividendo cortado em 80% (DY 1,71%) e ROE desabou para 3,76% (Value Trap clássica).";
@@ -18576,7 +18578,7 @@ initCollapsibleBlocks();
     // Incorporadora (31/10/2026): o lucro dos 12 meses ainda vem de obras antigas (POC), então o Graham sozinho infla o teto.
     // Vale o menor entre Graham e P/VP justo = (ROE − g) ÷ (k − g) × VPA, com o ROE mais baixo entre o atual e a média dos
     // anos fechados (cíclica), k nominal = taxa do setor + IPCA e g = IPCA (crescimento real zero) — como no banco forte.
-    if (S.id === "construcao" && em.metodo === "Graham" && teto > 0 && CV && CV.vpa > 0 && CV.roe > 0 && m && m.ipca12 != null) {
+    if ((S.id === "construcao" || (rec && rec.emRecuperacao)) && em.metodo === "Graham" && teto > 0 && CV && CV.vpa > 0 && CV.roe > 0 && m && m.ipca12 != null) {
       const ultAno = new Date().getFullYear() - 1;
       const rf = roesAno.filter(x => Number(x[0]) <= ultAno).slice(-5).map(x => x[1]);
       const roeBase = Math.min(CV.roe, rf.length ? rf.reduce((x, y) => x + y, 0) / rf.length : CV.roe);
@@ -18585,7 +18587,7 @@ initCollapsibleBlocks();
       const tetoPVP = pvpJ * CV.vpa;
       if (tetoPVP < teto) {
         src += " · limitado pelo P/VP justo = (ROE " + fmtN(roeBase, 1) + "% − g " + fmtN(ipcaC, 1) + "%) ÷ (k " + fmtN(kNomC, 1) + "% − g) = " +
-          fmtN(pvpJ, 2) + " × VPA " + fR(CV.vpa) + " = " + fR(tetoPVP) + " (incorporadora: lucro de obras antigas infla o Graham)";
+          fmtN(pvpJ, 2) + " × VPA " + fR(CV.vpa) + " = " + fR(tetoPVP) + " (" + (S.id === "construcao" ? "incorporadora: lucro de obras antigas infla o Graham" : "lucro em queda: o Graham não enxerga juros nem dívida") + ")";
         teto = tetoPVP;
       }
     }
@@ -18784,6 +18786,8 @@ initCollapsibleBlocks();
     if (typeof window.fehmirRadarMercado === "function") {
       window.fehmirRadarMercado().forEach(c => {
         if (out.some(o => o.t === c.x.t) || rows.some(r => r.t === c.x.t)) return;
+        if (c.av && c.av.diverg != null && c.av.diverg > 35) return;   // margem só no modelo otimista não é oportunidade
+        if (typeof isTrapAsset === "function" && isTrapAsset({ t: c.x.t })) return;
         const base = /banc|segur|el[eé]tric|saneamento|transmiss/i.test(c.av.metodo) || c.x.tp === "fii";
         out.push({ t: c.x.t, nome: c.x.n, margem: c.margem, base, onde: "Mercado (robô) · " + (base ? "B.A.S.E./FII" : "fora da B.A.S.E."),
           score: Math.min(c.margem, 40) * 0.6 + 20 + (base ? 10 : 0), preco: c.x.p, teto: c.av.teto, src: c.av.metodo + " · DPA médio 5A" });
@@ -19058,7 +19062,7 @@ initCollapsibleBlocks();
       if (ant > 0 && ult / ant - 1 < -0.15) a.push(["📉", "<b>" + r.t + "</b>: último provento caiu " + fmtN((1 - ult / ant) * 100, 0) + "% contra o anterior. Pergunta 1 e 2 do protocolo do yield."]);
     });
     if (termo.premio < 3) a.push(["🌡️", "Prêmio de risco da bolsa em " + fmtN(termo.premio, 1) + " p.p. sobre o IPCA+, abaixo dos 4-5 p.p. exigidos. O Tesouro IPCA+ a " + fmtN(m.ntnb, 1) + "% compete forte com ações esticadas."]);
-    if (m.dolar && m.dolar <= 5.1) a.push(["💵", "Dólar perto de R$ " + fmtN(m.dolar, 2) + ": janela de desconto duplo para o balde internacional (VTI sub-alocado, seção 19.14)."]);
+    if (m.dolar && m.dolar <= 5.1) a.push(["💵", "Dólar perto de R$ " + fmtN(m.dolar, 2) + ": janela de desconto duplo para o balde internacional (VTI sub-alocado)."]);
     const est = (m.est || []).length;
     if (est) a.push(["✏️", est + " dado(s) do termômetro são estimativas (borda tracejada no formulário abaixo). Confirme para deixar o sinal mais confiável."]);
     return a;
@@ -19207,7 +19211,7 @@ initCollapsibleBlocks();
       ${grupos.map((g, gi) => [g, gi]).filter(([g]) => g[1].length).map(([g, gi]) => `<div class="cb-group-title" id="cb-grp-${gi}">${g[0]} <span class="cb-pill">${g[1].length}</span></div><div class="cb-plan-grid">${g[1].map(card).join("")}</div>`).join("")}`;
 
     document.getElementById("cb-oportunidades").innerHTML = `<h3>Radar de Oportunidades</h3>
-      <p class="cb-sub">Ativos com margem acima da mínima do próprio setor (5% em transmissão até 30% em commodities), sem flag de armadilha e, se já estão na carteira, sub-alocados. Margem é condição necessária, nunca suficiente: rode o checklist da seção 8 antes de comprar.</p>
+      <p class="cb-sub">Ativos com margem acima da mínima do próprio setor (5% em transmissão até 30% em commodities), sem flag de armadilha e, se já estão na carteira, sub-alocados. Margem é condição necessária, nunca suficiente: confira a qualidade da empresa (lucro, dívida e dividendo) antes de comprar.</p>
       <div style="overflow-x:auto"><table class="cb-opp"><thead><tr><th>Ativo</th><th>Onde</th><th>Preço</th><th>Teto</th><th>Margem</th><th>Método</th></tr></thead><tbody>
       ${ops.map(o => `<tr><td data-l="Ativo"><span class="tk" onclick="typeof searchTickerGlobal==='function'&&searchTickerGlobal('${o.t}')">${o.t}</span> <span style="color:var(--muted);font-size:11.5px">${o.nome || ""}</span></td>
         <td data-l="Onde">${o.onde}</td><td data-l="Preço" class="m">${fR(o.preco)}</td><td data-l="Teto" class="m">${fR(o.teto)}</td>
@@ -19923,7 +19927,7 @@ function toggleTheme(){
 </script>
 <script>
 /* ===== MEDO × GANÂNCIA POR ATIVO + IBOV AUTOMÁTICO (11/10/2026) =====
-   Índice 0-100 por ativo com 5 fatores (inspirado no Adapta Valuer, seção 23.3 do .md):
+   Índice 0-100 por ativo com 5 fatores (inspirado no Adapta Valuer):
    Momentum (preço vs. MM200) 25% · Volume 30d vs. média 20% · Volatilidade (calma = alto) 20% · RSI(14) 20% · Posição 52s 15%.
    Histórico diário via Brapi (token do localStorage). Cache diário em localStorage["barsi-fg-cache-v1"]. */
 (function(){
@@ -20884,7 +20888,7 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
 
         <!-- Linha Comparativa -->
         <div class="an-calc-comp-bar" id="calc-comp-bar-${t}">
-          <div class="an-calc-comp-item regua-destaque" title="Teto oficial do setor conforme metodologia §21">
+          <div class="an-calc-comp-item regua-destaque" title="Teto oficial pela régua do setor">
             <span>Régua (oficial):</span> <b>${fmtRM(tetoRegua)}</b>
           </div>
           <div class="an-calc-comp-item">
@@ -21019,7 +21023,7 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
               </div>
             </div>
             <div class="an-calc-row">
-              <span class="an-calc-label">Payout (%) <span class="an-info" tabindex="0" title="Parte do lucro paga como dividendo. Padrão: o menor entre o payout da empresa e o sustentável do setor (régua §21.2).">ⓘ</span></span>
+              <span class="an-calc-label">Payout (%) <span class="an-info" tabindex="0" title="Parte do lucro paga como dividendo. Padrão: o menor entre o payout da empresa e o sustentável do setor.">ⓘ</span></span>
               <div class="an-calc-input-wrap">
                 <input type="number" step="1" class="an-calc-input" id="calc-proj-payout-${t}" value="${estado.projetivo.payout}" oninput="fehmirAtualizarCalc('${t}')" style="width:60px">
               </div>
@@ -21136,7 +21140,7 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
 
       <!-- Linha Comparativa -->
       <div class="an-calc-comp-bar" id="calc-comp-bar-${t}">
-        <div class="an-calc-comp-item regua-destaque" title="Teto oficial do setor conforme metodologia §21">
+        <div class="an-calc-comp-item regua-destaque" title="Teto oficial pela régua do setor">
           <span>Régua (oficial):</span> <b>${fmtRM(tetoRegua)}</b>
         </div>
         <div class="an-calc-comp-item">
@@ -21280,7 +21284,7 @@ window.fehmirAtualizarCalc = function(t) {
   if (compBar) {
     if (S.ehFii) {
       compBar.innerHTML = `
-        <div class="an-calc-comp-item regua-destaque" title="Teto oficial do setor conforme metodologia §21">
+        <div class="an-calc-comp-item regua-destaque" title="Teto oficial pela régua do setor">
           <span>Régua (oficial):</span> <b>${fmtRM(S.tetoRegua)}</b>
         </div>
         <div class="an-calc-comp-item">
@@ -21289,7 +21293,7 @@ window.fehmirAtualizarCalc = function(t) {
       `;
     } else {
       compBar.innerHTML = `
-        <div class="an-calc-comp-item regua-destaque" title="Teto oficial do setor conforme metodologia §21">
+        <div class="an-calc-comp-item regua-destaque" title="Teto oficial pela régua do setor">
           <span>Régua (oficial):</span> <b>${fmtRM(S.tetoRegua)}</b>
         </div>
         <div class="an-calc-comp-item">
@@ -21438,7 +21442,7 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
     if (/commod|petr|miner|sider|celulose/i.test(av.metodo || "")) alertas.push("Commodity: se a commodity caiu e a ação subiu, não há margem; se ambas caíram, pode ser momento de compra.");
     if (a.deterioracao) alertas.push("Marcada com deterioração fundamental (Bloquinho 2).");
     if (av && av.payoutDivergente && (!av.payoutImplicito || av.payoutImplicito <= 100)) alertas.push("Payout divergente: confira em fonte primária.");
-    if (av && av.diverg != null && av.diverg > 35) alertas.push("Modelos divergem (" + fmt(av.diverg, 0) + "% " + (av.diverg_par || 'conferência') + "): confira o lucro (pode haver não recorrente, §21.1.3).");
+    if (av && av.diverg != null && av.diverg > 35) alertas.push("Modelos divergem (" + fmt(av.diverg, 0) + "% " + (av.diverg_par || 'conferência') + "): confira o lucro (pode haver resultado não recorrente).");
     if (a && a._fundDiverg && a._fundDiverg.length) alertas.push("Fundamentos do robô mudaram mais de 25% em relação ao cadastro (" + a._fundDiverg.join(" · ") + "): conferir no RI antes de decidir.");
     const valExplicado = (av && (av.proj != null || av.hist != null)) ? `
       <div class="an-val-box" style="margin:12px 0 8px;padding:10px 14px;background:var(--surface-2);border-radius:8px;font-size:13px;border-left:3px solid var(--accent)">
@@ -21460,7 +21464,7 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
               <span class="an-ddm-badge">FII</span>
             </div>
           </div>
-          <div style="color:var(--muted);font-size:12px;margin-top:6px">Não se aplica a FIIs (use a régua por tipo, §21.3).</div>
+          <div style="color:var(--muted);font-size:12px;margin-top:6px">Não se aplica a FIIs (eles usam a régua por tipo de fundo).</div>
         </div>`;
     } else {
       const S = (typeof setorDe === "function") ? setorDe(a) : { payout: 60, premio: 1.5, haircut: 1 };
@@ -21946,7 +21950,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
         <div><span>IPCA 12m</span><b>${fmt(m.ipca12 ?? 4.6)}%</b></div><div><span>Juro real (Selic − IPCA)</span><b>${fmt((m.selic ?? 13.75) - (m.ipca12 ?? 4.6))}%</b></div>
         <div><span>Dólar</span><b>R$ ${fmt(m.dolar ?? 5)}</b></div><div><span>Prêmio da bolsa</span><b style="color:${premio != null && premio < 3 ? "var(--critical)" : "var(--good)"}">${premio == null ? "—" : fmt(premio, 1) + " p.p."}</b></div>
       </div>
-      <p class="cb-sub" style="margin-top:10px">Prêmio da bolsa = lucro/preço do Ibovespa (1 ÷ P/L) − Tesouro IPCA+. Abaixo de 3 p.p., ações competem mal com o Tesouro (§19.14 pede 4-5 p.p.). <b>Fluxo estrangeiro diário</b>: não há fonte gratuita estável integrada ainda (pendência §23.3.5).</p>`;
+      <p class="cb-sub" style="margin-top:10px">Prêmio da bolsa = lucro/preço do Ibovespa (1 ÷ P/L) − Tesouro IPCA+. Abaixo de 3 p.p., ações competem mal com o Tesouro (o ideal são 4 a 5 p.p.). <b>Fluxo estrangeiro diário</b>: não há fonte gratuita estável integrada ainda.</p>`;
     let token = ""; try { token = localStorage.getItem("barsi-brapi-token") || ""; } catch (e) {}
     const lista = [["^BVSP", "Ibovespa"], ["SMAL11", "Small caps (SMAL11)"], ["IVVB11", "S&P 500 em reais (IVVB11)"], ["XFIX11", "FIIs (XFIX11, réplica do IFIX)"]];
     if ((!token && !window.FEHMIR_HIST) || typeof window.fgObter !== "function") { box.innerHTML = `<p class="cb-sub">🔑 Rode <code>python tools/atualizar_historico.py</code> (histórico gratuito, sem chave) ou configure o token da Brapi para ver os gráficos.</p>`; return; }
@@ -22118,7 +22122,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
     };
     const lst = tudo.map(r => Object.assign(r, { st: status(r) })).sort((a, b) => a.st[2] - b.st[2]).slice(0, 14);
     box.innerHTML = `<h3>Cíclicas na baixa & recompra</h3>
-      <p class="cb-sub"><b>Filtro de qualidade:</b> ativo cujo dividendo parou ou caiu forte, com dado suspeito ou yield extremo, fica <b>fora</b> (yield do retrovisor, §19.15), mesmo que o preço pareça barato. A regra: cíclica só vale o risco quando <b>o dividendo médio de 5 anos (com corte de ciclo) paga o DY exigido do setor</b> e o preço está <b>na baixa</b> (Medo × Ganância abaixo de 45). Assim o dividendo paga a espera e a alta seguinte é lucro (exemplos: Vale a R$ 45, Petrobras abaixo de R$ 30). Inclui ${VENDIDOS.join(" e ")}, vendidas na alta de outubro, para eventual recompra na baixa. Ordem: as mais próximas do preço de compra.</p>
+      <p class="cb-sub"><b>Filtro de qualidade:</b> ativo cujo dividendo parou ou caiu forte, com dado suspeito ou yield extremo, fica <b>fora</b> (yield do retrovisor), mesmo que o preço pareça barato. A regra: cíclica só vale o risco quando <b>o dividendo médio de 5 anos (com corte de ciclo) paga o DY exigido do setor</b> e o preço está <b>na baixa</b> (Medo × Ganância abaixo de 45). Assim o dividendo paga a espera e a alta seguinte é lucro (exemplos: Vale a R$ 45, Petrobras abaixo de R$ 30). Inclui ${VENDIDOS.join(" e ")}, vendidas na alta de outubro, para eventual recompra na baixa. Ordem: as mais próximas do preço de compra.</p>
       <div style="overflow-x:auto"><table class="cb-opp"><thead><tr><th>Ativo</th><th>Preço</th><th>Preço de compra</th><th>Distância</th><th>DY médio 5A</th><th>Medo×G</th><th>Status</th></tr></thead><tbody>
       ${lst.map(r => `<tr><td data-l="Ativo"><span class="tk" onclick="typeof searchTickerGlobal==='function'&&searchTickerGlobal('${r.x.t}')">${r.x.t}</span>${VENDIDOS.includes(r.x.t) ? ' <span class="cb-pill" style="padding:0 6px;font-size:10px">vendida</span>' : ""} <span class="fg-muted">${r.av.metodo.split(" (")[0]}</span></td>
         <td data-l="Preço" class="m">${R(r.x.p)}</td><td data-l="Preço de compra" class="m">${R(r.compra)}</td>
@@ -22585,7 +22589,7 @@ function renderAbaCripto() {
 
     <!-- Regra Metodológica -->
     <div style="background:var(--surface-2); border-left:4px solid var(--cor-classe-cripto); border-radius:10px; padding:14px 18px; font-size:12.5px; line-height:1.6; color:var(--ink-2);">
-      <b>Diretriz Metodológica (§17.5 & §17.6):</b> Criptoativos funcionam como satélite assimétrico descorrelacionado. O teto máximo de alocação é 8,0% (ajustado em 18/10/2026). As compras devem ser fracionadas (Dollar Cost Averaging) sem tentar acertar topos ou fundos. Jamais ultrapassar o teto em euforias.
+      <b>Diretriz da metodologia:</b> Criptoativos funcionam como satélite assimétrico descorrelacionado. O teto máximo de alocação é 8,0% (ajustado em 18/10/2026). As compras devem ser fracionadas (Dollar Cost Averaging) sem tentar acertar topos ou fundos. Jamais ultrapassar o teto em euforias.
     </div>
   `;
 }
