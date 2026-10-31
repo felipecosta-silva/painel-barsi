@@ -1,17 +1,24 @@
 /* Gerado por tools/fundamentos_cvm.py — não editar à mão. */
 window.FEHMIR_FUND_CVM_META = {
-  "gerado": "2026-10-28 16:21",
+  "gerado": "2026-10-31 16:21",
   "fonte": "CVM Dados Abertos (ITR/DFP consolidado/individual 2026/2025)",
-  "total_ativos": 64,
-  "ok": 64,
-  "falhas": [],
-  "sanidade_auditada": 58,
+  "total_ativos": 63,
+  "ok": 63,
+  "falhas": [
+    {
+      "t": "AXIA3",
+      "motivo": "Valor de mercado implícito R$ 145.66 bi diverge +24.6% do mercado de referência R$ 116.93 bi (razão 1.25x)"
+    }
+  ],
+  "sanidade_auditada": 55,
   "sem_referencia": [
     "ALUP11",
     "ALUP3",
     "ALUP4",
+    "BPAC11",
     "BRIT3",
     "ENGI11",
+    "MELK3",
     "VITT3"
   ],
   "ajustes_escala": [
@@ -222,40 +229,6 @@ window.FEHMIR_FUND_CVM = {
       "2025": -0.6357
     }
   },
-  "AXIA3": {
-    "lpa": 4.2,
-    "vpa": 42.63,
-    "roe": 9.86,
-    "pl_liquido": 122244292000.0,
-    "lucro12m": 12056946000.0,
-    "acoes": 2867341000,
-    "ref": "2T26",
-    "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)",
-    "roeAnual": {
-      "2021": 7.55,
-      "2022": 3.9,
-      "2023": 4.08,
-      "2024": 8.86,
-      "2025": 5.46
-    },
-    "lucroAnual": {
-      "2020": 6338688000.0,
-      "2021": 5646141000.0,
-      "2022": 3635377000.0,
-      "2023": 4549774000.0,
-      "2024": 10378122000.0,
-      "2025": 6558475000.0
-    },
-    "lpaAnual": {
-      "2020": 2.2107,
-      "2021": 1.9691,
-      "2022": 1.2679,
-      "2023": 1.5868,
-      "2024": 3.6194,
-      "2025": 2.2873
-    }
-  },
   "BBAS3": {
     "lpa": 2.15,
     "vpa": 32.59,
@@ -291,15 +264,15 @@ window.FEHMIR_FUND_CVM = {
     }
   },
   "BBDC3": {
-    "lpa": 2.3,
-    "vpa": 17.15,
-    "roe": 13.42,
-    "pl_liquido": 181281460000.0,
-    "lucro12m": 24318943000.0,
+    "lpa": 2.47,
+    "vpa": 18.45,
+    "roe": 13.41,
+    "pl_liquido": 195045587000.0,
+    "lucro12m": 26148439000.0,
     "acoes": 10570712028,
-    "ref": "2T26",
+    "ref": "3T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)",
+    "fonte": "ITR/DFP CVM (3T26)",
     "roeAnual": {
       "2021": 15.69,
       "2022": 13.62,
@@ -325,15 +298,15 @@ window.FEHMIR_FUND_CVM = {
     }
   },
   "BBDC4": {
-    "lpa": 2.3,
-    "vpa": 17.15,
-    "roe": 13.42,
-    "pl_liquido": 181281460000.0,
-    "lucro12m": 24318943000.0,
+    "lpa": 2.47,
+    "vpa": 18.45,
+    "roe": 13.41,
+    "pl_liquido": 195045587000.0,
+    "lucro12m": 26148439000.0,
     "acoes": 10570712028,
-    "ref": "2T26",
+    "ref": "3T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)",
+    "fonte": "ITR/DFP CVM (3T26)",
     "roeAnual": {
       "2021": 15.69,
       "2022": 13.62,
@@ -2186,14 +2159,14 @@ window.FEHMIR_FUND_CVM = {
   },
   "WEGE3": {
     "lpa": 1.49,
-    "vpa": 4.5,
-    "roe": 33.16,
-    "pl_liquido": 18861411000.0,
-    "lucro12m": 6254051000.0,
+    "vpa": 4.76,
+    "roe": 31.41,
+    "pl_liquido": 19956834000.0,
+    "lucro12m": 6268804000.0,
     "acoes": 4195829691,
-    "ref": "2T26",
+    "ref": "3T26",
     "demo": "con",
-    "fonte": "ITR/DFP CVM (2T26)",
+    "fonte": "ITR/DFP CVM (3T26)",
     "roeAnual": {
       "2021": 28.5,
       "2022": 29.59,
