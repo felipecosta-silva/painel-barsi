@@ -1,7 +1,7 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-10-31 16:47",
- "ativos": 229,
+ "gerado": "2026-10-31 17:09",
+ "ativos": 227,
  "carteira": 23,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
 };
@@ -312,17 +312,6 @@ window.FEHMIR_TETOS = {
   "setor": "Telecom",
   "src": "Projetivo R$ 3,81 (LPA R$ 0,57 × payout realista 52% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 4A R$ 0,31 (robô)÷9,4% = R$ 3,35 (conferência)",
   "preco": 5.2,
-  "data": "2026-10-29",
-  "base_dpa": "historico_5a"
- },
- "BRIT3": {
-  "teto": 0.22,
-  "compra": 0.19,
-  "margemMin": 15,
-  "metodo": "Bazin projetivo",
-  "setor": "Telecom",
-  "src": "Projetivo R$ 0,22 (LPA R$ 0,14 × payout realista 15% (2A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · Bazin 5A R$ 2,70 → usa o menor (recuperação: ROE 5A 6,2% < 10%) · ⚠️ Projetivo (R$ 0,22) diverge 92% do histórico (R$ 2,70): confira premissa de dividendos",
-  "preco": 2.38,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
  },
@@ -2513,17 +2502,6 @@ window.FEHMIR_TETOS = {
   "src": "Renda anual ÷ 9,9%",
   "preco": 1300,
   "data": null,
-  "base_dpa": "historico_5a"
- },
- "TRPL4": {
-  "teto": 28,
-  "compra": 25.2,
-  "margemMin": 10,
-  "metodo": "Bazin projetivo",
-  "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 28,00 (LPA R$ 4,28 × payout da empresa 48% × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 4A R$ 2,54 (robô)÷8,9% = R$ 28,49 (conferência)",
-  "preco": 24.9,
-  "data": "2026-10-29",
   "base_dpa": "historico_5a"
  }
 };

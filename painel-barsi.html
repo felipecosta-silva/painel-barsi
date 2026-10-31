@@ -3056,7 +3056,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   <section class="barsi-bussola-box collapsible-block" id="sec-carteira-bussola">
     <div class="bussola-header-row collapsible-head" onclick="toggleBlockCollapse('sec-carteira-bussola', event)">
       <div class="bussola-title-wrap">
-        <h3>🧭 Bússola Fehmir: Cenários de Mercado, Política & Setores</h3>
+        <h3>Bússola Fehmir: Cenários de Mercado, Política & Setores</h3>
         <p>O que fazer na <b>Bolsa em Alta</b>, na <b>Queda / Pânico</b> e como transformar <b>riscos políticos</b> e <b>setores oprimidos</b> em riqueza perpétua.</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
@@ -3089,7 +3089,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   <!-- ================= 🔔 ALERTAS DO ANALISTA (specs/001, dados/alertas.js) ================= -->
   <section class="panel" id="panel-alertas-analista">
     <div class="panel-head" style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
-      <div><h2 style="margin:0">🔔 Alertas do analista</h2><div class="fg-muted" id="alertas-sub" style="font-size:12.5px"></div></div>
+      <div><h2 style="margin:0">Alertas do analista</h2><div class="fg-muted" id="alertas-sub" style="font-size:12.5px"></div></div>
       <button type="button" class="cmp-open-btn" id="alertas-toggle-todos" style="display:none" onclick="window.__alertasTodos=!window.__alertasTodos;renderAlertasAnalista()">ver todos</button>
     </div>
     <div id="alertas-lista"></div>
@@ -3119,9 +3119,9 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-visao-geral', event)">
       <div>
         <h2 style="display:flex; align-items:center; gap:8px;">
-          <span>Visão Geral: Ativos na Carteira & Evolução</span>
+          <span>Alocação e evolução</span>
         </h2>
-        <p class="panel-note">Alocação por classes (FIIs, Ações, ETFs, Cripto) e evolução gráfica mês a mês.</p>
+        <p class="panel-note">Como o patrimônio está distribuído e como evoluiu mês a mês.</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
         <span class="collapsed-summary-pill" id="vg-summary-pill">R$ 0,00 · 21 Ativos</span>
@@ -3137,7 +3137,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
               <h3 style="margin:0; font-size:15px; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:8px;">
                 <span>Alocação da Carteira</span>
               </h3>
-              <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Consolidação por classe (esquerda) e distribuição por ativos (direita)</p>
+              <p style="font-size:11.5px; color:var(--muted); margin:3px 0 0 0;">Distribuição por ativo; use os filtros para ver uma classe</p>
             </div>
             <span class="aloc-sub-info" id="aloc-total-patr">Patrimônio: R$ 0,00</span>
           </div>
@@ -3174,10 +3174,10 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
             </div>
           </div>
 
-          <!-- Barra Atual vs. Meta (§7.0) -->
+          <!-- Barra Atual vs. Meta -->
           <div class="aloc-metas-section">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-              <span class="aloc-metas-title" style="margin:0;">Alocação Atual vs. Meta Canônica (§7.0)</span>
+              <span class="aloc-metas-title" style="margin:0;">Alocação atual × meta</span>
               <span style="font-size:11px; color:var(--muted);">Bandas de tolerância assimétricas</span>
             </div>
             <div class="aloc-metas-list" id="aloc-metas-list"></div>
@@ -3816,7 +3816,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   <section class="panel collapsible-block mv-hide" id="panel-intl">
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-intl', event)">
       <div>
-        <h2>🌐 Ativos Internacionais (ETFs & Dólar)</h2>
+        <h2>Ativos Internacionais (ETFs & Dólar)</h2>
         <p class="panel-note">Posições globais dolarizadas com conversão automática pelo câmbio de mercado e custódia exterior.</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
@@ -3831,7 +3831,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   <section class="panel collapsible-block mv-hide" id="panel-cripto">
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-cripto', event)">
       <div>
-        <h2>⚡ Criptoativos (Bitcoin, Ethereum & Altcoins)</h2>
+        <h2>Criptoativos (Bitcoin, Ethereum & Altcoins)</h2>
         <p class="panel-note">Exposição a ativos digitais descentralizados dentro do teto prudencial de 8% da carteira.</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
@@ -3846,7 +3846,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   <section class="panel collapsible-block mv-hide" id="panel-caixa-rf">
     <div class="panel-head collapsible-head" onclick="toggleBlockCollapse('panel-caixa-rf', event)">
       <div>
-        <h2>🏦 Renda Fixa & Estrutura do Caixa Único (§25)</h2>
+        <h2>Renda Fixa & Estrutura do Caixa Único</h2>
         <p class="panel-note">Gestão do caixa de oportunidade e piso intocável de tranquilidade.</p>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
@@ -3858,7 +3858,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   </section>
 
   <footer>
-    Fonte dos dados: preços e proventos pelo robô diário (Yahoo Finance, via GitHub Actions) e cotação ao vivo pela Brapi quando configurada; fundamentos do cadastro revisados nas reavaliações trimestrais (§22.7.2); fatos relevantes e relatórios gerenciais pelo robô semanal de novidades (§29).
+    Fonte dos dados: preços e proventos pelo robô diário (Yahoo Finance, via GitHub Actions) e cotação ao vivo pela Brapi quando configurada; fundamentos do cadastro revisados nas reavaliações trimestrais; fatos relevantes e relatórios gerenciais pelo robô semanal de novidades.
   </footer>
 </div>
 
@@ -3894,7 +3894,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div id="cb-macro-form"></div>
   </details>
 
-  <p class="cb-disclaimer">O Conselheiro Fehmir aplica as regras do <code>Barsi_Bot_Metodologia.md</code> sobre os dados do painel. Metodologia própria, inspirada em Luiz Barsi, Décio Bazin, Benjamin Graham e Charlie Munger, sem vínculo com eles. É apoio à decisão, não recomendação de investimento. Ninguém prevê topo ou fundo: as probabilidades dos cenários são estimativas subjetivas, e todo sinal de compra ainda passa pelo checklist anti-viés (seção 8).</p>
+  <p class="cb-disclaimer">O Conselheiro Fehmir aplica as regras do <code>Barsi_Bot_Metodologia.md</code> sobre os dados do painel. Metodologia própria, inspirada em Luiz Barsi, Décio Bazin, Benjamin Graham e Charlie Munger, sem vínculo com eles. É apoio à decisão, não recomendação de investimento. Ninguém prevê topo ou fundo: as probabilidades dos cenários são estimativas subjetivas, e todo sinal de compra ainda passa pelo checklist anti-viés.</p>
 </div>
 
 <!-- ===================== TAB: ANÁLISE (11/10/2026) ===================== -->
@@ -3905,7 +3905,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 
 <!-- ===================== TAB: MERCADO (11/10/2026) ===================== -->
 <div class="tabpanel" data-tab="mercado" data-active="false">
-  <section class="cb-card"><h3>🌎 Mercado</h3><p class="cb-sub">Índices com média móvel de 200 dias (linha tracejada) e o índice Medo × Ganância de cada um. Histórico de 1 ano gratuito (Yahoo Finance, sem chave), gerado pelo robô <code>tools/atualizar_historico.py</code>: <span id="mk-fonte"></span>. Sem esse arquivo, o painel tenta a Brapi (plano grátis = 3 meses).</p><div id="mk-indices"></div></section>
+  <section class="cb-card"><h3>Mercado</h3><p class="cb-sub">Índices com média móvel de 200 dias (linha tracejada) e o índice Medo × Ganância de cada um. Histórico de 1 ano gratuito (Yahoo Finance, sem chave), gerado pelo robô <code>tools/atualizar_historico.py</code>: <span id="mk-fonte"></span>. Sem esse arquivo, o painel tenta a Brapi (plano grátis = 3 meses).</p><div id="mk-indices"></div></section>
   <section class="cb-card" id="mk-macro"></section>
 </div>
 
@@ -3944,7 +3944,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   <section class="radar-controls-panel">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
       <div>
-        <h2 style="font-size:22px; font-family:var(--font-serif); margin:0;">🎯 Radar Estratégico de Oportunidades</h2>
+        <h2 style="font-size:22px; font-family:var(--font-serif); margin:0;">Radar Estratégico de Oportunidades</h2>
         <p style="font-size:13px; color:var(--ink-2); margin-top:2px;">Ordenado do <b>Melhor para o Pior</b> pelo Score Fehmir de Qualidade e Margem de Segurança.</p>
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
@@ -4202,7 +4202,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div class="duelo-header-box">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
         <div>
-          <h2 style="font-size:22px; font-family:var(--font-serif); margin:0; color:var(--ink);">🥊 Duelo de Ativos · Comparador Direto Lado a Lado</h2>
+          <h2 style="font-size:22px; font-family:var(--font-serif); margin:0; color:var(--ink);">Duelo de Ativos · Comparador Direto Lado a Lado</h2>
           <p style="font-size:13px; color:var(--ink-2); margin-top:2px;">Compare 2 ativos simultaneamente em todas as métricas Fehmir (DY, Preço Teto, P/L, P/VP, ROE, Payout e Alavancagem) com Veredito Inteligente.</p>
         </div>
         <div style="font-size:12px; font-weight:700; color:var(--accent); background:var(--accent-soft); padding:6px 14px; border-radius:20px; border:1px solid var(--accent);">
@@ -4266,7 +4266,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   <div class="callout">
     <h3>Simulador de renda passiva</h3>
     <ul>
-      <li>Projeta patrimônio e renda passiva a partir de aportes mensais, usando a fórmula da seção 1 do documento mestre (Patrimônio-alvo = Renda Desejada ÷ 0,0085). <b>É um simulador de cenário, não uma previsão</b> — não substitui Preço Teto e margem de segurança como critério de compra (seções 1, 2 e 8).</li>
+      <li>Projeta patrimônio e renda passiva a partir de aportes mensais, pela regra Patrimônio-alvo = Renda desejada ÷ 0,0085. <b>É um simulador de cenário, não uma previsão</b> — não substitui Preço Teto e margem de segurança como critério de compra.</li>
     </ul>
   </div>
 
@@ -4365,7 +4365,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
       <section class="meta-panel-box" id="panel-meta-aposentadoria">
         <div class="meta-controls-row">
           <div>
-            <h2 style="font-size:20px; font-family:var(--font-serif); margin:0; color:var(--ink);">🎯 Meta de Aposentadoria Fehmir ("Quantas Ações Faltam?")</h2>
+            <h2 style="font-size:20px; font-family:var(--font-serif); margin:0; color:var(--ink);">Meta de Aposentadoria Fehmir ("Quantas Ações Faltam?")</h2>
             <p style="font-size:12.5px; color:var(--ink-2); margin-top:2px;">Foco do Décio Bazin: não olhe o saldo na corretora, conte a <b>quantidade de ações</b> que geram sua renda.</p>
           </div>
           <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
@@ -4457,7 +4457,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
       </section>
 
       <div class="footnote">
-        <strong>Isto é um simulador, não uma previsão.</strong> A taxa de rendimento é uma premissa fixa que você escolhe — o mercado real não rende de forma constante mês a mês, e nenhum ativo específico deveria ser comprado só porque essa conta "fecha". Preço Teto, margem de segurança e a checagem anti-viés continuam sendo o critério de decisão de compra (seções 1, 2 e 8 do documento mestre) — este simulador só ajuda a enxergar o efeito do tempo e da disciplina de aporte sobre a meta de renda.
+        <strong>Isto é um simulador, não uma previsão.</strong> A taxa de rendimento é uma premissa fixa que você escolhe — o mercado real não rende de forma constante mês a mês, e nenhum ativo específico deveria ser comprado só porque essa conta "fecha". Preço Teto, margem de segurança e a checagem anti-viés continuam sendo o critério de decisão de compra — este simulador só ajuda a enxergar o efeito do tempo e da disciplina de aporte sobre a meta de renda.
       </div>
     </div>
   </div>
@@ -4565,7 +4565,7 @@ function fehmirVeredito(r) {
   if (preco <= tv.teto) return { label: "Manter", status: "info", motivo: `${base}. Abaixo do teto, mas sem a margem mínima: manter, sem pressa para comprar.` };
   if (!ehFii && preco > tv.teto * 1.2) {
     const S = typeof window.setorDe === "function" ? window.setorDe(r) : null;
-    if (S && S.ciclico) return { label: "Realizar", status: "critical", motivo: `${base}. Cíclica mais de 20% acima do teto: realizar parte em escada (§22).` };
+    if (S && S.ciclico) return { label: "Realizar", status: "critical", motivo: `${base}. Cíclica mais de 20% acima do teto: realizar parte em escada.` };
     return { label: "Travar compra", status: "serious", motivo: `${base}. Mais de 20% acima do teto, mas não é cíclica: segurar sem compras (vaca leiteira, §22.3).` };
   }
   return { label: "Travar compra", status: "warning", motivo: `${base}. Acima do teto: ${ehFii ? "FII não se vende por preço; " : ""}sem novas compras.` };
@@ -5482,7 +5482,7 @@ function mostrarNumeroMagico(el, ticker, tipo, preco) {
     <div style="font-size:11.5px; color:var(--ink-2); line-height:1.35; margin-bottom:6px;">${info.textoExplicativo}</div>
     ${seloAtingido}
     <div style="font-size:9.5px; color:var(--muted); border-top:1px solid var(--rule); padding-top:6px; margin-top:4px; line-height:1.3;">
-      Base: média de proventos dos últimos 12 meses (robô). Número Mágico não é sinal de compra (§8).
+      Base: média de proventos dos últimos 12 meses (robô). Número Mágico não é sinal de compra.
     </div>`;
   }
 
@@ -6143,6 +6143,8 @@ function renderMeusAtivos() {
       <div class="ma-kpi"><span>&nbsp;</span><a href="javascript:void(0)" onclick="setCarteiraView('caixa')" style="font-size:12.5px">ver reserva e caixinhas</a></div>
     </div></div>`;
   body.innerHTML = cards + caixaCard;
+  // rótulo de cada célula (vira cartão no celular)
+  body.querySelectorAll('.ma-table').forEach(tb => { const hs = [...tb.querySelectorAll('th')].map(h => h.textContent); tb.querySelectorAll('tbody tr').forEach(tr => [...tr.children].forEach((td, i) => td.setAttribute('data-label', hs[i] || ''))); });
 }
 window.renderMeusAtivos = renderMeusAtivos;
 
@@ -7046,7 +7048,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
           <div class="val" id="m-preco" style="color:var(--ink)">R$ 0,00</div>
           <div id="m-variacao" style="font-size:11px; font-weight:700; color:var(--good)">+0,0%</div>
         </div>
-        <div class="m-kpi-card" id="m-kpi-card-teto" style="border-color:var(--gold); background:rgba(245, 158, 11, 0.06); cursor:pointer;" onclick="switchModalTab('teto')" title="Teto oficial pela Régua Setorial (§21)">
+        <div class="m-kpi-card" id="m-kpi-card-teto" style="border-color:var(--gold); background:rgba(245, 158, 11, 0.06); cursor:pointer;" onclick="switchModalTab('teto')" title="Teto oficial pela Régua Setorial">
           <div class="lbl" id="m-kpi-lbl-teto" style="color:var(--gold); font-weight:700;">Teto (Régua)</div>
           <div class="val" id="m-kpi-teto-regua" style="color:var(--gold); font-weight:800;">R$ 0,00</div>
           <div id="m-kpi-teto-sub" style="font-size:11px; font-weight:700; color:var(--good)">—</div>
@@ -7337,7 +7339,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
 
         <!-- Card de Ouro da Origem do Dinheiro -->
         <div class="money-origin-card">
-          <h4>⚖️ Regra de Ouro Fehmir: Antes de olhar quanto paga, olhe de onde vem o dinheiro!</h4>
+          <h4>Regra de Ouro Fehmir: Antes de olhar quanto paga, olhe de onde vem o dinheiro!</h4>
           <div class="origin-qa-item">
             <div class="q">1. Como este ativo gera receita?</div>
             <div class="a" id="m-origin-q1">Receita operacional recorrente através de contratos vigentes e atividade fim.</div>
@@ -7474,7 +7476,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
   <div class="modal-content" style="max-width: 420px;">
     <button class="modal-close" onclick="closeCaixaConfigModal()">✕</button>
     <div class="modal-header">
-      <h3 style="font-size:18px; margin:0 0 6px; font-weight:700;">⚙️ Configuração do Caixa para Investir</h3>
+      <h3 style="font-size:18px; margin:0 0 6px; font-weight:700;">Configuração do Caixa para Investir</h3>
       <p style="font-size:12px; color:var(--ink-2); margin:0;">Defina a data de início da apuração do caixa e o aporte mensal padrão.</p>
     </div>
     <div style="margin:14px 0; display:flex; flex-direction:column; gap:12px;">
@@ -7568,7 +7570,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
     <div style="padding:24px 28px 32px; overflow-y:auto; max-height:75vh; display:flex; flex-direction:column; gap:18px;">
       <!-- Card 1: Metodologia B.A.S.E. -->
       <div style="background:var(--surface-2); border-left:4px solid var(--accent); border-radius:12px; padding:18px; border:1px solid var(--rule);">
-        <h3 style="font-size:15px; margin:0 0 8px; color:var(--ink); font-weight:700;">⚡ 1. O Pilar B.A.S.E. (Ações de Renda Perene)</h3>
+        <h3 style="font-size:15px; margin:0 0 8px; color:var(--ink); font-weight:700;">1. O Pilar B.A.S.E. (Ações de Renda Perene)</h3>
         <p style="font-size:13px; line-height:1.6; color:var(--ink-2); margin-bottom:8px;">
           Foque em empresas que prestam serviços indispensáveis à sociedade, com barreiras intransponíveis de entrada e forte poder de repasse de preços:
         </p>
@@ -7582,7 +7584,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
 
       <!-- Card 2: Preço Teto Bazin -->
       <div style="background:var(--surface-2); border-left:4px solid #10b981; border-radius:12px; padding:18px; border:1px solid var(--rule);">
-        <h3 style="font-size:15px; margin:0 0 8px; color:var(--ink); font-weight:700;">🎯 2. Preço Teto de Décio Bazin</h3>
+        <h3 style="font-size:15px; margin:0 0 8px; color:var(--ink); font-weight:700;">2. Preço Teto de Décio Bazin</h3>
         <p style="font-size:13px; line-height:1.6; color:var(--ink-2); margin-bottom:6px;">
           Fórmula: <code>Preço Teto = DPA ÷ Taxa de Desconto (k)</code>
         </p>
@@ -7593,7 +7595,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
 
       <!-- Card 3: Cuidados com FIIs -->
       <div style="background:var(--surface-2); border-left:4px solid #f59e0b; border-radius:12px; padding:18px; border:1px solid var(--rule);">
-        <h3 style="font-size:15px; margin:0 0 8px; color:var(--ink); font-weight:700;">🏢 3. Os 3 Cuidados com FIIs & Origem do Dinheiro (Lição MFII11 vs PMLL11)</h3>
+        <h3 style="font-size:15px; margin:0 0 8px; color:var(--ink); font-weight:700;">3. Os 3 Cuidados com FIIs & Origem do Dinheiro (Lição MFII11 vs PMLL11)</h3>
         <ul style="font-size:12.5px; color:var(--ink-2); line-height:1.6; margin:0; padding-left:18px;">
           <li><b>Origem do Dinheiro:</b> Cheque se a receita vem de aluguel operacional (recorrente) ou de alienação de patrimônio (esgotável, como PMLL11 vendendo 40% de shopping).</li>
           <li><b>P/VP de Tijolo vs Papel:</b> Em tijolo o valor depende de laudos anuais (indicador secundário). Em crédito/papel (CRIs) o P/VP é direto, mas exige monitoramento de calotes e IPCA.</li>
@@ -7603,7 +7605,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
 
       <!-- Card 4: Adicionar BTC e ETH -->
       <div style="background:var(--surface-2); border-left:4px solid #8b5cf6; border-radius:12px; padding:18px; border:1px solid var(--rule);">
-        <h3 style="font-size:15px; margin:0 0 8px; color:var(--ink); font-weight:700;">🪙 4. Como Adicionar Bitcoin (BTC) e Ethereum (ETH) à sua Carteira</h3>
+        <h3 style="font-size:15px; margin:0 0 8px; color:var(--ink); font-weight:700;">4. Como Adicionar Bitcoin (BTC) e Ethereum (ETH) à sua Carteira</h3>
         <p style="font-size:13px; line-height:1.6; color:var(--ink-2); margin-bottom:8px;">
           Instruções para sincronizar suas criptomoedas com a carteira:
         </p>
@@ -7615,7 +7617,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
 
       <!-- Card 5: Rebalanceamento por Aporte -->
       <div style="background:var(--surface-2); border-left:4px solid #06b6d4; border-radius:12px; padding:18px; border:1px solid var(--rule);">
-        <h3 style="font-size:15px; margin:0 0 8px; color:var(--ink); font-weight:700;">⚖️ 5. Rebalanceamento por Aporte (Sem Girar Carteira)</h3>
+        <h3 style="font-size:15px; margin:0 0 8px; color:var(--ink); font-weight:700;">5. Rebalanceamento por Aporte (Sem Girar Carteira)</h3>
         <p style="font-size:13px; line-height:1.6; color:var(--ink-2);">
           Não venda posições vencedoras para reequilibrar percentuais. Direcione os novos proventos e o dinheiro novo do mês para os ativos sub-alocados (com maior distância abaixo da meta ideal).
         </p>
@@ -9143,7 +9145,7 @@ function openModal(ticker) {
       else if (margem >= 0) corMargem = 'var(--accent)';
       elTetoSub.style.color = corMargem;
       if (cardTeto) {
-        cardTeto.setAttribute('title', (av.src ? `Teto oficial (${av.metodo || 'Régua §21'}):\n${av.src}` : 'Teto oficial pela Régua Setorial (§21)') + (av.motivo ? `\nMotivo: ${av.motivo}` : '') + (av.taxaExplicada ? `\nTaxa: ${av.taxaExplicada}` : ''));
+        cardTeto.setAttribute('title', (av.src ? `Teto oficial (${av.metodo || 'Régua §21'}):\n${av.src}` : 'Teto oficial pela Régua Setorial') + (av.motivo ? `\nMotivo: ${av.motivo}` : '') + (av.taxaExplicada ? `\nTaxa: ${av.taxaExplicada}` : ''));
       }
     } else {
       elTetoVal.textContent = '—';
@@ -9206,6 +9208,11 @@ function openModal(ticker) {
   if (r.macro === 'fiis') {
     document.getElementById('m-pl').textContent = r.tag || (ehFoFOuPapel ? 'FOF / PAPEL' : 'Tijolo');
   }
+  // FII: "Tipo" repete o selo do cabeçalho e vacância/inadimplência sem dado vira quadro vazio — esconder (31/10/2026)
+  const cardPl = document.getElementById('m-pl') && document.getElementById('m-pl').closest('.m-kpi-card');
+  if (cardPl) cardPl.style.display = r.macro === 'fiis' ? 'none' : '';
+  const cardRoe = document.getElementById('m-roe') && document.getElementById('m-roe').closest('.m-kpi-card');
+  if (cardRoe) setTimeout(() => { cardRoe.style.display = (r.macro === 'fiis' && document.getElementById('m-roe').textContent.trim() === '—') ? 'none' : ''; }, 0);
 
   // Indicadores Básicos
   document.getElementById('m-bi-preco').textContent = fmtR(r.preco);
@@ -11083,20 +11090,18 @@ function renderCaixaInvestir() {
     msgStatus = `<span style="color:var(--critical); font-weight:700;">Usou ${fmtR(yVal)} da reserva</span>${reservaTxt}`;
   }
 
+  // Faixa do mês em 3 números + ações (31/10/2026): legível no celular, sem separadores soltos
+  const am = fehmirAportesMes();
+  const detAp = Object.entries(am.porTicker).sort((x, y) => y[1] - x[1]).map(([t, v]) => t + ' ' + fmtR(v)).join(' · ').replace(/"/g, '&quot;');
+  const mesLbl = am.mes.slice(5, 7) + '/' + am.mes.slice(2, 4);
   card.innerHTML = `
-    <div style="display:flex; align-items:center; justify-content:space-between; width:100%; font-size:12.5px; color:var(--ink-2); padding:8px 14px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:4px 0 16px;">
-      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-        <span title="Compras − vendas lançadas no extrato neste mês">${(() => { const am = fehmirAportesMes(); const det = Object.entries(am.porTicker).sort((x, y) => y[1] - x[1]).map(([t, v]) => t + ' ' + fmtR(v)).join(' · '); return `Aportado em ${am.mes.slice(5, 7)}/${am.mes.slice(2, 4)}: <strong style="font-family:var(--font-mono); font-size:13px; color:var(--ink);" title="${det.replace(/"/g, '&quot;')}">${fmtR(am.liquido)}</strong> <span style="font-size:11px; color:var(--muted);">(compras ${fmtR(am.compras)} − vendas ${fmtR(am.vendas)})</span>`; })()}</span>
-        <span style="color:var(--muted);">·</span>
-        <span>Caixa para investir: <strong style="color:${saldoCor}; font-family:var(--font-mono); font-size:13px;">${fmtR(res.saldoFinal)}</strong> ${notaEstimado}</span>
-        <span style="color:var(--muted);">·</span>
-        ${msgStatus}
-        <span style="color:var(--muted);">·</span>
-        <a href="javascript:void(0)" onclick="openCaixaModal()" style="color:var(--accent); text-decoration:underline; font-weight:500;">ver conta</a>
-      </div>
-      <div style="display:flex; align-items:center; gap:6px;">
-        <button type="button" class="mc-btn-sec" onclick="abrirModalAporteMes()" style="padding:3px 8px; font-size:11.5px; white-space:nowrap;">+ Aporte</button>
-        <button type="button" class="mc-btn-sec" onclick="abrirModalProvento()" style="padding:3px 8px; font-size:11.5px; white-space:nowrap;">+ Provento</button>
+    <div class="cx-strip">
+      <div class="cx-item" title="${detAp}"><span class="cx-lbl">Aportado em ${mesLbl}</span><b class="cx-val">${fmtR(am.liquido)}</b><span class="cx-sub">compras ${fmtR(am.compras)} · vendas ${fmtR(am.vendas)}</span></div>
+      <div class="cx-item"><span class="cx-lbl">Caixa para investir</span><b class="cx-val" style="color:${saldoCor}">${fmtR(res.saldoFinal)}</b><span class="cx-sub">${res.proventosEstimados > 0 ? 'inclui ' + fmtR(res.proventosEstimados) + ' estimado' : '&nbsp;'}</span></div>
+      <div class="cx-item"><span class="cx-lbl">Situação do mês</span><span class="cx-msg">${msgStatus}</span><a class="cx-sub" href="javascript:void(0)" onclick="openCaixaModal()" style="color:var(--accent)">ver conta</a></div>
+      <div class="cx-acoes">
+        <button type="button" class="mc-btn-sec" onclick="abrirModalAporteMes()">+ Aporte</button>
+        <button type="button" class="mc-btn-sec" onclick="abrirModalProvento()">+ Provento</button>
       </div>
     </div>
   `;
@@ -12184,10 +12189,12 @@ function renderGraficosAlocacao() {
   const titleAtivos004 = document.getElementById('aloc-ativos-title');
   if (titleAtivos004) {
     const btnTodosActive = isTodos ? 'background:var(--accent);color:#fff;border-color:var(--accent);' : 'background:var(--surface-2);color:var(--ink-2);border-color:var(--rule-strong);';
-    titleAtivos004.innerHTML = `<span style="display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;"><span>${isTodos ? 'Todos os ativos' : 'Ativos em ' + classLabel004}</span><button type="button" id="btn-aloc-todos" onclick="alocClasseSelecionada='todos';renderGraficosAlocacao();" style="padding:2px 9px;border-radius:999px;border:1px solid;font-size:11px;font-weight:700;cursor:pointer;${btnTodosActive}">Todos</button></span>`;
+    const chipsAloc = [['todos', 'Todos'], ['fiis', 'FIIs'], ['acoes', 'Ações'], ['intl', 'Internacional'], ['cripto', 'Cripto']]
+      .map(([k, l]) => `<button type="button" class="aloc-chip${alocClasseSelecionada === k ? ' on' : ''}" aria-pressed="${alocClasseSelecionada === k}" onclick="alocClasseSelecionada='${k}'; renderGraficosAlocacao();">${l}</button>`).join('');
+    titleAtivos004.innerHTML = `<div class="aloc-chips" role="group" aria-label="Filtrar por classe">${chipsAloc}</div>`;
   }
   const centerValAtivos004 = document.getElementById('aloc-ativos-center-val');
-  if (centerValAtivos004) centerValAtivos004.textContent = fmtR(classTotal004);
+  if (centerValAtivos004) centerValAtivos004.textContent = classTotal004 >= 10000 ? 'R$ ' + (classTotal004 / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' mil' : fmtR(classTotal004).replace(/,\d{2}$/, '');
   const centerSubAtivos004 = document.querySelector('#aloc-ativos-center .aloc-center-sub');
   if (centerSubAtivos004) centerSubAtivos004.textContent = isTodos ? 'Total da Carteira' : 'Total da Classe';
   classList004.sort((a, b) => b.saldo - a.saldo);
@@ -13640,7 +13647,7 @@ function calcularAporteInteligente() {
           });
           const patGeral = (typeof recalcularCarteira === 'function') ? (parseFloat(document.getElementById('mc-patrimonio')?.textContent?.replace(/[^0-9,]/g,'')?.replace(',','.')) || patTotal) : patTotal;
           const pctIntl = patGeral > 0 ? (saldoIntlAlt / patGeral) * 100 : 0;
-          return pctIntl < metaIntl * 0.8 ? `<p style="font-size:12.5px; color:var(--ink); margin-top:8px; line-height:1.5;">🌎 <b>Alternativa:</b> o balde Internacional está em <b>${String((pctIntl).toFixed(1)).replace('.', ',')}%</b> contra a meta de <b>${metaIntl}%</b>. ETFs internacionais (VTI/SCHD) não têm veto de preço-teto (seção 7) e o dólar perto de R$ 5,00 é janela de desconto em reais: parte do aporte pode ir para ETFs, o resto para o Caixa.</p>` : "";
+          return pctIntl < metaIntl * 0.8 ? `<p style="font-size:12.5px; color:var(--ink); margin-top:8px; line-height:1.5;">🌎 <b>Alternativa:</b> o balde Internacional está em <b>${String((pctIntl).toFixed(1)).replace('.', ',')}%</b> contra a meta de <b>${metaIntl}%</b>. ETFs internacionais (VTI/SCHD) não têm veto de preço-teto e o dólar perto de R$ 5,00 é janela de desconto em reais: parte do aporte pode ir para ETFs, o resto para o Caixa.</p>` : "";
         })()}
       </div>
     `;
@@ -18634,7 +18641,7 @@ initCollapsibleBlocks();
     if (!el) return;
     const alts = loadAlertasPreco();
 
-    let html = `<h3>🎯 Alertas de Preço-Alvo</h3>
+    let html = `<h3>Alertas de Preço-Alvo</h3>
     <p class="cb-sub">Defina preços-alvo para ativos da carteira ou do radar. O painel avisa no banner e no card de alertas quando o alvo for atingido.</p>
     <form id="form-novo-alvo" onsubmit="event.preventDefault(); const t=document.getElementById('alvo-ticker').value, c=document.getElementById('alvo-cond').value, p=document.getElementById('alvo-preco').value, n=document.getElementById('alvo-nota').value; if(criarAlertaPreco(t,c,p,n)){ document.getElementById('alvo-ticker').value=''; document.getElementById('alvo-preco').value=''; document.getElementById('alvo-nota').value=''; }" style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:16px;background:var(--surface-2);padding:12px 14px;border-radius:12px;border:1px solid var(--rule)">
       <div style="flex:1 1 110px">
@@ -18740,7 +18747,7 @@ initCollapsibleBlocks();
   function renderCardIncorp() {
     const el = document.getElementById("cb-incorp");
     if (!el) return;
-    let html = `<h3>🔄 Incorporações</h3>
+    let html = `<h3>Incorporações</h3>
     <p class="cb-sub">Quando um FII vai ser incorporado por outro, comprar o fundo incorporado pode sair mais barato que comprar o incorporador direto.</p>`;
 
     const linhas = PARES_INCORPORACAO.map(par => {
@@ -18777,7 +18784,7 @@ initCollapsibleBlocks();
     }).join("");
 
     html += linhas;
-    html += `<p class="cb-sub" style="margin:8px 0 0;font-size:11.5px;font-style:italic">Desconto não é ordem de compra: respeitar a fatia de FIIs de logística (§7.0) e a régua do setor (§21.3).</p>`;
+    html += `<p class="cb-sub" style="margin:8px 0 0;font-size:11.5px;font-style:italic">Desconto não é ordem de compra: respeitar a fatia de FIIs de logística e a régua do setor.</p>`;
     el.innerHTML = html;
   }
 
@@ -18811,9 +18818,9 @@ initCollapsibleBlocks();
     rows.filter(r => r.peso > 10).forEach(r => a.push(["⚖️", "<b>" + r.t + "</b> pesa " + fmtN(r.peso, 1) + "% da carteira (ideal " + (r.ideal != null ? fmtN(r.ideal, 1) + "%" : "sem meta") + "). Concentração: não reforçar."]));
     rows.filter(r => r.divHist && r.divHist.length >= 2).forEach(r => {
       const h = r.divHist, ult = h[h.length - 1], ant = h[h.length - 2];
-      if (ant > 0 && ult / ant - 1 < -0.15) a.push(["📉", "<b>" + r.t + "</b>: último provento caiu " + fmtN((1 - ult / ant) * 100, 0) + "% contra o anterior. Pergunta 1 e 2 do protocolo do yield (seção 19.15)."]);
+      if (ant > 0 && ult / ant - 1 < -0.15) a.push(["📉", "<b>" + r.t + "</b>: último provento caiu " + fmtN((1 - ult / ant) * 100, 0) + "% contra o anterior. Pergunta 1 e 2 do protocolo do yield."]);
     });
-    if (termo.premio < 3) a.push(["🌡️", "Prêmio de risco da bolsa em " + fmtN(termo.premio, 1) + " p.p. sobre o IPCA+, abaixo dos 4-5 p.p. exigidos (seção 19.14). O Tesouro IPCA+ a " + fmtN(m.ntnb, 1) + "% compete forte com ações esticadas."]);
+    if (termo.premio < 3) a.push(["🌡️", "Prêmio de risco da bolsa em " + fmtN(termo.premio, 1) + " p.p. sobre o IPCA+, abaixo dos 4-5 p.p. exigidos. O Tesouro IPCA+ a " + fmtN(m.ntnb, 1) + "% compete forte com ações esticadas."]);
     if (m.dolar && m.dolar <= 5.1) a.push(["💵", "Dólar perto de R$ " + fmtN(m.dolar, 2) + ": janela de desconto duplo para o balde internacional (VTI sub-alocado, seção 19.14)."]);
     const est = (m.est || []).length;
     if (est) a.push(["✏️", est + " dado(s) do termômetro são estimativas (borda tracejada no formulário abaixo). Confirme para deixar o sinal mais confiável."]);
@@ -18879,14 +18886,14 @@ initCollapsibleBlocks();
           <span class="cb-pill bad">🔻 Realizar: ${realizar.length} ativo(s) · ≈ ${fR(caixa)}</span>
           <span class="cb-pill good">🟢 Reforçar: ${reforcar.length} na carteira</span>
           <span class="cb-pill">🔎 ${ops.length} oportunidades no radar</span>
-          <span class="cb-pill warn">Selic ${fmtN(m.selic, 2)}% · IPCA+ ${fmtN(m.ntnb, 2)}% · US$ R$ ${fmtN(m.dolar, 2)}</span>
+          <span class="cb-pill warn">Selic ${fmtN(m.selic, 2)}% · IPCA+ ${fmtN(m.ntnb, 2)}% · Dólar R$ ${fmtN(m.dolar, 2)}</span>
         </div>
       </div>`;
 
     const barCor = h => h >= 75 ? "#DC2626" : h >= 60 ? "#D97706" : h >= 40 ? "#9CA3AF" : h >= 20 ? "#0EA5E9" : "#2563EB";
     const pctC = v => v == null ? "—" : (v > 0 ? "+" : "") + fmtN(v, 1) + "%";
     const elEl = document.getElementById("cb-eleicao");
-    if (elEl) elEl.innerHTML = `<h3>🗳️ Lições dos ciclos eleitorais</h3>
+    if (elEl) elEl.innerHTML = `<h3>Lições dos ciclos eleitorais</h3>
       <p class="cb-sub">Taxas-base históricas para não decidir no achismo. Fonte: slides de live enviados em 10/10/2026 (autor não identificado). Use como referência, não como garantia.</p>
       <div class="cb-grid-2" style="margin-bottom:0">
         <div>
@@ -18908,16 +18915,25 @@ initCollapsibleBlocks();
         <li><span class="ic">🪜</span><span><b>Não vender tudo, vender em escada.</b> A taxa-base favorece alta em 3-12 meses, mas 2026 chegou com +33% já no preço. Escada (parte agora, parte +5%, stop −7%) captura os dois lados.</span></li>
         <li><span class="ic">🌪️</span><span><b>Volatilidade:</b> historicamente bate pico entre o 1º e o 2º turno, cai depois da eleição e chega perto da mínima do ano em dezembro. Realizar na força <b>antes de 25/10</b>; comprar B.A.S.E. nos recuos de nov/dez.</span></li>
         <li><span class="ic">🔄</span><span><b>Rotação em curso:</b> nos 5 pregões após o 1º turno subiram os atrasados (${ELEICAO.rotacao.lideres} p.p. vs. Ibov) e ficaram para trás as defensivas (${ELEICAO.rotacao.ficando}). Os pilares Elétricas/Transmissão da B.A.S.E. podem ficar mais baratos: é o destino natural do caixa das realizações.</span></li>
-        <li><span class="ic">🦆</span><span><b>"Dividendo alto e atrasada":</b> ${ELEICAO.atrasadasDY.join(", ")} aparecem como atrasadas com DY projetado alto. São cíclicas fora da B.A.S.E. e várias têm payout acima de 100% (CURY3, POMO4): só entram depois do protocolo das 3 perguntas do yield (seção 19.15).</span></li>
+        <li><span class="ic">🦆</span><span><b>"Dividendo alto e atrasada":</b> ${ELEICAO.atrasadasDY.join(", ")} aparecem como atrasadas com DY projetado alto. São cíclicas fora da B.A.S.E. e várias têm payout acima de 100% (CURY3, POMO4): só entram depois do protocolo das 3 perguntas do yield.</span></li>
       </ul>`;
 
-    document.getElementById("cb-componentes").innerHTML = `<h3>🌡️ Do que o termômetro é feito</h3>
+    document.getElementById("cb-componentes").innerHTML = `<h3>Do que o termômetro é feito</h3>
       <p class="cb-sub">Seis sinais de 0 (pânico) a 100 (euforia). Nenhum prevê o futuro sozinho; juntos dizem se o mercado está caro ou barato <i>agora</i>.</p>
       ${termo.comps.map(c => `<div class="cb-bar-row"><div class="lbl">${c.nome}<small>${c.det}</small></div>
         <div class="cb-bar"><span style="width:${(c.heat).toFixed(0)}%;background:${barCor(c.heat)}"></span></div><div class="v">${c.heat.toFixed(0)}</div></div>`).join("")}`;
 
-    document.getElementById("cb-cenarios").innerHTML = `<h3>🔮 A bolsa ainda sobe?</h3>
-      <p class="cb-sub">${LEITURA.resumo} <i>(Leitura de ${LEITURA.data}; probabilidades são estimativas subjetivas.)</i></p>
+    // Leitura de cenário é texto datado: se passou de 14 dias, avisar com o Ibovespa de então × hoje (31/10/2026)
+    const lDt = String(LEITURA.data || '').split('/').reverse().join('-');
+    const lDias = lDt ? (Date.now() - new Date(lDt).getTime()) / 864e5 : 0;
+    let avisoLeitura = '';
+    if (lDias > 14 && typeof fehmirPrecoEm === 'function') {
+      const ibEntao = fehmirPrecoEm('^BVSP', lDt), ibHoje = m.ibov;
+      avisoLeitura = `<div class="cb-sub" style="margin:0 0 10px; padding:8px 12px; border-radius:10px; background:color-mix(in srgb,var(--warning) 14%,transparent); color:var(--ink)">
+        Leitura antiga (${LEITURA.data}, há ${Math.round(lDias)} dias). Desde então o Ibovespa foi de ${ibEntao ? Math.round(ibEntao).toLocaleString('pt-BR') : '—'} para ${Math.round(ibHoje).toLocaleString('pt-BR')} pontos${ibEntao ? ' (' + String(((ibHoje / ibEntao - 1) * 100).toFixed(1)).replace('.', ',') + '%)' : ''}. Os cenários abaixo precisam de revisão.</div>`;
+    }
+    document.getElementById("cb-cenarios").innerHTML = `<h3>A bolsa ainda sobe?</h3>${avisoLeitura}
+      <p class="cb-sub"${avisoLeitura ? ' style="opacity:.7"' : ''}>${LEITURA.resumo} <i>(Leitura de ${LEITURA.data}; probabilidades são estimativas subjetivas.)</i></p>
       ${LEITURA.cenarios.map(c => `<div class="cb-cen"><div class="cb-cen-top"><b>${c.nome}</b><span style="color:${c.cor}">~${c.prob}%</span></div>
         <div class="cb-prob"><span style="width:${c.prob}%;background:${c.cor}"></span></div><p>${c.txt}</p></div>`).join("")}
       <p class="cb-sub" style="margin:10px 0 0"><b>Conduta:</b> ${LEITURA.conclusao}</p>`;
@@ -18939,7 +18955,7 @@ initCollapsibleBlocks();
     if (alertas(m, rows, termo).some(x => x[0] === "🛑")) destino.push("1º o <b>piso de tranquilidade do caixa</b> (1 mês de gasto essencial)");
     if (reforcar.length || ops.length) destino.push("depois <b>" + [...new Set([...reforcar.map(r => r.t), ...ops.filter(o => o.base).map(o => o.t)])].slice(0, 4).join(", ") + "</b> (margem + B.A.S.E./FII)");
     destino.push("o que sobrar vai para a <b>Reserva de Oportunidade</b> (CDI) esperando a correção");
-    document.getElementById("cb-plano").innerHTML = `<h3>♻️ Plano de Realização & Rotação para a B.A.S.E.</h3>
+    document.getElementById("cb-plano").innerHTML = `<h3>Plano de Realização & Rotação para a B.A.S.E.</h3>
       <div style="background:var(--surface-2); border-left:4px solid var(--accent); padding:10px 14px; border-radius:8px; margin-bottom:14px; font-size:12.5px; line-height:1.5; color:var(--ink);">
         <b>🎯 Princípio Soberano: "Não é o Percentual, é o Cenário"</b><br>
         <span style="color:var(--ink-2);">Não corte as flores para regar as ervas daninhas. Venda parcial de risco só ocorre quando coincidem os 3 pilares: <b>(1) Topo de Ciclo da Commodity/Setor</b>, <b>(2) Virada de Cenário Político/Governança</b> e <b>(3) Preço acima do valor intrínseco (Teto +20%)</b>. Vacas leiteiras do B.A.S.E. nunca são vendidas por oscilação de preço.</span>
@@ -18953,7 +18969,7 @@ initCollapsibleBlocks();
       </div>
       ${grupos.filter(g => g[1].length).map(g => `<div class="cb-group-title">${g[0]} <span class="cb-pill">${g[1].length}</span></div><div class="cb-plan-grid">${g[1].map(card).join("")}</div>`).join("")}`;
 
-    document.getElementById("cb-oportunidades").innerHTML = `<h3>🔎 Radar de Oportunidades</h3>
+    document.getElementById("cb-oportunidades").innerHTML = `<h3>Radar de Oportunidades</h3>
       <p class="cb-sub">Ativos com margem acima da mínima do próprio setor (5% em transmissão até 30% em commodities), sem flag de armadilha e, se já estão na carteira, sub-alocados. Margem é condição necessária, nunca suficiente: rode o checklist da seção 8 antes de comprar.</p>
       <div style="overflow-x:auto"><table class="cb-opp"><thead><tr><th>Ativo</th><th>Onde</th><th>Preço</th><th>Teto</th><th>Margem</th><th>Método</th></tr></thead><tbody>
       ${ops.map(o => `<tr><td data-l="Ativo"><span class="tk" onclick="typeof searchTickerGlobal==='function'&&searchTickerGlobal('${o.t}')">${o.t}</span> <span style="color:var(--muted);font-size:11.5px">${o.nome || ""}</span></td>
@@ -18998,8 +19014,8 @@ initCollapsibleBlocks();
       });
     }
     const todosAlertas = [...parecerAlertas, ...novAlertas, ...alertas(m, rows, termo)];
-    document.getElementById("cb-alertas").innerHTML = `<h3>🚨 Alertas</h3><ul class="cb-list">${todosAlertas.map(x => `<li><span class="ic">${x[0]}</span><span>${x[1]}</span></li>`).join("")}</ul>`;
-    document.getElementById("cb-agenda").innerHTML = `<h3>📅 Agenda que mexe no preço</h3><ul class="cb-list">${AGENDA.map(e => `<li><span class="dt">${e.data}</span><span>${e.ev} <span class="cb-pill ${e.imp === "alto" ? "bad" : "warn"}" style="padding:1px 8px;font-size:10.5px">${e.imp}</span></span></li>`).join("")}</ul>`;
+    document.getElementById("cb-alertas").innerHTML = `<h3>Alertas</h3><ul class="cb-list">${todosAlertas.map(x => `<li><span class="ic">${x[0]}</span><span>${x[1]}</span></li>`).join("")}</ul>`;
+    document.getElementById("cb-agenda").innerHTML = `<h3>Agenda que mexe no preço</h3><ul class="cb-list">${AGENDA.map(e => `<li><span class="dt">${e.data}</span><span>${e.ev} <span class="cb-pill ${e.imp === "alto" ? "bad" : "warn"}" style="padding:1px 8px;font-size:10.5px">${e.imp}</span></span></li>`).join("")}</ul>`;
     renderCardAlvos();
     renderCardIncorp();
 
@@ -19041,7 +19057,7 @@ initCollapsibleBlocks();
           <div class="mz-best"><span>Mais descontado agora (${pares.length} pares)</span>${T.semTeto ? "—" : melhor(pares)}</div>
         </div>`;
       }).join("");
-      mtz.innerHTML = `<h3>📐 Matriz Setorial de Valuation</h3>
+      mtz.innerHTML = `<h3>Matriz Setorial de Valuation</h3>
         <p class="cb-sub">Cada setor tem a sua régua: não se compara banana-prata com banana-nanica. O preço-teto de cada ação é o <b>menor</b> entre o <b>projetivo</b> e o <b>histórico</b>, e o "mais descontado" só compara pares do mesmo setor (ativos com flag de armadilha ficam de fora).</p>
         <div class="mz-formula">
           <div><b>Teto projetivo (ações)</b> = LPA × corte de ciclo × payout sustentável ÷ DY exigido do setor</div>
@@ -19812,7 +19828,7 @@ function toggleTheme(){
     const box = document.getElementById("cb-medo");
     if (!box || rodando) return;
     if (forcar) gravarCache({ data: hoje(), itens: {} });
-    const head = `<h3>😨 Medo × Ganância por ativo</h3>
+    const head = `<h3>Medo × Ganância por ativo</h3>
       <p class="cb-sub">De 0 (extremo medo) a 100 (extrema ganância), com 5 fatores: momentum vs. média móvel (25%; MM200 com histórico de 1 ano, MM60 no plano gratuito da Brapi, que só libera 3 meses), volume de 30 dias vs. média (20%), volatilidade, onde calma = nota alta (20%), RSI de 14 dias (20%) e posição no range do período (15%). <b>Medo não é sinal de compra sozinho</b>: só vale para ativo que já passou no preço-teto do setor. Ganância alta em ativo acima do teto reforça o plano de realização.</p>`;
     if (!token() && !window.FEHMIR_HIST) {
       box.innerHTML = head + `<p class="cb-sub">🔑 Para ativar, rode <code>python tools/atualizar_historico.py</code> (histórico gratuito) ou configure o token da Brapi no topo da página ("Configurar token Brapi"). Os dados ficam em cache por um dia.</p>`;
@@ -19863,6 +19879,16 @@ function toggleTheme(){
       const r = calcular(H.c.map((c, i) => ({ close: c, volume: ((H.v && H.v[i]) || 0) * 100 })));
       if (r) aplicarIbov(r);
     } catch (e) {}
+    // Dólar do robô (USDBRL) no macro — antes ficava o padrão de R$ 5,00
+    try {
+      const U = typeof fehmirObterHist === "function" ? fehmirObterHist("USDBRL") : (window.FEHMIR_HIST && window.FEHMIR_HIST.USDBRL);
+      if (U && U.c && U.c.length) {
+        const mm = JSON.parse(localStorage.getItem("barsi-macro-v1") || "{}");
+        mm.dolar = Math.round(U.c[U.c.length - 1] * 100) / 100;
+        localStorage.setItem("barsi-macro-v1", JSON.stringify(mm));
+        if (typeof window.renderConselheiro === "function") window.renderConselheiro();
+      }
+    } catch (e) {}
   })();
 
   let iniciado = false;
@@ -19891,7 +19917,7 @@ function toggleTheme(){
 </style>
 <script>
 /* ===== PÁGINAS ANÁLISE E MERCADO (11/10/2026, seção 23.2/23.3 do .md) =====
-   Análise: ficha de qualquer ativo com a régua setorial (§21), leque de preços e veredito.
+   Análise: ficha de qualquer ativo com a régua setorial, leque de preços e veredito.
    Mercado: índices com MM200 (histórico Brapi, mesmo cache do Medo × Ganância) + painel macro. */
 (function(){
   const fmt = (n, d = 2) => n == null || !isFinite(n) ? "—" : n.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -19932,15 +19958,13 @@ function toggleTheme(){
       });
     }
 
-    // Aliases para tickers renomeados
-    const ALIAS_MAP = {
-      "TRPL4": "ISAE4", "ISAE4": "TRPL4",
-      "BRIT3": "BRST3", "BRST3": "BRIT3"
-    };
-    Object.keys(ALIAS_MAP).forEach(k => {
-      const target = ALIAS_MAP[k];
-      if (mapa[target] && !mapa[k]) mapa[k] = Object.assign({}, mapa[target], { t: k });
-      else if (mapa[k] && !mapa[target]) mapa[target] = Object.assign({}, mapa[k], { t: target });
+    // Tickers renomeados: só o código atual fica no universo (31/10/2026: TRPL4 aparecia como cópia da ISAE4,
+    // em outro setor e com outro teto — duplicata no radar, nos alertas e no tetos.js)
+    const RENOMEADOS = { "TRPL4": "ISAE4", "BRIT3": "BRST3" };
+    Object.keys(RENOMEADOS).forEach(antigo => {
+      const atual = RENOMEADOS[antigo];
+      if (mapa[antigo] && !mapa[atual]) mapa[atual] = Object.assign({}, mapa[antigo], { t: atual });
+      delete mapa[antigo];
     });
 
     return mapa;
@@ -20617,7 +20641,7 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
         </div>
 
         <div style="margin-top:12px;padding:10px 14px;background:var(--surface-2);border-radius:8px;font-size:12px;color:var(--muted);border-left:3px solid var(--muted);">
-          ℹ️ <b>Graham, Projetivo e Lynch não se aplicam a FIIs:</b> são metodologias para companhias abertas com base em lucro líquido contábil e valor patrimonial por ação. Para fundos imobiliários, utilize a régua setorial oficial por tipo (§21.3) e Bazin com rendimento.
+          ℹ️ <b>Graham, Projetivo e Lynch não se aplicam a FIIs:</b> são metodologias para companhias abertas com base em lucro líquido contábil e valor patrimonial por ação. Para fundos imobiliários, utilize a régua setorial oficial por tipo e Bazin com rendimento.
         </div>
 
         <!-- Linha Comparativa -->
@@ -21168,11 +21192,11 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
     if (av && av.payoutImplicito != null && av.payoutImplicito > 100) {
       alertas.push("Payout " + fmt(av.payoutImplicito, 0) + "% (implícito): dividendo acima do lucro, não recorrente.");
     } else if (payout > 100) {
-      alertas.push("Payout acima de 100%: paga mais do que lucra. Pergunta 1 do yield: o dividendo é recorrente? (§19.15)");
+      alertas.push("Payout acima de 100%: paga mais do que lucra. Pergunta 1 do yield: o dividendo é recorrente?");
     }
     if (a.quarentena) alertas.push("Em quarentena: dado crítico não confirmado. Não comprar até resolver.");
     if (typeof isTrapAsset === "function" && isTrapAsset(a)) alertas.push("Flag de armadilha/risco do Scanner de Armadilhas.");
-    if (/commod|petr|miner|sider|celulose/i.test(av.metodo || "")) alertas.push("Commodity: se a commodity caiu e a ação subiu, não há margem; se ambas caíram, pode ser momento de compra (§23.3.3).");
+    if (/commod|petr|miner|sider|celulose/i.test(av.metodo || "")) alertas.push("Commodity: se a commodity caiu e a ação subiu, não há margem; se ambas caíram, pode ser momento de compra.");
     if (a.deterioracao) alertas.push("Marcada com deterioração fundamental (Bloquinho 2).");
     if (av && av.payoutDivergente && (!av.payoutImplicito || av.payoutImplicito <= 100)) alertas.push("Payout divergente: confira em fonte primária.");
     if (av && av.diverg != null && av.diverg > 35) alertas.push("Modelos divergem (" + fmt(av.diverg, 0) + "% " + (av.diverg_par || 'conferência') + "): confira o lucro (pode haver não recorrente, §21.1.3).");
@@ -21351,7 +21375,7 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
 
           <!-- Aviso fixo -->
           <div class="an-ddm-disclaimer">
-            Conferência: o teto oficial continua sendo o da régua setorial (§21). Premissas de crescimento são a parte mais frágil do modelo.
+            Conferência: o teto oficial continua sendo o da régua setorial. Premissas de crescimento são a parte mais frágil do modelo.
           </div>
         </div>`;
     }
@@ -21493,7 +21517,7 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
           ${gatilhosHtml}
 
           <div class="cb-sub" style="margin-top:10px;font-size:11.5px;color:var(--muted);border-top:1px dashed var(--rule);padding-top:6px;">
-            ⚖️ <b>Parecer automático:</b> o teto e a decisão continuam sendo os da régua (§21) e do Felipe.
+            ⚖️ <b>Parecer automático:</b> o teto e a decisão continuam sendo os da régua e do Felipe.
           </div>
         </div>
       `;
@@ -21569,7 +21593,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
       ${novidadesSecHtml}
       ${parecerSecHtml}
       <div id="an-fg" class="fg-idx-row" style="margin-top:12px"></div>
-      <p class="cb-disclaimer" style="margin:8px 0 0">Dados do painel (atualização: ${a.atual || "—"}). Antes de decidir, confira em fonte primária (política de dados) e rode o checklist anti-viés (§8).</p>
+      <p class="cb-disclaimer" style="margin:8px 0 0">Dados do painel (atualização: ${a.atual || "—"}). Antes de decidir, confira em fonte primária (política de dados) e rode o checklist anti-viés.</p>
     </section>`;
     if (typeof window.fgObter === "function") {
       try { const r = await window.fgObter(t); const fx = r.score; document.getElementById("an-fg").innerHTML =
@@ -21621,7 +21645,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
 
     if (resCons) {
       if (Math.abs(g1 - g2) < 0.001) {
-        resCons.innerText = "✓ g1 = g2: coincide com Bazin (§21.2)";
+        resCons.innerText = "✓ g1 = g2: coincide com Bazin";
       } else {
         resCons.innerText = "";
       }
@@ -21647,8 +21671,8 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
     const u = universo(), ts = Object.keys(u).sort();
     const alvo = window.__fehmirAnalisePendente || "TAEE11";
     window.__fehmirAnalisePendente = null;
-    box.innerHTML = `<h3>🔬 Ficha do ativo</h3>
-      <p class="cb-sub">Escolha qualquer ativo da carteira ou do radar. A ficha aplica a régua do setor (§21): preço-teto projetivo vs. histórico (vale o menor), margem como desconto sobre o teto, preço de compra com a margem mínima do setor e a tolerância de 20% para manter.</p>
+    box.innerHTML = `<h3>Ficha do ativo</h3>
+      <p class="cb-sub">Escolha qualquer ativo da carteira ou do radar. A ficha aplica a régua do setor: preço-teto projetivo vs. histórico (vale o menor), margem como desconto sobre o teto, preço de compra com a margem mínima do setor e a tolerância de 20% para manter.</p>
       <div class="fg-tools"><input id="an-in" list="an-list" placeholder="Ex.: TAEE11, VILG11, VALE3" onkeydown="if(event.key==='Enter')fehmirAnalisar(this.value)" value="${alvo}"><datalist id="an-list">${ts.map(t => `<option value="${t}">`).join("")}</datalist>
       <button class="cb-btn primary" onclick="fehmirAnalisar(document.getElementById('an-in').value)">Analisar</button></div>
       <div class="an-chips">${["TAEE11", "BBSE3", "CMIG4", "VILG11", "GGRC11", "TIMS3", "VALE3", "SUZB3", "PETR4"].filter(t => u[t]).map(t => `<button class="chip-btn" onclick="fehmirAnalisar('${t}')">${t}</button>`).join("")}</div>`;
@@ -21677,7 +21701,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
     let m = {};
     try { m = JSON.parse(localStorage.getItem("barsi-macro-v1") || "{}"); } catch (e) {}
     const ey = 100 / (m.plIbov || 10.5), premio = ey - (m.ntnb || 6.5);
-    if (mac) mac.innerHTML = `<h3>🏦 Juros, inflação e câmbio</h3><p class="cb-sub">Valores do formulário macro do Conselheiro (data: ${m.data || "padrão de 10/10/2026"}). Edite lá; o Ibovespa é preenchido sozinho quando o token da Brapi está configurado.</p>
+    if (mac) mac.innerHTML = `<h3>Juros, inflação e câmbio</h3><p class="cb-sub">Valores do formulário macro do Conselheiro (data: ${m.data || "padrão de 10/10/2026"}). Edite lá; o Ibovespa é preenchido sozinho quando o token da Brapi está configurado.</p>
       <div class="an-kpis">
         <div><span>Selic</span><b>${fmt(m.selic ?? 13.75)}%</b></div><div><span>Tesouro IPCA+ longo</span><b>${fmt(m.ntnb ?? 6.5)}%</b></div>
         <div><span>IPCA 12m</span><b>${fmt(m.ipca12 ?? 4.6)}%</b></div><div><span>Juro real (Selic − IPCA)</span><b>${fmt((m.selic ?? 13.75) - (m.ipca12 ?? 4.6))}%</b></div>
@@ -21748,7 +21772,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
 </style>
 <script>
 /* ===== RADAR DE MERCADO (B3 inteira) + CÍCLICAS NA BAIXA + PRIVATIZAÇÕES + NOVOS CANDIDATOS (12/10/2026) =====
-   Dados: dados/mercado.js (robô tools/varrer_mercado.py). Régua: window.fehmirAvaliar (§21).
+   Dados: dados/mercado.js (robô tools/varrer_mercado.py). Régua: window.fehmirAvaliar.
    Pré-triagem só por dividendos (sem LPA): quem passar precisa da ficha completa antes de comprar. */
 (function(){
   const fmt = (n, d = 1) => n == null || !isFinite(n) ? "—" : n.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -21825,15 +21849,15 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
   function renderRadarMercado() {
     const box = document.getElementById("rm-box"); if (!box) return;
     const meta = window.FEHMIR_MERCADO_META;
-    if (!meta) { box.innerHTML = `<h3>🛰️ Radar de mercado (B3 inteira)</h3><p class="cb-sub">Rode <code>python tools/varrer_mercado.py</code> (grátis, ~8 min) ou ative o robô no GitHub para o radar varrer todas as ações e FIIs líquidos da B3.</p>`; return; }
+    if (!meta) { box.innerHTML = `<h3>Radar de mercado (B3 inteira)</h3><p class="cb-sub">Rode <code>python tools/varrer_mercado.py</code> (grátis, ~8 min) ou ative o robô no GitHub para o radar varrer todas as ações e FIIs líquidos da B3.</p>`; return; }
     const tudo = todos();
     let lista = filtro === "acoes" ? tudo.filter(r => r.x.tp === "acao") : filtro === "fiis" ? tudo.filter(r => r.x.tp === "fii")
       : filtro === "ciclicas" ? tudo.filter(r => r.ciclico && r.x.pos <= 35) : tudo;
     const ok = r => r.margem >= (r.av.margemMin || 10) && r.limpo && !armadilha(r.x.t);
     lista = (filtro === "passam" ? lista.filter(ok) : lista).sort((a, b) => b.margem - a.margem).slice(0, 30);
     const chip = (id, txt) => `<button class="chip-btn${filtro === id ? " active" : ""}" onclick="fehmirRadarFiltro('${id}')">${txt}</button>`;
-    box.innerHTML = `<h3>🛰️ Radar de mercado (B3 inteira)</h3>
-      <p class="cb-sub">${meta.ativos} ativos líquidos varridos em ${meta.gerado} (ações com mais de R$ 2 mi/dia; FIIs, Fiagros e FI-Infra com mais de R$ 1 mi/dia). Cada um passa pela régua do seu setor (§21). <b>Pré-triagem só por dividendos</b> (teto = DPA médio 5A ÷ DY exigido): quem passar precisa da ficha completa na aba 🔬 Análise (lucro, payout, dívida) antes de qualquer compra. FII sem tipo conhecido usa a régua de papel, a mais exigente.</p>
+    box.innerHTML = `<h3>Radar de mercado (B3 inteira)</h3>
+      <p class="cb-sub">${meta.ativos} ativos líquidos varridos em ${meta.gerado} (ações com mais de R$ 2 mi/dia; FIIs, Fiagros e FI-Infra com mais de R$ 1 mi/dia). Cada um passa pela régua do seu setor. <b>Pré-triagem só por dividendos</b> (teto = DPA médio 5A ÷ DY exigido): quem passar precisa da ficha completa na aba 🔬 Análise (lucro, payout, dívida) antes de qualquer compra. FII sem tipo conhecido usa a régua de papel, a mais exigente.</p>
       <div class="an-chips" style="margin-bottom:10px">${chip("passam", "✅ Passam na régua, sem alerta (" + tudo.filter(r => r.margem >= (r.av.margemMin || 10) && r.limpo && !armadilha(r.x.t)).length + ")")}${chip("todos", "Todos")}${chip("acoes", "Ações")}${chip("fiis", "FIIs")}${chip("ciclicas", "Cíclicas na baixa")}</div>
       <div style="overflow-x:auto"><table class="cb-opp"><thead><tr><th>Ativo</th><th>Régua</th><th>Preço</th><th>DY 12m</th><th>DY médio 5A</th><th>Teto</th><th>Margem</th><th>Medo×G</th><th>Range 52s</th><th>Alertas</th></tr></thead>
       <tbody>${lista.map(linha).join("") || `<tr><td colspan="10">Nada neste filtro.</td></tr>`}</tbody></table></div>`;
@@ -21854,7 +21878,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
       return ["Esperar", "var(--muted)", dist];
     };
     const lst = tudo.map(r => Object.assign(r, { st: status(r) })).sort((a, b) => a.st[2] - b.st[2]).slice(0, 14);
-    box.innerHTML = `<h3>♻️ Cíclicas na baixa & recompra</h3>
+    box.innerHTML = `<h3>Cíclicas na baixa & recompra</h3>
       <p class="cb-sub"><b>Filtro de qualidade:</b> ativo cujo dividendo parou ou caiu forte, com dado suspeito ou yield extremo, fica <b>fora</b> (yield do retrovisor, §19.15), mesmo que o preço pareça barato. A regra: cíclica só vale o risco quando <b>o dividendo médio de 5 anos (com corte de ciclo) paga o DY exigido do setor</b> e o preço está <b>na baixa</b> (Medo × Ganância abaixo de 45). Assim o dividendo paga a espera e a alta seguinte é lucro (exemplos: Vale a R$ 45, Petrobras abaixo de R$ 30). Inclui ${VENDIDOS.join(" e ")}, vendidas na alta de outubro, para eventual recompra na baixa. Ordem: as mais próximas do preço de compra.</p>
       <div style="overflow-x:auto"><table class="cb-opp"><thead><tr><th>Ativo</th><th>Preço</th><th>Preço de compra</th><th>Distância</th><th>DY médio 5A</th><th>Medo×G</th><th>Status</th></tr></thead><tbody>
       ${lst.map(r => `<tr><td data-l="Ativo"><span class="tk" onclick="typeof searchTickerGlobal==='function'&&searchTickerGlobal('${r.x.t}')">${r.x.t}</span>${VENDIDOS.includes(r.x.t) ? ' <span class="cb-pill" style="padding:0 6px;font-size:10px">vendida</span>' : ""} <span class="fg-muted">${r.av.metodo.split(" (")[0]}</span></td>
@@ -21867,7 +21891,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
   function renderPrivatizacoes() {
     const box = document.getElementById("cb-priv"); if (!box) return;
     const mapa = {}; todos().forEach(r => mapa[r.x.t] = r);
-    box.innerHTML = `<h3>🏛️ Privatizações no radar</h3>
+    box.innerHTML = `<h3>Privatizações no radar</h3>
       <p class="cb-sub">Com a eleição de 2026, o mercado precifica mais chance de privatizações. ${EXEMPLOS_PRIV} <b>Regra:</b> privatização é <b>gatilho para reavaliar</b>, nunca motivo para comprar sem margem. Muitas vezes a alta acontece antes, no boato, e quem compra no anúncio paga caro.</p>
       <div style="overflow-x:auto"><table class="cb-opp"><thead><tr><th>Ativo</th><th>Controle</th><th>Margem (régua)</th><th>Medo×G</th><th>O que acompanhar</th></tr></thead><tbody>
       ${PRIVATIZAVEIS.map(p => { const r = mapa[p.t]; return `<tr><td data-l="Ativo"><span class="tk" onclick="typeof searchTickerGlobal==='function'&&searchTickerGlobal('${p.t}')">${p.t}</span>${naCarteira(p.t) ? ' <span class="cb-pill" style="padding:0 6px;font-size:10px">carteira</span>' : ""}</td>
@@ -21887,7 +21911,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
       const html = `<div style="margin-top:12px; padding:12px 14px; border:1px dashed var(--rule-strong); border-radius:10px;">
         <div style="font-weight:700; font-size:13px; color:var(--ink); margin-bottom:6px;">🆕 Novos candidatos fora da carteira (radar de mercado)</div>
         ${novos.length ? novos.map(r => `<div style="font-size:12.5px; line-height:1.6;"><b style="font-family:var(--font-mono)">${r.x.t}</b> · ${r.av.metodo.split(" (")[0]} · ${R(r.x.p)} · teto ${R(r.av.teto)} · <b style="color:var(--good)">margem ${fmt(r.margem)}%</b> · DY médio ${fmt(r.dy5)}%</div>`).join("") +
-          `<p style="font-size:12px; color:var(--ink-2); margin-top:6px;">A carteira tem prioridade. Abrir posição nova pede a ficha completa (🔬 Análise) e o checklist anti-viés (§8). Comece pequeno: no máximo 1/3 do aporte do mês.</p>`
+          `<p style="font-size:12px; color:var(--ink-2); margin-top:6px;">A carteira tem prioridade. Abrir posição nova pede a ficha completa (🔬 Análise) e o checklist anti-viés. Comece pequeno: no máximo 1/3 do aporte do mês.</p>`
         : `<div style="font-size:12.5px; color:var(--ink-2);">Nenhum ativo novo passa hoje na régua do setor com margem. Normal em euforia.</div>`}
       </div>`;
       setTimeout(() => res.insertAdjacentHTML("beforeend", html), 5);
@@ -22123,7 +22147,7 @@ function renderAbaInternacional() {
         <div class="stat-card">
           <div class="stat-label">Alocação vs Meta</div>
           <div class="stat-val">7,0% ideal</div>
-          <div class="stat-sub">Sem trava de preço teto (§7.0)</div>
+          <div class="stat-sub">Sem trava de preço teto</div>
         </div>
       </div>
     </div>
@@ -22277,7 +22301,7 @@ function renderAbaCripto() {
           <div class="stat-sub">${lucroTotalPct >= 0 ? '+' : ''}${lucroTotalPct.toFixed(1).replace('.', ',')}% acumulado</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Teto Prudencial (§17.5)</div>
+          <div class="stat-label">Teto Prudencial</div>
           <div class="stat-val">8,0% máximo</div>
           <div class="stat-sub">Controlado pelo botDCA</div>
         </div>
@@ -22390,7 +22414,7 @@ function renderAbaCaixaRf() {
     <!-- Barra de Distribuição Visual do Caixa Único -->
     <div style="background:var(--surface); border:1px solid var(--rule); border-radius:12px; padding:16px; margin-bottom:16px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
-        <h3 style="font-size:14px; margin:0; color:var(--ink); font-weight:700;">Estrutura do Caixa Único com Piso (§25)</h3>
+        <h3 style="font-size:14px; margin:0; color:var(--ink); font-weight:700;">Estrutura do Caixa Único com Piso</h3>
         <span style="font-size:12px; font-weight:700; color:${statusCor};">${statusBadge}</span>
       </div>
       <p style="font-size:12px; color:var(--muted); margin:0 0 14px 0;">Um só caixa de liquidez diária: o piso de tranquilidade é intocável para aportes; somente o excedente financia as oportunidades no Preço Teto.</p>
@@ -23034,7 +23058,7 @@ document.addEventListener('DOMContentLoaded', () => {
       m.id = "modal-comparar-indices";
       m.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:10000;padding:16px";
       m.innerHTML = '<div style="background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:16px;width:min(1100px,96vw);max-height:92vh;overflow:auto;padding:20px 22px">' +
-        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><div><h3 style="margin:0 0 4px">📊 Comparar índices</h3>' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><div><h3 style="margin:0 0 4px">Comparar índices</h3>' +
         '<div class="fg-muted" style="font-size:12.5px">Todos começam em 100 no início do período: a linha mostra quanto cada um subiu ou caiu desde então. Fonte: robô de histórico (Yahoo Finance).</div></div>' +
         '<button type="button" onclick="fecharComparadorIndices()" style="border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:8px;padding:4px 10px;cursor:pointer" aria-label="Fechar">✕</button></div>' +
         '<div id="cmp-controles" style="margin:14px 0 10px"></div><div id="cmp-chart" style="position:relative"></div><div id="cmp-legenda" style="margin-top:10px;font-size:13px"></div></div>';
@@ -23072,7 +23096,8 @@ function renderAlertasAnalista() {
       ' <span class="fg-muted">— alerta do robô com a régua anterior (teto ' + brl(x.numeros.teto) + '); conferido com a régua de hoje</span>';
     return Object.assign({}, x, { texto, prioridade: vale ? x.prioridade : 'info' });
   };
-  const ativos = A.itens.filter(x => x.estado === 'ativo').map(conferirRegua);
+  const RENOMEADOS = { TRPL4: 'ISAE4', BRIT3: 'BRST3' };
+  const ativos = A.itens.filter(x => x.estado === 'ativo' && !RENOMEADOS[x.ticker]).map(conferirRegua);
   const ordem = { alta: 0, media: 1, info: 2 };
   ativos.sort((a, b) => (ordem[a.prioridade] - ordem[b.prioridade]) || ((b.carteira ? 1 : 0) - (a.carteira ? 1 : 0)));
   const relevantes = ativos.filter(x => x.prioridade !== 'info');
@@ -23095,5 +23120,95 @@ function renderAlertasAnalista() {
   }).join('');
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderAlertasAnalista); else renderAlertasAnalista();
+</script>
+
+<style id="fehmir-polish">
+/* ===== Acabamento premium (31/10/2026) ===== */
+/* Topo enxuto: no desktop a marca já está no menu lateral; o topo vira uma faixa com status, busca e ações */
+@media (min-width:1180px){
+  header.top{padding:10px 14px; border-radius:16px; margin-bottom:16px; flex-wrap:nowrap; gap:14px}
+  header.top::before{height:2px}
+  header.top .brand-row, header.top h1, header.top .sub-principle, header.top .sub-sep{display:none}
+  header.top .top-brand{flex:1 1 auto; min-width:0}
+  header.top .sub{margin:0; font-size:12.5px; display:flex; align-items:center; flex-wrap:wrap; gap:4px 6px; color:var(--muted)}
+  .top-search-box{min-width:0; flex:0 1 560px}
+  .top-search-box .search-label{display:none}
+}
+@media (max-width:1179px){
+  header.top .eyebrow, header.top .top-tag-badge, header.top .sub-principle, header.top .sub-sep{display:none}
+}
+/* Legenda "todos os ativos" com altura limitada (antes esticava o bloco e deixava um vazio ao lado) */
+#aloc-legend-ativos{max-height:260px; overflow-y:auto; padding-right:6px; scrollbar-width:thin; scrollbar-color:var(--rule-strong) transparent}
+/* Tipografia de números: algarismos tabulares em todo valor */
+.tabular, .mc-ward-val, .stat-val, .ma-kpi b, .rent-kpi-val, .prov-kpi-val{font-variant-numeric:tabular-nums}
+/* Foco visível para teclado */
+:where(button, a, input, select, [role="button"], [tabindex]):focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:8px}
+/* Movimento suave só para quem não pediu menos movimento */
+@media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth} }
+/* Meus Ativos no celular: cada ativo vira um cartão (sem rolagem lateral) */
+@media (max-width:640px){
+  #panel-meus-ativos .ma-twrap{overflow:visible; border-top:none}
+  #panel-meus-ativos .ma-table thead{display:none}
+  #panel-meus-ativos .ma-table, #panel-meus-ativos .ma-table tbody{display:block; white-space:normal}
+  #panel-meus-ativos .ma-table{width:100%; min-width:0; table-layout:fixed}
+  #panel-meus-ativos .ma-table tr{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:6px 16px; padding:12px; border-top:1px solid var(--rule)}
+  #panel-meus-ativos .ma-table td{display:flex; justify-content:space-between; gap:6px; padding:0; border:none; text-align:right; font-size:12.5px; min-width:0; white-space:nowrap; overflow:hidden}
+  #panel-meus-ativos .ma-table td::before{content:attr(data-label); color:var(--muted); font-size:11.5px; text-align:left}
+  #panel-meus-ativos .ma-table td:first-child{grid-column:1 / -1; position:static; background:none; font-size:15px}
+  #panel-meus-ativos .ma-table td:first-child::before{content:none}
+}
+
+/* Alocação: a rosca por classe já está no cartão do topo; aqui fica só "por ativo", com filtros e legenda em duas colunas */
+#aloc-col-classes{display:none}
+.aloc-roscas-container{grid-template-columns:1fr !important}
+#aloc-col-ativos{display:grid; grid-template-columns:200px 1fr; grid-template-areas:"t t" "d l"; gap:12px 28px; align-items:start}
+#aloc-col-ativos > .aloc-col-title{grid-area:t; text-align:left}
+#aloc-col-ativos > .aloc-chart-wrap{grid-area:d}
+#aloc-col-ativos > #aloc-legend-ativos{grid-area:l; display:grid; grid-template-columns:1fr 1fr; column-gap:28px; max-height:none; overflow:visible}
+@media (max-width:820px){
+  #aloc-col-ativos{grid-template-columns:1fr; grid-template-areas:"t" "d" "l"}
+  #aloc-col-ativos > #aloc-legend-ativos{grid-template-columns:1fr}
+}
+.aloc-chips{display:flex; gap:6px; flex-wrap:wrap}
+.aloc-chip{font:inherit; font-size:12.5px; font-weight:600; padding:5px 12px; border-radius:999px; border:1px solid var(--rule-strong); background:var(--surface-2); color:var(--ink-2); cursor:pointer}
+.aloc-chip:hover{color:var(--ink)}
+.aloc-chip.on{background:var(--accent); border-color:var(--accent); color:#fff}
+@media (max-width:640px){
+  .mc-ward-donut-wrap{flex-direction:column; align-items:stretch; gap:14px}
+  .mc-ward-donut-wrap > div:first-child{align-self:center}
+  #aloc-legend-classes-kpi{min-width:0 !important}
+}
+
+.mc-caixa-strip{padding:0 !important; border:none !important; background:none !important; box-shadow:none !important}
+.cx-strip{margin:0 0 4px !important; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)) auto; gap:12px 20px; align-items:center; padding:12px 16px; background:var(--surface); border:1px solid var(--rule); border-radius:12px; margin:4px 0 16px}
+.cx-item{display:flex; flex-direction:column; gap:2px; min-width:0}
+.cx-lbl{font-size:11.5px; color:var(--muted)}
+.cx-val{font-family:var(--font-mono); font-size:16px; color:var(--ink); font-variant-numeric:tabular-nums}
+.cx-sub{font-size:11px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.cx-msg{font-size:12.5px}
+.cx-acoes{display:flex; gap:6px}
+.cx-acoes .mc-btn-sec{white-space:nowrap; padding:6px 10px; font-size:12px}
+@media (max-width:820px){ .cx-strip{grid-template-columns:repeat(2, minmax(0,1fr))} .cx-acoes{grid-column:1 / -1} .cx-acoes .mc-btn-sec{flex:1} }
+</style>
+<script>
+/* Resumo: patrimônio → evolução/alocação → Meus Ativos → alertas → saúde (recolhida) → eventos (recolhidos).
+   Cartões de estatística e o aviso antigo de reserva saem do Resumo (a saúde e a aba Renda fixa e caixa cobrem). */
+(function () {
+  function reorganizar() {
+    const ma = document.getElementById('panel-meus-ativos');
+    const al = document.getElementById('panel-alertas-analista');
+    const sa = document.getElementById('panel-saude-carteira');
+    const ev = document.getElementById('panel-eventos');
+    if (ma && al) ma.after(al);
+    if (al && sa) al.after(sa);
+    if (sa && ev) sa.after(ev);
+    ['mc-stat-grid', 'mc-alerta-reserva'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.style.display = 'none';
+      if (typeof CARTEIRA_VIEWS !== 'undefined') CARTEIRA_VIEWS.geral = CARTEIRA_VIEWS.geral.filter(x => x !== id);
+    });
+    [sa, ev].forEach(el => { if (el && !el.classList.contains('is-collapsed') && typeof toggleBlockCollapse === 'function') toggleBlockCollapse(el.id); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => setTimeout(reorganizar, 0)); else setTimeout(reorganizar, 0);
+})();
 </script>
 </body></html>
