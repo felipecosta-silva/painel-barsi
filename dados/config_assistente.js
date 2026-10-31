@@ -13,5 +13,11 @@ window.FEHMIR_CONFIG_ASSIST = [
     data: "2026-10-29",
     macro: { ntnb: 7.4 },
     nota: "Tesouro IPCA+ longo em 29/10/2026: 2045 IPCA + 7,35–7,45%, Juros Semestrais 2045 IPCA + 7,40–7,55%, 2060 IPCA + 7,40–7,45% (pós-crise da reeleição). Antes: 6,5%"
+  },
+  {
+    id: "2026-10-30-prov-antes-1",
+    data: "2026-10-30",
+    macro: { provAntesPainel: 575.50 },
+    nota: "Proventos recebidos antes da carga do painel (30/09/2026): R$ 575,50 de dividendos acumulados, segundo o Investidor10 (sincronização de 06/10/2026). Os de depois de 30/09 o painel calcula pelo robô (data ex × cotas) ou pelos lançamentos."
   }
 ];

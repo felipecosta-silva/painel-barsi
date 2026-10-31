@@ -3079,7 +3079,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
       </div>
     </div>
     <div class="block-body">
-      <div class="mc-layout-grid" id="sec-carteira-geral">
+      <div class="mc-layout-grid" id="sec-carteira-geral" style="grid-template-columns: 1fr;">
         <!-- Coluna Esquerda: Gráficos de Alocação Ward Style (15/10/2026) -->
         <div class="mc-panel-box" id="mc-box-alocacao">
           <div class="aloc-header-row">
@@ -3134,107 +3134,110 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
           </div>
         </div>
 
-    <!-- Coluna Direita: Gráfico de Evolução do Patrimônio (Fiel ao Investidor 10) -->
+    <!-- Linha Inferior: Gráfico de Evolução do Patrimônio Dinâmico (Feature 004 US4) -->
     <div class="mc-panel-box">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
         <h3 style="margin:0;">Evolução do Patrimônio</h3>
-        <select style="background:var(--surface-2); border:1px solid var(--rule); border-radius:8px; padding:4px 10px; font-size:12px; color:var(--ink-2); font-weight:600;">
-          <option>Últimos 12 meses</option>
-          <option>Ano atual (2026)</option>
-          <option>Desde o início</option>
+        <select id="evolucao-periodo-select" onchange="renderEvolucaoPatrimonio(this.value)" style="background:var(--surface-2); border:1px solid var(--rule); border-radius:8px; padding:4px 10px; font-size:12px; color:var(--ink-2); font-weight:600;">
+          <option value="inicio" selected>Desde o início</option>
+          <option value="12m">Últimos 12 meses</option>
+          <option value="ano">Ano atual (2026)</option>
         </select>
       </div>
 
-      <!-- Legenda de Cores Contrastantes -->
-      <div style="display:flex; gap:16px; font-size:11.5px; color:var(--ink-2); margin-bottom:14px; flex-wrap:wrap;">
-        <div style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; background:#2563eb; border-radius:2px;"></span>Valor aplicado (R$ 5.348,26)</div>
-        <div style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; background:#16a34a; border-radius:2px;"></span>Ganho de Capital (+R$ 147,33)</div>
-        <div style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; background:#dc2626; border-radius:2px;"></span>Perda de Capital (quando houver)</div>
+      <!-- Legenda Calculada Dinamicamente (US4) -->
+      <div id="evolucao-legenda" style="display:flex; gap:16px; font-size:12px; color:var(--ink-2); margin-bottom:14px; flex-wrap:wrap;"></div>
+      <div id="evolucao-chart-container" style="background:var(--bg); border:1px solid var(--rule); border-radius:12px; padding:16px; min-height:320px;"></div>
+      <div style="display:none">
+
+
+
+
       </div>
 
-      <!-- Gráfico SVG de Barras Mês a Mês (10/25 a 10/26 até R$ 5.495,59) -->
-      <div style="background:var(--bg); border:1px solid var(--rule); border-radius:12px; padding:16px;">
-        <svg viewBox="0 0 710 280" style="width:100%; height:auto; display:block;">
-          <!-- Linhas de Grade Horizontais -->
-          <line x1="45" y1="40" x2="695" y2="40" stroke="var(--rule)" stroke-dasharray="2,2" />
-          <text x="40" y="44" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-mono)">R$6.000</text>
 
-          <line x1="45" y1="75" x2="695" y2="75" stroke="var(--rule)" stroke-dasharray="2,2" />
-          <text x="40" y="79" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-mono)">R$5.000</text>
+      <div style="display:none"><svg>
 
-          <line x1="45" y1="110" x2="695" y2="110" stroke="var(--rule)" stroke-dasharray="2,2" />
-          <text x="40" y="114" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-mono)">R$4.000</text>
 
-          <line x1="45" y1="145" x2="695" y2="145" stroke="var(--rule)" stroke-dasharray="2,2" />
-          <text x="40" y="149" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-mono)">R$3.000</text>
 
-          <line x1="45" y1="180" x2="695" y2="180" stroke="var(--rule)" stroke-dasharray="2,2" />
-          <text x="40" y="184" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-mono)">R$2.000</text>
 
-          <line x1="45" y1="215" x2="695" y2="215" stroke="var(--rule)" stroke-dasharray="2,2" />
-          <text x="40" y="219" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-mono)">R$1.000</text>
 
-          <line x1="45" y1="250" x2="695" y2="250" stroke="var(--rule-strong)" stroke-width="1" />
-          <text x="40" y="254" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-mono)">R$0</text>
 
-          <!-- 13 Barras Verticais (10/25 a 10/26) -->
-          <!-- 10/25: R$ 4.050 -->
-          <rect x="55" y="108" width="34" height="142" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>10/25: R$ 4.050,00</title></rect>
-          <text x="72" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">10/25</text>
 
-          <!-- 11/25: R$ 3.820 -->
-          <rect x="103" y="116" width="34" height="134" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>11/25: R$ 3.820,00</title></rect>
-          <text x="120" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">11/25</text>
 
-          <!-- 12/25: R$ 3.840 -->
-          <rect x="151" y="115" width="34" height="135" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>12/25: R$ 3.840,00</title></rect>
-          <text x="168" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">12/25</text>
 
-          <!-- 01/26: R$ 3.910 -->
-          <rect x="199" y="113" width="34" height="137" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>01/26: R$ 3.910,00</title></rect>
-          <text x="216" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">01/26</text>
 
-          <!-- 02/26: R$ 4.080 -->
-          <rect x="247" y="107" width="34" height="143" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>02/26: R$ 4.080,00</title></rect>
-          <text x="264" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">02/26</text>
 
-          <!-- 03/26: R$ 4.160 -->
-          <rect x="295" y="104" width="34" height="146" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>03/26: R$ 4.160,00</title></rect>
-          <text x="312" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">03/26</text>
 
-          <!-- 04/26: R$ 4.210 -->
-          <rect x="343" y="102" width="34" height="148" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>04/26: R$ 4.210,00</title></rect>
-          <text x="360" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">04/26</text>
 
-          <!-- 05/26: R$ 4.280 -->
-          <rect x="391" y="100" width="34" height="150" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>05/26: R$ 4.280,00</title></rect>
-          <text x="408" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">05/26</text>
 
-          <!-- 06/26: R$ 4.300 -->
-          <rect x="439" y="99" width="34" height="151" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>06/26: R$ 4.300,00</title></rect>
-          <text x="456" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">06/26</text>
 
-          <!-- 07/26: R$ 4.480 -->
-          <rect x="487" y="93" width="34" height="157" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>07/26: R$ 4.480,00</title></rect>
-          <text x="504" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">07/26</text>
 
-          <!-- 08/26: R$ 4.810 -->
-          <rect x="535" y="81" width="34" height="169" rx="3" fill="#3b82f6" opacity="0.85" style="cursor:pointer;"><title>08/26: R$ 4.810,00</title></rect>
-          <text x="552" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">08/26</text>
 
-          <!-- 09/26: R$ 5.380 -->
-          <rect x="583" y="62" width="34" height="188" rx="3" fill="#2563eb" style="cursor:pointer;"><title>09/26: R$ 5.380,00</title></rect>
-          <text x="600" y="268" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">09/26</text>
 
-          <!-- 10/26: R$ 5.495,59 (Atual em Destaque) -->
-          <!-- Parte aplicada (R$ 5.348,26) -->
-          <rect id="mc-bar-aplicado" x="631" y="63" width="34" height="187" rx="3" fill="#2563eb" style="cursor:pointer;"><title>10/26 Aplicado: R$ 5.348,26</title></rect>
-          <!-- Parte ganho de capital (+R$ 147,33) -->
-          <rect id="mc-bar-ganho" x="631" y="58" width="34" height="6" rx="2" fill="#16a34a" style="cursor:pointer;"><title>10/26 Ganho de Capital: +R$ 147,33</title></rect>
-          <!-- Badge no topo -->
-          <rect id="mc-bar-badge" x="612" y="32" width="76" height="20" rx="4" fill="var(--surface)" stroke="var(--rule-strong)" />
-          <text id="mc-bar-badge-txt" x="650" y="46" fill="var(--ink)" font-size="10" font-weight="700" text-anchor="middle" font-family="var(--font-mono)">R$5.495</text>
-          <text x="648" y="268" fill="var(--accent)" font-weight="700" font-size="9.5" text-anchor="middle" font-family="var(--font-mono)">10/26</text>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </svg>
       </div>
     </div>
@@ -3401,7 +3404,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <p style="margin:3px 0 0; font-size:12.5px; color:var(--ink-2);">Registro cronológico de todas as suas compras, vendas e reinvestimentos de proventos da carteira.</p>
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-        <span class="collapsed-summary-pill">23 ordens · R$ 5.348,26</span>
+        <span class="collapsed-summary-pill">—</span>
         <input type="search" id="extrato-busca-input" placeholder="Pesquisar ticker, tipo, categoria, nota ou data…" oninput="onExtratoBuscaInput(this.value)" onclick="event.stopPropagation()" style="padding:6px 12px; font-size:12.5px; border:1px solid var(--rule); border-radius:6px; background:var(--bg); color:var(--ink); min-width:240px;">
         <button class="mc-btn" id="btn-sync-assistente" onclick="event.stopPropagation(); sincronizarLancamentosPainel(true)" title="Sincronizar lançamentos do painel com a pasta dados/">📤 Sincronizar com o Assistente</button>
         <span id="extrato-sync-status" style="font-size:11.5px; color:var(--ink-2); font-weight:500;"></span>
@@ -3420,7 +3423,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
       <div class="extrato-kpis-row">
         <div class="extrato-kpi">
           <div class="lbl">Total Aportado Registrado</div>
-          <div class="val" id="extrato-total-aportado" style="color:var(--good);">R$ 5.348,26</div>
+          <div class="val" id="extrato-total-aportado" style="color:var(--good);">—</div>
         </div>
         <div class="extrato-kpi">
           <div class="lbl">Total de Operações</div>
@@ -3462,7 +3465,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   </section>
 
   <div class="stat-grid">
-    <div class="stat-tile accent"><div class="stat-label">Ativos cobertos (carteira real)</div><div class="stat-value tabular" id="stat-total">—</div></div>
+    <div class="stat-tile accent"><div class="stat-label">Ações e FIIs na régua (carteira real)</div><div class="stat-value tabular" id="stat-total">—</div></div>
     <div class="stat-tile good"><div class="stat-label">Casos mais limpos</div><div class="stat-value tabular" id="stat-limpos">—</div></div>
     <div class="stat-tile gold"><div class="stat-label">Em atenção</div><div class="stat-value tabular" id="stat-atencao">—</div></div>
     <div class="stat-tile critical"><div class="stat-label">Sem margem de segurança</div><div class="stat-value tabular" id="stat-sem-margem">—</div></div>
@@ -3573,14 +3576,9 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     </div>
   </section>
 
-  <div class="callout">
+  <div class="callout" id="resumo-aporte-mes">
     <h3>Resumo para o aporte deste mês</h3>
-    <ul>
-      <li><b>Nenhum ativo do universo coberto passa hoje no checklist completo com convicção forte.</b> O que segue são os casos mais limpos de cada lado, não uma recomendação de compra.</li>
-      <li><b>FIIs:</b> RZTR11 segue o caso mais limpo (perto da própria mínima, distribuição estável). GGRC11 subiu de status nesta rodada: também está perto da própria mínima e os inquilinos (Ambev, VW, Renault) parecem diversificados — mas ainda sem o % exato por inquilino, upgrade cauteloso.</li>
-      <li><b>Ações:</b> MELK3 e PETR4 mostram múltiplos baixos, mas ambas somem a margem de segurança quando você usa uma taxa de desconto compatível com o risco cíclico (10-14%) em vez da taxa do pilar regulado — use o seletor de taxa abaixo.</li>
-      <li><b>VTI</b> segue o caso mais objetivamente sub-alocado (1,92% de 5% ideal), sem veto de Preço Teto — mas também perto da própria máxima, não é "barato".</li>
-    </ul>
+    <ul><li>Calculando…</li></ul>
   </div>
 
   <section class="panel collapsible-block" id="panel-rebalanceamento" style="background:var(--bg); border:1px solid var(--rule); border-radius:16px; margin-bottom:24px;">
@@ -3617,7 +3615,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         </div>
         
         <div style="display:flex; justify-content:space-between; margin-bottom:20px; align-items:center; background:var(--surface); padding:16px; border-radius:12px; border:1px solid var(--rule); flex-wrap:wrap; gap:16px;">
-           <div><span style="color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:0.05em; font-weight:600">Patrimônio Total Atual</span><br><strong id="reb-total" style="font-size:24px; font-family:var(--font-mono); color:var(--ink)">R$ 0,00</strong></div>
+           <div><span style="color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:0.05em; font-weight:600" id="reb-total-lbl">Patrimônio Total Atual</span><br><strong id="reb-total" style="font-size:24px; font-family:var(--font-mono); color:var(--ink)">R$ 0,00</strong><br><span id="reb-total-sub" style="color:var(--muted); font-size:12px;"></span></div>
            <button onclick="gerarIdealSugerido()" class="mc-btn primary" style="padding:8px 16px; font-weight:600; cursor:pointer; font-size:13.5px;">Gerar % Sugerida</button>
         </div>
 
@@ -3647,7 +3645,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
             <button class="macro-btn" style="padding:4px 10px; font-size:11.5px;" onclick="setSmartAporteVal(500)">R$ 500</button>
             <button class="macro-btn" style="padding:4px 10px; font-size:11.5px;" onclick="setSmartAporteVal(1000)">R$ 1.000</button>
             <button class="macro-btn" style="padding:4px 10px; font-size:11.5px;" onclick="setSmartAporteVal(2500)">R$ 2.500</button>
-            <button class="macro-btn" style="padding:4px 10px; font-size:11.5px;" onclick="setSmartAporteProventos()">Reinvestir Proventos Recebidos (R$ 445)</button>
+            <button class="macro-btn" id="btn-reinvestir-prov" style="padding:4px 10px; font-size:11.5px;" onclick="setSmartAporteProventos()">Reinvestir proventos dos últimos 30 dias</button>
           </div>
 
           <!-- Resultados da Recomendação -->
@@ -3697,14 +3695,11 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div class="block-body">
       <div class="twrap"><table class="responsive-stack">
         <thead id="thead-base"><tr>
-          <th>Ticker</th><th>Setor</th><th data-sort="preco">Preço</th><th data-sort="dy">DY 12m</th><th data-sort="teto">Teto</th><th data-sort="margin">Margem</th><th>Range 52 sem.</th><th>Atual.</th><th>Veredito</th>
+          <th>Ticker</th><th>Setor</th><th data-sort="preco">Preço</th><th data-sort="dy">DY 12m</th><th data-sort="teto">Teto</th><th data-sort="margin">Margem</th><th data-sort="bazin" title="Simulação: DPA ÷ k; o teto oficial é a coluna Teto">Bazin a k%</th><th>Range 52 sem.</th><th>Atual.</th><th>Veredito</th>
         </tr></thead>
         <tbody id="tbody-base"></tbody>
       </table></div>
       <div id="encerrados-base-wrap" class="encerrados-toggle-wrap"></div>
-      <div style="margin-top:8px; font-size:12px; color:var(--ink-2);">
-        <a href="javascript:void(0)" onclick="openModalBbse3Metodologia()" style="color:var(--ink-2); text-decoration:underline;">Nota metodológica sobre calibração do teto de BBSE3 (Média 5A)</a>
-      </div>
     </div>
   </section>
 
@@ -3727,7 +3722,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     <div class="block-body">
       <div class="twrap"><table class="responsive-stack">
         <thead id="thead-fora"><tr>
-          <th>Ticker</th><th>Setor</th><th data-sort="preco">Preço</th><th data-sort="dy">DY 12m</th><th data-sort="teto">Teto</th><th data-sort="margin">Margem</th><th>Range 52 sem.</th><th>Atual.</th><th>Veredito</th>
+          <th>Ticker</th><th>Setor</th><th data-sort="preco">Preço</th><th data-sort="dy">DY 12m</th><th data-sort="teto">Teto</th><th data-sort="margin">Margem</th><th data-sort="bazin" title="Simulação: DPA ÷ k; o teto oficial é a coluna Teto">Bazin a k%</th><th>Range 52 sem.</th><th>Atual.</th><th>Veredito</th>
         </tr></thead>
         <tbody id="tbody-fora"></tbody>
       </table></div>
@@ -4228,7 +4223,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
           <input type="range" id="rg-inicial" min="0" max="60000" step="100">
           <div class="value-box"><span class="prefix">R$</span><input type="number" id="in-inicial" min="0" step="50"></div>
         </div>
-        <div class="field-help">Ponto de partida. O último snapshot do documento mestre (25/09/2026) mapeava R$ 5.924,09 — ajuste se tiver um valor mais atual.</div>
+        <div class="field-help">Ponto de partida: o patrimônio atual da carteira (ações, FIIs, ETFs e cripto, sem o caixa), preenchido sozinho. Pode ajustar para simular.</div>
       </div>
 
       <div class="field">
@@ -4475,6 +4470,52 @@ function note(status, text){
   const safeText = (text || "").replace(/"/g, '&quot;');
   return `<span class="veredito-pill ${clsStatus}" title="${safeText}">${label}</span>`;
 }
+// Veredito calculado hoje (feature 006): régua oficial + margem mínima do setor + meta da classe.
+// O status/note do cadastro é só a nota antiga (tooltip); nunca decide o rótulo.
+let _vereditoCtx = null;
+function _pesoClasses() {
+  if (_vereditoCtx && Date.now() - _vereditoCtx.ts < 1500) return _vereditoCtx;
+  let acoes = null, fiis = null;
+  try {
+    const d = obterDadosAlocacaoClasses();
+    if (d.totalPatrimonio > 0) { acoes = d.totalAcoes / d.totalPatrimonio * 100; fiis = d.totalFiis / d.totalPatrimonio * 100; }
+  } catch (e) {}
+  _vereditoCtx = { ts: Date.now(), acoes, fiis };
+  return _vereditoCtx;
+}
+function fehmirVeredito(r) {
+  if (!r || !r.t) return { label: "Sem teto", status: "neutral", motivo: "sem dados" };
+  const ehFii = (typeof _determinarCategoriaTicker === "function" && _determinarCategoriaTicker(r.t) === "FIIS") || r.macro === "fiis" || (r.tipo && !r.setor);
+  const tv = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : null;
+  const preco = r.preco;
+  if (!tv || !tv.teto || !(preco > 0)) return { label: "Sem teto", status: "neutral", motivo: (tv && tv.motivo) || "sem teto pela régua" };
+  const fmt = n => fmtR(n);
+  const margem = (1 - preco / tv.teto) * 100;
+  const compra = tv.compra || tv.teto * (1 - (tv.margemMin || 10) / 100);
+  const base = `preço ${fmt(preco)} · teto ${fmt(tv.teto)} (${tv.metodo || "régua"}) · margem ${margem.toFixed(1).replace(".", ",")}% (mínima ${tv.margemMin}%)`;
+  if (preco <= compra) {
+    const pc = _pesoClasses();
+    const pesoCls = ehFii ? pc.fiis : pc.acoes;
+    const metaCls = ehFii ? ALOCACAO_ALVO.fiis : ALOCACAO_ALVO.acoes;
+    if (pesoCls != null && pesoCls >= metaCls)
+      return { label: "Manter", status: "info", motivo: `${base}. Com margem, mas ${ehFii ? "FIIs" : "ações"} estão em ${pesoCls.toFixed(0)}% (meta ${metaCls}%): aportes pausados na classe.` };
+    return { label: "Aportar", status: "good", motivo: `${base}. Abaixo do preço de compra ${fmt(compra)} e a classe está abaixo da meta.` };
+  }
+  if (preco <= tv.teto) return { label: "Manter", status: "info", motivo: `${base}. Abaixo do teto, mas sem a margem mínima: manter, sem pressa para comprar.` };
+  if (!ehFii && preco > tv.teto * 1.2) {
+    const S = typeof window.setorDe === "function" ? window.setorDe(r) : null;
+    if (S && S.ciclico) return { label: "Realizar", status: "critical", motivo: `${base}. Cíclica mais de 20% acima do teto: realizar parte em escada (§22).` };
+    return { label: "Travar compra", status: "serious", motivo: `${base}. Mais de 20% acima do teto, mas não é cíclica: segurar sem compras (vaca leiteira, §22.3).` };
+  }
+  return { label: "Travar compra", status: "warning", motivo: `${base}. Acima do teto: ${ehFii ? "FII não se vende por preço; " : ""}sem novas compras.` };
+}
+window.fehmirVeredito = fehmirVeredito;
+function vereditoPill(r) {
+  const v = fehmirVeredito(r);
+  const antiga = r && r.note ? ` · Nota antiga (${r.atual || "cadastro"}): ${r.note}` : "";
+  const safe = (v.motivo + antiga).replace(/"/g, "&quot;");
+  return `<span class="veredito-pill ${v.status}" title="${safe}">${v.label}</span>`;
+}
 function rangeBar(preco, range){
   if(!range || preco==null){ return `<div class="range noData">sem dado</div>`; }
   const [min,max] = range;
@@ -4617,18 +4658,19 @@ function aplicarAlocacaoAlvo(forcar) {
   if (!forcar && versao === ALOC_VERSION) return false;
   const baseT = ["BBAS3", "TAEE11", "BBSE3", "CMIG4", "CPLE3"];
   const segBase = t => /^(BBAS|BBSE|TAEE|CMIG|CPLE|ITUB|ITSA|BBDC|SANB|CXSE|PSSA|TRPL|ISAE|EGIE|CPFE|SAPR|SBSP|CSMG|ALUP)/.test(t);
+  const isPromovidoSemMeta = x => x && x._promovido && (x.ideal === null || (rebData[x.t] && rebData[x.t].i === null));
   const tem = t => rebData[t] && rebData[t].q > 0;
-  const fiis = FIIS.map(x => x.t).filter(tem);
-  const acoes = [...BASE_STOCKS, ...OUT_OF_BASE].map(x => x.t).filter(tem);
+  const fiis = FIIS.filter(x => !isPromovidoSemMeta(x)).map(x => x.t).filter(tem);
+  const acoes = [...BASE_STOCKS, ...OUT_OF_BASE].filter(x => !isPromovidoSemMeta(x)).map(x => x.t).filter(tem);
   const naBase = t => BASE_STOCKS.some(x => x.t === t) || segBase(t);
   const base = acoes.filter(naBase), fora = acoes.filter(t => !naBase(t));
-  if (!base.length) baseT.forEach(t => { if (rebData[t]) base.push(t); });
-  base.forEach(t => rebData[t].i = +(ALOCACAO_ALVO.base / base.length).toFixed(2));
-  fora.forEach(t => rebData[t].i = Math.min(ALOCACAO_ALVO.foraMaxAtivo, +(ALOCACAO_ALVO.fora / fora.length).toFixed(2)));
-  fiis.forEach(t => rebData[t].i = +(ALOCACAO_ALVO.fiis / fiis.length).toFixed(2));
-  if (rebData.VTI) rebData.VTI.i = ALOCACAO_ALVO.intl;
-  if (rebData.SOL) rebData.SOL.i = ALOCACAO_ALVO.cripto;
-  Object.keys(rebData).forEach(t => { if (!tem(t) && !base.includes(t)) rebData[t].i = 0; });
+  if (!base.length) baseT.forEach(t => { if (rebData[t] && rebData[t].i !== null) base.push(t); });
+  base.forEach(t => { if (rebData[t] && rebData[t].i !== null) rebData[t].i = +(ALOCACAO_ALVO.base / base.length).toFixed(2); });
+  fora.forEach(t => { if (rebData[t] && rebData[t].i !== null) rebData[t].i = Math.min(ALOCACAO_ALVO.foraMaxAtivo, +(ALOCACAO_ALVO.fora / fora.length).toFixed(2)); });
+  fiis.forEach(t => { if (rebData[t] && rebData[t].i !== null) rebData[t].i = +(ALOCACAO_ALVO.fiis / fiis.length).toFixed(2); });
+  if (rebData.VTI && rebData.VTI.i !== null) rebData.VTI.i = ALOCACAO_ALVO.intl;
+  if (rebData.SOL && rebData.SOL.i !== null) rebData.SOL.i = ALOCACAO_ALVO.cripto;
+  Object.keys(rebData).forEach(t => { if (!tem(t) && !base.includes(t) && rebData[t].i !== null) rebData[t].i = 0; });
   try { localStorage.setItem(REB_DATA_KEY, JSON.stringify(rebData)); localStorage.setItem(ALOC_VERSION_KEY, ALOC_VERSION); } catch (e) {}
   return true;
 }
@@ -4707,10 +4749,21 @@ function aplicarPrecosDoRobo() {
   let latestFechamento = "";
   let latestMercado = "";
 
+  const _safeA = fn => { try { return fn() || []; } catch (e) { return []; } };
   const listas = [
+    _safeA(() => BASE_STOCKS),
+    _safeA(() => OUT_OF_BASE),
+    _safeA(() => FIIS),
+    _safeA(() => RADAR_ACOES),
+    _safeA(() => RADAR_FIIS),
+    _safeA(() => RADAR_DATA)
+  ];
+  var _oldListas = () => [
     typeof BASE_STOCKS !== "undefined" ? BASE_STOCKS : [],
     typeof OUT_OF_BASE !== "undefined" ? OUT_OF_BASE : [],
     typeof FIIS !== "undefined" ? FIIS : [],
+    typeof RADAR_ACOES !== "undefined" ? RADAR_ACOES : [],
+    typeof RADAR_FIIS !== "undefined" ? RADAR_FIIS : [],
     typeof RADAR_DATA !== "undefined" ? RADAR_DATA : []
   ];
 
@@ -4788,13 +4841,14 @@ function aplicarPrecosDoRobo() {
       badge.style.display = "none";
     }
   }
+  if (typeof window.limparCacheTetoOficial === "function") window.limparCacheTetoOficial();
 }
 window.aplicarPrecosDoRobo = aplicarPrecosDoRobo;
 
 aplicarAlocacaoAlvo(false);
 aplicarPrecosDoRobo();
 // Metas por ativo vêm do rebData (fonte única); os arrays só espelham
-[...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS].forEach(x => { if (rebData[x.t]) x.ideal = rebData[x.t].i; });
+[...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS].forEach(x => { if (rebData[x.t] && rebData[x.t].i !== undefined) x.ideal = rebData[x.t].i; });
 
 
 const EVENTOS = [
@@ -4893,7 +4947,7 @@ function calcularPosicoesExtrato(extrato) {
   let lista = extrato;
   if (!lista) {
     if (typeof carregarExtrato === 'function') {
-      lista = carregarExtrato();
+      try { lista = carregarExtrato(); } catch (e) { lista = null; }
     } else {
       try {
         lista = JSON.parse(localStorage.getItem("barsi-transacoes-v2") || "null");
@@ -4949,6 +5003,175 @@ function calcularPosicoesExtrato(extrato) {
 }
 window.calcularPosicoesExtrato = calcularPosicoesExtrato;
 
+function quantidadeAtual(s, posExtrato, rd) {
+  if (!s) return 0;
+  const pos = posExtrato || ((typeof calcularPosicoesExtrato === 'function') ? calcularPosicoesExtrato() : {});
+  const rMap = rd || (typeof rebData !== 'undefined' ? rebData : {});
+  if (pos[s.t] && pos[s.t].temLancamento) {
+    return _converterNumRobusto(pos[s.t].quant);
+  }
+  if (s.quant !== undefined && s.quant !== null) {
+    return _converterNumRobusto(s.quant);
+  }
+  if (rMap && rMap[s.t] && rMap[s.t].q !== undefined) {
+    return _converterNumRobusto(rMap[s.t].q);
+  }
+  return 0;
+}
+window.quantidadeAtual = quantidadeAtual;
+
+function fehmirPromoverPosicoesDoRadar(posExtratoArg) {
+  const pos = posExtratoArg || ((typeof calcularPosicoesExtrato === 'function') ? calcularPosicoesExtrato() : {});
+  if (!pos || typeof pos !== 'object') return;
+  const segBaseRegex = /^(BBAS|BBSE|TAEE|CMIG|CPLE|ITUB|ITSA|BBDC|SANB|CXSE|PSSA|TRPL|ISAE|EGIE|CPFE|SAPR|SBSP|CSMG|ALUP)/;
+  let radarReady = false;
+  try { radarReady = Array.isArray(RADAR_DATA); } catch (e) { radarReady = false; }
+
+  [typeof BASE_STOCKS !== 'undefined' ? BASE_STOCKS : [],
+   typeof OUT_OF_BASE !== 'undefined' ? OUT_OF_BASE : [],
+   typeof FIIS !== 'undefined' ? FIIS : []].forEach(arr => {
+    for (let idx = arr.length - 1; idx >= 0; idx--) {
+      const item = arr[idx];
+      if (item && item._promovido) {
+        const pInfo = pos[item.t];
+        if (!pInfo || !pInfo.temLancamento) {
+          arr.splice(idx, 1);
+          if (typeof rebData !== 'undefined' && rebData[item.t] && rebData[item.t].i == null) delete rebData[item.t];
+        } else if (pInfo.quant <= 0) {
+          item.quant = 0;
+          item.saldo = 0;
+          if (typeof rebData !== 'undefined' && rebData[item.t]) rebData[item.t].q = 0;
+        }
+      }
+    }
+  });
+
+  Object.keys(pos).forEach(rawT => {
+    const t = String(rawT || '').trim().toUpperCase();
+    const pInfo = pos[rawT];
+    if (!t || !pInfo || !pInfo.temLancamento || !(pInfo.quant > 0)) return;
+
+    let cat = pInfo.cat ? String(pInfo.cat).toUpperCase() : '';
+    if (typeof _determinarCategoriaTicker === 'function') {
+      try { cat = _determinarCategoriaTicker(t); } catch (e) { cat = ''; }
+    } else if (!cat) {
+      const units = ['TAEE11', 'ALUP11', 'KLBN11', 'SANB11', 'BPAC11', 'SAPR11', 'ENGI11', 'SULA11'];
+      cat = (t.endsWith('11') && !units.includes(t)) ? 'FIIS' : 'AÇÕES';
+    }
+    if (cat === 'ETFS' || cat === 'CRIPTO' || cat === 'CAIXA') return;
+
+    let rAcao = null, rFii = null, rData = null;
+    try { rAcao = RADAR_ACOES.find(x => x.t === t); } catch (e) {}
+    try { rFii = RADAR_FIIS.find(x => x.t === t); } catch (e) {}
+    try { if (radarReady) rData = RADAR_DATA.find(x => x.t === t); } catch (e) {}
+
+    let existing = (typeof BASE_STOCKS !== 'undefined' ? BASE_STOCKS.find(x => x.t === t) : null) ||
+                   (typeof OUT_OF_BASE !== 'undefined' ? OUT_OF_BASE.find(x => x.t === t) : null) ||
+                   (typeof FIIS !== 'undefined' ? FIIS.find(x => x.t === t) : null);
+
+    if (existing) {
+      if (existing._semCadastro && (rData || rAcao || rFii)) {
+        const fonte = Object.assign({}, rAcao || rFii || {}, rData || {});
+        Object.assign(existing, fonte, {
+          quant: pInfo.quant,
+          pm: pInfo.pm,
+          ideal: existing.ideal !== undefined ? existing.ideal : null,
+          _promovido: true,
+          _semCadastro: false
+        });
+      }
+      existing.quant = pInfo.quant;
+      if (pInfo.pm > 0) existing.pm = pInfo.pm;
+      if (typeof obterPrecoAtivo === 'function') {
+        const pObj = obterPrecoAtivo(t);
+        if (pObj && pObj.preco > 0 && (!existing.preco || existing._semCadastro)) existing.preco = pObj.preco;
+      }
+      existing.saldo = Number((existing.quant * (existing.preco || existing.pm || 0)).toFixed(2));
+      if (typeof rebData !== 'undefined') {
+        if (!rebData[t]) rebData[t] = { q: pInfo.quant, i: existing.ideal !== undefined ? existing.ideal : null };
+        else rebData[t].q = pInfo.quant;
+      }
+      return;
+    }
+
+    if (!rAcao && !rFii && !rData && !radarReady) return;
+
+    let pObj = null;
+    try { if (typeof obterPrecoAtivo === 'function') pObj = obterPrecoAtivo(t); } catch (e) {}
+    const fonte = (rAcao || rFii || rData) ? Object.assign({}, rAcao || rFii || {}, rData || {}) : null;
+    const preco = (pObj && pObj.preco > 0) ? pObj.preco : ((fonte && fonte.preco > 0) ? fonte.preco : (pInfo.pm || 0));
+
+    let novo;
+    if (fonte) {
+      novo = Object.assign({}, fonte, {
+        t: t,
+        quant: pInfo.quant,
+        pm: pInfo.pm || preco,
+        preco: preco,
+        saldo: Number((pInfo.quant * preco).toFixed(2)),
+        ideal: null,
+        atual: fonte.atual || window.roboDataSelo || 'Extrato',
+        range: (Array.isArray(fonte.range) && fonte.range.length === 2) ? fonte.range : [preco, preco],
+        _promovido: true,
+        _semCadastro: false
+      });
+      if (cat === 'FIIS' && !novo.tipo) {
+        novo.tipo = (rFii && rFii.tipo) ? rFii.tipo : (/papel|cr[eé]dito|cri|agro|fiagro/i.test(novo.setor || '') ? 'papel' : 'tijolo');
+      }
+    } else {
+      novo = {
+        t: t,
+        nome: t,
+        setor: 'Sem cadastro',
+        tipo: cat === 'FIIS' ? 'tijolo' : undefined,
+        preco: preco,
+        dy: 0,
+        dpa: null,
+        pvp: null,
+        pl: '—',
+        roe: null,
+        range: [preco, preco],
+        atual: 'Extrato',
+        status: 'warning',
+        note: 'sem cadastro — classificar',
+        quant: pInfo.quant,
+        pm: pInfo.pm || preco,
+        saldo: Number((pInfo.quant * preco).toFixed(2)),
+        ideal: null,
+        _promovido: true,
+        _semCadastro: true
+      };
+    }
+
+    if (cat === 'FIIS') {
+      if (typeof FIIS !== 'undefined') FIIS.push(novo);
+    } else {
+      let ehBase = false;
+      if (typeof window.setorDe === 'function') {
+        const st = window.setorDe(novo);
+        ehBase = !!(st && st.base);
+      } else {
+        ehBase = segBaseRegex.test(t) || /banco|segur|el[eé]tr|transmiss|saneam|[aá]gua/i.test(novo.setor || '');
+      }
+      if (ehBase) {
+        if (typeof BASE_STOCKS !== 'undefined') BASE_STOCKS.push(novo);
+      } else {
+        if (typeof OUT_OF_BASE !== 'undefined') OUT_OF_BASE.push(novo);
+      }
+    }
+
+    if (typeof rebData !== 'undefined') {
+      if (!rebData[t]) {
+        rebData[t] = { q: pInfo.quant, i: null };
+      } else {
+        rebData[t].q = pInfo.quant;
+        if (rebData[t].i === undefined) rebData[t].i = null;
+      }
+    }
+  });
+}
+window.fehmirPromoverPosicoesDoRadar = fehmirPromoverPosicoesDoRadar;
+
 function isAtivoEncerrado(ticker) {
   let cad = null;
   if (typeof BASE_STOCKS !== 'undefined') cad = BASE_STOCKS.find(x => x.t === ticker);
@@ -4962,6 +5185,7 @@ function isAtivoEncerrado(ticker) {
   } else if (cad && cad.quant !== undefined && cad.quant !== null) {
     q = _converterNumRobusto(cad.quant);
   }
+  if (q > 0) return false;
 
   const p = (typeof rebData !== 'undefined' && rebData && rebData[ticker]) ? rebData[ticker] : null;
   let i = 0;
@@ -4976,6 +5200,8 @@ function isAtivoEncerrado(ticker) {
 
   return q <= 0 && i <= 0;
 }
+
+// fehmirPromoverPosicoesDoRadar será chamado em recalcularCarteira após inicialização de DEFAULT_TRANSACOES e RADAR_DATA
 
 function renderEncerradosToggle(containerId, count) {
   const el = document.getElementById(containerId);
@@ -5220,27 +5446,24 @@ function renderNmIcon(ticker, tipo, preco) {
 }
 
 function renderStockRow(r, k){
-  let teto = null;
-  if (r.t === "BBSE3") {
-    // BBSE3: Calibração metodológica 5A - DPA médio normalizado (R$ 2,82) com taxa mínima de seguradora (7,5% a 8,5%)
-    const kSeg = Math.max(k, 0.075);
-    teto = 2.82 / kSeg;
-  } else if (r.dpa != null) {
-    teto = r.dpa / k;
-  }
-
-  const tetoLabel = teto != null ? (fmtR(teto) + (r.t === "BBSE3" ? ' <span style="font-size:10px; color:var(--gold); font-weight:700;">(5A)</span>' : '')) : "n/a";
+  const av = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : null;
+  const teto = (av && av.teto > 0) ? av.teto : null;
+  const motivo = (av && av.motivo) ? String(av.motivo).replace(/"/g, '&quot;') : "Sem teto pela régua";
+  const tetoLabel = teto != null ? fmtR(teto) : `<span title="${motivo}" style="color:var(--muted); cursor:help;">—</span>`;
+  const simBazin = (r.dpa != null && k > 0) ? (r.dpa / k) : null;
+  const simLabel = simBazin != null ? fmtR(simBazin) : "—";
 
   return `<tr class="clickable-row" onclick="openModal('${r.t}')">
     <td class="ticker" data-label="Ticker"><b>${r.t}</b>${renderNmIcon(r.t, 'acao', r.preco)}</td>
     <td class="setor" data-label="Setor">${r.setor}</td>
     <td class="tabular" data-label="Preço">${fmtR(r.preco)}</td>
     <td class="tabular" data-label="DY 12m">${fmtPct(r.dy)}</td>
-    <td class="tabular" data-label="Teto">${tetoLabel}</td>
+    <td class="tabular" data-label="Teto" data-teto="${teto != null ? teto.toFixed(2) : ''}">${tetoLabel}</td>
     <td data-label="Margem">${marginCell(r.preco, teto)}</td>
+    <td class="tabular" data-label="Bazin a k%" style="color:var(--muted); font-size:12px;" title="simulação: DPA ÷ k; o teto oficial é a coluna Teto">${simLabel}</td>
     <td data-label="Range 52 sem.">${rangeBar(r.preco, r.range)}</td>
     <td class="date" data-label="Atual.">${r.atual}</td>
-    <td class="note" data-label="Veredito">${note(r.status, r.note)}</td>
+    <td class="note" data-label="Veredito">${vereditoPill(Object.assign({}, r, { preco: (typeof preco !== 'undefined' ? preco : r.preco) }))}</td>
   </tr>`;
 }
 
@@ -5260,7 +5483,8 @@ function renderForaTable(k){
 }
 function getPctCarteira(t, preco) {
    let pat = 0;
-   const todos = [...BASE_STOCKS, ...FIIS, ...OUT_OF_BASE, ...RADAR_ACOES, ...RADAR_FIIS];
+   const seen = new Set();
+   const todos = [...BASE_STOCKS, ...FIIS, ...OUT_OF_BASE, ...RADAR_ACOES, ...RADAR_FIIS].filter(x => x && x.t && !seen.has(x.t) && seen.add(x.t));
    todos.forEach(x => {
       const p = rebData[x.t] || {q:0};
       pat += p.q * (x.preco || 0);
@@ -5299,13 +5523,28 @@ function renderFiis(){
     <td class="tabular" data-label="Rentab." style="color:${rentPct >= 0 ? 'var(--good)' : 'var(--critical)'}; font-weight:700;">
       ${rentPct >= 0 ? '+' : ''}${rentPct.toFixed(1)}%
     </td>
-    <td class="note" data-label="Veredito">${note(r.status, r.note)}</td>
+    <td class="note" data-label="Veredito">${vereditoPill(Object.assign({}, r, { preco: (typeof preco !== 'undefined' ? preco : r.preco) }))}</td>
   </tr>`;
   }).join("");
   renderEncerradosToggle("encerrados-fiis-wrap", totalEnc);
 }
 function renderEventos(){
-  document.getElementById("timeline-eventos").innerHTML = EVENTOS.map(e=>`<div class="timeline-item">
+  // Operações do extrato depois de 30/09 entram na frente (agrupadas por dia, ticker e tipo); a lista fixa fica como diário até 08/10
+  let ops = [];
+  try {
+    const grupos = {};
+    (typeof carregarExtrato === "function" ? carregarExtrato() : []).filter(x => x && x.data > "2026-09-30" && /Compra|Venda/.test(x.tipo)).forEach(x => {
+      const k = x.data + "|" + x.ticker + "|" + x.tipo;
+      const g = grupos[k] || (grupos[k] = { data: x.data, ticker: x.ticker, tipo: x.tipo, q: 0, tot: 0 });
+      g.q += Number(x.quant) || 0; g.tot += Number(x.total) || 0;
+    });
+    ops = Object.values(grupos).sort((a, b) => b.data.localeCompare(a.data)).slice(0, 8).map(g => ({
+      data: g.data.slice(8, 10) + "/" + g.data.slice(5, 7), ticker: g.ticker,
+      texto: `${g.tipo} de ${+g.q.toFixed(8)} ${/BTC|ETH|SOL/.test(g.ticker) ? "" : (g.ticker.endsWith("11") ? "cotas" : "ações")} (total ${fmtR(g.tot)}), lançada no extrato.`
+    }));
+  } catch (e) {}
+  const lista = ops.concat(EVENTOS);
+  document.getElementById("timeline-eventos").innerHTML = lista.map(e=>`<div class="timeline-item">
     <span class="tdate">${e.data}</span>
     <span class="ttxt"><b>${e.ticker}:</b> ${e.texto}</span>
   </div>`).join("");
@@ -5313,10 +5552,16 @@ function renderEventos(){
 
 function renderOverview(){
   const all = [...(typeof BASE_STOCKS!=='undefined'?BASE_STOCKS:[]), ...(typeof OUT_OF_BASE!=='undefined'?OUT_OF_BASE:[]), ...(typeof FIIS!=='undefined'?FIIS:[])];
-  const counts = {good:0, warning:0, serious:0, critical:0, neutral:0};
-  all.forEach(r=>{ counts[r.status] = (counts[r.status]||0) + 1; });
+  const counts = {good:0, warning:0, serious:0, critical:0, neutral:0, info:0};
+  // contagem pela margem de hoje (régua oficial): limpos = margem ≥ mínima; atenção = abaixo do teto sem a mínima; sem margem = acima do teto
+  all.filter(r => (typeof quantidadeAtual === 'function' ? quantidadeAtual(r) : (r.quant || 0)) > 0).forEach(r => {
+    const tv = typeof window.tetoOficial === 'function' ? window.tetoOficial(r) : null;
+    if (!tv || !tv.teto || !(r.preco > 0)) { counts.neutral++; return; }
+    const mg = (1 - r.preco / tv.teto) * 100;
+    if (mg >= (tv.margemMin || 0)) counts.good++; else if (mg >= 0) counts.warning++; else counts.serious++;
+  });
   const elTot = document.getElementById("stat-total");
-  if(elTot) elTot.textContent = all.length;
+  if(elTot) elTot.textContent = all.filter(r => (typeof quantidadeAtual === 'function' ? quantidadeAtual(r) : (r.quant || 0)) > 0).length;
   const elLimp = document.getElementById("stat-limpos");
   if(elLimp) elLimp.textContent = counts.good;
   const elAten = document.getElementById("stat-atencao");
@@ -5328,13 +5573,15 @@ function renderRadar(){
   const acoesTbody = document.getElementById("tbody-radar-acoes");
   if(acoesTbody && typeof RADAR_ACOES !== 'undefined'){
     acoesTbody.innerHTML = RADAR_ACOES.map(r=>{
-      const teto = r.dpa!=null ? r.dpa/r.k : null;
+      const av = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : null;
+      const teto = (av && av.teto > 0) ? av.teto : null;
+      const motivo = (av && av.motivo) ? String(av.motivo).replace(/"/g, '&quot;') : "Sem teto pela régua";
       return `<tr class="clickable-row" onclick="openModal('${r.t}')">
         <td class="ticker" data-label="Ticker">${r.t}</td>
         <td class="setor" data-label="Setor">${r.setor}</td>
         <td class="tabular" data-label="Preço">${fmtR(r.preco)}</td>
         <td class="tabular" data-label="DY 12m">${fmtPct(r.dy)}</td>
-        <td class="tabular" data-label="Teto">${teto!=null ? fmtR(teto) : "n/a"} <span class="kref">(k ${(r.k*100).toFixed(0)}%)</span></td>
+        <td class="tabular" data-label="Teto" data-teto="${teto != null ? teto.toFixed(2) : ''}">${teto!=null ? fmtR(teto) : `<span title="${motivo}" style="color:var(--muted); cursor:help;">—</span>`}</td>
         <td data-label="Margem">${marginCell(r.preco, teto)}</td>
         <td data-label="Range 52 sem.">${rangeBar(r.preco, r.range)}</td>
         <td data-label="Veredito">${badge(r.status, statusLabel(r.status))}</td>
@@ -5721,8 +5968,32 @@ setTimeout(fetchBrapiQuotes, 500);
 
 /* ---------- Rebalanceamento (Meus Ativos) ---------- */
 
+// "Resumo para o aporte deste mês": gerado dos vereditos de hoje (antes era texto fixo de outubro)
+function renderResumoAporteMes() {
+  const box = document.getElementById("resumo-aporte-mes") || document.getElementById("mc-callout-aporte");
+  if (!box || typeof fehmirVeredito !== "function" || typeof window.tetoOficial !== "function") return;
+  const cart = [...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS].filter(r => (typeof quantidadeAtual === "function" ? quantidadeAtual(r) : (r.quant || 0)) > 0);
+  const vs = cart.map(r => ({ r, v: fehmirVeredito(r), tv: window.tetoOficial(r) }))
+    .map(x => Object.assign(x, { mg: x.tv && x.tv.teto ? (1 - x.r.preco / x.tv.teto) * 100 : null }));
+  const ap = vs.filter(x => x.v.label === "Aportar").sort((a, b) => b.mg - a.mg);
+  const comMargemClasseCheia = vs.filter(x => x.v.label === "Manter" && /aportes pausados/.test(x.v.motivo));
+  const acima = vs.filter(x => x.mg != null && x.mg < 0).sort((a, b) => a.mg - b.mg);
+  const pc = _pesoClasses();
+  const li = [];
+  li.push(`<li><b>Classes:</b> ações ${pc.acoes != null ? pc.acoes.toFixed(1).replace(".", ",") : "—"}% (meta ${ALOCACAO_ALVO.acoes}%) · FIIs ${pc.fiis != null ? pc.fiis.toFixed(1).replace(".", ",") : "—"}% (meta ${ALOCACAO_ALVO.fiis}%). O aporte vai para a classe abaixo da meta.</li>`);
+  li.push(ap.length
+    ? `<li><b>Com margem e classe abaixo da meta (Aportar):</b> ${ap.map(x => `${x.r.t} (margem ${x.mg.toFixed(0)}%)`).join(", ")}.</li>`
+    : `<li><b>Nenhum ativo da carteira</b> está abaixo do preço de compra numa classe abaixo da meta.</li>`);
+  if (comMargemClasseCheia.length) li.push(`<li><b>Com margem, mas na classe acima da meta:</b> ${comMargemClasseCheia.map(x => x.r.t).join(", ")}: esperar.</li>`);
+  if (acima.length) li.push(`<li><b>Acima do teto (sem compras):</b> ${acima.map(x => `${x.r.t} (${(-x.mg).toFixed(0)}% acima)`).join(", ")}.</li>`);
+  li.push(`<li style="color:var(--muted)">Sub-alocado não basta para comprar: precisa de margem e qualidade (Barsi). Gerado com os preços do robô de hoje.</li>`);
+  box.innerHTML = `<h3>Resumo para o aporte deste mês</h3><ul>${li.join("")}</ul>`;
+}
+window.renderResumoAporteMes = renderResumoAporteMes;
+
 function renderRebalanceamento() {
-   const todos = [...BASE_STOCKS, ...FIIS, ...OUT_OF_BASE, ...RADAR_ACOES, ...RADAR_FIIS];
+   const seen = new Set();
+   const todos = [...BASE_STOCKS, ...FIIS, ...OUT_OF_BASE, ...RADAR_ACOES, ...RADAR_FIIS].filter(x => x && x.t && !seen.has(x.t) && seen.add(x.t));
    let html = "";
    let patTotal = 0;
    let ativosComValor = [];
@@ -5737,13 +6008,19 @@ function renderRebalanceamento() {
    });
    
    document.getElementById("reb-total").textContent = fmtR(patTotal);
+   if (typeof renderResumoAporteMes === "function") renderResumoAporteMes();
+   if (typeof atualizarBotaoReinvestir === "function") atualizarBotaoReinvestir();
+   const rebTotLbl = document.getElementById("reb-total-lbl");
+   if (rebTotLbl) rebTotLbl.textContent = "Ações e FIIs (base do simulador)";
+   const rebTotSub = document.getElementById("reb-total-sub");
+   if (rebTotSub && typeof window.fehmirPatrimonioAtual === "function") rebTotSub.textContent = "Patrimônio total com ETFs e cripto: " + fmtR(window.fehmirPatrimonioAtual());
    
    // Construir a lista de ativos a exibir no Simulador
    // Mostrar sempre os que são da BASE, dos FIIs ou que tiverem alguma Quantidade/Ideal preenchidos
    const toShow = todos.filter(r => {
        const p = rebData[r.t] || {q:0, i:0};
        const inBase = BASE_STOCKS.some(b => b.t === r.t) || FIIS.some(f => f.t === r.t) || OUT_OF_BASE.some(o => o.t === r.t);
-       return inBase || p.q > 0 || p.i > 0;
+       return inBase || p.q > 0 || (p.i != null && p.i > 0);
    });
 
    const totalEnc = toShow.filter(r => isAtivoEncerrado(r.t)).length;
@@ -5751,10 +6028,12 @@ function renderRebalanceamento() {
    const visibleToShow = mostrar ? toShow : toShow.filter(r => !isAtivoEncerrado(r.t));
 
    visibleToShow.forEach(r => {
-      const p = rebData[r.t] || {q:0, i:0};
+      const p = rebData[r.t] || { q: 0, i: (r.ideal !== undefined ? r.ideal : 0) };
       const preco = r.preco || 0;
       const total = p.q * preco;
       const pctAtual = patTotal > 0 ? (total / patTotal * 100) : 0;
+      const semMeta = (p.i === null || (r._promovido && r.ideal === null && p.i == null));
+      const iVal = semMeta ? 0 : (parseFloat(p.i) || 0);
       
       const isFii = FIIS.some(f => f.t === r.t) || (r.tipo != null);
       const isBase = BASE_STOCKS.some(b => b.t === r.t);
@@ -5763,15 +6042,30 @@ function renderRebalanceamento() {
       // Bandas de Tolerância Assimétricas de Markowitz (Seção 7 da Metodologia)
       const tolMin = isFii ? 0.35 : (isBase ? 0.25 : (isIntl ? 0.50 : 0.20));
       const tolMax = isFii ? 0.35 : (isBase ? 0.25 : (isIntl ? 0.30 : 0.40));
-      const bMin = p.i * (1 - tolMin);
-      const bMax = p.i * (1 + tolMax);
+      const bMin = iVal * (1 - tolMin);
+      const bMax = iVal * (1 + tolMax);
       
       let statusHtml = "—";
-      if(p.i > 0 && patTotal > 0) {
-         const valorIdeal = patTotal * (p.i / 100);
+      if (semMeta) {
+         statusHtml = `<span style="color:var(--muted); font-size:12px; font-weight:600;" title="Ativo promovido do extrato sem meta individual definida">sem meta</span>`;
+      } else if(iVal > 0 && patTotal > 0) {
+         const valorIdeal = patTotal * (iVal / 100);
          const dist = valorIdeal - total;
          
-         if (pctAtual < bMin) {
+         const tvReb = (typeof window.tetoOficial === "function") ? window.tetoOficial(r) : null;
+         const compraReb = tvReb && tvReb.teto ? (tvReb.compra || tvReb.teto) : null;
+         if (pctAtual < bMin && compraReb != null && preco > compraReb) {
+            // Sub-alocado, mas sem margem: sub-alocado é necessário, nunca suficiente (Barsi)
+            statusHtml = `
+              <div style="display:flex; flex-direction:column; gap:2px;" title="${(tvReb.motivo || '').replace(/"/g, '&quot;')}">
+                <span style="display:inline-flex; align-items:center; gap:5px; color:var(--warning); font-weight:700; font-size:12px;">
+                  <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--warning);"></span>
+                  Sub-alocado, sem margem
+                </span>
+                <span style="font-size:11.5px; color:var(--ink-2);">Não aportar: preço ${fmtR(preco)} acima da compra ${fmtR(compraReb)} (teto ${fmtR(tvReb.teto)})</span>
+                <span style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono);">Banda: [${bMin.toFixed(1)}% – ${bMax.toFixed(1)}%]</span>
+              </div>`;
+         } else if (pctAtual < bMin) {
             // Zona Verde (Sub-alocado)
             statusHtml = `
               <div style="display:flex; flex-direction:column; gap:2px;">
@@ -5809,7 +6103,7 @@ function renderRebalanceamento() {
                 <span style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono);">Banda: [${bMin.toFixed(1)}% – ${bMax.toFixed(1)}%]</span>
               </div>`;
          }
-      } else if (p.i === 0 && p.q === 0) {
+      } else if (iVal === 0 && p.q === 0) {
          statusHtml = `<span style="color:var(--muted); font-size:11.5px;">Encerrado / Sem alocação</span>`;
       }
 
@@ -5821,7 +6115,7 @@ function renderRebalanceamento() {
          </td>
          <td><input type="number" class="reb-input reb-q" data-t="${r.t}" value="${p.q}" style="width:70px; text-align:right; font-family:var(--font-mono); border-radius:6px; border:1px solid var(--rule); padding:4px;"></td>
          <td class="tabular">${fmtR(total)}</td>
-         <td><input type="number" class="reb-input reb-i" data-t="${r.t}" value="${p.i}" style="width:60px; text-align:right; font-family:var(--font-mono); border-radius:6px; border:1px solid var(--rule); padding:4px;"></td>
+         <td><input type="number" class="reb-input reb-i" data-t="${r.t}" value="${semMeta ? '' : p.i}" placeholder="${semMeta ? 'sem meta' : '0'}" style="width:60px; text-align:right; font-family:var(--font-mono); border-radius:6px; border:1px solid var(--rule); padding:4px;"></td>
          <td class="tabular">${fmtPct(pctAtual)}</td>
          <td>${statusHtml}</td>
       </tr>`;
@@ -5833,9 +6127,10 @@ function renderRebalanceamento() {
    // Atualizar o Simulador de Projeção automaticamente com o patrimônio real
    const inInicial = document.getElementById("in-inicial");
    const rgInicial = document.getElementById("rg-inicial");
-   if(inInicial && patTotal > 0) {
-       inInicial.value = patTotal;
-       if(rgInicial) rgInicial.value = Math.min(parseFloat(rgInicial.max), patTotal);
+   const patProj = (typeof window.fehmirPatrimonioAtual === "function" ? window.fehmirPatrimonioAtual() : 0) || patTotal;
+   if(inInicial && patProj > 0) {
+       inInicial.value = patProj;
+       if(rgInicial) rgInicial.value = Math.min(parseFloat(rgInicial.max), patProj);
        if(typeof render === 'function') render();
    }
    
@@ -5859,6 +6154,7 @@ function gerarIdealSugerido() {
       aplicarAlocacaoAlvo(true);
       [...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS].forEach(x => { if (rebData[x.t]) x.ideal = rebData[x.t].i; });
       renderRebalanceamento();
+      if (typeof window.limparCacheTetoOficial === "function") window.limparCacheTetoOficial();
       if (typeof window.renderConselheiro === "function") window.renderConselheiro();
       alert("Metas recalculadas pela alocação-alvo: Ações 45% (B.A.S.E. 33 + outras 12, máx. 3% por cíclica) · FIIs 35% · Internacional 7% · Cripto 8% · Caixa 5%. A transição é feita com aportes, não vendendo FIIs.");
       return;
@@ -6024,7 +6320,8 @@ function renderPodio() {
   
   const topBazin = [...radar].map(r => {
      const kToUse = r.k || 0.08; 
-     const teto = (r.dpa!=null) ? r.dpa/kToUse : (r.dy != null && r.preco != null) ? (r.preco * (r.dy/100)) / kToUse : null;
+     const av = (typeof window.tetoOficial === 'function') ? window.tetoOficial(r) : ((typeof window.fehmirAvaliar === 'function') ? window.fehmirAvaliar(r) : null);
+     const teto = (av && av.teto > 0) ? av.teto : null; // 004
      const margem = teto!=null && r.preco!=null ? (teto-r.preco)/teto*100 : -999;
      return {...r, margem};
   }).sort((a,b) => b.margem - a.margem).slice(0, 3);
@@ -6073,7 +6370,9 @@ enableSort("thead-base", BASE_STOCKS, (r,key)=>{
   if(key==="preco") return r.preco;
   if(key==="dy") return r.dy;
   const k = getPressedK("base");
-  const teto = r.dpa!=null && k ? r.dpa/k : null;
+  if(key==="bazin") return r.dpa!=null && k ? r.dpa/k : null;
+  const av = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : null;
+  const teto = (av && av.teto > 0) ? av.teto : null;
   if(key==="teto") return teto;
   if(key==="margin") return teto!=null ? (teto-r.preco)/teto*100 : null;
   return null;
@@ -6083,7 +6382,9 @@ enableSort("thead-fora", OUT_OF_BASE, (r,key)=>{
   if(key==="preco") return r.preco;
   if(key==="dy") return r.dy;
   const k = getPressedK("fora");
-  const teto = r.dpa!=null && k ? r.dpa/k : null;
+  if(key==="bazin") return r.dpa!=null && k ? r.dpa/k : null;
+  const av = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : null;
+  const teto = (av && av.teto > 0) ? av.teto : null;
   if(key==="teto") return teto;
   if(key==="margin") return teto!=null ? (teto-r.preco)/teto*100 : null;
   return null;
@@ -6105,7 +6406,8 @@ enableSort("thead-radar-acoes", RADAR_ACOES, (r,key)=>{
   if(key==="preco") return r.preco;
   if(key==="dy") return r.dy;
   if(key==="veredito") return r.status;
-  const teto = r.dpa!=null ? r.dpa/r.k : null;
+  const av = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : null;
+  const teto = (av && av.teto > 0) ? av.teto : null;
   if(key==="teto") return teto;
   if(key==="margin") return teto!=null ? (teto-r.preco)/teto*100 : null;
   return null;
@@ -6123,7 +6425,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
 (function(){
   "use strict";
 
-  var DEFAULTS = { inicial: 5924, aporte: 300, reajuste: 10, rendimento: 12, anos: 20 };
+  var DEFAULTS = { inicial: 0, aporte: 300, reajuste: 10, rendimento: 12, anos: 20 };
 
   var els = {
     rgInicial: document.getElementById('rg-inicial'), inInicial: document.getElementById('in-inicial'),
@@ -6515,7 +6817,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
   });
 
   els.btnReset.addEventListener('click', function(){
-    setInputs(DEFAULTS);
+    setInputs(Object.assign({}, DEFAULTS, { inicial: Math.round((typeof window.fehmirPatrimonioAtual === 'function' && window.fehmirPatrimonioAtual()) || DEFAULTS.inicial) }));
     render();
   });
 
@@ -7379,7 +7681,16 @@ const RADAR_DATA = [
   const seloBrapi = dataBrapi ? "Brapi " + dataBrapi.split("-").reverse().slice(0, 2).join("/") : "Brapi";
   const rotulo = { lpa: "LPA", vpa: "VPA", roe: "ROE", pl: "P/L", pvp: "P/VP", payout: "payout" };
 
+  const _safeA = fn => { try { return fn() || []; } catch (e) { return []; } };
   const listas = [
+    _safeA(() => BASE_STOCKS),
+    _safeA(() => OUT_OF_BASE),
+    _safeA(() => FIIS),
+    _safeA(() => RADAR_ACOES),
+    _safeA(() => RADAR_FIIS),
+    _safeA(() => RADAR_DATA)
+  ];
+  var _oldListas = () => [
     typeof BASE_STOCKS !== "undefined" ? BASE_STOCKS : [],
     typeof OUT_OF_BASE !== "undefined" ? OUT_OF_BASE : [],
     typeof RADAR_ACOES !== "undefined" ? RADAR_ACOES : [],
@@ -7610,16 +7921,16 @@ window.fehmirIrParaAnalise = fehmirIrParaAnalise;
 
 function detalharScoreAtivo(r) {
   if (!r) return null;
-  const av = typeof window.fehmirAvaliar === "function" ? window.fehmirAvaliar(r) : { teto: null, margemMin: 10 };
+  const av = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : (typeof window.fehmirAvaliar === "function" ? window.fehmirAvaliar(r) : { teto: null, margemMin: 10 });
   const preco = r.preco || 0;
-  // Preço teto (preferência régua do setor, depois pt6, depois DPA / 0.06)
-  const teto = av.teto || r.pt6 || (r.dpa ? r.dpa / 0.06 : (r.dy && preco ? (preco * r.dy / 100) / 0.06 : null));
-  const mMin = av.margemMin || 10;
+  // Preço teto exclusivamente pela régua oficial (§21): sem fallback pt6 ou DPA / 0.06
+  const teto = (av && av.teto > 0) ? av.teto : null;
+  const mMin = (av && av.margemMin != null) ? av.margemMin : 10;
   
-  // Margem percentual
+  // Margem percentual: desconto sobre o teto
   let margem = null;
   if (teto && preco > 0) {
-    margem = ((teto - preco) / preco) * 100;
+    margem = ((teto - preco) / teto) * 100;
   }
   
   const H = typeof fehmirObterHist === 'function' ? fehmirObterHist(r.t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[r.t]);
@@ -7795,6 +8106,7 @@ function detalharScoreAtivo(r) {
     teto,
     preco,
     margem,
+    mMin,
     metodo: av ? av.metodo : null,
     motivo: av ? av.motivo : null,
     taxa: av ? av.taxa : null,
@@ -7900,7 +8212,7 @@ function calcularScoreRadar(r) {
     manual: false,
     teto: det.teto,
     margem: det.margem,
-    mMin: 10,
+    mMin: det.mMin || 10,
     metodo: det.metodo,
     motivo: det.motivo,
     taxa: det.taxa,
@@ -8086,7 +8398,7 @@ function renderCardsView(list) {
 
       <!-- Rodapé com Veredito e Botões -->
       <div class="rc-card-footer" style="display:flex;justify-content:space-between;align-items:center;gap:6px">
-        <div class="rc-verdict-text">${note(r.status, r.note)}</div>
+        <div class="rc-verdict-text">${vereditoPill(r)}</div>
         <div style="display:flex;gap:6px;align-items:center">
           <button class="rc-btn-detail" style="background:transparent;border:1px solid var(--rule-strong);color:var(--muted);font-size:11px;padding:4px 8px;border-radius:6px;cursor:pointer" onclick="event.stopPropagation(); openModal('${r.t}')" title="Abrir modal clássico com todas as métricas brutas">Raio-X clássico</button>
           <button class="rc-btn-detail" onclick="event.stopPropagation(); fehmirIrParaAnalise('${r.t}')">Ver Análise ➔</button>
@@ -8446,7 +8758,9 @@ function openModal(ticker) {
   const ehFoFOuPapel = ['fof', 'papel', 'fiagro'].includes(subFiiId) ||
                        ['VGHF11','MXRF11','HFOF11','KFOF11','BTHF11','XPSF11','KISU11','JSAF11','RBRX11','HDOF11','KNHF11','RECR11','KNIP11','KNCR11','BTCI11','KNSC11','HGCR11','PCIP11','RBRR11','VGIR11','MCCI11','VRTA11','CPTS11','RZTR11','RZAG11','KNCA11','VGIA11','SNAG11','EGAF11','FGAA11','RURA11'].includes(r.t) ||
                        /fof|fundo de fundos|hedge fund|papel|cr[eé]dito|cri|cra|receb[ií]veis|fiagro/i.test((r.setor || '') + ' ' + (r.tag || '') + ' ' + (r.nome || ''));
-  const ehFiiTijolo = (r.macro === 'fiis' || r.t.endsWith('11')) && !ehFoFOuPapel;
+  const isFiiMacro = r.macro === 'fiis' || (r.macro !== 'acoes' && r.t.endsWith('11') && (typeof UNITS_ACOES === 'undefined' || !UNITS_ACOES.includes(r.t)));
+  const ehFiiTijolo = isFiiMacro && !ehFoFOuPapel;
+  if (!isFiiMacro) { /* acao unit */ }
   const ehAcao = !ehFoFOuPapel && !ehFiiTijolo;
 
   const dpaBase = r.dpa != null ? r.dpa : (r.dy && r.preco ? (r.preco * r.dy / 100) : null);
@@ -8573,10 +8887,20 @@ function openModal(ticker) {
   document.getElementById('m-pl').textContent = r.pl || '—';
   document.getElementById('m-pvp').textContent = r.pvp != null ? r.pvp.toFixed(2) : '—';
   // Teto Oficial pela Régua Setorial (§21)
-  const av = typeof window.fehmirAvaliar === "function" ? window.fehmirAvaliar(r) : { teto: null, margemMin: 10, margemSeguranca: null, src: "" };
+  const av = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : (typeof window.fehmirAvaliar === "function" ? window.fehmirAvaliar(r) : { teto: null, compra: null, margemMin: 10, margemSeguranca: null, src: "" });
   const tetoRegua = av ? av.teto : null;
   const margemMin = (av && av.margemMin != null) ? av.margemMin : 10;
-  r._tetoRegua = (ehAcao && tetoRegua > 0) ? tetoRegua : null;
+  const compraRegua = (av && av.compra > 0) ? av.compra : ((tetoRegua && isFinite(tetoRegua) && tetoRegua > 0) ? tetoRegua * (1 - margemMin / 100) : null);
+  r._tetoRegua = (tetoRegua && isFinite(tetoRegua) && tetoRegua > 0) ? tetoRegua : null;
+  r._compraRegua = compraRegua;
+  pt1Val = r._tetoRegua;
+  pt2Val = compraRegua;
+  pt1Lbl = 'Teto (régua)';
+  pt2Lbl = compraRegua ? `Compra c/ margem (${margemMin}%)` : 'Compra c/ margem';
+  r._pt1Val = pt1Val;
+  r._pt2Val = pt2Val;
+  r._pt1Lbl = pt1Lbl;
+  r._pt2Lbl = pt2Lbl;
   r._av = av;
 
   // Tag do Método no cabeçalho do Modal
@@ -8647,7 +8971,7 @@ function openModal(ticker) {
       elTetoVal.textContent = '—';
       elTetoSub.textContent = 'sem teto';
       elTetoSub.style.color = 'var(--muted)';
-      if (cardTeto) cardTeto.setAttribute('title', 'Sem teto aplicável pela régua');
+      if (cardTeto) cardTeto.setAttribute('title', (av && av.motivo) ? av.motivo : 'Sem teto aplicável pela régua');
     }
   }
 
@@ -8710,7 +9034,7 @@ function openModal(ticker) {
   const biPt6Lbl = document.getElementById('m-bi-lbl-pt1');
   if (biPt6Lbl) biPt6Lbl.textContent = pt1Lbl;
   const biPt6 = document.getElementById('m-bi-pt6');
-  if (biPt6) biPt6.textContent = pt1Val ? fmtR(pt1Val) : '—';
+  if (biPt6) { biPt6.textContent = pt1Val ? fmtR(pt1Val) : '—'; if (!pt1Val && av && av.motivo) biPt6.setAttribute('title', av.motivo); else biPt6.removeAttribute('title'); }
   const biPt8Lbl = document.getElementById('m-bi-lbl-pt2');
   if (biPt8Lbl) biPt8Lbl.textContent = pt2Lbl;
   const biPt8 = document.getElementById('m-bi-pt8');
@@ -9059,9 +9383,10 @@ function drawCotacaoChart(item, period) {
   const isFoF = item._categoriaFii === 'fof_papel';
   const isTijolo = item._categoriaFii === 'tijolo';
   // Ações: o teto oficial da régua (§21), o mesmo do cartão "Teto (régua)". FIIs: teto do tipo de fundo.
-  const ptVal = item._tetoRegua > 0 ? item._tetoRegua : (item._pt1Val != null ? item._pt1Val : (item.pt6 || (item.dpa ? item.dpa / (isFoF ? 0.12 : (isTijolo ? 0.07 : 0.06)) : null)));
-  const ptLabelText = item._tetoRegua > 0 ? `TETO RÉGUA ${fmtR(ptVal)}` : (isFoF ? `TETO 12% ${fmtR(ptVal)}` : (isTijolo ? `TETO 7% ${fmtR(ptVal)}` : `TETO BARSI ${fmtR(ptVal)}`));
-  const ptSideLabel = item._pt1Lbl || (isFoF ? 'Preço Teto Mínimo (12%)' : (isTijolo ? 'Preço Teto Defensivo (7%)' : 'Preço Teto Fehmir (6%)'));
+  const _avChart = item._av || (typeof window.tetoOficial === 'function' ? window.tetoOficial(item) : null);
+  const ptVal = item._tetoRegua > 0 ? item._tetoRegua : (_avChart && _avChart.teto > 0 ? _avChart.teto : null);
+  const ptLabelText = ptVal ? `TETO RÉGUA ${fmtR(ptVal)}` : '';
+  const ptSideLabel = 'Preço Teto (Régua)';
 
   // Atualizar badge de período no cabeçalho
   const badgePeriodEl = document.getElementById('m-chart-period-badge');
@@ -9308,6 +9633,8 @@ function restoreSidebarToDefaults() {
   const statTeto = document.getElementById('m-stat-teto');
   if (statTeto) {
     statTeto.textContent = def.ptVal ? fmtR(def.ptVal) : '—';
+    const _motTeto = (currentModalItem && currentModalItem._av && currentModalItem._av.motivo) ? currentModalItem._av.motivo : 'Sem teto aplicável pela régua';
+    if (!def.ptVal) statTeto.setAttribute('title', _motTeto); else statTeto.removeAttribute('title');
     statTeto.style.color = 'var(--gold)';
   }
 
@@ -11228,6 +11555,7 @@ function simularOscilacao(factor) {
     if (item.precoBase) {
       item.preco = Number((item.precoBase * (1 + factor)).toFixed(2));
       if (item.quant) item.saldo = Number((item.quant * item.preco).toFixed(2));
+      if (typeof window.limparCacheTetoOficial === 'function') window.limparCacheTetoOficial();
     }
   });
 
@@ -11249,6 +11577,7 @@ function recalcularCarteira() {
 
   const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
   const posExtrato = (typeof calcularPosicoesExtrato === 'function') ? calcularPosicoesExtrato(extrato) : {};
+  if (typeof fehmirPromoverPosicoesDoRadar === 'function') fehmirPromoverPosicoesDoRadar(posExtrato);
 
   function sincronizarAtivo(s) {
     if (posExtrato[s.t] && posExtrato[s.t].temLancamento) {
@@ -11261,12 +11590,13 @@ function recalcularCarteira() {
         }
       }
     }
-    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(s.quant) : (parseFloat(s.quant) || 0);
+    const q = (typeof quantidadeAtual === 'function') ? quantidadeAtual(s, posExtrato, typeof rebData !== 'undefined' ? rebData : {}) : ((typeof _converterNumRobusto === 'function') ? _converterNumRobusto(s.quant) : (parseFloat(s.quant) || 0));
+    s.quant = q;
     // Sincroniza rebData[s.t].q sem apagar a chave
     if (typeof rebData !== 'undefined' && rebData[s.t]) {
       rebData[s.t].q = q;
     }
-    s.saldo = q * (s.preco || 0);
+    s.saldo = Number((q * (s.preco || 0)).toFixed(2));
     return q;
   }
 
@@ -11347,12 +11677,11 @@ function recalcularCarteira() {
   const ganhoCapital = totalPatrimonio - totalInvestido;
 
   // Proventos Acumulados do Extrato
-  const proventosLancados = extrato
-    .filter(t => t.tipo === 'Provento')
-    .reduce((acc, t) => acc + (parseFloat(t.total) || 0), 0);
-  const temProventosLancados = extrato.some(t => t.tipo === 'Provento');
-  const proventosAcum = temProventosLancados ? proventosLancados : 575.50;
-  const provSubNota = temProventosLancados ? "" : " (saldo inicial manual)";
+  // recebidos desde a carga (lançados + robô) + os de antes do painel (Investidor10, no macro com a fonte)
+  const provRec = (typeof fehmirProventosRecebidos === 'function') ? fehmirProventosRecebidos() : { total: 0, estimados: 0 };
+  const provAntes = (typeof fehmirProventosAntesDoPainel === 'function') ? fehmirProventosAntesDoPainel() : 0;
+  const proventosAcum = provRec.total + provAntes;
+  const provSubNota = ` (desde 30/09: ${fmtR(provRec.total)}${provRec.estimados ? ', estimado pelo robô: data ex × cotas' : ''}; antes do painel: ${fmtR(provAntes)}, Investidor10)`;
 
   const lucroTotal = ganhoCapital + proventosAcum;
   const rentabilidadePct = totalInvestido > 0 ? (ganhoCapital / totalInvestido) * 100 : 0;
@@ -11459,7 +11788,12 @@ function recalcularCarteira() {
   if (elAlocPatrWard) elAlocPatrWard.textContent = `Patrimônio: ${fmtR(totalPatrimonio)}`;
 
   // Atualizar Barra 10/26 do Gráfico de Evolução
-  const badgeBarTxt = document.getElementById('mc-bar-badge-txt');
+  if (typeof renderEvolucaoPatrimonio === 'function') renderEvolucaoPatrimonio();
+  if (typeof atualizarCalculadoraMeta === 'function') atualizarCalculadoraMeta();
+  if (typeof renderResumoAporteMes === 'function') renderResumoAporteMes();
+  if (typeof atualizarBotaoReinvestir === 'function') atualizarBotaoReinvestir();
+  if (typeof renderEventos === 'function') { try { renderEventos(); } catch (e) {} }
+  const badgeBarTxt = null;
   if (badgeBarTxt) badgeBarTxt.textContent = `R$${Math.round(totalPatrimonio).toLocaleString('pt-BR')}`;
 
   // Atualizar tabelas, gráficos de alocação e Caixa
@@ -11472,10 +11806,17 @@ function recalcularCarteira() {
   renderCaixaInvestir();
   if (typeof renderGraficosAlocacao === 'function') renderGraficosAlocacao();
   if (typeof renderSaudeCarteira === 'function') renderSaudeCarteira();
+  if (typeof renderOverview === 'function') renderOverview();
 }
 
 /* ================= GRÁFICOS DE ALOCAÇÃO WARD (15/10/2026) ================= */
-let alocClasseSelecionada = 'fiis'; // Começa em FIIs (maior classe da carteira)
+let alocClasseSelecionada = 'todos'; // Começa em Todos os ativos (US3 Feature 004)
+
+// Patrimônio da carteira (ações + FIIs + ETFs + cripto, sem o caixa): o mesmo número em todas as telas
+function fehmirPatrimonioAtual() {
+  try { return Number(obterDadosAlocacaoClasses().totalPatrimonio.toFixed(2)); } catch (e) { return 0; }
+}
+window.fehmirPatrimonioAtual = fehmirPatrimonioAtual;
 
 function obterDadosAlocacaoClasses() {
   let totalAcoes = 0;
@@ -11483,6 +11824,9 @@ function obterDadosAlocacaoClasses() {
   const acoesList = [];
   const fiisList = [];
   const rebData = (typeof carregarDadosRebalanceamento === 'function') ? carregarDadosRebalanceamento() : {};
+  const _posExtratoAlocTop = (typeof carregarExtrato === 'function' && typeof calcularPosicoesExtrato === 'function') ? calcularPosicoesExtrato(carregarExtrato()) : {};
+  if (typeof fehmirPromoverPosicoesDoRadar === 'function') fehmirPromoverPosicoesDoRadar(_posExtratoAlocTop);
+  [...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS].forEach(x => { if (typeof quantidadeAtual === 'function') x.quant = quantidadeAtual(x, _posExtratoAlocTop, rebData); });
 
   BASE_STOCKS.forEach(s => {
     const q = s.quant != null ? s.quant : (rebData[s.t] ? rebData[s.t].q : 0);
@@ -11553,6 +11897,10 @@ function obterDadosAlocacaoClasses() {
 
   saldoEtf = Number(saldoEtf.toFixed(2));
   saldoCripto = Number(saldoCripto.toFixed(2));
+  acoesList.forEach(a => { a.saldo = Number(a.saldo.toFixed(2)); });
+  fiisList.forEach(f => { f.saldo = Number(f.saldo.toFixed(2)); });
+  totalAcoes = Number(acoesList.reduce((acc, a) => acc + a.saldo, 0).toFixed(2));
+  totalFiis = Number(fiisList.reduce((acc, f) => acc + f.saldo, 0).toFixed(2));
   const totalPatrimonio = Number((totalAcoes + totalFiis + saldoEtf + saldoCripto).toFixed(2));
 
   const targetFiis = (typeof ALOCACAO_ALVO !== 'undefined') ? ALOCACAO_ALVO.fiis : 35.0;
@@ -11562,7 +11910,7 @@ function obterDadosAlocacaoClasses() {
 
   const classesData = [
     { key: 'fiis', label: 'Fundos Imobiliários (FIIs)', shortLabel: 'FIIs', saldo: totalFiis, ideal: targetFiis, corToken: 'var(--alloc-c1)', list: fiisList, desc: 'FIIs de Tijolo e Papel selecionados.' },
-    { key: 'acoes', label: 'Ações B.A.S.E.', shortLabel: 'Ações', saldo: totalAcoes, ideal: targetAcoes, corToken: 'var(--alloc-c2)', list: acoesList, desc: 'Núcleo perene com dividendos e margem de segurança.' },
+    { key: 'acoes', label: 'Ações', shortLabel: 'Ações', saldo: Number(totalAcoes.toFixed(2)), ideal: targetAcoes, corToken: 'var(--alloc-c2)', list: acoesList, desc: 'Núcleo perene com dividendos e margem de segurança.' },
     { key: 'intl', label: 'ETFs Internacionais', shortLabel: 'Internacional', saldo: saldoEtf, ideal: targetIntl, corToken: 'var(--alloc-c3)', list: intlList, desc: 'Exposição global via VTI e SCHD.' },
     { key: 'cripto', label: 'Criptomoedas', shortLabel: 'Cripto', saldo: saldoCripto, ideal: targetCripto, corToken: 'var(--alloc-c4)', list: criptoList, desc: 'Exposição assimétrica em criptoativos.' }
   ];
@@ -11587,7 +11935,148 @@ function renderGraficosAlocacao() {
     summaryPill.textContent = `${fmtR(totalPatrimonio)} · ${totalAtivos} Ativos`;
   }
 
-  // 3. Renderizar Rosca 1 (Classes) - Bloco Geral e Cabeçalho Ward KPI
+  // 3. Renderizar Rosca 1 (Classes) - Bloco Geral e Cabeçalho Ward KPI (Feature 004 US3)
+  const handleSelectClasse = (key) => {
+    alocClasseSelecionada = (alocClasseSelecionada === key) ? 'todos' : key;
+    renderGraficosAlocacao();
+  };
+  renderDonutChart('svg-rosca-classes', 'aloc-legend-classes', classesFiltradas, totalPatrimonio, {
+    isClassDonut: true,
+    activeKey: alocClasseSelecionada,
+    onSelect: handleSelectClasse
+  });
+  renderDonutChart('svg-rosca-classes-kpi', 'aloc-legend-classes-kpi', classesFiltradas, totalPatrimonio, {
+    isClassDonut: true,
+    activeKey: alocClasseSelecionada,
+    onSelect: handleSelectClasse
+  });
+  const centerKpi004 = document.getElementById('aloc-classes-center-kpi');
+  if (centerKpi004) {
+    const valSpan = centerKpi004.querySelector('.aloc-center-val');
+    if (valSpan) valSpan.textContent = classesData.length;
+  }
+  const isTodos = (alocClasseSelecionada === 'todos' || !classesData.some(c => c.key === alocClasseSelecionada));
+  let classLabel004 = 'Todos os ativos';
+  let classList004 = [];
+  let classTotal004 = totalPatrimonio;
+  if (isTodos) {
+    const addWithClass = (arr, clsShort, clsTotal) => arr.map(x => ({
+      ...x,
+      classeShort: clsShort,
+      pctPatr: totalPatrimonio > 0 ? (x.saldo / totalPatrimonio * 100) : 0,
+      pctClasse: clsTotal > 0 ? (x.saldo / clsTotal * 100) : 0
+    }));
+    classList004 = [
+      ...addWithClass(fiisList, 'FIIs', totalFiis),
+      ...addWithClass(acoesList, 'Ações', totalAcoes),
+      ...addWithClass(intlList, 'Internacional', saldoEtf),
+      ...addWithClass(criptoList, 'Cripto', saldoCripto)
+    ];
+    classTotal004 = totalPatrimonio;
+  } else {
+    const currentClassObj004 = classesData.find(c => c.key === alocClasseSelecionada) || classesData[0];
+    classLabel004 = currentClassObj004 ? currentClassObj004.label : 'FIIs';
+    classTotal004 = currentClassObj004 ? currentClassObj004.saldo : 0;
+    const clsShort = currentClassObj004 ? currentClassObj004.shortLabel : 'FIIs';
+    classList004 = (currentClassObj004 ? [...currentClassObj004.list] : []).map(x => ({
+      ...x,
+      classeShort: clsShort,
+      pctPatr: totalPatrimonio > 0 ? (x.saldo / totalPatrimonio * 100) : 0,
+      pctClasse: classTotal004 > 0 ? (x.saldo / classTotal004 * 100) : 0
+    }));
+  }
+  const titleAtivos004 = document.getElementById('aloc-ativos-title');
+  if (titleAtivos004) {
+    const btnTodosActive = isTodos ? 'background:var(--accent);color:#fff;border-color:var(--accent);' : 'background:var(--surface-2);color:var(--ink-2);border-color:var(--rule-strong);';
+    titleAtivos004.innerHTML = `<span style="display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;"><span>${isTodos ? 'Todos os ativos' : 'Ativos em ' + classLabel004}</span><button type="button" id="btn-aloc-todos" onclick="alocClasseSelecionada='todos';renderGraficosAlocacao();" style="padding:2px 9px;border-radius:999px;border:1px solid;font-size:11px;font-weight:700;cursor:pointer;${btnTodosActive}">Todos</button></span>`;
+  }
+  const centerValAtivos004 = document.getElementById('aloc-ativos-center-val');
+  if (centerValAtivos004) centerValAtivos004.textContent = fmtR(classTotal004);
+  const centerSubAtivos004 = document.querySelector('#aloc-ativos-center .aloc-center-sub');
+  if (centerSubAtivos004) centerSubAtivos004.textContent = isTodos ? 'Total da Carteira' : 'Total da Classe';
+  classList004.sort((a, b) => b.saldo - a.saldo);
+  const colorTokens004 = [
+    'var(--alloc-c1)', 'var(--alloc-c2)', 'var(--alloc-c3)', 'var(--alloc-c4)',
+    'var(--alloc-c5)', 'var(--alloc-c6)', 'var(--alloc-c7)', 'var(--alloc-c8)'
+  ];
+  let ativosSlices004 = [];
+  if (isTodos) {
+    const maiores = [];
+    const menores = [];
+    classList004.forEach(item => {
+      const pctP = totalPatrimonio > 0 ? (item.saldo / totalPatrimonio * 100) : 0;
+      if (pctP >= 1.0) maiores.push(item);
+      else menores.push(item);
+    });
+    ativosSlices004 = maiores.map((item, idx) => ({
+      key: item.ticker,
+      label: item.ticker,
+      saldo: item.saldo,
+      corToken: colorTokens004[idx % colorTokens004.length],
+      pctTotal: item.pctPatr,
+      pctClasse: item.pctClasse,
+      classeShort: item.classeShort
+    }));
+    if (menores.length > 0) {
+      const saldoRest = Number(menores.reduce((acc, x) => acc + x.saldo, 0).toFixed(2));
+      ativosSlices004.push({
+        key: 'outros',
+        label: `Outros (${menores.length} <1%)`,
+        saldo: saldoRest,
+        corToken: 'var(--alloc-outros)',
+        pctTotal: totalPatrimonio > 0 ? (saldoRest / totalPatrimonio * 100) : 0,
+        isOutros: true
+      });
+    }
+  } else if (classList004.length <= 8) {
+    ativosSlices004 = classList004.map((item, idx) => ({
+      key: item.ticker,
+      label: item.ticker,
+      saldo: item.saldo,
+      corToken: colorTokens004[idx % colorTokens004.length],
+      pctTotal: item.pctPatr,
+      pctClasse: item.pctClasse,
+      classeShort: item.classeShort
+    }));
+  } else {
+    const top7 = classList004.slice(0, 7);
+    const rest = classList004.slice(7);
+    const saldoRest = Number(rest.reduce((acc, x) => acc + x.saldo, 0).toFixed(2));
+    ativosSlices004 = top7.map((item, idx) => ({
+      key: item.ticker,
+      label: item.ticker,
+      saldo: item.saldo,
+      corToken: colorTokens004[idx % colorTokens004.length],
+      pctTotal: item.pctPatr,
+      pctClasse: item.pctClasse,
+      classeShort: item.classeShort
+    }));
+    ativosSlices004.push({
+      key: 'outros',
+      label: `Outros (${rest.length})`,
+      saldo: saldoRest,
+      corToken: 'var(--alloc-outros)',
+      pctTotal: totalPatrimonio > 0 ? (saldoRest / totalPatrimonio * 100) : 0,
+      isOutros: true
+    });
+  }
+  const legendItems004 = classList004.map((item, idx) => ({
+    key: item.ticker,
+    label: item.ticker,
+    saldo: item.saldo,
+    corToken: colorTokens004[idx % colorTokens004.length],
+    pctTotal: item.pctPatr,
+    pctClasse: item.pctClasse,
+    classeShort: item.classeShort
+  }));
+  renderDonutChart('svg-rosca-ativos', 'aloc-legend-ativos', ativosSlices004, classTotal004, {
+    isClassDonut: false,
+    isTodosMode: isTodos,
+    legendItems: legendItems004,
+    totalPatrimonioGlobal: totalPatrimonio
+  });
+  renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto);
+  if (true) return;
   renderDonutChart('svg-rosca-classes', 'aloc-legend-classes', classesFiltradas, totalPatrimonio, {
     isClassDonut: true,
     activeKey: alocClasseSelecionada,
@@ -11723,6 +12212,26 @@ function renderDonutChart(svgId, legendId, items, total, options = {}) {
     offset += strokeLen;
   });
 
+  if (options.legendItems && Array.isArray(options.legendItems)) {
+    legendHtml = options.legendItems.map((lItem) => {
+      const pctPatr = lItem.pctTotal != null ? lItem.pctTotal : (options.totalPatrimonioGlobal > 0 ? (lItem.saldo / options.totalPatrimonioGlobal) * 100 : 0);
+      const pctCls = lItem.pctClasse != null ? lItem.pctClasse : (total > 0 ? (lItem.saldo / total) * 100 : 0);
+      const clsBadge = lItem.classeShort ? `<span style="font-size:10px;color:var(--muted);padding:1px 5px;border-radius:4px;background:var(--surface-2);margin-left:4px;">${lItem.classeShort}</span>` : '';
+      const tooltipText = `${lItem.label}${lItem.classeShort ? ' (' + lItem.classeShort + ')' : ''} · ${fmtR(lItem.saldo)} · ${pctPatr.toFixed(1).replace('.', ',')}% patr. · ${pctCls.toFixed(1).replace('.', ',')}% classe`;
+      return `
+        <div class="aloc-legend-item" data-key="${lItem.key}" data-saldo="${lItem.saldo.toFixed(2)}" data-classe="${lItem.classeShort || ''}" data-tooltip="${tooltipText}">
+          <div class="aloc-legend-left">
+            <span class="aloc-dot" style="background:${lItem.corToken}"></span>
+            <span class="aloc-legend-name" title="${lItem.label}">${lItem.label}${clsBadge}</span>
+          </div>
+          <div class="aloc-legend-right">
+            <span class="aloc-legend-pct" title="% do patrimônio / % da classe">${pctPatr.toFixed(1).replace('.', ',')}% <small style="color:var(--muted);font-weight:500;">(${pctCls.toFixed(0)}% cls)</small></span>
+            <span class="aloc-legend-val">(${fmtR(lItem.saldo)})</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
   svg.innerHTML = circlesHtml;
   legend.innerHTML = legendHtml;
 
@@ -12361,7 +12870,10 @@ function extrairContextoSaudePainel() {
       const rAsset = radar.find(x => x.t === t) || {};
 
       let tetoVal = null;
-      if (typeof window.fehmirTetoAcao === 'function') {
+      if (typeof window.tetoOficial === 'function') {
+        const avOfc = window.tetoOficial(Object.assign({}, rAsset, bAsset, { t, preco, macro: 'acoes' }));
+        tetoVal = (avOfc && avOfc.teto > 0) ? avOfc.teto : null;
+      } else if (typeof window.fehmirTetoAcao === 'function') {
         const tv = window.fehmirTetoAcao(Object.assign({}, rAsset, bAsset, { t, preco }), mMacroVal);
         if (tv && typeof tv.teto === 'number' && tv.teto > 0) tetoVal = tv.teto;
       } else if (rAsset.bazin5a && rAsset.bazin5a > 0) {
@@ -12393,7 +12905,10 @@ function extrairContextoSaudePainel() {
       let tetoVal = null;
       const fnSub = window.fiiSubDe || (typeof fiiSubDe === 'function' ? fiiSubDe : null);
       const fnReq = window.fiiReq || (typeof fiiReq === 'function' ? fiiReq : null);
-      if (fnSub && fnReq && fAsset.rend) {
+      if (typeof window.tetoOficial === 'function') {
+        const avOfc = window.tetoOficial(Object.assign({}, fAsset, { t, preco, macro: 'fiis' }));
+        tetoVal = (avOfc && avOfc.teto > 0) ? avOfc.teto : null;
+      } else if (fnSub && fnReq && fAsset.rend) {
         const sub = fnSub(fAsset);
         const req = fnReq(sub, fAsset.dy || 0, mMacroVal);
         if (req > 0) tetoVal = (fAsset.rend * 12) / (req / 100);
@@ -12816,9 +13331,19 @@ function setSmartAporteVal(v) {
 }
 window.setSmartAporteVal = setSmartAporteVal;
 
+// proventos recebidos nos últimos 30 dias (robô ou lançados), para reinvestir
+function fehmirProventosParaReinvestir() {
+  if (typeof fehmirProventosRecebidos !== "function") return 0;
+  const d = new Date(Date.now() - 30 * 864e5).toISOString().slice(0, 10);
+  return fehmirProventosRecebidos(d).total;
+}
+function atualizarBotaoReinvestir() {
+  const b = document.getElementById("btn-reinvestir-prov");
+  if (b) b.textContent = "Reinvestir proventos dos últimos 30 dias (" + fmtR(fehmirProventosParaReinvestir()) + ")";
+}
 function setSmartAporteProventos() {
   const el = document.getElementById("smart-aporte-val");
-  if (el) el.value = 445;
+  if (el) el.value = Math.round(fehmirProventosParaReinvestir() * 100) / 100;
   calcularAporteInteligente();
 }
 window.setSmartAporteProventos = setSmartAporteProventos;
@@ -12869,7 +13394,7 @@ function calcularAporteInteligente() {
     if (deficitFinanceiro <= 0) return;
 
     // Régua setorial (§21) — antes era k fixo de 7/8/12%, que aprovava compra acima do teto
-    const av = typeof window.fehmirAvaliar === "function" ? window.fehmirAvaliar(r) : { teto: null, margemMin: 10 };
+    const av = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : (typeof window.fehmirAvaliar === "function" ? window.fehmirAvaliar(r) : { teto: null, margemMin: 10 });
     const teto = av.teto;
     const margem = teto != null ? (1 - preco / teto) * 100 : -999;   // desconto sobre o teto (E24)
     if (r.quarentena) return;                                 // dado crítico não confirmado
@@ -13137,9 +13662,13 @@ function atualizarDuelo() {
   const a = RADAR_DATA.find(x => x.t === tA) || RADAR_DATA[0];
   const b = RADAR_DATA.find(x => x.t === tB) || RADAR_DATA[1];
 
-  // Cálculo de Margens Bazin (k 8%)
-  const margemA = a.pt8 && a.preco ? ((a.pt8 - a.preco) / a.preco) * 100 : -999;
-  const margemB = b.pt8 && b.preco ? ((b.pt8 - b.preco) / b.preco) * 100 : -999;
+  // Cálculo de Margens pela Régua Setorial (§21) via tetoOficial
+  const avA = (typeof window.tetoOficial === 'function') ? window.tetoOficial(a) : ((typeof window.fehmirAvaliar === 'function') ? window.fehmirAvaliar(a) : null);
+  const avB = (typeof window.tetoOficial === 'function') ? window.tetoOficial(b) : ((typeof window.fehmirAvaliar === 'function') ? window.fehmirAvaliar(b) : null);
+  const tetoA = (avA && avA.teto > 0) ? avA.teto : null;
+  const tetoB = (avB && avB.teto > 0) ? avB.teto : null;
+  const margemA = (tetoA && a.preco) ? ((tetoA - a.preco) / tetoA) * 100 : -999;
+  const margemB = (tetoB && b.preco) ? ((tetoB - b.preco) / tetoB) * 100 : -999;
 
   // Vencedores métrica por métrica
   const winDy = (a.dy || 0) >= (b.dy || 0) ? 'A' : 'B';
@@ -13191,8 +13720,8 @@ function atualizarDuelo() {
             <td class="duelo-metric-val ${winDy === (isA ? 'A' : 'B') ? 'win' : ''}">${fmtPct(item.dy)}</td>
           </tr>
           <tr>
-            <td class="duelo-metric-lbl">Preço Teto Bazin (k 8%)</td>
-            <td class="duelo-metric-val">${item.pt8 ? fmtR(item.pt8) : '—'}</td>
+            <td class="duelo-metric-lbl">Preço Teto (Régua)</td>
+            <td class="duelo-metric-val" title="${(isA ? (avA && avA.motivo) : (avB && avB.motivo)) || ''}">${(isA ? tetoA : tetoB) ? fmtR(isA ? tetoA : tetoB) : '—'}</td>
           </tr>
           <tr>
             <td class="duelo-metric-lbl">Margem de Segurança</td>
@@ -13402,8 +13931,9 @@ function atualizarCalculadoraMeta() {
   // Renda mensal atual gerada pela carteira
   let rendaMensalAtual = 0;
   const todos = [...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS];
+  const qtdMeta = r => (typeof quantidadeAtual === 'function') ? quantidadeAtual(r) : (rebData[r.t] ? rebData[r.t].q : (r.quant || 0));
   todos.forEach(r => {
-    const q = rebData[r.t] ? rebData[r.t].q : (r.quant || 0);
+    const q = qtdMeta(r);
     if (q > 0) {
       const preco = r.preco || 0;
       const dpa = r.dpa != null ? r.dpa : (r.dy ? preco * (r.dy / 100) : 0);
@@ -13440,11 +13970,9 @@ function atualizarCalculadoraMeta() {
 
   if (metaState.modo === 'carteira') {
     // Na carteira: distribui a meta de renda respeitando o % ideal de cada ativo
-    ativosParaExibir = todos.filter(r => {
-      const p = rebData[r.t] || { q: r.quant || 0, i: r.ideal || 0 };
-      return (p.i && p.i > 0) || p.q > 0;
-    }).map(r => {
-      const p = rebData[r.t] || { q: r.quant || 0, i: r.ideal || 0 };
+    // só as posições abertas do extrato (ativo vendido não entra, mesmo com meta antiga)
+    ativosParaExibir = todos.filter(r => qtdMeta(r) > 0).map(r => {
+      const p = { q: qtdMeta(r), i: (rebData[r.t] && rebData[r.t].i != null) ? rebData[r.t].i : (r.ideal || 0) };
       const pesoIdeal = p.i || 2.0;
       const preco = r.preco || 10;
       const dpa = r.dpa != null ? r.dpa : (r.dy ? preco * (r.dy / 100) : preco * 0.07);
@@ -13476,7 +14004,7 @@ function atualizarCalculadoraMeta() {
     const unique = [...new Map(universoBase.map(item => [item.t, item])).values()];
 
     ativosParaExibir = unique.map(r => {
-      const p = rebData[r.t] || { q: r.quant || 0 };
+      const p = { q: qtdMeta(r) };
       const preco = r.preco || 10;
       const dpa = r.dpa != null ? r.dpa : (r.dy ? preco * (r.dy / 100) : preco * 0.07);
       const cotasNecessarias = dpa > 0 ? Math.ceil(rendaAnualAlvo / dpa) : 0;
@@ -14039,7 +14567,7 @@ function renderExtrato() {
   if (elOps) elOps.textContent = `${lista.length} ordens`;
 
   const elReinv = document.getElementById('extrato-total-reinv');
-  if (elReinv) elReinv.textContent = fmtR(totalReinv || 575.50);
+  if (elReinv) elReinv.textContent = fmtR(totalReinv || ((typeof fehmirProventosRecebidos === 'function' ? fehmirProventosRecebidos().total : 0) + (typeof fehmirProventosAntesDoPainel === 'function' ? fehmirProventosAntesDoPainel() : 0)));
 
   const elVendas = document.getElementById('extrato-total-vendas');
   if (elVendas) elVendas.textContent = fmtR(totalVendas);
@@ -14174,6 +14702,290 @@ function toggleDdSerie(key) {
 }
 window.toggleDdSerie = toggleDdSerie;
 
+/* ================= FEATURE 004 US4: EVOLUÇÃO DO PATRIMÔNIO REAL ================= */
+function fehmirPrecoEm(ticker, data, histOpt) {
+  if (!ticker || ticker === '—') return 0;
+  const t = String(ticker).toUpperCase();
+  const hMap = histOpt || window.FEHMIR_HIST;
+  if (histOpt && histOpt !== window.FEHMIR_HIST && hMap && hMap[t]) {
+    const h = hMap[t];
+    if (Array.isArray(h.c) && h.c.length > 0) {
+      let p = h.c[h.c.length - 1];
+      if (data && Array.isArray(h.d) && h.d.length > 0) {
+        let achou = false;
+        for (let i = h.d.length - 1; i >= 0; i--) {
+          if (h.d[i] <= data) { p = h.c[i]; achou = true; break; }
+        }
+        if (!achou) p = h.c[0];
+      }
+      const isIntl = (typeof INTL_TICKERS !== 'undefined' && INTL_TICKERS.includes(t)) || h.moeda === 'USD';
+      if (isIntl) {
+        let cambio = null;
+        const dObj = hMap['USDBRL'];
+        if (dObj && Array.isArray(dObj.c) && dObj.c.length > 0) {
+          cambio = dObj.c[dObj.c.length - 1];
+          if (data && Array.isArray(dObj.d) && dObj.d.length > 0) {
+            for (let i = dObj.d.length - 1; i >= 0; i--) {
+              if (dObj.d[i] <= data) { cambio = dObj.c[i]; break; }
+            }
+          }
+        } else if (typeof obterCotacaoDolar === 'function') {
+          cambio = obterCotacaoDolar(data);
+        }
+        return (cambio && cambio > 0) ? Number((p * cambio).toFixed(2)) : p;
+      }
+      return p;
+    }
+  }
+  if (typeof obterPrecoAtivo === 'function') {
+    const pObj = obterPrecoAtivo(t, data);
+    if (pObj && typeof pObj.preco === 'number' && pObj.preco > 0) return pObj.preco;
+  }
+  const h = hMap && hMap[t];
+  if (!h || !h.c || h.c.length === 0) return 0;
+  const bench = window.FEHMIR_BENCH;
+  const ibovDates = (bench && Array.isArray(bench.ibov)) ? bench.ibov.map(r => r[0]) : [];
+  const ibovLen = ibovDates.length;
+  const idxData = ibovDates.indexOf(data);
+  if (idxData === -1) return h.c[h.c.length - 1];
+  const offsetFromEnd = ibovLen - 1 - idxData;
+  const targetIdx = h.c.length - 1 - offsetFromEnd;
+  if (targetIdx < 0) return h.c[0];
+  if (targetIdx >= h.c.length) return h.c[h.c.length - 1];
+  return h.c[targetIdx];
+}
+window.fehmirPrecoEm = fehmirPrecoEm;
+
+function fehmirEvolucaoMensal(extrato, hist, periodo) {
+  const ext = Array.isArray(extrato) ? extrato : ((typeof carregarExtrato === 'function') ? carregarExtrato() : (window.DEFAULT_TRANSACOES || []));
+  const hMap = hist || window.FEHMIR_HIST;
+  const per = String(periodo || 'inicio').toLowerCase();
+
+  const txAtivos = (ext || []).filter(tx => {
+    if (!tx || !tx.data || !tx.ticker || tx.ticker === '—') return false;
+    const cat = String(tx.cat || '').toUpperCase();
+    if (cat === 'CAIXA' || cat === 'REMESSA') return false;
+    return tx.tipo === 'Compra' || tx.tipo === 'Reinvestimento' || tx.tipo === 'Venda';
+  }).slice().sort((a, b) => String(a.data).localeCompare(String(b.data)));
+
+  const resultado = [];
+
+  // Meses anteriores a 2026-09 vindos exclusivamente de window.FEHMIR_PATR_HIST (se existir)
+  const patrHist = Array.isArray(window.FEHMIR_PATR_HIST) ? window.FEHMIR_PATR_HIST : [];
+  const primeiroMesExtrato = txAtivos.length > 0 ? String(txAtivos[0].data).substring(0, 7) : '2026-09';
+  const limiteHist = primeiroMesExtrato < '2026-09' ? primeiroMesExtrato : '2026-09';
+  patrHist
+    .filter(item => item && item.mes && String(item.mes) < limiteHist)
+    .slice()
+    .sort((a, b) => String(a.mes).localeCompare(String(b.mes)))
+    .forEach(item => {
+      const ap = Number(Number(item.aplicado || 0).toFixed(2));
+      const mc = Number(Number(item.mercado || 0).toFixed(2));
+      resultado.push({
+        mes: String(item.mes),
+        aplicado: ap,
+        mercado: mc,
+        ganho: Number((mc - ap).toFixed(2)),
+        fonte: item.fonte || 'patrimonio_historico'
+      });
+    });
+
+  if (txAtivos.length > 0) {
+    const minMes = String(txAtivos[0].data).substring(0, 7);
+    let maxMes = String(txAtivos[txAtivos.length - 1].data).substring(0, 7);
+    const todasDatasExt = (ext || []).map(t => t && t.data ? String(t.data).substring(0, 7) : '').filter(Boolean).sort();
+    if (todasDatasExt.length > 0 && todasDatasExt[todasDatasExt.length - 1] > maxMes) {
+      maxMes = todasDatasExt[todasDatasExt.length - 1];
+    }
+
+    const mesesExtrato = [];
+    const [yIni, mIni] = minMes.split('-').map(Number);
+    const [yFim, mFim] = maxMes.split('-').map(Number);
+    let y = yIni, m = mIni;
+    while (y < yFim || (y === yFim && m <= mFim)) {
+      mesesExtrato.push(`${y}-${String(m).padStart(2, '0')}`);
+      m++;
+      if (m > 12) { m = 1; y++; }
+    }
+
+    const pos = {};
+    let aplicadoAcum = 0;
+
+    mesesExtrato.forEach(mes => {
+      const txDoMes = txAtivos.filter(tx => String(tx.data).substring(0, 7) === mes);
+      txDoMes.forEach(tx => {
+        const tk = String(tx.ticker).toUpperCase();
+        const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.quant) : (parseFloat(tx.quant) || 0);
+        const pr = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.preco) : (parseFloat(tx.preco) || 0);
+        const txVal = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.taxa) : (parseFloat(tx.taxa) || 0);
+        const tot = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.total) : (parseFloat(tx.total) || 0);
+        if (!pos[tk]) pos[tk] = { quant: 0, pm: 0 };
+
+        if (tx.tipo === 'Compra' || tx.tipo === 'Reinvestimento') {
+          const custo = tot > 0 ? tot : (q * pr + txVal);
+          const custoAnt = pos[tk].quant * pos[tk].pm;
+          pos[tk].quant += q;
+          pos[tk].pm = pos[tk].quant > 0 ? (custoAnt + custo) / pos[tk].quant : 0;
+          aplicadoAcum += custo;
+        } else if (tx.tipo === 'Venda') {
+          const qVend = Math.min(pos[tk].quant, q);
+          aplicadoAcum = Math.max(0, aplicadoAcum - (qVend * pos[tk].pm));
+          pos[tk].quant = Math.max(0, pos[tk].quant - q);
+          if (pos[tk].quant <= 1e-6) {
+            pos[tk].quant = 0;
+            pos[tk].pm = 0;
+          }
+        }
+      });
+
+      let mercadoMes = 0;
+      const dataFimMes = mes + '-31';
+      Object.keys(pos).forEach(tk => {
+        if (pos[tk].quant > 1e-8) {
+          const preco = fehmirPrecoEm(tk, dataFimMes, hMap);
+          mercadoMes += Number((pos[tk].quant * preco).toFixed(2));
+        }
+      });
+
+      const apRound = Number(aplicadoAcum.toFixed(2));
+      const mcRound = Number(mercadoMes.toFixed(2));
+      resultado.push({
+        mes,
+        aplicado: apRound,
+        mercado: mcRound,
+        ganho: Number((mcRound - apRound).toFixed(2))
+      });
+    });
+  }
+
+  if (per === '12m') {
+    return resultado.slice(-12);
+  }
+  if (per === 'ano') {
+    const anoRef = resultado.length > 0 ? resultado[resultado.length - 1].mes.substring(0, 4) : '2026';
+    return resultado.filter(r => r.mes.startsWith(anoRef + '-'));
+  }
+  return resultado;
+}
+window.fehmirEvolucaoMensal = fehmirEvolucaoMensal;
+
+function renderEvolucaoPatrimonio(periodo) {
+  const sel = document.getElementById('evolucao-periodo-select');
+  const per = periodo || (sel ? sel.value : 'inicio') || 'inicio';
+  if (sel && periodo && sel.value !== periodo) sel.value = periodo;
+
+  const container = document.getElementById('evolucao-chart-container');
+  const legendaEl = document.getElementById('evolucao-legenda');
+  if (!container) return;
+
+  const dados = fehmirEvolucaoMensal(null, window.FEHMIR_HIST, per);
+  if (!dados || dados.length === 0) {
+    container.innerHTML = '<div style="padding:48px 16px; text-align:center; color:var(--muted); font-size:13px;">Sem lançamentos para exibir na evolução patrimonial.</div>';
+    if (legendaEl) legendaEl.innerHTML = '';
+    return;
+  }
+
+  const ult = dados[dados.length - 1];
+  const ganhoUlt = Number((ult.mercado - ult.aplicado).toFixed(2));
+  const isGanhoUlt = ganhoUlt >= 0;
+  const [anoUlt, mesUlt] = ult.mes.split('-');
+  const mesUltFmt = `${mesUlt}/${anoUlt.slice(2)}`;
+
+  if (legendaEl) {
+    legendaEl.innerHTML = `
+      <span style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:50%; background:#2563eb; display:inline-block;"></span> Valor aplicado (<b>${fmtR(ult.aplicado)}</b>)</span>
+      <span style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:50%; background:${isGanhoUlt ? '#16a34a' : '#dc2626'}; display:inline-block;"></span> ${isGanhoUlt ? 'Ganho de Capital' : 'Perda de Capital'} (<b style="color:${isGanhoUlt ? '#16a34a' : '#dc2626'};">${isGanhoUlt ? '+' : '-'}${fmtR(Math.abs(ganhoUlt))}</b>)</span>
+      <span style="display:flex; align-items:center; gap:6px; margin-left:auto; font-family:var(--font-mono); font-weight:700; color:var(--ink);">Patrimônio (${mesUltFmt}): ${fmtR(ult.mercado)}</span>
+    `;
+  }
+
+  // largura real do contêiner: o SVG não é escalado, então a fonte de 12 px vale também no celular
+  const W = Math.max(300, Math.round(container.clientWidth || 760)), H = 340;
+  const padL = 78, padR = 28, padT = 44, padB = 46;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
+  const yZero = padT + plotH;
+
+  const maxRaw = Math.max(1000, ...dados.map(d => Math.max(d.aplicado || 0, d.mercado || 0)));
+  const maxScale = Math.ceil((maxRaw * 1.15) / 1000) * 1000;
+  const steps = 4;
+  let gridHtml = '';
+  for (let i = 0; i <= steps; i++) {
+    const val = (maxScale / steps) * (steps - i);
+    const y = padT + (plotH / steps) * i;
+    const isZero = i === steps;
+    gridHtml += `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" stroke="${isZero ? 'var(--rule-strong)' : 'var(--rule)'}" ${isZero ? 'stroke-width="1.2"' : 'stroke-dasharray="3,3"'} />`;
+    gridHtml += `<text x="${padL - 10}" y="${(y + 4).toFixed(1)}" fill="var(--muted)" font-size="12" text-anchor="end" font-family="var(--font-mono)">R$${Math.round(val).toLocaleString('pt-BR')}</text>`;
+  }
+
+  const n = dados.length;
+  const slotW = plotW / n;
+  const barW = Math.min(76, Math.max(8, slotW * 0.46));
+  const passoMes = Math.max(1, Math.ceil(44 / slotW));
+  const mostraBadge = idx => n <= 6 && slotW >= 96 || idx === n - 1;
+
+  let barsHtml = '';
+  dados.forEach((d, idx) => {
+    const cx = padL + slotW * (idx + 0.5);
+    const bx = cx - barW / 2;
+    const ap = Math.max(0, d.aplicado || 0);
+    const mc = Math.max(0, d.mercado || 0);
+    const ganho = Number((mc - ap).toFixed(2));
+    const pct = ap > 0 ? ((mc - ap) / ap) * 100 : 0;
+    const [yy, mm] = String(d.mes).split('-');
+    const mesFmt = `${mm}/${String(yy).slice(2)}`;
+    const tooltipTxt = `${mesFmt} — Aplicado: ${fmtR(ap)} | Mercado: ${fmtR(mc)} | ${ganho >= 0 ? 'Ganho: +' + fmtR(ganho) : 'Perda: -' + fmtR(Math.abs(ganho))} (${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%)`;
+
+    let rectAp = '', rectRes = '', yTop = yZero;
+    if (ganho >= 0) {
+      const hAp = (ap / maxScale) * plotH;
+      const yAp = yZero - hAp;
+      const hGanho = ganho > 0 ? Math.max(3, ((mc - ap) / maxScale) * plotH) : 0;
+      const yGanho = yAp - hGanho;
+      yTop = yGanho;
+      rectAp = `<rect class="evol-bar-aplicado" x="${bx.toFixed(1)}" y="${yAp.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0, hAp).toFixed(1)}" fill="#2563eb" rx="2" />`;
+      if (hGanho > 0) {
+        rectRes = `<rect class="evol-bar-resultado ganho" x="${bx.toFixed(1)}" y="${yGanho.toFixed(1)}" width="${barW.toFixed(1)}" height="${hGanho.toFixed(1)}" fill="#16a34a" rx="2" />`;
+      }
+    } else {
+      const hMerc = (mc / maxScale) * plotH;
+      const yMerc = yZero - hMerc;
+      const hPerda = Math.max(3, ((ap - mc) / maxScale) * plotH);
+      const yPerda = yMerc - hPerda;
+      yTop = yPerda;
+      rectAp = `<rect class="evol-bar-aplicado" x="${bx.toFixed(1)}" y="${yMerc.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0, hMerc).toFixed(1)}" fill="#2563eb" rx="2" />`;
+      rectRes = `<rect class="evol-bar-resultado perda" x="${bx.toFixed(1)}" y="${yPerda.toFixed(1)}" width="${barW.toFixed(1)}" height="${hPerda.toFixed(1)}" fill="#dc2626" rx="2" />`;
+    }
+
+    const labelVal = n <= 6 ? fmtR(mc) : `R$${Math.round(mc).toLocaleString('pt-BR')}`;
+    const badgeW = Math.max(barW + 24, n <= 6 ? 92 : 68);
+    const badgeX = cx - badgeW / 2;
+    const badgeY = Math.max(6, yTop - 26);
+
+    barsHtml += `
+      <g class="evol-bar-group" data-mes="${d.mes}" data-aplicado="${ap.toFixed(2)}" data-mercado="${mc.toFixed(2)}" data-ganho="${ganho.toFixed(2)}" style="cursor:pointer;">
+        <title>${tooltipTxt}</title>
+        ${rectAp}
+        ${rectRes}
+        ${mostraBadge(idx) ? `<rect x="${Math.min(W - padR - badgeW, Math.max(padL, badgeX)).toFixed(1)}" y="${badgeY.toFixed(1)}" width="${badgeW.toFixed(1)}" height="20" rx="4" fill="var(--surface)" stroke="${idx === n - 1 ? 'var(--accent)' : 'var(--rule-strong)'}" stroke-width="${idx === n - 1 ? '1.5' : '1'}" />
+        <text x="${(Math.min(W - padR - badgeW, Math.max(padL, badgeX)) + badgeW / 2).toFixed(1)}" y="${(badgeY + 14).toFixed(1)}" fill="${idx === n - 1 ? 'var(--accent)' : 'var(--ink)'}" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--font-mono)">${labelVal}</text>` : ''}
+        ${(n - 1 - idx) % passoMes === 0 ? `<text x="${cx.toFixed(1)}" y="${(yZero + 22).toFixed(1)}" fill="${idx === n - 1 ? 'var(--ink)' : 'var(--ink-2)'}" font-size="12" font-weight="${idx === n - 1 ? '700' : '600'}" text-anchor="middle">${mesFmt}</text>` : ''}
+      </g>
+    `;
+  });
+
+  container.innerHTML = `
+    <svg id="evolucao-patrimonio-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="width:100%; height:${H}px; display:block; overflow:visible;">
+      ${gridHtml}
+      ${barsHtml}
+    </svg>
+  `;
+}
+window.renderEvolucaoPatrimonio = renderEvolucaoPatrimonio;
+setTimeout(() => { if (typeof renderEvolucaoPatrimonio === 'function') renderEvolucaoPatrimonio(); }, 0);
+let _evolResizeTimer = null;
+window.addEventListener('resize', () => { clearTimeout(_evolResizeTimer); _evolResizeTimer = setTimeout(() => renderEvolucaoPatrimonio(), 150); });
+
 function calcularRentabilidadeCota(range) {
   const bench = window.FEHMIR_BENCH;
   const hist = window.FEHMIR_HIST;
@@ -14219,6 +15031,7 @@ function calcularRentabilidadeCota(range) {
   const dataBase = datas[0];
 
   function obterPreco(ticker, data) {
+    return fehmirPrecoEm(ticker, data, hist);
     if (typeof obterPrecoAtivo === 'function') {
       const pObj = obterPrecoAtivo(ticker, data);
       if (pObj && typeof pObj.preco === 'number' && pObj.preco > 0) return pObj.preco;
@@ -14708,7 +15521,12 @@ function renderRentabilidade(range) {
 
   // Atualizar Coluna de Números Ward (Esquerda)
   const elPat = document.getElementById('rent-kpi-patrimonio');
-  if (elPat) elPat.textContent = fmtR(k.patrimonio);
+  const patAtual = (typeof fehmirPatrimonioAtual === 'function') ? fehmirPatrimonioAtual() : 0;
+  if (elPat) elPat.textContent = fmtR(patAtual > 0 ? patAtual : k.patrimonio);
+  const elPatSub = document.getElementById('rent-kpi-patrimonio-sub');
+  if (elPatSub) elPatSub.textContent = (patAtual > 0 && Math.abs(patAtual - k.patrimonio) >= 0.01)
+    ? `Cota calculada com o fechamento de ${String((dados.ult && dados.ult.data) || '').split('-').reverse().join('/')}: ${fmtR(k.patrimonio)}`
+    : 'Total consolidado';
 
   const elMes = document.getElementById('rent-kpi-mes');
   if (elMes) {
@@ -15266,6 +16084,59 @@ function renderDrawdownSvg(serie, ddActiveKeys) {
    PROVENTOS POR MÊS (PADRÃO WARD - BI-CAMADA RECEBIDO × ESTIMADO)
    ========================================================================== */
 
+// Quantidade do ticker no fim do dia anterior a `data` (AAAA-MM-DD), pelo extrato
+function fehmirQtdAntesDe(extrato, ticker, data) {
+  let q = 0;
+  extrato.forEach(t => {
+    if (t.ticker !== ticker || !(String(t.data) < data)) return;
+    const n = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
+    if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') q += n;
+    else if (t.tipo === 'Venda') q = Math.max(0, q - n);
+  });
+  return q;
+}
+// Proventos recebidos desde a carga do painel: eventos do robô (FEHMIR_HIST[t].ev = [data ex, valor]) × cotas na véspera da data ex.
+// Lançamento "Provento" do mesmo ticker e mês substitui a estimativa. Ações e FIIs (R$); ETFs e cripto ficam fora.
+function fehmirProventosRecebidos(desde, ate) {
+  const hist = window.FEHMIR_HIST || {};
+  const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
+  const hoje = new Date().toISOString().slice(0, 10);
+  const fim = ate || hoje;
+  const inicio = desde || (extrato.map(t => String(t.data)).sort()[0] || hoje);
+  const porMes = {}, itens = [];
+  const tickers = [...new Set(extrato.map(t => t.ticker))].filter(t => {
+    const c = typeof _determinarCategoriaTicker === 'function' ? _determinarCategoriaTicker(t) : '';
+    return c !== 'ETFS' && c !== 'CRIPTO' && c !== 'CAIXA';
+  });
+  tickers.forEach(t => {
+    const lancados = extrato.filter(x => x.tipo === 'Provento' && x.ticker === t);
+    const mesesLancados = new Set(lancados.map(x => String(x.data).slice(0, 7)));
+    lancados.forEach(x => {
+      const d = String(x.data); if (d < inicio || d > fim) return;
+      const v = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(x.total) : (parseFloat(x.total) || 0);
+      porMes[d.slice(0, 7)] = (porMes[d.slice(0, 7)] || 0) + v;
+      itens.push({ t, data: d, total: v, fonte: 'lançado' });
+    });
+    const h = hist[t];
+    (h && Array.isArray(h.ev) ? h.ev : []).forEach(([d, v]) => {
+      if (d < inicio || d > fim || mesesLancados.has(d.slice(0, 7))) return;
+      const q = fehmirQtdAntesDe(extrato, t, d);
+      if (!(q > 0)) return;
+      const tot = q * v;
+      porMes[d.slice(0, 7)] = (porMes[d.slice(0, 7)] || 0) + tot;
+      itens.push({ t, data: d, q, unit: v, total: tot, fonte: 'robô' });
+    });
+  });
+  const total = itens.reduce((a, x) => a + x.total, 0);
+  return { total: Number(total.toFixed(2)), porMes, itens, inicio, fim, estimados: itens.filter(x => x.fonte === 'robô').length };
+}
+window.fehmirProventosRecebidos = fehmirProventosRecebidos;
+// Proventos de antes do painel (Investidor10), guardados no macro pelo assistente com a fonte; nunca no código
+function fehmirProventosAntesDoPainel() {
+  try { const m = (typeof window.loadMacro === 'function') ? window.loadMacro() : {}; return Number(m.provAntesPainel) || 0; } catch (e) { return 0; }
+}
+window.fehmirProventosAntesDoPainel = fehmirProventosAntesDoPainel;
+
 function calcularProventosMensaisWard() {
   const hist = window.FEHMIR_HIST || {};
   const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : DEFAULT_TRANSACOES;
@@ -15281,18 +16152,17 @@ function calcularProventosMensaisWard() {
     }
   });
 
-  // Janela móvel de 12 meses até 10/2026
-  const mesesKeys = [
-    "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04",
-    "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"
-  ];
-  const nomesMeses = {
-    "2025-11": "Novembro/2025", "2025-12": "Dezembro/2025",
-    "2026-01": "Janeiro/2026", "2026-02": "Fevereiro/2026", "2026-03": "Março/2026",
-    "2026-04": "Abril/2026", "2026-05": "Maio/2026", "2026-06": "Junho/2026",
-    "2026-07": "Julho/2026", "2026-08": "Agosto/2026", "2026-09": "Setembro/2026",
-    "2026-10": "Outubro/2026"
-  };
+  // Janela móvel de 12 meses até o mês corrente
+  const NOMES_MES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+  const mesesKeys = [], nomesMeses = {};
+  const hojeD = new Date();
+  for (let i = 11; i >= 0; i--) {
+    const d = new Date(hojeD.getFullYear(), hojeD.getMonth() - i, 1);
+    const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+    mesesKeys.push(k); nomesMeses[k] = NOMES_MES[d.getMonth()] + "/" + d.getFullYear();
+  }
+  const hojeIso = hojeD.toISOString().slice(0, 10);
+  const inicioCarteira = extrato.map(t => String(t.data)).sort()[0] || hojeIso;
 
   const meses = [];
   let total12m = 0;
@@ -15323,7 +16193,17 @@ function calcularProventosMensaisWard() {
       // 2. Proventos estimados por evento (ev)
       const h = hist[ticker];
       if (h && Array.isArray(h.ev)) {
-        const eventosMes = h.ev.filter(e => e[0].startsWith(chave));
+        const eventosMesTodos = h.ev.filter(e => e[0].startsWith(chave));
+        // evento já ocorrido desde a carga do painel: recebido pelas cotas da véspera da data ex (robô)
+        const ocorridos = eventosMesTodos.filter(e => e[0] >= inicioCarteira && e[0] <= hojeIso);
+        const eventosMes = eventosMesTodos.filter(e => !ocorridos.includes(e));
+        if (ocorridos.length > 0) {
+          const valRob = ocorridos.reduce((acc, e) => acc + e[1] * fehmirQtdAntesDe(extrato, ticker, e[0]), 0);
+          if (valRob > 0) {
+            totalRecebido += valRob;
+            pagadores.push({ ticker, tipo: 'recebido', valor: valRob, pagamentos: ocorridos.length, unitario: ocorridos.reduce((a, e) => a + e[1], 0), fonte: 'robô (data ex × cotas)' });
+          }
+        }
         if (eventosMes.length > 0) {
           const quant = posicoes[ticker] || 0;
           if (quant > 0) {
@@ -16180,7 +17060,7 @@ initCollapsibleBlocks();
     try { m = JSON.parse(localStorage.getItem(MACRO_KEY) || "null"); } catch (e) {}
     return Object.assign({}, MACRO_DEFAULT, m || {});
   }
-  function saveMacro(m) { try { localStorage.setItem(MACRO_KEY, JSON.stringify(m)); } catch (e) {} }
+  function saveMacro(m) { try { localStorage.setItem(MACRO_KEY, JSON.stringify(m)); if (typeof window.limparCacheTetoOficial === "function") window.limparCacheTetoOficial(); } catch (e) {} }
   window.loadMacro = loadMacro;
   window.saveMacro = saveMacro;
 
@@ -17285,7 +18165,7 @@ initCollapsibleBlocks();
       const tv = tetoAcao(Object.assign({}, r || {}, s), m);
       const teto = tv.teto, src = tv.src;
       const risco = tv.S.base ? "baixo" : (tv.S.ciclico ? "alto" : "médio");
-      rows.push({ t: s.t, nome: tv.S.nome, diverg: tv.diverg, diverg_par: tv.diverg_par, margemMin: tv.S.margemMin, deterioracao: !!s.deterioracao, quarentena: !!s.quarentena, cls, classe: "acao", q, preco: s.preco, pm: s.pm, teto, src, ideal: s.ideal || 0,
+      rows.push({ t: s.t, nome: tv.S.nome, diverg: tv.diverg, diverg_par: tv.diverg_par, margemMin: tv.S.margemMin, deterioracao: !!s.deterioracao, quarentena: !!s.quarentena, cls, classe: "acao", q, preco: s.preco, pm: s.pm, teto, src, ideal: s.ideal !== undefined ? s.ideal : null,
         range: s.range, risco, trap: typeof isTrapAsset === "function" ? isTrapAsset(r || s) : false, divHist: s.divHist, saldo: q * s.preco });
     };
     (typeof BASE_STOCKS !== "undefined" ? BASE_STOCKS : []).forEach(s => addStock(s, "base"));
@@ -17293,9 +18173,10 @@ initCollapsibleBlocks();
     (typeof FIIS !== "undefined" ? FIIS : []).forEach(f => {
       const q = qOf(f); if (!q || !f.preco) return;
       const sub = fiiSubDe(f), req = fiiReq(sub, f.dy, m);
-      const teto = f.rend && req ? (f.rend * 12) / (req / 100) : null;
+      const tOf = typeof window.tetoOficial === "function" ? window.tetoOficial(f) : null;
+      const teto = (tOf && tOf.teto) || (f.rend && req ? (f.rend * 12) / (req / 100) : null);
       rows.push({ t: f.t, nome: sub.nome, margemMin: sub.margemMin, quarentena: !!f.quarentena, cls: "fii", classe: "fii", tipo: f.tipo, q, preco: f.preco, pm: f.pm, teto,
-        src: req ? "Renda×12 ÷ " + fmtN(req, 1) + "% (" + sub.nome.replace(/^FII /, "") + ")" : "Sem teto de renda", ideal: f.ideal || 0, range: f.range, dy: f.dy,
+        src: req ? "Renda×12 ÷ " + fmtN(req, 1) + "% (" + sub.nome.replace(/^FII /, "") + ")" : "Sem teto de renda", ideal: f.ideal !== undefined ? f.ideal : null, range: f.range, dy: f.dy,
         risco: f.tipo === "papel" && f.dy > 16 ? "médio" : "baixo", trap: f.status === "critical", divHist: f.divHist, saldo: q * f.preco });
     });
     let extras = 0;
@@ -17310,7 +18191,6 @@ initCollapsibleBlocks();
         extras += (pInfo.quant * pObj.preco);
       }
     });
-    if (extras === 0) extras = 102.78 + 29.07;
     const total = rows.reduce((a, r) => a + r.saldo, 0) + extras;
     rows.forEach(r => {
       r.peso = total ? r.saldo / total * 100 : 0;
@@ -17349,7 +18229,8 @@ initCollapsibleBlocks();
     else if (r.acima != null && r.acima > 0) { s += 15; why.push("na zona de tolerância (até 20% acima do teto)"); }
     if (r.rangePos != null && r.rangePos >= 85) { s += 15; why.push("colado na máxima de 52 semanas"); }
     else if (r.rangePos != null && r.rangePos >= 70) s += 7;
-    const sobre = r.ideal > 0 ? r.peso / r.ideal : 0;
+    const semMeta = (r.ideal == null);
+    const sobre = (!semMeta && r.ideal > 0) ? r.peso / r.ideal : 0;
     if (sobre >= 2) { s += 25; why.push("peso " + fmtN(r.peso, 1) + "% vs ideal " + fmtN(r.ideal, 1) + "% (concentrado)"); }
     else if (sobre >= 1.4) { s += 15; why.push("acima do peso ideal"); }
     else if (sobre >= 1.15) s += 5;
@@ -17370,10 +18251,11 @@ initCollapsibleBlocks();
     s = clamp(s, 0, 100);
 
     let acao, cor;
-    if (s >= 65) { acao = "Realizar parcial"; cor = "var(--critical)"; }
+    if (s >= 65 && !semMeta) { acao = "Realizar parcial"; cor = "var(--critical)"; }
+    else if (s >= 65 && semMeta) { acao = "Segurar · sem aportes"; cor = "var(--warning)"; }
     else if (s >= 45) { acao = "Segurar · sem aportes"; cor = "var(--warning)"; }
     else if (r.quarentena && r.margem != null && r.margem > (r.margemMin || 5)) { acao = "Manter"; cor = "var(--warning)"; why.push("margem passa, mas está em quarentena (dado crítico não confirmado): não reforçar"); }
-    else if (r.margem != null && r.margem > (r.margemMin || 5) && r.peso < r.ideal && !r.trap) { acao = "Reforçar"; cor = "var(--good)"; why.push("margem acima da mínima do setor (" + (r.margemMin || 5) + "%) e sub-alocado"); }
+    else if (r.margem != null && r.margem > (r.margemMin || 5) && (r.ideal != null && r.peso < r.ideal) && !r.trap) { acao = "Reforçar"; cor = "var(--good)"; why.push("margem acima da mínima do setor (" + (r.margemMin || 5) + "%) e sub-alocado"); }
     else if (sobre >= 1.4) { acao = "Manter · não reforçar"; cor = "var(--muted)"; if (!why.length) why.push("concentrado"); }
     else { acao = "Manter"; cor = "var(--accent)"; if (!why.length) why.push("sem gatilho de compra ou venda"); }
 
@@ -17694,7 +18576,7 @@ initCollapsibleBlocks();
       else if (cx < piso3) a.push(["🟡", "<b>Piso fase 1 completo</b> (" + fR(piso1) + "). Munição de oportunidade: <b>" + fR(cx - piso1) + "</b>. Próximo degrau: 3 meses (" + fR(piso3) + "), com 25% dos aportes."]);
       else a.push(["✅", "<b>Reserva de tranquilidade completa</b> (3 meses = " + fR(piso3) + "). Munição de oportunidade: <b>" + fR(cx - piso3) + "</b>."]);
     }
-    rows.filter(r => r.peso > 10).forEach(r => a.push(["⚖️", "<b>" + r.t + "</b> pesa " + fmtN(r.peso, 1) + "% da carteira (ideal " + fmtN(r.ideal, 1) + "%). Concentração: não reforçar."]));
+    rows.filter(r => r.peso > 10).forEach(r => a.push(["⚖️", "<b>" + r.t + "</b> pesa " + fmtN(r.peso, 1) + "% da carteira (ideal " + (r.ideal != null ? fmtN(r.ideal, 1) + "%" : "sem meta") + "). Concentração: não reforçar."]));
     rows.filter(r => r.divHist && r.divHist.length >= 2).forEach(r => {
       const h = r.divHist, ult = h[h.length - 1], ant = h[h.length - 2];
       if (ant > 0 && ult / ant - 1 < -0.15) a.push(["📉", "<b>" + r.t + "</b>: último provento caiu " + fmtN((1 - ult / ant) * 100, 0) + "% contra o anterior. Pergunta 1 e 2 do protocolo do yield (seção 19.15)."]);
@@ -17814,7 +18696,7 @@ initCollapsibleBlocks();
           <div>Preço<b>${fR(r.preco)}</b></div><div>Teto<b>${r.teto ? fR(r.teto) : "—"}</b></div>
           <div>Margem<b style="color:${r.margem >= 0 ? "var(--good)" : "var(--critical)"}">${r.margem != null ? sgn(r.margem) : "—"}</b></div>
           <div>Range 52s<b>${r.rangePos != null ? fmtN(r.rangePos, 0) + "%" : "—"}</b></div>
-          <div>Peso<b>${fmtN(r.peso, 1)}%</b></div><div>Ideal<b>${fmtN(r.ideal, 1)}%</b></div>
+          <div>Peso<b>${fmtN(r.peso, 1)}%</b></div><div>Ideal<b>${r.ideal != null ? fmtN(r.ideal, 1) + "%" : "sem meta"}</b></div>
         </div>
         <p class="cb-why">${r.sg.why.join(" · ")}. <span style="color:var(--muted)">Teto: ${r.src}. Sinal ${r.sg.score}/100.</span></p>
         ${r.ordem ? `<div class="cb-order">${r.ordem.html}</div>` : ""}
@@ -17961,7 +18843,7 @@ initCollapsibleBlocks();
         render();
       };
       document.getElementById("cb-reset").onclick = () => {
-        try { localStorage.removeItem(MACRO_KEY); } catch (e) {}
+        try { localStorage.removeItem(MACRO_KEY); if (typeof window.limparCacheTetoOficial === "function") window.limparCacheTetoOficial(); } catch (e) {}
         form.dataset.ready = ""; render();
       };
     }
@@ -18044,11 +18926,64 @@ initCollapsibleBlocks();
 
   window.fehmirFiiTipo = t => FII_SUB_TICKER[t] || null;
   window.fehmirTetoAcao = tetoAcao;
+  window.setorDe = setorDe;
+  const _cacheTetoOficial = new Map();
+  function limparCacheTetoOficial() { _cacheTetoOficial.clear(); }
+  function tetoOficial(tOuObj) {
+    let t = "";
+    let objArg = null;
+    if (typeof tOuObj === "string") {
+      t = tOuObj.trim().toUpperCase();
+    } else if (tOuObj && typeof tOuObj === "object") {
+      t = String(tOuObj.t || tOuObj.ticker || "").trim().toUpperCase();
+      objArg = tOuObj;
+    }
+    const uMap = (typeof window.fehmirUniverso === "function") ? window.fehmirUniverso() : {};
+    let baseCanon = t && uMap[t] ? uMap[t] : null;
+    if (!baseCanon && t) {
+      const rD = (typeof RADAR_DATA !== "undefined" ? RADAR_DATA.find(x => x.t === t) : null) ||
+                 (typeof RADAR_ACOES !== "undefined" ? RADAR_ACOES.find(x => x.t === t) : null) ||
+                 (typeof RADAR_FIIS !== "undefined" ? RADAR_FIIS.find(x => x.t === t) : null);
+      const cD = (typeof BASE_STOCKS !== "undefined" ? BASE_STOCKS.find(x => x.t === t) : null) ||
+                 (typeof OUT_OF_BASE !== "undefined" ? OUT_OF_BASE.find(x => x.t === t) : null) ||
+                 (typeof FIIS !== "undefined" ? FIIS.find(x => x.t === t) : null);
+      if (rD || cD) {
+        const isFiiC = (cD && (cD.macro === "fiis" || (cD.tipo != null && !cD.setor))) || (rD && rD.macro === "fiis");
+        baseCanon = Object.assign({ macro: isFiiC ? "fiis" : "acoes" }, rD || {}, (cD && !cD._promovido) ? cD : {});
+        if (cD && cD.preco > 0) baseCanon.preco = cD.preco;
+      }
+    }
+    let obj = baseCanon ? Object.assign({}, baseCanon) : (objArg ? Object.assign({}, objArg) : null);
+    if (obj && objArg && typeof objArg.preco === "number" && objArg.preco > 0) {
+      obj.preco = objArg.preco;
+    }
+    const pKey = (obj && typeof obj.preco === "number") ? obj.preco.toFixed(4) : "";
+    const cacheKey = t ? (t + ":" + pKey) : "";
+    if (cacheKey && _cacheTetoOficial.has(cacheKey)) {
+      return _cacheTetoOficial.get(cacheKey);
+    }
+    if (!obj) {
+      const semCadastro = { teto: null, compra: null, margemMin: 10, metodo: "Sem dados aplicáveis", motivo: "Ativo sem cadastro para avaliação pela régua", taxa: null, taxaExplicada: "", setorNome: "—", proj: null, hist: null, src: "Sem cadastro" };
+      if (cacheKey) _cacheTetoOficial.set(cacheKey, semCadastro);
+      return semCadastro;
+    }
+    const av = window.fehmirAvaliar(obj);
+    const tetoVal = (av && typeof av.teto === "number" && isFinite(av.teto) && av.teto > 0) ? av.teto : null;
+    const mMin = (av && av.margemMin != null) ? av.margemMin : 10;
+    const compraVal = tetoVal != null ? tetoVal * (1 - mMin / 100) : null;
+    const res = Object.assign({}, av, { teto: tetoVal, compra: compraVal, margemMin: mMin });
+    if (cacheKey) _cacheTetoOficial.set(cacheKey, res);
+    return res;
+  }
+  window.tetoOficial = tetoOficial;
+  window.limparCacheTetoOficial = limparCacheTetoOficial;
+  if (typeof recalcularCarteira === "function") recalcularCarteira();
   window.fehmirEscolherMetodo = escolherMetodo;
   window.fiiSubDe = fiiSubDe;
   window.fiiReq = fiiReq;
 
   window.renderConselheiro = function () { try { render(); } catch (e) { console.error("Conselheiro:", e); } };
+  window.fehmirHoldings = function () { return holdings(loadMacro()); };   // exposto para teste de coerência
   window.renderConselheiro();
   if (typeof filterRadar === 'function') filterRadar();
 
@@ -18633,6 +19568,7 @@ function toggleTheme(){
       m.data = new Date().toLocaleDateString("pt-BR");
       localStorage.setItem("barsi-macro-v1", JSON.stringify(m));
       const form = document.getElementById("cb-macro-form"); if (form) form.dataset.ready = "";
+      if (typeof window.limparCacheTetoOficial === "function") window.limparCacheTetoOficial();
       if (typeof window.renderConselheiro === "function") window.renderConselheiro();
     } catch (e) {}
   }
@@ -18684,6 +19620,17 @@ function toggleTheme(){
   window.fgCalcular = calcular; // exposto para teste
   window.fgObter = buscarHist;  // usado pelas páginas Análise e Mercado
 
+  // Ibovespa do robô já no carregamento: sem isso o termômetro nasce com o macro salvo (ex.: 10/10)
+  // e só muda quando o Conselheiro é aberto (achado de 30/10: Euforia 77 → Neutro 43).
+  (function ibovDoRobo() {
+    try {
+      const H = typeof fehmirObterHist === "function" ? fehmirObterHist("^BVSP") : (window.FEHMIR_HIST && window.FEHMIR_HIST["^BVSP"]);
+      if (!H || !H.c || H.c.length < 60) return;
+      const r = calcular(H.c.map((c, i) => ({ close: c, volume: ((H.v && H.v[i]) || 0) * 100 })));
+      if (r) aplicarIbov(r);
+    } catch (e) {}
+  })();
+
   let iniciado = false;
   const iniciar = () => { if (!iniciado) { iniciado = true; atualizar(false); } };
   // Só busca quando o Conselheiro é aberto (evita chamadas à toa)
@@ -18721,8 +19668,8 @@ function toggleTheme(){
     const mapa = {};
     (typeof RADAR_DATA !== "undefined" ? RADAR_DATA : []).forEach(x => { mapa[x.t] = Object.assign({}, x); });
     [...(typeof BASE_STOCKS !== "undefined" ? BASE_STOCKS : []), ...(typeof OUT_OF_BASE !== "undefined" ? OUT_OF_BASE : [])]
-      .forEach(x => { mapa[x.t] = Object.assign({ macro: "acoes" }, mapa[x.t] || {}, x); });
-    (typeof FIIS !== "undefined" ? FIIS : []).forEach(x => { mapa[x.t] = Object.assign({ macro: "fiis" }, mapa[x.t] || {}, x); });
+      .forEach(x => { if (!x._promovido || !mapa[x.t]) mapa[x.t] = Object.assign({ macro: "acoes" }, mapa[x.t] || {}, x); else Object.assign(mapa[x.t], { quant: x.quant, pm: x.pm, saldo: x.saldo, ideal: x.ideal }); });
+    (typeof FIIS !== "undefined" ? FIIS : []).forEach(x => { if (!x._promovido || !mapa[x.t]) mapa[x.t] = Object.assign({ macro: "fiis" }, mapa[x.t] || {}, x); else Object.assign(mapa[x.t], { quant: x.quant, pm: x.pm, saldo: x.saldo, ideal: x.ideal }); });
 
     // Suporte dinâmico a todo o mercado varrido pela B3 (FEHMIR_MERCADO)
     if (Array.isArray(window.FEHMIR_MERCADO)) {
@@ -19981,7 +20928,8 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
     else if (preco <= teto) { ver = "Abaixo do teto, mas sem a margem mínima: observar"; cor = "var(--accent)"; }
     else if (preco <= tol) { ver = "Acima do teto, dentro da tolerância: manter, sem aportes"; cor = "var(--warning)"; }
     else { ver = "Acima da tolerância de 20%: caro; se for cíclica fora da B.A.S.E., candidata a realização"; cor = "var(--critical)"; }
-    const payout = a.payout || (a.dpa && numBR(a.pl) > 0 ? a.dpa / (preco / numBR(a.pl)) * 100 : null);
+    // mesmo payout do modal: o realista que a régua usou (feature 006); sem ele, o do cadastro
+    const payout = (av && av.payoutUsado != null) ? av.payoutUsado : (a.payout || (a.dpa && numBR(a.pl) > 0 ? a.dpa / (preco / numBR(a.pl)) * 100 : null));
     const alertas = [];
     if (av && av.payoutImplicito != null && av.payoutImplicito > 100) {
       alertas.push("Payout " + fmt(av.payoutImplicito, 0) + "% (implícito): dividendo acima do lucro, não recorrente.");
@@ -20522,6 +21470,11 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
 
   window.fehmirAnalisar = analisar;
   window.fehmirUniverso = universo;
+  if (typeof window.limparCacheTetoOficial === 'function') window.limparCacheTetoOficial();
+  if (typeof recalcularCarteira === 'function') recalcularCarteira();
+  if (typeof renderRadar === 'function') renderRadar();
+  if (typeof renderPodio === 'function') renderPodio();
+  if (typeof atualizarDuelo === 'function') atualizarDuelo();
   window.fehmirMercado = initMercado;
   const obs = (tab, fn) => {
     const p = document.querySelector('.tabpanel[data-tab="' + tab + '"]'); if (!p) return;
@@ -21872,7 +22825,20 @@ function renderAlertasAnalista() {
   const A = window.FEHMIR_ALERTAS;
   if (!A || !Array.isArray(A.itens)) { lista.innerHTML = '<p class="fg-muted" style="margin:6px 0">O analista ainda não rodou.</p>'; if (sub) sub.textContent = ''; return; }
   const dataBr = d => d ? String(d).slice(0, 10).split('-').reverse().join('/') : '';
-  const ativos = A.itens.filter(x => x.estado === 'ativo');
+  const brl = n => 'R$ ' + Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  // Alerta de zona gerado com uma régua anterior: o teto citado tem de ser o oficial de hoje (um teto por ativo, feature 004/006)
+  const conferirRegua = x => {
+    if (!x.numeros || x.numeros.teto == null || typeof window.tetoOficial !== 'function' || !/^zona_/.test(x.tipo)) return x;
+    const tv = window.tetoOficial(x.ticker);
+    if (!tv || !tv.teto || Math.abs(tv.teto - x.numeros.teto) <= 0.01) return x;
+    const preco = x.numeros.preco, compra = tv.compra || tv.teto;
+    const vale = x.tipo === 'zona_compra' ? preco <= compra : preco >= tv.teto * 1.2;
+    const texto = x.ticker + (x.tipo === 'zona_compra' ? (vale ? ' abaixo do preço de compra: ' : ' fora da zona de compra: ') : (vale ? ' na zona de realização: ' : ' fora da zona de realização: ')) +
+      brl(preco) + ' · teto ' + brl(tv.teto) + ' (compra até ' + brl(compra) + ', ' + (tv.metodo || 'régua') + ')' +
+      ' <span class="fg-muted">— alerta do robô com a régua anterior (teto ' + brl(x.numeros.teto) + '); conferido com a régua de hoje</span>';
+    return Object.assign({}, x, { texto, prioridade: vale ? x.prioridade : 'info' });
+  };
+  const ativos = A.itens.filter(x => x.estado === 'ativo').map(conferirRegua);
   const ordem = { alta: 0, media: 1, info: 2 };
   ativos.sort((a, b) => (ordem[a.prioridade] - ordem[b.prioridade]) || ((b.carteira ? 1 : 0) - (a.carteira ? 1 : 0)));
   const relevantes = ativos.filter(x => x.prioridade !== 'info');
