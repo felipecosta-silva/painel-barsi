@@ -339,6 +339,33 @@ header.top .sub{color:var(--ink-2); font-size:13px; margin-top:2px; line-height:
 .alert b{color:var(--ink)}
 .alert .icon{font-size:16px; line-height:1.4}
 
+/* Evolução do patrimônio (31/10/2026): barras = patrimônio, linha = aplicado; paleta validada (dataviz) nos dois temas */
+:root{ --ev-bar:#2a78d6; --ev-line:#eb6834; --ev-ring:#ffffff; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --ev-bar:#3987e5; --ev-line:#d95926; --ev-ring:#0b1220; } }
+:root[data-theme="dark"]{ --ev-bar:#3987e5; --ev-line:#d95926; --ev-ring:#0b1220; }
+#evolucao-chart-container .ev-grid{stroke:var(--rule); stroke-width:1; stroke-dasharray:2 4}
+#evolucao-chart-container .ev-base{stroke:var(--rule-strong); stroke-width:1}
+#evolucao-chart-container .ev-ax{fill:var(--muted); font-size:12px; font-family:var(--font-sans)}
+#evolucao-chart-container .ev-ax-ult{fill:var(--ink); font-weight:700}
+#evolucao-chart-container .ev-val{fill:var(--ink); font-size:12.5px; font-weight:700; font-family:var(--font-mono)}
+#evolucao-chart-container .ev-bar{fill:var(--ev-bar); opacity:.85; transition:opacity .15s}
+#evolucao-chart-container .ev-bar-ult{opacity:1}
+#evolucao-chart-container .ev-bar-ext{opacity:.6}
+#evolucao-chart-container .ev-bar.ev-dim{opacity:.45}
+#evolucao-chart-container .ev-line{fill:none; stroke:var(--ev-line); stroke-width:2; stroke-linejoin:round}
+#evolucao-chart-container .ev-dot{fill:var(--ev-line); stroke:var(--ev-ring); stroke-width:2}
+#evolucao-chart-container .ev-cross{stroke:var(--muted); stroke-width:1; stroke-dasharray:3 3}
+#evolucao-chart-container .ev-hit{fill:transparent; cursor:crosshair}
+#evolucao-chart-container .ev-tip{position:absolute; z-index:5; pointer-events:none; background:var(--surface); border:1px solid var(--rule-strong); border-radius:10px; padding:10px 12px; font-size:12.5px; color:var(--ink-2); box-shadow:0 8px 24px rgba(0,0,0,.25); min-width:190px; display:flex; flex-direction:column; gap:4px}
+#evolucao-chart-container .ev-tip b{color:var(--ink); font-family:var(--font-mono)}
+#evolucao-chart-container .ev-tip-t{font-weight:700; color:var(--ink); margin-bottom:2px}
+#evolucao-chart-container .ev-tip-f{font-size:11px; color:var(--muted); margin-top:2px}
+#evolucao-chart-container .ev-fonte{margin-top:8px; font-size:11.5px; color:var(--muted)}
+.ev-leg{display:inline-flex; align-items:center; gap:6px}
+.ev-leg b{color:var(--ink); font-family:var(--font-mono)}
+.ev-sw{display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:4px; vertical-align:-1px}
+.ev-sw-bar{background:var(--ev-bar)}
+.ev-sw-line{background:var(--ev-line); height:3px; width:14px; border-radius:2px; vertical-align:3px}
 #panel-meus-ativos .ma-card{border:1px solid var(--rule); border-radius:14px; background:var(--surface); margin-bottom:12px; overflow:hidden}
 #panel-meus-ativos .ma-head{display:flex; align-items:center; gap:18px; padding:14px 18px; cursor:pointer; flex-wrap:wrap}
 #panel-meus-ativos .ma-head:hover{background:var(--surface-2)}
@@ -4484,7 +4511,8 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 </div>
 
 <script>
-const fmtR = n => n==null || !isFinite(n) ? "—" : "R$" + n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+// Formato único de dinheiro (31/10/2026): "R$ 1.234,56" e "-R$ 12,34", com espaço que não quebra linha
+const fmtR = n => n==null || !isFinite(n) ? "—" : (n < 0 ? "-" : "") + "R$ " + Math.abs(n).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
 const fmtPct = n => n==null || !isFinite(n) ? "—" : n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + "%";
 
 function badge(status, label){
@@ -4531,7 +4559,7 @@ function fehmirVeredito(r) {
     const pesoCls = ehFii ? pc.fiis : pc.acoes;
     const metaCls = ehFii ? ALOCACAO_ALVO.fiis : ALOCACAO_ALVO.acoes;
     if (pesoCls != null && pesoCls >= metaCls)
-      return { label: "Manter", status: "info", motivo: `${base}. Com margem, mas ${ehFii ? "FIIs" : "ações"} estão em ${pesoCls.toFixed(0)}% (meta ${metaCls}%): aportes pausados na classe.` };
+      return { label: "Manter", status: "info", motivo: `${base}. Com margem, mas ${ehFii ? "FIIs" : "ações"} estão em ${String((pesoCls).toFixed(0)).replace('.', ',')}% (meta ${metaCls}%): aportes pausados na classe.` };
     return { label: "Aportar", status: "good", motivo: `${base}. Abaixo do preço de compra ${fmt(compra)} e a classe está abaixo da meta.` };
   }
   if (preco <= tv.teto) return { label: "Manter", status: "info", motivo: `${base}. Abaixo do teto, mas sem a margem mínima: manter, sem pressa para comprar.` };
@@ -4563,7 +4591,7 @@ function marginCell(preco, teto){
   const margin = (teto-preco)/teto*100;
   const cls = margin>=0 ? "margin-pos" : "margin-neg";
   const sign = margin>=0 ? "+" : "";
-  return `<span class="${cls} tabular">${sign}${margin.toFixed(1)}%</span>`;
+  return `<span class="${cls} tabular">${sign}${String((margin).toFixed(1)).replace('.', ',')}%</span>`;
 }
 function statusLabel(status){
   return status==="good"?"Positivo":status==="critical"?"Evitar":status==="serious"?"Atenção forte":status==="warning"?"Atenção":"Neutro";
@@ -5583,13 +5611,13 @@ function renderFiis(){
     <td class="tabular" data-label="PM">${fmtR(pm)}</td>
     <td class="tabular" data-label="Preço Atual" style="font-weight:700; color:var(--accent);">${fmtR(preco)}</td>
     <td class="tabular" data-label="Saldo" style="font-weight:600;">${fmtR(saldo)}</td>
-    <td class="tabular" data-label="% Cart.">${pct != null ? pct.toFixed(2) + "%" : `<span style="color:var(--muted)">${(r.carteira||0).toFixed(2)}%</span>`}</td>
+    <td class="tabular" data-label="% Cart.">${pct != null ? pct.toFixed(2) + "%" : `<span style="color:var(--muted)">${String(((r.carteira||0)).toFixed(2)).replace('.', ',')}%</span>`}</td>
     <td class="tabular" data-label="P/VP">${pvpCell(r.pvp, r.tipo)}</td>
     <td class="tabular" data-label="DY 12m">${fmtPct(r.dy)}</td>
     <td data-label="Histórico div.">${sparkline(r.divHist)}</td>
     <td data-label="Range 52 sem.">${rangeBar(preco, r.range)}</td>
     <td class="tabular" data-label="Rentab." style="color:${rentPct >= 0 ? 'var(--good)' : 'var(--critical)'}; font-weight:700;">
-      ${rentPct >= 0 ? '+' : ''}${rentPct.toFixed(1)}%
+      ${rentPct >= 0 ? '+' : ''}${String((rentPct).toFixed(1)).replace('.', ',')}%
     </td>
     <td class="note" data-label="Veredito">${vereditoPill(Object.assign({}, r, { preco: (typeof preco !== 'undefined' ? preco : r.preco) }))}</td>
   </tr>`;
@@ -6087,7 +6115,7 @@ function renderMeusAtivos() {
         <div class="ma-kpi"><span>Valor total</span><b>${fmtR(saldo)}</b></div>
         <div class="ma-kpi" title="Preço atual contra o preço médio"><span>Variação</span><b style="color:${cor(vCls)}">${pct(vCls)}</b></div>
         <div class="ma-kpi" title="Variação + proventos recebidos desde 30/09 (robô ou lançados)"><span>Rentabilidade</span><b style="color:${cor(rCls)}">${pct(rCls)}</b></div>
-        <div class="ma-kpi"><span>% na carteira</span><b>${pc.toFixed(0)}% <span style="color:var(--muted); font-weight:500">/ ${C.meta()}%</span></b></div>
+        <div class="ma-kpi"><span>% na carteira</span><b>${String((pc).toFixed(0)).replace('.', ',')}% <span style="color:var(--muted); font-weight:500">/ ${C.meta()}%</span></b></div>
         <div class="ma-seta">${aberto ? '▴' : '▾'}</div>
       </div>`;
     if (!aberto || !ls.length) return `<div class="ma-card">${head}</div>`;
@@ -6132,10 +6160,10 @@ function renderResumoAporteMes() {
   const li = [];
   li.push(`<li><b>Classes:</b> ações ${pc.acoes != null ? pc.acoes.toFixed(1).replace(".", ",") : "—"}% (meta ${ALOCACAO_ALVO.acoes}%) · FIIs ${pc.fiis != null ? pc.fiis.toFixed(1).replace(".", ",") : "—"}% (meta ${ALOCACAO_ALVO.fiis}%). O aporte vai para a classe abaixo da meta.</li>`);
   li.push(ap.length
-    ? `<li><b>Com margem e classe abaixo da meta (Aportar):</b> ${ap.map(x => `${x.r.t} (margem ${x.mg.toFixed(0)}%)`).join(", ")}.</li>`
+    ? `<li><b>Com margem e classe abaixo da meta (Aportar):</b> ${ap.map(x => `${x.r.t} (margem ${String((x.mg).toFixed(0)).replace('.', ',')}%)`).join(", ")}.</li>`
     : `<li><b>Nenhum ativo da carteira</b> está abaixo do preço de compra numa classe abaixo da meta.</li>`);
   if (comMargemClasseCheia.length) li.push(`<li><b>Com margem, mas na classe acima da meta:</b> ${comMargemClasseCheia.map(x => x.r.t).join(", ")}: esperar.</li>`);
-  if (acima.length) li.push(`<li><b>Acima do teto (sem compras):</b> ${acima.map(x => `${x.r.t} (${(-x.mg).toFixed(0)}% acima)`).join(", ")}.</li>`);
+  if (acima.length) li.push(`<li><b>Acima do teto (sem compras):</b> ${acima.map(x => `${x.r.t} (${String(((-x.mg)).toFixed(0)).replace('.', ',')}% acima)`).join(", ")}.</li>`);
   li.push(`<li style="color:var(--muted)">Sub-alocado não basta para comprar: precisa de margem e qualidade (Barsi). Gerado com os preços do robô de hoje.</li>`);
   box.innerHTML = `<h3>Resumo para o aporte deste mês</h3><ul>${li.join("")}</ul>`;
 }
@@ -6213,7 +6241,7 @@ function renderRebalanceamento() {
                   Sub-alocado, sem margem
                 </span>
                 <span style="font-size:11.5px; color:var(--ink-2);">Não aportar: preço ${fmtR(preco)} acima da compra ${fmtR(compraReb)} (teto ${fmtR(tvReb.teto)})</span>
-                <span style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono);">Banda: [${bMin.toFixed(1)}% – ${bMax.toFixed(1)}%]</span>
+                <span style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono);">Banda: [${String((bMin).toFixed(1)).replace('.', ',')}% – ${String((bMax).toFixed(1)).replace('.', ',')}%]</span>
               </div>`;
          } else if (pctAtual < bMin) {
             // Zona Verde (Sub-alocado)
@@ -6224,7 +6252,7 @@ function renderRebalanceamento() {
                   Zona Verde (Sub-alocado)
                 </span>
                 <span style="font-size:11.5px; color:var(--ink-2);">Aportar <b>${fmtR(dist)}</b></span>
-                <span style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono);">Banda: [${bMin.toFixed(1)}% – ${bMax.toFixed(1)}%]</span>
+                <span style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono);">Banda: [${String((bMin).toFixed(1)).replace('.', ',')}% – ${String((bMax).toFixed(1)).replace('.', ',')}%]</span>
               </div>`;
          } else if (pctAtual <= bMax) {
             // Zona Neutra (Equilibrado)
@@ -6235,7 +6263,7 @@ function renderRebalanceamento() {
                   Zona Neutra (Equilibrado)
                 </span>
                 <span style="font-size:11px; color:var(--ink-2);">Manter posição e colher proventos</span>
-                <span style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono);">Banda: [${bMin.toFixed(1)}% – ${bMax.toFixed(1)}%]</span>
+                <span style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono);">Banda: [${String((bMin).toFixed(1)).replace('.', ',')}% – ${String((bMax).toFixed(1)).replace('.', ',')}%]</span>
               </div>`;
          } else {
             // Zona de Trava (Sobre-alocado)
@@ -6250,7 +6278,7 @@ function renderRebalanceamento() {
                   Zona de Trava (+${fmtR(excesso)})
                 </span>
                 ${notaTrava}
-                <span style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono);">Banda: [${bMin.toFixed(1)}% – ${bMax.toFixed(1)}%]</span>
+                <span style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono);">Banda: [${String((bMin).toFixed(1)).replace('.', ',')}% – ${String((bMax).toFixed(1)).replace('.', ',')}%]</span>
               </div>`;
          }
       } else if (iVal === 0 && p.q === 0) {
@@ -6405,7 +6433,7 @@ function renderDashboardPizza(ativosComValor, total) {
        legend += `<div style="display:flex; align-items:center; gap:8px; font-size:12.5px; font-family:var(--font-mono)">
            <span style="width:12px; height:12px; background:${color}; border-radius:3px"></span>
            <span style="flex:1; font-weight:600; color:var(--ink)">${a.t}</span>
-           <span style="color:var(--muted)">${(pct*100).toFixed(1)}%</span>
+           <span style="color:var(--muted)">${String(((pct*100)).toFixed(1)).replace('.', ',')}%</span>
        </div>`;
      }
   });
@@ -6426,7 +6454,7 @@ function renderDashboardPizza(ativosComValor, total) {
   if(pctExterior < 15) {
      alertas += `<div style="display:flex; gap:12px; background:var(--surface-2); padding:14px; border-radius:8px; border-left:4px solid var(--gold)">
         <span style="font-size:18px">🌐</span>
-        <div style="font-size:13.5px; color:var(--ink); line-height:1.5">Você possui apenas <b>${pctExterior.toFixed(1)}%</b> de exposição ao exterior. Considere diversificar seu patrimônio (Ideal seguro: ~20%).</div>
+        <div style="font-size:13.5px; color:var(--ink); line-height:1.5">Você possui apenas <b>${String((pctExterior).toFixed(1)).replace('.', ',')}%</b> de exposição ao exterior. Considere diversificar seu patrimônio (Ideal seguro: ~20%).</div>
      </div>`;
   }
   
@@ -6435,7 +6463,7 @@ function renderDashboardPizza(ativosComValor, total) {
      if(a.roe && a.roe < 10 && a.setor !== 'FII') {
          alertas += `<div style="display:flex; gap:12px; background:var(--surface-2); padding:14px; border-radius:8px; border-left:4px solid var(--critical)">
             <span style="font-size:18px">⚠️</span>
-            <div style="font-size:13.5px; color:var(--ink); line-height:1.5">A empresa <b>${a.t}</b> está com ROE baixo (${a.roe.toFixed(1)}%). Monitore de perto a rentabilidade real do negócio.</div>
+            <div style="font-size:13.5px; color:var(--ink); line-height:1.5">A empresa <b>${a.t}</b> está com ROE baixo (${String((a.roe).toFixed(1)).replace('.', ',')}%). Monitore de perto a rentabilidade real do negócio.</div>
          </div>`;
      }
   });
@@ -6448,7 +6476,7 @@ function renderDashboardPizza(ativosComValor, total) {
          if(isFii) {
             alertas += `<div style="display:flex; gap:12px; background:var(--surface-2); padding:14px; border-radius:8px; border-left:4px solid var(--warning)">
                <span style="font-size:18px">🏢</span>
-               <div style="font-size:13.5px; color:var(--ink); line-height:1.5">O FII <b>${a.t}</b> está com um DY projetado fraco (${a.dy.toFixed(1)}%). Verifique vacância ou se o fundo é muito de tijolo premium.</div>
+               <div style="font-size:13.5px; color:var(--ink); line-height:1.5">O FII <b>${a.t}</b> está com um DY projetado fraco (${String((a.dy).toFixed(1)).replace('.', ',')}%). Verifique vacância ou se o fundo é muito de tijolo premium.</div>
             </div>`;
          }
      }
@@ -7086,7 +7114,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
         <div id="m-chart-hover-bar" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; background:var(--surface-2); border:1px solid var(--rule); border-radius:10px; padding:8px 14px; margin-bottom:12px; min-height:38px; transition:all 0.15s ease;">
           <div id="m-chart-bar-info" style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink-2);">
             <span style="width:8px; height:8px; border-radius:50%; background:var(--accent); display:inline-block;"></span>
-            <span>💡 <b>Passe o mouse ou toque na curva</b> para visualizar os valores e a variação dia a dia.</span>
+            <span>Passe o mouse ou toque na curva para ver o dia.</span>
           </div>
           <div id="m-chart-bar-badges" style="display:none; align-items:center; gap:8px; flex-wrap:wrap;">
             <!-- Preenchido via JS ao mover o mouse -->
@@ -8091,10 +8119,10 @@ function detalharScoreAtivo(r) {
   if (margem != null) {
     if (margem > 0) {
       ptsMargem = Math.min(35, Math.max(0, (margem / (2 * mMin)) * 35));
-      descMargem = `Cotação ${fmtR(preco)} está com +${margem.toFixed(1)}% de margem abaixo do teto (${fmtR(teto)})`;
+      descMargem = `Cotação ${fmtR(preco)} está com +${String((margem).toFixed(1)).replace('.', ',')}% de margem abaixo do teto (${fmtR(teto)})`;
     } else {
       ptsMargem = 0;
-      descMargem = `Cotação ${fmtR(preco)} está ${Math.abs(margem).toFixed(1)}% acima do teto de compra (${fmtR(teto)})`;
+      descMargem = `Cotação ${fmtR(preco)} está ${String((Math.abs(margem)).toFixed(1)).replace('.', ',')}% acima do teto de compra (${fmtR(teto)})`;
     }
   } else {
     ptsMargem = 8;
@@ -8135,10 +8163,10 @@ function detalharScoreAtivo(r) {
   } else {
     if (r.payout && r.payout > 100) {
       ptsSust = 2;
-      descSust = `Payout excessivo de ${r.payout.toFixed(0)}% (distribui mais que o lucro)`;
+      descSust = `Payout excessivo de ${String((r.payout).toFixed(0)).replace('.', ',')}% (distribui mais que o lucro)`;
     } else if (r.payout && r.payout < 25) {
       ptsSust = 6;
-      descSust = `Payout de ${r.payout.toFixed(0)}% (retém a maior fatia para reinvestimento)`;
+      descSust = `Payout de ${String((r.payout).toFixed(0)).replace('.', ',')}% (retém a maior fatia para reinvestimento)`;
     } else {
       ptsSust = 12;
       descSust = `Payout equilibrado de ${r.payout ? r.payout.toFixed(0) : '60'}%`;
@@ -8151,21 +8179,21 @@ function detalharScoreAtivo(r) {
   if (H && H.cagrDiv5 != null) {
     if (H.cagrDiv5 >= 0.05) {
       ptsCresc = 15;
-      descCresc = `Crescimento de proventos acelerado (+${(H.cagrDiv5*100).toFixed(1)}%/ano)`;
+      descCresc = `Crescimento de proventos acelerado (+${String(((H.cagrDiv5*100)).toFixed(1)).replace('.', ',')}%/ano)`;
     } else if (H.cagrDiv5 > 0) {
       ptsCresc = (H.cagrDiv5 / 0.05) * 15;
-      descCresc = `Crescimento moderado de proventos (+${(H.cagrDiv5*100).toFixed(1)}%/ano)`;
+      descCresc = `Crescimento moderado de proventos (+${String(((H.cagrDiv5*100)).toFixed(1)).replace('.', ',')}%/ano)`;
     } else {
       ptsCresc = 0;
-      descCresc = `Proventos em retração nos últimos 5 anos (${(H.cagrDiv5*100).toFixed(1)}%/ano)`;
+      descCresc = `Proventos em retração nos últimos 5 anos (${String(((H.cagrDiv5*100)).toFixed(1)).replace('.', ',')}%/ano)`;
     }
   } else {
     if (r.roe && r.roe >= 20) {
       ptsCresc = 15;
-      descCresc = `ROE elevado de ${r.roe.toFixed(1)}% propicia reinvestimento contínuo`;
+      descCresc = `ROE elevado de ${String((r.roe).toFixed(1)).replace('.', ',')}% propicia reinvestimento contínuo`;
     } else if (r.roe && r.roe >= 12) {
       ptsCresc = 10;
-      descCresc = `ROE sólido de ${r.roe.toFixed(1)}% com geração previsível`;
+      descCresc = `ROE sólido de ${String((r.roe).toFixed(1)).replace('.', ',')}% com geração previsível`;
     } else {
       ptsCresc = 5;
       descCresc = `ROE de ${r.roe ? r.roe.toFixed(1)+'%' : 'nível regular'}`;
@@ -8211,7 +8239,7 @@ function detalharScoreAtivo(r) {
     total = 40;
     trapLimit = true;
     if (r.payout && r.payout > 100) {
-      trapMsg = `Payout de ${r.payout.toFixed(0)}% insustentável`;
+      trapMsg = `Payout de ${String((r.payout).toFixed(0)).replace('.', ',')}% insustentável`;
     } else {
       trapMsg = typeof getTrapReason === 'function' ? getTrapReason(r) : "Risco de armadilha detectado";
     }
@@ -8472,14 +8500,14 @@ function renderCardsView(list) {
     let margemStr = '—';
     let margemCor = 'var(--muted)';
     if (margemVal != null) {
-      margemStr = (margemVal > 0 ? '+' : '') + margemVal.toFixed(1) + '%';
+      margemStr = (margemVal > 0 ? '+' : '') + margemVal.toFixed(1).replace('.', ',') + '%';
       if (margemVal >= mMin) margemCor = 'var(--good)';
       else if (margemVal >= 0) margemCor = 'var(--accent)';
       else margemCor = 'var(--critical)';
     }
 
     const tetoDisplay = tetoVal ? fmtR(tetoVal) : '—';
-    const roeOrPvp = r.roe != null ? `${r.roe.toFixed(1)}%` : (r.pvp != null ? r.pvp.toFixed(2) : '—');
+    const roeOrPvp = r.roe != null ? `${String((r.roe).toFixed(1)).replace('.', ',')}%` : (r.pvp != null ? r.pvp.toFixed(2) : '—');
     const roeOrPvpLbl = r.roe != null ? 'ROE' : 'P/VP';
 
     // DY do Robô quando disponível
@@ -8754,13 +8782,13 @@ function renderTableView(list) {
     let margemStr = '—';
     if (calc.margem != null) {
       const cor = calc.margem >= mMin ? 'var(--good)' : (calc.margem >= 0 ? 'var(--accent)' : 'var(--critical)');
-      margemStr = `<span style="color:${cor}; font-weight:700">${(calc.margem > 0 ? '+' : '') + calc.margem.toFixed(1)}%</span>`;
+      margemStr = `<span style="color:${cor}; font-weight:700">${calc.margem > 0 ? '+' : ''}${String((calc.margem).toFixed(1)).replace('.', ',')}%</span>`;
     }
-    const roeOrPvp = r.roe != null ? `ROE ${r.roe.toFixed(1)}%` : `P/VP ${(r.pvp||0).toFixed(2)}`;
+    const roeOrPvp = r.roe != null ? `ROE ${String((r.roe).toFixed(1)).replace('.', ',')}%` : `P/VP ${(r.pvp||0).toFixed(2)}`;
     const metodoLabel = calc.metodo || 'Bazin';
     const temDiverg = calc.diverg != null && calc.diverg > 35;
     let metodoTooltip = calc.motivo ? `${calc.motivo}${calc.taxaExplicada ? ' · ' + calc.taxaExplicada : ''}` : metodoLabel;
-    if (temDiverg) metodoTooltip += `\n⚠️ Modelos divergem ${calc.diverg.toFixed(0)}% (${calc.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)`;
+    if (temDiverg) metodoTooltip += `\n⚠️ Modelos divergem ${String((calc.diverg).toFixed(0)).replace('.', ',')}% (${calc.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)`;
     const divergBadge = temDiverg ? `<span title="Modelos divergem (${calc.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)" style="margin-left:3px;font-size:10px;">⚠️</span>` : '';
 
     return `<tr class="clickable-row" onclick="fehmirIrParaAnalise('${r.t}')">
@@ -9033,7 +9061,7 @@ function openModal(ticker) {
     }
   }
 
-  document.getElementById('m-roe').textContent = r.roe != null ? `${r.roe.toFixed(1)}%` : (r.macro==='fiis'?'—':fmtPct(r.roe));
+  document.getElementById('m-roe').textContent = r.roe != null ? `${String((r.roe).toFixed(1)).replace('.', ',')}%` : (r.macro==='fiis'?'—':fmtPct(r.roe));
   document.getElementById('m-pl').textContent = r.pl || '—';
   document.getElementById('m-pvp').textContent = r.pvp != null ? r.pvp.toFixed(2) : '—';
   // Teto Oficial pela Régua Setorial (§21)
@@ -9062,7 +9090,7 @@ function openModal(ticker) {
       elMetodoTag.textContent = 'Método: ' + av.metodo + (temDiverg ? ' ⚠️' : '');
       let tt = (av.motivo ? av.motivo + '\n' : '') + (av.taxaExplicada ? 'Taxa: ' + av.taxaExplicada : '');
       if (window.fehmirFonteFund) tt += '\n' + window.fehmirFonteFund(r) + (r && r._fundDiverg && r._fundDiverg.length ? ' · mudou > 25%: ' + r._fundDiverg.join(' · ') : '');
-      if (temDiverg) tt += `\n⚠️ Modelos divergem ${av.diverg.toFixed(0)}% (${av.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)`;
+      if (temDiverg) tt += `\n⚠️ Modelos divergem ${String((av.diverg).toFixed(0)).replace('.', ',')}% (${av.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)`;
       elMetodoTag.setAttribute('title', tt || 'Método de Valuation');
     } else {
       elMetodoTag.style.display = 'none';
@@ -9091,7 +9119,7 @@ function openModal(ticker) {
       </div>`;
     } else if (av && av.base_dpa === "projetivo_regulada") {
       elPolRow.style.display = 'block';
-      const cvTxt = (av.cvLucro != null) ? ` · CV do lucro 5A: <b>${av.cvLucro.toFixed(1)}%</b>` : '';
+      const cvTxt = (av.cvLucro != null) ? ` · CV do lucro 5A: <b>${String((av.cvLucro).toFixed(1)).replace('.', ',')}%</b>` : '';
       elPolRow.innerHTML = `<div style="padding:8px 14px; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-radius:8px; font-size:12.5px; color:var(--ink); line-height:1.4;">
         ⚡ <b>Empresa regulada de lucro estável</b> · Base do teto: <b>projetivo (remuneração regulatória)</b>${cvTxt} · DPA histórico fica como conferência
       </div>`;
@@ -9150,7 +9178,7 @@ function openModal(ticker) {
       elPayout.setAttribute('title', `Payout do código (${r.payout}%) desatualizado frente ao provento real praticado. Usando payout implícito de ${Math.round(payVal)}%.`);
     } else {
       const payShow = (av && av.payoutUsado != null) ? av.payoutUsado : r.payout;
-      elPayout.textContent = payShow != null ? `${payShow.toFixed(1)}%` : '—';
+      elPayout.textContent = payShow != null ? `${String((payShow).toFixed(1)).replace('.', ',')}%` : '—';
       elPayout.style.color = 'var(--ink)';
       if (elPayoutSub) {
         if (av && av.payout_proprio != null) {
@@ -9192,7 +9220,7 @@ function openModal(ticker) {
   document.getElementById('m-bi-vpa').textContent = r.pvp && r.preco ? (r.preco / r.pvp).toFixed(2) : (r.pvp ? fmtR(r.preco / r.pvp) : '—');
   document.getElementById('m-bi-lpa').textContent = r.pl && r.preco && parseFloat(String(r.pl).replace(',','.')) ? (r.preco / parseFloat(String(r.pl).replace(',','.'))).toFixed(2) : '—';
   document.getElementById('m-bi-dpa').textContent = dpaBase != null ? fmtR(dpaBase) : '—';
-  document.getElementById('m-bi-payout').textContent = r.payout12 != null ? `${r.payout12.toFixed(1)}%` : '—';
+  document.getElementById('m-bi-payout').textContent = r.payout12 != null ? `${String((r.payout12).toFixed(1)).replace('.', ',')}%` : '—';
   document.getElementById('m-bi-dy').textContent = fmtPct(r.dy);
   const biDy = document.getElementById('m-bi-dy'); if (biDy && r.fonteDy) biDy.setAttribute('title', r.fonteDy);
 
@@ -9229,7 +9257,7 @@ function openModal(ticker) {
     if (val && r.preco) {
       elVal.textContent = fmtR(val);
       const m = ((val - r.preco) / r.preco) * 100;
-      elMargin.textContent = (m > 0 ? '+' : '') + m.toFixed(1) + '%';
+      elMargin.textContent = (m > 0 ? '+' : '') + m.toFixed(1).replace('.', ',') + '%';
       elMargin.style.color = m > 0 ? 'var(--good)' : 'var(--critical)';
     } else {
       elVal.textContent = '—';
@@ -9287,7 +9315,7 @@ function openModal(ticker) {
           <div style="display:flex; align-items:center; gap:8px;">
             <span style="font-size:20px;">🟢</span>
             <div>
-              <b style="color:#059669; font-size:14px;">ZONA DE COMPRA (Margem de Segurança +${margemPos.toFixed(1)}%)</b>
+              <b style="color:#059669; font-size:14px;">ZONA DE COMPRA (Margem de Segurança +${String((margemPos).toFixed(1)).replace('.', ',')}%)</b>
               <div style="font-size:12px; color:var(--ink-2); margin-top:2px;">${explicacao}</div>
             </div>
           </div>
@@ -9299,14 +9327,14 @@ function openModal(ticker) {
       semaforoEl.style.background = 'rgba(245, 158, 11, 0.08)';
       semaforoEl.style.border = '1.5px solid #f59e0b';
       const explicacao = ehFoFOuPapel
-        ? `Passou do teto de corte de 12% em +${margemAcima.toFixed(1)}%, mas está dentro da margem de tolerância (até ${fmtR(tetoTol)}). Pause novos aportes e continue recebendo os rendimentos mensais.`
+        ? `Passou do teto de corte de 12% em +${String((margemAcima).toFixed(1)).replace('.', ',')}%, mas está dentro da margem de tolerância (até ${fmtR(tetoTol)}). Pause novos aportes e continue recebendo os rendimentos mensais.`
         : `Regra de Ouro Fehmir: Empresa/fundo bom que passou do teto não se vende! Está dentro da margem de tolerância (até ${fmtR(tetoTol)}). Apenas pause novos aportes e receba os proventos.`;
       semaforoEl.innerHTML = `
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
           <div style="display:flex; align-items:center; gap:8px;">
             <span style="font-size:20px;">🟡</span>
             <div>
-              <b style="color:#d97706; font-size:14px;">ZONA DE MANUTENÇÃO (Passou do Teto em +${margemAcima.toFixed(1)}%, mas NÃO VENDER)</b>
+              <b style="color:#d97706; font-size:14px;">ZONA DE MANUTENÇÃO (Passou do Teto em +${String((margemAcima).toFixed(1)).replace('.', ',')}%, mas NÃO VENDER)</b>
               <div style="font-size:12px; color:var(--ink-2); margin-top:2px;">${explicacao}</div>
             </div>
           </div>
@@ -9325,7 +9353,7 @@ function openModal(ticker) {
           <div style="display:flex; align-items:center; gap:8px;">
             <span style="font-size:20px;">🔴</span>
             <div>
-              <b style="color:#dc2626; font-size:14px;">ZONA DE SUPERVALORIZAÇÃO (+${margemSuper.toFixed(1)}% acima do Preço Teto)</b>
+              <b style="color:#dc2626; font-size:14px;">ZONA DE SUPERVALORIZAÇÃO (+${String((margemSuper).toFixed(1)).replace('.', ',')}% acima do Preço Teto)</b>
               <div style="font-size:12px; color:var(--ink-2); margin-top:2px;">${explicacao}</div>
             </div>
           </div>
@@ -9361,7 +9389,7 @@ function openModal(ticker) {
   // Analistas Votação
   document.getElementById('m-target-avg').textContent = fmtR(r.targetAvg || r.preco * 1.2);
   const upAvg = r.targetUpside || 20.0;
-  document.getElementById('m-target-avg-upside').textContent = (upAvg > 0 ? '+' : '') + upAvg.toFixed(2) + '%';
+  document.getElementById('m-target-avg-upside').textContent = (upAvg > 0 ? '+' : '') + upAvg.toFixed(2).replace('.', ',') + '%';
   document.getElementById('m-target-avg-upside').style.color = upAvg >= 0 ? 'var(--good)' : 'var(--critical)';
   document.getElementById('m-target-summary-text').textContent = `Projeção de analistas (alvo máx ${fmtR(r.targetMax || r.preco*1.3)} e mín ${fmtR(r.targetMin || r.preco*0.9)})`;
 
@@ -9425,7 +9453,7 @@ function openModal(ticker) {
             <div><span style="color:var(--muted)">Preço:</span> <b>${fmtR(reg.preco)}</b></div>
             <div><span style="color:var(--muted)">Teto:</span> <b>${fmtR(reg.teto)}</b></div>
             <div><span style="color:var(--muted)">Compra:</span> <b>${fmtR(reg.compra)}</b></div>
-            <div><span style="color:var(--muted)">Margem:</span> <b style="color:${(reg.margem || 0) >= 0 ? 'var(--good)' : 'var(--critical)'}">${reg.margem != null ? reg.margem.toFixed(1) + '%' : '—'}</b></div>
+            <div><span style="color:var(--muted)">Margem:</span> <b style="color:${(reg.margem || 0) >= 0 ? 'var(--good)' : 'var(--critical)'}">${reg.margem != null ? reg.margem.toFixed(1).replace('.', ',') + '%' : '—'}</b></div>
           </div>
         </div>`;
     }
@@ -9759,7 +9787,7 @@ function restoreSidebarToDefaults() {
   if (lblVar) lblVar.textContent = 'Variação no Período';
   const statVar = document.getElementById('m-stat-var');
   if (statVar) {
-    statVar.textContent = `${def.varR >= 0 ? '+' : ''}${fmtR(def.varR)} (${def.varPct >= 0 ? '+' : ''}${def.varPct.toFixed(1)}%)`;
+    statVar.textContent = `${def.varR >= 0 ? '+' : ''}${fmtR(def.varR)} (${def.varPct >= 0 ? '+' : ''}${String((def.varPct).toFixed(1)).replace('.', ',')}%)`;
     statVar.style.color = def.varR >= 0 ? 'var(--good)' : 'var(--critical)';
   }
 
@@ -9844,8 +9872,8 @@ function setupChartHoverInteractions(svg, W, H) {
     if (closest.ptVal) {
       const isAbaixo = closest.ptMargin >= 0;
       const statusTxt = isAbaixo 
-        ? `<b style="color:var(--good)">Abaixo do Teto (+${closest.ptMargin.toFixed(1)}% de margem)</b>`
-        : `<b style="color:var(--critical)">Acima do Teto (${closest.ptMargin.toFixed(1)}%)</b>`;
+        ? `<b style="color:var(--good)">Abaixo do Teto (+${String((closest.ptMargin).toFixed(1)).replace('.', ',')}% de margem)</b>`
+        : `<b style="color:var(--critical)">Acima do Teto (${String((closest.ptMargin).toFixed(1)).replace('.', ',')}%)</b>`;
       tetoHtml = `
         <div style="margin-top:6px; padding-top:6px; border-top:1px dashed var(--rule); font-size:11.5px;">
           <span style="color:var(--gold); font-weight:700;">Teto Fehmir:</span> <b>${fmtR(closest.ptVal)}</b><br>
@@ -9861,13 +9889,13 @@ function setupChartHoverInteractions(svg, W, H) {
       <div style="font-size:11.5px; margin-bottom:2px;">
         <span style="color:var(--muted);">No dia:</span> 
         <b style="color:${closest.varDiaR >= 0 ? 'var(--good)' : 'var(--critical)'}; font-family:var(--font-mono);">
-          ${closest.varDiaR >= 0 ? '+' : ''}${fmtR(closest.varDiaR)} (${closest.varDiaPct >= 0 ? '+' : ''}${closest.varDiaPct.toFixed(2)}%)
+          ${closest.varDiaR >= 0 ? '+' : ''}${fmtR(closest.varDiaR)} (${closest.varDiaPct >= 0 ? '+' : ''}${String((closest.varDiaPct).toFixed(2)).replace('.', ',')}%)
         </b>
       </div>
       <div style="font-size:11.5px;">
         <span style="color:var(--muted);">No período:</span> 
         <b style="color:${closest.varAcumR >= 0 ? 'var(--good)' : 'var(--critical)'}; font-family:var(--font-mono);">
-          ${closest.varAcumR >= 0 ? '+' : ''}${fmtR(closest.varAcumR)} (${closest.varAcumPct >= 0 ? '+' : ''}${closest.varAcumPct.toFixed(1)}%)
+          ${closest.varAcumR >= 0 ? '+' : ''}${fmtR(closest.varAcumR)} (${closest.varAcumPct >= 0 ? '+' : ''}${String((closest.varAcumPct).toFixed(1)).replace('.', ',')}%)
         </b>
       </div>
       ${tetoHtml}
@@ -9898,12 +9926,12 @@ function setupChartHoverInteractions(svg, W, H) {
       barInfo.style.display = 'none';
       barBadges.style.display = 'flex';
       const tetoBadgeColor = closest.ptMargin >= 0 ? 'var(--good)' : 'var(--critical)';
-      const tetoBadgeTxt = closest.ptVal ? `${closest.ptMargin >= 0 ? '+' : ''}${closest.ptMargin.toFixed(1)}% vs Teto` : 'Sem Teto';
+      const tetoBadgeTxt = closest.ptVal ? `${closest.ptMargin >= 0 ? '+' : ''}${String((closest.ptMargin).toFixed(1)).replace('.', ',')}% vs Teto` : 'Sem Teto';
       barBadges.innerHTML = `
         <span style="background:var(--accent-soft); color:var(--accent); font-weight:700; font-size:11.5px; padding:3px 9px; border-radius:6px; font-family:var(--font-mono);">📅 ${closest.fullDateStr} (${closest.diaSemana})</span>
         <span style="background:var(--surface); border:1px solid var(--rule); color:var(--ink); font-weight:800; font-size:12px; padding:3px 9px; border-radius:6px; font-family:var(--font-mono);">💰 ${fmtR(closest.price)}</span>
         <span style="background:${closest.varDiaR >= 0 ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)'}; color:${closest.varDiaR >= 0 ? 'var(--good)' : 'var(--critical)'}; font-weight:700; font-size:11.5px; padding:3px 9px; border-radius:6px; font-family:var(--font-mono);">
-          ${closest.varDiaR >= 0 ? '▲ +' : '▼ '}${fmtR(closest.varDiaR)} (${closest.varDiaPct >= 0 ? '+' : ''}${closest.varDiaPct.toFixed(2)}%) no dia
+          ${closest.varDiaR >= 0 ? '▲ +' : '▼ '}${fmtR(closest.varDiaR)} (${closest.varDiaPct >= 0 ? '+' : ''}${String((closest.varDiaPct).toFixed(2)).replace('.', ',')}%) no dia
         </span>
         <span style="background:rgba(245,158,11,0.1); color:var(--gold); font-weight:700; font-size:11.5px; padding:3px 9px; border-radius:6px; font-family:var(--font-mono);">🎯 Teto: ${closest.ptVal ? fmtR(closest.ptVal) : '—'} (<span style="color:${tetoBadgeColor};">${tetoBadgeTxt}</span>)</span>
       `;
@@ -9939,7 +9967,7 @@ function setupChartHoverInteractions(svg, W, H) {
     if (lblMin) lblMin.textContent = '📈 Variação no Dia';
     const statMin = document.getElementById('m-stat-min');
     if (statMin) {
-      statMin.textContent = `${closest.varDiaR >= 0 ? '+' : ''}${fmtR(closest.varDiaR)} (${closest.varDiaPct >= 0 ? '+' : ''}${closest.varDiaPct.toFixed(2)}%)`;
+      statMin.textContent = `${closest.varDiaR >= 0 ? '+' : ''}${fmtR(closest.varDiaR)} (${closest.varDiaPct >= 0 ? '+' : ''}${String((closest.varDiaPct).toFixed(2)).replace('.', ',')}%)`;
       statMin.style.color = closest.varDiaR >= 0 ? 'var(--good)' : 'var(--critical)';
     }
 
@@ -9947,7 +9975,7 @@ function setupChartHoverInteractions(svg, W, H) {
     if (lblMax) lblMax.textContent = '📊 Acumulado no Período';
     const statMax = document.getElementById('m-stat-max');
     if (statMax) {
-      statMax.textContent = `${closest.varAcumR >= 0 ? '+' : ''}${fmtR(closest.varAcumR)} (${closest.varAcumPct >= 0 ? '+' : ''}${closest.varAcumPct.toFixed(1)}%)`;
+      statMax.textContent = `${closest.varAcumR >= 0 ? '+' : ''}${fmtR(closest.varAcumR)} (${closest.varAcumPct >= 0 ? '+' : ''}${String((closest.varAcumPct).toFixed(1)).replace('.', ',')}%)`;
       statMax.style.color = closest.varAcumR >= 0 ? 'var(--good)' : 'var(--critical)';
     }
 
@@ -9956,7 +9984,7 @@ function setupChartHoverInteractions(svg, W, H) {
     const statTeto = document.getElementById('m-stat-teto');
     if (statTeto) {
       if (closest.ptVal) {
-        statTeto.textContent = `${closest.ptMargin >= 0 ? '+' : ''}${closest.ptMargin.toFixed(1)}% ${closest.ptMargin >= 0 ? '(Abaixo - Compra)' : '(Acima)'}`;
+        statTeto.textContent = `${closest.ptMargin >= 0 ? '+' : ''}${String((closest.ptMargin).toFixed(1)).replace('.', ',')}% ${closest.ptMargin >= 0 ? '(Abaixo - Compra)' : '(Acima)'}`;
         statTeto.style.color = closest.ptMargin >= 0 ? 'var(--good)' : 'var(--critical)';
       } else {
         statTeto.textContent = 'Sem teto definido';
@@ -10029,48 +10057,48 @@ function drawLequeChart(item) {
   if (isFoF) {
     l1Val = item._pt2Val || (item.dpa ? item.dpa / 0.10 : preco * 1.20); // 10%
     const m1 = ((l1Val - preco) / preco) * 100;
-    l1Lbl = `PT 10% ${m1 >= 0 ? '+' : ''}${m1.toFixed(0)}%`;
+    l1Lbl = `PT 10% ${m1 >= 0 ? '+' : ''}${String((m1).toFixed(0)).replace('.', ',')}%`;
 
     l2Val = item._ptBazinVal || item._pt1Val || (item.dpa ? item.dpa / 0.12 : preco * 1.10);
     l2Lbl = `Preço Justo 12%`;
 
     l3Val = item._pt1Val || (item.dpa ? item.dpa / 0.12 : preco * 1.05); // 12%
     const m3 = ((l3Val - preco) / preco) * 100;
-    l3Lbl = `PT 12% ${m3 >= 0 ? '+' : ''}${m3.toFixed(0)}%`;
+    l3Lbl = `PT 12% ${m3 >= 0 ? '+' : ''}${String((m3).toFixed(0)).replace('.', ',')}%`;
 
     l5Val = item._pt3Val || (item.dpa ? item.dpa / 0.14 : preco * 0.85); // 14%
     const m5 = ((l5Val - preco) / preco) * 100;
-    l5Lbl = `PT 14% ${m5 >= 0 ? '+' : ''}${m5.toFixed(0)}%`;
+    l5Lbl = `PT 14% ${m5 >= 0 ? '+' : ''}${String((m5).toFixed(0)).replace('.', ',')}%`;
   } else if (isTijolo) {
     l1Val = item._pt1Val || (item.dpa ? item.dpa / 0.07 : preco * 1.25); // 7%
     const m1 = ((l1Val - preco) / preco) * 100;
-    l1Lbl = `PT 7% ${m1 >= 0 ? '+' : ''}${m1.toFixed(0)}%`;
+    l1Lbl = `PT 7% ${m1 >= 0 ? '+' : ''}${String((m1).toFixed(0)).replace('.', ',')}%`;
 
     l2Val = item._ptBazinVal || item._pt2Val || (item.dpa ? item.dpa / 0.085 : preco * 1.10);
     l2Lbl = `Bazin 8,5%`;
 
     l3Val = item._pt2Val || (item.dpa ? item.dpa / 0.085 : preco * 1.02); // 8,5%
     const m3 = ((l3Val - preco) / preco) * 100;
-    l3Lbl = `PT 8,5% ${m3 >= 0 ? '+' : ''}${m3.toFixed(0)}%`;
+    l3Lbl = `PT 8,5% ${m3 >= 0 ? '+' : ''}${String((m3).toFixed(0)).replace('.', ',')}%`;
 
     l5Val = item._pt3Val || (item.dpa ? item.dpa / 0.10 : preco * 0.85); // 10%
     const m5 = ((l5Val - preco) / preco) * 100;
-    l5Lbl = `PT 10% ${m5 >= 0 ? '+' : ''}${m5.toFixed(0)}%`;
+    l5Lbl = `PT 10% ${m5 >= 0 ? '+' : ''}${String((m5).toFixed(0)).replace('.', ',')}%`;
   } else {
     l1Val = item._pt1Val || item.pt6 || (item.dpa ? item.dpa / 0.06 : preco * 1.35);
     const m1 = ((l1Val - preco) / preco) * 100;
-    l1Lbl = `PT 6% ${m1 >= 0 ? '+' : ''}${m1.toFixed(0)}%`;
+    l1Lbl = `PT 6% ${m1 >= 0 ? '+' : ''}${String((m1).toFixed(0)).replace('.', ',')}%`;
 
     l2Val = item._ptBazinVal || item.bazin5a || preco * 1.09;
     l2Lbl = `Bazin 5A`;
 
     l3Val = item._pt2Val || item.pt8 || (item.dpa ? item.dpa / 0.08 : preco * 1.02);
     const m3 = ((l3Val - preco) / preco) * 100;
-    l3Lbl = `PT 8% ${m3 >= 0 ? '+' : ''}${m3.toFixed(0)}%`;
+    l3Lbl = `PT 8% ${m3 >= 0 ? '+' : ''}${String((m3).toFixed(0)).replace('.', ',')}%`;
 
     l5Val = item._pt3Val || item.pt10 || (item.dpa ? item.dpa / 0.10 : preco * 0.81);
     const m5 = ((l5Val - preco) / preco) * 100;
-    l5Lbl = `PT 10% ${m5 >= 0 ? '+' : ''}${m5.toFixed(0)}%`;
+    l5Lbl = `PT 10% ${m5 >= 0 ? '+' : ''}${String((m5).toFixed(0)).replace('.', ',')}%`;
   }
 
   const W = 700, H = 240;
@@ -10560,7 +10588,7 @@ function calcularTotalLancamento() {
   const elSub = document.getElementById('lanc-subtotal-bruto');
   if (elSub) {
     if (moeda === 'USD' && (tipo === 'C' || tipo === 'V')) {
-      elSub.textContent = `US$ ${totalUSD.toFixed(2)} (R$ ${fmtR(bruto).replace('R$', '').trim()})`;
+      elSub.textContent = `US$ ${totalUSD.toFixed(2)} (${fmtR(bruto)})`;
     } else {
       elSub.textContent = fmtR(bruto);
     }
@@ -11067,8 +11095,8 @@ function renderCaixaInvestir() {
         <a href="javascript:void(0)" onclick="openCaixaModal()" style="color:var(--accent); text-decoration:underline; font-weight:500;">ver conta</a>
       </div>
       <div style="display:flex; align-items:center; gap:6px;">
-        <button type="button" class="mc-btn-sec" onclick="abrirModalAporteMes()" style="padding:3px 8px; font-size:11.5px;">+ Aporte</button>
-        <button type="button" class="mc-btn-sec" onclick="abrirModalProvento()" style="padding:3px 8px; font-size:11.5px;">+ Provento</button>
+        <button type="button" class="mc-btn-sec" onclick="abrirModalAporteMes()" style="padding:3px 8px; font-size:11.5px; white-space:nowrap;">+ Aporte</button>
+        <button type="button" class="mc-btn-sec" onclick="abrirModalProvento()" style="padding:3px 8px; font-size:11.5px; white-space:nowrap;">+ Provento</button>
       </div>
     </div>
   `;
@@ -11631,7 +11659,7 @@ function openModalConferencia() {
           <td style="padding:6px 10px; text-align:right; font-family:var(--font-mono); font-weight:600; color:var(--accent);">${fmtR(a.preco)}</td>
           <td style="padding:6px 10px; text-align:right; font-family:var(--font-mono); font-weight:700;">
             ${fmtR(a.saldo)}
-            <span style="font-size:10px; color:${rentPct >= 0 ? 'var(--good)' : 'var(--critical)'}; display:block;">${rentPct >= 0 ? '+' : ''}${rentPct.toFixed(1)}%</span>
+            <span style="font-size:10px; color:${rentPct >= 0 ? 'var(--good)' : 'var(--critical)'}; display:block;">${rentPct >= 0 ? '+' : ''}${String((rentPct).toFixed(1)).replace('.', ',')}%</span>
           </td>
         </tr>
       `;
@@ -11649,7 +11677,7 @@ function openModalConferencia() {
         <td style="padding:8px 10px; text-align:right; font-size:11px; color:var(--muted);">Valor Investido</td>
         <td style="padding:8px 10px; text-align:right; font-family:var(--font-mono); color:var(--accent); font-size:13px;">
           ${fmtR(totalSaldo)}
-          <span style="font-size:10.5px; color:${rentTot >= 0 ? 'var(--good)' : 'var(--critical)'}; display:block;">${rentTot >= 0 ? '+' : ''}${rentTot.toFixed(2)}% ▲</span>
+          <span style="font-size:10.5px; color:${rentTot >= 0 ? 'var(--good)' : 'var(--critical)'}; display:block;">${rentTot >= 0 ? '+' : ''}${String((rentTot).toFixed(2)).replace('.', ',')}% ▲</span>
         </td>
       </tr>
     `;
@@ -11704,7 +11732,7 @@ function simularOscilacao(factor) {
     if (badge) badge.classList.remove('active');
   } else {
     const sign = factor > 0 ? '+' : '';
-    const pctTxt = `${sign}${(factor * 100).toFixed(0)}%`;
+    const pctTxt = `${sign}${String(((factor * 100)).toFixed(0)).replace('.', ',')}%`;
     if (badge) {
       badge.classList.add('active');
       if (badgeVal) badgeVal.textContent = pctTxt;
@@ -11870,7 +11898,7 @@ function recalcularCarteira() {
 
   const sub = document.getElementById('mc-patrimonio-sub');
   if (sub) {
-    sub.innerHTML = `Valor investido <span id="mc-investido-val-sub">${fmtR(totalInvestido)}</span> <span style="color:${rentabilidadePct >= 0 ? 'var(--good)' : 'var(--critical)'}; font-weight:700;">(${rentabilidadePct >= 0 ? '+' : ''}${rentabilidadePct.toFixed(2)}% ${rentabilidadePct >= 0 ? '▲' : '▼'})</span>`;
+    sub.innerHTML = `Valor investido <span id="mc-investido-val-sub">${fmtR(totalInvestido)}</span> <span style="color:${rentabilidadePct >= 0 ? 'var(--good)' : 'var(--critical)'}; font-weight:700;">(${rentabilidadePct >= 0 ? '+' : ''}${String((rentabilidadePct).toFixed(2)).replace('.', ',')}% ${rentabilidadePct >= 0 ? '▲' : '▼'})</span>`;
   }
 
   // Data dos Preços abaixo do Patrimônio
@@ -11923,7 +11951,7 @@ function recalcularCarteira() {
 
   if (rentDados && rentDados.kpis && elRentabVal) {
     const rIni = rentDados.kpis.retornoInicio;
-    const rTxt = `${rIni >= 0 ? '+' : ''}${rIni.toFixed(2)}%`;
+    const rTxt = `${rIni >= 0 ? '+' : ''}${String((rIni).toFixed(2)).replace('.', ',')}%`;
     elRentabVal.textContent = rTxt;
     elRentabVal.style.color = rIni >= 0 ? 'var(--good)' : 'var(--critical)';
     if (elRentabLbl) {
@@ -11933,7 +11961,7 @@ function recalcularCarteira() {
       kpiRentabItem.setAttribute('title', `Retorno acumulado por cota (TWR): ${rTxt} desde 30/09/2026`);
     }
   } else if (elRentabVal) {
-    const rentabTotTxt = `${rentabilidadePct >= 0 ? '+' : ''}${rentabilidadePct.toFixed(2)}%`;
+    const rentabTotTxt = `${rentabilidadePct >= 0 ? '+' : ''}${String((rentabilidadePct).toFixed(2)).replace('.', ',')}%`;
     elRentabVal.textContent = rentabTotTxt;
     elRentabVal.style.color = rentabilidadePct >= 0 ? 'var(--good)' : 'var(--critical)';
     if (kpiRentabItem) {
@@ -12393,7 +12421,7 @@ function renderDonutChart(svgId, legendId, items, total, options = {}) {
             <span class="aloc-legend-name" title="${lItem.label}">${lItem.label}${clsBadge}</span>
           </div>
           <div class="aloc-legend-right">
-            <span class="aloc-legend-pct" title="% do patrimônio / % da classe">${pctPatr.toFixed(1).replace('.', ',')}% <small style="color:var(--muted);font-weight:500;">(${pctCls.toFixed(0)}% cls)</small></span>
+            <span class="aloc-legend-pct" title="% do patrimônio / % da classe">${pctPatr.toFixed(1).replace('.', ',')}% <small style="color:var(--muted);font-weight:500;">(${String((pctCls).toFixed(0)).replace('.', ',')}% cls)</small></span>
             <span class="aloc-legend-val">(${fmtR(lItem.saldo)})</span>
           </div>
         </div>
@@ -12514,7 +12542,7 @@ function renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, sal
             </span>
           </div>
         </div>
-        <div class="aloc-bar-track" title="Meta: ${r.meta}% · Atual: ${r.atual.toFixed(2)}% · ${zonaLabel}">
+        <div class="aloc-bar-track" title="Meta: ${r.meta}% · Atual: ${String((r.atual).toFixed(2)).replace('.', ',')}% · ${zonaLabel}">
           <div class="aloc-bar-fill" style="width:${barWidth}%; background:${r.corToken};"></div>
           <div class="aloc-bar-marker" style="left:${markerLeft}%;" title="Meta: ${r.meta}%"></div>
         </div>
@@ -12650,15 +12678,15 @@ function calcularSaudeCarteira(dadosContexto) {
         nome: "Aderência às metas por classe",
         pts: ptsAderencia,
         max: 100,
-        valor: `Desvio ${desvioTotal.toFixed(1)}%`,
-        detalhe: `Carteira hoje → meta: Ações ${pAcoes.toFixed(0)}% → ${metas.acoes}% · FIIs ${pFiis.toFixed(0)}% → ${metas.fiis}% · Intl ${pIntl.toFixed(0)}% → ${metas.intl}% · Cripto ${pCripto.toFixed(0)}% → ${metas.cripto}% · Caixa ${pCaixa.toFixed(0)}% → ${metas.caixa}%. A carteira só muda com os aportes (FIIs nunca são vendidos para rebalancear).`
+        valor: `Desvio ${String((desvioTotal).toFixed(1)).replace('.', ',')}%`,
+        detalhe: `Carteira hoje → meta: Ações ${String((pAcoes).toFixed(0)).replace('.', ',')}% → ${metas.acoes}% · FIIs ${String((pFiis).toFixed(0)).replace('.', ',')}% → ${metas.fiis}% · Intl ${String((pIntl).toFixed(0)).replace('.', ',')}% → ${metas.intl}% · Cripto ${String((pCripto).toFixed(0)).replace('.', ',')}% → ${metas.cripto}% · Caixa ${String((pCaixa).toFixed(0)).replace('.', ',')}% → ${metas.caixa}%. A carteira só muda com os aportes (FIIs nunca são vendidos para rebalancear).`
       },
       {
         nome: "Concentração por ativo",
         pts: ptsConcentracao,
         max: 50,
-        valor: `${maiorPesoAtivo.toFixed(1)}%`,
-        detalhe: tickerMaiorAtivo ? `Maior ativo (${tickerMaiorAtivo}) pesa ${maiorPesoAtivo.toFixed(1)}% da carteira (tolerância até 10%)` : "Sem ativos cadastrados"
+        valor: `${String((maiorPesoAtivo).toFixed(1)).replace('.', ',')}%`,
+        detalhe: tickerMaiorAtivo ? `Maior ativo (${tickerMaiorAtivo}) pesa ${String((maiorPesoAtivo).toFixed(1)).replace('.', ',')}% da carteira (tolerância até 10%)` : "Sem ativos cadastrados"
       },
       {
         nome: "Setores perenes nas ações",
@@ -12717,8 +12745,8 @@ function calcularSaudeCarteira(dadosContexto) {
     const tipoNome = maiorTipoVal === saldoTijolo ? "Tijolo" : (maiorTipoVal === saldoPapel ? "Papel" : "Híbrido");
     const fFii = lin(maiorTipoPct, 70, 100);
     ptsEquilibrioFiis = Math.round(50 * fFii);
-    valorFiisStr = `${maiorTipoPct.toFixed(1)}% ${tipoNome}`;
-    detalheFiisStr = `Maior segmento (${tipoNome}) representa ${maiorTipoPct.toFixed(1)}% dos FIIs (tolerância até 70%)`;
+    valorFiisStr = `${String((maiorTipoPct).toFixed(1)).replace('.', ',')}% ${tipoNome}`;
+    detalheFiisStr = `Maior segmento (${tipoNome}) representa ${String((maiorTipoPct).toFixed(1)).replace('.', ',')}% dos FIIs (tolerância até 70%)`;
   }
   perdasPontos.push({ item: 'equilibrio_fiis', perda: 50 - ptsEquilibrioFiis });
 
@@ -12739,8 +12767,8 @@ function calcularSaudeCarteira(dadosContexto) {
         nome: "Exposição a cíclicas",
         pts: ptsCiclicas,
         max: 50,
-        valor: `${pesoCiclicasRV.toFixed(1)}%`,
-        detalhe: `Ações cíclicas pesam ${pesoCiclicasRV.toFixed(1)}% da renda variável (tolerância 20% a 50%)`
+        valor: `${String((pesoCiclicasRV).toFixed(1)).replace('.', ',')}%`,
+        detalhe: `Ações cíclicas pesam ${String((pesoCiclicasRV).toFixed(1)).replace('.', ',')}% da renda variável (tolerância 20% a 50%)`
       },
       {
         nome: "Equilíbrio dos FIIs",
@@ -12779,7 +12807,7 @@ function calcularSaudeCarteira(dadosContexto) {
   if (sumSaldoCagr > 0) {
     const cagrPonderado = sumCagrSaldo / sumSaldoCagr;
     ptsCagr = Math.round(50 * Math.max(0, Math.min(1, cagrPonderado / 5)));
-    valorCagrStr = `${cagrPonderado >= 0 ? '+' : ''}${cagrPonderado.toFixed(1)}%/ano`;
+    valorCagrStr = `${cagrPonderado >= 0 ? '+' : ''}${String((cagrPonderado).toFixed(1)).replace('.', ',')}%/ano`;
     detalheCagrStr = `Média do crescimento de dividendos 5A ponderada pelo peso (meta +5%/ano)`;
   } else {
     ptsCagr = 25;
@@ -12799,7 +12827,7 @@ function calcularSaudeCarteira(dadosContexto) {
         nome: "DY da carteira",
         pts: ptsDy,
         max: 100,
-        valor: `${dyCarteira.toFixed(1)}%`,
+        valor: `${String((dyCarteira).toFixed(1)).replace('.', ',')}%`,
         detalhe: `Proventos 12m (R$ ${prov12m.toFixed(2)}) ÷ patrimônio (meta Bazin 6% a.a.)`
       },
       {
@@ -12857,15 +12885,15 @@ function calcularSaudeCarteira(dadosContexto) {
         nome: "Qualidade (travas §20.1)",
         pts: ptsQualidade,
         max: 100,
-        valor: `${(fracQualidade * 100).toFixed(1)}%`,
-        detalhe: `${(fracQualidade * 100).toFixed(1)}% da renda variável em ativos livres de armadilhas de valor`
+        valor: `${String(((fracQualidade * 100)).toFixed(1)).replace('.', ',')}%`,
+        detalhe: `${String(((fracQualidade * 100)).toFixed(1)).replace('.', ',')}% da renda variável em ativos livres de armadilhas de valor`
       },
       {
         nome: "Sem esticados",
         pts: ptsSemEsticados,
         max: 100,
-        valor: `${((1 - fracEsticada) * 100).toFixed(1)}%`,
-        detalhe: `${((1 - fracEsticada) * 100).toFixed(1)}% da renda variável com preço dentro do limite de segurança (≤ teto + 30%)`
+        valor: `${String((((1 - fracEsticada) * 100)).toFixed(1)).replace('.', ',')}%`,
+        detalhe: `${String((((1 - fracEsticada) * 100)).toFixed(1)).replace('.', ',')}% da renda variável com preço dentro do limite de segurança (≤ teto + 30%)`
       }
     ]
   };
@@ -12910,15 +12938,15 @@ function calcularSaudeCarteira(dadosContexto) {
         nome: "Liquidez",
         pts: ptsLiquidez,
         max: 100,
-        valor: `${(fracLiquidez * 100).toFixed(1)}%`,
-        detalhe: `${(fracLiquidez * 100).toFixed(1)}% do patrimônio em caixa ou ativos de alta liquidez (≥ R$ 1 mi/dia)`
+        valor: `${String(((fracLiquidez * 100)).toFixed(1)).replace('.', ',')}%`,
+        detalhe: `${String(((fracLiquidez * 100)).toFixed(1)).replace('.', ',')}% do patrimônio em caixa ou ativos de alta liquidez (≥ R$ 1 mi/dia)`
       },
       {
         nome: "Custos",
         pts: ptsCustos,
         max: 100,
-        valor: `${custoPct.toFixed(2)}%`,
-        detalhe: `Taxas representam ${custoPct.toFixed(2)}% do volume total movimentado (tolerância até 0,3%)`
+        valor: `${String((custoPct).toFixed(2)).replace('.', ',')}%`,
+        detalhe: `Taxas representam ${String((custoPct).toFixed(2)).replace('.', ',')}% do volume total movimentado (tolerância até 0,3%)`
       }
     ]
   };
@@ -12964,12 +12992,12 @@ function calcularSaudeCarteira(dadosContexto) {
     } else if (p.item === 'concentracao') {
       sugestoes.push({
         tipo: "concentracao",
-        texto: `Concentração em ${p.ticker} (${p.peso.toFixed(1)}%): pausar novos reforços neste ativo até diluir o peso na carteira.`
+        texto: `Concentração em ${p.ticker} (${String((p.peso).toFixed(1)).replace('.', ',')}%): pausar novos reforços neste ativo até diluir o peso na carteira.`
       });
     } else if (p.item === 'ciclicas') {
       sugestoes.push({
         tipo: "ciclicas",
-        texto: `Exposição a cíclicas (${p.pesoCiclicasRV.toFixed(1)}%): evitar novos aportes em setores voláteis e priorizar vacas leiteiras B.A.S.E.`
+        texto: `Exposição a cíclicas (${String((p.pesoCiclicasRV).toFixed(1)).replace('.', ',')}%): evitar novos aportes em setores voláteis e priorizar vacas leiteiras B.A.S.E.`
       });
     }
   }
@@ -13374,7 +13402,7 @@ function renderSaudeCarteira(dadosContexto) {
   }
 
   const retTxt = (res.retornoPeriodo != null && !isNaN(res.retornoPeriodo))
-    ? `${res.retornoPeriodo >= 0 ? '+' : ''}${res.retornoPeriodo.toFixed(2)}%`
+    ? `${res.retornoPeriodo >= 0 ? '+' : ''}${String((res.retornoPeriodo).toFixed(2)).replace('.', ',')}%`
     : '0,00%';
   html += `
     <div class="saude-footer-note">
@@ -13612,7 +13640,7 @@ function calcularAporteInteligente() {
           });
           const patGeral = (typeof recalcularCarteira === 'function') ? (parseFloat(document.getElementById('mc-patrimonio')?.textContent?.replace(/[^0-9,]/g,'')?.replace(',','.')) || patTotal) : patTotal;
           const pctIntl = patGeral > 0 ? (saldoIntlAlt / patGeral) * 100 : 0;
-          return pctIntl < metaIntl * 0.8 ? `<p style="font-size:12.5px; color:var(--ink); margin-top:8px; line-height:1.5;">🌎 <b>Alternativa:</b> o balde Internacional está em <b>${pctIntl.toFixed(1)}%</b> contra a meta de <b>${metaIntl}%</b>. ETFs internacionais (VTI/SCHD) não têm veto de preço-teto (seção 7) e o dólar perto de R$ 5,00 é janela de desconto em reais: parte do aporte pode ir para ETFs, o resto para o Caixa.</p>` : "";
+          return pctIntl < metaIntl * 0.8 ? `<p style="font-size:12.5px; color:var(--ink); margin-top:8px; line-height:1.5;">🌎 <b>Alternativa:</b> o balde Internacional está em <b>${String((pctIntl).toFixed(1)).replace('.', ',')}%</b> contra a meta de <b>${metaIntl}%</b>. ETFs internacionais (VTI/SCHD) não têm veto de preço-teto (seção 7) e o dólar perto de R$ 5,00 é janela de desconto em reais: parte do aporte pode ir para ETFs, o resto para o Caixa.</p>` : "";
         })()}
       </div>
     `;
@@ -13656,7 +13684,7 @@ function calcularAporteInteligente() {
           <span class="smart-rec-ticker">${p.t}</span>
           <span class="cal-badge-pill ${p.tipo==='FII'?'fii':'acao'}">${p.tipo}</span>
           <span style="font-size:12px; color:var(--ink-2);">Cotação: ${fmtR(p.preco)}</span>
-          ${p.teto ? `<span style="font-size:11.5px; color:var(--good); font-weight:600;">(Teto ${fmtR(p.teto)} · Margem +${p.margem.toFixed(1)}%)</span>` : ''}
+          ${p.teto ? `<span style="font-size:11.5px; color:var(--good); font-weight:600;">(Teto ${fmtR(p.teto)} · Margem +${String((p.margem).toFixed(1)).replace('.', ',')}%)</span>` : ''}
         </div>
         <div style="font-size:12.5px; color:var(--ink-2); margin-top:4px;">
           Sub-alocado na carteira com margem de segurança positiva Bazin.
@@ -13858,7 +13886,7 @@ function atualizarDuelo() {
   function renderCardCol(item, isColA, isWinnerOverall) {
     const isA = isColA;
     const m = isA ? margemA : margemB;
-    const mStr = m > -900 ? (m > 0 ? '+' : '') + m.toFixed(1) + '%' : '—';
+    const mStr = m > -900 ? (m > 0 ? '+' : '') + m.toFixed(1).replace('.', ',') + '%' : '—';
     const mCls = m > 0 ? 'margin-pos' : 'margin-neg';
 
     return `
@@ -13909,7 +13937,7 @@ function atualizarDuelo() {
           </tr>
           <tr>
             <td class="duelo-metric-lbl">Payout Médio</td>
-            <td class="duelo-metric-val">${item.payout ? item.payout.toFixed(0) + '%' : '75%'}</td>
+            <td class="duelo-metric-val">${item.payout ? item.payout.toFixed(0).replace('.', ',') + '%' : '—'}</td>
           </tr>
           <tr>
             <td class="duelo-metric-lbl">Anos Seguidos com Lucro</td>
@@ -13953,12 +13981,12 @@ function atualizarDuelo() {
       <div class="duelo-pillar-item">
         <span class="duelo-pillar-label">🏷️ Mais Descontado (Preço Teto)</span>
         <span class="duelo-pillar-winner">${winnerValor.t} (${winnerValor.nome})</span>
-        <span class="duelo-pillar-desc">Apresenta maior margem de segurança na taxa de desconto de 8% (${winnerValor.t === a.t ? (margemA > 0 ? '+' : '') + margemA.toFixed(1) + '%' : (margemB > 0 ? '+' : '') + margemB.toFixed(1) + '%'}).</span>
+        <span class="duelo-pillar-desc">Apresenta maior margem de segurança na taxa de desconto de 8% (${winnerValor.t === a.t ? (margemA > 0 ? '+' : '') + margemA.toFixed(1).replace('.', ',') + '%' : (margemB > 0 ? '+' : '') + margemB.toFixed(1).replace('.', ',') + '%'}).</span>
       </div>
       <div class="duelo-pillar-item">
         <span class="duelo-pillar-label">💎 Maior Rentabilidade (ROE & Moat)</span>
         <span class="duelo-pillar-winner">${winnerQualidade.t} (${winnerQualidade.nome})</span>
-        <span class="duelo-pillar-desc">Rentabiliza melhor o patrimônio líquido com ROE de ${winnerQualidade.roe ? winnerQualidade.roe.toFixed(1) + '%' : 'alto nível'}.</span>
+        <span class="duelo-pillar-desc">Rentabiliza melhor o patrimônio líquido com ROE de ${winnerQualidade.roe ? winnerQualidade.roe.toFixed(1).replace('.', ',') + '%' : 'alto nível'}.</span>
       </div>
       <div class="duelo-pillar-item">
         <span class="duelo-pillar-label">🛡️ Score & Resiliência Global</span>
@@ -13987,7 +14015,7 @@ function isTrapAsset(item) {
 }
 
 function getTrapReason(item) {
-  if (item.payout && item.payout > 100) return `Payout insustentável de ${item.payout.toFixed(0)}% (distribui mais que o lucro operacional).`;
+  if (item.payout && item.payout > 100) return `Payout insustentável de ${String((item.payout).toFixed(0)).replace('.', ',')}% (distribui mais que o lucro operacional).`;
   if (item.t === "MFII11") return "Lição MFII11: Receita de desenvolvimento/obras futuras que secou (-40% num único dia).";
   if (item.t === "HFOF11") return "FOF com taxa de administração em dobro e conflito de cotas da própria gestora.";
   if (item.t === "SAPR4") return "Dividendo cortado em 80% (DY 1,71%) e ROE desabou para 3,76% (Value Trap clássica).";
@@ -14122,13 +14150,13 @@ function atualizarCalculadoraMeta() {
   if (elAtual) elAtual.textContent = fmtR(rendaMensalAtual);
 
   const elPct = document.getElementById('meta-kpi-pct');
-  if (elPct) elPct.textContent = progressoPct.toFixed(2) + '%';
+  if (elPct) elPct.textContent = progressoPct.toFixed(2).replace('.', ',') + '%';
 
   const elBarFill = document.getElementById('meta-progress-fill');
   if (elBarFill) elBarFill.style.width = Math.min(100, Math.max(1, progressoPct)) + '%';
 
   const elBarLbl = document.getElementById('meta-progress-lbl');
-  if (elBarLbl) elBarLbl.textContent = `${progressoPct.toFixed(2)}% conquistado (${fmtR(rendaMensalAtual)} de ${fmtR(rendaAlvo)})`;
+  if (elBarLbl) elBarLbl.textContent = `${String((progressoPct).toFixed(2)).replace('.', ',')}% conquistado (${fmtR(rendaMensalAtual)} de ${fmtR(rendaAlvo)})`;
 
   // Tabela de Ativos
   const tbody = document.getElementById('tbody-meta-aposentadoria');
@@ -14212,7 +14240,7 @@ function atualizarCalculadoraMeta() {
       <td style="text-align:right; font-weight:600;">${fmtR(item.custo)}</td>
       <td style="text-align:right;">
         <span style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; background:${item.pct >= 100 ? '#dcfce7' : 'var(--surface-2)'}; color:${item.pct >= 100 ? '#15803d' : 'var(--ink)'};">
-          ${item.pct.toFixed(1)}%
+          ${String((item.pct).toFixed(1)).replace('.', ',')}%
         </span>
       </td>
     </tr>
@@ -15038,10 +15066,11 @@ function fehmirEvolucaoMensal(extrato, hist, periodo) {
 window.fehmirEvolucaoMensal = fehmirEvolucaoMensal;
 
 function renderEvolucaoPatrimonio(periodo) {
+  // Barras = patrimônio no fim do mês (uma cor); linha = valor aplicado (outra cor). A distância entre as duas é o ganho/perda,
+  // que aparece com sinal e seta só no texto (legenda e tooltip), sem pintar a barra de verde/vermelho (31/10/2026).
   const sel = document.getElementById('evolucao-periodo-select');
   const per = periodo || (sel ? sel.value : 'inicio') || 'inicio';
   if (sel && periodo && sel.value !== periodo) sel.value = periodo;
-
   const container = document.getElementById('evolucao-chart-container');
   const legendaEl = document.getElementById('evolucao-legenda');
   if (!container) return;
@@ -15052,115 +15081,93 @@ function renderEvolucaoPatrimonio(periodo) {
     if (legendaEl) legendaEl.innerHTML = '';
     return;
   }
-
+  const fmtMes = k => k.slice(5, 7) + '/' + k.slice(2, 4);
+  const sinal = v => (v >= 0 ? '▲ +' : '▼ −') + fmtR(Math.abs(v));
   const ult = dados[dados.length - 1];
-  const ganhoUlt = Number((ult.mercado - ult.aplicado).toFixed(2));
-  const isGanhoUlt = ganhoUlt >= 0;
-  const [anoUlt, mesUlt] = ult.mes.split('-');
-  const mesUltFmt = `${mesUlt}/${anoUlt.slice(2)}`;
+  const gUlt = ult.mercado - ult.aplicado, pUlt = ult.aplicado > 0 ? gUlt / ult.aplicado * 100 : 0;
 
   if (legendaEl) {
     legendaEl.innerHTML = `
-      <span style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:50%; background:#2563eb; display:inline-block;"></span> Valor aplicado (<b>${fmtR(ult.aplicado)}</b>)</span>
-      <span style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; border-radius:50%; background:${isGanhoUlt ? '#16a34a' : '#dc2626'}; display:inline-block;"></span> ${isGanhoUlt ? 'Ganho de Capital' : 'Perda de Capital'} (<b style="color:${isGanhoUlt ? '#16a34a' : '#dc2626'};">${isGanhoUlt ? '+' : '-'}${fmtR(Math.abs(ganhoUlt))}</b>)</span>
-      <span style="display:flex; align-items:center; gap:6px; margin-left:auto; font-family:var(--font-mono); font-weight:700; color:var(--ink);">Patrimônio (${mesUltFmt}): ${fmtR(ult.mercado)}</span>
-    `;
+      <span class="ev-leg"><span class="ev-sw ev-sw-bar"></span>Patrimônio <b>${fmtR(ult.mercado)}</b></span>
+      <span class="ev-leg"><span class="ev-sw ev-sw-line"></span>Valor aplicado <b>${fmtR(ult.aplicado)}</b></span>
+      <span class="ev-leg">${gUlt >= 0 ? 'Ganho' : 'Perda'} de capital <b>${sinal(gUlt)}</b> <span style="color:var(--muted)">(${(pUlt >= 0 ? '+' : '') + pUlt.toFixed(2).replace('.', ',')}%)</span></span>`;
   }
 
-  // largura real do contêiner: o SVG não é escalado, então a fonte de 12 px vale também no celular
-  const W = Math.max(300, Math.round(container.clientWidth || 760)), H = 340;
-  const padL = 78, padR = 28, padT = 44, padB = 46;
-  const plotW = W - padL - padR;
-  const plotH = H - padT - padB;
-  const yZero = padT + plotH;
+  const W = Math.max(300, Math.round(container.clientWidth || 760)), H = 320;
+  const padL = 64, padR = 16, padT = 34, padB = 34;
+  const plotW = W - padL - padR, plotH = H - padT - padB, y0 = padT + plotH;
+  const maxV = Math.max(1, ...dados.map(d => Math.max(d.aplicado || 0, d.mercado || 0)));
+  const passo = [250, 500, 1000, 2000, 2500, 5000, 10000, 25000, 50000].find(p => maxV * 1.08 / p <= 7) || 100000;
+  const topo = Math.ceil(maxV * 1.08 / passo) * passo;
+  const y = v => y0 - (v / topo) * plotH;
+  const n = dados.length, slot = plotW / n;
+  const barW = Math.max(6, Math.min(44, slot * 0.56));
+  const passoMes = Math.max(1, Math.ceil(46 / slot));
 
-  const maxRaw = Math.max(1000, ...dados.map(d => Math.max(d.aplicado || 0, d.mercado || 0)));
-  const maxScale = Math.ceil((maxRaw * 1.15) / 1000) * 1000;
-  const steps = 4;
-  let gridHtml = '';
-  for (let i = 0; i <= steps; i++) {
-    const val = (maxScale / steps) * (steps - i);
-    const y = padT + (plotH / steps) * i;
-    const isZero = i === steps;
-    gridHtml += `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" stroke="${isZero ? 'var(--rule-strong)' : 'var(--rule)'}" ${isZero ? 'stroke-width="1.2"' : 'stroke-dasharray="3,3"'} />`;
-    gridHtml += `<text x="${padL - 10}" y="${(y + 4).toFixed(1)}" fill="var(--muted)" font-size="12" text-anchor="end" font-family="var(--font-mono)">R$${Math.round(val).toLocaleString('pt-BR')}</text>`;
+  let grid = '';
+  for (let v = 0; v <= topo + 1e-6; v += passo) {
+    grid += `<line x1="${padL}" x2="${W - padR}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" class="${v === 0 ? 'ev-base' : 'ev-grid'}"/>`;
+    grid += `<text x="${padL - 8}" y="${(y(v) + 4).toFixed(1)}" class="ev-ax" text-anchor="end">${v >= 1000 ? 'R$ ' + (v / 1000).toLocaleString('pt-BR') + ' mil' : 'R$ ' + v}</text>`;
   }
-
-  const n = dados.length;
-  const slotW = plotW / n;
-  const barW = Math.min(76, Math.max(8, slotW * 0.46));
-  const passoMes = Math.max(1, Math.ceil(44 / slotW));
-  const mostraBadge = idx => n <= 6 && slotW >= 96 || idx === n - 1;
-
-  let barsHtml = '';
-  dados.forEach((d, idx) => {
-    const cx = padL + slotW * (idx + 0.5);
-    const bx = cx - barW / 2;
-    const ap = Math.max(0, d.aplicado || 0);
-    const mc = Math.max(0, d.mercado || 0);
-    const ganho = Number((mc - ap).toFixed(2));
-    const pct = ap > 0 ? ((mc - ap) / ap) * 100 : 0;
-    const [yy, mm] = String(d.mes).split('-');
-    const mesFmt = `${mm}/${String(yy).slice(2)}`;
-    const tooltipTxt = `${mesFmt} — Aplicado: ${fmtR(ap)} | Mercado: ${fmtR(mc)} | ${ganho >= 0 ? 'Ganho: +' + fmtR(ganho) : 'Perda: -' + fmtR(Math.abs(ganho))} (${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%)`;
-
-    let rectAp = '', rectRes = '', yTop = yZero;
-    if (ganho >= 0) {
-      const hAp = (ap / maxScale) * plotH;
-      const yAp = yZero - hAp;
-      const hGanho = ganho > 0 ? Math.max(3, ((mc - ap) / maxScale) * plotH) : 0;
-      const yGanho = yAp - hGanho;
-      yTop = yGanho;
-      rectAp = `<rect class="evol-bar-aplicado" x="${bx.toFixed(1)}" y="${yAp.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0, hAp).toFixed(1)}" fill="#2563eb" rx="2" />`;
-      if (hGanho > 0) {
-        rectRes = `<rect class="evol-bar-resultado ganho" x="${bx.toFixed(1)}" y="${yGanho.toFixed(1)}" width="${barW.toFixed(1)}" height="${hGanho.toFixed(1)}" fill="#16a34a" rx="2" />`;
-      }
-    } else {
-      const hMerc = (mc / maxScale) * plotH;
-      const yMerc = yZero - hMerc;
-      const hPerda = Math.max(3, ((ap - mc) / maxScale) * plotH);
-      const yPerda = yMerc - hPerda;
-      yTop = yPerda;
-      rectAp = `<rect class="evol-bar-aplicado" x="${bx.toFixed(1)}" y="${yMerc.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0, hMerc).toFixed(1)}" fill="#2563eb" rx="2" />`;
-      rectRes = `<rect class="evol-bar-resultado perda" x="${bx.toFixed(1)}" y="${yPerda.toFixed(1)}" width="${barW.toFixed(1)}" height="${hPerda.toFixed(1)}" fill="#dc2626" rx="2" />`;
-    }
-
-    const labelVal = n <= 6 ? fmtR(mc) : `R$${Math.round(mc).toLocaleString('pt-BR')}`;
-    const badgeW = Math.max(barW + 24, n <= 6 ? 92 : 68);
-    const badgeX = cx - badgeW / 2;
-    const badgeY = Math.max(6, yTop - 26);
-
-    barsHtml += `
-      <g class="evol-bar-group" data-mes="${d.mes}" data-aplicado="${ap.toFixed(2)}" data-mercado="${mc.toFixed(2)}" data-ganho="${ganho.toFixed(2)}" style="cursor:pointer;">
-        <title>${tooltipTxt}</title>
-        ${rectAp}
-        ${rectRes}
-        ${mostraBadge(idx) ? `<rect x="${Math.min(W - padR - badgeW, Math.max(padL, badgeX)).toFixed(1)}" y="${badgeY.toFixed(1)}" width="${badgeW.toFixed(1)}" height="20" rx="4" fill="var(--surface)" stroke="${idx === n - 1 ? 'var(--accent)' : 'var(--rule-strong)'}" stroke-width="${idx === n - 1 ? '1.5' : '1'}" />
-        <text x="${(Math.min(W - padR - badgeW, Math.max(padL, badgeX)) + badgeW / 2).toFixed(1)}" y="${(badgeY + 14).toFixed(1)}" fill="${idx === n - 1 ? 'var(--accent)' : 'var(--ink)'}" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--font-mono)">${labelVal}</text>` : ''}
-        ${(n - 1 - idx) % passoMes === 0 ? `<text x="${cx.toFixed(1)}" y="${(yZero + 22).toFixed(1)}" fill="${idx === n - 1 ? 'var(--ink)' : 'var(--ink-2)'}" font-size="12" font-weight="${idx === n - 1 ? '700' : '600'}" text-anchor="middle">${mesFmt}</text>` : ''}
-      </g>
-    `;
+  let barras = '', rotulos = '', pts = [], hits = '';
+  dados.forEach((d, i) => {
+    const cx = padL + slot * (i + 0.5), bx = cx - barW / 2, by = y(d.mercado), bh = Math.max(0, y0 - by);
+    const r = Math.min(4, barW / 2, bh);
+    // topo arredondado (4 px), base reta no eixo
+    barras += `<path class="ev-bar${i === n - 1 ? ' ev-bar-ult' : ''}${d.fonte ? ' ev-bar-ext' : ''}" d="M${bx.toFixed(1)},${y0} V${(by + r).toFixed(1)} Q${bx.toFixed(1)},${by.toFixed(1)} ${(bx + r).toFixed(1)},${by.toFixed(1)} H${(bx + barW - r).toFixed(1)} Q${(bx + barW).toFixed(1)},${by.toFixed(1)} ${(bx + barW).toFixed(1)},${(by + r).toFixed(1)} V${y0} Z"/>`;
+    pts.push([cx, y(d.aplicado)]);
+    if ((n - 1 - i) % passoMes === 0) rotulos += `<text x="${cx.toFixed(1)}" y="${y0 + 20}" class="ev-ax${i === n - 1 ? ' ev-ax-ult' : ''}" text-anchor="middle">${fmtMes(d.mes)}</text>`;
+    hits += `<rect class="ev-hit" data-i="${i}" data-mes="${d.mes}" data-mercado="${d.mercado}" data-aplicado="${d.aplicado}" x="${(padL + slot * i).toFixed(1)}" y="${padT}" width="${slot.toFixed(1)}" height="${plotH}"/>`;
   });
+  const linha = `<polyline class="ev-line" points="${pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ')}"/>` +
+    pts.map(p => `<circle class="ev-dot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4"/>`).join('');
+  // rótulo direto só no último mês
+  const lx = padL + slot * (n - 0.5), ly = y(Math.max(ult.mercado, ult.aplicado)) - 12;
+  const rotUlt = `<text x="${Math.min(W - padR, lx + barW / 2).toFixed(1)}" y="${Math.max(12, ly).toFixed(1)}" class="ev-val" text-anchor="end">${fmtR(ult.mercado)}</text>`;
 
+  container.style.position = 'relative';
   container.innerHTML = `
-    <svg id="evolucao-patrimonio-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="width:100%; height:${H}px; display:block; overflow:visible;">
-      ${gridHtml}
-      ${barsHtml}
+    <svg id="evolucao-patrimonio-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="width:100%; height:${H}px; display:block;" role="img" aria-label="Evolução do patrimônio e do valor aplicado por mês">
+      ${grid}${barras}<line class="ev-cross" x1="0" x2="0" y1="${padT}" y2="${y0}" style="display:none"/>${linha}${rotulos}${rotUlt}${hits}
     </svg>
-  `;
-  // Período pedido maior que o histórico: avisar em vez de parecer que o filtro não funciona
+    <div class="ev-tip" role="tooltip" style="display:none"></div>`;
+  // Tooltip: mês, patrimônio, aplicado, ganho/perda (+ fonte), segue o mouse; também com toque
+  const svg = container.querySelector('svg'), tip = container.querySelector('.ev-tip'), cross = container.querySelector('.ev-cross');
+  const mostrar = (i, ev) => {
+    const d = dados[i]; const g = d.mercado - d.aplicado, pc = d.aplicado > 0 ? g / d.aplicado * 100 : 0;
+    const cx = padL + slot * (i + 0.5);
+    cross.setAttribute('x1', cx); cross.setAttribute('x2', cx); cross.style.display = '';
+    svg.querySelectorAll('.ev-bar').forEach((b, k) => b.classList.toggle('ev-dim', k !== i));
+    tip.innerHTML = `<div class="ev-tip-t">${fmtMes(d.mes)}</div>
+      <div><span class="ev-sw ev-sw-bar"></span>Patrimônio <b>${fmtR(d.mercado)}</b></div>
+      <div><span class="ev-sw ev-sw-line"></span>Aplicado <b>${fmtR(d.aplicado)}</b></div>
+      <div>${g >= 0 ? 'Ganho' : 'Perda'} <b>${sinal(g)}</b> (${(pc >= 0 ? '+' : '') + pc.toFixed(2).replace('.', ',')}%)</div>
+      ${d.fonte ? `<div class="ev-tip-f">Fonte: ${d.fonte}</div>` : '<div class="ev-tip-f">Fonte: painel (extrato + robô)</div>'}`;
+    tip.style.display = 'block';
+    const box = container.getBoundingClientRect(), sv = svg.getBoundingClientRect();
+    const px = sv.left - box.left + cx * (sv.width / W);
+    const tw = tip.offsetWidth;
+    tip.style.left = Math.max(4, Math.min(box.width - tw - 4, px + 14 > box.width - tw - 4 ? px - tw - 14 : px + 14)) + 'px';
+    tip.style.top = (sv.top - box.top + padT) + 'px';
+  };
+  const esconder = () => { tip.style.display = 'none'; cross.style.display = 'none'; svg.querySelectorAll('.ev-bar').forEach(b => b.classList.remove('ev-dim')); };
+  svg.querySelectorAll('.ev-hit').forEach(h => {
+    h.addEventListener('mouseenter', e => mostrar(+h.dataset.i, e));
+    h.addEventListener('click', e => mostrar(+h.dataset.i, e));
+  });
+  svg.addEventListener('mouseleave', esconder);
+
+  // Fontes (e falta de dado) abaixo do gráfico
   const hojeEv = new Date();
   const inicioPedido = per === '12m' ? (() => { const d = new Date(hojeEv.getFullYear(), hojeEv.getMonth() - 11, 1); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'); })()
     : (per === 'ano' ? hojeEv.getFullYear() + '-01' : null);
   const primeiroMes = dados[0].mes;
-  const fmtMes = k => k.slice(5, 7) + '/' + k.slice(2, 4);
   const doI10 = dados.filter(d => d.fonte);
   const partes = [];
-  if (doI10.length) partes.push(`${fmtMes(doI10[0].mes)} a ${fmtMes(doI10[doI10.length - 1].mes)}: <b>Investidor10</b> (prints de 31/10, patrimônio e aplicado de fim de mês)`);
-  partes.push(`a partir de ${fmtMes((dados.find(d => !d.fonte) || dados[dados.length - 1]).mes)}: <b>painel</b> (extrato + preços do robô)`);
-  const falta = inicioPedido && primeiroMes > inicioPedido;
-  container.insertAdjacentHTML('beforeend', `<div style="margin-top:10px; font-size:12.5px; color:var(--muted); line-height:1.5;">
-    ℹ️ Fontes: ${partes.join(' · ')}.${falta || per === 'inicio' ? ` Antes de ${fmtMes(primeiroMes)} não há dado (para completar, mande os tooltips do Investidor10 desses meses ou o extrato da B3).` : ''}</div>`);
+  if (doI10.length) partes.push(`${fmtMes(doI10[0].mes)}–${fmtMes(doI10[doI10.length - 1].mes)} Investidor10`);
+  partes.push(`desde ${fmtMes((dados.find(d => !d.fonte) || ult).mes)} painel (extrato + robô)`);
+  const falta = (inicioPedido && primeiroMes > inicioPedido) || per === 'inicio';
+  container.insertAdjacentHTML('beforeend', `<div class="ev-fonte">Fontes: ${partes.join(' · ')}.${falta ? ` Sem dado antes de ${fmtMes(primeiroMes)}.` : ''}</div>`);
 }
 window.renderEvolucaoPatrimonio = renderEvolucaoPatrimonio;
 setTimeout(() => { if (typeof renderEvolucaoPatrimonio === 'function') renderEvolucaoPatrimonio(); }, 0);
@@ -15686,7 +15693,7 @@ function renderRentabilidade(range) {
     legContainer.innerHTML = seriesConfig.map(s => {
       const isActive = activeKeys.includes(s.key) && !s.disabled;
       const v = s.val != null ? s.val : 0;
-      const vStr = s.disabled ? '—' : `${v >= 0 ? '+' : ''}${v.toFixed(2)}%`;
+      const vStr = s.disabled ? '—' : `${v >= 0 ? '+' : ''}${String((v).toFixed(2)).replace('.', ',')}%`;
       const disClass = s.disabled ? 'disabled' : '';
       const actClass = isActive ? 'active' : '';
       const tit = s.title ? `title="${s.title}"` : '';
@@ -15711,13 +15718,13 @@ function renderRentabilidade(range) {
 
   const elMes = document.getElementById('rent-kpi-mes');
   if (elMes) {
-    elMes.textContent = `${k.retornoMes >= 0 ? '+' : ''}${k.retornoMes.toFixed(2)}%`;
+    elMes.textContent = `${k.retornoMes >= 0 ? '+' : ''}${String((k.retornoMes).toFixed(2)).replace('.', ',')}%`;
     elMes.style.color = k.retornoMes >= 0 ? 'var(--good)' : 'var(--critical)';
   }
 
   const elAno = document.getElementById('rent-kpi-ano');
   if (elAno) {
-    elAno.textContent = `${k.retornoAno >= 0 ? '+' : ''}${k.retornoAno.toFixed(2)}%`;
+    elAno.textContent = `${k.retornoAno >= 0 ? '+' : ''}${String((k.retornoAno).toFixed(2)).replace('.', ',')}%`;
     elAno.style.color = k.retornoAno >= 0 ? 'var(--good)' : 'var(--critical)';
   }
 
@@ -15725,7 +15732,7 @@ function renderRentabilidade(range) {
   const elInicioLbl = elInicio ? elInicio.parentElement.querySelector('.rent-kpi-lbl') : null;
   const elInicioSub = elInicio ? elInicio.parentElement.querySelector('.rent-kpi-sub') : null;
   if (elInicio) {
-    elInicio.textContent = `${k.retornoPeriodo >= 0 ? '+' : ''}${k.retornoPeriodo.toFixed(2)}%`;
+    elInicio.textContent = `${k.retornoPeriodo >= 0 ? '+' : ''}${String((k.retornoPeriodo).toFixed(2)).replace('.', ',')}%`;
     elInicio.style.color = k.retornoPeriodo >= 0 ? 'var(--good)' : 'var(--critical)';
   }
   if (elInicioLbl) {
@@ -15753,7 +15760,7 @@ function renderRentabilidade(range) {
       elVsCdi.style.color = "var(--ink-2)";
       elVsCdi.setAttribute('title', "período curto demais para comparar");
     } else {
-      elVsCdi.textContent = `${k.vsCdi.toFixed(0)}% do CDI`;
+      elVsCdi.textContent = `${String((k.vsCdi).toFixed(0)).replace('.', ',')}% do CDI`;
       elVsCdi.style.color = k.vsCdi >= 100 ? 'var(--good)' : 'var(--ink)';
       elVsCdi.removeAttribute('title');
     }
@@ -15762,44 +15769,44 @@ function renderRentabilidade(range) {
   const elCdiSub = document.getElementById('rent-kpi-cdi-sub');
   if (elCdiSub) {
     if (menosDe3Meses) {
-      elCdiSub.textContent = `CDI acumulado: +${k.cdiAcum.toFixed(2)}% (período curto demais para comparar)`;
+      elCdiSub.textContent = `CDI acumulado: +${String((k.cdiAcum).toFixed(2)).replace('.', ',')}% (período curto demais para comparar)`;
       elCdiSub.setAttribute('title', "período curto demais para comparar");
     } else {
-      elCdiSub.textContent = `CDI acumulado: +${k.cdiAcum.toFixed(2)}%`;
+      elCdiSub.textContent = `CDI acumulado: +${String((k.cdiAcum).toFixed(2)).replace('.', ',')}%`;
       elCdiSub.removeAttribute('title');
     }
   }
 
   const elVol = document.getElementById('rent-kpi-volatilidade');
-  if (elVol) elVol.textContent = `${k.volatilidade.toFixed(1)}% a.a.`;
+  if (elVol) elVol.textContent = `${String((k.volatilidade).toFixed(1)).replace('.', ',')}% a.a.`;
 
   const elDd = document.getElementById('rent-kpi-drawdown');
   if (elDd) {
-    elDd.textContent = `${k.drawdownHoje.toFixed(2)}%`;
+    elDd.textContent = `${String((k.drawdownHoje).toFixed(2)).replace('.', ',')}%`;
     elDd.style.color = k.drawdownHoje < 0 ? 'var(--critical)' : 'var(--ink)';
   }
 
   const elPiorQueda = document.getElementById('rent-kpi-pior-queda');
   if (elPiorQueda) {
     const dataBr = k.piorQueda.data.split('-').reverse().join('/');
-    elPiorQueda.textContent = `Pior queda: ${k.piorQueda.pct.toFixed(2)}% (${dataBr})`;
+    elPiorQueda.textContent = `Pior queda: ${String((k.piorQueda.pct).toFixed(2)).replace('.', ',')}% (${dataBr})`;
   }
 
   // Drawdown stats
   const elDdHoje = document.getElementById('dd-stat-hoje');
   if (elDdHoje) {
-    elDdHoje.textContent = `${k.drawdownHoje.toFixed(2)}%`;
+    elDdHoje.textContent = `${String((k.drawdownHoje).toFixed(2)).replace('.', ',')}%`;
     elDdHoje.style.color = k.drawdownHoje < 0 ? 'var(--critical)' : 'var(--ink)';
   }
 
   const elDdPior = document.getElementById('dd-stat-pior');
   if (elDdPior) {
     const dataBr = k.piorQueda.data.split('-').reverse().join('/');
-    elDdPior.textContent = `${k.piorQueda.pct.toFixed(2)}% (${dataBr})`;
+    elDdPior.textContent = `${String((k.piorQueda.pct).toFixed(2)).replace('.', ',')}% (${dataBr})`;
   }
 
   const elDdVol = document.getElementById('dd-stat-vol');
-  if (elDdVol) elDdVol.textContent = `${k.volatilidade.toFixed(1)}% a.a.`;
+  if (elDdVol) elDdVol.textContent = `${String((k.volatilidade).toFixed(1)).replace('.', ',')}% a.a.`;
 
   // TIR (XIRR da Carteira)
   const elTir = document.getElementById('rent-kpi-tir');
@@ -15819,7 +15826,7 @@ function renderRentabilidade(range) {
       if (elTirSub) elTirSub.textContent = `Aportes < 90d (${diffFluxos}d)`;
     } else {
       const tirVal = tirInfo.tir * 100;
-      elTir.textContent = `${tirVal >= 0 ? '+' : ''}${tirVal.toFixed(1)}% a.a.`;
+      elTir.textContent = `${tirVal >= 0 ? '+' : ''}${String((tirVal).toFixed(1)).replace('.', ',')}% a.a.`;
       elTir.style.color = tirVal >= 12 ? 'var(--good)' : (tirVal >= 0 ? 'var(--accent)' : 'var(--critical)');
       if (elTirSub) elTirSub.textContent = "TIR anualizada (XIRR)";
     }
@@ -15890,7 +15897,7 @@ function renderRentabilidadeSvg(serie, activeKeys) {
     const isZero = Math.abs(v) < 0.001;
     gridHtml += `
       <line x1="${padL}" y1="${y}" x2="${w - padR}" y2="${y}" stroke="${isZero ? 'var(--rule-strong)' : 'var(--rule)'}" stroke-width="${isZero ? '1.2' : '1'}" stroke-dasharray="${isZero ? 'none' : '2,2'}" />
-      <text x="${padL - 8}" y="${y + 3.5}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-sans)" font-variant-numeric="tabular-nums">${v >= 0 ? '+' : ''}${v.toFixed(1)}%</text>
+      <text x="${padL - 8}" y="${y + 3.5}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-sans)" font-variant-numeric="tabular-nums">${v >= 0 ? '+' : ''}${String((v).toFixed(1)).replace('.', ',')}%</text>
     `;
   }
 
@@ -15993,7 +16000,7 @@ function renderRentabilidadeSvg(serie, activeKeys) {
             const item = labelsMap[k];
             linhasHtml += `
               <div style="display:flex; justify-content:space-between; gap:16px; color:${item.color}; font-size:11.5px; margin-top:2px;">
-                <span>${item.lbl}:</span> <b style="font-family:var(--font-mono);">${s[k] >= 0 ? '+' : ''}${s[k].toFixed(2)}%</b>
+                <span>${item.lbl}:</span> <b style="font-family:var(--font-mono);">${s[k] >= 0 ? '+' : ''}${String((s[k]).toFixed(2)).replace('.', ',')}%</b>
               </div>
             `;
           }
@@ -16070,7 +16077,7 @@ function renderRentabilidadeTabelaBench(kpis) {
     if (val == null) return `<span style="color:var(--muted);">—</span>`;
     const num = Number(val);
     const cor = num >= 0 ? 'var(--good)' : 'var(--critical)';
-    return `<span style="color:${cor}; font-weight:600;">${num >= 0 ? '+' : ''}${num.toFixed(2)}%</span>`;
+    return `<span style="color:${cor}; font-weight:600;">${num >= 0 ? '+' : ''}${String((num).toFixed(2)).replace('.', ',')}%</span>`;
   }
 
   // Linha Carteira: começou em 30/09/2026
@@ -16211,7 +16218,7 @@ function renderDrawdownSvg(serie, ddActiveKeys) {
     <text x="${padL - 8}" y="${yZero + 3.5}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-sans)">0,0%</text>
 
     <line x1="${padL}" y1="${yMin}" x2="${w - padR}" y2="${yMin}" stroke="var(--rule)" stroke-dasharray="2,2" />
-    <text x="${padL - 8}" y="${yMin + 3.5}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-sans)">${minDd.toFixed(1)}%</text>
+    <text x="${padL - 8}" y="${yMin + 3.5}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="var(--font-sans)">${String((minDd).toFixed(1)).replace('.', ',')}%</text>
 
     <!-- Linhas e Áreas -->
     ${linesHtml}
@@ -16587,7 +16594,7 @@ function abrirModalProventosMes(mesChave) {
                 <div style="flex:1; max-width:70px; height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden;">
                   <div style="width:${Math.min(100, p.pct)}%; height:100%; background:var(--data-2); border-radius:3px;"></div>
                 </div>
-                <span style="font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums; width:36px; text-align:right;">${p.pct.toFixed(1)}%</span>
+                <span style="font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums; width:36px; text-align:right;">${String((p.pct).toFixed(1)).replace('.', ',')}%</span>
               </div>
             </td>
           </tr>
@@ -16994,7 +17001,7 @@ function renderBussolaCenario(cenarioId) {
       const avP = aP && typeof window.fehmirAvaliar === 'function' ? window.fehmirAvaliar(aP) : null;
       if (preco && avP && avP.teto > 0) {
         const mg = (1 - preco / avP.teto) * 100;
-        partes.push((mg >= 0 ? 'margem +' : 'acima do teto ') + Math.abs(mg).toFixed(0) + '%');
+        partes.push((mg >= 0 ? 'margem +' : 'acima do teto ') + Math.abs(mg).toFixed(0).replace('.', ',') + '%');
         const mMin = avP.margemMin || 10;
         if (mg < mMin) partes.push('<b style="color:var(--warning)">sem margem hoje' + (mg > 0 ? ' (setor pede ' + mMin + '%)' : '') + '</b>');
       }
@@ -18907,7 +18914,7 @@ initCollapsibleBlocks();
     document.getElementById("cb-componentes").innerHTML = `<h3>🌡️ Do que o termômetro é feito</h3>
       <p class="cb-sub">Seis sinais de 0 (pânico) a 100 (euforia). Nenhum prevê o futuro sozinho; juntos dizem se o mercado está caro ou barato <i>agora</i>.</p>
       ${termo.comps.map(c => `<div class="cb-bar-row"><div class="lbl">${c.nome}<small>${c.det}</small></div>
-        <div class="cb-bar"><span style="width:${c.heat.toFixed(0)}%;background:${barCor(c.heat)}"></span></div><div class="v">${c.heat.toFixed(0)}</div></div>`).join("")}`;
+        <div class="cb-bar"><span style="width:${(c.heat).toFixed(0)}%;background:${barCor(c.heat)}"></span></div><div class="v">${c.heat.toFixed(0)}</div></div>`).join("")}`;
 
     document.getElementById("cb-cenarios").innerHTML = `<h3>🔮 A bolsa ainda sobe?</h3>
       <p class="cb-sub">${LEITURA.resumo} <i>(Leitura de ${LEITURA.data}; probabilidades são estimativas subjetivas.)</i></p>
@@ -19318,6 +19325,7 @@ header.top .eyebrow{color:var(--accent); letter-spacing:.12em}
 
 /* Sub-navegação da carteira */
 .mc-nav-tabs{
+  position:sticky; top:8px; z-index:30; backdrop-filter:blur(8px);   /* sub-abas sempre à mão ao rolar (31/10/2026) */
   border-radius:14px; border:1px solid var(--rule); scrollbar-width:none;
   background:color-mix(in srgb,var(--surface) 82%,transparent); box-shadow:var(--shadow-1);
 }
@@ -19775,7 +19783,7 @@ function toggleTheme(){
 
   function linha(t, r) {
     const fx = faixa(r.score);
-    const bar = (k, lbl) => `<span class="fg-f" title="${lbl}: ${Math.round(r.f[k])}"><i style="width:${r.f[k].toFixed(0)}%"></i></span>`;
+    const bar = (k, lbl) => `<span class="fg-f" title="${lbl}: ${Math.round(r.f[k])}"><i style="width:${(r.f[k]).toFixed(0)}%"></i></span>`;
     return `<tr><td data-l="Ativo"><span class="tk" onclick="typeof searchTickerGlobal==='function'&&searchTickerGlobal('${t}')">${t}</span></td>
       <td data-l="Índice" class="m"><b style="color:${fx[2]}">${Math.round(r.score)}</b> <span class="fg-tag" style="background:${fx[2]}">${fx[1]}</span></td>
       <td data-l="Fatores" class="fg-fs">${bar("mom", "Momentum")}${bar("vol", "Volume")}${bar("volat", "Calma")}${bar("rsi", "RSI")}${bar("pos", "52 sem.")}</td>
@@ -19942,7 +19950,7 @@ function toggleTheme(){
     const vals = [preco, compra, teto, tol].filter(v => v > 0);
     const lo = Math.min(...vals) * 0.85, hi = Math.max(...vals) * 1.08;
     const X = v => ((v - lo) / (hi - lo) * 100).toFixed(2);
-    const zona = (a, b, cor) => `<div class="an-zone" style="left:${X(a)}%;width:${(X(b) - X(a)).toFixed(2)}%;background:${cor}"></div>`;
+    const zona = (a, b, cor) => `<div class="an-zone" style="left:${X(a)}%;width:${((X(b) - X(a))).toFixed(2)}%;background:${cor}"></div>`;
     const mark = (v, lbl, cls) => `<div class="an-mark ${cls}" style="left:${X(v)}%"><span>${lbl}<br><b>${R(v)}</b></span></div>`;
     return `<div class="an-leque">
       ${zona(lo, compra, "color-mix(in srgb,var(--good) 30%,transparent)")}
@@ -20046,12 +20054,12 @@ function toggleTheme(){
           <div style="margin-top:10px;padding:4px 6px;">
             <div style="position:relative;height:8px;background:var(--rule-strong);border-radius:4px;margin:22px 0 16px;">
               <!-- Marcador da média 10A -->
-              <div style="position:absolute;left:${pctMedia.toFixed(1)}%;top:-22px;transform:translateX(-50%);text-align:center;z-index:2;" title="Média 10A: ${fmtN(dyMedio10A, 1)}%">
+              <div style="position:absolute;left:${(pctMedia).toFixed(1)}%;top:-22px;transform:translateX(-50%);text-align:center;z-index:2;" title="Média 10A: ${fmtN(dyMedio10A, 1)}%">
                 <span style="font-size:9.5px;font-family:var(--font-mono);font-weight:700;color:#38bdf8;white-space:nowrap;">média ${fmtN(dyMedio10A, 1)}%</span>
                 <div style="width:2px;height:26px;background:#38bdf8;margin:2px auto 0;"></div>
               </div>
               <!-- Marcador do DY atual -->
-              <div style="position:absolute;left:${pctAtual.toFixed(1)}%;top:-6px;transform:translateX(-50%);text-align:center;z-index:3;" title="DY atual: ${fmtN(dyAtual, 1)}%">
+              <div style="position:absolute;left:${(pctAtual).toFixed(1)}%;top:-6px;transform:translateX(-50%);text-align:center;z-index:3;" title="DY atual: ${fmtN(dyAtual, 1)}%">
                 <div style="width:14px;height:14px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);margin:0 auto;"></div>
                 <span style="font-size:9.5px;font-family:var(--font-mono);font-weight:800;color:var(--gold);white-space:nowrap;display:block;margin-top:2px;">atual ${fmtN(dyAtual, 1)}%</span>
               </div>
@@ -22359,7 +22367,7 @@ function renderAbaCaixaRf() {
         <div class="stat-card">
           <div class="stat-label">Caixa Total Disponível</div>
           <div class="stat-val" style="color:var(--cor-classe-caixa);">${typeof fmtR === 'function' ? fmtR(caixaTotal) : 'R$ ' + caixaTotal.toFixed(2)}</div>
-          <div class="stat-sub">Liquidez imediata (${pctCdi.toFixed(0)}% do CDI)</div>
+          <div class="stat-sub">Liquidez imediata (${String((pctCdi).toFixed(0)).replace('.', ',')}% do CDI)</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Piso de Tranquilidade (Fase 1)</div>
@@ -22374,7 +22382,7 @@ function renderAbaCaixaRf() {
         <div class="stat-card">
           <div class="stat-label">Rentabilidade de Referência</div>
           <div class="stat-val">${rendCaixa.toFixed(2).replace('.', ',')}% a.a.</div>
-          <div class="stat-sub">${pctCdi.toFixed(0)}% do CDI (Selic ${selic.toFixed(2).replace('.', ',')}%) · um só caixa: tranquilidade + oportunidade</div>
+          <div class="stat-sub">${String((pctCdi).toFixed(0)).replace('.', ',')}% do CDI (Selic ${selic.toFixed(2).replace('.', ',')}%) · um só caixa: tranquilidade + oportunidade</div>
         </div>
       </div>
     </div>
@@ -22643,8 +22651,8 @@ function renderGraficoMercadoModal() {
   // Atualizar subtítulo
   if (subEl) {
     const corVar = varPeriodo >= 0 ? 'var(--good)' : 'var(--critical)';
-    const distTxt = mmRef ? ` · Dist. MM: ${distMM >= 0 ? '+' : ''}${distMM.toFixed(1)}%` : '';
-    subEl.innerHTML = `<b>${fmtVal(precoAtual)}</b> <span style="color:${corVar}; font-weight:700;">(${varPeriodo >= 0 ? '+' : ''}${varPeriodo.toFixed(2)}% em ${_mercadoModalPeriodo})</span>${distTxt} · Medo×Ganância: <b>${Math.round(fgScore)}</b>/100`;
+    const distTxt = mmRef ? ` · Dist. MM: ${distMM >= 0 ? '+' : ''}${String((distMM).toFixed(1)).replace('.', ',')}%` : '';
+    subEl.innerHTML = `<b>${fmtVal(precoAtual)}</b> <span style="color:${corVar}; font-weight:700;">(${varPeriodo >= 0 ? '+' : ''}${String((varPeriodo).toFixed(2)).replace('.', ',')}% em ${_mercadoModalPeriodo})</span>${distTxt} · Medo×Ganância: <b>${Math.round(fgScore)}</b>/100`;
   }
 
   // Atualizar caixa de auditoria
