@@ -1,4 +1,4 @@
-/* Gerado por tools/analista.py — não editar à mão. */
+/* Gerado por tools/pareceres.py — não editar à mão. */
 window.FEHMIR_PARECERES = {
   "RZAG11": {
     "fatos": [
@@ -260,5 +260,84 @@ window.FEHMIR_PARECERES = {
       "setor": "FII Papel · CRI"
     },
     "antigo": true
+  },
+  "BBSE3": {
+    "fatos": [
+      "Renúncia com efeitos imediatos da conselheira Maria Carolina Ferreira Lacerda do Conselho de Administração e do Comitê de Transações com Partes Relacionadas (CTPR).",
+      "A conselheira exercia mandato como representante eleita pelos acionistas minoritários.",
+      "A saída foi motivada por razões de natureza pessoal e profissional.",
+      "A Companhia iniciará os procedimentos para recomposição da vaga conforme a legislação e o Estatuto Social."
+    ],
+    "atribuicao": "ativo: evento estritamente interno e corporativo de governança da companhia, sem relação com fatores macroeconômicos ou dinâmica setorial.",
+    "risco": "idiossincratico",
+    "risco_motivo": "Risco de desfalque temporário na representatividade dos minoritários no Conselho e no comitê que avalia operações com o controlador (CTPR) até a recomposição formal do cargo.",
+    "caixa_vs_contabil": "Sem qualquer impacto contábil ou no fluxo de caixa operacional; evento exclusivamente administrativo de governança.",
+    "gatilhos": [
+      "Dificuldade ou atraso injustificado na eleição de novo representante dos acionistas minoritários.",
+      "Aprovação de transações com partes relacionadas que prejudiquem os interesses dos minoritários durante o período de vacância.",
+      "Surgimento de conflitos de interesse ou litígios associados à saída da conselheira."
+    ],
+    "parecer": "manter",
+    "confianca": "alta",
+    "licao_generica": "Renúncias pontuais no conselho por motivos pessoais, sem litígio relatado, não afetam os fundamentos operacionais nem o fluxo de proventos.",
+    "data": "2026-10-31",
+    "fontes": [
+      "cvm_023159IPE231020260110957071-32"
+    ]
+  },
+  "RECV3": {
+    "fatos": [
+      "Aprovação de reorganização societária para cisão dos ativos operacionais da SPE Tiêta para NewCo e posterior incorporação pela PetroReconcavo, com venda da SPE residual por R$ 2,6 milhões à KEO Capital AB, pendente de aprovação da ANP.",
+      "Arrematação de dois blocos exploratórios terrestres adjacentes (POT-T-747 e REC-T-178) somando 58 km² no 6º Ciclo da Oferta Permanente da ANP, com bônus de assinatura de R$ 360 mil e compromisso de 200 UTs por bloco em 5 anos.",
+      "Início de transição estruturada para saída de Troy Patrick Finney, Diretor Estatutário e membro fundador há 26 anos, com permanência no cargo até o 4T26."
+    ],
+    "atribuicao": "ativo: eventos focados na reorganização da estrutura de ativos operacionais, expansão geográfica adjacente e governança interna corporativa.",
+    "risco": "idiossincratico",
+    "risco_motivo": "Saída de membro fundador chave com histórico técnico e operacional de 26 anos, somada a riscos de execução exploratória futura e aprovação regulatória na ANP.",
+    "caixa_vs_contabil": "Desembolso de caixa imediato muito baixo (R$ 360 mil em bônus) e entrada futura de R$ 2,6 milhões pela alienação da SPE Tiêta, enquanto a reorganização societária gera efeitos primordialmente contábeis e fiscais.",
+    "gatilhos": [
+      "Dificuldades operacionais ou queda na eficiência de produção após a conclusão da saída do diretor técnico.",
+      "Rejeição da reorganização societária ou da transferência das concessões pela ANP.",
+      "Fracasso exploratório relevante com desembolsos pesados e improdutivos nos blocos arrematados."
+    ],
+    "parecer": "manter",
+    "confianca": "alta",
+    "licao_generica": "Sucessão estruturada de fundadores em empresas maduras é natural e deve ser monitorada pela continuidade dos padrões operacionais.",
+    "data": "2026-10-31",
+    "fontes": [
+      "cvm_025780IPE201020260114078862-28",
+      "cvm_025780IPE071020260183698677-53",
+      "cvm_025780IPE240920260157993186-28"
+    ]
+  },
+  "RZTR11": {
+    "fatos": [
+      "Alienacao da Fazenda Vale do Rio Celeste a vista por R$ 109 milhoes apos rescisao amigavel de opcao de compra pelo arrendatario por incapacidade financeira",
+      "Venda da Fazenda Sao Francisco I por R$ 200 milhoes, sendo R$ 118 milhoes parcelados em 4 anos e R$ 40 milhoes em permuta por imovel com yield de 3% a.a. e contrato de 1 ano",
+      "Processo judicial em andamento para reintegracao de posse da Fazenda Bom Jardim apos inadimplencia de arrendatario",
+      "Recompra antecipada das Fazendas Bacuri e Buriti pelo arrendatario cessando contratos de arrendamento e reduzindo receitas recorrentes",
+      "Gestao emitiu alerta formal de reducao de dividendos no proximo semestre com guidance revisado para a faixa de R$ 0,80 a R$ 1,00 por cota",
+      "Reserva de resultado acumulada praticamente esgotada em R$ 0,01 por cota em setembro de 2026",
+      "Identificacao de erro relevante pelo administrador fiduciario no calculo do valor patrimonial divulgado, ajustado de R$ 195,67 para R$ 99 a R$ 100 por cota"
+    ],
+    "atribuicao": "ativo | Desinvestimentos e dificuldades operacionais de arrendatarios diminuem o fluxo de receitas recorrentes e exigem reestruturacao do portfolio.",
+    "risco": "idiossincratico",
+    "risco_motivo": "Risco de credito e capacidade financeira de contrapartes rurais, gerando litigio de posse, rescisoes e concentracao de recebiveis parcelados a prazo longo.",
+    "caixa_vs_contabil": "Ganhos de capital contabeis sao diferidos e parcelados em varios anos, enquanto a perda das receitas de arrendamento impacta imediatamente o fluxo de caixa mensal.",
+    "gatilhos": [
+      "Inadimplencia no pagamento das parcelas anuais a receber da Fazenda Sao Francisco I",
+      "Perda definitiva ou atraso desproporcional na reintegracao e liquidacao da Fazenda Bom Jardim",
+      "Distribuicao mensal caindo abaixo de R$ 0,80 por cota de forma recorrente sem reposicao de caixa gerador"
+    ],
+    "parecer": "atencao",
+    "confianca": "alta",
+    "licao_generica": "Ganhos de capital parcelados nao substituem receita operacional recorrente no curto prazo e trazem volatilidade a distribuicao de proventos.",
+    "data": "2026-10-31",
+    "fontes": [
+      "fnet_1358017",
+      "fnet_1348111",
+      "fnet_1343384",
+      "fnet_1338028"
+    ]
   }
 };

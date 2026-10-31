@@ -62,5 +62,26 @@ window.FEHMIR_LICOES = [
     "data": "2026-10-24",
     "contagem": 1,
     "status": "candidata"
+  },
+  {
+    "texto": "Renúncias pontuais no conselho por motivos pessoais, sem litígio relatado, não afetam os fundamentos operacionais nem o fluxo de proventos.",
+    "ticker": "BBSE3",
+    "data": "2026-10-31",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Sucessão estruturada de fundadores em empresas maduras é natural e deve ser monitorada pela continuidade dos padrões operacionais.",
+    "ticker": "RECV3",
+    "data": "2026-10-31",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Ganhos de capital parcelados nao substituem receita operacional recorrente no curto prazo e trazem volatilidade a distribuicao de proventos.",
+    "ticker": "RZTR11",
+    "data": "2026-10-31",
+    "contagem": 1,
+    "status": "candidata"
   }
 ];
