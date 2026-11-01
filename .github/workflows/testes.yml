@@ -1,0 +1,30 @@
+name: Testes do painel
+
+# A cada push no painel, nos dados ou nos testes: abre o painel num Chrome headless e confere
+# coerência entre telas, tetos, a ficha do ativo e todas as abas sem erro (tools/testes/run_all.js).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'painel-barsi.html'
+      - 'dados/**'
+      - 'tools/testes/**'
+      - '.github/workflows/testes.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Rodar a bateria de testes
+        env:
+          TZ: America/Sao_Paulo
+        run: node tools/testes/run_all.js

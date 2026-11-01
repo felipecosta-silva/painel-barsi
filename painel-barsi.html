@@ -2,6 +2,7 @@
 body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Fehmir</title>
 <script src="dados/historico.js"></script>
+<script src="dados/historico_mensal.js"></script>
 <script src="dados/fundamentos_cvm.js"></script>
 <script src="dados/fundamentos.js"></script>
 <script src="dados/fii_pvp.js"></script>
@@ -77,6 +78,7 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --serie-ifix:#0D9488;
   --serie-fii:#9333EA;
   --serie-acao:#0284C7;
+  --cmp-1:#2a78d6; --cmp-2:#eb6834; --cmp-3:#1baf7a; --cmp-4:#eda100; --cmp-5:#e87ba4; --cmp-6:#6250d6;
   --danger:#DC2626;
   --focus:#2563EB;
   --good:#059669;
@@ -145,6 +147,7 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
     --serie-ifix:#2DD4BF;
     --serie-fii:#C084FC;
     --serie-acao:#38BDF8;
+    --cmp-1:#3987e5; --cmp-2:#d95926; --cmp-3:#199e70; --cmp-4:#c98500; --cmp-5:#d55181; --cmp-6:#9085e9;
     --danger:#EF4444;
     --focus:#3B82F6;
     --good:#10B981;
@@ -210,6 +213,7 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --serie-ifix:#2DD4BF;
   --serie-fii:#C084FC;
   --serie-acao:#38BDF8;
+  --cmp-1:#3987e5; --cmp-2:#d95926; --cmp-3:#199e70; --cmp-4:#c98500; --cmp-5:#d55181; --cmp-6:#9085e9;
   --danger:#EF4444;
   --focus:#3B82F6;
   --good:#10B981;
@@ -2899,8 +2903,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
     </div>
     <h1>Fehmir</h1>
     <p class="sub">
-      Cotações em tempo real via Brapi 
-      <span id="brapi-status" style="color:var(--accent);font-weight:600;font-size:12px;margin-left:6px">⏳ Conectando...</span>
+      <span id="brapi-status" style="color:var(--accent);font-weight:600;font-size:12px">Preços: carregando…</span>
       <button type="button" onclick="trocarTokenBrapi()" title="Trocar ou remover o token da Brapi (fica só neste navegador)" style="margin-left:6px;font:inherit;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink-2);cursor:pointer">🔑 Token</button>
       <span id="robo-preco-status" style="display:none;color:var(--good);font-weight:600;font-size:12px;margin-left:6px"></span>
       <span class="sub-sep">·</span>
@@ -3993,6 +3996,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <button id="radar-view-podio-btn" class="macro-btn" style="padding:6px 14px; font-size:13px;" onclick="setRadarView('podio')">🏆 Dividendos</button>
         <button id="radar-view-table-btn" class="macro-btn" style="padding:6px 14px; font-size:13px;" onclick="setRadarView('table')">📋 Tabela</button>
         <button id="radar-view-duelo-btn" class="macro-btn" style="padding:6px 14px; font-size:13px;" onclick="setRadarView('duelo')">🥊 Duelo de Ativos</button>
+        <button id="radar-view-comparar-btn" class="macro-btn" style="padding:6px 14px; font-size:13px;" onclick="setRadarView('comparar')">📈 Comparar retorno</button>
         <button id="radar-filter-trap-btn" class="macro-btn" style="padding:6px 14px; font-size:13px; border-color:var(--gold); color:var(--gold);" onclick="toggleTrapFilter()">⚠️ Armadilhas & Riscos</button>
         <button id="radar-btn-confiar-yield" class="macro-btn" style="padding:6px 14px; font-size:13px; border-color:var(--accent); color:var(--accent);" onclick="toggleConfiarYieldPanel()">🛡️ Antes de Confiar no Yield</button>
       </div>
@@ -4293,6 +4297,13 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
       <!-- Renderizado via JS -->
     </div>
   </div>
+
+  <!-- 6. COMPARAR RETORNO (spec 005): até 6 ativos contra os índices -->
+  <section id="radar-comparar-container" style="display:none;" class="panel">
+    <div class="panel-head"><div><h2>Comparar retorno</h2></div></div>
+    <p class="panel-note">Escolha até 6 ativos e compare com os índices: quanto R$ 1.000 teriam virado, com os proventos reinvestidos.</p>
+    <div id="radar-cmp-body" class="cmp-corpo"></div>
+  </section>
 
   <section class="panel" id="panel-inventario-radar" style="margin-top: 40px;">
     <div class="panel-head"><div><h2>Inventário sem análise (carteiras de curso/referência)</h2></div></div>
@@ -4860,6 +4871,60 @@ function fehmirHidratarIndicadores(listas) {
 }
 window.fehmirHidratarIndicadores = fehmirHidratarIndicadores;
 
+// Item do cadastro (tabelas e radar) de um ticker: onde fica o preço do dia e a sua fonte
+function fehmirItemCadastro(t) {
+  const listas = [];
+  try { listas.push(BASE_STOCKS); } catch (e) {}
+  try { listas.push(OUT_OF_BASE); } catch (e) {}
+  try { listas.push(FIIS); } catch (e) {}
+  try { listas.push(RADAR_DATA); } catch (e) {}
+  for (const l of listas) { const x = Array.isArray(l) ? l.find(y => y && y.t === t) : null; if (x) return x; }
+  return null;
+}
+window.fehmirItemCadastro = fehmirItemCadastro;
+
+/* ---------- Hora de cada número (spec 007 US5) ----------
+   Todo preço diz de onde veio e de quando: Brapi (hora informada pela Brapi), robô (fechamento do dia) ou cadastro. */
+function fehmirFmtHoraSP(iso) {
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  const o = { timeZone: 'America/Sao_Paulo' };
+  const dia = d.toLocaleDateString('pt-BR', Object.assign({ day: '2-digit', month: '2-digit' }, o));
+  const hora = d.toLocaleTimeString('pt-BR', Object.assign({ hour: '2-digit', minute: '2-digit' }, o));
+  const hoje = new Date().toLocaleDateString('pt-BR', Object.assign({ day: '2-digit', month: '2-digit' }, o));
+  return { dia, hora, hoje: dia === hoje, texto: dia === hoje ? hora + ' de hoje' : hora + ' de ' + dia };
+}
+function fehmirFontePreco(t) {
+  const x = fehmirItemCadastro(t);
+  if (x && x.fontePreco === 'Brapi') {
+    const h = fehmirFmtHoraSP(x.precoHora);
+    return { fonte: 'Brapi', quando: h ? h.texto : '', texto: 'Brapi, ' + (h ? h.texto : 'hora não informada') };
+  }
+  if (x && x.fontePreco === 'robô' && x.atual) {
+    const varr = String(x.atual).includes('varredura'), d = String(x.atual).replace(' (varredura)', '');
+    return { fonte: 'robô', quando: d, texto: 'robô, ' + (varr ? 'varredura de mercado de ' : 'fechamento de ') + d };
+  }
+  const H = window.FEHMIR_HIST && window.FEHMIR_HIST[t];
+  if (H && H.d1) { const d = H.d1.slice(8, 10) + '/' + H.d1.slice(5, 7); return { fonte: 'robô', quando: d, texto: 'robô, fechamento de ' + d }; }
+  if (x && x.atual) return { fonte: 'cadastro', quando: x.atual, texto: 'cadastro de ' + x.atual + ' (sem cotação do robô: conferir)' };
+  return { fonte: 'extrato', quando: '', texto: 'sem cotação: último preço do extrato' };
+}
+window.fehmirFontePreco = fehmirFontePreco;
+function fehmirTipNumero(t, tipo) {
+  const f = fehmirFontePreco(t), m = window.FEHMIR_HIST_META;
+  const ger = m && m.gerado ? String(m.gerado).slice(8, 10) + '/' + String(m.gerado).slice(5, 7) : '';
+  if (tipo === 'dy') return 'DY = dividendo pago em 12 meses (robô' + (ger ? ', coleta de ' + ger : '') + ') ÷ preço. Preço: ' + f.texto + '.';
+  if (tipo === 'teto') return 'Teto pela régua do setor, com os dados do robô' + (ger ? ' de ' + ger : '') + '. A margem usa o preço: ' + f.texto + '.';
+  return 'Preço: ' + f.texto + '.';
+}
+window.fehmirTipNumero = fehmirTipNumero;
+// atributo title pronto para o HTML das tabelas
+function fehmirTitle(t, tipo) {
+  return ' title="' + fehmirTipNumero(t, tipo).replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '"';
+}
+window.fehmirTitle = fehmirTitle;
+
+
 function aplicarPrecosDoRobo() {
   if (typeof window.FEHMIR_HIST === "undefined" && typeof window.FEHMIR_MERCADO === "undefined") return;
 
@@ -4896,14 +4961,6 @@ function aplicarPrecosDoRobo() {
     _safeA(() => RADAR_ACOES),
     _safeA(() => RADAR_FIIS),
     _safeA(() => RADAR_DATA)
-  ];
-  var _oldListas = () => [
-    typeof BASE_STOCKS !== "undefined" ? BASE_STOCKS : [],
-    typeof OUT_OF_BASE !== "undefined" ? OUT_OF_BASE : [],
-    typeof FIIS !== "undefined" ? FIIS : [],
-    typeof RADAR_ACOES !== "undefined" ? RADAR_ACOES : [],
-    typeof RADAR_FIIS !== "undefined" ? RADAR_FIIS : [],
-    typeof RADAR_DATA !== "undefined" ? RADAR_DATA : []
   ];
 
   listas.forEach(arr => {
@@ -4973,18 +5030,9 @@ function aplicarPrecosDoRobo() {
 
   fehmirHidratarIndicadores(listas);
 
-  const badge = document.getElementById("robo-preco-status");
-  if (badge) {
-    const hasLive = typeof BASE_STOCKS !== "undefined" && BASE_STOCKS.some(x => x.atual === "AO VIVO");
-    if (!hasLive && countAtualizados > 0) {
-      badge.style.display = "inline";
-      const dataSelo = latestFechamento || (latestMercado ? latestMercado + " (varredura)" : "15/10");
-      window.roboDataSelo = dataSelo;
-      badge.textContent = "📦 Preços do robô: " + dataSelo;
-    } else {
-      badge.style.display = "none";
-    }
-  }
+  // selo: a data mais recente entre o fechamento do histórico e a varredura de mercado (a mesma que as tabelas usam)
+  if (countAtualizados > 0) window.roboDataSelo = (latestMercado && parseDataStr(latestMercado) > parseDataStr(latestFechamento)) ? latestMercado : latestFechamento;
+  if (typeof fehmirAtualizarSeloPreco === "function") fehmirAtualizarSeloPreco();
   if (typeof window.limparCacheTetoOficial === "function") window.limparCacheTetoOficial();
 }
 window.aplicarPrecosDoRobo = aplicarPrecosDoRobo;
@@ -5106,46 +5154,77 @@ function calcularPosicoesExtrato(extrato) {
   const txs = [...lista].sort((a, b) => (a.data > b.data ? 1 : (a.data < b.data ? -1 : 0)));
   const posicoes = {};
 
-  txs.forEach(t => {
-    const ticker = t.ticker;
-    if (!ticker || ticker === '—') return;
-    if (!posicoes[ticker]) {
-      posicoes[ticker] = { quant: 0, pm: 0, cat: t.cat || null, temLancamento: true, totalCompras: 0, totalVendas: 0 };
-    }
-    const pos = posicoes[ticker];
-    if (t.cat && !pos.cat) pos.cat = t.cat;
-    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
-    const preco = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.preco) : (parseFloat(t.preco) || 0);
-    const taxa = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.taxa) : (parseFloat(t.taxa) || 0);
-    const total = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || 0);
-
-    if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
-      const custo = total > 0 ? total : (q * preco + taxa);
-      if (q > 0) {
-        if (pos.quant <= 0) {
-          pos.pm = custo / q;
-          pos.quant = q;
-        } else {
-          const custoAcum = (pos.quant * pos.pm) + custo;
-          pos.quant += q;
-          pos.pm = custoAcum / pos.quant;
-        }
-      }
-      pos.totalCompras += (total > 0 ? total : (q * preco));
-    } else if (t.tipo === 'Venda') {
-      pos.quant -= q;
-      if (pos.quant <= 0.000001) {
-        pos.quant = 0;
-        pos.pm = 0;
-      }
-      // Venda NÃO altera o PM se a posição continuar > 0 (Regra de IR §8)
-      pos.totalVendas += (total > 0 ? total : (q * preco));
-    }
-  });
-
+  txs.forEach(t => fehmirAplicarMovimento(posicoes, t));
   return posicoes;
 }
 window.calcularPosicoesExtrato = calcularPosicoesExtrato;
+
+/* ---------- Camada única de posições (spec 007 US2) ----------
+   Único lugar do painel que soma compra − venda. Meus Ativos, proventos, Conselheiro, evolução do patrimônio
+   e rentabilidade passam por estas funções, para que quantidade e preço médio nunca divirjam entre telas. */
+function fehmirAplicarMovimento(posicoes, t) {
+  const ticker = t && t.ticker;
+  if (!ticker || ticker === '—') return null;
+  if (!posicoes[ticker]) posicoes[ticker] = { quant: 0, pm: 0, cat: t.cat || null, temLancamento: true, totalCompras: 0, totalVendas: 0 };
+  const pos = posicoes[ticker];
+  if (t.cat && !pos.cat) pos.cat = t.cat;
+  const num = v => (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(v) : (parseFloat(v) || 0);
+  const q = num(t.quant), preco = num(t.preco), taxa = num(t.taxa), total = num(t.total);
+  if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
+    const custo = total > 0 ? total : (q * preco + taxa);
+    if (q > 0) {
+      if (pos.quant <= 0) {
+        pos.pm = custo / q;
+        pos.quant = q;
+      } else {
+        const custoAcum = (pos.quant * pos.pm) + custo;
+        pos.quant += q;
+        pos.pm = custoAcum / pos.quant;
+      }
+    }
+    pos.totalCompras += (total > 0 ? total : (q * preco));
+  } else if (t.tipo === 'Venda') {
+    pos.quant -= q;
+    if (pos.quant <= 0.000001) {
+      pos.quant = 0;
+      pos.pm = 0;
+    }
+    // Venda NÃO altera o PM se a posição continuar > 0 (regra de IR)
+    pos.totalVendas += (total > 0 ? total : (q * preco));
+  }
+  return pos;
+}
+window.fehmirAplicarMovimento = fehmirAplicarMovimento;
+// Aplica movimentos (em ordem de data) sobre um mapa de posições já existente (ou um novo) e o devolve.
+function fehmirAplicarMovimentos(txs, base) {
+  const pos = base || {};
+  (txs || []).slice().sort((a, b) => (a.data > b.data ? 1 : (a.data < b.data ? -1 : 0))).forEach(t => fehmirAplicarMovimento(pos, t));
+  return pos;
+}
+window.fehmirAplicarMovimentos = fehmirAplicarMovimentos;
+// { TICKER: quantidade } a partir de um mapa de posições
+function fehmirQtdMap(pos) {
+  const out = {};
+  Object.keys(pos || {}).forEach(t => { out[t] = pos[t].quant; });
+  return out;
+}
+window.fehmirQtdMap = fehmirQtdMap;
+// Ponto de entrada único dos dados da carteira (consultas e testes usam este objeto)
+window.FEHMIR = {
+  // posições do extrato; com `ate` (AAAA-MM-DD), a posição naquela data
+  posicoes: ate => {
+    const ext = typeof carregarExtrato === 'function' ? carregarExtrato() : (window.DEFAULT_TRANSACOES || []);
+    return ate ? fehmirAplicarMovimentos(ext.filter(t => String(t.data) <= ate)) : calcularPosicoesExtrato(ext);
+  },
+  preco: (t, data) => (typeof obterPrecoAtivo === 'function' ? obterPrecoAtivo(t, data) : { preco: null }),
+  fontePreco: t => (typeof fehmirFontePreco === 'function' ? fehmirFontePreco(t) : null),
+  indicadores: t => {
+    const x = typeof fehmirItemCadastro === 'function' ? fehmirItemCadastro(t) : null;
+    return x ? { preco: x.preco, dy: x.dy, pl: x.pl, pvp: x.pvp, roe: x.roe, fonte: x.fonteFund || null } : null;
+  },
+  proventos: (desde, ate) => (typeof fehmirProventosRecebidos === 'function' ? fehmirProventosRecebidos(desde, ate) : null),
+  aportes: mes => (typeof fehmirAportesMes === 'function' ? fehmirAportesMes(mes) : null)
+};
 
 function quantidadeAtual(s, posExtrato, rd) {
   if (!s) return 0;
@@ -5600,7 +5679,7 @@ function renderStockRow(r, k){
   return `<tr class="clickable-row" onclick="openModal('${r.t}')">
     <td class="ticker" data-label="Ticker"><b>${r.t}</b>${renderNmIcon(r.t, 'acao', r.preco)}</td>
     <td class="setor" data-label="Setor">${r.setor}</td>
-    <td class="tabular" data-label="Preço">${fmtR(r.preco)}</td>
+    <td class="tabular" data-label="Preço"${typeof fehmirTitle === 'function' ? fehmirTitle(r.t) : ''}>${fmtR(r.preco)}</td>
     <td class="tabular" data-label="DY 12m">${fmtPct(r.dy)}</td>
     <td class="tabular" data-label="Teto" data-teto="${teto != null ? teto.toFixed(2) : ''}">${tetoLabel}</td>
     <td data-label="Margem">${marginCell(r.preco, teto)}</td>
@@ -5657,7 +5736,7 @@ function renderFiis(){
     <td class="fii-type" data-label="Tipo">${tipoLabel(r.tipo)}</td>
     <td class="tabular" data-label="Quant.">${q}</td>
     <td class="tabular" data-label="PM">${fmtR(pm)}</td>
-    <td class="tabular" data-label="Preço Atual" style="font-weight:700; color:var(--accent);">${fmtR(preco)}</td>
+    <td class="tabular" data-label="Preço Atual" style="font-weight:700; color:var(--accent);"${typeof fehmirTitle === 'function' ? fehmirTitle(r.t) : ''}>${fmtR(preco)}</td>
     <td class="tabular" data-label="Saldo" style="font-weight:600;">${fmtR(saldo)}</td>
     <td class="tabular" data-label="% Cart.">${pct != null ? pct.toFixed(2) + "%" : `<span style="color:var(--muted)">${String(((r.carteira||0)).toFixed(2)).replace('.', ',')}%</span>`}</td>
     <td class="tabular" data-label="P/VP">${pvpCell(r.pvp, r.tipo)}</td>
@@ -5723,7 +5802,7 @@ function renderRadar(){
       return `<tr class="clickable-row" onclick="openModal('${r.t}')">
         <td class="ticker" data-label="Ticker">${r.t}</td>
         <td class="setor" data-label="Setor">${r.setor}</td>
-        <td class="tabular" data-label="Preço">${fmtR(r.preco)}</td>
+        <td class="tabular" data-label="Preço"${typeof fehmirTitle === 'function' ? fehmirTitle(r.t) : ''}>${fmtR(r.preco)}</td>
         <td class="tabular" data-label="DY 12m">${fmtPct(r.dy)}</td>
         <td class="tabular" data-label="Teto" data-teto="${teto != null ? teto.toFixed(2) : ''}">${teto!=null ? fmtR(teto) : `<span title="${motivo}" style="color:var(--muted); cursor:help;">—</span>`}</td>
         <td data-label="Margem">${marginCell(r.preco, teto)}</td>
@@ -5739,7 +5818,7 @@ function renderRadar(){
       <td class="ticker" data-label="Ticker">${r.t}</td>
       <td class="setor" data-label="Setor">${r.setor}</td>
       <td class="fii-type" data-label="Tipo">${tipoLabel(r.tipo)}</td>
-      <td class="tabular" data-label="Preço">${fmtR(r.preco)}</td>
+      <td class="tabular" data-label="Preço"${typeof fehmirTitle === 'function' ? fehmirTitle(r.t) : ''}>${fmtR(r.preco)}</td>
       <td class="tabular" data-label="P/VP">${pvpCell(r.pvp, r.tipo)}</td>
       <td class="tabular" data-label="DY 12m">${fmtPct(r.dy)}</td>
       <td data-label="Histórico div.">${sparkline(r.divHist)}</td>
@@ -6027,88 +6106,139 @@ function trocarTokenBrapi() {
 }
 window.trocarTokenBrapi = trocarTokenBrapi;
 
-async function fetchBrapiQuotes() {
-  // Token fica só no navegador do Felipe (seção 13 do .md) — nunca no código publicado.
-  let token = '';
-  try { token = localStorage.getItem('barsi-brapi-token') || ''; } catch(e) {}
-  if (!token) {
-    const st = document.getElementById("brapi-status");
-    if (st) {
-      st.textContent = "🔑 Configurar token Brapi";
-      st.style.cursor = "pointer";
-      st.style.textDecoration = "underline";
-      st.onclick = () => {
-        const t = prompt("Cole seu token da brapi.dev (fica salvo só neste navegador):");
-        if (t && t.trim()) {
-          try { localStorage.setItem('barsi-brapi-token', t.trim()); } catch(e) {}
-          st.textContent = "⏳ Conectando...";
-          st.onclick = null; st.style.textDecoration = "none";
-          fetchBrapiQuotes();
-        }
-      };
-    }
+// Plano grátis da Brapi: 15 mil consultas por mês. Cache de 20 min por ativo na abertura do painel;
+// no pregão, só a carteira se atualiza, num intervalo que cabe na cota (N ativos a cada N min ≈ 60 consultas/h).
+const BRAPI_CACHE_MIN = 20;
+function fehmirEmPregao(d) {
+  const p = {};
+  new Intl.DateTimeFormat('en-US', { timeZone: 'America/Sao_Paulo', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false })
+    .formatToParts(d || new Date()).forEach(x => { p[x.type] = x.value; });
+  const min = (Number(p.hour) % 24) * 60 + Number(p.minute);
+  return p.weekday !== 'Sat' && p.weekday !== 'Sun' && min >= 600 && min <= 1085;
+}
+function fehmirTickersCarteiraB3() {
+  const pos = typeof calcularPosicoesExtrato === 'function' ? calcularPosicoesExtrato() : {};
+  const cat = t => (typeof _determinarCategoriaTicker === 'function' ? _determinarCategoriaTicker(t) : '');
+  return Object.keys(pos).filter(t => pos[t].quant > 0 && (cat(t) === 'AÇÕES' || cat(t) === 'FIIS'));
+}
+function fehmirIntervaloBrapiMin() { return Math.max(5, fehmirTickersCarteiraB3().length); }
+window.fehmirEmPregao = fehmirEmPregao;
+
+function fehmirListasPreco() {
+  const out = [];
+  [() => BASE_STOCKS, () => OUT_OF_BASE, () => RADAR_ACOES, () => FIIS, () => RADAR_FIIS, () => RADAR_DATA]
+    .forEach(f => { try { const l = f(); if (Array.isArray(l)) out.push(l); } catch (e) {} });
+  return out;
+}
+// Redesenha o que mostra preço, com os indicadores (DY, P/L, P/VP) e tetos recalculados pelo preço novo
+function fehmirRedesenharPrecos() {
+  try { fehmirHidratarIndicadores(fehmirListasPreco()); } catch (e) {}
+  if (typeof window.limparCacheTetoOficial === 'function') window.limparCacheTetoOficial();
+  [() => renderBaseTable(getPressedK("base")), () => renderForaTable(getPressedK("fora")), renderFiis, renderRadar, renderOverview,
+   renderPodio, renderRebalanceamento, () => window.renderConselheiro && window.renderConselheiro(),
+   () => typeof renderMeusAtivos === 'function' && renderMeusAtivos()]
+    .forEach(f => { try { f(); } catch (e) { console.warn('Redesenho de preços:', e); } });
+}
+
+function fehmirAtualizarSeloPreco() {
+  const el = document.getElementById('brapi-status');
+  if (!el) return;
+  const rb = document.getElementById('robo-preco-status');
+  if (rb) rb.style.display = 'none';
+  let token = ''; try { token = localStorage.getItem('barsi-brapi-token') || ''; } catch (e) {}
+  const est = window._brapiEstado || {};
+  const m = window.FEHMIR_HIST_META;
+  const robo = window.roboDataSelo || (m && m.gerado ? String(m.gerado).slice(8, 10) + '/' + String(m.gerado).slice(5, 7) : '—');
+  const vivos = [];
+  fehmirListasPreco().forEach(l => l.forEach(x => { if (x && x.fontePreco === 'Brapi' && !vivos.some(v => v.t === x.t)) vivos.push(x); }));
+  el.onclick = null; el.style.cursor = ''; el.style.textDecoration = '';
+  if (vivos.length) {
+    const ult = vivos.map(x => x.precoHora || '').sort().pop();
+    const h = fehmirFmtHoraSP(ult);
+    const aoVivo = h && h.hoje && fehmirEmPregao();
+    el.textContent = (aoVivo ? '● Ao vivo ' + h.hora : 'Preços: Brapi ' + (h ? h.dia + ' ' + h.hora : '')) + ' · ' + vivos.length + ' ativos';
+    el.style.color = aoVivo ? 'var(--good)' : 'var(--ink-2)';
+    el.title = 'Cada preço mostra a hora em que a Brapi o informou (passe o mouse sobre o preço). No pregão (10h às 18h), a sua carteira se atualiza sozinha a cada ' +
+      fehmirIntervaloBrapiMin() + ' min, para caber nas 15 mil consultas por mês do plano grátis. Ativos sem resposta da Brapi ficam com o preço do robô de ' + robo + '.';
     return;
   }
-  const lists = [...(typeof BASE_STOCKS!=='undefined'?BASE_STOCKS:[]), ...(typeof OUT_OF_BASE!=='undefined'?OUT_OF_BASE:[]), ...(typeof RADAR_ACOES!=='undefined'?RADAR_ACOES:[]), ...(typeof FIIS!=='undefined'?FIIS:[]), ...(typeof RADAR_FIIS!=='undefined'?RADAR_FIIS:[])];
+  el.style.color = 'var(--ink-2)';
+  if (token && est.carregando) { el.textContent = 'Preços: robô de ' + robo + ' · conectando à Brapi…'; el.title = ''; return; }
+  if (token) {
+    el.textContent = 'Preços: robô de ' + robo + ' · Brapi sem resposta';
+    el.style.color = 'var(--warning)';
+    el.title = 'A Brapi não respondeu (token vencido ou limite do mês). Use o botão Token para trocar.';
+    return;
+  }
+  el.textContent = 'Preços: robô de ' + robo + ' · ativar ao vivo';
+  el.title = 'Os preços são do último pregão, coletados pelo robô. Com um token grátis da brapi.dev, o painel mostra o preço do dia e atualiza a carteira sozinho no pregão.';
+  el.style.cursor = 'pointer'; el.style.textDecoration = 'underline';
+  el.onclick = () => {
+    const t = prompt('Cole seu token da brapi.dev (fica salvo só neste navegador):');
+    if (t && t.trim()) { try { localStorage.setItem('barsi-brapi-token', t.trim()); } catch (e) {} fetchBrapiQuotes(); }
+  };
+}
+window.fehmirAtualizarSeloPreco = fehmirAtualizarSeloPreco;
+
+async function fetchBrapiQuotes(opts) {
+  // Token fica só no navegador (localStorage), nunca no código publicado.
+  opts = opts || {};
+  let token = '';
+  try { token = localStorage.getItem('barsi-brapi-token') || ''; } catch(e) {}
+  if (!token) { fehmirAtualizarSeloPreco(); return; }
+  const lists = fehmirListasPreco();
   const ignore = ['VTI', 'IVV', 'Cripto (BTC+ETH)', 'Caixinha Turbo (115% CDI)'];
-  const uniqueTickers = [...new Set(lists.map(x => x.t))].filter(t => !ignore.includes(t));
-  const statusEl = document.getElementById("brapi-status");
-  
-  let successCount = 0;
-  
-  for (let ticker of uniqueTickers) {
+  const tickers = opts.tickers || [...new Set([].concat(...lists).map(x => x && x.t).filter(Boolean))].filter(t => !ignore.includes(t));
+  const maxIdade = (opts.maxIdadeMin || BRAPI_CACHE_MIN) * 60 * 1000;
+  let ok = 0, falhas = 0, desdeRedesenho = 0;
+  window._brapiEstado = { carregando: true };
+  fehmirAtualizarSeloPreco();
+
+  for (const ticker of tickers) {
     try {
-      // Cache de 20 min por ativo: o plano grátis da Brapi tem 15 mil requisições/mês
       let qc = {}; try { qc = JSON.parse(localStorage.getItem("barsi-quote-cache-v1") || "{}"); } catch (e) {}
-      let data = qc[ticker] && (Date.now() - qc[ticker].ts < 20 * 60 * 1000) ? qc[ticker].d : null;
+      let data = qc[ticker] && (Date.now() - qc[ticker].ts < maxIdade) ? qc[ticker].d : null;
+      let ts = data ? qc[ticker].ts : Date.now();
       if (!data) {
-        await new Promise(r => setTimeout(r, 200)); // Delay para evitar Rate Limit no plano Free
+        await new Promise(r => setTimeout(r, 200)); // evita o limite de requisições do plano grátis
         // Token vai no cabeçalho, nunca na URL (URL fica em histórico, logs e prints)
         const res = await fetch(`https://brapi.dev/api/quote/${encodeURIComponent(ticker)}`, { headers: { Authorization: "Bearer " + token } });
-        if (!res.ok) continue;
+        if (!res.ok) { falhas++; continue; }
         data = await res.json();
-        try { qc[ticker] = { ts: Date.now(), d: { results: data.results } }; localStorage.setItem("barsi-quote-cache-v1", JSON.stringify(qc)); } catch (e) {}
+        ts = Date.now();
+        try { qc[ticker] = { ts, d: { results: data.results } }; localStorage.setItem("barsi-quote-cache-v1", JSON.stringify(qc)); } catch (e) {}
       }
-      
-      if(data.results && data.results.length > 0) {
-         const q = data.results[0];
-         
-         lists.forEach(match => {
-            if(match.t === ticker) {
-                if(q.regularMarketPrice) match.preco = q.regularMarketPrice;
-                if(q.priceEarnings && match.pl !== undefined) match.pl = q.priceEarnings.toFixed(2);
-                if(q.earningsPerShare && match.lpa !== undefined) match.lpa = q.earningsPerShare;
-                match.atual = "AO VIVO";
-            }
-         });
-         
-         // Atualiza as tabelas em tempo real
-         renderBaseTable(getPressedK("base"));
-         renderForaTable(getPressedK("fora"));
-         renderFiis();
-         renderRadar();
-         renderOverview();
-         renderPodio();
-         renderRebalanceamento();
-         if (typeof window.renderConselheiro === 'function') window.renderConselheiro();
-         successCount++;
-      }
+      const q = data.results && data.results[0];
+      if (!q || !(q.regularMarketPrice > 0)) continue;
+      const hora = q.regularMarketTime || new Date(ts).toISOString();
+      lists.forEach(l => l.forEach(m => {
+        if (m && m.t === ticker) { m.preco = q.regularMarketPrice; m.atual = "AO VIVO"; m.fontePreco = 'Brapi'; m.precoHora = hora; }
+      }));
+      ok++;
+      if (++desdeRedesenho >= 15) { fehmirRedesenharPrecos(); desdeRedesenho = 0; }
     } catch(e) {
+      falhas++;
       console.warn("Erro ao buscar cotação de", ticker, e);
     }
   }
-  
-  if (statusEl) {
-     statusEl.textContent = `✅ ${successCount} ativos sincronizados!`;
-     statusEl.style.color = "var(--good)";
-     const rb = document.getElementById("robo-preco-status");
-     if (rb) rb.style.display = "none";
-  }
-
+  window._brapiEstado = { carregando: false, ok, falhas, quando: Date.now() };
+  if (ok) fehmirRedesenharPrecos();
+  fehmirAtualizarSeloPreco();
 }
+window.fetchBrapiQuotes = fetchBrapiQuotes;
 
-// Iniciar a busca automática após carregar a página
+// Abertura: todos os ativos (cache de 20 min). Depois, no pregão e com a aba visível, só a carteira.
 setTimeout(fetchBrapiQuotes, 500);
+(function agendarBrapiNoPregao() {
+  const ciclo = () => {
+    let token = ''; try { token = localStorage.getItem('barsi-brapi-token') || ''; } catch (e) {}
+    const min = fehmirIntervaloBrapiMin();
+    if (token && fehmirEmPregao() && document.visibilityState === 'visible' && !(window._brapiEstado || {}).carregando)
+      fetchBrapiQuotes({ tickers: fehmirTickersCarteiraB3(), maxIdadeMin: min - 0.5 });
+    setTimeout(ciclo, min * 60 * 1000);
+  };
+  setTimeout(ciclo, fehmirIntervaloBrapiMin() * 60 * 1000);
+})();
 
 /* ---------- Rebalanceamento (Meus Ativos) ---------- */
 
@@ -6205,12 +6335,12 @@ function renderMeusAtivos() {
         <td class="ticker"><b>${x.t}</b>${(typeof fehmirIconeVendaPapel === 'function' ? fehmirIconeVendaPapel(x.t, x.preco) : '')}</td>
         <td class="tabular">${fmtQ(x.q)}</td>
         <td class="tabular">${fmtR(x.pm)}</td>
-        <td class="tabular" style="font-weight:700">${fmtR(x.preco)}</td>
+        <td class="tabular" style="font-weight:700"${fehmirTitle(x.t)}>${fmtR(x.preco)}</td>
         <td class="tabular" style="color:${cor(x.variacao)}; font-weight:700">${pct(x.variacao)}</td>
         <td class="tabular" style="color:${cor(x.rent)}">${pct(x.rent)}</td>
         <td class="tabular" style="font-weight:600">${fmtR(x.saldo)}</td>
         <td class="tabular" title="Recebidos desde 30/09 (robô: data ex × cotas; ou lançados)">${x.prov > 0 ? fmtR(x.prov) : '—'}</td>
-        ${rendaVar ? `<td class="tabular">${num(x.r.pl)}</td><td class="tabular">${num(x.r.pvp)}</td><td class="tabular">${x.r.dy != null ? num(x.r.dy) + '%' : '—'}</td><td class="tabular" style="color:var(--muted)" title="Dividendo dos últimos 12 meses ÷ seu preço médio (yield on cost). Só informativo: o preço médio nunca decide compra ou venda.">${(() => { const h = (window.FEHMIR_HIST || {})[x.t]; return h && h.dpa12 > 0 && x.pm > 0 ? num(h.dpa12 / x.pm * 100) + '%' : '—'; })()}</td><td class="tabular">${x.r.roe != null ? num(x.r.roe, 1) + '%' : '—'}</td>` : ''}
+        ${rendaVar ? `<td class="tabular">${num(x.r.pl)}</td><td class="tabular">${num(x.r.pvp)}</td><td class="tabular"${fehmirTitle(x.t, 'dy')}>${x.r.dy != null ? num(x.r.dy) + '%' : '—'}</td><td class="tabular" style="color:var(--muted)" title="Dividendo dos últimos 12 meses ÷ seu preço médio (yield on cost). Só informativo: o preço médio nunca decide compra ou venda.">${(() => { const h = (window.FEHMIR_HIST || {})[x.t]; return h && h.dpa12 > 0 && x.pm > 0 ? num(h.dpa12 / x.pm * 100) + '%' : '—'; })()}</td><td class="tabular">${x.r.roe != null ? num(x.r.roe, 1) + '%' : '—'}</td>` : ''}
         <td class="tabular">${patr > 0 ? (x.saldo / patr * 100).toFixed(2).replace('.', ',') + '%' : '—'}</td>
         <td class="tabular" style="color:var(--muted)">${x.ideal != null ? Number(x.ideal).toFixed(2).replace('.', ',') + '%' : 'sem meta'}</td>
         ${rendaVar ? `<td>${typeof vereditoPill === 'function' ? vereditoPill(Object.assign({}, x.r, { t: x.t, preco: x.preco })) : '—'}</td>` : ''}
@@ -7167,6 +7297,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
         <button class="m-tab-item" data-mtab="historico-dy" onclick="switchModalTab('historico-dy')">🏛️ Histórico DY & Setor</button>
         <button class="m-tab-item" data-mtab="teto" onclick="switchModalTab('teto')">🎯 Preço Teto & Bazin</button>
         <button class="m-tab-item" data-mtab="fcd" onclick="switchModalTab('fcd')">📊 Valuation (FCD)</button>
+        <button class="m-tab-item" data-mtab="comparar" onclick="switchModalTab('comparar')">📈 Comparar</button>
         <button class="m-tab-item" data-mtab="analistas" onclick="switchModalTab('analistas')">👥 Consenso dos Analistas</button>
         <button class="m-tab-item" data-mtab="origem" onclick="switchModalTab('origem')">🛡️ Veredito Fehmir & Origem</button>
       </div>
@@ -7351,6 +7482,10 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
       </div>
 
       <!-- ABA 3: CONSENSO DOS ANALISTAS & TERMÔMETRO (Print 2 - TIMS3) -->
+      <div class="m-pane" id="mpane-comparar">
+        <p class="cmp-intro">Quanto R$ 1.000 teriam virado neste ativo, nos pares do mesmo tipo e nos índices, com os proventos reinvestidos.</p>
+        <div id="m-cmp-body" class="cmp-corpo"></div>
+      </div>
       <div class="m-pane" id="mpane-analistas">
         <div style="margin-bottom:18px;">
           <h3 style="font-size:17px; margin:0 0 4px; color:var(--ink)">Opinião do Mercado & Preço-Alvo dos Analistas</h3>
@@ -7600,26 +7735,6 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
   </div>
 </div>
 
-<!-- ===================== MODAL NOTA METODOLÓGICA BBSE3 (16/10/2026) ===================== -->
-<div class="modal-overlay" id="modal-bbse3">
-  <div class="modal-content" style="max-width: 580px;">
-    <button class="modal-close" onclick="closeModalBbse3Metodologia()">✕</button>
-    <div class="modal-header" style="margin-bottom:12px;">
-      <span style="font-size:11px; text-transform:uppercase; font-weight:700; color:var(--accent); letter-spacing:0.05em;">Critério Metodológico</span>
-      <h2 style="font-size:20px; margin:4px 0 6px; font-family:var(--font-serif); font-weight:700;">Calibração de Teto: BB Seguridade (BBSE3)</h2>
-    </div>
-    <div style="font-size:13px; line-height:1.6; color:var(--ink-2); display:flex; flex-direction:column; gap:12px;">
-      <p style="margin:0;">O teto da BBSE3 na tabela foi calibrado para o <b>DPA médio sustentável dos últimos 5 anos (R$ 2,82)</b> e a taxa histórica de seguradora (7,5% a 8,5%).</p>
-      <p style="margin:0;">O DPA recente de R$ 4,59 foi pico atípico de Selic a dois dígitos inflando o resultado financeiro da carteira de float. No preço atual (~R$ 41), a margem de segurança real é <b>negativa (-8% a -15%)</b> e a ação está colada na máxima de 52 semanas (+31,7% em 12 meses).</p>
-      <div style="background:var(--surface-2); padding:10px 14px; border-radius:8px; border:1px solid var(--rule); font-weight:600; color:var(--ink);">
-        Veredito Fehmir: ZONA DE MANUTENÇÃO — receba os proventos regulares, mas zero compras no topo de ciclo.
-      </div>
-    </div>
-    <div style="display:flex; justify-content:flex-end; margin-top:16px;">
-      <button type="button" class="mc-btn primary" onclick="closeModalBbse3Metodologia()">Entendido</button>
-    </div>
-  </div>
-</div>
 
 <!-- ===================== MODAL DETALHE PROVENTOS DO MÊS (16/10/2026) ===================== -->
 <div class="modal-overlay" id="modal-prov-mes-detalhe">
@@ -7952,12 +8067,6 @@ const RADAR_DATA = [
     _safeA(() => RADAR_FIIS),
     _safeA(() => RADAR_DATA)
   ];
-  var _oldListas = () => [
-    typeof BASE_STOCKS !== "undefined" ? BASE_STOCKS : [],
-    typeof OUT_OF_BASE !== "undefined" ? OUT_OF_BASE : [],
-    typeof RADAR_ACOES !== "undefined" ? RADAR_ACOES : [],
-    typeof RADAR_DATA !== "undefined" ? RADAR_DATA : []
-  ];
 
   for (const lista of listas) for (const a of lista) {
     if (!a || !a.t) continue;
@@ -8049,12 +8158,14 @@ function setRadarView(view) {
   const btnPodio = document.getElementById('radar-view-podio-btn');
   const btnTable = document.getElementById('radar-view-table-btn');
   const btnDuelo = document.getElementById('radar-view-duelo-btn');
+  const btnComparar = document.getElementById('radar-view-comparar-btn');
 
   if (btnCards) btnCards.classList.toggle('active', view === 'cards');
   if (btnSetorial) btnSetorial.classList.toggle('active', view === 'setorial');
   if (btnPodio) btnPodio.classList.toggle('active', view === 'podio');
   if (btnTable) btnTable.classList.toggle('active', view === 'table');
   if (btnDuelo) btnDuelo.classList.toggle('active', view === 'duelo');
+  if (btnComparar) btnComparar.classList.toggle('active', view === 'comparar');
 
   const cCards = document.getElementById('radar-cards-container');
   const cSetorial = document.getElementById('radar-setorial-container');
@@ -8067,9 +8178,13 @@ function setRadarView(view) {
   if (cPodio) cPodio.style.display = view === 'podio' ? 'flex' : 'none';
   if (cTable) cTable.style.display = view === 'table' ? 'block' : 'none';
   if (cDuelo) cDuelo.style.display = view === 'duelo' ? 'flex' : 'none';
+  const cComparar = document.getElementById('radar-comparar-container');
+  if (cComparar) cComparar.style.display = view === 'comparar' ? 'block' : 'none';
 
   if (view === 'duelo') {
     renderDueloView();
+  } else if (view === 'comparar') {
+    if (typeof window.fehmirCmpLivre === 'function') window.fehmirCmpLivre();
   } else {
     filterRadar();
   }
@@ -8905,6 +9020,7 @@ function switchModalTab(tabId) {
   document.querySelectorAll('.m-tab-body .m-pane').forEach(pane => {
     pane.classList.toggle('active', pane.id === `mpane-${tabId}`);
   });
+  if (tabId === 'comparar' && currentModalItem && typeof window.fehmirCmpModal === 'function') window.fehmirCmpModal(currentModalItem.t);
   if (tabId === 'historico-dy' && currentModalItem && typeof window.fehmirRenderHistoricoIndicadores === 'function') {
     const el = document.getElementById('m-hist-dy-container');
     if (el) {
@@ -9115,6 +9231,11 @@ function openModal(ticker) {
 
   // KPIs
   document.getElementById('m-preco').textContent = fmtR(r.preco);
+  if (typeof fehmirTipNumero === 'function') {
+    document.getElementById('m-preco').title = fehmirTipNumero(r.t);
+    const elDyT = document.getElementById('m-dy'); if (elDyT) elDyT.title = fehmirTipNumero(r.t, 'dy');
+    const elTetoT = document.getElementById('m-kpi-card-teto'); if (elTetoT) elTetoT.title = fehmirTipNumero(r.t, 'teto');
+  }
   const varEl = document.getElementById('m-variacao');
   // Variação do último pregão pelo robô (antes era um número simulado).
   const Hv = (typeof fehmirObterHist === 'function' ? fehmirObterHist(r.t) : null) || (window.FEHMIR_HIST && window.FEHMIR_HIST[r.t]);
@@ -10353,38 +10474,6 @@ function toggleBlockCollapse(blockIdOrEl, event) {
 }
 window.toggleBlockCollapse = toggleBlockCollapse;
 
-function toggleAllBlocks(collapse) {
-  const blocks = document.querySelectorAll('.collapsible-block');
-  const map = {};
-  blocks.forEach(el => {
-    if (collapse) {
-      el.classList.add('is-collapsed');
-    } else {
-      el.classList.remove('is-collapsed');
-    }
-
-    const btn = el.querySelector('.block-toggle-btn');
-    if (btn) {
-      const icon = btn.querySelector('.icon');
-      const txt = btn.querySelector('.txt');
-      if (collapse) {
-        if (icon) icon.textContent = '▸';
-        if (txt) txt.textContent = 'Expandir';
-        btn.classList.add('is-collapsed');
-      } else {
-        if (icon) icon.textContent = '▾';
-        if (txt) txt.textContent = 'Recolher';
-        btn.classList.remove('is-collapsed');
-      }
-    }
-    if (el.id) map[el.id] = !!collapse;
-  });
-
-  try {
-    localStorage.setItem('barsi-blocks-collapsed', JSON.stringify(map));
-  } catch(e) {}
-}
-window.toggleAllBlocks = toggleAllBlocks;
 
 function initCollapsibleBlocks() {
   try {
@@ -10875,7 +10964,6 @@ function closeTutorialModal() {
 
 /* ===================== CAIXA PARA INVESTIR (15/10/2026) ===================== */
 const CAIXA_CFG_KEY = "barsi-caixa-cfg-v1";
-let caixaLancamentosAberto = false;
 
 function getCaixaCfg() {
   try {
@@ -11199,6 +11287,277 @@ function fehmirMostrarDica(el) {
 }
 window.fehmirMostrarDica = fehmirMostrarDica;
 
+/* ---------- Comparador de ativos: retorno total (spec 005) ----------
+   Quanto R$ 1.000 teriam virado em N anos, com os proventos reinvestidos no fechamento do mês do pagamento.
+   Série mensal do robô (dados/historico_mensal.js: Yahoo ajustado por desdobramento + Banco Central).
+   Só informação: retorno passado não entra na régua e nada aqui muda veredito, alerta, compra ou venda. */
+// Cores dos ativos: paleta categórica validada para daltonismo, sempre na mesma ordem (a cor segue o ativo).
+const CMP_CORES = ['var(--cmp-1)', 'var(--cmp-2)', 'var(--cmp-3)', 'var(--cmp-4)', 'var(--cmp-5)', 'var(--cmp-6)'];
+// Índices: linhas de referência neutras, cada uma com um traço próprio e o nome na ponta.
+const CMP_INDICES = [
+  { k: 'CDI', nome: 'CDI', traco: '7 3' },
+  { k: 'IPCA', nome: 'IPCA', traco: '2 3' },
+  { k: '@IBOV', nome: 'IBOV', traco: '12 4' },
+  { k: '@SMLL', nome: 'SMLL', longo: 'SMLL (via SMAL11)', traco: '5 2 1 2' },
+  { k: '@IFIX', nome: 'IFIX', longo: 'IFIX (via XFIX11)', traco: '9 3 2 3' },
+  { k: '@IDIV', nome: 'IDIV', longo: 'IDIV (via DIVO11)', traco: '1 3' },
+  { k: '@IVVB11', nome: 'IVVB11', traco: '14 3 3 3' }
+];
+const CMP_MAX_ATIVOS = 6;
+function cmpMeses(i, n) {
+  const out = []; let [a, m] = i.split('-').map(Number);
+  for (let k = 0; k < n; k++) { out.push(a + '-' + String(m).padStart(2, '0')); if (++m > 12) { m = 1; a++; } }
+  return out;
+}
+function cmpSomaMeses(mes, n) {
+  let [a, m] = mes.split('-').map(Number); m += n;
+  while (m > 12) { m -= 12; a++; } while (m < 1) { m += 12; a--; }
+  return a + '-' + String(m).padStart(2, '0');
+}
+const cmpMesBR = k => k ? k.slice(5, 7) + '/' + k.slice(0, 4) : '';
+
+// Retorno total de R$ 1 entre `de` e `ate` (AAAA-MM). Função pura (FR-003).
+// Ativo: { i, c: [fechamentos], d: { índice do mês: provento } } — o provento compra mais cotas no fechamento do mês.
+// Taxa: { i, r: [% no mês] } (CDI, IPCA) — acumula mês a mês.
+// Se a série começa depois de `de`, a curva começa no primeiro mês disponível.
+function fehmirRetornoTotal(serie, de, ate) {
+  if (!serie || !(serie.c || serie.r)) return null;
+  const n = (serie.c || serie.r).length, ms = cmpMeses(serie.i, n);
+  const a = ms.findIndex(m => m >= de);
+  let b = -1;
+  for (let k = n - 1; k >= 0; k--) if (!ate || ms[k] <= ate) { b = k; break; }
+  if (a < 0 || b < a) return null;
+  const pts = [[ms[a], 1]];
+  if (serie.r) {
+    let v = 1;
+    for (let k = a + 1; k <= b; k++) { v *= 1 + serie.r[k] / 100; pts.push([ms[k], v]); }
+  } else {
+    if (!(serie.c[a] > 0)) return null;
+    let cotas = 1 / serie.c[a];
+    for (let k = a + 1; k <= b; k++) {
+      const dv = serie.d && serie.d[k];
+      if (dv && serie.c[k] > 0) cotas += cotas * dv / serie.c[k];
+      pts.push([ms[k], cotas * serie.c[k]]);
+    }
+  }
+  return { pts, desde: ms[a], ate: ms[b] };
+}
+window.fehmirRetornoTotal = fehmirRetornoTotal;
+
+function cmpSerie(k) {
+  if (k.charAt(0) !== '@' && window.FEHMIR_IDX_MENSAL && window.FEHMIR_IDX_MENSAL[k]) return window.FEHMIR_IDX_MENSAL[k];
+  return (window.FEHMIR_HIST_MENSAL || {})[k] || null;
+}
+function fehmirEhFii(t) {
+  const m = (window.FEHMIR_MERCADO || []).find(x => x.t === t);
+  if (m && m.tp) return m.tp === 'fii';
+  if (typeof FIIS !== 'undefined' && FIIS.some(f => f.t === t)) return true;
+  const c = fehmirItemCadastro(t);
+  return !!(c && (c.macro === 'fiis' || (c.tipo != null && !c.setor)));
+}
+// Pares do mesmo subtipo de FII (régua de FIIs) ou do mesmo setor (régua de ações), da carteira e do radar,
+// do maior para o menor valor de mercado (FII: liquidez, que é o que o robô de mercado traz). Nunca lista fixa (FR-004).
+function fehmirParesSugeridos(t, max) {
+  const H = window.FEHMIR_HIST_MENSAL || {};
+  const merc = {}; (window.FEHMIR_MERCADO || []).forEach(x => { merc[x.t] = x; });
+  const itens = {}; fehmirListasPreco().forEach(l => l.forEach(x => { if (x && x.t && !itens[x.t]) itens[x.t] = x; }));
+  const base = itens[t] || (merc[t] ? { t, nome: merc[t].n, setor: merc[t].sub } : { t });
+  const fii = fehmirEhFii(t);
+  const grupoDe = x => fii ? (window.fiiSubDe ? window.fiiSubDe(x) : null) : (window.setorDe ? window.setorDe(x) : null);
+  const g = grupoDe(base);
+  if (!g) return { grupo: '', pares: [] };
+  const peso = x => { const m = merc[x]; return m ? (m.mc || 0) * 1e6 + (m.liq || 0) : 0; };
+  const pares = Object.keys(itens)
+    .filter(x => x !== t && H[x] && fehmirEhFii(x) === fii && (grupoDe(itens[x]) || {}).id === g.id)
+    .sort((a, b) => peso(b) - peso(a)).slice(0, max || 5);
+  return { grupo: g.nome || g.id, pares };
+}
+window.fehmirParesSugeridos = fehmirParesSugeridos;
+
+const _cmp = { modal: null, livre: null };
+function cmpNovoEstado(ativos, fii) {
+  const E = { ativos: [], cores: {}, anos: 5, ocultos: new Set(), extra: '' };
+  ativos.forEach(t => cmpAdicionar(E, t));
+  // visíveis de saída: CDI, IPCA e o índice da classe (IFIX para FII, IBOV para ação)
+  const vis = ['CDI', 'IPCA', fii ? '@IFIX' : '@IBOV'];
+  CMP_INDICES.forEach(x => { if (!vis.includes(x.k)) E.ocultos.add(x.k); });
+  return E;
+}
+function cmpAdicionar(E, t) {
+  if (!t || E.ativos.includes(t) || E.ativos.length >= CMP_MAX_ATIVOS) return false;
+  E.ativos.push(t);
+  if (!E.cores[t]) { const usadas = Object.values(E.cores); E.cores[t] = CMP_CORES.find(c => !usadas.includes(c)) || CMP_CORES[0]; }
+  return true;
+}
+// Aba "Comparar" da ficha do ativo
+function fehmirCmpModal(t) {
+  if (!_cmp.modal || _cmp.modal.base !== t) {
+    const sug = fehmirParesSugeridos(t, 5);
+    _cmp.modal = cmpNovoEstado([t, ...sug.pares.slice(0, 2)], fehmirEhFii(t));
+    _cmp.modal.base = t; _cmp.modal.sug = sug;
+  }
+  fehmirRenderComparador('modal');
+}
+window.fehmirCmpModal = fehmirCmpModal;
+// Radar › Comparar retorno (livre): de saída, as 3 maiores posições da carteira com histórico
+function fehmirCmpLivre(tickers) {
+  if (tickers || !_cmp.livre) {
+    let lista = tickers;
+    if (!lista) {
+      const pos = FEHMIR.posicoes(), H = window.FEHMIR_HIST_MENSAL || {};
+      lista = Object.keys(pos).filter(t => pos[t].quant > 0 && H[t])
+        .sort((a, b) => pos[b].quant * ((FEHMIR.preco(b) || {}).preco || 0) - pos[a].quant * ((FEHMIR.preco(a) || {}).preco || 0)).slice(0, 3);
+    }
+    _cmp.livre = cmpNovoEstado(lista, lista.length > 0 && lista.every(fehmirEhFii));
+  }
+  fehmirRenderComparador('livre');
+}
+window.fehmirCmpLivre = fehmirCmpLivre;
+function cmpAcao(modo, acao, v) {
+  const E = _cmp[modo]; if (!E) return;
+  if (acao === 'anos') E.anos = v;
+  else if (acao === 'tirar') { E.ativos = E.ativos.filter(x => x !== v); E.ocultos.delete(v); }
+  else if (acao === 'por') { cmpAdicionar(E, v); E.ocultos.delete(v); }
+  else if (acao === 'ver') { E.ocultos.has(v) ? E.ocultos.delete(v) : E.ocultos.add(v); }
+  else if (acao === 'digitado') {
+    const t = String(v || '').trim().toUpperCase();
+    E.erro = '';
+    if (!t) return;
+    if (!(window.FEHMIR_HIST_MENSAL || {})[t]) E.erro = t + ': sem histórico mensal no robô — incluir no robô (tools/historico_mensal.py).';
+    else if (E.ativos.length >= CMP_MAX_ATIVOS) E.erro = 'Até ' + CMP_MAX_ATIVOS + ' ativos por comparação.';
+    else { cmpAdicionar(E, t); E.ocultos.delete(t); }
+  }
+  fehmirRenderComparador(modo);
+}
+window.cmpAcao = cmpAcao;
+
+function fehmirRenderComparador(modo) {
+  const E = _cmp[modo];
+  const el = document.getElementById(modo === 'modal' ? 'm-cmp-body' : 'radar-cmp-body');
+  if (!el || !E) return;
+  const H = window.FEHMIR_HIST_MENSAL;
+  if (!H) { el.innerHTML = '<p class="fg-muted">A série mensal ainda não foi coletada (dados/historico_mensal.js). O robô roda toda semana.</p>'; return; }
+  const fR0 = v => 'R$ ' + Math.round(v).toLocaleString('pt-BR');
+  const fPct = v => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(1).replace('.', ',') + '%';
+  const ultMes = sr => sr ? cmpSomaMeses(sr.i, (sr.c || sr.r).length - 1) : '';
+
+  const series = [];
+  E.ativos.forEach(t => series.push({ k: t, nome: t, cor: E.cores[t], ativo: true, base: t === E.base, s: H[t] || null }));
+  CMP_INDICES.forEach(x => series.push({ k: x.k, nome: x.nome, longo: x.longo || x.nome, traco: x.traco, ativo: false, s: cmpSerie(x.k) }));
+  const ate = series.filter(x => x.ativo && x.s).map(x => ultMes(x.s)).sort().pop() || series.filter(x => x.s).map(x => ultMes(x.s)).sort().pop();
+  const de = cmpSomaMeses(ate, -12 * E.anos);
+  series.forEach(x => {
+    x.rt = x.s ? fehmirRetornoTotal(x.s, de, ate) : null;
+    x.fim = x.rt ? x.rt.pts[x.rt.pts.length - 1][1] * 1000 : null;
+    x.visivel = !!x.rt && !E.ocultos.has(x.k);
+  });
+
+  // ---- controles: período, ativos (pares sugeridos), campo para incluir ticker
+  const chip = (on, txt, onclick, title) => `<button type="button" class="aloc-chip${on ? ' on' : ''}" aria-pressed="${on}" onclick="${onclick}"${title ? ` title="${title}"` : ''}>${txt}</button>`;
+  const periodos = [1, 2, 5, 10].map(n => chip(E.anos === n, n + (n === 1 ? ' ano' : ' anos'), `cmpAcao('${modo}','anos',${n})`)).join('');
+  const ativosChips = E.ativos.map(t => `<span class="cmp-at"><span class="cmp-sw" style="background:${E.cores[t]}"></span>${t}${t === E.base ? '' : `<button type="button" class="cmp-x" aria-label="Tirar ${t}" onclick="cmpAcao('${modo}','tirar','${t}')">×</button>`}</span>`).join('');
+  const sug = (E.sug ? E.sug.pares : []).filter(t => !E.ativos.includes(t));
+  const sugHtml = sug.length && E.ativos.length < CMP_MAX_ATIVOS
+    ? `<span class="cmp-rot">Pares (${E.sug.grupo}):</span>` + sug.map(t => chip(false, '+ ' + t, `cmpAcao('${modo}','por','${t}')`)).join('')
+    : (E.sug && !E.sug.pares.length ? `<span class="cmp-rot">Sem pares do mesmo ${fehmirEhFii(E.base) ? 'tipo de FII' : 'setor'} com histórico; inclua qualquer ticker ao lado.</span>` : '');
+  const dl = 'cmp-dl-' + modo;
+  const opcoes = Object.keys(H).filter(k => k.charAt(0) !== '@').sort().map(k => `<option value="${k}">`).join('');
+  const entrada = E.ativos.length < CMP_MAX_ATIVOS
+    ? `<input type="text" class="cmp-in" list="${dl}" placeholder="Incluir ticker" aria-label="Incluir ticker na comparação" onkeydown="if(event.key==='Enter'){cmpAcao('${modo}','digitado',this.value)}"><datalist id="${dl}">${opcoes}</datalist>`
+    : `<span class="cmp-rot">Até ${CMP_MAX_ATIVOS} ativos.</span>`;
+
+  // ---- legenda clicável (a série some ou volta)
+  const leg = series.filter(x => x.rt || x.ativo).map(x => {
+    const sw = x.ativo ? `<span class="cmp-sw" style="background:${x.cor}"></span>`
+      : `<svg width="22" height="8" aria-hidden="true"><line x1="0" y1="4" x2="22" y2="4" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="${x.traco}"/></svg>`;
+    const on = x.visivel;
+    return `<button type="button" class="cmp-leg${on ? '' : ' off'}" aria-pressed="${on}" ${x.rt ? `onclick="cmpAcao('${modo}','ver','${x.k}')"` : 'disabled'} title="${x.rt ? (on ? 'Esconder' : 'Mostrar') + ' ' + (x.longo || x.nome) : 'Sem histórico no robô'}">${sw}${x.longo || x.nome}${x.rt ? ` <b>${fR0(x.fim)}</b>` : ' <i>sem histórico</i>'}</button>`;
+  }).join('');
+
+  // ---- gráfico (SVG, um eixo, valores de R$ 1.000)
+  const vis = series.filter(x => x.visivel);
+  const meses = []; for (let m = de; m <= ate; m = cmpSomaMeses(m, 1)) meses.push(m);
+  const W = Math.max(320, Math.round(el.clientWidth || (modo === 'modal' ? 760 : 900))), Hh = 300;
+  const padL = 58, padR = 64, padT = 14, padB = 30, pw = W - padL - padR, ph = Hh - padT - padB;
+  const todos = vis.flatMap(x => x.rt.pts.map(p => p[1] * 1000));
+  let lo = Math.min(1000, ...todos), hi = Math.max(1000, ...todos);
+  const passo = [50, 100, 200, 250, 500, 1000, 2000, 2500, 5000].find(p => (hi - lo) / p <= 6) || 10000;
+  lo = Math.floor(lo / passo) * passo; hi = Math.ceil(hi / passo) * passo; if (hi === lo) hi = lo + passo;
+  const X = m => padL + (meses.length > 1 ? meses.indexOf(m) / (meses.length - 1) : 0) * pw;
+  const Y = v => padT + (1 - (v - lo) / (hi - lo)) * ph;
+  let grade = '';
+  for (let v = lo; v <= hi + 1e-9; v += passo) grade += `<line x1="${padL}" x2="${padL + pw}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}" class="cmp-grade${v === 1000 ? ' base' : ''}"/><text x="${padL - 8}" y="${(Y(v) + 4).toFixed(1)}" text-anchor="end" class="cmp-eixo">${fR0(v)}</text>`;
+  const passoX = meses.length > 60 ? 24 : (meses.length > 25 ? 12 : (meses.length > 13 ? 6 : 3));
+  meses.forEach((m, i) => { if ((meses.length - 1 - i) % passoX === 0) grade += `<text x="${X(m).toFixed(1)}" y="${Hh - 8}" text-anchor="middle" class="cmp-eixo">${m.slice(5, 7)}/${m.slice(2, 4)}</text>`; });
+  const linhas = vis.map(x => {
+    const d = x.rt.pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ',' + Y(p[1] * 1000).toFixed(1)).join('');
+    return x.ativo
+      ? `<path d="${d}" fill="none" stroke="${x.cor}" stroke-width="${x.base ? 2.6 : 2}" stroke-linejoin="round" stroke-linecap="round"/>`
+      : `<path d="${d}" fill="none" stroke="var(--ink-2)" stroke-opacity=".75" stroke-width="1.6" stroke-dasharray="${x.traco}"/>`;
+  }).join('');
+  // nome na ponta de cada linha, afastando rótulos que se sobrepõem
+  const pontas = vis.map(x => { const u = x.rt.pts[x.rt.pts.length - 1]; return { x, px: X(u[0]), py: Y(u[1] * 1000) }; }).sort((a, b) => a.py - b.py);
+  for (let i = 1; i < pontas.length; i++) if (pontas[i].py - pontas[i - 1].py < 12) pontas[i].py = pontas[i - 1].py + 12;
+  const rotulos = pontas.map(p => `<circle cx="${p.px.toFixed(1)}" cy="${Y(p.x.fim).toFixed(1)}" r="3.2" fill="${p.x.ativo ? p.x.cor : 'var(--ink-2)'}" stroke="var(--surface)" stroke-width="1.5"/><text x="${(p.px + 7).toFixed(1)}" y="${(p.py + 4).toFixed(1)}" class="cmp-ponta">${p.x.nome}</text>`).join('');
+  el._cmpDados = { meses, X, vis: vis.map(x => ({ nome: x.longo || x.nome, cor: x.ativo ? x.cor : null, mapa: Object.fromEntries(x.rt.pts.map(p => [p[0], p[1] * 1000])) })), padT, ph };
+  const svg = vis.length
+    ? `<svg class="cmp-svg" viewBox="0 0 ${W} ${Hh}" width="100%" height="${Hh}" role="img" aria-label="R$ 1.000 investidos em ${cmpMesBR(de)}: evolução por ativo e índice">
+        ${grade}${linhas}${rotulos}
+        <line class="cmp-cruz" x1="0" x2="0" y1="${padT}" y2="${padT + ph}" style="display:none"/>
+        <rect x="${padL}" y="${padT}" width="${pw}" height="${ph}" fill="transparent" onmousemove="cmpHover(event,'${modo}')" onmouseleave="cmpHover(null,'${modo}')" ontouchstart="cmpHover(event,'${modo}')" ontouchmove="cmpHover(event,'${modo}')"/>
+      </svg><div class="cmp-tip" role="status" style="display:none"></div>`
+    : '<p class="fg-muted" style="padding:24px 0">Nenhuma série visível: ligue alguma na legenda.</p>';
+
+  // ---- tabela: R$ 1.000 em <mês> hoje seriam
+  const linhasTab = series.filter(x => x.rt).sort((a, b) => b.fim - a.fim).map(x => {
+    const obs = [];
+    if (x.rt.desde > de) obs.push('histórico desde ' + cmpMesBR(x.rt.desde));
+    if (x.rt.ate < ate) obs.push('dados até ' + cmpMesBR(x.rt.ate));
+    const sw = x.ativo ? `<span class="cmp-sw" style="background:${x.cor}"></span>` : `<svg width="18" height="8" aria-hidden="true"><line x1="0" y1="4" x2="18" y2="4" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="${x.traco}"/></svg>`;
+    return `<tr${x.base ? ' class="cmp-base"' : ''}><td>${sw} ${x.longo || x.nome}</td><td class="tabular"><b>${fR0(x.fim)}</b></td><td class="tabular">${fPct(x.fim / 10 - 100)}</td><td class="fg-muted">${obs.join(' · ') || '—'}</td></tr>`;
+  }).join('');
+  const semHist = series.filter(x => x.ativo && !x.rt).map(x => x.k);
+  const meta = window.FEHMIR_HIST_MENSAL_META || {};
+  const ger = meta.gerado ? String(meta.gerado).slice(8, 10) + '/' + String(meta.gerado).slice(5, 7) + '/' + String(meta.gerado).slice(0, 4) : '';
+
+  el.innerHTML = `
+    <div class="cmp-barra"><div class="cmp-grupo">${periodos}</div></div>
+    <div class="cmp-barra">${ativosChips}${sugHtml}${entrada}</div>
+    ${E.erro ? `<p class="cmp-erro">${E.erro}</p>` : ''}
+    ${semHist.length ? `<p class="cmp-erro">${semHist.join(', ')}: sem histórico mensal no robô — incluir no robô.</p>` : ''}
+    <div class="cmp-legenda">${leg}</div>
+    <div class="cmp-grafico">${svg}</div>
+    <div class="twrap"><table class="cmp-tab">
+      <thead><tr><th>Ativo ou índice</th><th>R$ 1.000 em ${cmpMesBR(de)} hoje seriam</th><th>Retorno</th><th>Observação</th></tr></thead>
+      <tbody>${linhasTab}</tbody></table></div>
+    <p class="cmp-nota">Retorno total: cotação ajustada por desdobramento e proventos reinvestidos no fechamento do mês do pagamento, até ${cmpMesBR(ate)}.
+      Fontes: Yahoo Finance (mensal) e Banco Central (CDI e IPCA)${ger ? ', coleta de ' + ger : ''}. IFIX, IDIV e SMLL pelos ETFs que seguem cada índice (XFIX11, DIVO11, SMAL11), com o custo do ETF.
+      Retorno passado não entra na régua nem muda nenhuma recomendação.</p>`;
+}
+window.fehmirRenderComparador = fehmirRenderComparador;
+
+function cmpHover(ev, modo) {
+  const el = document.getElementById(modo === 'modal' ? 'm-cmp-body' : 'radar-cmp-body');
+  const D = el && el._cmpDados; if (!D) return;
+  const svg = el.querySelector('.cmp-svg'), tip = el.querySelector('.cmp-tip'), cruz = el.querySelector('.cmp-cruz');
+  if (!ev) { tip.style.display = 'none'; cruz.style.display = 'none'; return; }
+  const pt = ev.touches ? ev.touches[0] : ev;
+  const r = svg.getBoundingClientRect(), vb = svg.viewBox.baseVal, x = (pt.clientX - r.left) * vb.width / r.width;
+  let melhor = 0, dist = Infinity;
+  D.meses.forEach((m, i) => { const d = Math.abs(D.X(m) - x); if (d < dist) { dist = d; melhor = i; } });
+  const m = D.meses[melhor], cx = D.X(m);
+  cruz.setAttribute('x1', cx); cruz.setAttribute('x2', cx); cruz.style.display = '';
+  const linhas = D.vis.filter(v => v.mapa[m] != null).sort((a, b) => b.mapa[m] - a.mapa[m])
+    .map(v => `<div><span class="cmp-sw" style="background:${v.cor || 'var(--ink-2)'}${v.cor ? '' : ';height:2px'}"></span>${v.nome} <b>R$ ${Math.round(v.mapa[m]).toLocaleString('pt-BR')}</b></div>`).join('');
+  tip.innerHTML = `<div class="cmp-tip-t">${cmpMesBR(m)}</div>${linhas || '<div>sem dado neste mês</div>'}`;
+  tip.style.display = '';
+  const par = (tip.offsetParent || svg.parentNode).getBoundingClientRect();
+  const px = cx * r.width / vb.width, w = tip.offsetWidth;
+  tip.style.left = (r.left - par.left + Math.max(0, Math.min(r.width - w, px + 12 + w > r.width ? px - w - 12 : px + 12))) + 'px';
+  tip.style.top = (r.top - par.top + 8) + 'px';
+}
+window.cmpHover = cmpHover;
+
 function fehmirAportesMes(mes) {
   const k = mes || new Date().toISOString().slice(0, 7);
   const ext = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
@@ -11481,15 +11840,7 @@ function renderModalCaixaConteudo() {
   `;
 }
 
-function openModalBbse3Metodologia() {
-  const modal = document.getElementById('modal-bbse3');
-  if (modal) modal.classList.add('active');
-}
 
-function closeModalBbse3Metodologia() {
-  const modal = document.getElementById('modal-bbse3');
-  if (modal) modal.classList.remove('active');
-}
 
 function toggleMenuMais(event) {
   if (event) event.stopPropagation();
@@ -11521,10 +11872,6 @@ if (typeof document !== 'undefined') {
   });
 }
 
-function toggleCaixaLancamentos() {
-  caixaLancamentosAberto = !caixaLancamentosAberto;
-  renderCaixaInvestir();
-}
 
 function abrirModalAporteMes() {
   const cfg = getCaixaCfg();
@@ -11541,27 +11888,6 @@ function abrirModalAporteMes() {
   calcularTotalLancamento();
 }
 
-function adicionarAporteDoMes(valorCustom) {
-  const cfg = getCaixaCfg();
-  const valor = (typeof valorCustom === 'number' && valorCustom > 0) ? valorCustom : cfg.aporteMensal;
-  const hoje = new Date().toISOString().split('T')[0];
-  if (typeof adicionarTransacao === 'function') {
-    adicionarTransacao({
-      data: hoje,
-      tipo: 'Aporte',
-      ticker: '—',
-      cat: 'CAIXA',
-      quant: 1,
-      preco: valor,
-      taxa: 0,
-      total: valor,
-      nota: 'Aporte do mês registrado'
-    });
-  }
-  recalcularCarteira();
-  if (typeof renderCaixaInvestir === 'function') renderCaixaInvestir();
-}
-window.adicionarAporteDoMes = adicionarAporteDoMes;
 
 function abrirModalProvento(tickerPadrao) {
   openLancamentoModal();
@@ -11675,6 +12001,12 @@ function obterPrecoAtivo(ticker, data) {
   const hist = window.FEHMIR_HIST;
   const h = hist && hist[t];
   const isIntl = INTL_TICKERS.includes(t) || (h && h.moeda === 'USD');
+
+  // 0. Preço de hoje ao vivo (Brapi): mesmo número das tabelas, do Meus Ativos e do patrimônio
+  if (!data && !isIntl) {
+    const vivo = fehmirItemCadastro(t);
+    if (vivo && vivo.fontePreco === 'Brapi' && vivo.preco > 0) return { preco: vivo.preco, semCotacao: false, fonte: 'Brapi' };
+  }
 
   // 1. Robô de histórico (FEHMIR_HIST)
   if (h && Array.isArray(h.c) && h.c.length > 0) {
@@ -15163,34 +15495,10 @@ function fehmirEvolucaoMensal(extrato, hist, periodo) {
     }
 
     const pos = {};
-    let aplicadoAcum = 0;
 
     mesesExtrato.forEach(mes => {
-      const txDoMes = txAtivos.filter(tx => String(tx.data).substring(0, 7) === mes);
-      txDoMes.forEach(tx => {
-        const tk = String(tx.ticker).toUpperCase();
-        const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.quant) : (parseFloat(tx.quant) || 0);
-        const pr = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.preco) : (parseFloat(tx.preco) || 0);
-        const txVal = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.taxa) : (parseFloat(tx.taxa) || 0);
-        const tot = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.total) : (parseFloat(tx.total) || 0);
-        if (!pos[tk]) pos[tk] = { quant: 0, pm: 0 };
-
-        if (tx.tipo === 'Compra' || tx.tipo === 'Reinvestimento') {
-          const custo = tot > 0 ? tot : (q * pr + txVal);
-          const custoAnt = pos[tk].quant * pos[tk].pm;
-          pos[tk].quant += q;
-          pos[tk].pm = pos[tk].quant > 0 ? (custoAnt + custo) / pos[tk].quant : 0;
-          aplicadoAcum += custo;
-        } else if (tx.tipo === 'Venda') {
-          const qVend = Math.min(pos[tk].quant, q);
-          aplicadoAcum = Math.max(0, aplicadoAcum - (qVend * pos[tk].pm));
-          pos[tk].quant = Math.max(0, pos[tk].quant - q);
-          if (pos[tk].quant <= 1e-6) {
-            pos[tk].quant = 0;
-            pos[tk].pm = 0;
-          }
-        }
-      });
+      fehmirAplicarMovimentos(txAtivos.filter(tx => String(tx.data).substring(0, 7) === mes), pos);
+      const aplicadoAcum = Object.keys(pos).reduce((a, tk) => a + (pos[tk].quant > 0 ? pos[tk].quant * pos[tk].pm : 0), 0);
 
       let mercadoMes = 0;
       const dataFimMes = mes + '-31';
@@ -15493,25 +15801,13 @@ function calcularRentabilidadeCota(range) {
 
   function obterPreco(ticker, data) {
     return fehmirPrecoEm(ticker, data, hist);
-    if (typeof obterPrecoAtivo === 'function') {
-      const pObj = obterPrecoAtivo(ticker, data);
-      if (pObj && typeof pObj.preco === 'number' && pObj.preco > 0) return pObj.preco;
-    }
-    const h = hist[ticker];
-    if (!h || !h.c || h.c.length === 0) return 0;
-    const idxData = ibovDates.indexOf(data);
-    if (idxData === -1) return h.c[h.c.length - 1];
-    const offsetFromEnd = ibovLen - 1 - idxData;
-    const targetIdx = h.c.length - 1 - offsetFromEnd;
-    if (targetIdx < 0) return h.c[0];
-    if (targetIdx >= h.c.length) return h.c[h.c.length - 1];
-    return h.c[targetIdx];
   }
 
   const isBacktest = (dataBase < '2026-09-30');
 
   function calcularCotaSubconjunto(extratoFiltrado) {
     let posicao = {};
+    const posObj = {};
     let cotaValor = 100.0;
     let cotas = 0;
     let picoCota = 100.0;
@@ -15519,15 +15815,8 @@ function calcularRentabilidadeCota(range) {
 
     // Se a data inicial é anterior a 30/09/2026, inicializar com a cesta de ativos deste subconjunto existente em 30/09
     if (isBacktest) {
-      extratoFiltrado.filter(t => t.data === '2026-09-30' || t.data <= dataInicioOficial).forEach(t => {
-        const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
-        const tk = t.ticker;
-        if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
-          posicao[tk] = (posicao[tk] || 0) + q;
-        } else if (t.tipo === 'Venda') {
-          posicao[tk] = Math.max(0, (posicao[tk] || 0) - q);
-        }
-      });
+      fehmirAplicarMovimentos(extratoFiltrado.filter(t => t.data === '2026-09-30' || t.data <= dataInicioOficial), posObj);
+      posicao = fehmirQtdMap(posObj);
     }
 
     for (let i = 0; i < datas.length; i++) {
@@ -15553,14 +15842,8 @@ function calcularRentabilidadeCota(range) {
 
       if (i === 0) {
         if (!isBacktest) {
-          extratoFiltrado.filter(t => t.data <= data).forEach(t => {
-            const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
-            if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
-              posicao[t.ticker] = (posicao[t.ticker] || 0) + q;
-            } else if (t.tipo === 'Venda') {
-              posicao[t.ticker] = Math.max(0, (posicao[t.ticker] || 0) - q);
-            }
-          });
+          fehmirAplicarMovimentos(extratoFiltrado.filter(t => t.data <= data), posObj);
+          posicao = fehmirQtdMap(posObj);
         }
         let valorInicial = 0;
         Object.keys(posicao).forEach(t => {
@@ -15595,14 +15878,8 @@ function calcularRentabilidadeCota(range) {
         if (data === '2026-09-30' && isBacktest) {
           // Mantém cotas e posição existentes
         } else {
-          txDia.forEach(t => {
-            const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
-            if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
-              posicao[t.ticker] = (posicao[t.ticker] || 0) + q;
-            } else if (t.tipo === 'Venda') {
-              posicao[t.ticker] = Math.max(0, (posicao[t.ticker] || 0) - q);
-            }
-          });
+          fehmirAplicarMovimentos(txDia, posObj);
+          posicao = fehmirQtdMap(posObj);
 
           const deltaCotas = cotaValor > 0 ? (fluxoLiquido / cotaValor) : 0;
           cotas += deltaCotas;
@@ -15753,16 +16030,10 @@ function calcularRentabilidadeCota(range) {
     const primPregaoAno = ibovDates.find(d => d.startsWith('2026-'));
     if (primPregaoAno) {
       let valIniAno = 0, valFimAno = 0;
-      extrato.filter(t => t.data === '2026-09-30' || t.data <= dataInicioOficial).forEach(t => {
-        const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
-        const tk = t.ticker;
-        if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
-          valIniAno += q * obterPreco(tk, primPregaoAno);
-          valFimAno += q * obterPreco(tk, ultData);
-        } else if (t.tipo === 'Venda') {
-          valIniAno -= q * obterPreco(tk, primPregaoAno);
-          valFimAno -= q * obterPreco(tk, ultData);
-        }
+      const qIni = fehmirQtdMap(fehmirAplicarMovimentos(extrato.filter(t => t.data === '2026-09-30' || t.data <= dataInicioOficial)));
+      Object.keys(qIni).forEach(tk => {
+        valIniAno += qIni[tk] * obterPreco(tk, primPregaoAno);
+        valFimAno += qIni[tk] * obterPreco(tk, ultData);
       });
       if (valIniAno > 0) {
         retornoAno = ((valFimAno / valIniAno) - 1.0) * 100.0;
@@ -16561,14 +16832,8 @@ function renderDrawdownSvg(serie, ddActiveKeys) {
 
 // Quantidade do ticker no fim do dia anterior a `data` (AAAA-MM-DD), pelo extrato
 function fehmirQtdAntesDe(extrato, ticker, data) {
-  let q = 0;
-  extrato.forEach(t => {
-    if (t.ticker !== ticker || !(String(t.data) < data)) return;
-    const n = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
-    if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') q += n;
-    else if (t.tipo === 'Venda') q = Math.max(0, q - n);
-  });
-  return q;
+  const pos = fehmirAplicarMovimentos(extrato.filter(t => t.ticker === ticker && String(t.data) < data));
+  return pos[ticker] ? pos[ticker].quant : 0;
 }
 // Proventos recebidos desde a carga do painel: eventos do robô (FEHMIR_HIST[t].ev = [data ex, valor]) × cotas na véspera da data ex.
 // Lançamento "Provento" do mesmo ticker e mês substitui a estimativa. Ações e FIIs (R$); ETFs e cripto ficam fora.
@@ -16618,16 +16883,8 @@ function calcularProventosMensaisWard() {
   const hist = window.FEHMIR_HIST || {};
   const extrato = (typeof carregarExtrato === 'function') ? carregarExtrato() : DEFAULT_TRANSACOES;
 
-  // Posições ativas da carteira
-  const posicoes = {};
-  extrato.forEach(t => {
-    const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.quant) : (parseFloat(t.quant) || 0);
-    if (t.tipo === 'Compra' || t.tipo === 'Reinvestimento') {
-      posicoes[t.ticker] = (posicoes[t.ticker] || 0) + q;
-    } else if (t.tipo === 'Venda') {
-      posicoes[t.ticker] = Math.max(0, (posicoes[t.ticker] || 0) - q);
-    }
-  });
+  // Posições ativas da carteira (camada única)
+  const posicoes = fehmirQtdMap(calcularPosicoesExtrato(extrato));
 
   // Janela móvel de 12 meses até o mês corrente
   const NOMES_MES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
@@ -17655,7 +17912,7 @@ initCollapsibleBlocks();
     RECR11: "papel", MXRF11: "papel", KNIP11: "papel", RBRR11: "papel", PCIP11: "papel", KNCR11: "papel",
     CPTS11: "papel", KNSC11: "papel", VGIR11: "papel", BTCI11: "papel", MCCI11: "papel", KNHY11: "papel",
     RBRY11: "papel", IRIM11: "papel", PSEC11: "papel", VGII11: "papel", VCJR11: "papel", VRTA11: "papel",
-    HABT11: "papel", VGIP11: "papel", PORD11: "papel", XPCI11: "papel", RPRI11: "papel", HGCR11: "papel", RZAK11: "papel",
+    HABT11: "papel", VGIP11: "papel", PORD11: "papel", KNSC11: "papel", XPCI11: "papel", RPRI11: "papel", HGCR11: "papel", RZAK11: "papel",
     AFHI11: "papel", BISE11: "papel", KDIF11: "papel", JURO11: "papel", JMBI11: "papel", AZIN11: "papel",
     // Terras / Agrícola
     RZTR11: "terras", RZLC11: "terras",
@@ -18684,7 +18941,8 @@ initCollapsibleBlocks();
   function holdings(m) {
     const radar = typeof RADAR_DATA !== "undefined" ? RADAR_DATA : [];
     const rd = typeof rebData !== "undefined" ? rebData : {};
-    const qOf = s => s.quant != null ? s.quant : (rd[s.t] ? rd[s.t].q : 0);
+    const posH = typeof calcularPosicoesExtrato === "function" ? calcularPosicoesExtrato() : {};
+    const qOf = s => typeof quantidadeAtual === "function" ? quantidadeAtual(s, posH, rd) : (s.quant != null ? s.quant : (rd[s.t] ? rd[s.t].q : 0));
     const rows = [];
     const addStock = (s, cls) => {
       const q = qOf(s); if (!q || !s.preco) return;
@@ -20073,9 +20331,10 @@ function toggleTheme(){
 
   function tickersCarteira() {
     const rd = typeof rebData !== "undefined" ? rebData : {};
+    const posT = typeof calcularPosicoesExtrato === "function" ? calcularPosicoesExtrato() : {};
     const out = [];
     [...(typeof BASE_STOCKS !== "undefined" ? BASE_STOCKS : []), ...(typeof OUT_OF_BASE !== "undefined" ? OUT_OF_BASE : []), ...(typeof FIIS !== "undefined" ? FIIS : [])]
-      .forEach(s => { const q = s.quant != null ? s.quant : (rd[s.t] ? rd[s.t].q : 0); if (q > 0) out.push(s.t); });
+      .forEach(s => { const q = typeof quantidadeAtual === "function" ? quantidadeAtual(s, posT, rd) : (s.quant || 0); if (q > 0) out.push(s.t); });
     return out;
   }
 
@@ -22340,7 +22599,6 @@ function renderAbaInternacional() {
     const cbrl = Number(t.cambio) || (cambio || 1);
 
     if (t.tipo === 'Compra' || t.tipo === 'C') {
-      mapa[tk].quant += q;
       let custoBrlItem = 0;
       let custoUsdItem = 0;
       if (t.moeda === 'USD') {
@@ -22360,10 +22618,11 @@ function renderAbaInternacional() {
       mapa[tk].custoUsd += custoUsdItem;
       mapa[tk].compras++;
     } else if (t.tipo === 'Venda' || t.tipo === 'V') {
-      mapa[tk].quant -= q;
       mapa[tk].vendas++;
     }
   });
+  const posIntl = calcularPosicoesExtrato(extrato);
+  Object.keys(mapa).forEach(tk => { mapa[tk].quant = posIntl[tk] ? posIntl[tk].quant : 0; });
 
   // 2. Mesclar com rebData se houver
   if (typeof rebData !== 'undefined') {
@@ -22540,13 +22799,10 @@ function renderAbaCripto() {
     const p = Number(t.preco) || 0;
     const tot = Number(t.total) || (q * p);
 
-    if (t.tipo === 'Compra' || t.tipo === 'C') {
-      mapa[tk].quant += q;
-      mapa[tk].custoBrl += tot;
-    } else if (t.tipo === 'Venda' || t.tipo === 'V') {
-      mapa[tk].quant -= q;
-    }
+    if (t.tipo === 'Compra' || t.tipo === 'C') mapa[tk].custoBrl += tot;
   });
+  const posCripto = calcularPosicoesExtrato(extrato);
+  Object.keys(mapa).forEach(tk => { mapa[tk].quant = posCripto[tk] ? posCripto[tk].quant : 0; });
 
   if (typeof rebData !== 'undefined') {
     criptoTickers.forEach(tk => {
@@ -23516,6 +23772,41 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .fii-venda-1{color:#FDBA74} }
 .fehmir-dica{position:fixed; z-index:9999; max-width:300px; white-space:pre-line; background:var(--surface); color:var(--ink-2); border:1px solid var(--rule-strong); border-radius:10px; padding:9px 11px; font:500 12.5px/1.45 var(--font-sans); box-shadow:0 10px 28px rgba(0,0,0,.3)}
 .rc-ticker .fii-venda{font-size:11px}
+
+/* Spec 005: comparador de retorno total */
+.cmp-intro{margin:0 0 10px; font-size:13px; color:var(--ink-2)}
+.cmp-corpo{position:relative}
+.cmp-barra{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:8px}
+.cmp-grupo{display:flex; gap:6px; flex-wrap:wrap}
+.cmp-rot{font-size:12px; color:var(--muted); margin-left:4px}
+.cmp-at{display:inline-flex; align-items:center; gap:6px; padding:4px 6px 4px 10px; border-radius:999px; border:1px solid var(--rule-strong); font-size:12.5px; font-weight:700; color:var(--ink)}
+.cmp-x{border:0; background:transparent; color:var(--muted); font-size:15px; line-height:1; cursor:pointer; padding:0 4px; min-width:24px; min-height:24px}
+.cmp-x:hover{color:var(--ink)}
+.cmp-sw{display:inline-block; width:12px; height:12px; border-radius:3px; vertical-align:middle; margin-right:6px}
+.cmp-in{font:inherit; font-size:12.5px; padding:5px 10px; border-radius:999px; border:1px solid var(--rule-strong); background:var(--surface); color:var(--ink); width:130px}
+.cmp-erro{margin:4px 0 8px; font-size:12.5px; color:var(--critical)}
+.cmp-legenda{display:flex; flex-wrap:wrap; gap:4px 8px; margin:6px 0 4px}
+.cmp-leg{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:12px; color:var(--ink-2); background:transparent; border:1px solid transparent; border-radius:8px; padding:4px 8px; cursor:pointer; min-height:28px}
+.cmp-leg:hover{border-color:var(--rule)}
+.cmp-leg.off{opacity:.45}
+.cmp-leg.off b{font-weight:500}
+.cmp-leg[disabled]{cursor:default}
+.cmp-leg b{color:var(--ink)}
+.cmp-grafico{position:relative}
+.cmp-svg{display:block; overflow:visible}
+.cmp-grade{stroke:var(--rule); stroke-width:1}
+.cmp-grade.base{stroke:var(--muted); stroke-dasharray:3 3}
+.cmp-eixo{font-size:11px; fill:var(--muted); font-variant-numeric:tabular-nums}
+.cmp-ponta{font-size:11px; font-weight:600; fill:var(--ink-2)}
+.cmp-cruz{stroke:var(--muted); stroke-width:1}
+.cmp-tip{position:absolute; z-index:5; pointer-events:none; background:var(--surface); border:1px solid var(--rule-strong); border-radius:10px; padding:8px 10px; font-size:12px; color:var(--ink-2); box-shadow:0 8px 24px rgba(0,0,0,.18); min-width:170px}
+.cmp-tip div{display:flex; align-items:center; gap:4px; white-space:nowrap}
+.cmp-tip b{margin-left:auto; padding-left:10px; color:var(--ink); font-variant-numeric:tabular-nums}
+.cmp-tip-t{font-weight:700; color:var(--ink); margin-bottom:4px}
+.cmp-tab{width:100%; margin-top:10px; font-size:12.5px}
+.cmp-tab td, .cmp-tab th{padding:6px 8px; text-align:left}
+.cmp-tab tr.cmp-base td{font-weight:700}
+.cmp-nota{margin:10px 0 0; font-size:11.5px; color:var(--muted); line-height:1.5}
 </style>
 <script>
 /* Resumo: patrimônio → evolução/alocação → Meus Ativos → alertas → saúde (recolhida) → eventos (recolhidos).
