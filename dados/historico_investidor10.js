@@ -28,12 +28,14 @@ window.FEHMIR_I10 = {
     { mes: "2026-08", mercado: 4628.74, aplicado: 4642.19 }
   ],
   // compras (c) e vendas (v) por mês — Lançamentos › Consolidação de aportes.
-  // Compras de 2025 e 02/2026: valor exato da dica do gráfico (prints de 01/11/2026). Vendas de 2025: lidas do gráfico (aprox. ±R$ 15),
-  // marcadas com aprox. 03–08/2026: variação do valor aplicado (meses sem venda). 09/2026: soma da lista de lançamentos.
+  // Compras de 2025 e 02/2026: valor exato da dica do gráfico (prints de 01/11/2026). Vendas de 2025: soma da lista de lançamentos
+  // (Renda variável + Renda fixa, prints de 01/11/2026); 08 e 09/2025 têm ETF/stock em dólar convertido pela PTAX do dia (±R$ 2).
+  // Inclui o RDB Nubank (compra R$ 400,00 em 01/07/2025, venda R$ 418,09 em 20/08/2025). Trocas por conversão (MALL11 → PMLL11, CPLE6 → CPLE5) não contam.
+  // 03–08/2026: variação do valor aplicado (meses sem venda). 09/2026: soma da lista de lançamentos.
   aportes: {
-    "2025-04": { c: 1765.93, v: 0 }, "2025-05": { c: 752.80, v: 90, aprox: true }, "2025-06": { c: 411.96, v: 20, aprox: true },
-    "2025-07": { c: 1088.90, v: 0 }, "2025-08": { c: 663.01, v: 520, aprox: true }, "2025-09": { c: 366.36, v: 510, aprox: true },
-    "2025-10": { c: 206.32, v: 90, aprox: true }, "2025-11": { c: 0, v: 320, aprox: true }, "2025-12": { c: 0, v: 0 },
+    "2025-04": { c: 1765.93, v: 0 }, "2025-05": { c: 752.80, v: 78.00 }, "2025-06": { c: 411.96, v: 20.28 },
+    "2025-07": { c: 1088.90, v: 0 }, "2025-08": { c: 663.01, v: 517.69 }, "2025-09": { c: 366.36, v: 500.45 },
+    "2025-10": { c: 206.32, v: 90.24 }, "2025-11": { c: 0, v: 315.32 }, "2025-12": { c: 0, v: 0 },
     "2026-01": { c: 0, v: 0 }, "2026-02": { c: 93.00, v: 0 }, "2026-03": { c: 119.68, v: 0 }, "2026-04": { c: 62.17, v: 0 },
     "2026-05": { c: 22.99, v: 0 }, "2026-06": { c: 42.18, v: 0 }, "2026-07": { c: 147.77, v: 0 }, "2026-08": { c: 408.01, v: 0 },
     "2026-09": { c: 653.45, v: 0 }
