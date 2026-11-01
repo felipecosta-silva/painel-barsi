@@ -2,7 +2,6 @@
 body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Fehmir</title>
 <script src="dados/historico.js"></script>
-<script src="dados/historico_mensal.js"></script>
 <script src="dados/fundamentos_cvm.js"></script>
 <script src="dados/fundamentos.js"></script>
 <script src="dados/fii_pvp.js"></script>
@@ -11365,6 +11364,23 @@ function fehmirRetornoTotal(serie, de, ate) {
 }
 window.fehmirRetornoTotal = fehmirRetornoTotal;
 
+// A série mensal (~300 ativos) só carrega quando o comparador abre, para não pesar a abertura do painel
+function fehmirCarregarMensal(cb) {
+  if (window.FEHMIR_HIST_MENSAL || window._mensalTentou) return cb();
+  (window._mensalCbs = window._mensalCbs || []).push(cb);
+  if (window._mensalCarregando) return;
+  window._mensalCarregando = true;
+  const sc = document.createElement('script');
+  sc.src = 'dados/historico_mensal.js';
+  sc.onload = sc.onerror = () => {
+    window._mensalCarregando = false; window._mensalTentou = true;
+    const l = window._mensalCbs || []; window._mensalCbs = [];
+    l.forEach(f => { try { f(); } catch (e) { console.warn('Comparador:', e); } });
+  };
+  document.head.appendChild(sc);
+}
+window.fehmirCarregarMensal = fehmirCarregarMensal;
+
 function cmpSerie(k) {
   if (k.charAt(0) !== '@' && window.FEHMIR_IDX_MENSAL && window.FEHMIR_IDX_MENSAL[k]) return window.FEHMIR_IDX_MENSAL[k];
   return (window.FEHMIR_HIST_MENSAL || {})[k] || null;
@@ -11382,16 +11398,24 @@ function fehmirParesSugeridos(t, max) {
   const H = window.FEHMIR_HIST_MENSAL || {};
   const merc = {}; (window.FEHMIR_MERCADO || []).forEach(x => { merc[x.t] = x; });
   const itens = {}; fehmirListasPreco().forEach(l => l.forEach(x => { if (x && x.t && !itens[x.t]) itens[x.t] = x; }));
-  const base = itens[t] || (merc[t] ? { t, nome: merc[t].n, setor: merc[t].sub } : { t });
+  Object.keys(merc).forEach(k => { if (!itens[k]) itens[k] = { t: k, nome: merc[k].n, setor: merc[k].sub }; });
+  const base = itens[t] || { t };
   const fii = fehmirEhFii(t);
+  const peso = x => { const m = merc[x]; return m ? (m.mc || 0) * 1e6 + (m.liq || 0) : 0; };
+  const cands = Object.keys(itens).filter(x => x !== t && H[x] && fehmirEhFii(x) === fii);
+  const ordenar = l => l.sort((a, b) => peso(b) - peso(a)).slice(0, max || 5);
+  // Ação: primeiro o mesmo setor do radar de mercado (ex.: Petróleo/Gás); se vier pouco, o setor da régua
+  // (sem outras classes da mesma empresa; dentro do setor, o subsetor mais parecido vem antes: produtora com produtora)
+  if (!fii && merc[t] && merc[t].st) {
+    const raiz = t.slice(0, 4), pal = x => new Set(String((merc[x] || {}).sub || '').toLowerCase().split(/[^a-zà-ú]+/).filter(w => w.length >= 4));
+    const pb = pal(t), nota = x => (merc[x].sub === merc[t].sub ? 10 : 0) + [...pal(x)].filter(w => pb.has(w)).length;
+    const mesmo = cands.filter(x => merc[x] && merc[x].st === merc[t].st && x.slice(0, 4) !== raiz);
+    if (mesmo.length >= 2) return { grupo: merc[t].st, pares: mesmo.sort((a, b) => (nota(b) - nota(a)) || (peso(b) - peso(a))).slice(0, max || 5) };
+  }
   const grupoDe = x => fii ? (window.fiiSubDe ? window.fiiSubDe(x) : null) : (window.setorDe ? window.setorDe(x) : null);
   const g = grupoDe(base);
   if (!g) return { grupo: '', pares: [] };
-  const peso = x => { const m = merc[x]; return m ? (m.mc || 0) * 1e6 + (m.liq || 0) : 0; };
-  const pares = Object.keys(itens)
-    .filter(x => x !== t && H[x] && fehmirEhFii(x) === fii && (grupoDe(itens[x]) || {}).id === g.id)
-    .sort((a, b) => peso(b) - peso(a)).slice(0, max || 5);
-  return { grupo: g.nome || g.id, pares };
+  return { grupo: g.nome || g.id, pares: ordenar(cands.filter(x => (grupoDe(itens[x]) || {}).id === g.id)) };
 }
 window.fehmirParesSugeridos = fehmirParesSugeridos;
 
@@ -11412,6 +11436,10 @@ function cmpAdicionar(E, t) {
 }
 // Aba "Comparar" da ficha do ativo
 function fehmirCmpModal(t) {
+  if (!window.FEHMIR_HIST_MENSAL && !window._mensalTentou) {
+    const el = document.getElementById('m-cmp-body'); if (el) el.innerHTML = '<p class="fg-muted">Carregando a série de 10 anos…</p>';
+    return fehmirCarregarMensal(() => fehmirCmpModal(t));
+  }
   if (!_cmp.modal || _cmp.modal.base !== t) {
     const sug = fehmirParesSugeridos(t, 5);
     _cmp.modal = cmpNovoEstado([t, ...sug.pares.slice(0, 2)], fehmirEhFii(t));
@@ -11422,6 +11450,10 @@ function fehmirCmpModal(t) {
 window.fehmirCmpModal = fehmirCmpModal;
 // Radar › Comparar retorno (livre): de saída, as 3 maiores posições da carteira com histórico
 function fehmirCmpLivre(tickers) {
+  if (!window.FEHMIR_HIST_MENSAL && !window._mensalTentou) {
+    const el = document.getElementById('radar-cmp-body'); if (el) el.innerHTML = '<p class="fg-muted">Carregando a série de 10 anos…</p>';
+    return fehmirCarregarMensal(() => fehmirCmpLivre(tickers));
+  }
   if (tickers || !_cmp.livre) {
     let lista = tickers;
     if (!lista) {

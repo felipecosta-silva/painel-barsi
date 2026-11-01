@@ -1,6 +1,7 @@
 // Spec 005: comparador de retorno total (SC-001 a SC-003 e cenários de aceite)
 const falhas = [];
 const ok = (cond, msg) => { if (!cond) falhas.push(msg); };
+await new Promise(r => fehmirCarregarMensal(r));
 const H = window.FEHMIR_HIST_MENSAL, I = window.FEHMIR_IDX_MENSAL;
 ok(H && Object.keys(H).length > 50, 'série mensal ausente');
 // FR-003: conta pura — 2 meses, provento de 1 no mês 2 a preço 10 → 1,1 cota × 10 = 11 sobre 10
@@ -37,4 +38,6 @@ closeTicketModal();
 setRadarView('comparar'); await new Promise(r => setTimeout(r, 400));
 ok(document.querySelector('#radar-cmp-body .cmp-svg path'), 'comparador livre não desenhou');
 const kn = fehmirRetornoTotal(H.KNSC11, cmpSomaMeses(fim, -60), fim);
-return { falhas: falhas.length, detalhes: falhas, cdi5: +vCdi.toFixed(2), desvioCdi: +((vCdi / 1804.70 - 1) * 100).toFixed(2), knsc11: kn && { desde: kn.desde, v: +(kn.pts[kn.pts.length - 1][1] * 1000).toFixed(2) }, pares: sug };
+const pp = fehmirParesSugeridos('PETR4', 5);
+ok(pp.pares.includes('PRIO3') && pp.pares.includes('RECV3'), 'pares da PETR4: ' + pp.pares.join(','));
+return { petr4: pp, falhas: falhas.length, detalhes: falhas, cdi5: +vCdi.toFixed(2), desvioCdi: +((vCdi / 1804.70 - 1) * 100).toFixed(2), knsc11: kn && { desde: kn.desde, v: +(kn.pts[kn.pts.length - 1][1] * 1000).toFixed(2) }, pares: sug };

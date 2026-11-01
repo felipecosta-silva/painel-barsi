@@ -96,8 +96,17 @@ def serie_sgs(num):
     return {"i": pts[0][0], "r": [v for _, v in pts], "f": pts[-1][0]}
 
 
+def tickers_do_mercado():
+    """Ativos do radar de mercado (dados/mercado.js), para o comparador aceitar qualquer um deles."""
+    try:
+        txt = (RAIZ / "dados" / "mercado.js").read_text(encoding="utf-8")
+        return [x["t"] for x in json.loads(txt.split("window.FEHMIR_MERCADO = ", 1)[1].rsplit(";", 1)[0]) if x.get("t")]
+    except Exception:
+        return []
+
+
 def main():
-    alvos = sorted(set(tickers_do_painel()) | set(TICKERS_EXTRAS) | set(EXTRAS))
+    alvos = sorted(set(tickers_do_painel()) | set(TICKERS_EXTRAS) | set(EXTRAS) | set(tickers_do_mercado()))
     dados, falhas = {}, []
     for t in alvos:
         s = serie_yahoo(t + ".SA")
@@ -105,7 +114,7 @@ def main():
             dados[t] = s
         else:
             falhas.append(t)
-        time.sleep(0.3)
+        time.sleep(0.15)
     for nome, simb in INDICES.items():
         s = serie_yahoo(simb)
         if s:
