@@ -6259,8 +6259,29 @@ function renderProventosEventos(filtro) {
   const tot = itens.reduce((a, x) => a + x.total, 0);
   const porMes = {}; itens.forEach(x => { const k = x.data.slice(0, 7); porMes[k] = (porMes[k] || 0) + x.total; });
   const resumo = Object.entries(porMes).sort((a, b) => b[0].localeCompare(a[0])).map(([k, v]) => `<span class="pev-pill">${k.slice(5, 7)}/${k.slice(2, 4)} <b>${fmtR(v)}</b></span>`).join('');
-  body.innerHTML = `
-    <div class="pev-resumo"><span>Total <b>${fmtR(tot)}</b> em ${itens.length} pagamento(s)</span>${resumo}</div>
+  // A receber: lista do Investidor10 (status "A Receber"), só pagamentos de hoje em diante
+  const hojeP = new Date().toISOString().slice(0, 10);
+  const arec = ((window.FEHMIR_I10 && window.FEHMIR_I10.aReceber) || []).filter(x => x.pag >= hojeP)
+    .filter(x => _pevFiltro === 'todos' || (_pevFiltro === 'fiis' ? cat(x.t) === 'FIIS' : cat(x.t) !== 'FIIS'))
+    .sort((a, b) => a.pag.localeCompare(b.pag));
+  const arecMes = {}; arec.forEach(x => { const k = x.pag.slice(0, 7); arecMes[k] = (arecMes[k] || 0) + x.l; });
+  const arecHtml = arec.length ? `
+    <div class="pev-resumo" style="margin-top:4px"><span>A receber <b>${fmtR(arec.reduce((a, x) => a + x.l, 0))}</b> líquido em ${arec.length} pagamento(s)</span>${Object.entries(arecMes).map(([k, v]) => `<span class="pev-pill">${k.slice(5, 7)}/${k.slice(2, 4)} <b>${fmtR(v)}</b></span>`).join('')}</div>
+    <div class="twrap"><table class="pev-table">
+      <thead><tr><th>Ativo</th><th>Pagamento</th><th>Data com</th><th>Tipo</th><th>Cotas</th><th>Bruto</th><th>Líquido</th></tr></thead>
+      <tbody>${arec.map(x => `<tr class="clickable-row" onclick="openModal('${x.t}')">
+        <td data-label="Ativo"><b>${x.t}</b> <span class="pev-tag">a receber</span></td>
+        <td data-label="Pagamento" class="tabular" style="font-weight:700">${dBr(x.pag)}</td>
+        <td data-label="Data com" class="tabular">${dBr(x.com)}</td>
+        <td data-label="Tipo">${x.tipo}</td>
+        <td data-label="Cotas" class="tabular">${x.q}</td>
+        <td data-label="Bruto" class="tabular">${fmtR(x.b)}</td>
+        <td data-label="Líquido" class="tabular" style="font-weight:700">${fmtR(x.l)}</td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+    <p class="fg-muted" style="font-size:11.5px; margin:4px 0 14px">Fonte: Investidor10 (Meus proventos), 01/11/2026. JSCP com 15% de IR retido.</p>` : '';
+  body.innerHTML = arecHtml + `
+    <div class="pev-resumo"><span>Recebidos <b>${fmtR(tot)}</b> em ${itens.length} pagamento(s)</span>${resumo}</div>
     <div class="twrap"><table class="pev-table">
       <thead><tr><th>Ativo</th><th>Data ex</th><th>Cotas</th><th>Valor por cota</th><th>Total</th><th>Origem</th></tr></thead>
       <tbody>${itens.map(x => `<tr class="clickable-row" onclick="openModal('${x.t}')">
@@ -12412,7 +12433,7 @@ function recalcularCarteira() {
 
   if (provDados && elProventos) {
     let totRec12m = 0, totEst12m = 0;
-    provDados.meses.forEach(m => { totRec12m += (m.recebido || 0); totEst12m += (m.estimado || 0); });
+    provDados.meses.slice(0, -1).forEach(m => { totRec12m += (m.recebido || 0); totEst12m += (m.estimado || 0); });
     elProventos.textContent = fmtR(provDados.total12m);
     if (elProventosLbl) {
       elProventosLbl.textContent = totEst12m > 0 ? "Proventos 12m (estimado)" : "Proventos 12m";
@@ -15725,7 +15746,7 @@ function renderAportesMensais(periodo) {
       <div><span class="ev-sw ev-sw-bar"></span>Compras <b>${fmtR(d.compras)}</b></div>
       <div><span class="ev-sw ev-sw-venda"></span>Vendas <b>${fmtR(d.vendas)}</b></div>
       <div>Líquido <b>${(liq < 0 ? '−' : '') + fmtR(Math.abs(liq))}</b></div>
-      <div class="ev-tip-f">${d.fonte ? 'Fonte: ' + d.fonte + (d.aprox ? ' · lido do gráfico, aproximado' : '') : 'Fonte: extrato do painel'}</div>`;
+      <div class="ev-tip-f">${d.fonte ? 'Fonte: ' + d.fonte + (d.aprox ? ' · vendas lidas do gráfico, aproximadas' : '') : 'Fonte: extrato do painel'}</div>`;
     tip.style.display = 'block';
     const box = container.getBoundingClientRect(), sv = svg.getBoundingClientRect();
     const px = sv.left - box.left + cx * (sv.width / W), tw = tip.offsetWidth;
@@ -15736,7 +15757,7 @@ function renderAportesMensais(periodo) {
   svg.addEventListener('mouseleave', () => { tip.style.display = 'none'; svg.querySelectorAll('.ap-m path').forEach(p => p.classList.remove('ev-dim')); });
   const temAprox = dados.some(d => d.aprox), doI10 = dados.filter(d => d.fonte);
   const partes = [];
-  if (doI10.length) partes.push(`${fmtMes(doI10[0].mes)}–${fmtMes(doI10[doI10.length - 1].mes)} Investidor10${temAprox ? ' (2025 lido do gráfico, aproximado)' : ''}`);
+  if (doI10.length) partes.push(`${fmtMes(doI10[0].mes)}–${fmtMes(doI10[doI10.length - 1].mes)} Investidor10${temAprox ? ' (vendas de 2025 lidas do gráfico, aproximadas)' : ''}`);
   if (dados.some(d => !d.fonte)) partes.push(`desde ${fmtMes(dados.find(d => !d.fonte).mes)} extrato do painel`);
   container.insertAdjacentHTML('beforeend', `<div class="ev-fonte">Fontes: ${partes.join(' · ')}. Valores sem o caixa e sem reinvestimento automático.</div>`);
 }
@@ -16886,17 +16907,18 @@ function calcularProventosMensaisWard() {
   // Posições ativas da carteira (camada única)
   const posicoes = fehmirQtdMap(calcularPosicoesExtrato(extrato));
 
-  // Janela móvel de 12 meses até o mês corrente
+  // 12 meses fechados + o mês corrente (como o Investidor10: o mês corrente aparece, mas fica fora do total de 12 meses)
   const NOMES_MES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
   const mesesKeys = [], nomesMeses = {};
   const hojeD = new Date();
-  for (let i = 11; i >= 0; i--) {
+  for (let i = 12; i >= 0; i--) {
     const d = new Date(hojeD.getFullYear(), hojeD.getMonth() - i, 1);
     const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
     mesesKeys.push(k); nomesMeses[k] = NOMES_MES[d.getMonth()] + "/" + d.getFullYear();
   }
   const hojeIso = hojeD.toISOString().slice(0, 10);
   const inicioCarteira = extrato.map(t => String(t.data)).sort()[0] || hojeIso;
+  const aRec = (window.FEHMIR_I10 && window.FEHMIR_I10.aReceber) || [];
 
   const meses = [];
   let total12m = 0;
@@ -16922,6 +16944,15 @@ function calcularProventosMensaisWard() {
           pagamentos: provsReais.length
         });
         return; // Lançamento real substitui estimativa!
+      }
+
+      // 1b. A receber (lista do Investidor10 com data de pagamento) substitui a estimativa do robô naquele mês
+      const arecT = aRec.filter(x => x.t === ticker && x.pag.slice(0, 7) === chave && x.pag >= hojeIso);
+      if (arecT.length > 0) {
+        const v = arecT.reduce((a, x) => a + x.l, 0);
+        totalEstimado += v;
+        pagadores.push({ ticker, tipo: 'estimado', valor: v, pagamentos: arecT.length, fonte: 'a receber (Investidor10)' });
+        return;
       }
 
       // 2. Proventos estimados por evento (ev)
@@ -16987,9 +17018,9 @@ function calcularProventosMensaisWard() {
       mm.recebido = v; mm.estimado = 0; mm.total = v; mm.fonte = 'Investidor10';
       mm.pagadores = [{ ticker: 'Total do mês (Investidor10)', tipo: 'recebido', valor: v, pagamentos: 1, pct: 100 }];
     });
-    total12m = meses.reduce((a, mm) => a + mm.total, 0);
     maiorMes = meses.reduce((b, mm) => mm.total > b.total ? { chave: mm.chave, label: mm.label, total: mm.total } : b, { chave: '', label: '', total: 0 });
   }
+  total12m = meses.slice(0, -1).reduce((a, mm) => a + mm.total, 0); // só os 12 meses fechados
   const mediaMensal = total12m / 12.0;
   const mesAtual = meses[meses.length - 1];
 

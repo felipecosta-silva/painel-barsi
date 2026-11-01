@@ -28,15 +28,35 @@ window.FEHMIR_I10 = {
     { mes: "2026-08", mercado: 4628.74, aplicado: 4642.19 }
   ],
   // compras (c) e vendas (v) por mês — Lançamentos › Consolidação de aportes.
-  // 2025: lido do gráfico (aprox., ±R$ 15). 02–08/2026: variação do valor aplicado (meses sem venda). 09/2026: soma da lista de lançamentos.
+  // Compras de 2025 e 02/2026: valor exato da dica do gráfico (prints de 01/11/2026). Vendas de 2025: lidas do gráfico (aprox. ±R$ 15),
+  // marcadas com aprox. 03–08/2026: variação do valor aplicado (meses sem venda). 09/2026: soma da lista de lançamentos.
   aportes: {
-    "2025-04": { c: 1760, v: 0, aprox: true }, "2025-05": { c: 740, v: 90, aprox: true }, "2025-06": { c: 410, v: 20, aprox: true },
-    "2025-07": { c: 1080, v: 0, aprox: true }, "2025-08": { c: 660, v: 520, aprox: true }, "2025-09": { c: 360, v: 510, aprox: true },
-    "2025-10": { c: 200, v: 90, aprox: true }, "2025-11": { c: 0, v: 320, aprox: true }, "2025-12": { c: 0, v: 0 },
-    "2026-01": { c: 0, v: 0 }, "2026-02": { c: 91.13, v: 0 }, "2026-03": { c: 119.68, v: 0 }, "2026-04": { c: 62.17, v: 0 },
+    "2025-04": { c: 1765.93, v: 0 }, "2025-05": { c: 752.80, v: 90, aprox: true }, "2025-06": { c: 411.96, v: 20, aprox: true },
+    "2025-07": { c: 1088.90, v: 0 }, "2025-08": { c: 663.01, v: 520, aprox: true }, "2025-09": { c: 366.36, v: 510, aprox: true },
+    "2025-10": { c: 206.32, v: 90, aprox: true }, "2025-11": { c: 0, v: 320, aprox: true }, "2025-12": { c: 0, v: 0 },
+    "2026-01": { c: 0, v: 0 }, "2026-02": { c: 93.00, v: 0 }, "2026-03": { c: 119.68, v: 0 }, "2026-04": { c: 62.17, v: 0 },
     "2026-05": { c: 22.99, v: 0 }, "2026-06": { c: 42.18, v: 0 }, "2026-07": { c: 147.77, v: 0 }, "2026-08": { c: 408.01, v: 0 },
     "2026-09": { c: 653.45, v: 0 }
   },
+  // proventos a receber (Proventos › Meus proventos, status "A Receber", print de 01/11/2026). b = bruto, l = líquido (JSCP com 15% de IR)
+  aReceber: [
+    { t: "TRXF11", com: "2026-10-30", pag: "2026-11-16", tipo: "Dividendos", q: 11, b: 10.23, l: 10.23 },
+    { t: "MXRF11", com: "2026-10-30", pag: "2026-11-16", tipo: "Dividendos", q: 46, b: 4.37, l: 4.37 },
+    { t: "PETR4", com: "2026-08-21", pag: "2026-11-23", tipo: "JSCP", q: 7, b: 4.72, l: 3.89 },
+    { t: "TAEE11", com: "2026-08-14", pag: "2026-11-26", tipo: "JSCP", q: 4, b: 1.44, l: 1.19 },
+    { t: "TAEE11", com: "2026-08-14", pag: "2026-11-26", tipo: "Dividendos", q: 4, b: 0.96, l: 0.96 },
+    { t: "BBDC4", com: "2026-11-03", pag: "2026-12-01", tipo: "JSCP", q: 5, b: 0.09, l: 0.08 },
+    { t: "ISAE4", com: "2026-11-25", pag: "2026-12-07", tipo: "JSCP", q: 7, b: 1.32, l: 1.09 },
+    { t: "ISAE4", com: "2026-11-09", pag: "2026-12-07", tipo: "JSCP", q: 7, b: 1.32, l: 1.09 },
+    { t: "PETR4", com: "2026-08-21", pag: "2026-12-21", tipo: "Dividendos", q: 7, b: 3.30, l: 3.30 },
+    { t: "PETR4", com: "2026-08-21", pag: "2026-12-21", tipo: "JSCP", q: 7, b: 1.42, l: 1.17 },
+    { t: "CMIG4", com: "2025-06-23", pag: "2026-12-30", tipo: "JSCP", q: 2, b: 0.21, l: 0.18 },
+    { t: "CMIG4", com: "2025-09-29", pag: "2026-12-30", tipo: "JSCP", q: 4, b: 0.42, l: 0.36 },
+    { t: "CMIG4", com: "2026-04-30", pag: "2026-12-30", tipo: "Dividendos", q: 4, b: 0.47, l: 0.47 },
+    { t: "CMIG4", com: "2025-12-23", pag: "2026-12-30", tipo: "JSCP", q: 4, b: 0.47, l: 0.40 },
+    { t: "MELK3", com: "2026-04-29", pag: "2026-12-31", tipo: "Dividendos", q: 2, b: 0.20, l: 0.20 },
+    { t: "RECV3", com: "2026-01-08", pag: "2026-12-31", tipo: "Dividendos", q: 4, b: 1.37, l: 1.37 }
+  ],
   // rentabilidade mensal da carteira (%)
   rentabilidade: {
     "2025-04": 3.83, "2025-05": 1.62, "2025-06": 0.97, "2025-07": -1.33, "2025-08": 1.71, "2025-09": 2.09,
