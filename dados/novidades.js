@@ -2,6 +2,29 @@
 window.FEHMIR_NOVIDADES = {
   "BBAS3": [
     {
+      "id": "cvm_001023IPE281020260171802023-05",
+      "data": "2026-10-28",
+      "tipo": "Comunicado ao Mercado",
+      "titulo": "Renúncia e indicação de administrador",
+      "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1581266&numSequencia=1105972&numVersao=1",
+      "resumo": [
+        "Comunicado ao Mercado publicado em 2026-10-28."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
       "id": "cvm_001023IPE080920260131837011-79",
       "data": "2026-09-08",
       "tipo": "Comunicado ao Mercado",
@@ -775,6 +798,29 @@ window.FEHMIR_NOVIDADES = {
     }
   ],
   "PETR4": [
+    {
+      "id": "cvm_009512IPE281020260169680874-88",
+      "data": "2026-10-28",
+      "tipo": "Fato Relevante",
+      "titulo": "Relatório de Produção e Vendas 3T26",
+      "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1581329&numSequencia=1106035&numVersao=1",
+      "resumo": [
+        "Fato Relevante publicado em 2026-10-28."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
     {
       "id": "cvm_009512IPE131020260134742550-39",
       "data": "2026-10-13",
