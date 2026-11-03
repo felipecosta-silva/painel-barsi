@@ -1,9 +1,9 @@
 /* Gerado por tools/analista.py — não editar à mão. */
 window.FEHMIR_ALERTAS = {
  "meta": {
-  "gerado": "2026-10-31 02:37",
+  "gerado": "2026-11-03 03:58",
   "verificados": 105,
-  "ativos": 82,
+  "ativos": 69,
   "limiares": {
    "movimento_pp": 8,
    "janela": 5,
@@ -92,8 +92,8 @@ window.FEHMIR_ALERTAS = {
    },
    "AXIA3": {
     "dpa12": 1.8895,
-    "lucro12m": 12056946000.0,
-    "roe": 9.86
+    "lucro12m": null,
+    "roe": null
    },
    "SBSP3": {
     "dpa12": 0.6946,
@@ -147,8 +147,8 @@ window.FEHMIR_ALERTAS = {
    },
    "BBDC4": {
     "dpa12": 1.6124,
-    "lucro12m": 24318943000.0,
-    "roe": 13.42
+    "lucro12m": 26148439000.0,
+    "roe": 13.41
    },
    "VITT3": {
     "dpa12": 0.2143,
@@ -162,8 +162,8 @@ window.FEHMIR_ALERTAS = {
    },
    "BBDC3": {
     "dpa12": 1.4658,
-    "lucro12m": 24318943000.0,
-    "roe": 13.42
+    "lucro12m": 26148439000.0,
+    "roe": 13.41
    },
    "SANB11": {
     "dpa12": 2.1724,
@@ -277,8 +277,8 @@ window.FEHMIR_ALERTAS = {
    },
    "WEGE3": {
     "dpa12": 2.0032,
-    "lucro12m": 6254051000.0,
-    "roe": 33.16
+    "lucro12m": 6268804000.0,
+    "roe": 31.41
    },
    "CPLE3": {
     "dpa12": 1.0626,
@@ -544,12 +544,12 @@ window.FEHMIR_ALERTAS = {
   "pareceres_pendentes": [
    "BBDC4",
    "BBSE3",
-   "GARE11",
-   "GGRC11",
    "LOGG3",
    "TIMS3",
-   "TRXF11",
-   "AURE3"
+   "AURE3",
+   "BBAS3",
+   "BBDC3",
+   "BPAC11"
   ]
  },
  "itens": [
@@ -570,68 +570,9 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-31",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "ISAE4:zona_compra",
-   "ticker": "ISAE4",
-   "tipo": "zona_compra",
-   "prioridade": "alta",
-   "texto": "ISAE4 abaixo do preço de compra: R$ 24,90 ≤ R$ 30,76 (teto R$ 32,38, Bazin projetivo)",
-   "numeros": {
-    "preco": 24.9,
-    "compra": 30.76,
-    "teto": 32.38
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": true,
-   "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "TAEE11:zona_compra",
-   "ticker": "TAEE11",
-   "tipo": "zona_compra",
-   "prioridade": "alta",
-   "texto": "TAEE11 abaixo do preço de compra: R$ 39,20 ≤ R$ 53,34 (teto R$ 56,14, Bazin projetivo)",
-   "numeros": {
-    "preco": 39.2,
-    "compra": 53.34,
-    "teto": 56.14
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": true,
-   "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "ALUP11:zona_compra",
-   "ticker": "ALUP11",
-   "tipo": "zona_compra",
-   "prioridade": "alta",
-   "texto": "ALUP11 abaixo do preço de compra: R$ 31,29 ≤ R$ 34,25 (teto R$ 36,05, Bazin projetivo)",
-   "numeros": {
-    "preco": 31.29,
-    "compra": 34.25,
-    "teto": 36.05
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": false,
-   "desde": "2026-10-31",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
+   "ultimo": "2026-11-03",
+   "estado": "ativo",
+   "parecer": true
   },
   {
    "id": "AURE3:zona_compra",
@@ -650,7 +591,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -670,7 +611,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-31",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -690,27 +631,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-31",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "TRPL4:zona_compra",
-   "ticker": "TRPL4",
-   "tipo": "zona_compra",
-   "prioridade": "alta",
-   "texto": "TRPL4 abaixo do preço de compra: R$ 24,90 ≤ R$ 25,20 (teto R$ 28,00, Bazin projetivo)",
-   "numeros": {
-    "preco": 24.9,
-    "compra": 25.2,
-    "teto": 28
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": false,
-   "desde": "2026-10-31",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -730,26 +651,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "BBDC4:zona_realizacao",
-   "ticker": "BBDC4",
-   "tipo": "zona_realizacao",
-   "prioridade": "media",
-   "texto": "BBDC4 na zona de realização: R$ 14,16 ≥ teto × 1,2 (R$ 11,26). B.A.S.E. só se vende por fundamento; FII nunca por rebalanceamento.",
-   "numeros": {
-    "preco": 14.16,
-    "teto": 9.38
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": true,
-   "desde": "2026-10-31",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -769,46 +671,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "GARE11:documento",
-   "ticker": "GARE11",
-   "tipo": "documento",
-   "prioridade": "media",
-   "texto": "GARE11: Relatório Gerencial",
-   "numeros": {
-    "documentos": 1
-   },
-   "origem": {
-    "fonte": "CVM/Fundos.NET",
-    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1366160",
-    "data": "2026-10-30"
-   },
-   "carteira": true,
-   "desde": "2026-10-31",
-   "ultimo": "2026-10-31",
-   "estado": "ativo",
-   "parecer": true
-  },
-  {
-   "id": "GGRC11:documento",
-   "ticker": "GGRC11",
-   "tipo": "documento",
-   "prioridade": "media",
-   "texto": "GGRC11: Relatório Gerencial (+1)",
-   "numeros": {
-    "documentos": 2
-   },
-   "origem": {
-    "fonte": "CVM/Fundos.NET",
-    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1366052",
-    "data": "2026-10-30"
-   },
-   "carteira": true,
-   "desde": "2026-10-31",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo",
    "parecer": true
   },
@@ -829,7 +692,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -848,7 +711,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -868,7 +731,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -887,7 +750,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-31",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -895,12 +758,12 @@ window.FEHMIR_ALERTAS = {
    "ticker": "BBDC4",
    "tipo": "politica_dividendos",
    "prioridade": "info",
-   "texto": "BBDC4: possível mudança de política de dividendos — confirmar documento (payout 3A 78% vs 5A 57%, razão 1,36×, dif 21 p.p.)",
+   "texto": "BBDC4: possível mudança de política de dividendos — confirmar documento (payout 3A 72% vs 5A 53%, razão 1,36×, dif 19 p.p.)",
    "numeros": {
-    "payout3a": 77.7,
-    "payout5a": 57.0,
+    "payout3a": 72.2,
+    "payout5a": 53.0,
     "razao": 1.36,
-    "diff_pp": 20.6
+    "diff_pp": 19.2
    },
    "origem": {
     "fonte": "histórico e CVM (payout)",
@@ -908,7 +771,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -916,11 +779,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "GARE11",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "GARE11 abaixo do preço de compra: R$ 8,18 ≤ R$ 9,19 (teto R$ 10,21, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "texto": "GARE11 abaixo do preço de compra: R$ 8,18 ≤ R$ 8,50 (teto R$ 8,95, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
    "numeros": {
     "preco": 8.18,
-    "compra": 9.19,
-    "teto": 10.21
+    "compra": 8.5,
+    "teto": 8.95
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -928,7 +791,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo",
    "parecer": true
   },
@@ -937,11 +800,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "GGRC11",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "GGRC11 abaixo do preço de compra: R$ 8,46 ≤ R$ 11,49 (teto R$ 12,77, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "texto": "GGRC11 abaixo do preço de compra: R$ 8,46 ≤ R$ 9,34 (teto R$ 9,84, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
    "numeros": {
     "preco": 8.46,
-    "compra": 11.49,
-    "teto": 12.77
+    "compra": 9.34,
+    "teto": 9.84
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -949,28 +812,28 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo",
    "parecer": true
   },
   {
-   "id": "RZAG11:zona_compra",
-   "ticker": "RZAG11",
+   "id": "RECR11:zona_compra",
+   "ticker": "RECR11",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "RZAG11 abaixo do preço de compra: R$ 8,25 ≤ R$ 8,29 (teto R$ 9,75, P/VP perto de 1 + spread) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "texto": "RECR11 abaixo do preço de compra: R$ 70,00 ≤ R$ 71,47 (teto R$ 79,41, P/VP perto de 1 + spread) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
    "numeros": {
-    "preco": 8.25,
-    "compra": 8.29,
-    "teto": 9.75
+    "preco": 70.0,
+    "compra": 71.47,
+    "teto": 79.41
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
     "data": "2026-10-29"
    },
    "carteira": true,
-   "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "desde": "2026-11-03",
+   "ultimo": "2026-11-03",
    "estado": "ativo",
    "parecer": true
   },
@@ -979,11 +842,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "TRXF11",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "TRXF11 abaixo do preço de compra: R$ 67,38 ≤ R$ 88,11 (teto R$ 97,89, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "texto": "TRXF11 abaixo do preço de compra: R$ 67,38 ≤ R$ 84,64 (teto R$ 89,10, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
    "numeros": {
     "preco": 67.38,
-    "compra": 88.11,
-    "teto": 97.89
+    "compra": 84.64,
+    "teto": 89.1
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -991,26 +854,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "TRXF11:documento",
-   "ticker": "TRXF11",
-   "tipo": "documento",
-   "prioridade": "info",
-   "texto": "TRXF11: Fato Relevante",
-   "numeros": {
-    "documentos": 1
-   },
-   "origem": {
-    "fonte": "CVM/Fundos.NET",
-    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1360869",
-    "data": "2026-10-28"
-   },
-   "carteira": true,
-   "desde": "2026-10-29",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1018,11 +862,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "XPML11",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "XPML11 abaixo do preço de compra: R$ 97,20 ≤ R$ 105,70 (teto R$ 117,45, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "texto": "XPML11 abaixo do preço de compra: R$ 97,20 ≤ R$ 103,10 (teto R$ 108,52, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
    "numeros": {
     "preco": 97.2,
-    "compra": 105.7,
-    "teto": 117.45
+    "compra": 103.1,
+    "teto": 108.52
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -1030,7 +874,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1050,7 +894,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1070,7 +914,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1090,7 +934,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1098,12 +942,12 @@ window.FEHMIR_ALERTAS = {
    "ticker": "BBDC3",
    "tipo": "politica_dividendos",
    "prioridade": "info",
-   "texto": "BBDC3: possível mudança de política de dividendos — confirmar documento (payout 3A 71% vs 5A 52%, razão 1,36×, dif 19 p.p.)",
+   "texto": "BBDC3: possível mudança de política de dividendos — confirmar documento (payout 3A 66% vs 5A 48%, razão 1,36×, dif 17 p.p.)",
    "numeros": {
-    "payout3a": 70.6,
-    "payout5a": 51.8,
+    "payout3a": 65.6,
+    "payout5a": 48.2,
     "razao": 1.36,
-    "diff_pp": 18.8
+    "diff_pp": 17.4
    },
    "origem": {
     "fonte": "histórico e CVM (payout)",
@@ -1111,7 +955,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1131,7 +975,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1151,7 +995,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1171,7 +1015,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1191,7 +1035,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1212,7 +1056,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1233,7 +1077,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1253,7 +1097,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1273,7 +1117,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1281,11 +1125,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "CYRE3",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "CYRE3 abaixo do preço de compra: R$ 17,37 ≤ R$ 37,45 (teto R$ 49,94, Graham)",
+   "texto": "CYRE3 abaixo do preço de compra: R$ 17,37 ≤ R$ 18,12 (teto R$ 24,17, Graham)",
    "numeros": {
     "preco": 17.37,
-    "compra": 37.45,
-    "teto": 49.94
+    "compra": 18.12,
+    "teto": 24.17
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -1293,7 +1137,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1313,27 +1157,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "DIRR3:zona_compra",
-   "ticker": "DIRR3",
-   "tipo": "zona_compra",
-   "prioridade": "info",
-   "texto": "DIRR3 abaixo do preço de compra: R$ 8,23 ≤ R$ 9,66 (teto R$ 12,88, Graham)",
-   "numeros": {
-    "preco": 8.23,
-    "compra": 9.66,
-    "teto": 12.88
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": false,
-   "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1353,7 +1177,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1373,7 +1197,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1393,7 +1217,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1414,7 +1238,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1434,7 +1258,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1454,7 +1278,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1462,11 +1286,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "HSML11",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "HSML11 abaixo do preço de compra: R$ 77,29 ≤ R$ 88,09 (teto R$ 97,87, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "texto": "HSML11 abaixo do preço de compra: R$ 77,29 ≤ R$ 80,66 (teto R$ 84,90, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
    "numeros": {
     "preco": 77.29,
-    "compra": 88.09,
-    "teto": 97.87
+    "compra": 80.66,
+    "teto": 84.9
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -1474,7 +1298,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1494,7 +1318,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1514,7 +1338,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1534,7 +1358,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1554,7 +1378,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1575,7 +1399,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1595,7 +1419,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1616,7 +1440,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1636,7 +1460,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1656,7 +1480,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1677,27 +1501,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "PCIP11:zona_compra",
-   "ticker": "PCIP11",
-   "tipo": "zona_compra",
-   "prioridade": "info",
-   "texto": "PCIP11 abaixo do preço de compra: R$ 70,15 ≤ R$ 70,40 (teto R$ 78,22, P/VP perto de 1 + spread) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
-   "numeros": {
-    "preco": 70.15,
-    "compra": 70.4,
-    "teto": 78.22
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": false,
-   "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1705,11 +1509,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "PMLL11",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "PMLL11 abaixo do preço de compra: R$ 99,73 ≤ R$ 110,87 (teto R$ 123,19, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "texto": "PMLL11 abaixo do preço de compra: R$ 99,73 ≤ R$ 107,85 (teto R$ 113,53, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
    "numeros": {
     "preco": 99.73,
-    "compra": 110.87,
-    "teto": 123.19
+    "compra": 107.85,
+    "teto": 113.53
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -1717,7 +1521,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1737,7 +1541,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1757,27 +1561,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "RBRR11:zona_compra",
-   "ticker": "RBRR11",
-   "tipo": "zona_compra",
-   "prioridade": "info",
-   "texto": "RBRR11 abaixo do preço de compra: R$ 65,82 ≤ R$ 71,00 (teto R$ 78,89, P/VP perto de 1 + spread) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
-   "numeros": {
-    "preco": 65.82,
-    "compra": 71,
-    "teto": 78.89
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": false,
-   "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1798,8 +1582,30 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
+   "ultimo": "2026-11-03",
+   "estado": "ativo",
+   "parecer": true
+  },
+  {
+   "id": "RZTR11:zona_compra",
+   "ticker": "RZTR11",
+   "tipo": "zona_compra",
+   "prioridade": "info",
+   "texto": "RZTR11 abaixo do preço de compra: R$ 72,70 ≤ R$ 78,83 (teto R$ 92,74, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "numeros": {
+    "preco": 72.7,
+    "compra": 78.83,
+    "teto": 92.74
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": false,
+   "desde": "2026-11-03",
+   "ultimo": "2026-11-03",
+   "estado": "ativo",
+   "parecer": true
   },
   {
    "id": "SUZB3:movimento",
@@ -1818,7 +1624,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1838,27 +1644,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "TEND3:zona_compra",
-   "ticker": "TEND3",
-   "tipo": "zona_compra",
-   "prioridade": "info",
-   "texto": "TEND3 abaixo do preço de compra: R$ 20,34 ≤ R$ 27,39 (teto R$ 36,52, Graham)",
-   "numeros": {
-    "preco": 20.34,
-    "compra": 27.39,
-    "teto": 36.52
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": false,
-   "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1878,7 +1664,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1898,7 +1684,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1918,7 +1704,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1939,7 +1725,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1959,7 +1745,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -1979,27 +1765,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "VGHF11:zona_compra",
-   "ticker": "VGHF11",
-   "tipo": "zona_compra",
-   "prioridade": "info",
-   "texto": "VGHF11 abaixo do preço de compra: R$ 4,81 ≤ R$ 4,92 (teto R$ 5,79, P/VP perto de 1 + spread) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
-   "numeros": {
-    "preco": 4.81,
-    "compra": 4.92,
-    "teto": 5.79
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": false,
-   "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -2019,7 +1785,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -2027,11 +1793,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "VILG11",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "VILG11 abaixo do preço de compra: R$ 86,95 ≤ R$ 94,21 (teto R$ 104,68, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "texto": "VILG11 abaixo do preço de compra: R$ 86,95 ≤ R$ 88,85 (teto R$ 93,53, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
    "numeros": {
     "preco": 86.95,
-    "compra": 94.21,
-    "teto": 104.68
+    "compra": 88.85,
+    "teto": 93.53
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -2039,27 +1805,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
-   "estado": "ativo"
-  },
-  {
-   "id": "VISC11:zona_compra",
-   "ticker": "VISC11",
-   "tipo": "zona_compra",
-   "prioridade": "info",
-   "texto": "VISC11 abaixo do preço de compra: R$ 98,37 ≤ R$ 99,67 (teto R$ 110,74, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
-   "numeros": {
-    "preco": 98.37,
-    "compra": 99.67,
-    "teto": 110.74
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-29"
-   },
-   "carteira": false,
-   "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -2079,7 +1825,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -2099,7 +1845,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -2119,7 +1865,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -2139,7 +1885,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -2159,7 +1905,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -2179,7 +1925,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -2187,11 +1933,11 @@ window.FEHMIR_ALERTAS = {
    "ticker": "XPLG11",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "XPLG11 abaixo do preço de compra: R$ 89,80 ≤ R$ 94,21 (teto R$ 104,68, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "texto": "XPLG11 abaixo do preço de compra: R$ 89,80 ≤ R$ 91,65 (teto R$ 96,47, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
    "numeros": {
     "preco": 89.8,
-    "compra": 94.21,
-    "teto": 104.68
+    "compra": 91.65,
+    "teto": 96.47
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -2199,7 +1945,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-10-31",
+   "ultimo": "2026-11-03",
    "estado": "ativo"
   },
   {
@@ -2224,25 +1970,108 @@ window.FEHMIR_ALERTAS = {
    "resolvido": "2026-10-31"
   },
   {
-   "id": "RZAG11:documento",
-   "ticker": "RZAG11",
-   "tipo": "documento",
+   "id": "ISAE4:zona_compra",
+   "ticker": "ISAE4",
+   "tipo": "zona_compra",
    "prioridade": "alta",
-   "texto": "RZAG11: Relatório Gerencial",
+   "texto": "ISAE4 abaixo do preço de compra: R$ 24,90 ≤ R$ 30,76 (teto R$ 32,38, Bazin projetivo)",
    "numeros": {
-    "documentos": 1
+    "preco": 24.9,
+    "compra": 30.76,
+    "teto": 32.38
    },
    "origem": {
-    "fonte": "CVM/Fundos.NET",
-    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1357806",
-    "data": "2026-10-23"
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
    },
    "carteira": true,
-   "desde": "2026-10-24",
-   "ultimo": "2026-10-24",
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-31",
    "estado": "resolvido",
-   "resolvido": "2026-10-27",
-   "parecer": true
+   "resolvido": "2026-11-03"
+  },
+  {
+   "id": "TAEE11:zona_compra",
+   "ticker": "TAEE11",
+   "tipo": "zona_compra",
+   "prioridade": "alta",
+   "texto": "TAEE11 abaixo do preço de compra: R$ 39,20 ≤ R$ 53,34 (teto R$ 56,14, Bazin projetivo)",
+   "numeros": {
+    "preco": 39.2,
+    "compra": 53.34,
+    "teto": 56.14
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": true,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "resolvido": "2026-11-03"
+  },
+  {
+   "id": "ALUP11:zona_compra",
+   "ticker": "ALUP11",
+   "tipo": "zona_compra",
+   "prioridade": "alta",
+   "texto": "ALUP11 abaixo do preço de compra: R$ 31,29 ≤ R$ 34,25 (teto R$ 36,05, Bazin projetivo)",
+   "numeros": {
+    "preco": 31.29,
+    "compra": 34.25,
+    "teto": 36.05
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": false,
+   "desde": "2026-10-31",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "resolvido": "2026-11-03"
+  },
+  {
+   "id": "TRPL4:zona_compra",
+   "ticker": "TRPL4",
+   "tipo": "zona_compra",
+   "prioridade": "alta",
+   "texto": "TRPL4 abaixo do preço de compra: R$ 24,90 ≤ R$ 25,20 (teto R$ 28,00, Bazin projetivo)",
+   "numeros": {
+    "preco": 24.9,
+    "compra": 25.2,
+    "teto": 28
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": false,
+   "desde": "2026-10-31",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "resolvido": "2026-11-03"
+  },
+  {
+   "id": "BBDC4:zona_realizacao",
+   "ticker": "BBDC4",
+   "tipo": "zona_realizacao",
+   "prioridade": "media",
+   "texto": "BBDC4 na zona de realização: R$ 14,16 ≥ teto × 1,2 (R$ 11,26). B.A.S.E. só se vende por fundamento; FII nunca por rebalanceamento.",
+   "numeros": {
+    "preco": 14.16,
+    "teto": 9.38
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": true,
+   "desde": "2026-10-31",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "resolvido": "2026-11-03"
   },
   {
    "id": "BBSE3:zona_realizacao",
@@ -2262,7 +2091,8 @@ window.FEHMIR_ALERTAS = {
    "desde": "2026-10-24",
    "ultimo": "2026-10-29",
    "estado": "resolvido",
-   "resolvido": "2026-10-30"
+   "resolvido": "2026-10-30",
+   "parecer": true
   },
   {
    "id": "CPLE3:zona_realizacao",
@@ -2285,45 +2115,46 @@ window.FEHMIR_ALERTAS = {
    "resolvido": "2026-10-31"
   },
   {
-   "id": "HGRE11:zona_realizacao",
-   "ticker": "HGRE11",
-   "tipo": "zona_realizacao",
+   "id": "GARE11:documento",
+   "ticker": "GARE11",
+   "tipo": "documento",
    "prioridade": "media",
-   "texto": "HGRE11 na zona de realização: R$ 130,60 ≥ teto × 1,2 (R$ 128,84). B.A.S.E. só se vende por fundamento; FII nunca por rebalanceamento.",
+   "texto": "GARE11: Relatório Gerencial",
    "numeros": {
-    "preco": 130.6,
-    "teto": 107.37
+    "documentos": 1
    },
    "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-23"
+    "fonte": "CVM/Fundos.NET",
+    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1366160",
+    "data": "2026-10-30"
    },
    "carteira": true,
-   "desde": "2026-10-24",
-   "ultimo": "2026-10-24",
+   "desde": "2026-10-31",
+   "ultimo": "2026-10-31",
    "estado": "resolvido",
-   "resolvido": "2026-10-27"
+   "parecer": true,
+   "resolvido": "2026-11-03"
   },
   {
-   "id": "PETR4:zona_realizacao",
-   "ticker": "PETR4",
-   "tipo": "zona_realizacao",
+   "id": "GGRC11:documento",
+   "ticker": "GGRC11",
+   "tipo": "documento",
    "prioridade": "media",
-   "texto": "PETR4 na zona de realização: R$ 58,68 ≥ teto × 1,2 (R$ 57,48). B.A.S.E. só se vende por fundamento; FII nunca por rebalanceamento.",
+   "texto": "GGRC11: Relatório Gerencial (+1)",
    "numeros": {
-    "preco": 58.68,
-    "teto": 47.9
+    "documentos": 2
    },
    "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-23"
+    "fonte": "CVM/Fundos.NET",
+    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1366052",
+    "data": "2026-10-30"
    },
    "carteira": true,
-   "desde": "2026-10-24",
-   "ultimo": "2026-10-24",
+   "desde": "2026-10-31",
+   "ultimo": "2026-10-31",
    "estado": "resolvido",
-   "resolvido": "2026-10-27",
-   "parecer": true
+   "parecer": true,
+   "resolvido": "2026-11-03"
   },
   {
    "id": "XPML11:documento",
@@ -2344,6 +2175,48 @@ window.FEHMIR_ALERTAS = {
    "ultimo": "2026-10-29",
    "estado": "resolvido",
    "resolvido": "2026-10-30"
+  },
+  {
+   "id": "RZAG11:zona_compra",
+   "ticker": "RZAG11",
+   "tipo": "zona_compra",
+   "prioridade": "info",
+   "texto": "RZAG11 abaixo do preço de compra: R$ 8,25 ≤ R$ 8,29 (teto R$ 9,75, P/VP perto de 1 + spread) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "numeros": {
+    "preco": 8.25,
+    "compra": 8.29,
+    "teto": 9.75
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": true,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "parecer": true,
+   "resolvido": "2026-11-03"
+  },
+  {
+   "id": "TRXF11:documento",
+   "ticker": "TRXF11",
+   "tipo": "documento",
+   "prioridade": "info",
+   "texto": "TRXF11: Fato Relevante",
+   "numeros": {
+    "documentos": 1
+   },
+   "origem": {
+    "fonte": "CVM/Fundos.NET",
+    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1360869",
+    "data": "2026-10-28"
+   },
+   "carteira": true,
+   "desde": "2026-10-29",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "resolvido": "2026-11-03"
   },
   {
    "id": "ALUP11:fundamento",
@@ -2535,6 +2408,27 @@ window.FEHMIR_ALERTAS = {
    "resolvido": "2026-10-30"
   },
   {
+   "id": "DIRR3:zona_compra",
+   "ticker": "DIRR3",
+   "tipo": "zona_compra",
+   "prioridade": "info",
+   "texto": "DIRR3 abaixo do preço de compra: R$ 8,23 ≤ R$ 9,66 (teto R$ 12,88, Graham)",
+   "numeros": {
+    "preco": 8.23,
+    "compra": 9.66,
+    "teto": 12.88
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "resolvido": "2026-11-03"
+  },
+  {
    "id": "DIRR3:fundamento",
    "ticker": "DIRR3",
    "tipo": "fundamento",
@@ -2661,27 +2555,6 @@ window.FEHMIR_ALERTAS = {
    "resolvido": "2026-10-30"
   },
   {
-   "id": "MELK3:zona_compra",
-   "ticker": "MELK3",
-   "tipo": "zona_compra",
-   "prioridade": "info",
-   "texto": "MELK3 abaixo do preço de compra: R$ 3,39 ≤ R$ 7,41 (teto R$ 9,87, Graham)",
-   "numeros": {
-    "preco": 3.39,
-    "compra": 7.41,
-    "teto": 9.87
-   },
-   "origem": {
-    "fonte": "robô de preços (Yahoo)",
-    "data": "2026-10-23"
-   },
-   "carteira": false,
-   "desde": "2026-10-24",
-   "ultimo": "2026-10-24",
-   "estado": "resolvido",
-   "resolvido": "2026-10-27"
-  },
-  {
    "id": "MTRE3:fundamento",
    "ticker": "MTRE3",
    "tipo": "fundamento",
@@ -2703,15 +2576,15 @@ window.FEHMIR_ALERTAS = {
    "resolvido": "2026-10-30"
   },
   {
-   "id": "RZTR11:zona_compra",
-   "ticker": "RZTR11",
+   "id": "PCIP11:zona_compra",
+   "ticker": "PCIP11",
    "tipo": "zona_compra",
    "prioridade": "info",
-   "texto": "RZTR11 abaixo do preço de compra: R$ 72,70 ≤ R$ 75,39 (teto R$ 88,70, Bazin por rendimento) — mas a classe FIIs está em 70% (meta 45%): aportes pausados",
+   "texto": "PCIP11 abaixo do preço de compra: R$ 70,15 ≤ R$ 70,40 (teto R$ 78,22, P/VP perto de 1 + spread) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
    "numeros": {
-    "preco": 72.7,
-    "compra": 75.39,
-    "teto": 88.7
+    "preco": 70.15,
+    "compra": 70.4,
+    "teto": 78.22
    },
    "origem": {
     "fonte": "robô de preços (Yahoo)",
@@ -2719,9 +2592,30 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-10-30",
+   "ultimo": "2026-10-31",
    "estado": "resolvido",
-   "resolvido": "2026-10-31"
+   "resolvido": "2026-11-03"
+  },
+  {
+   "id": "RBRR11:zona_compra",
+   "ticker": "RBRR11",
+   "tipo": "zona_compra",
+   "prioridade": "info",
+   "texto": "RBRR11 abaixo do preço de compra: R$ 65,82 ≤ R$ 71,00 (teto R$ 78,89, P/VP perto de 1 + spread) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "numeros": {
+    "preco": 65.82,
+    "compra": 71,
+    "teto": 78.89
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": false,
+   "desde": "2026-10-24",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "resolvido": "2026-11-03"
   },
   {
    "id": "SANB11:movimento",
@@ -2745,6 +2639,27 @@ window.FEHMIR_ALERTAS = {
    "resolvido": "2026-10-30"
   },
   {
+   "id": "TEND3:zona_compra",
+   "ticker": "TEND3",
+   "tipo": "zona_compra",
+   "prioridade": "info",
+   "texto": "TEND3 abaixo do preço de compra: R$ 20,34 ≤ R$ 27,39 (teto R$ 36,52, Graham)",
+   "numeros": {
+    "preco": 20.34,
+    "compra": 27.39,
+    "teto": 36.52
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "resolvido": "2026-11-03"
+  },
+  {
    "id": "VALE3:fundamento",
    "ticker": "VALE3",
    "tipo": "fundamento",
@@ -2764,6 +2679,48 @@ window.FEHMIR_ALERTAS = {
    "ultimo": "2026-10-29",
    "estado": "resolvido",
    "resolvido": "2026-10-30"
+  },
+  {
+   "id": "VGHF11:zona_compra",
+   "ticker": "VGHF11",
+   "tipo": "zona_compra",
+   "prioridade": "info",
+   "texto": "VGHF11 abaixo do preço de compra: R$ 4,81 ≤ R$ 4,92 (teto R$ 5,79, P/VP perto de 1 + spread) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "numeros": {
+    "preco": 4.81,
+    "compra": 4.92,
+    "teto": 5.79
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "resolvido": "2026-11-03"
+  },
+  {
+   "id": "VISC11:zona_compra",
+   "ticker": "VISC11",
+   "tipo": "zona_compra",
+   "prioridade": "info",
+   "texto": "VISC11 abaixo do preço de compra: R$ 98,37 ≤ R$ 99,67 (teto R$ 110,74, Bazin por rendimento) — mas a classe FIIs está em 66% (meta 45%): aportes pausados",
+   "numeros": {
+    "preco": 98.37,
+    "compra": 99.67,
+    "teto": 110.74
+   },
+   "origem": {
+    "fonte": "robô de preços (Yahoo)",
+    "data": "2026-10-29"
+   },
+   "carteira": false,
+   "desde": "2026-10-27",
+   "ultimo": "2026-10-31",
+   "estado": "resolvido",
+   "resolvido": "2026-11-03"
   }
  ]
 };
