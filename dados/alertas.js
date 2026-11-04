@@ -1,7 +1,7 @@
 /* Gerado por tools/analista.py — não editar à mão. */
 window.FEHMIR_ALERTAS = {
  "meta": {
-  "gerado": "2026-11-03 03:58",
+  "gerado": "2026-11-04 03:06",
   "verificados": 105,
   "ativos": 69,
   "limiares": {
@@ -570,7 +570,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo",
    "parecer": true
   },
@@ -591,7 +591,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -611,7 +611,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -631,7 +631,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -651,7 +651,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -671,7 +671,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo",
    "parecer": true
   },
@@ -692,7 +692,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -711,7 +711,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -731,7 +731,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -750,7 +750,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -771,7 +771,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -791,7 +791,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo",
    "parecer": true
   },
@@ -812,7 +812,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo",
    "parecer": true
   },
@@ -833,7 +833,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-11-03",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo",
    "parecer": true
   },
@@ -854,7 +854,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -874,7 +874,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -894,7 +894,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -914,7 +914,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -934,7 +934,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -955,7 +955,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -975,7 +975,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -995,7 +995,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1015,7 +1015,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1035,7 +1035,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1056,7 +1056,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1077,7 +1077,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1097,7 +1097,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1117,7 +1117,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1137,7 +1137,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1157,7 +1157,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1177,7 +1177,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1197,7 +1197,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1217,7 +1217,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1238,7 +1238,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1258,7 +1258,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1278,7 +1278,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1298,7 +1298,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1318,7 +1318,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1338,7 +1338,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1358,7 +1358,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1378,7 +1378,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1399,7 +1399,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1419,7 +1419,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1440,7 +1440,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1460,7 +1460,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1480,7 +1480,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1501,7 +1501,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1521,7 +1521,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1541,7 +1541,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1561,7 +1561,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1582,7 +1582,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo",
    "parecer": true
   },
@@ -1603,7 +1603,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-11-03",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo",
    "parecer": true
   },
@@ -1624,7 +1624,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1644,7 +1644,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1664,7 +1664,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1684,7 +1684,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1704,7 +1704,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1725,7 +1725,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1745,7 +1745,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1765,7 +1765,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1785,7 +1785,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1805,7 +1805,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1825,7 +1825,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1845,7 +1845,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1865,7 +1865,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1885,7 +1885,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1905,7 +1905,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1925,7 +1925,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
@@ -1945,7 +1945,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-03",
+   "ultimo": "2026-11-04",
    "estado": "ativo"
   },
   {
