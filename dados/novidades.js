@@ -8,21 +8,26 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Renúncia e indicação de administrador",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1581266&numSequencia=1105972&numVersao=1",
       "resumo": [
-        "Comunicado ao Mercado publicado em 2026-10-28."
+        "A Sra. Carla Nesi renunciou ao cargo de Vice-Presidente de Negócios de Varejo do Banco do Brasil.",
+        "A renúncia produz efeitos a partir de 29 de outubro de 2026.",
+        "As atribuições da Vice-Presidência de Negócios de Varejo serão acumuladas pelo Sr. Francisco Augusto Lassalvia, atual Vice-Presidente de Negócios de Atacado.",
+        "A substituição temporária ocorrerá até a eleição do novo Vice-Presidente pelo Conselho de Administração."
       ],
-      "mudancas": [],
+      "mudancas": [
+        "Saída da titular da Vice-Presidência de Negócios de Varejo e assunção temporária das funções pelo Vice-Presidente de Negócios de Atacado."
+      ],
       "alertas": [],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "cvm_001023IPE080920260131837011-79",
@@ -358,21 +363,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1366307",
       "resumo": [
-        "Fato Relevante publicado em 2026-10-30."
+        "Celebração de compromisso para venda de 10 imóveis do portfólio ao FII Suno Imóveis (SNIM) por R$ 530.000.000,00.",
+        "Forma de pagamento: Sinal de R$ 10,6 milhões (2%) já pago, Parcela A de R$ 371 milhões (70%) no fechamento e Parcela B de R$ 148,4 milhões (28%) em 14 vezes sem correção monetária.",
+        "O preço pactuado representa um prêmio de aproximadamente 14,18% sobre os últimos laudos de avaliação.",
+        "Lucro de capital estimado em R$ 75.000.000,00 (cerca de R$ 0,22 por cota), com TIR estimada de 12,57% a.a.",
+        "Os recursos poderão ser destinados à distribuição aos cotistas, amortização de CRIs, aquisição de novos ativos ou cotas de FIIs."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Compromisso de desinvestimento relevante envolvendo 10 ativos logísticos/industriais da carteira.",
+        "Recebimento de R$ 10,6 milhões referente ao sinal da alienação.",
+        "Previsão de ganho de capital não recorrente de cerca de R$ 0,22 por cota a ser apurado conforme o fluxo de recebimento."
+      ],
+      "alertas": [
+        "Fechamento da alienação ainda condicionado ao cumprimento de condições precedentes até 06/11/2026.",
+        "A Parcela B (R$ 148,4 milhões) será quitada em 14 parcelas mensais sem atualização monetária, gerando perda do poder de compra pela inflação e risco de crédito parcelado.",
+        "Risco de reinvestimento de R$ 530 milhões para repor a renda imobiliária recorrente gerada pelos 10 imóveis vendidos."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 11.32,
+        "provento_por_cota": 0.1,
+        "reserva_por_cota": 0.004,
+        "resultado_por_cota": 0.096,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.37
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1355299",
@@ -746,21 +763,35 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1367646",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-11-03."
+        "Distribuição mantida em R$ 0,10 por cota em setembro de 2026, com rendimento auferido em regime de caixa de R$ 0,099 por cota.",
+        "A reserva acumulada de correção monetária encerrou o período em R$ 12,00 milhões (R$ 0,0212 por cota).",
+        "LTV médio do portfólio de CRIs atingiu 59%, com spread de crédito médio de 231 bps.",
+        "Gestão reduziu temporariamente investimentos em permutas financeiras frente ao cenário de juros elevados e compressão de margens de incorporadoras.",
+        "No book de CRIs, houve alienação de 5 ativos (ganho de capital de R$ 0,41 mi), aumento em 4 posições e aquisição de 2 novos CRIs (Embraed e Lavvi)."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "O resultado caixa por cota aumentou de R$ 0,094 para R$ 0,099 por cota.",
+        "A reserva acumulada por cota caiu de R$ 0,0339 para R$ 0,0212 por cota.",
+        "O LTV médio da carteira de CRIs aumentou de 57% para 59%.",
+        "Distribuição de provento por cota permaneceu estável em R$ 0,100."
+      ],
+      "alertas": [
+        "CRI AIZ/Pesa enfrentando dificuldades financeiras por juros altos e queda de demanda, com carência concedida e busca de venda ordenada de imóvel em garantia.",
+        "CRI Arquiplan/Beside com negociação amigável infrutífera após RJ da devedora, levando à execução formal e consolidação de propriedade para venda das unidades.",
+        "CRI Cogna Educação teve entrega de chaves do campus pela locatária, ensejando trâmites jurídicos via AGT para recompra compulsória e cobrança de multa indenizatória.",
+        "Desafio no segmento de permutas financeiras em virtude da alta dos juros e perda de poder de compra dos adquirentes finais de imóveis."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.59,
+        "provento_por_cota": 0.1,
+        "reserva_por_cota": 0.0212,
+        "resultado_por_cota": 0.099,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1339341",
@@ -828,21 +859,35 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório de Produção e Vendas 3T26",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1581329&numSequencia=1106035&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-10-28."
+        "Produção total própria de óleo, LGN e gás natural atingiu recorde de 3,512 MMboed no 3T26 (+5,3% vs 2T26 e +11,7% vs 3T25), com a produção operada alcançando 5,082 MMboed.",
+        "O crescimento foi impulsionado pelo ramp-up dos FPSOs P-78 e P-79 em Búzios, pico de produção do FPSO Alexandre de Gusmão em Mero e menor volume de perdas por manutenção.",
+        "Vendas de derivados no mercado interno totalizaram 1.854 mbpd (+6,4% vs 2T26), puxadas pela alta sazonal na demanda por diesel (+14,4%) e QAV (+9,9%).",
+        "Fator de Utilização Total (FUT) do parque de refino manteve-se em nível elevado de 99%, com recorde trimestral de produção de diesel de 769 mbpd.",
+        "As plataformas P-80 e P-82 deixaram o estaleiro em Singapura rumo a Búzios, com início de operação previsto para 2027."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Aumento de 5,3% na produção total própria em relação ao 2T26 e de 11,7% frente ao 3T25.",
+        "Queda de 14,6% no saldo líquido de exportações vs 2T26 (918 mbpd vs 1.075 mbpd), provocada pelo salto de 114,1% no volume de importações totais (com importações de diesel subindo 518%).",
+        "Produção do pós-sal profundo recuou 4,2% frente ao 2T26 (341 mbpd vs 356 mbpd), devido a paradas de manutenção na Bacia de Campos e declínio natural dos campos maduros.",
+        "O FUT do refino recuou de 101% no 2T26 para 99% no 3T26 devido a paradas programadas na RPBC.",
+        "Redistribuição geográfica das exportações de petróleo: participação da China subiu de 35% para 40% e dos EUA de 2% para 12%, enquanto a Índia caiu de 22% para 8%."
+      ],
+      "alertas": [
+        "Salto expressivo nas importações de derivados (diesel saltando de 18 mbpd para 110 mbpd no 3T26), comprimindo o saldo comercial exportador líquido.",
+        "Declínio contínuo da produção nos campos maduros do pós-sal (-6,8% vs 3T25), exigindo contínuas conexões de poços para mitigar a exaustão.",
+        "Impacto de alterações regulatórias sobre derivados, como a redução no consumo de gasolina derivada do aumento da mistura obrigatória de etanol anidro para 32%."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": -1,
+        "ltv": -1,
+        "provento_por_cota": -1,
+        "reserva_por_cota": -1,
+        "resultado_por_cota": -1,
+        "vacancia_financeira": -1,
+        "vacancia_fisica": -1
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "cvm_009512IPE131020260134742550-39",
