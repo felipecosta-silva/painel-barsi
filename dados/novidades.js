@@ -187,6 +187,29 @@ window.FEHMIR_NOVIDADES = {
   ],
   "GARE11": [
     {
+      "id": "fnet_1370249",
+      "data": "2026-11-05",
+      "tipo": "Fato Relevante",
+      "titulo": "Fato Relevante",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1370249",
+      "resumo": [
+        "Fato Relevante publicado em 2026-11-05."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
       "id": "fnet_1366160",
       "data": "2026-10-30",
       "tipo": "Relatório Gerencial",
