@@ -444,5 +444,18 @@ window.FEHMIR_LANC_ASSIST = [
     total: 0.16,
     moeda: "BRL",
     nota: "Provento pago (Investidor10, Meus proventos, status Pago)"
+  },
+  {
+    id: "2026-11-05-MXRF11-C-1",
+    data: "2026-11-05",
+    tipo: "Compra",
+    ticker: "MXRF11",
+    cat: "FIIS",
+    quant: 4,
+    preco: 8.36,
+    taxa: 0.02,
+    total: 33.46,
+    moeda: "BRL",
+    nota: "Ordem limitada executada (contada no chat de 05/11/2026): 4 × R$ 8,36 + R$ 0,02 de taxa"
   }
 ];

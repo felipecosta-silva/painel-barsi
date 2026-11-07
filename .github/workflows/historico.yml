@@ -17,6 +17,8 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # histórico completo: o rebase no fim precisa achar a base mesmo com commits de outros robôs no meio
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -37,4 +39,12 @@ jobs:
           git config user.email "fehmir-robo@users.noreply.github.com"
           git add dados/historico.js dados/mercado.js dados/benchmarks.js dados/historico_mensal.js
           git diff --cached --quiet || git commit -m "dados: historico atualizado $(date +%Y-%m-%d)"
-          git pull --rebase origin main && git push
+          # Os outros robôs (novidades, analista) gravam no main enquanto este roda.
+          # Tenta 3 vezes; em conflito num arquivo de dados vence a versão recém-gerada por este robô (-X theirs no rebase).
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && exit 0
+            echo "Tentativa $i falhou:"; git status --short | head -20
+            git rebase --abort 2>/dev/null || true
+            sleep 15
+          done
+          exit 1

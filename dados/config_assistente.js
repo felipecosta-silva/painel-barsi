@@ -44,5 +44,19 @@ window.FEHMIR_CONFIG_ASSIST = [
       { t: "LAVV3", cond: "abaixo", preco: 6.84, nota: "Preço de compra da régua (teto R$ 9,12 pelo P/VP justo, margem 25%). Lote de 5 só depois do release do 3T26; R$ 5,40 e R$ 4,50 viram 2ª e 3ª parcelas" }
     ],
     nota: "Régua das incorporadoras revista em 31/10/2026: Graham limitado pelo P/VP justo pela rentabilidade"
+  },
+  {
+    id: "2026-11-03-caixa-1",
+    data: "2026-11-03",
+    macro: { caixa: 800.00 },
+    caixaCfg: { reserva: 500 },
+    nota: "Caixinha em 03/11/2026: R$ 800,00 = R$ 500,00 de reserva de emergência + R$ 300,00 de oportunidade (a oportunidade tinha praticamente zerado e o Felipe repôs R$ 300,00)"
+  },
+  {
+    id: "2026-11-05-caixa-1",
+    data: "2026-11-05",
+    macro: { caixa: 700.00 },
+    caixaCfg: { reserva: 500 },
+    nota: "Caixinha em 05/11/2026 (contado no chat): R$ 700,00 = R$ 500,00 de reserva de emergência + R$ 200,00 de oportunidade"
   }
 ];
