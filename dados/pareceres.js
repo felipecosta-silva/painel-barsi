@@ -156,39 +156,29 @@ window.FEHMIR_PARECERES = {
   },
   "MXRF11": {
     "fatos": [
-      "Resultado caixa gerado em agosto/2026 foi de R$ 0,094 por cota, inferior à distribuição declarada de R$ 0,10 por cota.",
-      "Fundo detém reserva acumulada de correção monetária de R$ 19,23 milhões (R$ 0,0339 por cota).",
-      "Captação de R$ 1,0 bilhão na 12ª emissão concluída com mais de R$ 530 milhões alocados e 8,1% da carteira ainda em caixa.",
-      "Execução de garantias iniciada no CRI Arquiplan/Beside com consolidação da propriedade e dificuldades operacionais no CRI AIZ/Pesa com concessão de carência."
+      "Resultado caixa gerado por cota foi de R$ 0,094 em agosto e R$ 0,099 em setembro de 2026, ambos inferiores ao provento distribuído de R$ 0,100",
+      "Reserva de correção monetária reduziu-se de R$ 19,23 milhões (R$ 0,0339/cota) para R$ 12,00 milhões (R$ 0,0212/cota) para sustentar a distribuição",
+      "O LTV médio do portfólio de CRIs elevou-se de 57% para 59%",
+      "Eventos de estresse em CRIs específicos: execução formal e consolidação de garantias no CRI Arquiplan/Beside, concessão de carência no CRI AIZ/Pesa e entrega de chaves com cobrança jurídica no CRI Cogna Educação",
+      "Gestão reduziu temporariamente aportes em permutas financeiras diante de juros altos e compressão de margens no setor imobiliário"
     ],
-    "atribuicao": "fluxo (resultado de caixa de curto prazo pressionado pela inflação mais branda, ficando abaixo do patamar de proventos distribuídos)",
+    "atribuicao": "ativo | Desafios de crédito concentrados em devedores específicos (Arquiplan, AIZ/Pesa e Cogna) pressionando a geração de caixa e exigindo consumo de reservas",
     "risco": "idiossincratico",
-    "risco_motivo": "Estresse de crédito localizado em operações específicas (Arquiplan/Beside e AIZ/Pesa) associado ao consumo de reservas para sustentar proventos acima do caixa mensal.",
-    "caixa_vs_contabil": "A distribuição de R$ 0,10 por cota superou o resultado de caixa real de R$ 0,094 por cota, exigindo utilização de reservas acumuladas para cobrir a diferença.",
+    "risco_motivo": "Estresse operacional e jurídico em operações de crédito específicas da carteira, demandando renegociações, carências e execução de garantias",
+    "caixa_vs_contabil": "A distribuição anunciada de R$ 0,10 por cota excede a geração de caixa real (R$ 0,094 e R$ 0,099), sustentando-se via queima da reserva de correção monetária",
     "gatilhos": [
-      "Esgotamento da reserva de correção monetária forçando redução sustentada dos proventos distribuídos.",
-      "Prejuízos de capital definitivos na liquidação das garantias dos CRIs Arquiplan/Beside e AIZ/Pesa.",
-      "Elevação da inadimplência aberta da carteira de CRIs acima de zero."
+      "Prejuízo definitivo (haircut) na liquidação das garantias dos CRIs Arquiplan/Beside ou AIZ/Pesa",
+      "Esgotamento total da reserva de correção monetária resultando em redução obrigatória do dividendo",
+      "Aumento da taxa de inadimplência contábil formal no portfólio de CRIs"
     ],
     "parecer": "atencao",
     "confianca": "alta",
-    "licao_generica": "Distribuições acima da geração de caixa recorrente exigem vigiar a velocidade de queima das reservas e o risco de crédito em garantias executadas.",
-    "data": "2026-10-24",
+    "licao_generica": "Distribuições mantidas acima do caixa efetivo mascaram fragilidades temporárias e consomem o colchão de segurança do fundo.",
+    "data": "2026-11-07",
     "fontes": [
+      "fnet_1367646",
       "fnet_1339341"
-    ],
-    "gatilhos_mudanca": [],
-    "completo": true,
-    "veredito": "manter",
-    "regua": {
-      "teto": 9.52,
-      "compra": 8.57,
-      "preco": 9.44,
-      "margem": 0.8,
-      "metodo": "P/VP perto de 1 + spread",
-      "setor": "FII Papel · CRI"
-    },
-    "antigo": true
+    ]
   },
   "PETR4": {
     "fatos": [
@@ -338,6 +328,117 @@ window.FEHMIR_PARECERES = {
       "fnet_1348111",
       "fnet_1343384",
       "fnet_1338028"
+    ]
+  },
+  "HGRE11": {
+    "fatos": [
+      "Resultado distribuível de R$ 1,03 por cota em setembro/2026 frente a provento distribuído de R$ 0,85 por cota, elevando a reserva acumulada para R$ 3,03 por cota.",
+      "Redução da vacância física de 6,6% para 5,9% e financeira de 6,9% para 6,3%, impulsionada por locação no Edifício Jatobá e término de carências.",
+      "Em andamento a 10ª emissão de cotas de até R$ 700 milhões a R$ 146,64 por cota sob Resolução CVM 160, com exclusão da integralização via compensação de ativos.",
+      "Reorganização societária interna do Grupo Genial transferiu a administração fiduciária para a Genial Investimentos CVM S.A., sem alteração de equipe, taxas ou gestão.",
+      "Elevada concentração de receita imobiliária contratada em dois locatários: Totvs (24%) e Vivo (23%), além de 46% dos contratos com revisionais em aberto e 32% com vencimento em 2027."
+    ],
+    "atribuicao": "ativo (desempenho operacional do portfólio com redução de vacância e gestão de locatários supera influências macroeconômicas)",
+    "risco": "idiossincratico",
+    "risco_motivo": "Forte concentração de receita em dois locatários (47% somados) combinada ao volume relevante de contratos a vencer e revisionais até 2027, além de potencial diluição na 10ª emissão.",
+    "caixa_vs_contabil": "O resultado de caixa no mês (R$ 1,03/cota) foi inflado por ganhos não recorrentes de LCI (R$ 0,09) e alienação do Transatlântico (R$ 0,04), superando a geração recorrente de aluguéis.",
+    "gatilhos": [
+      "Rescisão ou não renovação dos contratos âncoras da Totvs ou da Vivo",
+      "Aumento contínuo da vacância física e financeira acima de dois dígitos",
+      "Fracasso ou má alocação dos recursos captados na 10ª emissão de cotas com destruição de valor por cota"
+    ],
+    "parecer": "atencao",
+    "confianca": "alta",
+    "licao_generica": "Ganhos extraordinários aumentam reservas temporárias, mas a segurança do dividendo a longo prazo reside na baixa vacância e desconcentração da receita.",
+    "data": "2026-11-07",
+    "fontes": [
+      "fnet_1348103",
+      "fnet_1338094",
+      "fnet_1327264"
+    ]
+  },
+  "TRXF11": {
+    "fatos": [
+      "Conclusão da venda do imóvel locado à DASA por R$ 77 milhões à vista, gerando ganho de capital estimado de R$ 3,6 milhões (R$ 0,04 por cota) a um cap rate de 7,03%.",
+      "Aprovação de programa de recompra de até 10% das cotas em circulação (9.591.509 cotas) a preço de mercado inferior ao VP, com cancelamento imediato.",
+      "Contratação da Suno S.A. como formadora de mercado na B3 por 12 meses.",
+      "Rescisão amigável do compromisso de venda de 3 ativos locados ao GPA por não cumprimento de condições suspensivas, retornando os imóveis à carteira.",
+      "Compromisso de investimento de R$ 250 milhões no desenvolvimento de BTS logístico para o Mercado Livre em Campinas/SP com contrato de 16 anos, elevando a concentração do inquilino para 16,66% da receita."
+    ],
+    "atribuicao": "ativo - predomina a gestão ativa de reciclagem e alocação de portfólio com alienação à vista, assunção de risco de desenvolvimento BTS e programa de recompra de cotas",
+    "risco": "idiossincratico",
+    "risco_motivo": "Risco de engenharia/desenvolvimento de obra com cronograma de desembolso escalonado de R$ 250 milhões até 2028 e aumento da concentração de receita em um único locatário (Mercado Livre a 16,66%).",
+    "caixa_vs_contabil": "Impacto positivo imediato de caixa de R$ 77 milhões com a venda DASA versus lucro contábil a distribuir de R$ 0,04/cota, contraposto a compromisso de desembolso de caixa futuro de R$ 250 milhões no projeto BTS remunerado a CRI de 8,50% + INCC.",
+    "gatilhos": [
+      "Atrasos relevantes ou estouro de custos nas obras de desenvolvimento do galpão de Campinas",
+      "Aumento de alavancagem financeira do fundo sem correspondente geração operacional de caixa",
+      "Inadimplência ou revisão litigiosa nos contratos atípicos dos principais locatários"
+    ],
+    "parecer": "atencao",
+    "confianca": "alta",
+    "licao_generica": "Projetos built to suit trazem previsibilidade de longo prazo, mas embutem risco de execução e exigência de caixa durante a fase de desenvolvimento.",
+    "data": "2026-11-07",
+    "fontes": [
+      "fnet_1360869",
+      "fnet_1356811",
+      "fnet_1354667",
+      "fnet_1353805",
+      "fnet_1353900"
+    ]
+  },
+  "VILG11": {
+    "fatos": [
+      "Distribuicao de rendimentos de R$ 0,82 por cota em setembro de 2026, com resultado de R$ 0,92 por cota e reserva acumulada elevada para R$ 0,25 por cota.",
+      "Aquisicao subsequente do condominio Multimodal Campinas por R$ 140 milhoes (46,3 mil m2 de ABL), elevando a exposicao a SP para 24% da receita.",
+      "Compromisso de desembolso de R$ 84 milhoes restantes da aquisicao em duas parcelas corrigidas pelo IPCA aos 6 e 12 meses, com RMG de 12 meses.",
+      "Desinvestimento parcial de HGLG11 gerando R$ 61,1 milhoes em caixa e ganho de capital de R$ 0,16 por cota no mes.",
+      "Ocupacao financeira em 95,2%, vacancia fisica em 4,6%, inadimplencia liquida em -0,8% e LTV de 14,46% com R$ 211,8 milhoes em divida CRI."
+    ],
+    "atribuicao": "ativo | Gestao ativa de portfolio domina o periodo com reciclagem de ativos (venda de HGLG11), nova aquisicao imobiliaria e gestao do passivo.",
+    "risco": "idiossincratico",
+    "risco_motivo": "Obrigacoes financeiras futuras de R$ 84 milhoes corrigidas por IPCA e risco de descompressao de renda apos o termino da RMG de 12 meses no ativo recem-adquirido.",
+    "caixa_vs_contabil": "O resultado contabil de R$ 0,92 superou a distribuicao de R$ 0,82 gracas ao ganho de capital de R$ 0,16/cota na venda de cotas; no caixa real houve entrada de R$ 61,1 milhoes que reforca a liquidez para fazer frente as parcelas futuras da aquisicao.",
+    "gatilhos": [
+      "Incapacidade de gerar caixa para quitar os R$ 84 milhoes em parcelas da aquisicao sem necessidade de novas emissoes desfavoraveis ou endividamento excessivo.",
+      "Queda expressiva na receita apos o termino da Renda Minima Garantida (RMG) de 12 meses por vacancia residual no Multimodal Campinas.",
+      "Aumento da vacancia fisica do portfolioglobal acima de 10% de forma persistente."
+    ],
+    "parecer": "atencao",
+    "confianca": "alta",
+    "licao_generica": "Aquisicoes parceladas com RMG exigem checar se a liquidez futura e a locacao organica sustentam os proventos apos o fim do beneficio.",
+    "data": "2026-11-07",
+    "fontes": [
+      "fnet_1342453"
+    ]
+  },
+  "XPML11": {
+    "fatos": [
+      "Conclusão da aquisição de 60,00% do São Bernardo Plaza Shopping, com 30% do valor parcelado em até 24 meses e estimativa de incremento de R$ 0,48/cota no resultado operacional em 12 meses.",
+      "Conclusão da venda de 16,99% do Shopping Cidade Jardim por R$ 456,30 milhões, gerando ganho de capital estimado de R$ 2,07/cota e redução da alavancagem de 15,6% para 13,1%.",
+      "Aquisição de direitos reais de uso temporários (vencimentos em 2043 e 2047) nos Shoppings Metrô Boulevard Tatuapé e Metrô Itaquera com obrigações diferidas indexadas ao CDI.",
+      "Resultado contábil mensal de agosto de R$ 33,68 milhões inferior à distribuição realizada de R$ 59,16 milhões (R$ 0,92/cota), reduzindo a reserva acumulada de R$ 1,91 para R$ 1,51/cota.",
+      "Guidance de distribuição divulgado pela gestão prevendo intervalo entre R$ 0,83 e R$ 0,92 por cota até dezembro de 2026, com vacância física subindo continuamente para 5,1%."
+    ],
+    "atribuicao": "fluxo | Descompasso relevante entre a geração de caixa operacional recorrente e o patamar de proventos distribuídos, exigindo consumo contínuo de reservas e gestão de desembolsos parcelados.",
+    "risco": "idiossincratico",
+    "risco_motivo": "Distribuição de proventos mantida acima da geração de caixa recorrente combinada com compromissos futuros de desembolso de R$ 192,8 milhões até 2027 e aumento gradual da vacância física.",
+    "caixa_vs_contabil": "O provento distribuído (R$ 0,92/cota) supera amplamente o caixa operacional do mês, sendo suportado por reservas e pelo ganho de capital diferido da alienação de ativo, encobrindo a retração do resultado recorrente.",
+    "gatilhos": [
+      "Corte do dividendo mensal para o piso do guidance (R$ 0,83 ou inferior)",
+      "Esgotamento da reserva acumulada por cota abaixo de R$ 0,50",
+      "Avanço da vacância física média para patamar superior a 7,0%",
+      "Incapacidade de honrar as parcelas das aquisições com a geração interna de caixa"
+    ],
+    "parecer": "atencao",
+    "confianca": "alta",
+    "licao_generica": "Proventos sustentados por reservas ou vendas de ativos mascaram deficiência operacional e elevam a probabilidade de corte futuro nos rendimentos.",
+    "data": "2026-11-07",
+    "fontes": [
+      "fnet_1358969",
+      "fnet_1353649",
+      "fnet_1353654",
+      "fnet_1342555",
+      "fnet_1324186"
     ]
   }
 };

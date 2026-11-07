@@ -83,5 +83,40 @@ window.FEHMIR_LICOES = [
     "data": "2026-10-31",
     "contagem": 1,
     "status": "candidata"
+  },
+  {
+    "texto": "Ganhos extraordinários aumentam reservas temporárias, mas a segurança do dividendo a longo prazo reside na baixa vacância e desconcentração da receita.",
+    "ticker": "HGRE11",
+    "data": "2026-11-07",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Projetos built to suit trazem previsibilidade de longo prazo, mas embutem risco de execução e exigência de caixa durante a fase de desenvolvimento.",
+    "ticker": "TRXF11",
+    "data": "2026-11-07",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Aquisicoes parceladas com RMG exigem checar se a liquidez futura e a locacao organica sustentam os proventos apos o fim do beneficio.",
+    "ticker": "VILG11",
+    "data": "2026-11-07",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Proventos sustentados por reservas ou vendas de ativos mascaram deficiência operacional e elevam a probabilidade de corte futuro nos rendimentos.",
+    "ticker": "XPML11",
+    "data": "2026-11-07",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Distribuições mantidas acima do caixa efetivo mascaram fragilidades temporárias e consomem o colchão de segurança do fundo.",
+    "ticker": "MXRF11",
+    "data": "2026-11-07",
+    "contagem": 1,
+    "status": "candidata"
   }
 ];
