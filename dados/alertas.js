@@ -1,9 +1,9 @@
 /* Gerado por tools/analista.py — não editar à mão. */
 window.FEHMIR_ALERTAS = {
  "meta": {
-  "gerado": "2026-11-06 03:30",
+  "gerado": "2026-11-07 02:59",
   "verificados": 105,
-  "ativos": 71,
+  "ativos": 70,
   "limiares": {
    "movimento_pp": 8,
    "janela": 5,
@@ -545,11 +545,11 @@ window.FEHMIR_ALERTAS = {
    "BBDC4",
    "BBSE3",
    "LOGG3",
-   "MXRF11",
    "TIMS3",
    "GARE11",
    "AURE3",
-   "BBAS3"
+   "BBAS3",
+   "BBDC3"
   ]
  },
  "itens": [
@@ -570,7 +570,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo",
    "parecer": true
   },
@@ -591,7 +591,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -611,7 +611,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -631,7 +631,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -651,7 +651,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -671,7 +671,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo",
    "parecer": true
   },
@@ -692,7 +692,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -711,28 +711,8 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
-  },
-  {
-   "id": "MXRF11:documento",
-   "ticker": "MXRF11",
-   "tipo": "documento",
-   "prioridade": "media",
-   "texto": "MXRF11: Relatório Gerencial",
-   "numeros": {
-    "documentos": 1
-   },
-   "origem": {
-    "fonte": "CVM/Fundos.NET",
-    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1367646",
-    "data": "2026-11-03"
-   },
-   "carteira": true,
-   "desde": "2026-11-05",
-   "ultimo": "2026-11-06",
-   "estado": "ativo",
-   "parecer": true
   },
   {
    "id": "TIMS3:movimento",
@@ -751,7 +731,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -770,7 +750,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -791,7 +771,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -811,7 +791,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo",
    "parecer": true
   },
@@ -831,7 +811,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-11-06",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo",
    "parecer": true
   },
@@ -852,7 +832,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo",
    "parecer": true
   },
@@ -873,7 +853,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-11-03",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo",
    "parecer": true
   },
@@ -894,7 +874,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -914,7 +894,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -934,7 +914,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -954,7 +934,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -974,7 +954,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -995,7 +975,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1015,7 +995,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1035,7 +1015,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1055,7 +1035,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1075,7 +1055,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1096,7 +1076,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1117,7 +1097,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1137,7 +1117,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1157,7 +1137,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1177,7 +1157,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1197,7 +1177,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1217,7 +1197,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1237,7 +1217,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1257,7 +1237,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1278,7 +1258,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1298,7 +1278,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1318,7 +1298,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1338,7 +1318,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1358,7 +1338,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1378,7 +1358,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1398,7 +1378,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1418,7 +1398,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1439,7 +1419,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1459,7 +1439,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1480,7 +1460,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1500,7 +1480,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1520,7 +1500,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1541,7 +1521,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1561,7 +1541,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1581,7 +1561,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1601,7 +1581,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1622,7 +1602,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo",
    "parecer": true
   },
@@ -1643,7 +1623,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-11-03",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo",
    "parecer": true
   },
@@ -1664,7 +1644,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1684,7 +1664,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1704,7 +1684,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1724,7 +1704,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1744,7 +1724,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1765,7 +1745,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1785,7 +1765,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1805,7 +1785,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1825,7 +1805,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1845,7 +1825,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1865,7 +1845,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1885,7 +1865,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1905,7 +1885,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1925,7 +1905,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1945,7 +1925,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1965,7 +1945,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -1985,7 +1965,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-06",
+   "ultimo": "2026-11-07",
    "estado": "ativo"
   },
   {
@@ -2112,6 +2092,27 @@ window.FEHMIR_ALERTAS = {
    "estado": "resolvido",
    "parecer": true,
    "resolvido": "2026-11-03"
+  },
+  {
+   "id": "MXRF11:documento",
+   "ticker": "MXRF11",
+   "tipo": "documento",
+   "prioridade": "media",
+   "texto": "MXRF11: Relatório Gerencial",
+   "numeros": {
+    "documentos": 1
+   },
+   "origem": {
+    "fonte": "CVM/Fundos.NET",
+    "link": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1367646",
+    "data": "2026-11-03"
+   },
+   "carteira": true,
+   "desde": "2026-11-05",
+   "ultimo": "2026-11-06",
+   "estado": "resolvido",
+   "parecer": true,
+   "resolvido": "2026-11-07"
   },
   {
    "id": "RZAG11:zona_compra",
