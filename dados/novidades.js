@@ -193,21 +193,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1370249",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-05."
+        "Celebração de Contrato de Compra e Venda (CCV) para alienação de 9 imóveis ao FII Riza Master pelo valor total de R$ 791.711.540,82.",
+        "A operação projeta um lucro bruto aproximado de R$ 177 milhões para o fundo.",
+        "Previsão de redução da alavancagem em aproximadamente R$ 328 milhões mediante quitação de CRIs vinculados.",
+        "Forma de pagamento parcelada: R$ 382,2 milhões em caixa, R$ 250,0 milhões em Cotas Subordinadas do FII Riza Master e R$ 159,5 milhões em Seller's Finance.",
+        "Liquidação em duas fases: primeira fase em novembro de 2026 (Mix Mateus e Almanara) e segunda fase a partir de janeiro de 2027 (unidades Atacadão)."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Evolução de Memorando de Entendimentos (MOU) para a celebração definitiva do Instrumento Particular de Compra e Venda (CCV).",
+        "Encerramento da exposição do fundo ao locatário Mix Mateus e redução da concentração no Grupo Carrefour.",
+        "Substituição de ativos imobiliários físicos com contratos atípicos por caixa, quitação de passivos (CRIs), cotas subordinadas e recebíveis a prazo (seller's finance)."
+      ],
+      "alertas": [
+        "Risco de crédito/subordinação: R$ 250 milhões do pagamento serão retidos em Cotas Subordinadas do FII comprador, absorvendo riscos de cauda por até 6 anos.",
+        "Risco de diferimento de caixa: R$ 159,5 milhões serão pagos sob a modalidade de Seller's Finance condicionado ao desinvestimento futuro dos ativos.",
+        "Risco de reinvestimento do expressivo montante de caixa para manutenção do patamar de rendimentos após a perda da receita dos contratos atípicos vendidos."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": -6.0,
+        "provento_por_cota": 0.083,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.086,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1366160",
@@ -1561,6 +1573,29 @@ window.FEHMIR_NOVIDADES = {
   ],
   "TRXF11": [
     {
+      "id": "fnet_1371440",
+      "data": "2026-11-06",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1371440",
+      "resumo": [
+        "Relatório Gerencial publicado em 2026-11-06."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
       "id": "fnet_1360869",
       "data": "2026-10-28",
       "tipo": "Fato Relevante",
@@ -1718,43 +1753,6 @@ window.FEHMIR_NOVIDADES = {
         "resultado_por_cota": 0.0,
         "vacancia_financeira": 0.0,
         "vacancia_fisica": 0.0
-      },
-      "gravidade": "atencao",
-      "resumido_ia": true
-    },
-    {
-      "id": "fnet_1341443",
-      "data": "2026-10-06",
-      "tipo": "Relatório Gerencial",
-      "titulo": "Relatório Gerencial",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1341443",
-      "resumo": [
-        "Encerramento da 13ª emissão de cotas com captação de R$ 3,16 bilhões, sendo R$ 2,63 bilhões liquidados por compensação de créditos na aquisição de ativos.",
-        "Distribuição de rendimentos mantida em R$ 0,93 por cota (DY anualizado de 15,55%), com guidance entre R$ 0,90 e R$ 0,93 para os próximos 12 meses.",
-        "Resultado operacional por cota de R$ 1,19 em setembro (contra R$ 0,72 em agosto), elevando a reserva acumulada para R$ 0,51 por cota.",
-        "Avanço na reciclagem de ativos com a conclusão da venda da loja GPA Goiânia e portfólio de 15 imóveis, mantendo meta de alienar ~R$ 500 milhões no semestre.",
-        "Portfólio ampliado para 129 imóveis e mais de 2 milhões de m² de ABL, com vacância física em 0,5% e vacância financeira em 0,3%."
-      ],
-      "mudancas": [
-        "Vacância física aumentou de 0,0% para 0,5% e vacância financeira passou de 0,0% para 0,3%.",
-        "Resultado operacional por cota aumentou de R$ 0,72 (agosto) para R$ 1,19 (setembro).",
-        "Aumento significativo da base patrimonial e de cotas após encerramento da 13ª emissão de cotas.",
-        "Relação dívida/ativo (securitizações sobre ativo total) consolidada em 24,68%."
-      ],
-      "alertas": [
-        "Endividamento e compromissos futuros: saldo devedor de securitizações atinge R$ 3,16 bilhões, com amortizações e desembolsos expressivos previstos para o fluxo de caixa até 2027.",
-        "Obrigações de parcelas a pagar por aquisições (ex.: R$ 125 milhões em out/2026 e R$ 125 milhões corrigidos por IPCA em out/2027 na compra de ativos logísticos).",
-        "Risco de desenvolvimento/obras em múltiplos ativos (Shopee Londrina/Osório/Criciúma, Einstein Pinheiros/Parque Global, Mercado Livre).",
-        "Desconto relevante de mercado (cota de mercado a R$ 71,79 vs cota patrimonial de R$ 95,99)."
-      ],
-      "metricas": {
-        "inadimplencia": 0.0,
-        "ltv": 24.68,
-        "provento_por_cota": 0.93,
-        "reserva_por_cota": 0.51,
-        "resultado_por_cota": 1.19,
-        "vacancia_financeira": 0.3,
-        "vacancia_fisica": 0.5
       },
       "gravidade": "atencao",
       "resumido_ia": true
