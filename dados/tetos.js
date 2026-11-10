@@ -1,11 +1,11 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-07 02:59",
+ "gerado": "2026-11-10 04:43",
  "ativos": 226,
  "carteira": 23,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
 };
-window.FEHMIR_CARTEIRA = {"ETH":0.00794523,"BTC":0.00041103,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":46,"XPML11":5,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.09543757,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2};
+window.FEHMIR_CARTEIRA = {"ETH":0.00794523,"BTC":0.00041103,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":50,"XPML11":5,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.09543757,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2};
 window.FEHMIR_TETOS = {
  "BBSE3": {
   "teto": 60.53,
@@ -79,7 +79,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 22,03 (LPA R$ 3,70 × payout realista 53% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,72 ÷ 8,9% = R$ 19,30 → usa o menor (recuperação: ROE 5A 11,6% < 15%)",
+  "src": "Projetivo R$ 20,96 (LPA R$ 3,52 × payout realista 53% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,72 ÷ 8,9% = R$ 19,30 → usa o menor (recuperação: ROE 5A 11,6% < 15%)",
   "preco": 24.64,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
@@ -420,7 +420,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 30,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,64 × 0,75 = R$ 0,48 ÷ 12,4% = R$ 3,87] · Proj R$ 1,56 (conferência) · ⚠️ Projetivo (R$ 1,56) diverge 60% do meio de ciclo (R$ 3,87): ciclo de commodities pode estar revertendo",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,64 × 0,75 = R$ 0,48 ÷ 12,4% = R$ 3,87] · Proj R$ 1,75 (conferência) · ⚠️ Projetivo (R$ 1,75) diverge 55% do meio de ciclo (R$ 3,87): ciclo de commodities pode estar revertendo",
   "preco": 6.93,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
@@ -442,7 +442,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 30,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,26 × 0,75 = R$ 0,20 ÷ 12,4% = R$ 1,59] · Proj R$ 0,39 (conferência) · ⚠️ Projetivo (R$ 0,39) diverge 76% do meio de ciclo (R$ 1,59): ciclo de commodities pode estar revertendo",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,26 × 0,75 = R$ 0,20 ÷ 12,4% = R$ 1,59] · Proj R$ 0,27 (conferência) · ⚠️ Projetivo (R$ 0,27) diverge 83% do meio de ciclo (R$ 1,59): ciclo de commodities pode estar revertendo",
   "preco": 3.44,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
@@ -503,12 +503,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "VAMO3": {
-  "teto": 1.23,
-  "compra": 0.98,
+  "teto": 4.65,
+  "compra": 3.72,
   "margemMin": 20,
   "metodo": "Graham",
   "setor": "Industrial & Bens de capital",
-  "src": "Graham √[22,5 × LPA R$ 0,26 × VPA R$ 2,70] = R$ 3,97 · Bazin 5A R$ 2,29 (conferência) · limitado pelo P/VP justo = (ROE 9,6% − g 4,6%) ÷ (k 15,5% − g) = 0,46 × VPA R$ 2,70 = R$ 1,23 (lucro em queda: o Graham não enxerga juros nem dívida)",
+  "src": "Graham √[22,5 × LPA R$ 0,34 × VPA R$ 2,83] = R$ 4,65 · Bazin 5A R$ 2,29 (conferência)",
   "preco": 2.46,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
@@ -519,7 +519,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 30,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 7,58 × 0,75 = R$ 5,69 ÷ 12,4% = R$ 45,87] · Proj R$ 9,25 (conferência) · ⚠️ Projetivo (R$ 9,25) diverge 80% do meio de ciclo (R$ 45,87): ciclo de commodities pode estar revertendo",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 7,58 × 0,75 = R$ 5,69 ÷ 12,4% = R$ 45,87] · Proj R$ 1,96 (conferência) · ⚠️ Projetivo (R$ 1,96) diverge 96% do meio de ciclo (R$ 45,87): ciclo de commodities pode estar revertendo",
   "preco": 60.05,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
@@ -530,7 +530,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 30,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 1,33 × 0,75 = R$ 1,00 ÷ 12,4% = R$ 8,07] · Proj R$ 1,59 (conferência) · ⚠️ Projetivo (R$ 1,59) diverge 80% do meio de ciclo (R$ 8,07): ciclo de commodities pode estar revertendo",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 1,33 × 0,75 = R$ 1,00 ÷ 12,4% = R$ 8,07] · Proj R$ 1,92 (conferência) · ⚠️ Projetivo (R$ 1,92) diverge 76% do meio de ciclo (R$ 8,07): ciclo de commodities pode estar revertendo",
   "preco": 25.46,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"
