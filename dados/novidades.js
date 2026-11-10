@@ -76,6 +76,52 @@ window.FEHMIR_NOVIDADES = {
   ],
   "BBSE3": [
     {
+      "id": "cvm_023159IPE031120260136690064-95",
+      "data": "2026-11-03",
+      "tipo": "Comunicado ao Mercado",
+      "titulo": "Chamamento para indicação de candidatos ao Conselho de Administração",
+      "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1583255&numSequencia=1107961&numVersao=1",
+      "resumo": [
+        "Comunicado ao Mercado publicado em 2026-11-03."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
+      "id": "cvm_023159IPE031120260115042650-19",
+      "data": "2026-11-03",
+      "tipo": "Fato Relevante",
+      "titulo": "Modificação de Projeções Divulgadas",
+      "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1583332&numSequencia=1108038&numVersao=1",
+      "resumo": [
+        "Fato Relevante publicado em 2026-11-03."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
       "id": "cvm_023159IPE231020260110957071-32",
       "data": "2026-10-23",
       "tipo": "Fato Relevante",
@@ -153,6 +199,29 @@ window.FEHMIR_NOVIDADES = {
     }
   ],
   "CPLE3": [
+    {
+      "id": "cvm_014311IPE031120260152764723-08",
+      "data": "2026-11-03",
+      "tipo": "Fato Relevante",
+      "titulo": "FR 07/26 - Deslistagem das Ações da Latibex",
+      "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1582937&numSequencia=1107643&numVersao=1",
+      "resumo": [
+        "Fato Relevante publicado em 2026-11-03."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
     {
       "id": "cvm_014311IPE170920260172258071-85",
       "data": "2026-09-17",
@@ -354,6 +423,29 @@ window.FEHMIR_NOVIDADES = {
     }
   ],
   "GGRC11": [
+    {
+      "id": "fnet_1373169",
+      "data": "2026-11-09",
+      "tipo": "Fato Relevante",
+      "titulo": "Fato Relevante",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1373169",
+      "resumo": [
+        "Fato Relevante publicado em 2026-11-09."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
     {
       "id": "fnet_1366052",
       "data": "2026-10-30",
@@ -612,6 +704,29 @@ window.FEHMIR_NOVIDADES = {
     }
   ],
   "KNCA11": [
+    {
+      "id": "fnet_1373192",
+      "data": "2026-11-09",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1373192",
+      "resumo": [
+        "Relatório Gerencial publicado em 2026-11-09."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
     {
       "id": "fnet_1345687",
       "data": "2026-10-09",
@@ -1023,6 +1138,29 @@ window.FEHMIR_NOVIDADES = {
     }
   ],
   "RECR11": [
+    {
+      "id": "fnet_1373276",
+      "data": "2026-11-09",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1373276",
+      "resumo": [
+        "Relatório Gerencial publicado em 2026-11-09."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
     {
       "id": "fnet_1342523",
       "data": "2026-10-07",
@@ -1760,6 +1898,29 @@ window.FEHMIR_NOVIDADES = {
   ],
   "VILG11": [
     {
+      "id": "fnet_1373431",
+      "data": "2026-11-09",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1373431",
+      "resumo": [
+        "Relatório Gerencial publicado em 2026-11-09."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
       "id": "fnet_1342453",
       "data": "2026-10-07",
       "tipo": "Relatório Gerencial",
@@ -1820,6 +1981,29 @@ window.FEHMIR_NOVIDADES = {
     }
   ],
   "XPML11": [
+    {
+      "id": "fnet_1373061",
+      "data": "2026-11-09",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1373061",
+      "resumo": [
+        "Relatório Gerencial publicado em 2026-11-09."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
     {
       "id": "fnet_1358969",
       "data": "2026-10-26",
@@ -1991,28 +2175,6 @@ window.FEHMIR_NOVIDADES = {
       },
       "gravidade": "atencao",
       "resumido_ia": true
-    },
-    {
-      "id": "fnet_1319388",
-      "data": "2026-09-14",
-      "tipo": "Fato Relevante",
-      "titulo": "Fato Relevante",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1319388",
-      "resumo": [
-        "Fato Relevante publicado em 2026-09-14."
-      ],
-      "mudancas": [],
-      "alertas": [],
-      "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
-      },
-      "gravidade": "info"
     }
   ]
 };
