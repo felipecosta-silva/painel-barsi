@@ -10,6 +10,8 @@ const TESTES = [
   { arq: 'coerencia_telas.js', nome: 'Mesmo número em todas as telas', ok: v => v && v.divergencias === 0 },
   { arq: 'coerencia_modal.js', nome: 'Mesmo número dentro da ficha do ativo', ok: v => v && typeof v === 'object' && Object.keys(v).length === 0 },
   { arq: 'tetos_telas.js', nome: 'Teto igual em todas as telas', ok: v => v && v.divergenciasCount === 0 },
+  { arq: 'fii_recorrente.js', nome: 'Resultado recorrente dos FIIs e veredito do aporte', ok: v => v && v.falhas === 0 },
+  { arq: 'meta_renda.js', nome: 'Meta de renda ajustável e calculadora projetiva', ok: v => v && v.falhas === 0 },
   { arq: 'varredura_abas.js', nome: 'Todas as abas sem erro de JavaScript', ok: v => v && v.errsTotal === 0 }
 ];
 

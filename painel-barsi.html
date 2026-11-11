@@ -5,6 +5,7 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
 <script src="dados/fundamentos_cvm.js"></script>
 <script src="dados/fundamentos.js"></script>
 <script src="dados/fii_pvp.js"></script>
+<script src="dados/fii_resultado.js"></script>
 <script src="dados/politica_dividendos.js"></script>
 <script src="dados/mercado.js"></script>
 
@@ -538,8 +539,9 @@ td.date{color:var(--muted); font-size:11.5px}
 .fieldset-title:first-child{margin-top:0}
 
 /* ---- Projeção: sliders, stat tiles, alocação, gráfico, metas ---- */
-.proj-grid{display:grid; grid-template-columns:minmax(260px,340px) 1fr; gap:18px; align-items:start}
-@media (max-width:760px){.proj-grid{grid-template-columns:1fr}}
+.proj-grid{display:grid; grid-template-columns:minmax(260px,340px) minmax(0,1fr); gap:18px; align-items:start}
+@media (max-width:760px){.proj-grid{grid-template-columns:minmax(0,1fr)}}
+#panel-proj-inputs{min-width:0; max-width:100%; box-sizing:border-box}
 .field-row{display:flex; align-items:center; gap:10px}
 .field-row input[type="range"]{flex:1; appearance:none; height:4px; border-radius:2px; background:var(--surface-2); outline:none}
 .field-row input[type="range"]::-webkit-slider-thumb{appearance:none; width:16px; height:16px; border-radius:50%; background:var(--accent); border:2px solid var(--surface); box-shadow:0 0 0 1px var(--rule-strong); cursor:pointer}
@@ -1357,7 +1359,8 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
 .duelo-pillar-desc { font-size: 11.5px; color: var(--ink-2); line-height: 1.4; }
 
 /* ================= 2. CALCULADORA META DE APOSENTADORIA ================= */
-.meta-panel-box { background: var(--surface); border: 1.5px solid var(--rule-strong); border-radius: 18px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+.meta-panel-box { background: var(--surface); border: 1.5px solid var(--rule-strong); border-radius: 18px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); min-width: 0; max-width: 100%; box-sizing: border-box; overflow: hidden; }
+@media (max-width: 500px) { .meta-panel-box { padding: 14px; } }
 .meta-controls-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--rule); }
 .meta-target-input-box { display: flex; align-items: center; gap: 8px; background: var(--surface-2); border: 1.5px solid var(--accent); border-radius: 12px; padding: 6px 14px; }
 .meta-target-input-box input { border: none; background: transparent; font-family: var(--font-mono); font-size: 20px; font-weight: 700; color: var(--ink); width: 110px; outline: none; }
@@ -2952,6 +2955,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
   <button role="tab" data-tab="projecao" aria-selected="false" onclick="switchMainTab('projecao')">Projeção & Metas</button>
   <button role="tab" data-tab="calc" aria-selected="false" onclick="switchMainTab('calc')">Calculadora</button>
 </div>
+<div id="faixa-preco-velho" style="display:none"></div>
 
 <!-- ===================== TAB: MEUS ATIVOS ===================== -->
 <div class="tabpanel" data-tab="ativos" data-active="true">
@@ -3334,6 +3338,8 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <p class="panel-note">Posições do extrato com preço médio, preço do robô, variação, proventos e indicadores. Clique numa classe para abrir; clique num ativo para a ficha.</p>
       </div>
     </div>
+    <div id="card-aporte-mes"></div>
+    <div id="card-ordens-abertas"></div>
     <div id="ma-body"></div>
   </section>
 
@@ -3499,6 +3505,7 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         <input type="search" id="extrato-busca-input" placeholder="Pesquisar ticker, tipo, categoria, nota ou data…" oninput="onExtratoBuscaInput(this.value)" onclick="event.stopPropagation()" style="padding:6px 12px; font-size:12.5px; border:1px solid var(--rule); border-radius:6px; background:var(--bg); color:var(--ink); min-width:240px;">
         <button class="mc-btn" id="btn-sync-assistente" onclick="event.stopPropagation(); sincronizarLancamentosPainel(true)" title="Sincronizar lançamentos do painel com a pasta dados/">📤 Sincronizar com o Assistente</button>
         <span id="extrato-sync-status" style="font-size:11.5px; color:var(--ink-2); font-weight:500;"></span>
+        <span id="extrato-selo-local" style="display:none; font-size:11.5px; font-weight:600; color:var(--warning); cursor:pointer; background:color-mix(in srgb, var(--warning) 12%, transparent); border:1px solid var(--warning); padding:3px 8px; border-radius:999px;" onclick="event.stopPropagation(); sincronizarLancamentosPainel(true)"></span>
         <button class="mc-btn primary" onclick="openLancamentoModal()">+ Novo Registro</button>
         <button class="mc-btn" onclick="exportarExtratoCSV()">Exportar CSV (Excel)</button>
         <button class="mc-btn" onclick="resetarExtratoPadrao()" title="Restaurar ordens reais de aporte">↻ Restaurar</button>
@@ -4429,13 +4436,81 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
         </div>
 
         <!-- Atalhos de Metas -->
-        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px;">
+        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
           <span style="font-size:11.5px; color:var(--muted); align-self:center; margin-right:4px;">Atalhos rápidos:</span>
           <button class="duelo-clash-btn" onclick="setMetaRenda(1000)">R$ 1.000 / mês</button>
           <button class="duelo-clash-btn" onclick="setMetaRenda(3000)">R$ 3.000 / mês</button>
           <button class="duelo-clash-btn" onclick="setMetaRenda(5000)">R$ 5.000 / mês</button>
           <button class="duelo-clash-btn" onclick="setMetaRenda(10000)">R$ 10.000 / mês</button>
           <button class="duelo-clash-btn" onclick="setMetaRenda(20000)">R$ 20.000 / mês</button>
+        </div>
+
+        <!-- Seletor da Taxa da Meta (Regra dos 150 / 200x / DY da carteira / % livre) -->
+        <div style="background:var(--surface-2); border:1px solid var(--rule); border-radius:10px; padding:10px 14px; margin-bottom:14px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+            <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+              <span style="font-size:12px; font-weight:700; color:var(--ink-2);">Quanto seu dinheiro rende na aposentadoria:</span>
+              <button type="button" id="meta-btn-taxa-150" class="macro-btn active" style="padding:4px 10px; font-size:11.5px;" onclick="setMetaTaxaModo('150')">Regra dos 150</button>
+              <button type="button" id="meta-btn-taxa-200" class="macro-btn" style="padding:4px 10px; font-size:11.5px;" onclick="setMetaTaxaModo('200')">Conservador: 200×</button>
+              <button type="button" id="meta-btn-taxa-dy" class="macro-btn" style="padding:4px 10px; font-size:11.5px;" onclick="setMetaTaxaModo('dy')">DY atual da carteira</button>
+              <label style="display:inline-flex; align-items:center; gap:4px; font-size:11.5px; color:var(--ink-2);">
+                <input type="number" id="meta-taxa-custom" step="0.05" min="0.2" max="1.5" placeholder="0,67" style="width:62px; padding:3px 6px; border:1px solid var(--rule-strong); border-radius:6px; font-family:var(--font-mono); font-size:11.5px;" oninput="setMetaTaxaModo('custom', this.value)">
+                <span>% ao mês</span>
+              </label>
+            </div>
+            <span id="meta-taxa-mult-lbl" style="font-size:12px; font-weight:700; font-family:var(--font-mono); color:var(--accent);">150× a renda mensal (≈ 0,67%/mês · 8%/ano)</span>
+          </div>
+          <div id="meta-taxa-aviso-inflacao" style="font-size:11.5px; color:var(--muted); margin-top:6px; line-height:1.4;">
+            Com 8% ao ano você vive da renda, mas parte dela é só a inflação: para a renda não perder valor, reinvista a inflação ou use 6% (200×).
+          </div>
+        </div>
+
+        <!-- Prazo, Idade & Salário em Números -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px; margin-bottom:12px; background:var(--surface-2); border:1px solid var(--rule); border-radius:10px; padding:10px 14px;">
+          <div>
+            <label for="meta-salario-input" style="display:block; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase;">Renda do trabalho (bruta, por mês)</label>
+            <input type="number" id="meta-salario-input" min="0" step="100" placeholder="Opcional (ex: 4500)" style="width:100%; margin-top:3px; padding:5px 8px; border:1px solid var(--rule-strong); border-radius:6px; font-family:var(--font-mono); font-size:12.5px; box-sizing:border-box;" oninput="atualizarCalculadoraMeta()">
+          </div>
+          <div>
+            <label for="meta-idade-hoje" style="display:block; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase;">Idade hoje (opcional)</label>
+            <input type="number" id="meta-idade-hoje" min="10" max="99" step="1" placeholder="Ex: 28" style="width:100%; margin-top:3px; padding:5px 8px; border:1px solid var(--rule-strong); border-radius:6px; font-family:var(--font-mono); font-size:12.5px; box-sizing:border-box;" oninput="atualizarCalculadoraMeta()">
+          </div>
+          <div>
+            <label for="meta-idade-alvo" style="display:block; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase;">Idade alvo</label>
+            <input type="number" id="meta-idade-alvo" min="18" max="100" step="1" value="55" style="width:100%; margin-top:3px; padding:5px 8px; border:1px solid var(--rule-strong); border-radius:6px; font-family:var(--font-mono); font-size:12.5px; box-sizing:border-box;" oninput="atualizarCalculadoraMeta()">
+          </div>
+          <div>
+            <label for="meta-ipca" style="display:block; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase;">IPCA esperado (% a.a.)</label>
+            <input type="number" id="meta-ipca" min="0" max="20" step="0.5" value="4" style="width:100%; margin-top:3px; padding:5px 8px; border:1px solid var(--rule-strong); border-radius:6px; font-family:var(--font-mono); font-size:12.5px; box-sizing:border-box;" oninput="atualizarCalculadoraMeta()">
+          </div>
+        </div>
+
+        <!-- Bloco opcional: Seu salário em números (visível só quando renda do trabalho > 0) -->
+        <div id="meta-salario-bloco" style="display:none; background:rgba(37,99,235,0.05); border:1px solid rgba(37,99,235,0.2); border-radius:10px; padding:10px 14px; margin-bottom:14px;">
+          <div style="font-size:12px; font-weight:700; color:var(--ink); margin-bottom:8px;">💼 Seu salário em números</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; font-size:12px;">
+            <div style="background:var(--surface); padding:7px 10px; border-radius:8px; border:1px solid var(--rule);">
+              <span style="display:block; font-size:10.5px; color:var(--muted);">Renda anual (×12)</span>
+              <b id="meta-sal-anual" style="font-family:var(--font-mono); font-size:13px;">—</b>
+            </div>
+            <div style="background:var(--surface); padding:7px 10px; border-radius:8px; border:1px solid var(--rule);">
+              <span style="display:block; font-size:10.5px; color:var(--muted);">Teto gastos essenciais (50%)</span>
+              <b id="meta-sal-essenciais" style="font-family:var(--font-mono); font-size:13px;">—</b>
+            </div>
+            <div style="background:var(--surface); padding:7px 10px; border-radius:8px; border:1px solid var(--rule);">
+              <span style="display:block; font-size:10.5px; color:var(--muted);">Pague-se primeiro (mín. 10%)</span>
+              <b id="meta-sal-paguese" style="font-family:var(--font-mono); font-size:13px;">—</b>
+              <div id="meta-sal-aporte-cmp" style="font-size:11px; margin-top:2px; font-weight:600;"></div>
+            </div>
+            <div style="background:var(--surface); padding:7px 10px; border-radius:8px; border:1px solid var(--rule);">
+              <span style="display:block; font-size:10.5px; color:var(--muted);">Valor do seu dia (22 dias)</span>
+              <b id="meta-sal-dia" style="font-family:var(--font-mono); font-size:13px;">—</b>
+            </div>
+            <div style="background:var(--surface); padding:7px 10px; border-radius:8px; border:1px solid var(--rule);">
+              <span style="display:block; font-size:10.5px; color:var(--muted);">Valor da sua hora (176h/mês)</span>
+              <b id="meta-sal-hora" style="font-family:var(--font-mono); font-size:13px;">—</b>
+            </div>
+          </div>
         </div>
 
         <!-- KPIs da Meta -->
@@ -4446,9 +4521,9 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
             <span class="meta-kpi-sub">Total de proventos no ano</span>
           </div>
           <div class="meta-kpi-item">
-            <span class="meta-kpi-lbl">Patrimônio Teórico Fehmir</span>
-            <span class="meta-kpi-val" id="meta-kpi-patrimonio">R$ 588.235</span>
-            <span class="meta-kpi-sub">Regra: Renda Desejada ÷ 0,85%</span>
+            <span class="meta-kpi-lbl">Patrimônio Necessário</span>
+            <span class="meta-kpi-val" id="meta-kpi-patrimonio">R$ 750.000</span>
+            <span class="meta-kpi-sub" id="meta-kpi-patr-sub">Regra dos 150 (150× a renda)</span>
           </div>
           <div class="meta-kpi-item">
             <span class="meta-kpi-lbl">Renda Mensal Atual</span>
@@ -4458,9 +4533,10 @@ tr.clickable-row:hover { background: var(--surface-2) !important; }
           <div class="meta-kpi-item">
             <span class="meta-kpi-lbl">Progresso da Liberdade</span>
             <span class="meta-kpi-val" id="meta-kpi-pct" style="color:var(--good);">0,96%</span>
-            <span class="meta-kpi-sub" id="meta-kpi-tempo-est">~12 anos no ritmo atual</span>
+            <span class="meta-kpi-sub" id="meta-kpi-tempo-est">—</span>
           </div>
         </div>
+        <div id="meta-prazo-resumo" style="font-size:12.5px; color:var(--ink-2); background:var(--surface-2); border-left:3px solid var(--accent); padding:8px 12px; border-radius:6px; margin-bottom:14px; line-height:1.5;"></div>
 
         <!-- Barra Visual de Progresso -->
         <div class="meta-progress-bar-wrap">
@@ -6135,7 +6211,10 @@ function fehmirRedesenharPrecos() {
   if (typeof window.limparCacheTetoOficial === 'function') window.limparCacheTetoOficial();
   [() => renderBaseTable(getPressedK("base")), () => renderForaTable(getPressedK("fora")), renderFiis, renderRadar, renderOverview,
    renderPodio, renderRebalanceamento, () => window.renderConselheiro && window.renderConselheiro(),
-   () => typeof renderMeusAtivos === 'function' && renderMeusAtivos()]
+   () => typeof renderMeusAtivos === 'function' && renderMeusAtivos(),
+   () => typeof renderOrdensAbertas === 'function' && renderOrdensAbertas(),
+   () => typeof renderCardAporteMes === 'function' && renderCardAporteMes(),
+   () => typeof fehmirRenderFaixaPrecoVelho === 'function' && fehmirRenderFaixaPrecoVelho()]
     .forEach(f => { try { f(); } catch (e) { console.warn('Redesenho de preços:', e); } });
 }
 
@@ -6352,10 +6431,10 @@ function renderMeusAtivos() {
     if (!aberto || !ls.length) return `<div class="ma-card">${head}</div>`;
     const ths = ['Ativo', 'Quant.', 'Preço médio', 'Preço atual', 'Variação', 'Rentab.', 'Saldo', 'Proventos', ...(rendaVar ? ['P/L', 'P/VP', 'DY 12m', 'DY s/ PM', 'ROE'] : []), '% Carteira', '% Ideal', ...(rendaVar ? ['Veredito'] : [])];
     const trs = ls.map(x => `<tr class="clickable-row" onclick="openModal('${x.t}')">
-        <td class="ticker"><b>${x.t}</b>${(typeof fehmirIconeVendaPapel === 'function' ? fehmirIconeVendaPapel(x.t, x.preco) : '')}</td>
+        <td class="ticker"><b>${x.t}</b>${(typeof fehmirIconeVendaPapel === 'function' ? fehmirIconeVendaPapel(x.t, x.preco) : '')}${(typeof fehmirBadgeOrdemAtivo === 'function' ? fehmirBadgeOrdemAtivo(x.t) : '')}</td>
         <td class="tabular">${fmtQ(x.q)}</td>
         <td class="tabular">${fmtR(x.pm)}</td>
-        <td class="tabular" style="font-weight:700"${fehmirTitle(x.t)}>${fmtR(x.preco)}</td>
+        <td class="tabular" style="font-weight:700"${fehmirTitle(x.t)}>${fmtR(x.preco)}${(typeof fehmirSubIdadePreco === 'function' ? fehmirSubIdadePreco(x.t) : '')}</td>
         <td class="tabular" style="color:${cor(x.variacao)}; font-weight:700">${pct(x.variacao)}</td>
         <td class="tabular" style="color:${cor(x.rent)}">${pct(x.rent)}</td>
         <td class="tabular" style="font-weight:600">${fmtR(x.saldo)}</td>
@@ -6376,6 +6455,8 @@ function renderMeusAtivos() {
   body.innerHTML = cards + caixaCard;
   // rótulo de cada célula (vira cartão no celular)
   body.querySelectorAll('.ma-table').forEach(tb => { const hs = [...tb.querySelectorAll('th')].map(h => h.textContent); tb.querySelectorAll('tbody tr').forEach(tr => [...tr.children].forEach((td, i) => td.setAttribute('data-label', hs[i] || ''))); });
+  if (typeof renderCardAporteMes === 'function') renderCardAporteMes();
+  if (typeof renderOrdensAbertas === 'function') renderOrdensAbertas();
 }
 window.renderMeusAtivos = renderMeusAtivos;
 
@@ -7097,8 +7178,10 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
     els.chartWrap.innerHTML = chartMeta.svg;
     wireTooltip();
 
-    var alvo5k = 5000 / 0.0085;
-    var alvo10k = 10000 / 0.0085;
+    var taxaMeta = (typeof window.fehmirMetaTaxaMes === 'function') ? window.fehmirMetaTaxaMes() : (1 / 150);
+    var alvo5k = 5000 / taxaMeta;
+    var alvo10k = 10000 / taxaMeta;
+    if (typeof window.atualizarCalculadoraMeta === 'function') { try { window.atualizarCalculadoraMeta(); } catch (e) {} }
     // Os cards de meta 5k/10k podem não existir mais no layout atual — atualizar só se presentes.
     if (!els.goal5kTarget || !els.goal5kTime || !els.goal10kTarget || !els.goal10kTime) return;
     els.goal5kTarget.textContent = 'Patrimônio-alvo: ' + fmtBRL(alvo5k);
@@ -7654,6 +7737,13 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
         <div class="modal-form-field" id="lanc-taxa-field">
           <label>Taxa / Custos B3 (R$)</label>
           <input type="number" id="lanc-taxa" step="0.01" min="0" placeholder="Ex: 0.03" value="0.00" oninput="calcularTotalLancamento()">
+        </div>
+        <div class="modal-form-field" id="lanc-pagocom-field">
+          <label for="lanc-pagocom">Pago com</label>
+          <select id="lanc-pagocom">
+            <option value="aporte">Aporte do mês</option>
+            <option value="reserva">Reserva / caixa anterior</option>
+          </select>
         </div>
         <div class="modal-form-field" id="lanc-subtotal-field">
           <label>Subtotal Bruto</label>
@@ -9250,7 +9340,7 @@ function openModal(ticker) {
   }
 
   // KPIs
-  document.getElementById('m-preco').textContent = fmtR(r.preco);
+  document.getElementById('m-preco').innerHTML = fmtR(r.preco) + (typeof fehmirSubIdadePreco === 'function' ? fehmirSubIdadePreco(r.t) : '');
   if (typeof fehmirTipNumero === 'function') {
     document.getElementById('m-preco').title = fehmirTipNumero(r.t);
     const elDyT = document.getElementById('m-dy'); if (elDyT) elDyT.title = fehmirTipNumero(r.t, 'dy');
@@ -9347,6 +9437,12 @@ function openModal(ticker) {
       const cvTxt = (av.cvLucro != null) ? ` · CV do lucro 5A: <b>${String((av.cvLucro).toFixed(1)).replace('.', ',')}%</b>` : '';
       elPolRow.innerHTML = `<div style="padding:8px 14px; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-radius:8px; font-size:12.5px; color:var(--ink); line-height:1.4;">
         ⚡ <b>Empresa regulada de lucro estável</b> · Base do teto: <b>projetivo (remuneração regulatória)</b>${cvTxt} · DPA histórico fica como conferência
+      </div>`;
+    } else if (av && av.recorrente) {
+      elPolRow.style.display = 'block';
+      elPolRow.innerHTML = `<div style="padding:8px 14px; background:rgba(245,158,11,0.10); border:1px solid rgba(245,158,11,0.35); border-radius:8px; font-size:12.5px; color:var(--ink); line-height:1.45;">
+        <span style="display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(245,158,11,0.22); color:#b45309; font-weight:700; font-size:11.5px; margin-bottom:4px;">⚠️ Rendimento acima do que o fundo gera</span>
+        <div>${av.src}</div>
       </div>`;
     } else {
       elPolRow.style.display = 'none';
@@ -9603,6 +9699,9 @@ function openModal(ticker) {
       const rProvStr = (retEsp.r_prov != null ? (retEsp.r_prov * 100).toFixed(1) : '—');
       const taxaStr = (retEsp.taxa != null ? (retEsp.taxa * 100).toFixed(1) : '—');
       elRetEsp.innerHTML = `<b>🚀 Retorno esperado (DY + crescimento)</b>: <span style="font-weight:700;color:${retEsp.cor};">${retEsp.veredito}</span> · Teto cresc.: <b>${retEsp.teto_cresc ? fmtR(retEsp.teto_cresc) : 'não limita'}</b> (provável <b>${rProvStr}% a.a.</b> real vs taxa <b>${taxaStr}%</b>) <span style="color:var(--muted);font-size:11px;cursor:help;" title="Retorno = dividendo projetado + crescimento (ROE × lucro retido), descontada a inflação. Se nem o cenário provável bate o Tesouro IPCA+ + prêmio do setor, a qualidade não compensa o preço.">ⓘ</span>`;
+    } else if (av && av.recorrente) {
+      elRetEsp.style.display = 'block';
+      elRetEsp.innerHTML = `<span style="display:inline-block;padding:2px 8px;border-radius:999px;background:rgba(245,158,11,0.22);color:#b45309;font-weight:700;font-size:11.5px;margin-bottom:4px;">⚠️ Rendimento acima do que o fundo gera</span><div>${av.src}</div>`;
     } else {
       elRetEsp.style.display = 'none';
       elRetEsp.innerHTML = '';
@@ -10666,6 +10765,8 @@ function onLancTipoChange() {
   const subtotalField = document.getElementById('lanc-subtotal-field');
   const moedaField = document.getElementById('lanc-moeda-field');
   const cambioField = document.getElementById('lanc-cambio-field');
+  const pagocomField = document.getElementById('lanc-pagocom-field');
+  if (pagocomField) pagocomField.style.display = (tipo === 'C') ? 'block' : 'none';
 
   if (tipo === 'A') {
     // Aporte de dinheiro novo
@@ -10958,6 +11059,10 @@ function handleSalvarLancamento(e) {
       txObj.moeda = 'USD';
       txObj.cambio = cambio;
     }
+    if (tipo === 'C') {
+      const pagoEl = document.getElementById('lanc-pagocom');
+      txObj.pagoCom = (pagoEl && pagoEl.value === 'reserva') ? 'reserva' : 'aporte';
+    }
     adicionarTransacao(txObj);
   }
 
@@ -10986,18 +11091,49 @@ function closeTutorialModal() {
 const CAIXA_CFG_KEY = "barsi-caixa-cfg-v1";
 
 function getCaixaCfg() {
+  const padraoAportes = [{ desde: "2026-10", valor: 300 }, { desde: "2026-11", valor: 400 }];
+  let assistAportes = padraoAportes;
+  try {
+    if (Array.isArray(window.FEHMIR_CONFIG_ASSIST)) {
+      window.FEHMIR_CONFIG_ASSIST.forEach(item => {
+        if (item && item.caixaCfg && Array.isArray(item.caixaCfg.aportes) && item.caixaCfg.aportes.length) {
+          assistAportes = item.caixaCfg.aportes.map(a => ({ desde: String(a.desde), valor: Number(a.valor) || 300 }));
+        }
+      });
+    }
+  } catch (e) {}
   try {
     const salvo = JSON.parse(localStorage.getItem(CAIXA_CFG_KEY) || "null");
-    if (salvo && salvo.inicio) {
+    if (salvo && (salvo.inicio || Array.isArray(salvo.aportes))) {
+      const mapaAp = {};
+      assistAportes.forEach(a => { if (a && a.desde) mapaAp[String(a.desde)] = Number(a.valor) || 300; });
+      if (Array.isArray(salvo.aportes)) {
+        salvo.aportes.forEach(a => { if (a && a.desde) mapaAp[String(a.desde)] = Number(a.valor) || 300; });
+      }
+      const aportes = Object.keys(mapaAp).sort().map(desde => ({ desde, valor: mapaAp[desde] }));
       return {
         inicio: salvo.inicio || "2026-10-01",
         aporteMensal: parseFloat(salvo.aporteMensal) || 300,
-        reserva: (salvo.reserva != null && salvo.reserva !== "" && !isNaN(parseFloat(salvo.reserva))) ? parseFloat(salvo.reserva) : null
+        reserva: (salvo.reserva != null && salvo.reserva !== "" && !isNaN(parseFloat(salvo.reserva))) ? parseFloat(salvo.reserva) : null,
+        aportes
       };
     }
   } catch (e) {}
-  return { inicio: "2026-10-01", aporteMensal: 300, reserva: null };
+  return { inicio: "2026-10-01", aporteMensal: 300, reserva: null, aportes: assistAportes.slice() };
 }
+
+function fehmirAporteDoMes(mes) {
+  const m = String(mes || new Date().toISOString().slice(0, 7)).slice(0, 7);
+  const cfg = getCaixaCfg();
+  const lista = Array.isArray(cfg.aportes) ? cfg.aportes.slice().sort((a, b) => String(a.desde).localeCompare(String(b.desde))) : [];
+  let vigente = null;
+  for (const item of lista) {
+    if (item && item.desde && String(item.desde) <= m) vigente = Number(item.valor);
+  }
+  if (vigente != null && isFinite(vigente) && vigente > 0) return vigente;
+  return parseFloat(cfg.aporteMensal) || 300;
+}
+window.fehmirAporteDoMes = fehmirAporteDoMes;
 
 function setCaixaCfg(cfg) {
   try {
@@ -11079,7 +11215,7 @@ function calcularResumoCaixa() {
   mesesPeriodo.forEach(mesKey => {
     const aportesReaisMes = extrato.filter(t => t.tipo === 'Aporte' && t.data.startsWith(mesKey));
     if (aportesReaisMes.length === 0) {
-      const valor = cfg.aporteMensal || 300;
+      const valor = typeof fehmirAporteDoMes === 'function' ? fehmirAporteDoMes(mesKey) : (cfg.aporteMensal || 300);
       aportesPrevistos += valor;
       const [ano, mes] = mesKey.split('-');
       todosLancamentos.push({
@@ -14116,6 +14252,7 @@ function calcularAporteInteligente() {
 
   const novoPatTotal = patTotal + verba;
   const candidatos = [];
+  const foraConferir = [];
 
   todos.forEach(r => {
     const p = rebData[r.t] || { q: r.quant || 0, i: r.ideal || 0 };
@@ -14130,11 +14267,17 @@ function calcularAporteInteligente() {
 
     if (deficitFinanceiro <= 0) return;
 
-    // Régua setorial (§21) — antes era k fixo de 7/8/12%, que aprovava compra acima do teto
+    // Régua setorial (§21) e veredito oficial (feature 006): só entra quem tem veredito "Aportar"
     const av = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : (typeof window.fehmirAvaliar === "function" ? window.fehmirAvaliar(r) : { teto: null, margemMin: 10 });
     const teto = av.teto;
     const margem = teto != null ? (1 - preco / teto) * 100 : -999;   // desconto sobre o teto (E24)
     if (r.quarentena) return;                                 // dado crítico não confirmado
+    const ver = typeof window.fehmirVeredito === "function" ? window.fehmirVeredito({ t: r.t, preco }) : null;
+    if (ver && ver.label === "Conferir teto") {
+      foraConferir.push(r.t);
+      return;
+    }
+    if (!ver || ver.label !== "Aportar") return;
     if (margem < (av.margemMin || 10)) return;                // sem margem mínima do setor, não entra (§8 item 1)
 
     const isCritical = r.status === "critical";
@@ -14160,6 +14303,9 @@ function calcularAporteInteligente() {
 
   candidatos.sort((a, b) => b.score - a.score);
   const aprovados = candidatos.filter(c => c.score > 0);
+  const foraConferirHtml = foraConferir.length > 0
+    ? `<div id="smart-aporte-fora-cesta" style="margin-top:8px; font-size:12px; color:var(--warning);">Fora da cesta: ${foraConferir.map(tk => `${tk} (teto a conferir: a margem só existe no modelo otimista)`).join(' · ')}</div>`
+    : '';
 
   if (aprovados.length === 0) {
     resContainer.style.display = "block";
@@ -14183,10 +14329,11 @@ function calcularAporteInteligente() {
           const pctIntl = patGeral > 0 ? (saldoIntlAlt / patGeral) * 100 : 0;
           return pctIntl < metaIntl * 0.8 ? `<p style="font-size:12.5px; color:var(--ink); margin-top:8px; line-height:1.5;">🌎 <b>Alternativa:</b> o balde Internacional está em <b>${String((pctIntl).toFixed(1)).replace('.', ',')}%</b> contra a meta de <b>${metaIntl}%</b>. ETFs internacionais (VTI/SCHD) não têm veto de preço-teto e o dólar perto de R$ 5,00 é janela de desconto em reais: parte do aporte pode ir para ETFs, o resto para o Caixa.</p>` : "";
         })()}
+        ${foraConferirHtml}
       </div>
     `;
     lastAporteRecomendado = [];
-    return;
+    return { cesta: [], foraConferir, aprovados };
   }
 
   let saldoRestante = verba;
@@ -14247,6 +14394,7 @@ function calcularAporteInteligente() {
         <span style="font-size:13px; font-family:var(--font-mono); color:var(--ink);">Total a Comprar: <b style="color:var(--accent);">${fmtR(totalGasto)}</b> · Sobra: <b style="color:var(--good);">${fmtR(saldoRestante)}</b></span>
       </div>
       ${comprasHtml}
+      ${foraConferirHtml}
       <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:12px;">
         <button onclick="aplicarAporteNaCarteira()" class="top-search-btn" style="background:var(--good); font-size:13px; padding:8px 18px;">
           ✅ Aplicar Compras na Minha Carteira
@@ -14254,6 +14402,7 @@ function calcularAporteInteligente() {
       </div>
     </div>
   `;
+  return { cesta: planoCompras, foraConferir, aprovados };
 }
 window.calcularAporteInteligente = calcularAporteInteligente;
 
@@ -14298,53 +14447,135 @@ function aplicarAporteNaCarteira() {
 window.aplicarAporteNaCarteira = aplicarAporteNaCarteira;
 
 /* ================= BACKUP E RESTORE (JSON) ================= */
-function exportarCarteiraJSON() {
+function exportarCarteiraJSON(naoBaixar) {
+  let simInputs = {};
+  let metaSalva = null;
+  try { simInputs = JSON.parse(localStorage.getItem('barsi-sim-inputs') || '{}'); } catch (e) {}
+  try { metaSalva = JSON.parse(localStorage.getItem('barsi-meta-v1') || 'null'); } catch (e) {}
+  const transacoes = carregarExtrato();
+  const ordens = typeof fehmirCarregarOrdens === 'function' ? fehmirCarregarOrdens() : [];
   const dados = {
-    versao: "2.1",
+    versao: "2.2",
     dataExportacao: new Date().toISOString(),
     rebData: rebData,
     marketFactor: marketFactor,
-    simInputs: JSON.parse(localStorage.getItem('barsi-sim-inputs') || '{}'),
-    transacoes: carregarExtrato()
+    simInputs: simInputs,
+    transacoes: transacoes,
+    ordens: ordens,
+    meta: metaSalva || {
+      totalTransacoes: transacoes.length,
+      ordensAbertas: ordens.filter(o => o && (o.situacao === 'aberta' || o.situacao === 'parcial')).length,
+      ultimoLancamento: transacoes.length ? transacoes[0].data : null
+    }
   };
 
-  const blob = new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `carteira-barsi-backup-${new Date().toISOString().split('T')[0]}.json`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  if (!naoBaixar && typeof Blob !== 'undefined' && typeof URL !== 'undefined' && URL.createObjectURL) {
+    try {
+      const blob = new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `carteira-barsi-backup-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (e) {}
+  }
+  return dados;
 }
 window.exportarCarteiraJSON = exportarCarteiraJSON;
 
-function importarCarteiraJSON(event) {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
+function _aplicarImportacaoCarteira(parsed) {
+  if (!parsed || typeof parsed !== 'object' || (!parsed.rebData && !Array.isArray(parsed.transacoes) && !Array.isArray(parsed.ordens))) {
+    if (typeof fehmirMostrarToast === 'function') fehmirMostrarToast("Arquivo inválido: formato não reconhecido.");
+    return { ok: false, acrescentados: 0, jaExistiam: 0, ordensAcrescentadas: 0 };
+  }
+
+  const atuais = carregarExtrato();
+  const novas = Array.isArray(parsed.transacoes) ? parsed.transacoes : [];
+  let acrescentados = 0;
+  let jaExistiam = 0;
+
+  novas.forEach(tx => {
+    if (!tx || typeof tx !== 'object') return;
+    const existe = atuais.some(a => (tx.id && a.id && a.id === tx.id) || (typeof fehmirMesmaOperacao === 'function' && fehmirMesmaOperacao(a, tx)));
+    if (existe) {
+      jaExistiam++;
+    } else {
+      atuais.push(Object.assign({}, tx));
+      acrescentados++;
+    }
+  });
+
+  atuais.sort((a, b) => (a.data < b.data ? 1 : (a.data > b.data ? -1 : 0)));
+  try { localStorage.setItem(TRANSACOES_KEY, JSON.stringify(atuais)); } catch (e) {}
+
+  let ordensAcrescentadas = 0;
+  if (Array.isArray(parsed.ordens) && typeof fehmirCarregarOrdens === 'function' && typeof fehmirGravarOrdens === 'function') {
+    const ordAtuais = fehmirCarregarOrdens();
+    parsed.ordens.forEach(ord => {
+      if (!ord || !ord.id) return;
+      if (!ordAtuais.some(o => o && o.id === ord.id)) {
+        ordAtuais.push(Object.assign({}, ord));
+        ordensAcrescentadas++;
+      }
+    });
+    if (ordensAcrescentadas > 0) fehmirGravarOrdens(ordAtuais);
+  }
+
+  if (parsed.rebData && typeof parsed.rebData === 'object') {
+    Object.keys(parsed.rebData).forEach(k => {
+      if (!rebData[k]) rebData[k] = Object.assign({}, parsed.rebData[k]);
+      else if (parsed.rebData[k] && parsed.rebData[k].i != null && rebData[k].i == null) rebData[k].i = parsed.rebData[k].i;
+    });
+    const pos = typeof calcularPosicoesExtrato === 'function' ? calcularPosicoesExtrato(atuais) : {};
+    Object.keys(pos).forEach(tk => {
+      if (rebData[tk]) rebData[tk].q = pos[tk].quant;
+    });
+    try { localStorage.setItem(REB_DATA_KEY, JSON.stringify(rebData)); } catch (e) {}
+  }
+
+  if (parsed.simInputs && typeof parsed.simInputs === 'object') {
+    try {
+      const simAtual = JSON.parse(localStorage.getItem('barsi-sim-inputs') || '{}');
+      localStorage.setItem('barsi-sim-inputs', JSON.stringify(Object.assign({}, parsed.simInputs, simAtual)));
+    } catch (e) {}
+  }
+
+  if (parsed.meta && typeof parsed.meta === 'object' && parsed.meta.valor != null) {
+    try {
+      if (!localStorage.getItem('barsi-meta-v1')) localStorage.setItem('barsi-meta-v1', JSON.stringify(parsed.meta));
+    } catch (e) {}
+  }
+
+  renderExtrato();
+  recalcularCarteira();
+  if (typeof renderOrdensAbertas === 'function') renderOrdensAbertas();
+  if (typeof renderCardAporteMes === 'function') renderCardAporteMes();
+  const msg = `${acrescentados} lançamentos acrescentados, ${jaExistiam} já existiam. Nada foi apagado.`;
+  if (typeof fehmirMostrarToast === 'function') fehmirMostrarToast(msg);
+  return { ok: true, acrescentados, jaExistiam, ordensAcrescentadas, mensagem: msg };
+}
+
+function importarCarteiraJSON(eventOrObj) {
+  if (!eventOrObj) return null;
+  if (typeof eventOrObj === 'string') {
+    try { return _aplicarImportacaoCarteira(JSON.parse(eventOrObj)); } catch (e) { return { ok: false, erro: e.message }; }
+  }
+  if (typeof eventOrObj === 'object' && !eventOrObj.target && (eventOrObj.versao || eventOrObj.transacoes || eventOrObj.rebData || eventOrObj.ordens)) {
+    return _aplicarImportacaoCarteira(eventOrObj);
+  }
+  const file = eventOrObj.target && eventOrObj.target.files && eventOrObj.target.files[0];
+  if (!file) return null;
 
   const reader = new FileReader();
   reader.onload = function(e) {
     try {
       const parsed = JSON.parse(e.target.result);
-      if (parsed.rebData && typeof parsed.rebData === 'object') {
-        rebData = parsed.rebData;
-        localStorage.setItem(REB_DATA_KEY, JSON.stringify(rebData));
-        if (parsed.simInputs) {
-          localStorage.setItem('barsi-sim-inputs', JSON.stringify(parsed.simInputs));
-        }
-        if (parsed.transacoes && Array.isArray(parsed.transacoes)) {
-          localStorage.setItem(TRANSACOES_KEY, JSON.stringify(parsed.transacoes));
-          renderExtrato();
-        }
-        recalcularCarteira();
-        alert("✅ Backup restaurado com sucesso! Seus dados e transações foram sincronizados.");
-      } else {
-        alert("Arquivo inválido: formato não reconhecido.");
-      }
+      _aplicarImportacaoCarteira(parsed);
     } catch (err) {
-      alert("Erro ao ler arquivo JSON: " + err.message);
+      if (typeof fehmirMostrarToast === 'function') fehmirMostrarToast("Erro ao ler arquivo JSON: " + err.message);
     }
   };
   reader.readAsText(file);
@@ -14638,9 +14869,168 @@ function simularPergunta3Yield(preco, pctDrop, isVulc) {
 window.simularPergunta3Yield = simularPergunta3Yield;
 
 /* ================= 3. CALCULADORA META DE APOSENTADORIA ================= */
-let metaState = { rendaMensal: 5000, modo: 'carteira' };
+const META_STORAGE_KEY = 'barsi-meta-v1';
+let metaState = {
+  rendaMensal: 5000,
+  modo: 'carteira',
+  taxaModo: '150',
+  taxaCustomPct: 0.67,
+  salario: '',
+  idadeHoje: '',
+  idadeAlvo: 55,
+  ipca: 4,
+  _domSynced: false
+};
+
+function carregarMetaStorage(forceDomSync) {
+  try {
+    const raw = localStorage.getItem(META_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') {
+        if (parsed.rendaMensal != null && isFinite(+parsed.rendaMensal) && +parsed.rendaMensal > 0) metaState.rendaMensal = +parsed.rendaMensal;
+        if (parsed.modo === 'carteira' || parsed.modo === 'universo') metaState.modo = parsed.modo;
+        if (['150', '200', 'dy', 'custom'].includes(parsed.taxaModo)) metaState.taxaModo = parsed.taxaModo;
+        if (parsed.taxaCustomPct != null && isFinite(+parsed.taxaCustomPct) && +parsed.taxaCustomPct > 0) metaState.taxaCustomPct = +parsed.taxaCustomPct;
+        if (parsed.salario !== undefined) metaState.salario = parsed.salario === '' || parsed.salario === null ? '' : String(parsed.salario);
+        if (parsed.idadeHoje !== undefined) metaState.idadeHoje = parsed.idadeHoje === '' || parsed.idadeHoje === null ? '' : String(parsed.idadeHoje);
+        if (parsed.idadeAlvo != null && isFinite(+parsed.idadeAlvo) && +parsed.idadeAlvo > 0) metaState.idadeAlvo = +parsed.idadeAlvo;
+        if (parsed.ipca != null && isFinite(+parsed.ipca) && +parsed.ipca >= 0) metaState.ipca = +parsed.ipca;
+      }
+    }
+  } catch (e) {}
+
+  if (forceDomSync || !metaState._domSynced) {
+    metaState._domSynced = true;
+    const elRenda = document.getElementById('meta-renda-input');
+    if (elRenda) elRenda.value = metaState.rendaMensal;
+    const elSal = document.getElementById('meta-salario-input');
+    if (elSal) elSal.value = metaState.salario;
+    const elIdHoje = document.getElementById('meta-idade-hoje');
+    if (elIdHoje) elIdHoje.value = metaState.idadeHoje;
+    const elIdAlvo = document.getElementById('meta-idade-alvo');
+    if (elIdAlvo) elIdAlvo.value = metaState.idadeAlvo;
+    const elIpca = document.getElementById('meta-ipca');
+    if (elIpca) elIpca.value = metaState.ipca;
+    const elCustom = document.getElementById('meta-taxa-custom');
+    if (elCustom) {
+      if (metaState.taxaModo === '150') elCustom.value = '0.67';
+      else if (metaState.taxaModo === '200') elCustom.value = '0.50';
+      else if (metaState.taxaModo === 'custom') elCustom.value = String(metaState.taxaCustomPct);
+    }
+  }
+}
+window.carregarMetaStorage = carregarMetaStorage;
+
+function salvarMetaStorage() {
+  try {
+    localStorage.setItem(META_STORAGE_KEY, JSON.stringify({
+      rendaMensal: metaState.rendaMensal,
+      modo: metaState.modo,
+      taxaModo: metaState.taxaModo,
+      taxaCustomPct: metaState.taxaCustomPct,
+      salario: metaState.salario,
+      idadeHoje: metaState.idadeHoje,
+      idadeAlvo: metaState.idadeAlvo,
+      ipca: metaState.ipca
+    }));
+  } catch (e) {}
+}
+
+function fehmirMetricasCarteiraMeta() {
+  let rendaMensalAtual = 0;
+  let patrimonioCarteira = 0;
+  const todos = [...(typeof BASE_STOCKS !== 'undefined' ? BASE_STOCKS : []), ...(typeof OUT_OF_BASE !== 'undefined' ? OUT_OF_BASE : []), ...(typeof FIIS !== 'undefined' ? FIIS : [])];
+  const qtdMeta = r => (typeof quantidadeAtual === 'function') ? quantidadeAtual(r) : (typeof rebData !== 'undefined' && rebData[r.t] ? rebData[r.t].q : (r.quant || 0));
+  todos.forEach(r => {
+    const q = qtdMeta(r);
+    if (q > 0) {
+      const preco = r.preco || 0;
+      const dpa = r.dpa != null ? r.dpa : (r.dy ? preco * (r.dy / 100) : 0);
+      rendaMensalAtual += (q * dpa) / 12;
+      patrimonioCarteira += q * preco;
+    }
+  });
+  const dyMensalCarteira = patrimonioCarteira > 0 && rendaMensalAtual > 0 ? (rendaMensalAtual / patrimonioCarteira) : (1 / 150);
+  return { rendaMensalAtual, patrimonioCarteira, dyMensalCarteira };
+}
+window.fehmirMetricasCarteiraMeta = fehmirMetricasCarteiraMeta;
+
+function fehmirMetaTaxaMes() {
+  if (!metaState._domSynced) carregarMetaStorage(false);
+  const modo = metaState.taxaModo || '150';
+  if (modo === '150') return 1 / 150;
+  if (modo === '200') return 1 / 200;
+  if (modo === 'dy') {
+    const { dyMensalCarteira } = fehmirMetricasCarteiraMeta();
+    return dyMensalCarteira > 0 ? dyMensalCarteira : (1 / 150);
+  }
+  const pct = parseFloat(metaState.taxaCustomPct);
+  return (isFinite(pct) && pct > 0) ? (pct / 100) : (1 / 150);
+}
+window.fehmirMetaTaxaMes = fehmirMetaTaxaMes;
+
+function setMetaTaxaModo(modo, valCustom) {
+  if (!metaState._domSynced) carregarMetaStorage(false);
+  metaState.taxaModo = modo;
+  const elCustom = document.getElementById('meta-taxa-custom');
+  if (modo === '150') {
+    metaState.taxaCustomPct = 0.67;
+    if (elCustom) elCustom.value = '0.67';
+  } else if (modo === '200') {
+    metaState.taxaCustomPct = 0.50;
+    if (elCustom) elCustom.value = '0.50';
+  } else if (modo === 'dy') {
+    const { dyMensalCarteira } = fehmirMetricasCarteiraMeta();
+    const pct = +(dyMensalCarteira * 100).toFixed(2);
+    metaState.taxaCustomPct = pct;
+    if (elCustom) elCustom.value = String(pct);
+  } else if (modo === 'custom') {
+    const v = parseFloat(valCustom != null ? valCustom : (elCustom ? elCustom.value : metaState.taxaCustomPct));
+    if (isFinite(v) && v > 0) {
+      metaState.taxaCustomPct = v;
+    }
+  }
+  atualizarCalculadoraMeta();
+}
+window.setMetaTaxaModo = setMetaTaxaModo;
+
+function fehmirMesesParaMeta(alvoHoje, initial, aporteInicial, reajusteAnualPct, rendimentoAnoPct, ipcaAnoPct, capMeses) {
+  const limite = capMeses != null ? capMeses : 1200;
+  if (initial >= alvoHoje) return 0;
+  const rMensal = Math.pow(1 + (rendimentoAnoPct || 0) / 100, 1 / 12) - 1;
+  const ipcaDec = (ipcaAnoPct || 0) / 100;
+  let patrimonio = initial || 0;
+  let aporteAtual = aporteInicial || 0;
+  for (let m = 1; m <= limite; m++) {
+    patrimonio = patrimonio * (1 + rMensal) + aporteAtual;
+    if (m % 12 === 0) aporteAtual *= (1 + (reajusteAnualPct || 0) / 100);
+    const alvoMes = alvoHoje * Math.pow(1 + ipcaDec, m / 12);
+    if (patrimonio >= alvoMes) return m;
+  }
+  return null;
+}
+window.fehmirMesesParaMeta = fehmirMesesParaMeta;
+
+function fehmirAporteNecessarioMeta(alvoHoje, initial, mesesAlvo, reajusteAnualPct, rendimentoAnoPct, ipcaAnoPct) {
+  if (!mesesAlvo || mesesAlvo <= 0) return 0;
+  if (initial >= alvoHoje) return 0;
+  const mZero = fehmirMesesParaMeta(alvoHoje, initial, 0, reajusteAnualPct, rendimentoAnoPct, ipcaAnoPct, mesesAlvo);
+  if (mZero !== null && mZero <= mesesAlvo) return 0;
+  let low = 0;
+  let high = Math.max(alvoHoje * 2, 500000);
+  for (let iter = 0; iter < 50; iter++) {
+    const mid = (low + high) / 2;
+    const m = fehmirMesesParaMeta(alvoHoje, initial, mid, reajusteAnualPct, rendimentoAnoPct, ipcaAnoPct, mesesAlvo);
+    if (m !== null && m <= mesesAlvo) high = mid;
+    else low = mid;
+  }
+  return Math.ceil(high);
+}
+window.fehmirAporteNecessarioMeta = fehmirAporteNecessarioMeta;
 
 function setMetaRenda(val) {
+  if (!metaState._domSynced) carregarMetaStorage(false);
   metaState.rendaMensal = val;
   const input = document.getElementById('meta-renda-input');
   if (input) input.value = val;
@@ -14649,6 +15039,7 @@ function setMetaRenda(val) {
 window.setMetaRenda = setMetaRenda;
 
 function setMetaModo(modo) {
+  if (!metaState._domSynced) carregarMetaStorage(false);
   metaState.modo = modo;
   const btnCart = document.getElementById('meta-btn-mode-carteira');
   const btnUniv = document.getElementById('meta-btn-mode-universo');
@@ -14658,36 +15049,73 @@ function setMetaModo(modo) {
 }
 window.setMetaModo = setMetaModo;
 
+function _fmtAnosMesesMeta(totalMeses) {
+  if (totalMeses === null || !isFinite(totalMeses)) return 'Além de 100 anos';
+  if (totalMeses <= 0) return 'Meta já atingida';
+  const anos = Math.floor(totalMeses / 12);
+  const meses = totalMeses % 12;
+  if (anos === 0) return meses + (meses === 1 ? ' mês' : ' meses');
+  if (meses === 0) return anos + (anos === 1 ? ' ano' : ' anos');
+  return anos + (anos === 1 ? ' ano' : ' anos') + ' e ' + meses + (meses === 1 ? ' mês' : ' meses');
+}
+
 function atualizarCalculadoraMeta() {
+  if (!metaState._domSynced) carregarMetaStorage(false);
   const input = document.getElementById('meta-renda-input');
   if (!input) return;
   const rendaAlvo = parseFloat(input.value) || 5000;
   metaState.rendaMensal = rendaAlvo;
 
-  const rendaAnualAlvo = rendaAlvo * 12;
-  const patTeorico = Math.round(rendaAlvo / 0.0085);
+  // Ler demais campos ajustáveis do DOM
+  const elSal = document.getElementById('meta-salario-input');
+  if (elSal) metaState.salario = elSal.value.trim();
+  const elIdHoje = document.getElementById('meta-idade-hoje');
+  if (elIdHoje) metaState.idadeHoje = elIdHoje.value.trim();
+  const elIdAlvo = document.getElementById('meta-idade-alvo');
+  if (elIdAlvo && elIdAlvo.value !== '') metaState.idadeAlvo = parseFloat(elIdAlvo.value) || 55;
+  const elIpca = document.getElementById('meta-ipca');
+  if (elIpca && elIpca.value !== '') {
+    const vIpca = parseFloat(elIpca.value);
+    if (isFinite(vIpca) && vIpca >= 0) metaState.ipca = vIpca;
+  }
 
-  // Renda mensal atual gerada pela carteira
-  let rendaMensalAtual = 0;
-  const todos = [...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS];
-  const qtdMeta = r => (typeof quantidadeAtual === 'function') ? quantidadeAtual(r) : (rebData[r.t] ? rebData[r.t].q : (r.quant || 0));
-  todos.forEach(r => {
-    const q = qtdMeta(r);
-    if (q > 0) {
-      const preco = r.preco || 0;
-      const dpa = r.dpa != null ? r.dpa : (r.dy ? preco * (r.dy / 100) : 0);
-      rendaMensalAtual += (q * dpa) / 12;
-    }
-  });
+  // Atualizar botões de modo da taxa
+  const btn150 = document.getElementById('meta-btn-taxa-150');
+  const btn200 = document.getElementById('meta-btn-taxa-200');
+  const btnDy = document.getElementById('meta-btn-taxa-dy');
+  if (btn150) btn150.classList.toggle('active', metaState.taxaModo === '150');
+  if (btn200) btn200.classList.toggle('active', metaState.taxaModo === '200');
+  if (btnDy) btnDy.classList.toggle('active', metaState.taxaModo === 'dy');
+
+  const { rendaMensalAtual, dyMensalCarteira } = fehmirMetricasCarteiraMeta();
+  if (metaState.taxaModo === 'dy') {
+    const elCustom = document.getElementById('meta-taxa-custom');
+    const pctDy = +(dyMensalCarteira * 100).toFixed(2);
+    metaState.taxaCustomPct = pctDy;
+    if (elCustom) elCustom.value = String(pctDy);
+  }
+
+  const taxaMes = fehmirMetaTaxaMes();
+  const multiplicador = taxaMes > 0 ? Math.round(1 / taxaMes) : 150;
+  const rendaAnualAlvo = rendaAlvo * 12;
+  const patTeorico = Math.round(rendaAlvo / taxaMes);
+
+  const elMultLbl = document.getElementById('meta-taxa-mult-lbl');
+  if (elMultLbl) {
+    elMultLbl.textContent = `${multiplicador}× a renda mensal (≈ ${(taxaMes * 12 * 100).toFixed(1).replace('.', ',')}% a.a.)`;
+  }
 
   const progressoPct = rendaAlvo > 0 ? (rendaMensalAtual / rendaAlvo) * 100 : 0;
 
-  // Atualizar cards
+  // Atualizar cards KPI
   const elAnual = document.getElementById('meta-kpi-anual');
   if (elAnual) elAnual.textContent = fmtR(rendaAnualAlvo);
 
   const elPat = document.getElementById('meta-kpi-patrimonio');
   if (elPat) elPat.textContent = fmtR(patTeorico);
+
+  const elPatSub = document.getElementById('meta-kpi-patr-sub');
+  if (elPatSub) elPatSub.textContent = `Para gerar ${fmtR(rendaAlvo)}/mês (${multiplicador}× a renda · ${(taxaMes * 100).toFixed(2).replace('.', ',')}% a.m.)`;
 
   const elAtual = document.getElementById('meta-kpi-atual');
   if (elAtual) elAtual.textContent = fmtR(rendaMensalAtual);
@@ -14701,7 +15129,85 @@ function atualizarCalculadoraMeta() {
   const elBarLbl = document.getElementById('meta-progress-lbl');
   if (elBarLbl) elBarLbl.textContent = `${String((progressoPct).toFixed(2)).replace('.', ',')}% conquistado (${fmtR(rendaMensalAtual)} de ${fmtR(rendaAlvo)})`;
 
+  // Bloco "Seu salário em números"
+  const salVal = parseFloat(metaState.salario);
+  const elSalBloco = document.getElementById('meta-salario-bloco');
+  const elInAporte = document.getElementById('in-aporte');
+  const aporteSim = elInAporte && elInAporte.value !== '' ? (parseFloat(elInAporte.value) || 0) : 300;
+
+  if (elSalBloco) {
+    if (isFinite(salVal) && salVal > 0) {
+      elSalBloco.style.display = 'block';
+      const salAnual = salVal * 12;
+      const salEssenciais = salVal * 0.5;
+      const salPagueSe = salVal * 0.10;
+      const salDia = salVal / 22;
+      const salHora = salVal / 176;
+      const pctAporteRenda = (aporteSim / salVal) * 100;
+
+      const elSalAnual = document.getElementById('meta-sal-anual');
+      if (elSalAnual) elSalAnual.textContent = fmtR(salAnual);
+      const elSalEss = document.getElementById('meta-sal-essenciais');
+      if (elSalEss) elSalEss.textContent = fmtR(salEssenciais);
+      const elSalPag = document.getElementById('meta-sal-paguese');
+      if (elSalPag) elSalPag.textContent = fmtR(salPagueSe);
+      const elSalCmp = document.getElementById('meta-sal-aporte-cmp');
+      if (elSalCmp) {
+        elSalCmp.textContent = `Você aporta ${fmtR(aporteSim)} = ${pctAporteRenda.toFixed(1).replace('.', ',')}% da renda`;
+        elSalCmp.style.color = pctAporteRenda >= 10 - 1e-6 ? 'var(--good)' : 'var(--warning)';
+      }
+      const elSalDia = document.getElementById('meta-sal-dia');
+      if (elSalDia) elSalDia.textContent = fmtR(salDia);
+      const elSalHora = document.getElementById('meta-sal-hora');
+      if (elSalHora) elSalHora.textContent = fmtR(salHora);
+    } else {
+      elSalBloco.style.display = 'none';
+    }
+  }
+
+  // Prazo e idade dinâmicos
+  const patrInicial = (typeof window.fehmirPatrimonioAtual === 'function')
+    ? window.fehmirPatrimonioAtual()
+    : (parseFloat(document.getElementById('in-inicial')?.value) || 0);
+  const elInReaj = document.getElementById('in-reajuste');
+  const reajusteSim = elInReaj && elInReaj.value !== '' ? (parseFloat(elInReaj.value) || 0) : 10;
+  const elInRend = document.getElementById('in-rendimento');
+  const rendimentoSim = elInRend && elInRend.value !== '' ? (parseFloat(elInRend.value) || 0) : 12;
+  const ipcaEsp = isFinite(+metaState.ipca) ? +metaState.ipca : 4;
+
+  const mesesRitmo = fehmirMesesParaMeta(patTeorico, patrInicial, aporteSim, reajusteSim, rendimentoSim, ipcaEsp, 1200);
+  const prazoFmt = _fmtAnosMesesMeta(mesesRitmo);
+  const idadeHojeNum = parseFloat(metaState.idadeHoje);
+  const temIdadeHoje = isFinite(idadeHojeNum) && idadeHojeNum > 0;
+  const idadeAlvoNum = isFinite(+metaState.idadeAlvo) && +metaState.idadeAlvo > 0 ? +metaState.idadeAlvo : 55;
+
+  let textoRitmo = mesesRitmo === null
+    ? 'No ritmo atual: Além de 100 anos'
+    : `No ritmo atual: ${prazoFmt}${temIdadeHoje ? ` (aos ${Math.round(idadeHojeNum + mesesRitmo / 12)})` : ''}`;
+
+  let textoInverso = '';
+  if (temIdadeHoje && idadeAlvoNum > idadeHojeNum) {
+    const mesesAlvo = Math.round((idadeAlvoNum - idadeHojeNum) * 12);
+    const apNec = fehmirAporteNecessarioMeta(patTeorico, patrInicial, mesesAlvo, reajusteSim, rendimentoSim, ipcaEsp);
+    textoInverso = `Para chegar aos ${idadeAlvoNum}: aporte de ${fmtR(apNec)} por mês`;
+  }
+
+  const elTempoKpi = document.getElementById('meta-kpi-tempo-est');
+  if (elTempoKpi) {
+    elTempoKpi.textContent = textoInverso ? `${textoRitmo} · ${textoInverso}` : textoRitmo;
+  }
+  const elPrazoResumo = document.getElementById('meta-prazo-resumo');
+  if (elPrazoResumo) {
+    elPrazoResumo.innerHTML = textoInverso
+      ? `⏱️ <b>${textoRitmo}</b> · 🎯 <b>${textoInverso}</b> <span style="color:var(--muted);">(meta corrigida por IPCA ${String(ipcaEsp).replace('.', ',')}% a.a.)</span>`
+      : `⏱️ <b>${textoRitmo}</b> <span style="color:var(--muted);">(meta corrigida por IPCA ${String(ipcaEsp).replace('.', ',')}% a.a.; preencha "Idade hoje" para calcular o aporte para a idade alvo)</span>`;
+  }
+
+  salvarMetaStorage();
+
   // Tabela de Ativos
+  const todos = [...BASE_STOCKS, ...OUT_OF_BASE, ...FIIS];
+  const qtdMeta = r => (typeof quantidadeAtual === 'function') ? quantidadeAtual(r) : (rebData[r.t] ? rebData[r.t].q : (r.quant || 0));
   const tbody = document.getElementById('tbody-meta-aposentadoria');
   if (!tbody) return;
 
@@ -14825,6 +15331,18 @@ const DEFAULT_TRANSACOES = [
   { data: "2026-09-30", tipo: "Compra", ticker: "SOL", cat: "CRIPTO", quant: 0.04888403, preco: 594.67, total: 29.07, nota: "Alocação descentralizada" }
 ];
 
+function fehmirMesmoPreco(a, b) {
+  return !(Number(a && a.preco) > 0 && Number(b && b.preco) > 0) ||
+    Math.abs(Number(a.preco) - Number(b.preco)) < 0.005;
+}
+function fehmirMesmaOperacao(a, b) {
+  if (!a || !b) return false;
+  return a.ticker === b.ticker && a.tipo === b.tipo &&
+    Math.abs((Number(a.quant) || 0) - (Number(b.quant) || 0)) < 1e-8 && fehmirMesmoPreco(a, b) &&
+    (a.data === b.data || String(b.quant).replace(/^\d+\./, "").length >= 6);
+}
+window.fehmirMesmaOperacao = fehmirMesmaOperacao;
+
 function carregarExtrato() {
   let salvo = null;
   let alterou = false;
@@ -14880,11 +15398,7 @@ function carregarExtrato() {
 
   // Mesmo ticker, tipo e quantidade (8 casas) = mesma operação, ainda que lançada com outra data.
   // Preço diferente (meio centavo de tolerância) = ordens distintas no mesmo dia (ex.: 2 ISAE4 a 24,95 e 2 a 24,91).
-  const mesmoPreco = (a, b) => !(Number(a.preco) > 0 && Number(b.preco) > 0) ||
-    Math.abs(Number(a.preco) - Number(b.preco)) < 0.005;
-  const mesmaOperacao = (a, b) => a.ticker === b.ticker && a.tipo === b.tipo &&
-    Math.abs((Number(a.quant) || 0) - (Number(b.quant) || 0)) < 1e-8 && mesmoPreco(a, b) &&
-    (a.data === b.data || String(b.quant).replace(/^\d+\./, "").length >= 6);
+  const mesmaOperacao = fehmirMesmaOperacao;
 
   // Semear perfil limpo com lançamentos do painel salvos em arquivo (Rodada 19 Parte B)
   const painelLancs = window.FEHMIR_LANC_PAINEL || [];
@@ -14948,7 +15462,7 @@ function carregarExtrato() {
 
 /* ================= SINCRONIZAÇÃO PAINEL -> ARQUIVO (Rodada 19 Parte B) ================= */
 function fehmirSerializarLancPainel(lista) {
-  const camposPermitidos = ['id', 'data', 'tipo', 'ticker', 'cat', 'quant', 'preco', 'taxa', 'total', 'moeda', 'cambio', 'destino', 'nota'];
+  const camposPermitidos = ['id', 'data', 'tipo', 'ticker', 'cat', 'quant', 'preco', 'taxa', 'total', 'moeda', 'cambio', 'destino', 'pagoCom', 'nota'];
   const filtrados = (lista || [])
     .filter(it => it && it.origem !== 'assistente')
     .map(it => {
@@ -15079,6 +15593,7 @@ async function _registrarSucessoSync(totalOps, listaManuais) {
   localStorage.setItem('barsi-lanc-painel-sync-chaves', JSON.stringify((listaManuais || []).map(_chaveOpSync)));
   fehmirMostrarToast(`Sincronizado: ${totalOps} operações → dados/lancamentos_painel.js`);
   atualizarIndicadorSync();
+  if (typeof fehmirLancSoNesteNavegador === 'function') fehmirLancSoNesteNavegador();
 }
 
 async function sincronizarLancamentosPainel(origemClique) {
@@ -15155,6 +15670,8 @@ function salvarExtrato(lista) {
   if (typeof recalcularCarteira === 'function') recalcularCarteira();
   if (typeof renderCaixaInvestir === 'function') renderCaixaInvestir();
   if (typeof renderRentabilidade === 'function') renderRentabilidade();
+  if (typeof renderCardAporteMes === 'function') renderCardAporteMes();
+  if (typeof renderOrdensAbertas === 'function') renderOrdensAbertas();
   renderExtrato();
   if (typeof sincronizarLancamentosPainel === 'function') {
     sincronizarLancamentosPainel(false).catch(e => console.warn('Auto-sync silencioso falhou:', e));
@@ -15312,6 +15829,7 @@ function renderExtrato() {
   if (elVendas) elVendas.textContent = fmtR(totalVendas);
 
   atualizarIndicadorSync();
+  if (typeof fehmirLancSoNesteNavegador === 'function') fehmirLancSoNesteNavegador();
 }
 
 function exportarExtratoCSV() {
@@ -19434,6 +19952,14 @@ initCollapsibleBlocks();
       const h = r.divHist, ult = h[h.length - 1], ant = h[h.length - 2];
       if (ant > 0 && ult / ant - 1 < -0.15) a.push(["📉", "<b>" + r.t + "</b>: último provento caiu " + fmtN((1 - ult / ant) * 100, 0) + "% contra o anterior. Pergunta 1 e 2 do protocolo do yield."]);
     });
+    rows.filter(r => r.cls === "fii").forEach(r => {
+      const avF = typeof window.tetoOficial === "function" ? window.tetoOficial(r) : null;
+      const rec = avF && avF.recorrente;
+      if (rec) {
+        const mesLbl = typeof _fmtPeriodoRecFii === "function" ? _fmtPeriodoRecFii(rec.meses, false) : (rec.meses || []).join(", ");
+        a.push(["⚠️", (`<b>${r.t}</b>: paga ${fR(rec.pagoMes)} e gera ${fR(rec.recMes)} (${mesLbl}). Sem a ${rec.origem || "venda de imóveis"}, o DY cai de ${fmtN(rec.dyPago, 1)}% para ${fmtN(rec.dyRec, 1)}% e o teto de ${fR(rec.tetoPago)} para ${fR(rec.teto)}.`).replace(/\u00a0/g, " ")]);
+      }
+    });
     if (termo.premio < 3) a.push(["🌡️", "Prêmio de risco da bolsa em " + fmtN(termo.premio, 1) + " p.p. sobre o IPCA+, abaixo dos 4-5 p.p. exigidos. O Tesouro IPCA+ a " + fmtN(m.ntnb, 1) + "% compete forte com ações esticadas."]);
     if (m.dolar && m.dolar <= 5.1) a.push(["💵", "Dólar perto de R$ " + fmtN(m.dolar, 2) + ": janela de desconto duplo para o balde internacional (VTI sub-alocado)."]);
     const est = (m.est || []).length;
@@ -19662,7 +20188,7 @@ initCollapsibleBlocks();
       }).join("");
       const cardsFiis = FII_TIPOS.map(T => {
         const req = T.semTeto ? null : fiiReq(T, 0, m);
-        const pares = fiis.filter(f => fiiSubDe(f).id === T.id).map(f => { const rq = fiiReq(T, f.dy || 0, m); const teto = f.dpa && rq ? f.dpa / (rq / 100) : null; return { t: f.t, margem: teto ? (1 - f.preco / teto) * 100 : null, trap: trap(f) }; });
+        const pares = fiis.filter(f => fiiSubDe(f).id === T.id).map(f => { const rq = fiiReq(T, f.dy || 0, m); const tOfF = typeof window.tetoOficial === "function" ? window.tetoOficial(f) : null; const teto = (tOfF && tOfF.teto) ? tOfF.teto : (f.dpa && rq ? f.dpa / (rq / 100) : null); return { t: f.t, margem: teto ? (1 - f.preco / teto) * 100 : null, trap: trap(f) }; });
         return `<div class="mz-card${T.semTeto ? " is-off" : ""}">
           <div class="mz-top"><b>${T.nome}</b>${T.papel ? '<span class="mz-badge">nominal</span>' : T.semTeto ? '<span class="mz-badge hot">sem teto</span>' : '<span class="mz-badge">real</span>'}</div>
           <div class="mz-req"><span>DY exigido</span><b>${req ? fmtN(req, 1) + "%" : "não é renda"}</b><small>${T.semTeto ? "Não projetar teto de renda" : T.papel ? `IPCA+ ${fmtN(m.ntnb, 1)} + IPCA ${fmtN(m.ipca12, 1)} + 1,5${T.extra ? " + " + fmtN(T.extra, 1) : ""}` : `IPCA+ ${fmtN(m.ntnb, 1)} + prêmio ${fmtN(T.premio, 1)}`}</small></div>
@@ -19711,6 +20237,99 @@ initCollapsibleBlocks();
     }
   }
 
+  const _MESES_CURTOS_FII = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+  function _fmtMesCurtoFii(ym) {
+    const [y, m] = String(ym || "").split("-");
+    const idx = parseInt(m, 10) - 1;
+    return (_MESES_CURTOS_FII[idx] || m) + "/" + String(y || "").slice(-2);
+  }
+  function _fmtPeriodoRecFii(meses, comEm) {
+    if (!meses || !meses.length) return "";
+    if (meses.length === 1) {
+      const s = _fmtMesCurtoFii(meses[0]);
+      return comEm ? ("em " + s) : s;
+    }
+    const p0 = String(meses[0]).split("-");
+    const p1 = String(meses[meses.length - 1]).split("-");
+    const m0 = _MESES_CURTOS_FII[parseInt(p0[1], 10) - 1] || p0[1];
+    const m1 = _MESES_CURTOS_FII[parseInt(p1[1], 10) - 1] || p1[1];
+    const s = (p0[0] === p1[0])
+      ? (m0 + "–" + m1 + "/" + String(p1[0] || "").slice(-2))
+      : (m0 + "/" + String(p0[0] || "").slice(-2) + "–" + m1 + "/" + String(p1[0] || "").slice(-2));
+    return comEm ? ("em média em " + s) : s;
+  }
+
+  // Rodada 20 Parte B — Função pura para resultado recorrente de FIIs
+  function fehmirRecorrenteFii(t, dpa12, preco, req, hoje) {
+    const tk = String(t || "").trim().toUpperCase();
+    if (!tk || !(dpa12 > 0) || !(req > 0)) return null;
+    const mapa = (typeof window !== "undefined" && window.FEHMIR_FII_RESULTADO) ? window.FEHMIR_FII_RESULTADO : {};
+    const reg = mapa[tk];
+    const lista = Array.isArray(reg) ? reg : (reg && Array.isArray(reg.meses) ? reg.meses : null);
+    if (!lista || !lista.length) return null;
+
+    let anoHoje, mesHoje;
+    if (typeof hoje === "string" && /^\d{4}-\d{2}/.test(hoje)) {
+      const parts = hoje.split("-");
+      anoHoje = parseInt(parts[0], 10);
+      mesHoje = parseInt(parts[1], 10);
+    } else if (hoje instanceof Date && !isNaN(hoje.getTime())) {
+      anoHoje = hoje.getUTCFullYear();
+      mesHoje = hoje.getUTCMonth() + 1;
+    } else if (hoje) {
+      const dH = new Date(hoje);
+      if (isNaN(dH.getTime())) return null;
+      anoHoje = dH.getUTCFullYear();
+      mesHoje = dH.getUTCMonth() + 1;
+    } else {
+      const now = new Date();
+      anoHoje = now.getFullYear();
+      mesHoje = now.getMonth() + 1;
+    }
+
+    const validos = lista.filter(m => {
+      if (!m || typeof m.mes !== "string") return false;
+      const mt = m.mes.match(/^(\d{4})-(\d{2})/);
+      if (!mt) return false;
+      const diff = (anoHoje * 12 + mesHoje) - (parseInt(mt[1], 10) * 12 + parseInt(mt[2], 10));
+      return diff >= 0 && diff <= 6 && isFinite(m.recorrente) && isFinite(m.pago);
+    }).sort((a, b) => a.mes.localeCompare(b.mes));
+
+    if (!validos.length) return null;
+
+    const recMes = validos.reduce((s, m) => s + Number(m.recorrente), 0) / validos.length;
+    const pagoMes = validos.reduce((s, m) => s + Number(m.pago), 0) / validos.length;
+    if (recMes >= pagoMes) return null;
+
+    const rendaRec = Math.min(dpa12, recMes * 12);
+    const teto = rendaRec / (req / 100);
+    const tetoPago = dpa12 / (req / 100);
+    const inflado = pagoMes - recMes;
+    const meses = validos.map(m => m.mes);
+    const ult = validos[validos.length - 1];
+    const origem = ult.origem || "venda de imóveis";
+    const conferido = validos.every(m => m.conferido !== false);
+    const dyPago = preco > 0 ? (dpa12 / preco) * 100 : null;
+    const dyRec = preco > 0 ? (rendaRec / preco) * 100 : null;
+    const fonte = ult.fonte || "";
+
+    return {
+      teto,
+      tetoPago,
+      rendaRec,
+      recMes,
+      pagoMes,
+      inflado,
+      meses,
+      origem,
+      conferido,
+      dyPago,
+      dyRec,
+      fonte
+    };
+  }
+  window.fehmirRecorrenteFii = fehmirRecorrenteFii;
+
   // Régua setorial única para o painel inteiro (usada também pelo "Onde Aportar Hoje")
   window.fehmirAvaliar = function (a) {
     const m = loadMacro();
@@ -19728,7 +20347,20 @@ initCollapsibleBlocks();
         ? "Dividendo 12m " + fR(renda) + (doRobo ? " (robô)" : " (dividendo do cadastro, não do robô — conferir)") + " ÷ " + fmtN(req, 1) + "% = " + fR(teto)
         : "Renda anual ÷ " + (req ? fmtN(req, 1) + "%" : "—");
       // Mesma trava de sanidade das ações: teto acima de 3× o preço = provento inflado (amortização etc.).
-      const pF = hF && hF.c && hF.c.length ? hF.c[hF.c.length - 1] : a.preco;
+      const pF = (a.preco > 0) ? a.preco : (hF && hF.c && hF.c.length ? hF.c[hF.c.length - 1] : 0);
+      let recFii = null;
+      if (em.metodo === "Bazin por rendimento" && renda > 0 && req > 0 && typeof window.fehmirRecorrenteFii === "function") {
+        recFii = window.fehmirRecorrenteFii(a.t, renda, pF, req);
+        if (recFii) {
+          teto = recFii.teto;
+          const mesTexto = _fmtPeriodoRecFii(recFii.meses, true);
+          srcFii = ("Rendimento inflado por " + (recFii.origem || "venda de imóveis") + ": " + fR(recFii.inflado) + " por cota " + mesTexto +
+            " (pagou " + fR(recFii.pagoMes) + ", gerou " + fR(recFii.recMes) + "). Teto pelo recorrente: " + fR(recFii.recMes) + " × 12 = " + fR(recFii.rendaRec) +
+            " ÷ " + fmtN(req, 1) + "% = " + fR(recFii.teto) + " (pelo pago seria " + fR(recFii.tetoPago) + ")." +
+            (recFii.dyRec != null && recFii.dyPago != null ? " DY no preço de hoje: " + fmtN(recFii.dyRec, 1) + "% pelo recorrente, " + fmtN(recFii.dyPago, 1) + "% pelo pago." : "") +
+            (recFii.conferido === false ? " Fonte: vídeo, conferir no relatório gerencial." : "")).replace(/\u00a0/g, " ");
+        }
+      }
       if (teto > 0 && pF > 0 && teto > 3 * pF) {
         srcFii = "⚠️ Dado suspeito: o teto calculado (" + fR(teto) + ") é " + fmtN(teto / pF, 1) + "× o preço — rendimento provavelmente inclui amortização. " + srcFii;
         teto = null;
@@ -19745,6 +20377,7 @@ initCollapsibleBlocks();
         hist: teto,
         src: srcFii,
         req,
+        recorrente: recFii,
         payoutUsado: a.payout || 95,
         payoutImplicito: null,
         payoutDivergente: false,
@@ -19824,7 +20457,8 @@ initCollapsibleBlocks();
       obj.preco = objArg.preco;
     }
     const pKey = (obj && typeof obj.preco === "number") ? obj.preco.toFixed(4) : "";
-    const cacheKey = t ? (t + ":" + pKey) : "";
+    const fiiResKey = (t && window.FEHMIR_FII_RESULTADO && window.FEHMIR_FII_RESULTADO[t]) ? JSON.stringify(window.FEHMIR_FII_RESULTADO[t]) : "";
+    const cacheKey = t ? (t + ":" + pKey + ":" + fiiResKey) : "";
     if (cacheKey && _cacheTetoOficial.has(cacheKey)) {
       return _cacheTetoOficial.get(cacheKey);
     }
@@ -21053,6 +21687,8 @@ function fehmirObterCalcPadroes(t, a, av) {
   const projCrescimento = 0;
   const projPayout = (av && av.pay > 0) ? av.pay : pay;
   const projDy = dyExigido;
+  const gSetor = (av && av.g > 0) ? av.g : 0;
+  const dpa0Exato = (lpaProj > 0 && projPayout > 0) ? lpaProj * (projPayout / 100) : null;
 
   // Lynch: g = ROE * (1 - payout/100), limitado a 0-15%
   let gLynch = (roe / 100) * (1 - (pay / 100)) * 100;
@@ -21063,7 +21699,7 @@ function fehmirObterCalcPadroes(t, a, av) {
   return {
     bazin: { dpa: parseFloat(bazinDpa.toFixed(2)), dy: parseFloat(bazinDy.toFixed(2)), dpaTipo: bazinTipo },
     graham: { lpa: parseFloat(grahamLpa.toFixed(2)), vpa: parseFloat(grahamVpa.toFixed(2)) },
-    projetivo: { lucro: lucro ? Math.round(lucro) : null, nAcoes: nAcoes, proj: projCrescimento, payout: parseFloat(projPayout.toFixed(1)), dy: parseFloat(projDy.toFixed(2)) },
+    projetivo: { lucro: lucro ? Math.round(lucro) : null, nAcoes: nAcoes, proj: projCrescimento, payout: parseFloat(projPayout.toFixed(1)), dy: parseFloat(projDy.toFixed(2)), usarGSetor: false, gSetor: parseFloat(gSetor.toFixed(2)), dpa0Exato: dpa0Exato },
     lynch: { g: parseFloat(gLynch.toFixed(1)), dy: parseFloat(lynchDy.toFixed(2)), pl: parseFloat(lynchPl.toFixed(2)) }
   };
 }
@@ -21121,9 +21757,14 @@ function fehmirCalcularMetricas(t, estado, preco) {
   } else if (!estado.projetivo.dy || estado.projetivo.dy <= 0) {
     projMsg = "Informe o DY desejado";
   } else {
-    const lucroAjustado = estado.projetivo.lucro * (1 + (estado.projetivo.proj || 0) / 100);
-    dpaProj = (lucroAjustado * (estado.projetivo.payout / 100)) / estado.projetivo.nAcoes;
-    projTeto = dpaProj / (estado.projetivo.dy / 100);
+    const gProj = estado.projetivo.proj || 0;
+    const usarGordon = !!(estado.projetivo.usarGSetor || gProj > 0);
+    const dpaBase = (estado.projetivo.usarGSetor && estado.projetivo.dpa0Exato > 0)
+      ? estado.projetivo.dpa0Exato
+      : ((estado.projetivo.lucro * (estado.projetivo.payout / 100)) / estado.projetivo.nAcoes);
+    dpaProj = dpaBase * (1 + gProj / 100);
+    const denomDy = usarGordon ? (estado.projetivo.dy - gProj) : estado.projetivo.dy;
+    projTeto = denomDy > 0 ? dpaProj / (denomDy / 100) : null;
     if (preco > 0) yieldProj = (dpaProj / preco) * 100;
     if (projTeto > 0 && preco > 0) projMargem = (1 - preco / projTeto) * 100;
   }
@@ -21370,6 +22011,13 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
         </div>
   `;
 
+  const tOfProj = (typeof window.tetoOficial === "function") ? window.tetoOficial(t) : av;
+  const ehOficialProjComG = !!(tOfProj && tOfProj.g > 0 && tOfProj.teto > 0 && (tOfProj.baseTeto === "projetivo" || (tOfProj.metodo === "Bazin projetivo" && tOfProj.proj != null && Math.abs(tOfProj.teto - tOfProj.proj) < 0.02)));
+  const refSetorProjHtml = ehOficialProjComG
+    ? `<div id="calc-proj-ref-setor-${t}" style="font-size:11px;color:var(--muted);margin:-2px 0 4px;">Com o crescimento do setor (${fmtM(tOfProj.g, 1)}% real): <b style="color:var(--ink);font-family:var(--font-mono);">${fmtRM(tOfProj.teto)}</b> = teto oficial</div>`
+    : '';
+  window.__calcValuationState[t].refSetorProjHtml = refSetorProjHtml;
+
   const cardProjHtml = `
         <div class="an-calc-card"${isProjRec ? ' style="border:2px solid var(--gold);position:relative;"' : ''}>
           <div class="an-calc-card-head">
@@ -21394,9 +22042,10 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
             </div>
             <div class="an-calc-row">
               <span class="an-calc-label">Projeção Cresc. (%) <span class="an-info" tabindex="0" title="Quanto o lucro deve crescer no próximo ano. Padrão 0%: mostra o teto sem nenhum crescimento (visão conservadora). O teto oficial da régua usa o crescimento real limitado do setor na fórmula de Gordon, por isso pode ficar acima deste.">ⓘ</span></span>
-              <div class="an-calc-input-wrap">
+              <div class="an-calc-input-wrap" style="gap:4px;flex-wrap:wrap;justify-content:flex-end;">
+                ${(av && av.g > 0) ? `<button type="button" class="an-calc-shortcut-btn" id="calc-proj-btn-gsetor-${t}" onclick="fehmirUsarGSetorCalc('${t}')" title="Preenche o g oficial (${fmtN(av.g, 1)}%) e aplica a fórmula de Gordon da régua">usar g do setor</button>` : ''}
                 <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','proj-proj', -1)">−</button>
-                <input type="number" step="1" class="an-calc-input" id="calc-proj-proj-${t}" value="${estado.projetivo.proj}" oninput="fehmirAtualizarCalc('${t}')" style="width:50px">
+                <input type="number" step="0.1" class="an-calc-input" id="calc-proj-proj-${t}" value="${estado.projetivo.proj}" oninput="fehmirAtualizarCalc('${t}')" style="width:50px">
                 <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','proj-proj', 1)">+</button>
               </div>
             </div>
@@ -21431,6 +22080,7 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
                 <span style="color:var(--muted)">Preço teto:</span>
                 <b style="font-family:var(--font-mono);font-size:14px;color:var(--ink)">${fmtRM(M.projetivo.teto)}</b>
               </div>
+              ${refSetorProjHtml}
               <div class="an-calc-res-item">
                 <span style="color:var(--muted)">Yield projetivo:</span>
                 <b style="font-family:var(--font-mono);color:var(--accent)">${fmtM(M.projetivo.yieldProj, 2)}%</b>
@@ -21567,7 +22217,10 @@ window.fehmirAtualizarCalc = function(t) {
     const projDy = getNum(`calc-proj-dy-${t}`);
     S.estado.projetivo.lucro = projLucro;
     S.estado.projetivo.nAcoes = projNacoes;
-    if (projProj != null) S.estado.projetivo.proj = projProj;
+    if (projProj != null) {
+      S.estado.projetivo.proj = projProj;
+      S.estado.projetivo.usarGSetor = (S.padroes.projetivo && S.padroes.projetivo.gSetor > 0 && Math.abs(projProj - S.padroes.projetivo.gSetor) < 1e-6);
+    }
     if (projPayout != null) S.estado.projetivo.payout = projPayout;
     if (projDy != null) S.estado.projetivo.dy = projDy;
 
@@ -21632,6 +22285,7 @@ window.fehmirAtualizarCalc = function(t) {
           <span style="color:var(--muted)">Preço teto:</span>
           <b style="font-family:var(--font-mono);font-size:14px;color:var(--ink)">${fmtRM(M.projetivo.teto)}</b>
         </div>
+        ${S.refSetorProjHtml || ''}
         <div class="an-calc-res-item">
           <span style="color:var(--muted)">Yield projetivo:</span>
           <b style="font-family:var(--font-mono);color:var(--accent)">${fmtM(M.projetivo.yieldProj, 2)}%</b>
@@ -21780,6 +22434,19 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
   if (el) el.value = numTaxa.toFixed(1);
   if (card === 'bazin') S.estado.bazin.dy = parseFloat(numTaxa.toFixed(1));
   else if (card === 'projetivo') S.estado.projetivo.dy = parseFloat(numTaxa.toFixed(1));
+  fehmirSalvarCalcEstado(t, S.estado);
+  window.fehmirAtualizarCalc(t);
+};
+
+window.fehmirUsarGSetorCalc = function(t) {
+  const S = window.__calcValuationState[t];
+  if (!S || !S.padroes || !S.padroes.projetivo) return;
+  const gSetor = S.padroes.projetivo.gSetor || 0;
+  S.estado.projetivo.proj = gSetor;
+  S.estado.projetivo.usarGSetor = gSetor > 0;
+  S.estado.projetivo.dpa0Exato = S.padroes.projetivo.dpa0Exato;
+  const inp = document.getElementById(`calc-proj-proj-${t}`);
+  if (inp) inp.value = gSetor;
   fehmirSalvarCalcEstado(t, S.estado);
   window.fehmirAtualizarCalc(t);
 };
@@ -22148,13 +22815,15 @@ window.fehmirDefinirDyCalc = function(t, card, taxa) {
     const metodoSeloTooltip = (window.fehmirFonteFund ? window.fehmirFonteFund(a) + "\n" : "") + (av.motivo ? av.motivo : '') + (av.taxaExplicada ? (av.motivo ? '\n' : '') + 'Taxa: ' + av.taxaExplicada : '') + (temDiverg ? `\n⚠️ Modelos divergem ${fmt(av.diverg, 0)}% (${av.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)` : '');
     const taxaFormatada = (av.taxa || av.req) ? fmt(av.taxa || av.req, 1) + '%' : '—';
     const seloMetodoHtml = av.metodo ? `
-      <div style="margin:14px 0 4px;display:flex;align-items:center;gap:8px;">
+      <div style="margin:14px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
         <span class="an-metodo-badge" title="${metodoSeloTooltip}" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:8px;background:rgba(99,102,241,0.12);color:var(--accent);border:1px solid var(--accent);cursor:help;">
           <span>🎯 Método: ${av.metodo} · taxa ${taxaFormatada}</span>
           <span style="font-size:10.5px;opacity:0.8;">ⓘ</span>
           ${temDiverg ? `<span style="color:var(--warning);margin-left:4px;" title="Modelos divergem (${av.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)">⚠️</span>` : ''}
         </span>
-      </div>` : '';
+        ${av && av.recorrente ? `<span class="an-fii-recorrente-selo" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:8px;background:rgba(245,158,11,0.14);color:var(--warning);border:1px solid var(--warning);">⚠️ Rendimento acima do que o fundo gera</span>` : ''}
+      </div>
+      ${av && av.recorrente ? `<div class="an-fii-recorrente-box" style="margin:6px 0 8px;padding:10px 14px;background:rgba(245,158,11,0.12);border:1px solid var(--warning);border-left:4px solid var(--warning);border-radius:8px;font-size:12.5px;color:var(--ink);line-height:1.5;"><b>⚠️ Rendimento acima do que o fundo gera:</b> ${av.src}</div>` : ''}` : '';
 
     const holdingNotaHtml = (window.HOLDINGS && window.HOLDINGS.has(t)) ? `
       <div class="an-holding-nota" style="margin:4px 0 8px;font-size:12px;color:var(--ink-2);background:var(--surface-2);padding:6px 12px;border-radius:8px;border-left:3px solid var(--accent);">
@@ -23738,6 +24407,1153 @@ function renderAlertasAnalista() {
   }).join('');
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderAlertasAnalista); else renderAlertasAnalista();
+</script>
+
+<script id="fehmir-spec009-fase-a">
+(function () {
+  /* ===================== SPEC 009 — FASE A: ORDENS ABERTAS, PREÇO VELHO, SYNC E APORTE DO MÊS ===================== */
+
+  const FERIADOS_FIXOS_B3 = new Set([
+    '01-01', '04-21', '05-01', '09-07', '10-12',
+    '11-02', '11-15', '11-20', '12-24', '12-25', '12-31'
+  ]);
+  const _cachePascoaFeriados = {};
+
+  function _feriadosMoveisAno(ano) {
+    if (_cachePascoaFeriados[ano]) return _cachePascoaFeriados[ano];
+    const a = ano % 19;
+    const b = Math.floor(ano / 100), c = ano % 100;
+    const d = Math.floor(b / 4), e = b % 4;
+    const f = Math.floor((b + 8) / 25);
+    const g = Math.floor((b - f + 1) / 3);
+    const h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4), k = c % 4;
+    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const mesPascoa = Math.floor((h + l - 7 * m + 114) / 31);
+    const diaPascoa = ((h + l - 7 * m + 114) % 31) + 1;
+    const baseMs = Date.UTC(ano, mesPascoa - 1, diaPascoa, 12, 0, 0);
+    const set = new Set();
+    [-48, -47, -2, 60].forEach(offset => {
+      const dt = new Date(baseMs + offset * 86400000);
+      const iso = dt.toISOString().slice(0, 10);
+      set.add(iso);
+    });
+    _cachePascoaFeriados[ano] = set;
+    return set;
+  }
+
+  function _normalizarDataISO(d) {
+    if (!d) return '';
+    if (d instanceof Date && !isNaN(d.getTime())) {
+      const p = {};
+      new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' })
+        .formatToParts(d).forEach(x => { p[x.type] = x.value; });
+      return `${p.year}-${p.month}-${p.day}`;
+    }
+    const s = String(d).trim();
+    const m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (m) return `${m[1]}-${m[2]}-${m[3]}`;
+    const dt = new Date(s);
+    if (!isNaN(dt.getTime())) return _normalizarDataISO(dt);
+    return '';
+  }
+
+  // T002: fehmirDiaUtilB3(dataISO)
+  function fehmirDiaUtilB3(dataISO) {
+    const iso = _normalizarDataISO(dataISO);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return false;
+    const ano = parseInt(iso.slice(0, 4), 10);
+    const mes = parseInt(iso.slice(5, 7), 10);
+    const dia = parseInt(iso.slice(8, 10), 10);
+    const dt = new Date(Date.UTC(ano, mes - 1, dia, 12, 0, 0));
+    const dow = dt.getUTCDay();
+    if (dow === 0 || dow === 6) return false;
+    const mmdd = iso.slice(5, 10);
+    if (FERIADOS_FIXOS_B3.has(mmdd)) return false;
+    const moveis = _feriadosMoveisAno(ano);
+    if (moveis.has(iso)) return false;
+    return true;
+  }
+  window.fehmirDiaUtilB3 = fehmirDiaUtilB3;
+
+  function _somarDiasISO(iso, delta) {
+    const ano = parseInt(iso.slice(0, 4), 10);
+    const mes = parseInt(iso.slice(5, 7), 10);
+    const dia = parseInt(iso.slice(8, 10), 10);
+    const dt = new Date(Date.UTC(ano, mes - 1, dia, 12, 0, 0) + delta * 86400000);
+    return dt.toISOString().slice(0, 10);
+  }
+
+  // T003: fehmirUltimoPregaoFechado(agora?) & fehmirIdadeUteis(dataISO, agora?)
+  function fehmirUltimoPregaoFechado(agora) {
+    const ref = (agora instanceof Date && !isNaN(agora.getTime())) ? agora : (agora ? new Date(agora) : new Date());
+    const p = {};
+    new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Sao_Paulo',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', hour12: false
+    }).formatToParts(ref).forEach(x => { p[x.type] = x.value; });
+    const hojeISO = `${p.year}-${p.month}-${p.day}`;
+    const minSP = (Number(p.hour) % 24) * 60 + Number(p.minute);
+    if (fehmirDiaUtilB3(hojeISO) && minSP >= (18 * 60 + 10)) {
+      return hojeISO;
+    }
+    let cand = _somarDiasISO(hojeISO, -1);
+    for (let i = 0; i < 20; i++) {
+      if (fehmirDiaUtilB3(cand)) return cand;
+      cand = _somarDiasISO(cand, -1);
+    }
+    return cand;
+  }
+  window.fehmirUltimoPregaoFechado = fehmirUltimoPregaoFechado;
+
+  function fehmirIdadeUteis(dataISO, agora) {
+    const dISO = _normalizarDataISO(dataISO);
+    if (!dISO) return 0;
+    const ult = fehmirUltimoPregaoFechado(agora);
+    if (!ult || dISO >= ult) return 0;
+    let cont = 0;
+    let cur = _somarDiasISO(dISO, 1);
+    let guard = 0;
+    while (cur <= ult && guard < 1000) {
+      if (fehmirDiaUtilB3(cur)) cont++;
+      cur = _somarDiasISO(cur, 1);
+      guard++;
+    }
+    return cont;
+  }
+  window.fehmirIdadeUteis = fehmirIdadeUteis;
+
+  // T013: fehmirIdadePrecos(agora?)
+  function fehmirIdadePrecos(agora) {
+    const tickers = typeof fehmirTickersCarteiraB3 === 'function' ? fehmirTickersCarteiraB3() : [];
+    const listas = typeof fehmirListasPreco === 'function' ? fehmirListasPreco() : [];
+    const hist = window.FEHMIR_HIST || {};
+    const itens = tickers.map(t => {
+      let itemVivo = null;
+      for (const l of listas) {
+        if (!Array.isArray(l)) continue;
+        const achado = l.find(x => x && x.t === t && x.fontePreco === 'Brapi' && x.precoHora);
+        if (achado) { itemVivo = achado; break; }
+      }
+      let data = null;
+      let fonte = 'cadastro';
+      if (itemVivo && itemVivo.precoHora) {
+        data = _normalizarDataISO(itemVivo.precoHora);
+        fonte = 'Brapi';
+      } else {
+        const H = (typeof fehmirObterHist === 'function' ? fehmirObterHist(t) : null) || hist[t];
+        if (H && H.d1) {
+          data = _normalizarDataISO(H.d1);
+          fonte = 'robô';
+        }
+      }
+      const uteis = data ? fehmirIdadeUteis(data, agora) : 0;
+      return { t, data, fonte, uteis };
+    });
+
+    const comData = itens.filter(i => i.data);
+    const velhos = comData.filter(i => i.uteis >= 2);
+    const fracaoVelha = comData.length > 0 ? velhos.length / comData.length : 0;
+
+    const baseContagem = velhos.length > 0 ? velhos : comData;
+    const freq = {};
+    let dataMaisComum = null;
+    let maxCount = 0;
+    baseContagem.forEach(i => {
+      freq[i.data] = (freq[i.data] || 0) + 1;
+      if (freq[i.data] > maxCount) {
+        maxCount = freq[i.data];
+        dataMaisComum = i.data;
+      }
+    });
+
+    const mostrarFaixa = fracaoVelha > 0.5;
+    const metaGer = window.FEHMIR_HIST_META && window.FEHMIR_HIST_META.gerado
+      ? _normalizarDataISO(window.FEHMIR_HIST_META.gerado)
+      : null;
+    const roboGerado = metaGer || null;
+    const roboUteis = roboGerado ? fehmirIdadeUteis(roboGerado, agora) : 0;
+    const uteisMaisComum = dataMaisComum ? fehmirIdadeUteis(dataMaisComum, agora) : 0;
+
+    return {
+      itens,
+      dataMaisComum,
+      uteisMaisComum,
+      fracaoVelha,
+      mostrarFaixa,
+      roboGerado,
+      roboUteis
+    };
+  }
+  window.fehmirIdadePrecos = fehmirIdadePrecos;
+
+  function _ddmmDeISO(iso) {
+    if (!iso || iso.length < 10) return '—';
+    return iso.slice(8, 10) + '/' + iso.slice(5, 7);
+  }
+
+  // T014: Faixa de preço velho no topo
+  function fehmirRenderFaixaPrecoVelho(agora) {
+    const el = document.getElementById('faixa-preco-velho');
+    const info = fehmirIdadePrecos(agora);
+    if (!el) return info;
+    if (!info.mostrarFaixa) {
+      el.style.display = 'none';
+      el.innerHTML = '';
+      return info;
+    }
+    const ddmm = _ddmmDeISO(info.dataMaisComum);
+    const nUteis = info.uteisMaisComum;
+    let texto = `Preços de ${ddmm}, há ${nUteis} dias úteis. As margens e os tetos desta tela usam esses preços.`;
+    if (info.roboUteis >= 2 && info.roboGerado) {
+      texto += ` O robô de preços não atualiza desde ${_ddmmDeISO(info.roboGerado)}.`;
+    }
+    el.style.cssText = 'display:block; margin:10px 0 14px 0; padding:10px 14px; border-radius:10px; background:color-mix(in srgb, var(--warning) 12%, var(--surface)); border:1px solid var(--warning); color:var(--ink); font-size:13px; line-height:1.45;';
+    el.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div style="display:flex; align-items:center; gap:8px; flex:1 1 260px;">
+          <span style="font-size:15px;">⚠️</span>
+          <span id="faixa-preco-velho-texto">${texto}</span>
+        </div>
+        <button type="button" class="mc-btn" id="btn-faixa-atualizar-agora" onclick="fehmirAcaoAtualizarAgora()" style="border-color:var(--warning); font-weight:700;">Atualizar agora</button>
+      </div>
+      <div id="faixa-preco-velho-msg" style="display:none; margin-top:8px; padding-top:8px; border-top:1px dashed var(--rule); font-size:12px; color:var(--ink-2);"></div>
+    `;
+    return info;
+  }
+  window.fehmirRenderFaixaPrecoVelho = fehmirRenderFaixaPrecoVelho;
+
+  function fehmirAcaoAtualizarAgora() {
+    let token = '';
+    try { token = (localStorage.getItem('barsi-brapi-token') || '').trim(); } catch (e) {}
+    const msgEl = document.getElementById('faixa-preco-velho-msg');
+    if (!token) {
+      if (msgEl) {
+        msgEl.style.display = 'block';
+        msgEl.innerHTML = `Para atualizar agora, cole a sua chave da Brapi em <a href="javascript:void(0)" onclick="trocarTokenBrapi()" style="color:var(--accent); font-weight:700; text-decoration:underline;">Configurações</a> (ela fica só neste navegador).`;
+      }
+      return false;
+    }
+    if (msgEl) {
+      msgEl.style.display = 'none';
+      msgEl.textContent = '';
+    }
+    if (typeof fetchBrapiQuotes === 'function') {
+      fetchBrapiQuotes({ maxIdadeMin: 0 });
+    }
+    return true;
+  }
+  window.fehmirAcaoAtualizarAgora = fehmirAcaoAtualizarAgora;
+
+  // T015: Marca por ativo quando uteis >= 2 e a faixa geral não está visível
+  function fehmirSubIdadePreco(t, agora) {
+    if (!t) return '';
+    const info = fehmirIdadePrecos(agora);
+    if (info.mostrarFaixa) return '';
+    let item = info.itens.find(x => x.t === t);
+    if (!item) {
+      const listas = typeof fehmirListasPreco === 'function' ? fehmirListasPreco() : [];
+      let vivo = null;
+      for (const l of listas) {
+        if (!Array.isArray(l)) continue;
+        const a = l.find(x => x && x.t === t && x.fontePreco === 'Brapi' && x.precoHora);
+        if (a) { vivo = a; break; }
+      }
+      let data = null;
+      if (vivo && vivo.precoHora) data = _normalizarDataISO(vivo.precoHora);
+      else {
+        const H = (typeof fehmirObterHist === 'function' ? fehmirObterHist(t) : null) || (window.FEHMIR_HIST && window.FEHMIR_HIST[t]);
+        if (H && H.d1) data = _normalizarDataISO(H.d1);
+      }
+      item = { t, data, uteis: data ? fehmirIdadeUteis(data, agora) : 0 };
+    }
+    if (item && item.uteis >= 2 && item.data) {
+      return ` <span class="preco-velho-tag" style="font-size:10.5px; color:var(--warning); font-weight:600; margin-left:4px;">preço de ${_ddmmDeISO(item.data)}</span>`;
+    }
+    return '';
+  }
+  window.fehmirSubIdadePreco = fehmirSubIdadePreco;
+
+  // Hook fehmirAtualizarSeloPreco para também atualizar a faixa de preço velho
+  const _origAtualizarSeloPreco = window.fehmirAtualizarSeloPreco;
+  if (typeof _origAtualizarSeloPreco === 'function') {
+    window.fehmirAtualizarSeloPreco = function () {
+      _origAtualizarSeloPreco.apply(this, arguments);
+      try { fehmirRenderFaixaPrecoVelho(); } catch (e) {}
+    };
+    fehmirAtualizarSeloPreco = window.fehmirAtualizarSeloPreco;
+  }
+
+  /* ===================== T006–T011: ORDENS ABERTAS ===================== */
+  const ORDENS_STORAGE_KEY = 'barsi-ordens-v1';
+  let _ordensMemoria = [];
+  let _ordensSemStorage = false;
+
+  function fehmirCarregarOrdens() {
+    try {
+      const raw = localStorage.getItem(ORDENS_STORAGE_KEY);
+      _ordensSemStorage = false;
+      if (!raw) return _ordensMemoria.slice();
+      const parsed = JSON.parse(raw);
+      const arr = Array.isArray(parsed) ? parsed : (parsed && Array.isArray(parsed.ordens) ? parsed.ordens : []);
+      _ordensMemoria = arr.slice();
+      return arr;
+    } catch (e) {
+      _ordensSemStorage = true;
+      return _ordensMemoria.slice();
+    }
+  }
+  window.fehmirCarregarOrdens = fehmirCarregarOrdens;
+
+  function fehmirGravarOrdens(lista) {
+    const arr = Array.isArray(lista) ? lista : [];
+    _ordensMemoria = arr.slice();
+    try {
+      localStorage.setItem(ORDENS_STORAGE_KEY, JSON.stringify({ versao: 1, ordens: arr }));
+      _ordensSemStorage = false;
+      return true;
+    } catch (e) {
+      _ordensSemStorage = true;
+      return false;
+    }
+  }
+  window.fehmirGravarOrdens = fehmirGravarOrdens;
+
+  function fehmirValidadePadrao(agora) {
+    const hojeISO = _normalizarDataISO(agora || new Date());
+    const ano = parseInt(hojeISO.slice(0, 4), 10);
+    const mes = parseInt(hojeISO.slice(5, 7), 10);
+    const dia = parseInt(hojeISO.slice(8, 10), 10);
+    if (dia <= 25) {
+      return `${String(ano)}-${String(mes).padStart(2, '0')}-25`;
+    }
+    const proxAno = mes === 12 ? ano + 1 : ano;
+    const proxMes = mes === 12 ? 1 : mes + 1;
+    return `${String(proxAno)}-${String(proxMes).padStart(2, '0')}-25`;
+  }
+  window.fehmirValidadePadrao = fehmirValidadePadrao;
+
+  function _gerarIdOrdem() {
+    const d = new Date();
+    const pad2 = n => String(n).padStart(2, '0');
+    const aaaammdd = `${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}`;
+    const hhmmss = `${pad2(d.getHours())}${pad2(d.getMinutes())}${pad2(d.getSeconds())}`;
+    const rand4 = Math.random().toString(36).slice(2, 6).padEnd(4, '0');
+    return `ord-${aaaammdd}-${hhmmss}-${rand4}`;
+  }
+
+  function _tickerExisteNoPainel(t) {
+    if (!t) return false;
+    const tk = String(t).trim().toUpperCase();
+    if (typeof INTL_TICKERS !== 'undefined' && INTL_TICKERS.includes(tk)) return true;
+    if (typeof CRIPTO_TICKERS !== 'undefined' && CRIPTO_TICKERS.includes(tk)) return true;
+    if (typeof fehmirItemCadastro === 'function' && fehmirItemCadastro(tk)) return true;
+    if (window.FEHMIR_HIST && window.FEHMIR_HIST[tk]) return true;
+    if (Array.isArray(window.FEHMIR_MERCADO) && window.FEHMIR_MERCADO.some(x => x && x.t === tk)) return true;
+    if (typeof fehmirUniverso === 'function' && fehmirUniverso()[tk]) return true;
+    const pos = typeof calcularPosicoesExtrato === 'function' ? calcularPosicoesExtrato() : {};
+    if (pos[tk]) return true;
+    return false;
+  }
+
+  function _extrairDataCurtaFonte(t) {
+    if (typeof fehmirFontePreco === 'function') {
+      const fp = fehmirFontePreco(t);
+      if (fp && fp.quando) {
+        const m = String(fp.quando).match(/(\d{2}\/\d{2})/);
+        if (m) return m[1];
+        if (String(fp.quando).includes('hoje')) {
+          const hj = _normalizarDataISO(new Date());
+          return _ddmmDeISO(hj);
+        }
+      }
+    }
+    const H = (typeof fehmirObterHist === 'function' ? fehmirObterHist(t) : null) || (window.FEHMIR_HIST && window.FEHMIR_HIST[t]);
+    if (H && H.d1) return _ddmmDeISO(_normalizarDataISO(H.d1));
+    return '';
+  }
+
+  // T007: fehmirOrdens(agora?) & fehmirOrdensResumo(agora?)
+  function fehmirOrdens(agora) {
+    const hojeISO = _normalizarDataISO(agora || new Date());
+    const brutas = fehmirCarregarOrdens();
+    return brutas.map(o => {
+      const quant = Number(o.quant) || 0;
+      const executada = Number(o.executada) || 0;
+      const limite = Number(o.limite) || 0;
+      const restante = Math.max(0, +(quant - executada).toFixed(8));
+      const situacao = o.situacao || 'aberta';
+      const abertaOuParcial = (situacao === 'aberta' || situacao === 'parcial');
+      const vencida = abertaOuParcial && Boolean(o.validade && String(o.validade) < hojeISO);
+      const comprometido = (abertaOuParcial && !vencida) ? +(restante * limite).toFixed(2) : 0;
+
+      let precoAtual = null;
+      try {
+        const pObj = (window.FEHMIR && typeof window.FEHMIR.preco === 'function')
+          ? window.FEHMIR.preco(o.t)
+          : (typeof obterPrecoAtivo === 'function' ? obterPrecoAtivo(o.t) : null);
+        if (pObj && Number(pObj.preco) > 0) precoAtual = Number(pObj.preco);
+      } catch (e) {}
+
+      const dataPreco = _extrairDataCurtaFonte(o.t);
+      const distancia = (precoAtual != null && precoAtual > 0)
+        ? +(((precoAtual - limite) / precoAtual) * 100).toFixed(4)
+        : null;
+
+      let veredito = '—';
+      let compra = null;
+      try {
+        const cad = (typeof fehmirItemCadastro === 'function' && fehmirItemCadastro(o.t)) || { t: o.t };
+        const alvoAval = Object.assign({}, cad, { t: o.t }, precoAtual > 0 ? { preco: precoAtual } : {});
+        if (typeof fehmirVeredito === 'function') {
+          const vObj = fehmirVeredito(alvoAval);
+          if (vObj && vObj.label) veredito = vObj.label;
+        }
+        if (typeof tetoOficial === 'function') {
+          const tObj = tetoOficial(alvoAval);
+          if (tObj && Number(tObj.compra) > 0) compra = Number(tObj.compra);
+        }
+      } catch (e) {}
+
+      const podeTerExecutado = Boolean(abertaOuParcial && precoAtual != null && precoAtual > 0 && precoAtual <= limite + 1e-9);
+      const reguaNaoAprova = Boolean(abertaOuParcial && veredito !== 'Aportar');
+      const acimaDaCompra = Boolean(abertaOuParcial && compra != null && limite > compra + 1e-9);
+
+      return Object.assign({}, o, {
+        quant,
+        executada,
+        limite,
+        restante,
+        comprometido,
+        precoAtual,
+        dataPreco,
+        distancia,
+        veredito,
+        compra,
+        podeTerExecutado,
+        vencida,
+        reguaNaoAprova,
+        acimaDaCompra
+      });
+    });
+  }
+  window.fehmirOrdens = fehmirOrdens;
+
+  function fehmirOrdensResumo(agora) {
+    const todas = fehmirOrdens(agora);
+    const ativas = todas.filter(o => o.situacao === 'aberta' || o.situacao === 'parcial');
+    let comprometido = 0;
+    let ap = 0;
+    let res = 0;
+    let abertas = 0;
+    let alertas = 0;
+    ativas.forEach(o => {
+      if (!o.vencida) {
+        comprometido += o.comprometido;
+        if (o.origem === 'reserva') res += o.comprometido;
+        else ap += o.comprometido;
+        abertas++;
+      }
+      if (o.podeTerExecutado || o.vencida || o.reguaNaoAprova || o.acimaDaCompra) {
+        alertas++;
+      }
+    });
+    return {
+      comprometido: +comprometido.toFixed(2),
+      porOrigem: {
+        aporte: +ap.toFixed(2),
+        reserva: +res.toFixed(2)
+      },
+      abertas,
+      alertas
+    };
+  }
+  window.fehmirOrdensResumo = fehmirOrdensResumo;
+
+  // T008: fehmirOrdemSalvar(dados) & fehmirOrdemCancelar(id)
+  function fehmirOrdemSalvar(dados) {
+    if (!dados || typeof dados !== 'object') return { ok: false, erro: 'Dados inválidos', avisos: [] };
+    const t = String(dados.t || dados.ticker || '').trim().toUpperCase();
+    if (!t || !_tickerExisteNoPainel(t)) {
+      return { ok: false, erro: `Ativo "${t || 'vazio'}" não encontrado no painel.`, avisos: [] };
+    }
+    const quant = Number(String(dados.quant ?? '').replace(',', '.'));
+    const limite = Number(String(dados.limite ?? '').replace(',', '.'));
+    if (!(quant > 0) || !isFinite(quant)) {
+      return { ok: false, erro: 'Informe uma quantidade maior que zero.', avisos: [] };
+    }
+    const ehFracionavel = (typeof INTL_TICKERS !== 'undefined' && INTL_TICKERS.includes(t)) ||
+                          (typeof CRIPTO_TICKERS !== 'undefined' && CRIPTO_TICKERS.includes(t));
+    if (!ehFracionavel && !Number.isInteger(quant)) {
+      return { ok: false, erro: 'Para ações e FIIs na B3, a quantidade deve ser inteira.', avisos: [] };
+    }
+    if (!(limite > 0) || !isFinite(limite)) {
+      return { ok: false, erro: 'Informe um preço limite maior que zero.', avisos: [] };
+    }
+
+    const validade = (dados.validade && /^\d{4}-\d{2}-\d{2}$/.test(String(dados.validade).trim()))
+      ? String(dados.validade).trim()
+      : fehmirValidadePadrao();
+    const origem = dados.origem === 'reserva' ? 'reserva' : 'aporte';
+    const nota = String(dados.nota || '').trim();
+    const agoraISO = new Date().toISOString();
+
+    const lista = fehmirCarregarOrdens();
+    let alvo = null;
+    if (dados.id) {
+      const idx = lista.findIndex(x => x && x.id === dados.id);
+      if (idx !== -1) {
+        lista[idx] = Object.assign({}, lista[idx], {
+          t,
+          quant,
+          limite,
+          validade,
+          origem,
+          nota,
+          mudou: agoraISO
+        });
+        alvo = lista[idx];
+      }
+    }
+    if (!alvo) {
+      alvo = {
+        id: dados.id || _gerarIdOrdem(),
+        t,
+        quant,
+        limite,
+        validade,
+        origem,
+        situacao: 'aberta',
+        executada: 0,
+        lancIds: [],
+        criada: agoraISO,
+        mudou: agoraISO,
+        nota
+      };
+      lista.push(alvo);
+    }
+
+    fehmirGravarOrdens(lista);
+    const enriquecida = fehmirOrdens().find(x => x.id === alvo.id) || alvo;
+    const avisos = [];
+    if (enriquecida.acimaDaCompra && enriquecida.compra != null) {
+      avisos.push(`Acima do preço de compra (${fmtR(enriquecida.compra)})`);
+    }
+    if (enriquecida.reguaNaoAprova) {
+      avisos.push(`A régua não aprova mais esta compra (${enriquecida.veredito}): considere cancelar`);
+    }
+    if (enriquecida.vencida) {
+      avisos.push(`Venceu em ${_ddmmDeISO(enriquecida.validade)}: cancele ou renove`);
+    }
+
+    renderOrdensAbertas();
+    if (typeof renderCardAporteMes === 'function') renderCardAporteMes();
+    return { ok: true, ordem: enriquecida, avisos };
+  }
+  window.fehmirOrdemSalvar = fehmirOrdemSalvar;
+
+  function fehmirOrdemCancelar(id) {
+    const lista = fehmirCarregarOrdens();
+    const idx = lista.findIndex(x => x && x.id === id);
+    if (idx === -1) return { ok: false };
+    lista[idx].situacao = 'cancelada';
+    lista[idx].mudou = new Date().toISOString();
+    fehmirGravarOrdens(lista);
+    renderOrdensAbertas();
+    if (typeof renderCardAporteMes === 'function') renderCardAporteMes();
+    return { ok: true };
+  }
+  window.fehmirOrdemCancelar = fehmirOrdemCancelar;
+
+  // T009: fehmirOrdemExecutar(id, { quant, preco, taxa, data })
+  let _execucaoEmAndamento = false;
+  function fehmirOrdemExecutar(id, params) {
+    if (_execucaoEmAndamento) return { ok: false, duplicado: true };
+    _execucaoEmAndamento = true;
+    try {
+      const p = params || {};
+      const lista = fehmirCarregarOrdens();
+      const idx = lista.findIndex(x => x && x.id === id);
+      if (idx === -1) return { ok: false };
+      const ord = lista[idx];
+      const jaExec = Number(ord.executada) || 0;
+      const rest = Math.max(0, +((Number(ord.quant) || 0) - jaExec).toFixed(8));
+      if (ord.situacao === 'executada' || ord.situacao === 'cancelada' || rest <= 1e-9) {
+        const ultId = Array.isArray(ord.lancIds) && ord.lancIds.length ? ord.lancIds[ord.lancIds.length - 1] : null;
+        return { ok: true, lancamentoId: ultId, jaExecutada: true };
+      }
+
+      const qReq = p.quant != null ? Number(String(p.quant).replace(',', '.')) : rest;
+      const quantExec = (qReq > 0 && isFinite(qReq)) ? Math.min(rest, qReq) : rest;
+      const pReq = p.preco != null ? Number(String(p.preco).replace(',', '.')) : Number(ord.limite);
+      const precoExec = (pReq > 0 && isFinite(pReq)) ? pReq : Number(ord.limite);
+      const txReq = p.taxa != null ? Number(String(p.taxa).replace(',', '.')) : 0;
+      const taxaExec = (txReq >= 0 && isFinite(txReq)) ? txReq : 0;
+      const dataExec = (p.data && /^\d{4}-\d{2}-\d{2}$/.test(String(p.data).trim()))
+        ? String(p.data).trim()
+        : _normalizarDataISO(new Date());
+
+      if (!Array.isArray(ord.lancIds)) ord.lancIds = [];
+      const n = ord.lancIds.length + 1;
+      const lancId = `ordem-${ord.id}-${n}`;
+
+      const extratoAtual = typeof carregarExtrato === 'function' ? carregarExtrato() : [];
+      const jaNoExtrato = extratoAtual.some(t => t && t.id === lancId);
+      if (!jaNoExtrato && typeof adicionarTransacao === 'function') {
+        const cat = (typeof _determinarCategoriaTicker === 'function' ? _determinarCategoriaTicker(ord.t) : 'AÇÕES') || 'AÇÕES';
+        const total = +(quantExec * precoExec + taxaExec).toFixed(2);
+        const lanc = {
+          id: lancId,
+          data: dataExec,
+          tipo: 'Compra',
+          ticker: ord.t,
+          cat,
+          quant: quantExec,
+          preco: precoExec,
+          taxa: taxaExec,
+          total,
+          moeda: 'BRL',
+          pagoCom: ord.origem === 'reserva' ? 'reserva' : 'aporte',
+          nota: 'Ordem limitada executada (registrada pelo quadro de ordens)'
+        };
+        if (typeof rebData !== 'undefined' && cat !== 'CAIXA') {
+          if (!rebData[ord.t]) rebData[ord.t] = { q: 0, i: 2.0 };
+          rebData[ord.t].q = +((Number(rebData[ord.t].q) || 0) + quantExec).toFixed(8);
+          try { localStorage.setItem(REB_DATA_KEY, JSON.stringify(rebData)); } catch (e) {}
+        }
+        adicionarTransacao(lanc);
+      }
+
+      if (!ord.lancIds.includes(lancId)) ord.lancIds.push(lancId);
+      ord.executada = +(jaExec + quantExec).toFixed(8);
+      const novoRest = Math.max(0, +((Number(ord.quant) || 0) - ord.executada).toFixed(8));
+      ord.situacao = novoRest <= 1e-8 ? 'executada' : 'parcial';
+      ord.mudou = new Date().toISOString();
+      fehmirGravarOrdens(lista);
+
+      renderOrdensAbertas();
+      if (typeof renderCardAporteMes === 'function') renderCardAporteMes();
+      return { ok: true, lancamentoId: lancId };
+    } finally {
+      _execucaoEmAndamento = false;
+    }
+  }
+  window.fehmirOrdemExecutar = fehmirOrdemExecutar;
+
+  function fehmirBadgeOrdemAtivo(t) {
+    const abertas = fehmirOrdens().filter(o => o.t === t && (o.situacao === 'aberta' || o.situacao === 'parcial') && !o.vencida);
+    if (!abertas.length) return '';
+    const o = abertas[0];
+    return ` <span class="ordem-ativo-pill" style="font-size:10px; padding:1px 6px; border-radius:999px; background:var(--surface-2); border:1px solid var(--rule-strong); color:var(--ink-2); font-weight:600;" title="Ordem aberta: ${o.restante} × ${fmtR(o.limite)}">⏳ ordem ${fmtR(o.limite)}</span>`;
+  }
+  window.fehmirBadgeOrdemAtivo = fehmirBadgeOrdemAtivo;
+
+  // T010: Renderizar cartão recolhível "Ordens abertas" e modais de Nova/Editar e Executar
+  let _ordensCardRecolhido = false;
+
+  function _garantirModaisOrdem() {
+    if (!document.getElementById('modal-ordem-aberta')) {
+      const div = document.createElement('div');
+      div.id = 'modal-ordem-aberta';
+      div.className = 'modal-overlay';
+      div.style.display = 'none';
+      div.innerHTML = `
+        <div class="modal-card" style="max-width:480px; width:94%;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 id="modal-ordem-titulo" style="margin:0; font-family:var(--font-serif); font-size:18px;">Nova ordem limitada</h3>
+            <button type="button" onclick="fecharModalOrdem()" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--muted);">✕</button>
+          </div>
+          <form id="form-ordem-aberta" onsubmit="event.preventDefault(); salvarFormularioOrdem();">
+            <input type="hidden" id="ord-form-id" value="">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px;">
+              <div class="modal-form-field">
+                <label for="ord-form-ticker">Ticker / Ativo</label>
+                <input type="text" id="ord-form-ticker" list="tickers-datalist" placeholder="Ex: BBSE3" required oninput="atualizarPreviewFormOrdem()">
+              </div>
+              <div class="modal-form-field">
+                <label for="ord-form-quant">Quantidade</label>
+                <input type="number" id="ord-form-quant" step="any" min="0.00000001" placeholder="Ex: 2" required oninput="atualizarPreviewFormOrdem()">
+              </div>
+              <div class="modal-form-field">
+                <label for="ord-form-limite">Preço limite (R$)</label>
+                <input type="number" id="ord-form-limite" step="0.01" min="0.01" placeholder="Ex: 37.14" required oninput="atualizarPreviewFormOrdem()">
+              </div>
+              <div class="modal-form-field">
+                <label for="ord-form-validade">Validade</label>
+                <input type="date" id="ord-form-validade" required>
+              </div>
+              <div class="modal-form-field">
+                <label for="ord-form-origem">Origem do dinheiro</label>
+                <select id="ord-form-origem">
+                  <option value="aporte">Aporte do mês</option>
+                  <option value="reserva">Reserva de oportunidade</option>
+                </select>
+              </div>
+              <div class="modal-form-field">
+                <label for="ord-form-nota">Nota (opcional)</label>
+                <input type="text" id="ord-form-nota" placeholder="Ex: 1ª parcela abaixo do teto">
+              </div>
+            </div>
+            <div id="ord-form-aviso" style="display:none; margin-top:10px; padding:8px 12px; border-radius:8px; font-size:12px;"></div>
+            <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
+              <button type="button" class="mc-btn" onclick="fecharModalOrdem()">Cancelar</button>
+              <button type="submit" class="mc-btn primary" id="btn-salvar-form-ordem">Salvar ordem</button>
+            </div>
+          </form>
+        </div>
+      `;
+      document.body.appendChild(div);
+    }
+
+    if (!document.getElementById('modal-executar-ordem')) {
+      const divExec = document.createElement('div');
+      divExec.id = 'modal-executar-ordem';
+      divExec.className = 'modal-overlay';
+      divExec.style.display = 'none';
+      divExec.innerHTML = `
+        <div class="modal-card" style="max-width:440px; width:94%;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 id="modal-exec-titulo" style="margin:0; font-family:var(--font-serif); font-size:18px;">Confirmar execução da ordem</h3>
+            <button type="button" onclick="fecharModalExecutarOrdem()" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--muted);">✕</button>
+          </div>
+          <form id="form-executar-ordem" onsubmit="event.preventDefault(); confirmarExecucaoOrdemModal();">
+            <input type="hidden" id="exec-ordem-id" value="">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:10px;">
+              <div class="modal-form-field">
+                <label for="exec-ordem-quant">Quantidade executada</label>
+                <input type="number" id="exec-ordem-quant" step="any" min="0.00000001" required>
+              </div>
+              <div class="modal-form-field">
+                <label for="exec-ordem-preco">Preço executado (R$)</label>
+                <input type="number" id="exec-ordem-preco" step="0.01" min="0.01" required>
+              </div>
+              <div class="modal-form-field">
+                <label for="exec-ordem-taxa">Taxa B3 / Corretagem (R$)</label>
+                <input type="number" id="exec-ordem-taxa" step="0.01" min="0" value="0.00">
+              </div>
+              <div class="modal-form-field">
+                <label for="exec-ordem-data">Data da execução</label>
+                <input type="date" id="exec-ordem-data" required>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
+              <button type="button" class="mc-btn" onclick="fecharModalExecutarOrdem()">Cancelar</button>
+              <button type="submit" class="mc-btn primary" id="btn-confirmar-execucao-ordem">Confirmar execução</button>
+            </div>
+          </form>
+        </div>
+      `;
+      document.body.appendChild(divExec);
+    }
+  }
+
+  function abrirModalOrdem(id) {
+    _garantirModaisOrdem();
+    const modal = document.getElementById('modal-ordem-aberta');
+    if (!modal) return;
+    const ord = id ? fehmirCarregarOrdens().find(x => x && x.id === id) : null;
+    document.getElementById('modal-ordem-titulo').textContent = ord ? `Editar ordem · ${ord.t}` : 'Nova ordem limitada';
+    document.getElementById('ord-form-id').value = ord ? ord.id : '';
+    document.getElementById('ord-form-ticker').value = ord ? ord.t : '';
+    document.getElementById('ord-form-quant').value = ord ? ord.restante || (ord.quant - (ord.executada || 0)) : '';
+    document.getElementById('ord-form-limite').value = ord ? ord.limite : '';
+    const hojeISO = _normalizarDataISO(new Date());
+    const valInput = document.getElementById('ord-form-validade');
+    valInput.min = hojeISO;
+    valInput.value = ord ? ord.validade : fehmirValidadePadrao();
+    document.getElementById('ord-form-origem').value = ord ? (ord.origem || 'aporte') : 'aporte';
+    document.getElementById('ord-form-nota').value = ord ? (ord.nota || '') : '';
+    atualizarPreviewFormOrdem();
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+  }
+  window.abrirModalOrdem = abrirModalOrdem;
+
+  function fecharModalOrdem() {
+    const modal = document.getElementById('modal-ordem-aberta');
+    if (modal) {
+      modal.classList.remove('active');
+      modal.style.display = 'none';
+    }
+  }
+  window.fecharModalOrdem = fecharModalOrdem;
+
+  function atualizarPreviewFormOrdem() {
+    const avisoEl = document.getElementById('ord-form-aviso');
+    if (!avisoEl) return;
+    const t = String(document.getElementById('ord-form-ticker')?.value || '').trim().toUpperCase();
+    const lim = parseFloat(document.getElementById('ord-form-limite')?.value) || 0;
+    if (!t || !(lim > 0)) {
+      avisoEl.style.display = 'none';
+      avisoEl.textContent = '';
+      return;
+    }
+    const msgs = [];
+    try {
+      const tObj = typeof tetoOficial === 'function' ? tetoOficial(t) : null;
+      if (tObj && tObj.compra > 0 && lim > tObj.compra + 1e-9) {
+        msgs.push(`⚠️ Acima do preço de compra (${fmtR(tObj.compra)})`);
+      }
+      const vObj = typeof fehmirVeredito === 'function' ? fehmirVeredito(t) : null;
+      if (vObj && vObj.label && vObj.label !== 'Aportar') {
+        msgs.push(`⚠️ A régua não aprova mais esta compra (${vObj.label}): considere cancelar`);
+      }
+    } catch (e) {}
+    if (msgs.length) {
+      avisoEl.style.display = 'block';
+      avisoEl.style.background = 'color-mix(in srgb, var(--warning) 14%, transparent)';
+      avisoEl.style.border = '1px solid var(--warning)';
+      avisoEl.style.color = 'var(--ink)';
+      avisoEl.innerHTML = msgs.join('<br>');
+    } else {
+      avisoEl.style.display = 'none';
+      avisoEl.textContent = '';
+    }
+  }
+  window.atualizarPreviewFormOrdem = atualizarPreviewFormOrdem;
+
+  function salvarFormularioOrdem() {
+    const id = document.getElementById('ord-form-id')?.value || undefined;
+    const t = document.getElementById('ord-form-ticker')?.value;
+    const quant = document.getElementById('ord-form-quant')?.value;
+    const limite = document.getElementById('ord-form-limite')?.value;
+    const validade = document.getElementById('ord-form-validade')?.value;
+    const origem = document.getElementById('ord-form-origem')?.value;
+    const nota = document.getElementById('ord-form-nota')?.value;
+    const res = fehmirOrdemSalvar({ id, t, quant, limite, validade, origem, nota });
+    if (!res.ok) {
+      if (typeof fehmirMostrarToast === 'function') fehmirMostrarToast(res.erro || 'Erro ao salvar ordem.');
+      return;
+    }
+    fecharModalOrdem();
+  }
+  window.salvarFormularioOrdem = salvarFormularioOrdem;
+
+  function abrirModalExecutarOrdem(id) {
+    _garantirModaisOrdem();
+    const ord = fehmirOrdens().find(x => x && x.id === id);
+    if (!ord) return;
+    const modal = document.getElementById('modal-executar-ordem');
+    if (!modal) return;
+    document.getElementById('modal-exec-titulo').textContent = `Executar ordem · ${ord.t}`;
+    document.getElementById('exec-ordem-id').value = ord.id;
+    document.getElementById('exec-ordem-quant').value = ord.restante;
+    document.getElementById('exec-ordem-preco').value = ord.limite.toFixed(2);
+    document.getElementById('exec-ordem-taxa').value = '0.00';
+    document.getElementById('exec-ordem-data').value = _normalizarDataISO(new Date());
+    const btn = document.getElementById('btn-confirmar-execucao-ordem');
+    if (btn) btn.disabled = false;
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+  }
+  window.abrirModalExecutarOrdem = abrirModalExecutarOrdem;
+
+  function fecharModalExecutarOrdem() {
+    const modal = document.getElementById('modal-executar-ordem');
+    if (modal) {
+      modal.classList.remove('active');
+      modal.style.display = 'none';
+    }
+  }
+  window.fecharModalExecutarOrdem = fecharModalExecutarOrdem;
+
+  function confirmarExecucaoOrdemModal() {
+    const btn = document.getElementById('btn-confirmar-execucao-ordem');
+    if (btn && btn.disabled) return;
+    if (btn) btn.disabled = true;
+    const id = document.getElementById('exec-ordem-id')?.value;
+    const quant = document.getElementById('exec-ordem-quant')?.value;
+    const preco = document.getElementById('exec-ordem-preco')?.value;
+    const taxa = document.getElementById('exec-ordem-taxa')?.value;
+    const data = document.getElementById('exec-ordem-data')?.value;
+    fehmirOrdemExecutar(id, { quant, preco, taxa, data });
+    fecharModalExecutarOrdem();
+  }
+  window.confirmarExecucaoOrdemModal = confirmarExecucaoOrdemModal;
+
+  function renderOrdensAbertas() {
+    const box = document.getElementById('card-ordens-abertas');
+    if (!box) return;
+    _garantirModaisOrdem();
+    const todas = fehmirOrdens();
+    const ativas = todas.filter(o => o.situacao === 'aberta' || o.situacao === 'parcial');
+    const historico = todas.filter(o => o.situacao === 'executada' || o.situacao === 'cancelada');
+    const res = fehmirOrdensResumo();
+
+    const resumoTxt = `${fmtR(res.comprometido)} comprometidos em ${res.abertas} ${res.abertas === 1 ? 'ordem' : 'ordens'} (aporte ${fmtR(res.porOrigem.aporte)} · reserva ${fmtR(res.porOrigem.reserva)})`;
+
+    const avisoSemStorage = _ordensSemStorage
+      ? `<div style="margin-bottom:8px; padding:6px 10px; border-radius:6px; background:color-mix(in srgb, var(--warning) 15%, transparent); color:var(--warning); font-size:12px; font-weight:600;">⚠️ Suas ordens não ficam salvas neste navegador.</div>`
+      : '';
+
+    const linhasHtml = ativas.length === 0
+      ? `<div style="padding:10px 0; font-size:12.5px; color:var(--muted);">Nenhuma ordem aberta no momento.</div>`
+      : ativas.map(o => {
+          const qtdTxt = o.situacao === 'parcial' ? `${o.restante} (de ${o.quant})` : `${o.quant}`;
+          const valDdmm = _ddmmDeISO(o.validade);
+          const linhaEsq = `<b>${o.t}</b> · ${qtdTxt} × ${fmtR(o.limite)} · até ${valDdmm} · ${o.origem === 'reserva' ? 'reserva' : 'aporte'}${o.situacao === 'parcial' ? ' <span style="font-size:10.5px; padding:1px 6px; border-radius:999px; background:var(--accent-soft); color:var(--accent); font-weight:700;">parcial</span>' : ''}`;
+          const distStr = o.distancia != null ? `${Math.abs(o.distancia).toFixed(1).replace('.', ',')}%` : '';
+          const linhaDir = (o.precoAtual != null && o.precoAtual > 0)
+            ? `agora ${fmtR(o.precoAtual)}${o.dataPreco ? ` (${o.dataPreco})` : ''} · a ${distStr} da sua ordem`
+            : `sem cotação`;
+
+          const badgesAlertas = [];
+          if (o.podeTerExecutado) {
+            badgesAlertas.push(`<span class="ordem-alerta-pill" style="display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; background:color-mix(in srgb, var(--good) 16%, transparent); color:var(--good); border:1px solid var(--good);">Pode ter executado: confira na corretora</span>`);
+          }
+          if (o.vencida) {
+            badgesAlertas.push(`<span class="ordem-alerta-pill" style="display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; background:color-mix(in srgb, var(--critical) 14%, transparent); color:var(--critical); border:1px solid var(--critical);">Venceu em ${valDdmm}: cancele ou renove</span>`);
+          }
+          if (o.reguaNaoAprova) {
+            badgesAlertas.push(`<span class="ordem-alerta-pill" style="display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; background:color-mix(in srgb, var(--warning) 16%, transparent); color:var(--warning); border:1px solid var(--warning);">A régua não aprova mais esta compra (${o.veredito}): considere cancelar</span>`);
+          }
+          if (o.acimaDaCompra && o.compra != null) {
+            badgesAlertas.push(`<span class="ordem-alerta-pill" style="display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; background:color-mix(in srgb, var(--warning) 16%, transparent); color:var(--warning); border:1px solid var(--warning);">Acima do preço de compra (${fmtR(o.compra)})</span>`);
+          }
+
+          return `
+            <div class="ordem-aberta-row" data-ordem-id="${o.id}" style="padding:10px 12px; border:1px solid var(--rule); border-radius:10px; background:var(--surface); margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; font-size:13px;">
+                <span style="font-family:var(--font-sans);">${linhaEsq}</span>
+                <span style="font-family:var(--font-mono); font-size:12px; color:var(--ink-2);">${linhaDir}</span>
+              </div>
+              ${badgesAlertas.length ? `<div style="display:flex; flex-wrap:wrap; gap:6px;">${badgesAlertas.join('')}</div>` : ''}
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-top:2px;">
+                <span style="font-size:11.5px; color:var(--muted);">${o.nota ? o.nota : `Comprometido: ${fmtR(o.comprometido)}`}</span>
+                <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                  <button type="button" class="mc-btn primary btn-ordem-executar" data-ordem-id="${o.id}" onclick="abrirModalExecutarOrdem('${o.id}')" style="padding:4px 10px; font-size:11.5px;">Executou</button>
+                  <button type="button" class="mc-btn btn-ordem-editar" data-ordem-id="${o.id}" onclick="abrirModalOrdem('${o.id}')" style="padding:4px 10px; font-size:11.5px;">Editar</button>
+                  <button type="button" class="mc-btn btn-ordem-cancelar" data-ordem-id="${o.id}" onclick="fehmirOrdemCancelar('${o.id}')" style="padding:4px 10px; font-size:11.5px;">Cancelar</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+    const histHtml = historico.length > 0
+      ? `<details style="margin-top:8px; font-size:12px; color:var(--muted);">
+          <summary style="cursor:pointer; font-weight:600; color:var(--ink-2);">Histórico (${historico.length})</summary>
+          <div style="margin-top:6px; display:flex; flex-direction:column; gap:4px;">
+            ${historico.map(h => `<div style="padding:6px 8px; border-radius:6px; background:var(--surface); border:1px solid var(--rule); display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
+              <span><b>${h.t}</b> · ${h.quant} × ${fmtR(h.limite)} (${h.origem === 'reserva' ? 'reserva' : 'aporte'})</span>
+              <span style="font-weight:600; color:${h.situacao === 'executada' ? 'var(--good)' : 'var(--muted)'};">${h.situacao}</span>
+            </div>`).join('')}
+          </div>
+        </details>`
+      : '';
+
+    box.innerHTML = `
+      <div class="ma-card" style="margin-bottom:12px; padding:12px 14px; border:1px solid var(--rule); border-radius:12px; background:var(--surface-2);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div style="cursor:pointer; flex:1 1 240px;" onclick="toggleOrdensCard()">
+            <div style="font-weight:700; font-size:14.5px; color:var(--ink); display:flex; align-items:center; gap:6px;">
+              <span>📋 Ordens abertas</span>
+              <span style="font-size:11.5px; color:var(--muted); font-weight:500;">${_ordensCardRecolhido ? '▾' : '▴'}</span>
+            </div>
+            <div id="ordens-resumo-linha" style="font-size:12.5px; color:var(--ink-2); margin-top:2px;">${resumoTxt}</div>
+          </div>
+          <button type="button" class="mc-btn primary" id="btn-nova-ordem" onclick="abrirModalOrdem()" style="padding:6px 12px; font-size:12px;">+ Nova ordem</button>
+        </div>
+        ${_ordensCardRecolhido ? '' : `<div style="margin-top:10px;">${avisoSemStorage}${linhasHtml}${histHtml}</div>`}
+      </div>
+    `;
+  }
+  window.renderOrdensAbertas = renderOrdensAbertas;
+
+  function toggleOrdensCard() {
+    _ordensCardRecolhido = !_ordensCardRecolhido;
+    renderOrdensAbertas();
+  }
+  window.toggleOrdensCard = toggleOrdensCard;
+
+  /* ===================== T019: LANÇAMENTOS SÓ NESTE NAVEGADOR ===================== */
+  function fehmirLancSoNesteNavegador() {
+    const lista = typeof carregarExtrato === 'function' ? carregarExtrato() : [];
+    const painelArq = Array.isArray(window.FEHMIR_LANC_PAINEL) ? window.FEHMIR_LANC_PAINEL : [];
+    const padrao = typeof DEFAULT_TRANSACOES !== 'undefined' && Array.isArray(DEFAULT_TRANSACOES) ? DEFAULT_TRANSACOES : [];
+    const manuaisLocais = lista.filter(it => {
+      if (!it || it.origem === 'assistente') return false;
+      const emPadrao = padrao.some(p => (it.id && p.id && it.id === p.id) || fehmirMesmaOperacao(p, it));
+      if (emPadrao) return false;
+      const emPainelArq = painelArq.some(p => (it.id && p.id && it.id === p.id) || fehmirMesmaOperacao(p, it));
+      return !emPainelArq;
+    });
+    const n = manuaisLocais.length;
+    const selo = document.getElementById('extrato-selo-local');
+    if (selo) {
+      if (n > 0) {
+        selo.style.display = 'inline-flex';
+        selo.textContent = `${n} lançamentos só neste navegador · Sincronizar`;
+      } else {
+        selo.style.display = 'none';
+        selo.textContent = '';
+      }
+    }
+    return n;
+  }
+  window.fehmirLancSoNesteNavegador = fehmirLancSoNesteNavegador;
+
+  /* ===================== T025 & T026: APORTE DO MÊS ===================== */
+  function _mesAnteriorISO(mesKey) {
+    const m = String(mesKey || '').slice(0, 7);
+    if (!/^\d{4}-\d{2}$/.test(m)) return '';
+    const ano = parseInt(m.slice(0, 4), 10);
+    const mes = parseInt(m.slice(5, 7), 10);
+    if (mes === 1) return `${ano - 1}-12`;
+    return `${ano}-${String(mes - 1).padStart(2, '0')}`;
+  }
+
+  function _calcularComprasMesSeparadas(mesKey) {
+    const k = String(mesKey || new Date().toISOString().slice(0, 7)).slice(0, 7);
+    const ext = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
+    let usado = 0;
+    let daReserva = 0;
+    let vendas = 0;
+    const porTicker = {};
+    ext.filter(t => t && String(t.data).startsWith(k) && /^(Compra|Venda)$/.test(t.tipo) && String(t.cat || '').toUpperCase() !== 'CAIXA' && !(typeof fehmirEhAjuste === 'function' && fehmirEhAjuste(t))).forEach(t => {
+      const v = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(t.total) : (parseFloat(t.total) || 0);
+      if (t.tipo === 'Compra') {
+        if (t.pagoCom === 'reserva') {
+          daReserva += v;
+        } else {
+          usado += v;
+          porTicker[t.ticker] = +((porTicker[t.ticker] || 0) + v).toFixed(2);
+        }
+      } else if (t.tipo === 'Venda') {
+        vendas += v;
+      }
+    });
+    return {
+      usado: +usado.toFixed(2),
+      daReserva: +daReserva.toFixed(2),
+      vendas: +vendas.toFixed(2),
+      porTicker
+    };
+  }
+
+  function fehmirResumoAporteMes(mes) {
+    const k = String(mes || new Date().toISOString().slice(0, 7)).slice(0, 7);
+    const aporte = typeof fehmirAporteDoMes === 'function' ? fehmirAporteDoMes(k) : 300;
+    const sep = _calcularComprasMesSeparadas(k);
+    const ordRes = typeof fehmirOrdensResumo === 'function' ? fehmirOrdensResumo() : { porOrigem: { aporte: 0 } };
+    const reservadoOrdens = +((ordRes.porOrigem && ordRes.porOrigem.aporte) || 0).toFixed(2);
+    const sobra = +(aporte - sep.usado).toFixed(2);
+    const livre = +(sobra - reservadoOrdens).toFixed(2);
+
+    const mesAnt = _mesAnteriorISO(k);
+    let sobraMesAnterior = 0;
+    if (mesAnt) {
+      const apAnt = typeof fehmirAporteDoMes === 'function' ? fehmirAporteDoMes(mesAnt) : 300;
+      const sepAnt = _calcularComprasMesSeparadas(mesAnt);
+      sobraMesAnterior = +(apAnt - Math.max(0, sepAnt.usado - sepAnt.vendas)).toFixed(2);
+    }
+
+    return {
+      mes: k,
+      aporte: +aporte.toFixed(2),
+      usado: sep.usado,
+      porTicker: sep.porTicker,
+      daReserva: sep.daReserva,
+      vendas: sep.vendas,
+      reservadoOrdens,
+      sobra,
+      livre,
+      sobraMesAnterior
+    };
+  }
+  window.fehmirResumoAporteMes = fehmirResumoAporteMes;
+
+  const NOMES_MESES_PT = {
+    '01': 'janeiro', '02': 'fevereiro', '03': 'março', '04': 'abril',
+    '05': 'maio', '06': 'junho', '07': 'julho', '08': 'agosto',
+    '09': 'setembro', '10': 'outubro', '11': 'novembro', '12': 'dezembro'
+  };
+
+  function abrirEditarAporteMes(mesPadrao) {
+    const mesAtual = String(mesPadrao || new Date().toISOString().slice(0, 7)).slice(0, 7);
+    const valorAtual = fehmirAporteDoMes(mesAtual);
+    const novoValorStr = prompt(`Novo valor do aporte mensal a partir de ${mesAtual} (R$):`, String(valorAtual));
+    if (novoValorStr === null) return;
+    const novoVal = parseFloat(String(novoValorStr).replace(',', '.'));
+    if (!(novoVal > 0) || !isFinite(novoVal)) return;
+    const cfg = getCaixaCfg();
+    const mapa = {};
+    (cfg.aportes || []).forEach(a => { if (a && a.desde) mapa[String(a.desde)] = Number(a.valor); });
+    mapa[mesAtual] = +novoVal.toFixed(2);
+    cfg.aportes = Object.keys(mapa).sort().map(desde => ({ desde, valor: mapa[desde] }));
+    cfg.aporteMensal = +novoVal.toFixed(2);
+    setCaixaCfg(cfg);
+    renderCardAporteMes();
+    if (typeof renderCaixaInvestir === 'function') renderCaixaInvestir();
+  }
+  window.abrirEditarAporteMes = abrirEditarAporteMes;
+
+  function renderCardAporteMes(mes) {
+    const box = document.getElementById('card-aporte-mes');
+    if (!box) return;
+    const r = fehmirResumoAporteMes(mes);
+    const mm = r.mes.slice(5, 7);
+    const nomeMes = NOMES_MESES_PT[mm] || r.mes;
+    const mesAnt = _mesAnteriorISO(r.mes);
+    const nomeMesAnt = NOMES_MESES_PT[mesAnt.slice(5, 7)] || mesAnt;
+
+    const sobraHtml = r.sobra >= 0
+      ? `sobra <b style="color:var(--good);">${fmtR(r.sobra)}</b>`
+      : `<span style="color:var(--critical); font-weight:700;">sobra ${fmtR(r.sobra)} (passou ${fmtR(Math.abs(r.sobra))} do aporte)</span>`;
+
+    const livreHtml = `<b style="color:${r.livre >= 0 ? 'var(--good)' : 'var(--critical)'};">${fmtR(r.livre)}</b>`;
+
+    const extras = [];
+    if (r.daReserva > 0) extras.push(`da reserva: <b>${fmtR(r.daReserva)}</b>`);
+    if (r.vendas > 0) extras.push(`vendas reinvestíveis: <b>${fmtR(r.vendas)}</b>`);
+
+    const tickersEntries = Object.entries(r.porTicker).sort((a, b) => b[1] - a[1]);
+    const comprasListaHtml = tickersEntries.length > 0
+      ? `<details style="margin-top:6px; font-size:12px;">
+          <summary style="cursor:pointer; color:var(--ink-2); font-weight:600;">Compras do mês por ativo (${tickersEntries.length})</summary>
+          <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:8px;">
+            ${tickersEntries.map(([tk, val]) => `<span style="padding:3px 8px; border-radius:6px; background:var(--surface); border:1px solid var(--rule); font-family:var(--font-mono); font-size:11.5px;"><b>${tk}</b>: ${fmtR(val)}</span>`).join('')}
+          </div>
+        </details>`
+      : '';
+
+    const avisoMesAntHtml = r.sobraMesAnterior > 0
+      ? `<div style="margin-top:6px; font-size:11.5px; color:var(--ink-2);">💡 de ${nomeMesAnt} sobraram <b>${fmtR(r.sobraMesAnterior)}</b>: foram para a caixinha?</div>`
+      : '';
+
+    box.innerHTML = `
+      <div class="ma-card" style="margin-bottom:10px; padding:12px 14px; border:1px solid var(--rule); border-radius:12px; background:var(--surface-2);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div style="font-size:13.5px; color:var(--ink);">
+            <b>Aporte de ${nomeMes}: ${fmtR(r.aporte)}</b> · usado <b>${fmtR(r.usado)}</b> · ${sobraHtml}
+          </div>
+          <button type="button" class="mc-btn" onclick="abrirEditarAporteMes('${r.mes}')" style="padding:4px 10px; font-size:11.5px;">editar aporte</button>
+        </div>
+        <div style="font-size:12.5px; color:var(--ink-2); margin-top:4px;">
+          reservado em ordens <b>${fmtR(r.reservadoOrdens)}</b> · livre ${livreHtml}${extras.length ? ' · ' + extras.join(' · ') : ''}
+        </div>
+        ${avisoMesAntHtml}
+        ${comprasListaHtml}
+      </div>
+    `;
+  }
+  window.renderCardAporteMes = renderCardAporteMes;
+
+  function _initSpec009FaseA() {
+    try { fehmirRenderFaixaPrecoVelho(); } catch (e) {}
+    try { renderCardAporteMes(); } catch (e) {}
+    try { renderOrdensAbertas(); } catch (e) {}
+    try { fehmirLancSoNesteNavegador(); } catch (e) {}
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _initSpec009FaseA);
+  } else {
+    _initSpec009FaseA();
+  }
+})();
 </script>
 
 <style id="fehmir-polish">

@@ -1,11 +1,19 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
+<<<<<<< Updated upstream
  "gerado": "2026-11-11 02:53",
+=======
+ "gerado": "2026-11-11 14:38",
+>>>>>>> Stashed changes
  "ativos": 226,
  "carteira": 23,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
 };
+<<<<<<< Updated upstream
 window.FEHMIR_CARTEIRA = {"ETH":0.00794523,"BTC":0.00041103,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":50,"XPML11":5,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.09543757,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2};
+=======
+window.FEHMIR_CARTEIRA = {"ETH":0.00794523,"BTC":0.00052531,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":50,"XPML11":5,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.14199095,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2};
+>>>>>>> Stashed changes
 window.FEHMIR_TETOS = {
  "BBSE3": {
   "teto": 60.53,
@@ -800,12 +808,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "TRXF11": {
-  "teto": 89.1,
-  "compra": 84.64,
+  "teto": 70.82,
+  "compra": 67.28,
   "margemMin": 5,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Logística/Renda urbana",
-  "src": "Dividendo 12m R$ 10,87 (robô) ÷ 12,2% = R$ 89,10",
+  "src": "Rendimento inflado por venda de imóveis: R$ 0,21 por cota em ago/26 (pagou R$ 0,93, gerou R$ 0,72). Teto pelo recorrente: R$ 0,72 × 12 = R$ 8,64 ÷ 12,2% = R$ 70,82 (pelo pago seria R$ 89,10). DY no preço de hoje: 12,8% pelo recorrente, 16,1% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
   "preco": 67.38,
   "data": "2026-10-29",
   "base_dpa": "historico_5a"

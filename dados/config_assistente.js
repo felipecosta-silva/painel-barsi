@@ -58,5 +58,11 @@ window.FEHMIR_CONFIG_ASSIST = [
     macro: { caixa: 700.00 },
     caixaCfg: { reserva: 500 },
     nota: "Caixinha em 05/11/2026 (contado no chat): R$ 700,00 = R$ 500,00 de reserva de emergência + R$ 200,00 de oportunidade"
+  },
+  {
+    id: "2026-11-08-aporte-1",
+    data: "2026-11-08",
+    caixaCfg: { aportes: [ { desde: "2026-10", valor: 300 }, { desde: "2026-11", valor: 400 } ] },
+    nota: "Aporte mensal sobe para R$ 400,00 a partir de novembro/2026 (contado no chat de 08/11/2026); outubro continua R$ 300,00. Lido pelo cartão 'Aporte do mês' (spec 009, US4); enquanto ele não existir, o painel segue usando aporteMensal"
   }
 ];

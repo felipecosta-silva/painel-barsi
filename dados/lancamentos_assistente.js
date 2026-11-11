@@ -55,6 +55,32 @@ window.FEHMIR_LANC_ASSIST = [
     nota: "Nubank: 0,04655354 SOL × R$ 533,79 = R$ 24,85 + R$ 0,15 de taxa"
   },
   {
+    id: "2026-11-05-SOL-C-1",
+    data: "2026-11-05",
+    tipo: "Compra",
+    ticker: "SOL",
+    cat: "CRIPTO",
+    quant: 0.04655338,
+    preco: 634.97,
+    taxa: 0.00,
+    total: 29.56,
+    moeda: "BRL",
+    nota: "Nubank (Investidor 10): 0,04655338 SOL × R$ 634,97 = R$ 29,56 (quantidade calculada pelo valor; taxa não informada)"
+  },
+  {
+    id: "2026-11-08-BTC-C-1",
+    data: "2026-11-08",
+    tipo: "Compra",
+    ticker: "BTC",
+    cat: "CRIPTO",
+    quant: 0.00011428,
+    preco: 422471.12,
+    taxa: 0.29,
+    total: 48.57,
+    moeda: "BRL",
+    nota: "Nubank: 0,00011428 BTC × R$ 422.471,12 = R$ 48,28 + R$ 0,29 de taxa"
+  },
+  {
     id: "2026-09-30-BTC-C-1",
     data: "2026-09-30",
     tipo: "Compra",

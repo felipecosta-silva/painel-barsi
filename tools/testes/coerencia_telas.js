@@ -69,6 +69,18 @@ for (const t of Object.keys(ma)) {
 }
 // textos fixos
 const html = document.documentElement.outerHTML;
-['RZTR11 segue o caso', 'MELK3 e PETR4 mostram', 'calibração do teto de BBSE3', '(R$ 445)'].forEach(t => { if (html.includes(t)) div.push('texto fixo: ' + t); });
+['RZTR11 segue o caso', 'MELK3 e PETR4 mostram', 'calibração do teto de BBSE3', '(R$ 445)', '~12 anos'].forEach(t => { if (html.includes(t)) div.push('texto fixo: ' + t); });
+// Rodada 20 Parte F: para aporte de R$ 211, nenhum ticker da cesta tem veredito diferente de "Aportar"
+const inpAp = document.getElementById('smart-aporte-input');
+const apAnt = inpAp ? inpAp.value : '300';
+if (inpAp) inpAp.value = '211';
+const resAp211 = typeof calcularAporteInteligente === 'function' ? calcularAporteInteligente() : null;
+if (resAp211 && Array.isArray(resAp211.cesta)) {
+  resAp211.cesta.forEach(c => {
+    const v = fehmirVeredito({ t: c.t, preco: c.preco });
+    if (!v || v.label !== 'Aportar') div.push(`Aporte R$ 211 sugeriu ${c.t} com veredito ${v ? v.label : 'nulo'}`);
+  });
+}
+if (inpAp) { inpAp.value = apAnt; calcularAporteInteligente(); }
 const prov = fehmirProventosRecebidos();
 return { divergencias: div.length, div, patr, termo: termo1, nAtivos, nCob, provRecebidos: prov.total, provItens: prov.itens.length, provAntes: fehmirProventosAntesDoPainel(), btnReinv, payAn, payModal: av.payoutUsado };
