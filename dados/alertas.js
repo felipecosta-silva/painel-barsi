@@ -1,9 +1,9 @@
 /* Gerado por tools/analista.py — não editar à mão. */
 window.FEHMIR_ALERTAS = {
  "meta": {
-  "gerado": "2026-11-10 04:43",
+  "gerado": "2026-11-11 02:53",
   "verificados": 105,
-  "ativos": 78,
+  "ativos": 74,
   "limiares": {
    "movimento_pp": 8,
    "janela": 5,
@@ -570,7 +570,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -591,7 +591,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -611,7 +611,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -631,7 +631,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -651,7 +651,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -671,7 +671,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -692,7 +692,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -711,7 +711,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -731,7 +731,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -750,7 +750,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-31",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -771,7 +771,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -791,7 +791,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -812,7 +812,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -832,7 +832,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-11-10",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -852,7 +852,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-11-10",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -873,7 +873,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-11-03",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -893,7 +893,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-11-10",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -914,7 +914,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -935,7 +935,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -955,7 +955,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": true,
    "desde": "2026-11-10",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -976,7 +976,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -996,7 +996,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1016,7 +1016,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1037,7 +1037,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1057,7 +1057,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1077,7 +1077,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1097,7 +1097,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1117,7 +1117,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1138,7 +1138,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1159,7 +1159,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1179,7 +1179,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1199,7 +1199,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1219,7 +1219,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1239,7 +1239,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1259,7 +1259,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1279,7 +1279,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1299,27 +1299,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
-   "estado": "ativo"
-  },
-  {
-   "id": "GGBR4:fundamento",
-   "ticker": "GGBR4",
-   "tipo": "fundamento",
-   "prioridade": "info",
-   "texto": "GGBR4: lucro de 12 meses subiu 21% na CVM (3T26); ROE 5,0%",
-   "numeros": {
-    "lucro12m": 2711842000.0,
-    "lucro12m_antes": 2237081000.0,
-    "roe": 4.96
-   },
-   "origem": {
-    "fonte": "CVM (ITR/DFP)",
-    "data": "3T26"
-   },
-   "carteira": false,
-   "desde": "2026-11-10",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1340,7 +1320,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1360,7 +1340,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1380,7 +1360,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1400,7 +1380,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1420,7 +1400,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1440,7 +1420,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1460,7 +1440,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1480,27 +1460,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
-   "estado": "ativo"
-  },
-  {
-   "id": "KLBN4:fundamento",
-   "ticker": "KLBN4",
-   "tipo": "fundamento",
-   "prioridade": "info",
-   "texto": "KLBN4: lucro de 12 meses caiu 24% na CVM (3T26); ROE 4,6%",
-   "numeros": {
-    "lucro12m": 451225000.0,
-    "lucro12m_antes": 594507000.0,
-    "roe": 4.57
-   },
-   "origem": {
-    "fonte": "CVM (ITR/DFP)",
-    "data": "3T26"
-   },
-   "carteira": false,
-   "desde": "2026-11-10",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1521,7 +1481,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1541,7 +1501,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1562,7 +1522,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1582,7 +1542,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1602,7 +1562,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1623,7 +1583,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1643,7 +1603,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1663,7 +1623,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1683,7 +1643,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1704,7 +1664,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -1725,7 +1685,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-11-03",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -1746,7 +1706,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1766,7 +1726,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1786,7 +1746,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1806,7 +1766,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1826,27 +1786,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
-   "estado": "ativo"
-  },
-  {
-   "id": "VALE3:fundamento",
-   "ticker": "VALE3",
-   "tipo": "fundamento",
-   "prioridade": "info",
-   "texto": "VALE3: lucro de 12 meses caiu 79% na CVM (3T26); ROE 1,1%",
-   "numeros": {
-    "lucro12m": 2188000000.0,
-    "lucro12m_antes": 10369000000.0,
-    "roe": 1.12
-   },
-   "origem": {
-    "fonte": "CVM (ITR/DFP)",
-    "data": "3T26"
-   },
-   "carteira": false,
-   "desde": "2026-11-10",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1867,7 +1807,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1887,7 +1827,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1907,27 +1847,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-11-10",
-   "ultimo": "2026-11-10",
-   "estado": "ativo"
-  },
-  {
-   "id": "VAMO3:fundamento",
-   "ticker": "VAMO3",
-   "tipo": "fundamento",
-   "prioridade": "info",
-   "texto": "VAMO3: lucro de 12 meses subiu 32% na CVM (3T26); ROE 12,1%",
-   "numeros": {
-    "lucro12m": 416275000.0,
-    "lucro12m_antes": 315812000.0,
-    "roe": 12.06
-   },
-   "origem": {
-    "fonte": "CVM (ITR/DFP)",
-    "data": "3T26"
-   },
-   "carteira": false,
-   "desde": "2026-11-10",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1947,7 +1867,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1967,7 +1887,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -1987,7 +1907,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo",
    "parecer": true
   },
@@ -2008,7 +1928,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -2028,7 +1948,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -2048,7 +1968,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -2068,7 +1988,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -2088,7 +2008,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-30",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -2108,7 +2028,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-27",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -2128,7 +2048,7 @@ window.FEHMIR_ALERTAS = {
    },
    "carteira": false,
    "desde": "2026-10-24",
-   "ultimo": "2026-11-10",
+   "ultimo": "2026-11-11",
    "estado": "ativo"
   },
   {
@@ -2172,6 +2092,90 @@ window.FEHMIR_ALERTAS = {
    "estado": "resolvido",
    "parecer": true,
    "resolvido": "2026-11-10"
+  },
+  {
+   "id": "GGBR4:fundamento",
+   "ticker": "GGBR4",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "GGBR4: lucro de 12 meses subiu 21% na CVM (3T26); ROE 5,0%",
+   "numeros": {
+    "lucro12m": 2711842000.0,
+    "lucro12m_antes": 2237081000.0,
+    "roe": 4.96
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "3T26"
+   },
+   "carteira": false,
+   "desde": "2026-11-10",
+   "ultimo": "2026-11-10",
+   "estado": "resolvido",
+   "resolvido": "2026-11-11"
+  },
+  {
+   "id": "KLBN4:fundamento",
+   "ticker": "KLBN4",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "KLBN4: lucro de 12 meses caiu 24% na CVM (3T26); ROE 4,6%",
+   "numeros": {
+    "lucro12m": 451225000.0,
+    "lucro12m_antes": 594507000.0,
+    "roe": 4.57
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "3T26"
+   },
+   "carteira": false,
+   "desde": "2026-11-10",
+   "ultimo": "2026-11-10",
+   "estado": "resolvido",
+   "resolvido": "2026-11-11"
+  },
+  {
+   "id": "VALE3:fundamento",
+   "ticker": "VALE3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "VALE3: lucro de 12 meses caiu 79% na CVM (3T26); ROE 1,1%",
+   "numeros": {
+    "lucro12m": 2188000000.0,
+    "lucro12m_antes": 10369000000.0,
+    "roe": 1.12
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "3T26"
+   },
+   "carteira": false,
+   "desde": "2026-11-10",
+   "ultimo": "2026-11-10",
+   "estado": "resolvido",
+   "resolvido": "2026-11-11"
+  },
+  {
+   "id": "VAMO3:fundamento",
+   "ticker": "VAMO3",
+   "tipo": "fundamento",
+   "prioridade": "info",
+   "texto": "VAMO3: lucro de 12 meses subiu 32% na CVM (3T26); ROE 12,1%",
+   "numeros": {
+    "lucro12m": 416275000.0,
+    "lucro12m_antes": 315812000.0,
+    "roe": 12.06
+   },
+   "origem": {
+    "fonte": "CVM (ITR/DFP)",
+    "data": "3T26"
+   },
+   "carteira": false,
+   "desde": "2026-11-10",
+   "ultimo": "2026-11-10",
+   "estado": "resolvido",
+   "resolvido": "2026-11-11"
   }
  ]
 };
