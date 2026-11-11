@@ -206,21 +206,26 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "FR 07/26 - Deslistagem das Ações da Latibex",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1582937&numSequencia=1107643&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-03."
+        "Aprovação em 30 de outubro de 2026 da deslistagem de todas as ações da Copel negociadas no Latibex (código XCOPO).",
+        "A Companhia deixa formalmente de estar listada no referido ambiente de negociação.",
+        "As ações de emissão da Copel continuam a ser negociadas normalmente na B3 e na NYSE.",
+        "O movimento dá continuidade ao Fato Relevante nº 06/2026 publicado em 17 de setembro de 2026."
       ],
-      "mudancas": [],
+      "mudancas": [
+        "Encerramento da listagem e negociação das ações no mercado Latibex (BME Markets & Exchanges)."
+      ],
       "alertas": [],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "cvm_014311IPE170920260172258071-85",
@@ -1145,21 +1150,35 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1373276",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-11-09."
+        "Distribuição de rendimentos referente a outubro de 2026 fixada em R$ 0,7636 por cota para cotistas anteriores à 13ª emissão.",
+        "Cotistas com recibos RECR13 e RECR14 receberam R$ 0,3803 e R$ 0,0963 por nova cota, respectivamente.",
+        "O fundo encerrou o mês com 95% dos ativos alocados em CRIs e FIIs, distribuídos em 99 operações de CRIs e 6 FIIs.",
+        "Foram contratadas novas operações compromissadas no valor de R$ 43,53 milhões com vencimento em janeiro de 2027.",
+        "O resultado pelo regime caixa foi de R$ 20,20 milhões, enquanto a competência registrou prejuízo contábil de -R$ 7,71 milhões decorrente de marcação a mercado negativa (-R$ 27,89 milhões)."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Aumento do provento por cota de R$ 0,6182 em setembro para R$ 0,7636 em outubro de 2026.",
+        "Aumento do resultado caixa por cota de R$ 0,6229 para R$ 0,7638.",
+        "LTV médio da carteira de CRI variou ligeiramente de 51% para 52%.",
+        "Realização de novas operações compromissadas totalizando R$ 43,53 milhões.",
+        "Liquidação integral do CRI Pátio Malzoni no montante de R$ 16,46 milhões."
+      ],
+      "alertas": [
+        "Manutenção de dois ativos com status de vencimento antecipado na carteira (CRI Olimpo e CRI Olimpo 2), somando R$ 53,32 milhões (~2,2% do total do ativo).",
+        "Presença de endividamento de curto prazo via compromissadas (R$ 43,53 milhões), gerando despesa financeira de R$ 1,61 milhão no mês.",
+        "Forte impacto negativo da marcação a mercado dos títulos (-R$ 27,89 milhões), resultando em lucro contábil por competência negativo."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.52,
+        "provento_por_cota": 0.7636,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.7638,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1342523",
@@ -1904,21 +1923,36 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1373431",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-11-09."
+        "Distribuição mantida em R$ 0,82 por cota pelo 9º mês consecutivo, dentro do guidance de R$ 0,80 a R$ 0,87 até fevereiro de 2027.",
+        "Resultado total de outubro alcançou R$ 0,94 por cota (R$ 14,14 milhões), impulsionado por R$ 0,31 por cota de resultado não recorrente.",
+        "A reserva de resultado acumulado não distribuído aumentou para R$ 0,37 por cota (total de R$ 5,59 milhões).",
+        "Assinatura de novo contrato de locação de 9,5 mil m² no Castelo 57 Business Park por 10 anos, com aluguel 20% superior à média do ativo.",
+        "Continuidade do desinvestimento de HGLG11, com a venda de 292.630 cotas gerando R$ 45,1 milhões em caixa e ganho de capital de R$ 0,39 por cota."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Resultado por cota aumentou de R$ 0,92 para R$ 0,94.",
+        "Reserva acumulada por cota subiu de R$ 0,25 para R$ 0,37.",
+        "Taxa de ocupação financeira subiu para 95,4% (vacância financeira reduziu de 4,8% para 4,6%).",
+        "Inadimplência líquida média normalizou de -0,8% para 0,0%.",
+        "LTV reduziu levemente de 14,46% para 14,32%."
+      ],
+      "alertas": [
+        "Concessão de 2 meses de carência para o novo locatário do Castelo 57 Business Park, refletindo na receita a partir de janeiro de 2027.",
+        "Renda garantida no Multimodal Campinas válida até outubro de 2027, cuja ocupação física real é de 93%.",
+        "Obrigações financeiras de R$ 210,1 milhões indexadas a IPCA + spread, das quais 7,9% vencem em até 12 meses.",
+        "Dependência relevante de ganhos de capital com a alienação gradual de cotas de HGLG11 para a formação do resultado e reservas."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 14.32,
+        "provento_por_cota": 0.82,
+        "reserva_por_cota": 0.37,
+        "resultado_por_cota": 0.94,
+        "vacancia_financeira": 4.6,
+        "vacancia_fisica": 4.6
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "fnet_1342453",
@@ -1988,21 +2022,35 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1373061",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-11-09."
+        "O fundo anunciou guidance de distribuição para o próximo semestre indicando redução nos rendimentos para o intervalo entre R$ 0,74 e R$ 0,84 por cota, ante os R$ 0,92 pagos atualmente.",
+        "Conclusão da alienação de 16,99% do Shopping Cidade Jardim pelo valor atualizado de R$ 456,3 milhões, com comprador assumindo R$ 151,9 milhões em CRI.",
+        "Conclusão da 15ª emissão de cotas com captação de R$ 391,46 milhões mediante a emissão de 3.555.197 cotas a R$ 110,11 cada.",
+        "Realização de novas aquisições: 60% do São Bernardo Plaza Shopping (R$ 331,1 milhões) e participações nos shoppings Metrô Boulevard Tatuapé (15%) e Metrô Itaquera (5%) por R$ 68,0 milhões.",
+        "Quitação antecipada de obrigações com a Capitânia Shoppings FII (~R$ 80 milhões), reduzindo a relação de endividamento sobre PL de 12,5% para 11,2%."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "O guidance formaliza uma perspectiva de queda nos dividendos futuros de R$ 0,92 para R$ 0,74 a R$ 0,84 por cota.",
+        "A reserva acumulada de resultado por cota caiu substancialmente ao longo de 2026, encerrando setembro em R$ 0,95/cota (contra picos de R$ 4,12 em janeiro/26).",
+        "Resultado apurado de setembro/26 (R$ 32,36 milhões) foi consideravelmente inferior ao montante distribuído (R$ 59,16 milhões), gerando consumo de reservas.",
+        "A vacância física fechou setembro/26 em 5,3% e a inadimplência líquida em 2,7%."
+      ],
+      "alertas": [
+        "Corte projetado de proventos: o guidance aponta redução relevante da distribuição por cota nos próximos meses.",
+        "Consumo contínuo de reserva acumulada para manter o patamar de distribuição de R$ 0,92, limitando a sustentabilidade desse dividendo.",
+        "Ambiente de varejo com desaceleração e aumento de pedidos de recuperação judicial podendo pressionar renegociações de aluguel e custos de ocupação (12,5% no mês).",
+        "Volume relevante de parcelas futuras a pagar decorrentes das recentes aquisições (Portfólio Iguatemi, Pátio Higienópolis e Metrus)."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 2.7,
+        "ltv": 11.2,
+        "provento_por_cota": 0.92,
+        "reserva_por_cota": 0.95,
+        "resultado_por_cota": 0.5,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 5.3
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1358969",
