@@ -16,6 +16,8 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
 <script src="dados/lancamentos_assistente.js"></script>
 <script src="dados/config_assistente.js"></script>
 <script src="dados/tetos.js"></script>
+<script src="dados/compounders.js"></script>
+<script src="dados/vendas_ativos.js"></script>
 <script src="dados/historico_investidor10.js"></script>
 <script src="dados/alertas.js"></script>
 <script>
@@ -14462,6 +14464,7 @@ function exportarCarteiraJSON(naoBaixar) {
     simInputs: simInputs,
     transacoes: transacoes,
     ordens: ordens,
+    giro: (function () { try { return JSON.parse(localStorage.getItem('barsi-giro-v1') || 'null'); } catch (e) { return null; } })(),
     meta: metaSalva || {
       totalTransacoes: transacoes.length,
       ordensAbertas: ordens.filter(o => o && (o.situacao === 'aberta' || o.situacao === 'parcial')).length,
@@ -14555,7 +14558,23 @@ function _aplicarImportacaoCarteira(parsed) {
   if (typeof renderCardAporteMes === 'function') renderCardAporteMes();
   const msg = `${acrescentados} lançamentos acrescentados, ${jaExistiam} já existiam. Nada foi apagado.`;
   if (typeof fehmirMostrarToast === 'function') fehmirMostrarToast(msg);
-  return { ok: true, acrescentados, jaExistiam, ordensAcrescentadas, mensagem: msg };
+  // Spec 010 (T019): marcações do balde de giro — mescla por ticker, a mais recente prevalece, nunca apaga a local
+  let giroAcrescentados = 0;
+  if (parsed.giro && parsed.giro.ativos && typeof parsed.giro.ativos === 'object') {
+    try {
+      const atual = (typeof window.fehmirGiroLer === 'function') ? window.fehmirGiroLer() : { versao: 1, limitePct: 15, ativos: {} };
+      Object.keys(parsed.giro.ativos).forEach(t => {
+        const vem = parsed.giro.ativos[t];
+        if (!vem || typeof vem !== 'object') return;
+        const loc = atual.ativos[t];
+        if (!loc) { atual.ativos[t] = vem; giroAcrescentados++; }
+        else if (String(vem.desde || '') > String(loc.desde || '')) atual.ativos[t] = vem;
+      });
+      if (typeof window.fehmirGiroGravar === 'function') window.fehmirGiroGravar(atual);
+      if (typeof window.renderBaldeGiro === 'function') window.renderBaldeGiro();
+    } catch (e) { console.warn('importar giro:', e); }
+  }
+  return { ok: true, acrescentados, jaExistiam, ordensAcrescentadas, giroAcrescentados, mensagem: msg };
 }
 
 function importarCarteiraJSON(eventOrObj) {
@@ -18765,6 +18784,7 @@ initCollapsibleBlocks();
 
     // AÇÕES
     const S = setorDe(a);
+
     const pe = fehmirPremioEmpresa(a.t);
     const req = m.ntnb + S.premio + pe.pp;
     let taxaExplicada = `${fmtN(req, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio ${fmtN(S.premio, 1)}% (${S.nome})`;
@@ -19394,6 +19414,30 @@ initCollapsibleBlocks();
           src += " · ⚠️ Patrimônio (" + fR(vpaDesc) + ") diverge " + fmtN(diverg, 0) + "% da renda 5A (" + fR(hist) + "): laudos de reavaliação inflaram VPA";
         }
       }
+      // Spec 010 (US3, FR-009/FR-010): o patrimônio só vale com venda de ativo registrada a ≥ 90% do valor contábil
+      if (vpaDesc > 0) {
+        const brutas = (window.FEHMIR_VENDAS_ATIVOS && Array.isArray(window.FEHMIR_VENDAS_ATIVOS[a.t])) ? window.FEHMIR_VENDAS_ATIVOS[a.t] : [];
+        const hojeD = new Date();
+        const limite24 = new Date(hojeD.getFullYear(), hojeD.getMonth() - 24, hojeD.getDate()).toISOString().slice(0, 10);
+        const hojeS = hojeD.toISOString().slice(0, 10);
+        const vendas = brutas.filter(v => {
+          const ok = v && v.venda > 0 && v.contabil > 0 && /^https?:\/\//.test(String(v.fonte || "")) && /^\d{4}-\d{2}-\d{2}$/.test(String(v.data || "")) && v.data <= hojeS;
+          if (!ok) console.warn("vendas_ativos.js: entrada ignorada (" + a.t + ")", v);
+          return ok;
+        }).filter(v => v.data >= limite24);
+        const abaixo = vendas.find(v => v.venda / v.contabil < 0.9);
+        const dataBR = d => d.slice(8, 10) + "/" + d.slice(5, 7) + "/" + d.slice(0, 4);
+        if (vendas.length && !abaixo) {
+          teto = vpaDesc;
+          diverg = null; diverg_par = null;
+          src = "P/VP c/ desconto comprovado [VPA×0,9 " + fR(vpaDesc) + "; vendas a ≥ 90% do contábil: " +
+            vendas.map(v => dataBR(v.data) + " " + fmtN(v.venda / v.contabil * 100, 0) + "%").join(", ") + "] · Bazin 5A " + fR(hist) + " (conferência)";
+        } else if (abaixo) {
+          src += " · venda de " + dataBR(abaixo.data) + " saiu a " + fmtN(abaixo.venda / abaixo.contabil * 100, 0) + "% do contábil";
+        } else {
+          src += " · patrimônio não comprovado: falta venda registrada a ≥ 90% do valor contábil";
+        }
+      }
     }
     // B. Bazin de meio de ciclo vs Projetivo (commodities)
     else if (em.metodo === "Bazin de meio de ciclo (mediana 5A × 0,75)") {
@@ -19435,14 +19479,6 @@ initCollapsibleBlocks();
       }
     }
 
-    // Trava de sanidade (23/10/2026): teto acima de 3× o preço implica DY de 25%+ — quase sempre provento
-    // inflado por amortização, grupamento ou extraordinário. Sem teto até conferir; nunca vira "compra".
-    const precoSan = (HY && HY.c && HY.c.length) ? HY.c[HY.c.length - 1] : a.preco;
-    if (teto > 0 && precoSan > 0 && teto > 3 * precoSan) {
-      src = "⚠️ Dado suspeito: o teto calculado (" + fR(teto) + ") é " + fmtN(teto / precoSan, 1) + "× o preço — conferir proventos (amortização? grupamento? extraordinário?). " + src;
-      teto = null;
-    }
-
     // Banco de qualidade comprovada (decisão do Felipe, 23/10/2026): ROE >= 18% em cada um dos 5 anos
     // fechados (DFPs da CVM, PL médio) ⇒ teto = P/VP justo × VPA, com k nominal = taxa do setor + IPCA e
     // g = IPCA (crescimento real zero). O Bazin pelo DPA de 5 anos fica só como conferência.
@@ -19481,6 +19517,15 @@ initCollapsibleBlocks();
       }
     }
 
+    // (Spec 010, US4, 13/11/2026) A trava roda DEPOIS do limite pelo P/VP justo das incorporadoras: antes ela zerava o Graham
+    // inflado (MELK3 R$ 8,71) e o limite correto nunca agia.
+    // Trava de sanidade (23/10/2026): teto acima de 3× o preço implica DY de 25%+ — quase sempre provento
+    // inflado por amortização, grupamento ou extraordinário. Sem teto até conferir; nunca vira "compra".
+    const precoSan = (HY && HY.c && HY.c.length) ? HY.c[HY.c.length - 1] : a.preco;
+    if (teto > 0 && precoSan > 0 && teto > 3 * precoSan) {
+      src = "⚠️ Dado suspeito: o teto calculado (" + fR(teto) + ") é " + fmtN(teto / precoSan, 1) + "× o preço — conferir proventos (amortização? grupamento? extraordinário?). " + src;
+      teto = null;
+    }
     const pe = fehmirPremioEmpresa(a.t);
     if (pe.pp > 0) {
       src += " · +" + fmtN(pe.pp, 1) + " p.p. risco da empresa (" + pe.motivo + ")";
@@ -25833,6 +25878,483 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     [sa, ev].forEach(el => { if (el && !el.classList.contains('is-collapsed') && typeof toggleBlockCollapse === 'function') toggleBlockCollapse(el.id); });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => setTimeout(reorganizar, 0)); else setTimeout(reorganizar, 0);
+})();
+</script>
+<script id="spec010-compounder-giro">
+/* ===== SPEC 010 (13/11/2026): régua de compounder, régua de patrimônio e balde de giro =====
+   Fórmulas: specs/010-compounder-patrimonio-giro (research R1–R7). Sem valor de reserva: sem dado ⇒ "não calculado". */
+(function () {
+  "use strict";
+
+  // Parâmetros do método (documentados no §21, aprovados pelo Felipe em 12–13/11/2026)
+  const COMPOUNDER_PARAMS = {
+    metaRetorno: 12,                     // % ao ano (constituição III)
+    premioIpca: 6,                       // IPCA 12m + 6 (régua do Léo, vídeo da WEGE3 de 22/06/2026)
+    multCenario: { pessimista: 0.5, base: 0.75, otimista: 1.0 },
+    plFinal: { pessimista: 20, base: 25, otimista: 30 },
+    gMaxOtimista: 0.20,
+    roeMin: 15, dlEbitdaMax: 2, anos: 10
+  };
+  const GIRO_PARAMS = { degrau1: 1.5, degrau2: 2, fracao: 1 / 3, limitePadrao: 15, limiteMin: 5, limiteMax: 30, fonte: "Felipe, 12/11/2026" };
+  window.COMPOUNDER_PARAMS = COMPOUNDER_PARAMS;
+  window.GIRO_PARAMS = GIRO_PARAMS;
+
+  // ---------- T006: TIR por bisseção (research R1) ----------
+  function vpl(fluxos, r) {
+    let s = 0;
+    for (let k = 0; k < fluxos.length; k++) s += fluxos[k] / Math.pow(1 + r, k);
+    return s;
+  }
+  function fehmirTIR(fluxos) {
+    if (!Array.isArray(fluxos) || fluxos.length < 2 || fluxos.some(v => typeof v !== "number" || !isFinite(v))) return null;
+    let lo = -0.5, hi = 1.0, flo = vpl(fluxos, lo), fhi = vpl(fluxos, hi);
+    if (flo * fhi > 0) return null;
+    for (let i = 0; i < 100; i++) {
+      const mid = (lo + hi) / 2, fm = vpl(fluxos, mid);
+      if (Math.abs(fm) < 1e-10 || (hi - lo) / 2 < 1e-6) return mid;
+      if (flo * fm < 0) { hi = mid; fhi = fm; } else { lo = mid; flo = fm; }
+    }
+    return (lo + hi) / 2;
+  }
+  window.fehmirTIR = fehmirTIR;
+
+  // ---------- T005: IPCA de 12 meses do robô (Banco Central, SGS 433) ----------
+  function fehmirIpca12m() {
+    const B = window.FEHMIR_BENCH;
+    const s = B && Array.isArray(B.ipca) ? B.ipca.filter(x => Array.isArray(x) && typeof x[1] === "number") : [];
+    if (s.length < 12) return null;
+    const ult = s.slice(-12);
+    const prod = ult.reduce((acc, x) => acc * (1 + x[1] / 100), 1);
+    return (prod - 1) * 100;
+  }
+  window.fehmirIpca12m = fehmirIpca12m;
+
+  // ---------- T007: macro do Felipe sem valor de reserva ----------
+  function fehmirMacroReal() {
+    let raw = {};
+    try { raw = JSON.parse(localStorage.getItem("barsi-macro-v1") || "{}") || {}; } catch (e) { raw = {}; }
+    const num = v => (v === "" || v == null || isNaN(+v)) ? null : +v;
+    return { ntnb: num(raw.ntnb) };
+  }
+  window.fehmirMacroReal = fehmirMacroReal;
+
+  // ---------- T009: régua de compounder ----------
+  const CICLICOS_ID = new Set(["commodity", "construcao"]);
+  const CICLICO_RE = /explora[çc][ãa]o de im[oó]veis|log[íi]stica|shopping|properties|imobili|sider|papel|celulose|incorpora|constru|petr[oó]leo|miner/i;
+
+  function universoDe(t) {
+    try { const U = typeof window.fehmirUniverso === "function" ? window.fehmirUniverso() : {}; return U[t] || null; } catch (e) { return null; }
+  }
+  function histDe(t) {
+    try { return typeof window.fehmirObterHist === "function" ? window.fehmirObterHist(t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[t]); } catch (e) { return null; }
+  }
+  function precoDe(t, a) {
+    if (a && typeof a.preco === "number" && a.preco > 0) return a.preco;
+    const H = histDe(t);
+    return H && H.c && H.c.length ? H.c[H.c.length - 1] : null;
+  }
+  function fluxoCompounder(preco, lpa0, g, payout, plFinal, anos) {
+    const f = [-preco];
+    for (let ano = 1; ano <= anos; ano++) {
+      const lpa = lpa0 * Math.pow(1 + g, ano);
+      f.push(lpa * payout + (ano === anos ? plFinal * lpa : 0));
+    }
+    return f;
+  }
+  function precoParaRetorno(alvo, lpa0, g, payout, plFinal, anos, pRef) {
+    let lo = 0.01, hi = 10 * pRef;
+    for (let i = 0; i < 100; i++) {
+      const mid = (lo + hi) / 2, r = fehmirTIR(fluxoCompounder(mid, lpa0, g, payout, plFinal, anos));
+      if (r == null) return null;
+      if (r > alvo) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+  function mediana(arr) {
+    const s = arr.slice().sort((x, y) => x - y), n = s.length;
+    return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null;
+  }
+
+  function fehmirCompounder(t, aArg) {
+    t = String(t || "").trim().toUpperCase();
+    const L = window.FEHMIR_COMPOUNDERS && Array.isArray(window.FEHMIR_COMPOUNDERS.ativos) ? window.FEHMIR_COMPOUNDERS.ativos : null;
+    if (!L) return { aprovado: false, motivo: "lista de compounders indisponível (dados/compounders.js)" };
+    const item = L.find(x => x && x.t === t);
+    if (!item) return { aprovado: false, motivo: "fora da lista de compounders" };
+    const a = aArg || universoDe(t) || { t };
+    const S = typeof window.setorDe === "function" ? window.setorDe(a) : null;
+    if ((S && CICLICOS_ID.has(S.id)) || CICLICO_RE.test(String(a.setor || ""))) {
+      return { aprovado: false, motivo: "setor cíclico: usa régua do setor e balde de giro" };
+    }
+    const C = window.FEHMIR_FUND_CVM && window.FEHMIR_FUND_CVM[t];
+    const H = histDe(t);
+    if (!C || !C.lucroAnual || !C.roeAnual || !(C.lpa > 0)) return { aprovado: false, motivo: "reprovado na qualidade de compounder: falta dado de lucro na CVM" };
+    const ult = new Date().getFullYear() - 1;
+    const anosL = Object.keys(C.lucroAnual).map(Number).filter(y => y <= ult && y >= ult - 5 && C.lucroAnual[y] != null).sort();
+    if (anosL.length < 5 || !anosL.includes(ult)) return { aprovado: false, motivo: "reprovado na qualidade de compounder: falta dado de lucro na CVM (menos de 4 dos 5 anos)" };
+    const ult5 = anosL.filter(y => y > ult - 5);
+    if (ult5.some(y => C.lucroAnual[y] <= 0)) return { aprovado: false, motivo: "reprovado na qualidade de compounder: prejuízo em algum dos 5 anos" };
+    const anosR = Object.keys(C.roeAnual).map(Number).filter(y => y <= ult).sort().slice(-5);
+    const roe5 = anosR.length >= 4 ? anosR.reduce((s, y) => s + Number(C.roeAnual[y]), 0) / anosR.length : null;
+    if (roe5 == null) return { aprovado: false, motivo: "reprovado na qualidade de compounder: falta ROE anual" };
+    if (roe5 < COMPOUNDER_PARAMS.roeMin) return { aprovado: false, motivo: `reprovado na qualidade de compounder: ROE médio de 5 anos ${roe5.toFixed(1).replace(".", ",")}% < 15%` };
+    const dl = C.dlEbitda;
+    if (dl != null && dl > COMPOUNDER_PARAMS.dlEbitdaMax) return { aprovado: false, motivo: `reprovado na qualidade de compounder: dívida líquida/EBITDA ${dl.toFixed(1).replace(".", ",")} > 2` };
+    const selo = dl == null ? "não autoriza compra" : null;
+
+    // Crescimento de referência: menor entre CAGR 3A, CAGR 5A e o sustentável do Léo (ROE × retenção)
+    const y0 = anosL[0];
+    const cagr5 = Math.pow(C.lucroAnual[ult] / C.lucroAnual[y0], 1 / (ult - y0)) - 1;
+    const cagr3 = C.lucroAnual[ult - 3] > 0 ? Math.pow(C.lucroAnual[ult] / C.lucroAnual[ult - 3], 1 / 3) - 1 : null;
+    const pays = [];
+    for (let y = ult - 5; y < ult; y++) {
+      const lp = C.lpaAnual && C.lpaAnual[String(y)];
+      if (!(lp > 0) || !H || !H.dpaAno) continue;
+      const d = Number(H.dpaAno[String(y + 1)] || 0) - Number((H.dpaAnoExtra && H.dpaAnoExtra[String(y + 1)]) || 0);
+      const p = d / lp;
+      if (p <= 1.5) pays.push(Math.min(1, Math.max(0, p)));
+    }
+    if (pays.length < 3) return { aprovado: false, motivo: "reprovado na qualidade de compounder: falta histórico de dividendos (menos de 3 anos)" };
+    const payout = mediana(pays);
+    const gSust = (roe5 / 100) * (1 - payout);
+    const cands = [cagr5, gSust].concat(cagr3 != null ? [cagr3] : []);
+    const gRef = Math.min.apply(null, cands);
+    if (gRef < 0) return { aprovado: false, motivo: "reprovado na qualidade de compounder: lucro encolhendo" };
+
+    const preco = precoDe(t, a);
+    if (!(preco > 0)) return { aprovado: false, motivo: "sem cotação" };
+    const lpa0 = C.lpa, plAtual = preco / lpa0, anos = COMPOUNDER_PARAMS.anos;
+    const avisos = [];
+    const cenarios = ["pessimista", "base", "otimista"].map(nome => {
+      let g = gRef * COMPOUNDER_PARAMS.multCenario[nome];
+      if (nome === "otimista" && g > COMPOUNDER_PARAMS.gMaxOtimista) { g = COMPOUNDER_PARAMS.gMaxOtimista; avisos.push("otimista limitado a 20% ao ano"); }
+      const plFinal = Math.min(COMPOUNDER_PARAMS.plFinal[nome], plAtual);
+      return { nome, g, plFinal, tir: fehmirTIR(fluxoCompounder(preco, lpa0, g, payout, plFinal, anos)) };
+    });
+    const ipca12 = fehmirIpca12m();
+    const retornoMin = ipca12 == null ? null : Math.max(COMPOUNDER_PARAMS.metaRetorno, ipca12 + COMPOUNDER_PARAMS.premioIpca);
+    let precoEntrada = null, exigeG = null;
+    const cb = cenarios[1], cp = cenarios[0];
+    if (retornoMin != null) {
+      const p1 = precoParaRetorno(retornoMin / 100, lpa0, cb.g, payout, cb.plFinal, anos, preco);
+      const p2 = precoParaRetorno(ipca12 / 100, lpa0, cp.g, payout, cp.plFinal, anos, preco);
+      if (p1 != null && p2 != null) precoEntrada = Math.min(p1, p2);
+      // "O que o preço exige": g que faz o cenário base render o retorno mínimo ao preço atual (busca entre −20% e +40%)
+      const rAt = g => fehmirTIR(fluxoCompounder(preco, lpa0, g, payout, cb.plFinal, anos));
+      let lo = -0.2, hi = 0.4;
+      const rLo = rAt(lo), rHi = rAt(hi), alvo = retornoMin / 100;
+      if (rLo != null && rHi != null && rLo < alvo && rHi > alvo) {
+        for (let i = 0; i < 80; i++) { const m = (lo + hi) / 2, rm = rAt(m); if (rm == null || rm > alvo) hi = m; else lo = m; }
+        exigeG = (lo + hi) / 2;
+      }
+    }
+    const dyProj = lpa0 * (1 + gSust) * payout / preco;
+    const conferenciaLeo = { retorno: (1 + gSust) * (1 + dyProj) - 1, gSust, dyProj, texto: "supõe P/L constante" };
+    const macro = fehmirMacroReal();
+    const tesouroNominal = (macro.ntnb != null && ipca12 != null) ? ((1 + macro.ntnb / 100) * (1 + ipca12 / 100) - 1) * 100 : null;
+    return {
+      aprovado: true, motivo: selo ? "dívida não conferida" : "", selo, t, preco, lpa0, plAtual, payout, roe5,
+      cagr3, cagr5, gSust, gRef, cenarios, ipca12, retornoMin, precoEntrada, exigeG, conferenciaLeo,
+      tesouroNominal, dlEbitda: dl, avisos
+    };
+  }
+  window.fehmirCompounder = fehmirCompounder;
+
+  // ---------- T010: teto oficial do compounder (camada sobre a fehmirAvaliar, que o tetoOficial e o tetos.js usam) ----------
+  const pct = v => v == null ? "não calculado" : (v * 100).toFixed(1).replace(".", ",") + "%";
+  const avaliarOrig = window.fehmirAvaliar;
+  if (typeof avaliarOrig === "function" && !avaliarOrig._spec010) {
+    const avaliarComCompounder = function (a) {
+      const av = avaliarOrig.apply(this, arguments);
+      try {
+        if (!a || a.macro === "fiis") return av;
+        const lista = window.FEHMIR_COMPOUNDERS && window.FEHMIR_COMPOUNDERS.ativos;
+        if (!lista || !lista.some(x => x && x.t === a.t)) return av;
+        const c = fehmirCompounder(a.t, a);
+        if (!c.aprovado || c.precoEntrada == null || c.selo) return Object.assign({}, av, { compounder: c });
+        const src = `Compounder TIR 10A [g ${pct(c.gRef)} = menor entre lucro 3A ${pct(c.cagr3)}, 5A ${pct(c.cagr5)} e ROE × retenção ${pct(c.gSust)}] · ` +
+          c.cenarios.map(x => `${x.nome} ${pct(x.tir)}`).join(" / ") + ` · entrada = base rende ${c.retornoMin.toFixed(1).replace(".", ",")}% ao ano · régua do setor seria R$ ${av && av.teto ? av.teto.toFixed(2).replace(".", ",") : "—"}`;
+        return Object.assign({}, av, {
+          teto: c.precoEntrada, margemMin: 0, metodo: "Compounder (TIR 10A)", src,
+          compounder: c, tetoRegraSetor: av ? av.teto : null
+        });
+      } catch (e) { console.warn("spec 010 compounder:", e); return av; }
+    };
+    avaliarComCompounder._spec010 = true;
+    window.fehmirAvaliar = avaliarComCompounder;
+    if (typeof window.limparCacheTetoOficial === "function") window.limparCacheTetoOficial();
+    try { if (typeof window.renderConselheiro === "function") window.renderConselheiro(); } catch (e) {}
+    try { if (typeof filterRadar === "function") filterRadar(); } catch (e) {}
+  }
+
+
+  // =================== US2: BALDE DE GIRO (research R4–R6) ===================
+  const GIRO_KEY = "barsi-giro-v1";
+  let _giroMem = null;   // reserva em memória se o localStorage falhar
+  function giroLer() {
+    try {
+      const raw = localStorage.getItem(GIRO_KEY);
+      const o = raw ? JSON.parse(raw) : null;
+      if (o && typeof o === "object" && o.ativos) return o;
+      return { versao: 1, limitePct: GIRO_PARAMS.limitePadrao, ativos: {} };
+    } catch (e) {
+      // armazenamento indisponível: vale a cópia em memória desta sessão
+      return _giroMem || { versao: 1, limitePct: GIRO_PARAMS.limitePadrao, ativos: {} };
+    }
+  }
+  function giroGravar(o) {
+    _giroMem = o;
+    try { localStorage.setItem(GIRO_KEY, JSON.stringify(o)); return true; } catch (e) { return false; }
+  }
+  window.fehmirGiroLer = giroLer;
+  window.fehmirGiroGravar = giroGravar;
+  const hojeISO = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); };
+
+  function ehFiiTicker(t) {
+    try {
+      if (typeof _determinarCategoriaTicker === "function" && _determinarCategoriaTicker(t) === "FIIS") return true;
+      const P = window.FEHMIR && FEHMIR.posicoes ? FEHMIR.posicoes() : {};
+      if (P[t] && P[t].cat === "FIIS") return true;
+      const u = universoDe(t);
+      return !!(u && u.macro === "fiis");
+    } catch (e) { return false; }
+  }
+  const MSG_FII_GIRO = "FII não entra no giro (venda de FII só por fundamento)";
+  function fehmirGiroMarcar(t, on) {
+    t = String(t || "").trim().toUpperCase();
+    if (!t) return "ticker vazio";
+    if (on && ehFiiTicker(t)) return MSG_FII_GIRO;
+    const o = giroLer();
+    if (on) { if (!o.ativos[t]) o.ativos[t] = { desde: hojeISO(), qtdRef: null, degrau1Data: null, degrausFeitos: [] }; }
+    else delete o.ativos[t];
+    giroGravar(o);
+    try { renderBaldeGiro(); } catch (e) {}
+    return true;
+  }
+  function fehmirGiroLimite(pct) {
+    const v = Number(pct);
+    if (!isFinite(v) || v < GIRO_PARAMS.limiteMin || v > GIRO_PARAMS.limiteMax) return `o limite precisa ficar entre ${GIRO_PARAMS.limiteMin}% e ${GIRO_PARAMS.limiteMax}%`;
+    const o = giroLer(); o.limitePct = v; giroGravar(o);
+    try { renderBaldeGiro(); } catch (e) {}
+    return true;
+  }
+  window.fehmirGiroMarcar = fehmirGiroMarcar;
+  window.fehmirGiroLimite = fehmirGiroLimite;
+
+  function precoAtual(t) {
+    try { const p = window.FEHMIR && FEHMIR.preco ? FEHMIR.preco(t) : null; if (p && p.preco > 0) return p.preco; } catch (e) {}
+    return precoDe(t, universoDe(t));
+  }
+  // Vendas de AÇÕES do mês corrente (isenção de R$ 20 mil, Lei 11.033/2004 art. 3º)
+  function vendasAcoesMes(mesISO) {
+    let ex = [];
+    try { ex = typeof carregarExtrato === "function" ? carregarExtrato() : []; } catch (e) { ex = []; }
+    return ex.filter(x => x && /^venda$/i.test(String(x.tipo || "")) && String(x.cat || "").toUpperCase().startsWith("A") && String(x.data || "").slice(0, 7) === mesISO)
+      .reduce((s, x) => s + (Number(x.total) || (Number(x.quant) || 0) * (Number(x.preco) || 0)), 0);
+  }
+  function vendasDoTickerDesde(t, dataISO) {
+    let ex = [];
+    try { ex = typeof carregarExtrato === "function" ? carregarExtrato() : []; } catch (e) { ex = []; }
+    return ex.filter(x => x && x.ticker === t && /^venda$/i.test(String(x.tipo || "")) && dataISO && String(x.data || "") >= dataISO)
+      .reduce((s, x) => s + (Number(x.quant) || 0), 0);
+  }
+
+  function fehmirGiro() {
+    const o = giroLer();
+    const P = window.FEHMIR && FEHMIR.posicoes ? FEHMIR.posicoes() : {};
+    const limitePct = Number(o.limitePct) || GIRO_PARAMS.limitePadrao;
+    let totalAcoes = 0;
+    Object.keys(P).forEach(t => { const x = P[t]; if (x && x.cat === "AÇÕES" && x.quant > 0) { const p = precoAtual(t); if (p > 0) totalAcoes += x.quant * p; } });
+    let valorGiro = 0, mudou = false;
+    const mes = hojeISO().slice(0, 7);
+    const vendidoMes = vendasAcoesMes(mes);
+    const ativos = Object.keys(o.ativos).sort().map(t => {
+      const st = o.ativos[t];
+      const pos = P[t] || { quant: 0, pm: 0 };
+      const quant = Number(pos.quant) || 0;
+      const preco = precoAtual(t);
+      if (preco > 0 && quant > 0) valorGiro += quant * preco;
+      const tv = typeof window.tetoOficial === "function" ? window.tetoOficial(t) : null;
+      const T = tv && tv.teto > 0 ? tv.teto : null;
+      const C = tv && tv.compra > 0 ? tv.compra : (T ? T * (1 - (tv.margemMin || 10) / 100) : null);
+      const avisos = [];
+      let faixa = "sem teto", degrau = 0;
+      if (T && preco > 0) {
+        if (preco <= C) faixa = "zona de compra";
+        else if (preco >= GIRO_PARAMS.degrau2 * T) { faixa = "esticada: degrau 2"; degrau = 2; }
+        else if (preco >= GIRO_PARAMS.degrau1 * T) { faixa = "esticada: degrau 1"; degrau = 1; }
+        else faixa = "meio";
+      }
+      // Estado da escada (R4)
+      if (faixa === "zona de compra" && (st.qtdRef != null || (st.degrausFeitos && st.degrausFeitos.length))) {
+        st.qtdRef = null; st.degrau1Data = null; st.degrausFeitos = []; mudou = true;
+      }
+      if (degrau >= 1 && st.qtdRef == null) { st.qtdRef = quant; st.degrau1Data = hojeISO(); mudou = true; }
+      let sugeridaQtd = 0, proximo = null;
+      if (degrau >= 1 && st.qtdRef != null) {
+        const porDegrau = st.qtdRef >= 3 ? Math.max(1, Math.floor(st.qtdRef * GIRO_PARAMS.fracao)) : 0;
+        const vendidas = vendasDoTickerDesde(t, st.degrau1Data);
+        if (quant < st.qtdRef - vendidas) {
+          st.qtdRef = quant + vendidas; mudou = true;
+          avisos.push("posição mudou fora do giro");
+        }
+        const feitos = porDegrau > 0 ? Math.min(2, Math.floor(vendidas / porDegrau)) : 0;
+        const ja = st.degrausFeitos || [];
+        for (let k = 1; k <= feitos; k++) if (!ja.some(d => d.degrau === k)) { ja.push({ degrau: k, data: hojeISO() }); mudou = true; }
+        st.degrausFeitos = ja;
+        if (porDegrau === 0) avisos.push("posição pequena demais para escada");
+        else {
+          proximo = feitos + 1;
+          if (proximo <= degrau) sugeridaQtd = Math.min(porDegrau, quant);
+        }
+      }
+      const pm = Number(pos.pm) || 0;
+      const valorVenda = sugeridaQtd * (preco || 0);
+      const isencaoFalta = Math.max(0, 20000 - vendidoMes);
+      if (sugeridaQtd > 0 && valorVenda > isencaoFalta) avisos.push("venda tributável: 15% sobre o lucro");
+      return {
+        t, quant, preco, teto: T, compra: C, faixa, degrau, proximoDegrau: proximo, sugeridaQtd,
+        lucroIR: sugeridaQtd > 0 && pm > 0 ? (preco - pm) * sugeridaQtd : null,   // só informação de IR (PM não entra em faixa nem degrau)
+        isencaoFalta, vendidoMes, avisos
+      };
+    });
+    if (mudou) giroGravar(o);
+    const pesoPct = totalAcoes > 0 ? valorGiro / totalAcoes * 100 : 0;
+    return { limitePct, pesoPct, acimaLimite: pesoPct > limitePct, valorGiro, totalAcoes, ativos, params: GIRO_PARAMS };
+  }
+  window.fehmirGiro = fehmirGiro;
+
+  // FR-015/FR-017: veredito "Aportar" de ativo do giro respeita o limite do balde
+  const vereditoOrig = window.fehmirVeredito;
+  if (typeof vereditoOrig === "function" && !vereditoOrig._spec010) {
+    const vereditoGiro = function (r) {
+      const v = vereditoOrig.apply(this, arguments);
+      try {
+        if (!v || v.label !== "Aportar" || !r || !r.t) return v;
+        const o = giroLer();
+        if (!o.ativos[r.t]) return v;
+        const g = fehmirGiro();
+        if (g.acimaLimite) {
+          const txt = `balde de giro acima do limite: ${g.pesoPct.toFixed(1).replace(".", ",")}% de ${String(g.limitePct).replace(".", ",")}%`;
+          return Object.assign({}, v, { label: "Manter", status: "info", motivo: v.motivo + " " + txt[0].toUpperCase() + txt.slice(1) + ": sem compra de ativo do giro.", giro: txt });
+        }
+      } catch (e) { console.warn("spec 010 giro/veredito:", e); }
+      return v;
+    };
+    vereditoGiro._spec010 = true;
+    window.fehmirVeredito = vereditoGiro;
+  }
+
+  // Cartão "Balde de giro" (Meus Ativos, abaixo das ordens)
+  function renderBaldeGiro() {
+    const ref = document.getElementById("card-ordens-abertas");
+    if (!ref || !ref.parentNode) return;
+    let box = document.getElementById("card-balde-giro");
+    if (!box) { box = document.createElement("div"); box.id = "card-balde-giro"; ref.parentNode.insertBefore(box, ref.nextSibling); }
+    const g = fehmirGiro();
+    const fRs = v => v == null || !isFinite(v) ? "—" : "R$ " + v.toFixed(2).replace(".", ",");
+    const cor = f => f === "zona de compra" ? "var(--good)" : (f.startsWith("esticada") ? "var(--serious)" : "var(--ink-2)");
+    const linhas = g.ativos.length ? g.ativos.map(a => `
+      <div style="padding:8px 0;border-top:1px solid var(--rule)">
+        <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><b>${a.t}</b><span style="color:${cor(a.faixa)};font-weight:600">${a.faixa}</span></div>
+        <div style="color:var(--ink-2);font-size:12.5px">${a.quant} ${a.quant === 1 ? "ação" : "ações"} · preço ${fRs(a.preco)} · teto ${fRs(a.teto)} · compra ${fRs(a.compra)} · 1,5× = ${fRs(a.teto ? a.teto * GIRO_PARAMS.degrau1 : null)} · 2× = ${fRs(a.teto ? a.teto * GIRO_PARAMS.degrau2 : null)}</div>
+        ${a.sugeridaQtd > 0 ? `<div style="font-size:12.5px">Sugestão: vender <b>${a.sugeridaQtd}</b> (degrau ${a.proximoDegrau}) ≈ ${fRs(a.sugeridaQtd * a.preco)}${a.lucroIR != null ? ` · lucro para IR ${fRs(a.lucroIR)}` : ""} · faltam ${fRs(a.isencaoFalta)} para os R$ 20 mil de isenção no mês. Recompra só na zona de compra (≤ ${fRs(a.compra)}).</div>` : ""}
+        ${a.avisos.length ? `<div style="font-size:12px;color:var(--warning)">${a.avisos.join(" · ")}</div>` : ""}
+        <button type="button" class="btn-giro-desmarcar" data-t="${a.t}" style="margin-top:4px;font-size:11.5px;background:none;border:1px solid var(--rule-strong);border-radius:6px;padding:2px 8px;color:var(--ink-2);cursor:pointer">tirar do giro</button>
+      </div>`).join("") : `<div style="font-size:12.5px;color:var(--ink-2);padding-top:6px">Nenhuma ação marcada como giro. Marque na ficha do ativo (botão "marcar como giro").</div>`;
+    box.innerHTML = `<details class="card" style="margin:12px 0;padding:12px 14px;border:1px solid var(--rule);border-radius:12px;background:var(--surface)" ${g.ativos.length ? "open" : ""}>
+      <summary style="cursor:pointer;font-weight:600">Balde de giro · ${g.pesoPct.toFixed(1).replace(".", ",")}% das ações (limite ${String(g.limitePct).replace(".", ",")}%)${g.acimaLimite ? ` <span style="color:var(--serious)">balde de giro acima do limite: ${g.pesoPct.toFixed(1).replace(".", ",")}% de ${String(g.limitePct).replace(".", ",")}%</span>` : ""}</summary>
+      <div style="font-size:12px;color:var(--muted);margin:6px 0">Vende 1/3 a 1,5× o teto e mais 1/3 a 2× o teto; o resto fica para dividendos. O preço médio não entra na conta (só no IR). FII não entra no giro.
+        <label style="margin-left:6px">Limite: <input id="giro-limite-input" type="number" min="${GIRO_PARAMS.limiteMin}" max="${GIRO_PARAMS.limiteMax}" step="1" value="${g.limitePct}" style="width:56px"> %</label></div>
+      ${linhas}
+    </details>`;
+    box.querySelectorAll(".btn-giro-desmarcar").forEach(b => b.addEventListener("click", () => fehmirGiroMarcar(b.getAttribute("data-t"), false)));
+    const inp = document.getElementById("giro-limite-input");
+    if (inp) inp.addEventListener("change", () => { const r = fehmirGiroLimite(inp.value); if (r !== true) { alert(r); inp.value = giroLer().limitePct; } });
+  }
+  window.renderBaldeGiro = renderBaldeGiro;
+  const renderOrdensOrig = window.renderOrdensAbertas;
+  if (typeof renderOrdensOrig === "function" && !renderOrdensOrig._spec010) {
+    const w = function () { const r = renderOrdensOrig.apply(this, arguments); try { renderBaldeGiro(); } catch (e) { console.warn("spec 010 balde:", e); } return r; };
+    w._spec010 = true;
+    window.renderOrdensAbertas = w;
+  }
+  try { renderBaldeGiro(); } catch (e) { console.warn("spec 010 balde:", e); }
+
+  // ---------- T011: cartão de compounder na ficha do ativo (modal) ----------
+  const fR = v => v == null || !isFinite(v) ? "—" : "R$ " + v.toFixed(2).replace(".", ",");
+  const fP = v => v == null || !isFinite(v) ? "não calculado" : (v * 100).toFixed(1).replace(".", ",") + "%";
+  function fehmirCartaoCompounderHTML(c) {
+    if (!c) return "";
+    if (!c.aprovado) {
+      return `<div style="padding:8px 14px;background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.25);border-radius:8px;font-size:12.5px;">${c.motivo}</div>`;
+    }
+    const linhas = c.cenarios.map(x => `<div style="display:flex;justify-content:space-between;gap:8px;padding:2px 0;border-bottom:1px solid var(--rule)"><span><span style="text-transform:capitalize">${x.nome}</span>: lucro +${fP(x.g)}/ano, P/L ${x.plFinal.toFixed(0)} no ano 10</span><b style="white-space:nowrap">${fP(x.tir)} ao ano</b></div>`).join("");
+    const base = c.cenarios[1];
+    const meta = c.retornoMin;
+    const frase = (base.tir == null || meta == null) ? "" :
+      `a ${fR(c.preco)} o cenário base rende ${fP(base.tir)} ao ano, ${base.tir * 100 >= meta ? "acima" : "abaixo"} da meta de ${meta.toFixed(0)}%`;
+    const selo = c.selo ? `<div style="margin-top:6px;color:var(--muted)"><b>dívida não conferida</b> · teto em cinza: <b>não autoriza compra</b></div>` : "";
+    return `<div style="padding:10px 14px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.25);border-radius:8px;font-size:12.5px;line-height:1.5;overflow-x:auto;${c.selo ? "opacity:.7" : ""}">
+      <div><b>Empresa de crescimento: retorno em 10 anos comprando hoje</b></div>
+      <div style="margin:6px 0;font-variant-numeric:tabular-nums">${linhas}</div>
+      <div>Preço de entrada: <b>${fR(c.precoEntrada)}</b>${frase ? " · " + frase : ""}.</div>
+      <div>Tesouro IPCA+ hoje (nominal): ${c.tesouroNominal == null ? "não calculado" : c.tesouroNominal.toFixed(1).replace(".", ",") + "% ao ano"} · IPCA 12 meses: ${c.ipca12 == null ? "não calculado" : c.ipca12.toFixed(1).replace(".", ",") + "%"}.</div>
+      <div>O que o preço exige: lucro crescendo <b>${fP(c.exigeG)}</b> ao ano; realizado em 3 anos ${fP(c.cagr3)} e em 5 anos ${fP(c.cagr5)}.</div>
+      <div style="color:var(--muted)">Dividendo: ${fP(c.payout)} do lucro (mediana de 5 anos, sem extras). Conta do Léo: ROE × lucro retido ${fP(c.gSust)} + dividendo ${fP(c.conferenciaLeo.dyProj)} ≈ ${fP(c.conferenciaLeo.retorno)} ao ano (${c.conferenciaLeo.texto}).</div>
+      ${c.avisos && c.avisos.length ? `<div style="color:var(--muted)">${c.avisos.join(" · ")}</div>` : ""}${selo}
+    </div>`;
+  }
+  window.fehmirCartaoCompounderHTML = fehmirCartaoCompounderHTML;
+  const openModalOrig = window.openModal;
+  if (typeof openModalOrig === "function" && !openModalOrig._spec010) {
+    const openModalComp = function (ticker) {
+      const ret = openModalOrig.apply(this, arguments);
+      try {
+        const t = String(ticker || "").toUpperCase();
+        const lista = window.FEHMIR_COMPOUNDERS && window.FEHMIR_COMPOUNDERS.ativos;
+        let box = document.getElementById("m-compounder-card");
+        const ref = document.getElementById("m-politica-nova-row");
+        if (!box && ref && ref.parentNode) {
+          box = document.createElement("div");
+          box.id = "m-compounder-card";
+          box.style.margin = "8px 0";
+          ref.parentNode.insertBefore(box, ref.nextSibling);
+        }
+        if (box) {
+          if (lista && lista.some(x => x && x.t === t)) {
+            const av = typeof window.tetoOficial === "function" ? window.tetoOficial(t) : null;
+            const c = (av && av.compounder) || fehmirCompounder(t);
+            box.innerHTML = fehmirCartaoCompounderHTML(c);
+            box.style.display = "block";
+          } else { box.innerHTML = ""; box.style.display = "none"; }
+        }
+      } catch (e) { console.warn("spec 010 cartão:", e); }
+      try {
+        const t = String(ticker || "").toUpperCase();
+        let row = document.getElementById("m-giro-row");
+        const ref2 = document.getElementById("m-compounder-card") || document.getElementById("m-politica-nova-row");
+        if (!row && ref2 && ref2.parentNode) { row = document.createElement("div"); row.id = "m-giro-row"; row.style.margin = "6px 0"; ref2.parentNode.insertBefore(row, ref2.nextSibling); }
+        if (row) {
+          if (!t || ehFiiTicker(t)) { row.innerHTML = ""; row.style.display = "none"; }
+          else {
+            const marcado = !!giroLer().ativos[t];
+            row.style.display = "block";
+            row.innerHTML = `<button type="button" id="btn-giro-toggle" style="font-size:12px;border:1px solid var(--rule-strong);background:var(--surface-2);border-radius:8px;padding:4px 10px;color:var(--ink);cursor:pointer">${marcado ? "desmarcar do giro" : "marcar como giro"}</button> <span style="font-size:11.5px;color:var(--muted)">giro = comprar na zona e realizar 1/3 a 1,5× e 1/3 a 2× o teto</span>`;
+            document.getElementById("btn-giro-toggle").addEventListener("click", () => {
+              const r = fehmirGiroMarcar(t, !giroLer().ativos[t]);
+              if (r !== true) { alert(r); return; }
+              const m2 = !!giroLer().ativos[t];
+              document.getElementById("btn-giro-toggle").textContent = m2 ? "desmarcar do giro" : "marcar como giro";
+            });
+          }
+        }
+      } catch (e) { console.warn("spec 010 botão giro:", e); }
+      return ret;
+    };
+    openModalComp._spec010 = true;
+    window.openModal = openModalComp;
+  }
 })();
 </script>
 </body></html>

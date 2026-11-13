@@ -56,7 +56,11 @@ def baixar_zip_se_necessario(url, nome_arquivo):
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     destino = CACHE_DIR / nome_arquivo
     if destino.exists() and destino.stat().st_size > 100_000:
-        return destino
+        # O arquivo do ano corrente muda a cada trimestre: cache local vale no máximo 7 dias
+        ano_corrente = str(datetime.datetime.now().year)
+        idade_dias = (datetime.datetime.now().timestamp() - destino.stat().st_mtime) / 86400
+        if not (ano_corrente in nome_arquivo and idade_dias > 7):
+            return destino
 
     print(f"Baixando {url} -> {destino.name}...")
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
@@ -89,6 +93,33 @@ def indexar_por_cnpj(linhas):
             idx[cnpj] = []
         idx[cnpj].append(r)
     return idx
+
+
+def buscar_conta_periodo(tabela_rows, dt_ref, dti, dtf, codigo, contem):
+    """Valor de uma conta de DRE/DVA no período [dti, dtf] (ITR/DFP), conferindo a descrição."""
+    for r in tabela_rows:
+        if r.get("DT_REFER") == dt_ref and r.get("ORDEM_EXERC") in ["ÚLTIMO", "ULTIMO"]                 and r.get("DT_INI_EXERC") == dti and r.get("DT_FIM_EXERC") == dtf                 and r.get("CD_CONTA") == codigo and contem in norm(r.get("DS_CONTA", "")):
+            esc = 1000.0 if r.get("ESCALA_MOEDA") == "MIL" else 1.0
+            return float(r.get("VL_CONTA") or 0) * esc
+    return None
+
+
+def conta_bp(linhas_dt, codigo, contem):
+    """Valor de uma conta de balanço (BPA/BPP) já filtrada na data, conferindo a descrição."""
+    for r in linhas_dt:
+        if r.get("CD_CONTA") == codigo and contem in norm(r.get("DS_CONTA", "")):
+            esc = 1000.0 if r.get("ESCALA_MOEDA") == "MIL" else 1.0
+            return float(r.get("VL_CONTA") or 0) * esc
+    return None
+
+
+def ebitda_periodo(dre_rows, dva_rows, dt_ref, dti, dtf):
+    """EBIT (DRE 3.05) + depreciação/amortização (DVA 7.04.01) no período; None se faltar conta."""
+    ebit = buscar_conta_periodo(dre_rows, dt_ref, dti, dtf, "3.05", "ANTES DO RESULTADO FINANCEIRO")
+    da = buscar_conta_periodo(dva_rows, dt_ref, dti, dtf, "7.04.01", "DEPRECIA")
+    if ebit is None or da is None:
+        return None
+    return ebit + abs(da)  # a DVA traz a depreciação com sinal negativo (retenção)
 
 
 def buscar_lucro(tabela_rows, dt_ref, dti, dtf):
@@ -245,6 +276,16 @@ def main():
     dre_ind_itr_ant_idx = indexar_por_cnpj(ler_csv_zip(z_itr_ant, f"DRE_ind_{ano_ant}"))
     dre_con_dfp_ret_idx = indexar_por_cnpj(ler_csv_zip(z_dfp_ret, f"DRE_con_{ano_ret}")) if z_dfp_ret else {}
 
+    # Dívida líquida e EBITDA de 12 meses (spec 010, research R3): BPA, DVA
+    bpa_con_atual_idx = indexar_por_cnpj(ler_csv_zip(z_itr_atual, f"BPA_con_{ano_atual}"))
+    bpa_ind_atual_idx = indexar_por_cnpj(ler_csv_zip(z_itr_atual, f"BPA_ind_{ano_atual}"))
+    dva_con_atual_idx = indexar_por_cnpj(ler_csv_zip(z_itr_atual, f"DVA_con_{ano_atual}"))
+    dva_ind_atual_idx = indexar_por_cnpj(ler_csv_zip(z_itr_atual, f"DVA_ind_{ano_atual}"))
+    dva_con_itr_ant_idx = indexar_por_cnpj(ler_csv_zip(z_itr_ant, f"DVA_con_{ano_ant}"))
+    dva_ind_itr_ant_idx = indexar_por_cnpj(ler_csv_zip(z_itr_ant, f"DVA_ind_{ano_ant}"))
+    dva_con_dfp_ant_idx = indexar_por_cnpj(ler_csv_zip(z_dfp_ant, f"DVA_con_{ano_ant}"))
+    dva_ind_dfp_ant_idx = indexar_por_cnpj(ler_csv_zip(z_dfp_ant, f"DVA_ind_{ano_ant}"))
+
     dados = {}
     falhas = []
     auditoria_sanidade = []
@@ -286,7 +327,13 @@ def main():
             r_ant = rows_cap_ordenadas[1]
             tot_ant = float(r_ant.get("QT_ACAO_TOTAL_CAP_INTEGR") or 0)
             tes_ant = float(r_ant.get("QT_ACAO_TOTAL_TESOURO") or 0)
-            if tot_ant > 0 and tot > 0:
+            # Desempate pelo antepenúltimo trimestre: se o recente concorda com ele, o errado é o anterior (LAVV3 2T26)
+            recente_confirmado = False
+            if len(rows_cap_ordenadas) > 2 and tot > 0:
+                tot_ant2 = float(rows_cap_ordenadas[2].get("QT_ACAO_TOTAL_CAP_INTEGR") or 0)
+                if tot_ant2 > 0 and 0.95 <= tot / tot_ant2 <= 1.05:
+                    recente_confirmado = True
+            if tot_ant > 0 and tot > 0 and not recente_confirmado:
                 razao_tri = tot / tot_ant
                 if 8.0 <= razao_tri <= 12.0:
                     ajustes_escala.append({"t": ticker, "motivo": f"Ações no tri recente ({tot:,.0f}) ~10x do anterior ({tot_ant:,.0f}); adotado trimestre anterior"})
@@ -384,6 +431,28 @@ def main():
             falhas.append({"t": ticker, "motivo": f"Sem lucro na DRE para {dt_refer}"})
             continue
 
+        # Dívida líquida (último balanço) e EBITDA de 12 meses
+        divida_liquida = ebitda12m = dl_ebitda = None
+        bpa_idx = bpa_con_atual_idx if tipo_demo == "con" else bpa_ind_atual_idx
+        linhas_bpa_dt = [r for r in bpa_idx.get(cnpj, []) if r.get("ORDEM_EXERC") in ["ÚLTIMO", "ULTIMO"] and r.get("DT_REFER") == dt_refer]
+        emp_cp = conta_bp(linhas_bpp_dt, "2.01.04", "EMPRESTIMOS")
+        emp_lp = conta_bp(linhas_bpp_dt, "2.02.01", "EMPRESTIMOS")
+        caixa = conta_bp(linhas_bpa_dt, "1.01.01", "CAIXA")
+        aplic = conta_bp(linhas_bpa_dt, "1.01.02", "APLICAC")
+        if emp_cp is not None and emp_lp is not None and caixa is not None:
+            divida_liquida = emp_cp + emp_lp - caixa - (aplic or 0.0)
+        if tipo_demo == "con":
+            dva_at, dva_itr_ant, dva_dfp = dva_con_atual_idx, dva_con_itr_ant_idx, dva_con_dfp_ant_idx
+        else:
+            dva_at, dva_itr_ant, dva_dfp = dva_ind_atual_idx, dva_ind_itr_ant_idx, dva_ind_dfp_ant_idx
+        e_ytd = ebitda_periodo(tab_dre_atual, dva_at.get(cnpj, []), dt_refer, dti_ytd, dtf_ytd)
+        e_dfp = ebitda_periodo(tab_dfp_ant, dva_dfp.get(cnpj, []), dt_dfp_ant, dti_ant_ytd, dt_dfp_ant)
+        e_ytd_ant = ebitda_periodo(tab_dre_ant, dva_itr_ant.get(cnpj, []), dt_ant_ytd, dti_ant_ytd, dt_ant_ytd)
+        if e_ytd is not None and e_dfp is not None and e_ytd_ant is not None:
+            ebitda12m = e_dfp + e_ytd - e_ytd_ant
+        if divida_liquida is not None and ebitda12m is not None and ebitda12m > 0:
+            dl_ebitda = divida_liquida / ebitda12m
+
         vpa = pl_controladores / acoes_para_calculo
         lpa = lucro12m / acoes_para_calculo
         roe = (lucro12m / pl_controladores * 100) if pl_controladores > 0 else None
@@ -422,7 +491,10 @@ def main():
             "acoes": int(acoes_para_calculo),
             "ref": ref_label,
             "demo": tipo_demo,
-            "fonte": f"ITR/DFP CVM ({ref_label})"
+            "fonte": f"ITR/DFP CVM ({ref_label})",
+            "dividaLiquida": round(divida_liquida, 0) if divida_liquida is not None else None,
+            "ebitda12m": round(ebitda12m, 0) if ebitda12m is not None else None,
+            "dlEbitda": round(dl_ebitda, 2) if dl_ebitda is not None else None
         }
 
     # ROE anual e Lucro anual dos 5 anos fechados

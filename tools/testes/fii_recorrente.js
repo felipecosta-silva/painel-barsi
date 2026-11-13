@@ -66,11 +66,18 @@ return (async () => {
       `recMes=${rec2m?.recMes}`
     );
 
-    // Caso 6: Texto da fonte do TRXF11 contém "R$ 0,21", "ago/26", "12,8%" e "16,1%"
+    // Caso 6: texto da fonte do TRXF11 com R$ 0,21, ago/26 e os dois DY calculados pelo preço do dia
+    // (13/11/2026: antes fixava 12,8% e 16,1%, que só valiam com o TRXF11 a R$ 67,38)
     const srcTxt = avTrxf?.src || '';
-    const temTokens = ['R$ 0,21', 'ago/26', '12,8%', '16,1%'].every(tok => srcTxt.includes(tok));
+    const mDy = srcTxt.match(/DY no preço de hoje: ([\d,]+)% pelo recorrente, ([\d,]+)% pelo pago/);
+    const pHoje = (() => { const h = (window.FEHMIR_HIST || {}).TRXF11; return h && h.c && h.c.length ? h.c[h.c.length - 1] : null; })();
+    const br = x => (x * 100).toFixed(1).replace('.', ',') + '%';
+    const mPago = srcTxt.match(/pelo pago seria R\$ ([\d.,]+)\)/), mTaxa = srcTxt.match(/÷ ([\d,]+)% = R\$/);
+    const pagoAno = (mPago && mTaxa) ? parseFloat(mPago[1].replace('.', '').replace(',', '.')) * parseFloat(mTaxa[1].replace(',', '.')) / 100 : null;
+    const dyRecEsp = pHoje ? br(0.72 * 12 / pHoje) : null, dyPagoEsp = (pHoje && pagoAno) ? br(pagoAno / pHoje) : null;
+    const temTokens = ['R$ 0,21', 'ago/26'].every(tok => srcTxt.includes(tok)) && mDy && (mDy[1] + '%') === dyRecEsp && (mDy[2] + '%') === dyPagoEsp;
     check(
-      '6. Texto da fonte do TRXF11 contém R$ 0,21, ago/26, 12,8% e 16,1%',
+      `6. Texto da fonte do TRXF11 contém R$ 0,21, ago/26 e os DY do preço de hoje (${dyRecEsp} e ${dyPagoEsp} a R$ ${pHoje})`,
       temTokens,
       `src="${srcTxt}"`
     );
