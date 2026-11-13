@@ -418,11 +418,11 @@ header.top .sub{color:var(--ink-2); font-size:13px; margin-top:2px; line-height:
 .callout ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:7px}
 .callout li{font-size:14px; line-height:1.5}
 
-.stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px}
-@media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
-.stat-tile{background:var(--surface); border:1px solid var(--rule); border-radius:12px; padding:14px 14px 12px; display:flex; flex-direction:column; gap:4px}
+.stat-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-bottom:18px}
+@media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat-tile{background:var(--surface); border:1px solid var(--rule); border-radius:12px; padding:14px 14px 12px; display:flex; flex-direction:column; gap:4px; min-width:0}
 .stat-tile .stat-label{font-size:11.5px; color:var(--ink-2); font-weight:600}
-.stat-tile .stat-value{font-family:var(--font-serif); font-size:clamp(19px,2.6vw,25px); font-weight:600}
+.stat-tile .stat-value{font-family:var(--font-serif); font-size:clamp(19px,2.6vw,25px); font-weight:600; overflow-wrap:anywhere}
 .stat-tile.accent .stat-value{color:var(--accent)}
 .stat-tile.gold .stat-value{color:var(--gold)}
 .stat-tile.good .stat-value{color:var(--good)}
@@ -4876,7 +4876,7 @@ const OUT_OF_BASE = [
   {t:"PETR4", setor:"Petróleo/Gás", quant:7, pm:30.61, preco:56.41, dy:7.07, dpa:3.67, pvp:1.50, pl:"5,40", roe:27.73, prov:19.38, saldo:394.87, pct:7.15, ideal:2.0, divMonths:[5,6,8,9,11,12], range:[27.18,56.90], atual:"06/10", status:"critical", note:"Sobre-alocada (7,15% vs 2%). Rentabilidade +92,46% — topo de ciclo, não aportar."},
   {t:"RECV3", setor:"Petróleo/Gás", quant:5, pm:12.42, preco:11.71, dy:15.23, dpa:1.0228, pvp:0.77, pl:"6,87", roe:11.26, prov:4.83, saldo:58.55, pct:1.06, ideal:2.0, divMonths:[4,8], range:[10.50,18.20], atual:"07/10", status:"warning", note:"Sub-alocada (1,06% vs 2%). P/VP 0,77 com desconto. Dividendos semestrais."},
   {t:"LAVV3", setor:"Incorporadora", quant:0, pm:13.56, preco:13.84, dy:17.49, dpa:0.925, pvp:1.77, pl:"7,12", roe:24.90, prov:0.00, saldo:0.00, pct:0.00, ideal:0.0, divMonths:[5,11], range:[8.33,13.84], atual:"08/10", status:"good", note:"Posição liquidada com sucesso em 08/10 a R$ 13,84 (5 ações, taxa R$ 0,03, líquido R$ 69,17). Venda executada no topo de 52 semanas!"},
-  {t:"LOGG3", setor:"Logística", quant:1, pm:19.51, preco:27.64, dy:26.87, dpa:1.80, pvp:0.69, pl:"6,47", roe:10.63, prov:7.35, saldo:27.64, pct:0.51, ideal:2.0, divMonths:[4,12], range:[18.50,29.10], atual:"07/10", status:"warning", note:"Sub-alocada (0,51% vs 2%). Rentabilidade forte +88%. Galpões logísticos com venda de ativos."},
+  {t:"LOGG3", setor:"Exploração de Imóveis", quant:1, pm:19.51, preco:27.64, dy:26.87, dpa:1.80, pvp:0.69, pl:"6,47", roe:10.63, prov:7.35, saldo:27.64, pct:0.51, ideal:2.0, divMonths:[4,12], range:[18.50,29.10], atual:"07/10", status:"warning", note:"Sub-alocada (0,51% vs 2%). Rentabilidade forte +88%. Galpões logísticos com venda de ativos."},
   {t:"MELK3", setor:"Incorporadora", quant:0, pm:3.34, preco:3.35, dy:13.75, dpa:0.30, pvp:0.61, pl:"5,60", roe:10.91, prov:1.28, saldo:0.00, pct:0.00, ideal:0.0, divMonths:[5,12], range:[2.70,3.96], atual:"08/10", status:"good", note:"Posição liquidada com sucesso em 08/10 a R$ 3,35 (2 ações, taxa R$ 0,01, líquido R$ 6,69). Venda com lucro sobre PM (R$ 3,34)!"}
 ];
 
@@ -18820,7 +18820,7 @@ initCollapsibleBlocks();
     }
 
     // Regra Imobiliária de renda (galpões logísticos, shoppings e propriedades para renda)
-    const ehImobRenda = /log[íi]stica|properties|shopping|imobili.*renda/i.test(a.setor || "") ||
+    const ehImobRenda = /log[íi]stica|properties|shopping|imobili.*renda|explora[çc][ãa]o de im[oó]veis/i.test(a.setor || "") ||
                         /log[íi]stica|properties|shopping|imobili.*renda/i.test(S.nome || "") ||
                         ["LOGG3", "ALOS3", "MULT3", "IGTI11"].includes(a.t);
     if (ehImobRenda) {
@@ -23195,8 +23195,8 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
   if (typeof window.calcularAporteInteligente === "function" || typeof calcularAporteInteligente === "function") {
     const orig = calcularAporteInteligente;
     const novo = function () {
-      orig.apply(this, arguments);
-      const res = document.getElementById("smart-aporte-resultado"); if (!res || !window.FEHMIR_MERCADO) return;
+      const ret = orig.apply(this, arguments);
+      const res = document.getElementById("smart-aporte-resultado"); if (!res || !window.FEHMIR_MERCADO) return ret;
       const novos = candidatos().filter(r => !naCarteira(r.x.t)).slice(0, 3);
       const html = `<div style="margin-top:12px; padding:12px 14px; border:1px dashed var(--rule-strong); border-radius:10px;">
         <div style="font-weight:700; font-size:13px; color:var(--ink); margin-bottom:6px;">🆕 Novos candidatos fora da carteira (radar de mercado)</div>
@@ -23205,6 +23205,7 @@ Taxa exigida do setor: ${fmt(retEsp.taxa * 100, 1)}% a.a. real">
         : `<div style="font-size:12.5px; color:var(--ink-2);">Nenhum ativo novo passa hoje na régua do setor com margem. Normal em euforia.</div>`}
       </div>`;
       setTimeout(() => res.insertAdjacentHTML("beforeend", html), 5);
+      return ret;
     };
     try { calcularAporteInteligente = novo; } catch (e) {}
     window.calcularAporteInteligente = novo;
@@ -24691,6 +24692,33 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   let _ordensMemoria = [];
   let _ordensSemStorage = false;
 
+  function fehmirObterGatilho() {
+    try {
+      const raw = localStorage.getItem(ORDENS_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed.gatilho === 'number' && !isNaN(parsed.gatilho)) {
+          return Math.min(10, Math.max(1, parsed.gatilho));
+        }
+      }
+    } catch (e) {}
+    return 3;
+  }
+  window.fehmirObterGatilho = fehmirObterGatilho;
+
+  function fehmirGravarGatilho(val) {
+    const num = Math.min(10, Math.max(1, Math.round(Number(val) || 3)));
+    try {
+      const raw = localStorage.getItem(ORDENS_STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : { versao: 1, ordens: [] };
+      parsed.gatilho = num;
+      localStorage.setItem(ORDENS_STORAGE_KEY, JSON.stringify(parsed));
+    } catch (e) {}
+    if (typeof renderOrdensAbertas === 'function') renderOrdensAbertas();
+    return num;
+  }
+  window.fehmirGravarGatilho = fehmirGravarGatilho;
+
   function fehmirCarregarOrdens() {
     try {
       const raw = localStorage.getItem(ORDENS_STORAGE_KEY);
@@ -24711,7 +24739,8 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     const arr = Array.isArray(lista) ? lista : [];
     _ordensMemoria = arr.slice();
     try {
-      localStorage.setItem(ORDENS_STORAGE_KEY, JSON.stringify({ versao: 1, ordens: arr }));
+      const gat = fehmirObterGatilho();
+      localStorage.setItem(ORDENS_STORAGE_KEY, JSON.stringify({ versao: 1, ordens: arr, gatilho: gat }));
       _ordensSemStorage = false;
       return true;
     } catch (e) {
@@ -24721,7 +24750,12 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   }
   window.fehmirGravarOrdens = fehmirGravarOrdens;
 
-  function fehmirValidadePadrao(agora) {
+  function fehmirValidadePadrao() {
+    return 'dia';
+  }
+  window.fehmirValidadePadrao = fehmirValidadePadrao;
+
+  function fehmirDataValidadeSugerida(agora) {
     const hojeISO = _normalizarDataISO(agora || new Date());
     const ano = parseInt(hojeISO.slice(0, 4), 10);
     const mes = parseInt(hojeISO.slice(5, 7), 10);
@@ -24733,7 +24767,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     const proxMes = mes === 12 ? 1 : mes + 1;
     return `${String(proxAno)}-${String(proxMes).padStart(2, '0')}-25`;
   }
-  window.fehmirValidadePadrao = fehmirValidadePadrao;
+  window.fehmirDataValidadeSugerida = fehmirDataValidadeSugerida;
 
   function _gerarIdOrdem() {
     const d = new Date();
@@ -24775,9 +24809,12 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     return '';
   }
 
-  // T007: fehmirOrdens(agora?) & fehmirOrdensResumo(agora?)
-  function fehmirOrdens(agora) {
+  // T007: fehmirOrdens(agora?, gatilhoParam?) & fehmirOrdensResumo(agora?, gatilhoParam?)
+  function fehmirOrdens(agora, gatilhoParam) {
     const hojeISO = _normalizarDataISO(agora || new Date());
+    const gatilho = (typeof gatilhoParam === 'number' && !isNaN(gatilhoParam))
+      ? gatilhoParam
+      : fehmirObterGatilho();
     const brutas = fehmirCarregarOrdens();
     return brutas.map(o => {
       const quant = Number(o.quant) || 0;
@@ -24786,7 +24823,10 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
       const restante = Math.max(0, +(quant - executada).toFixed(8));
       const situacao = o.situacao || 'aberta';
       const abertaOuParcial = (situacao === 'aberta' || situacao === 'parcial');
-      const vencida = abertaOuParcial && Boolean(o.validade && String(o.validade) < hojeISO);
+      const rawValidade = o.validade ? String(o.validade).trim() : 'dia';
+      const ehDia = (rawValidade === 'dia');
+      const validade = ehDia ? 'dia' : rawValidade;
+      const vencida = !ehDia && abertaOuParcial && Boolean(validade && validade < hojeISO);
       const comprometido = (abertaOuParcial && !vencida) ? +(restante * limite).toFixed(2) : 0;
 
       let precoAtual = null;
@@ -24801,6 +24841,8 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
       const distancia = (precoAtual != null && precoAtual > 0)
         ? +(((precoAtual - limite) / precoAtual) * 100).toFixed(4)
         : null;
+
+      const recriarHoje = Boolean(ehDia && abertaOuParcial && distancia != null && distancia <= gatilho);
 
       let veredito = '—';
       let compra = null;
@@ -24822,6 +24864,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
       const acimaDaCompra = Boolean(abertaOuParcial && compra != null && limite > compra + 1e-9);
 
       return Object.assign({}, o, {
+        validade,
         quant,
         executada,
         limite,
@@ -24830,6 +24873,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
         precoAtual,
         dataPreco,
         distancia,
+        recriarHoje,
         veredito,
         compra,
         podeTerExecutado,
@@ -24841,20 +24885,29 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   }
   window.fehmirOrdens = fehmirOrdens;
 
-  function fehmirOrdensResumo(agora) {
-    const todas = fehmirOrdens(agora);
+  function fehmirOrdensResumo(agora, gatilhoParam) {
+    const gatilho = (typeof gatilhoParam === 'number' && !isNaN(gatilhoParam))
+      ? gatilhoParam
+      : fehmirObterGatilho();
+    const todas = fehmirOrdens(agora, gatilho);
     const ativas = todas.filter(o => o.situacao === 'aberta' || o.situacao === 'parcial');
     let comprometido = 0;
     let ap = 0;
     let res = 0;
     let abertas = 0;
     let alertas = 0;
+    let recriarN = 0;
+    let recriarTotal = 0;
     ativas.forEach(o => {
       if (!o.vencida) {
         comprometido += o.comprometido;
         if (o.origem === 'reserva') res += o.comprometido;
         else ap += o.comprometido;
         abertas++;
+      }
+      if (o.recriarHoje) {
+        recriarN++;
+        recriarTotal += o.comprometido;
       }
       if (o.podeTerExecutado || o.vencida || o.reguaNaoAprova || o.acimaDaCompra) {
         alertas++;
@@ -24867,7 +24920,11 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
         reserva: +res.toFixed(2)
       },
       abertas,
-      alertas
+      alertas,
+      recriarHoje: {
+        n: recriarN,
+        total: +recriarTotal.toFixed(2)
+      }
     };
   }
   window.fehmirOrdensResumo = fehmirOrdensResumo;
@@ -24893,9 +24950,12 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
       return { ok: false, erro: 'Informe um preço limite maior que zero.', avisos: [] };
     }
 
-    const validade = (dados.validade && /^\d{4}-\d{2}-\d{2}$/.test(String(dados.validade).trim()))
-      ? String(dados.validade).trim()
-      : fehmirValidadePadrao();
+    let validade = 'dia';
+    if (dados.validade === 'dia') {
+      validade = 'dia';
+    } else if (dados.validade && /^\d{4}-\d{2}-\d{2}$/.test(String(dados.validade).trim())) {
+      validade = String(dados.validade).trim();
+    }
     const origem = dados.origem === 'reserva' ? 'reserva' : 'aporte';
     const nota = String(dados.nota || '').trim();
     const agoraISO = new Date().toISOString();
@@ -25081,8 +25141,15 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
                 <input type="number" id="ord-form-limite" step="0.01" min="0.01" placeholder="Ex: 37.14" required oninput="atualizarPreviewFormOrdem()">
               </div>
               <div class="modal-form-field">
-                <label for="ord-form-validade">Validade</label>
-                <input type="date" id="ord-form-validade" required>
+                <label for="ord-form-validade-tipo">Validade</label>
+                <select id="ord-form-validade-tipo" onchange="fehmirOnValidadeTipoChange()">
+                  <option value="dia" selected>Só hoje (Nubank / B3 diária)</option>
+                  <option value="data">Até uma data específica</option>
+                </select>
+              </div>
+              <div class="modal-form-field" id="ord-form-validade-data-box" style="display:none;">
+                <label for="ord-form-validade-data">Data limite</label>
+                <input type="date" id="ord-form-validade-data">
               </div>
               <div class="modal-form-field">
                 <label for="ord-form-origem">Origem do dinheiro</label>
@@ -25149,6 +25216,21 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     }
   }
 
+  function fehmirOnValidadeTipoChange() {
+    const sel = document.getElementById('ord-form-validade-tipo');
+    const box = document.getElementById('ord-form-validade-data-box');
+    const inp = document.getElementById('ord-form-validade-data');
+    if (sel && box) {
+      if (sel.value === 'data') {
+        box.style.display = 'block';
+        if (inp && !inp.value) inp.value = fehmirDataValidadeSugerida();
+      } else {
+        box.style.display = 'none';
+      }
+    }
+  }
+  window.fehmirOnValidadeTipoChange = fehmirOnValidadeTipoChange;
+
   function abrirModalOrdem(id) {
     _garantirModaisOrdem();
     const modal = document.getElementById('modal-ordem-aberta');
@@ -25160,9 +25242,19 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     document.getElementById('ord-form-quant').value = ord ? ord.restante || (ord.quant - (ord.executada || 0)) : '';
     document.getElementById('ord-form-limite').value = ord ? ord.limite : '';
     const hojeISO = _normalizarDataISO(new Date());
-    const valInput = document.getElementById('ord-form-validade');
-    valInput.min = hojeISO;
-    valInput.value = ord ? ord.validade : fehmirValidadePadrao();
+    const selTipo = document.getElementById('ord-form-validade-tipo');
+    const boxData = document.getElementById('ord-form-validade-data-box');
+    const inpData = document.getElementById('ord-form-validade-data');
+    if (inpData) inpData.min = hojeISO;
+    if (ord && ord.validade && ord.validade !== 'dia') {
+      if (selTipo) selTipo.value = 'data';
+      if (boxData) boxData.style.display = 'block';
+      if (inpData) inpData.value = ord.validade;
+    } else {
+      if (selTipo) selTipo.value = 'dia';
+      if (boxData) boxData.style.display = 'none';
+      if (inpData) inpData.value = fehmirDataValidadeSugerida();
+    }
     document.getElementById('ord-form-origem').value = ord ? (ord.origem || 'aporte') : 'aporte';
     document.getElementById('ord-form-nota').value = ord ? (ord.nota || '') : '';
     atualizarPreviewFormOrdem();
@@ -25219,7 +25311,10 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     const t = document.getElementById('ord-form-ticker')?.value;
     const quant = document.getElementById('ord-form-quant')?.value;
     const limite = document.getElementById('ord-form-limite')?.value;
-    const validade = document.getElementById('ord-form-validade')?.value;
+    const valTipo = document.getElementById('ord-form-validade-tipo')?.value || 'dia';
+    const validade = (valTipo === 'data')
+      ? (document.getElementById('ord-form-validade-data')?.value || fehmirDataValidadeSugerida())
+      : 'dia';
     const origem = document.getElementById('ord-form-origem')?.value;
     const nota = document.getElementById('ord-form-nota')?.value;
     const res = fehmirOrdemSalvar({ id, t, quant, limite, validade, origem, nota });
@@ -25277,10 +25372,11 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     const box = document.getElementById('card-ordens-abertas');
     if (!box) return;
     _garantirModaisOrdem();
-    const todas = fehmirOrdens();
+    const gatilho = fehmirObterGatilho();
+    const todas = fehmirOrdens(undefined, gatilho);
     const ativas = todas.filter(o => o.situacao === 'aberta' || o.situacao === 'parcial');
     const historico = todas.filter(o => o.situacao === 'executada' || o.situacao === 'cancelada');
-    const res = fehmirOrdensResumo();
+    const res = fehmirOrdensResumo(undefined, gatilho);
 
     const resumoTxt = `${fmtR(res.comprometido)} comprometidos em ${res.abertas} ${res.abertas === 1 ? 'ordem' : 'ordens'} (aporte ${fmtR(res.porOrigem.aporte)} · reserva ${fmtR(res.porOrigem.reserva)})`;
 
@@ -25288,23 +25384,48 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
       ? `<div style="margin-bottom:8px; padding:6px 10px; border-radius:6px; background:color-mix(in srgb, var(--warning) 15%, transparent); color:var(--warning); font-size:12px; font-weight:600;">⚠️ Suas ordens não ficam salvas neste navegador.</div>`
       : '';
 
+    ativas.sort((a, b) => {
+      const aDia = (a.validade === 'dia');
+      const bDia = (b.validade === 'dia');
+      if (aDia && bDia) {
+        const da = (a.distancia != null) ? a.distancia : 999999;
+        const db = (b.distancia != null) ? b.distancia : 999999;
+        return da - db;
+      }
+      if (aDia) return -1;
+      if (bDia) return 1;
+      return String(a.validade || '').localeCompare(String(b.validade || ''));
+    });
+
     const linhasHtml = ativas.length === 0
       ? `<div style="padding:10px 0; font-size:12.5px; color:var(--muted);">Nenhuma ordem aberta no momento.</div>`
       : ativas.map(o => {
           const qtdTxt = o.situacao === 'parcial' ? `${o.restante} (de ${o.quant})` : `${o.quant}`;
-          const valDdmm = _ddmmDeISO(o.validade);
-          const linhaEsq = `<b>${o.t}</b> · ${qtdTxt} × ${fmtR(o.limite)} · até ${valDdmm} · ${o.origem === 'reserva' ? 'reserva' : 'aporte'}${o.situacao === 'parcial' ? ' <span style="font-size:10.5px; padding:1px 6px; border-radius:999px; background:var(--accent-soft); color:var(--accent); font-weight:700;">parcial</span>' : ''}`;
-          const distStr = o.distancia != null ? `${Math.abs(o.distancia).toFixed(1).replace('.', ',')}%` : '';
-          const linhaDir = (o.precoAtual != null && o.precoAtual > 0)
-            ? `agora ${fmtR(o.precoAtual)}${o.dataPreco ? ` (${o.dataPreco})` : ''} · a ${distStr} da sua ordem`
-            : `sem cotação`;
+          const ehDia = (o.validade === 'dia');
+          const valTxt = ehDia ? 'só hoje' : `até ${_ddmmDeISO(o.validade)}`;
+          const linhaEsq = `<b>${o.t}</b> · ${qtdTxt} × ${fmtR(o.limite)} · ${valTxt} · ${o.origem === 'reserva' ? 'reserva' : 'aporte'}${o.situacao === 'parcial' ? ' <span style="font-size:10.5px; padding:1px 6px; border-radius:999px; background:var(--accent-soft); color:var(--accent); font-weight:700;">parcial</span>' : ''}`;
+          
+          const distNum = o.distancia != null ? (Math.abs(o.distancia).toFixed(1).replace('.', ',')) : null;
+          const dataStr = o.dataPreco ? ` (${o.dataPreco})` : '';
+          let linhaDir = '';
+          if (o.precoAtual == null || !(o.precoAtual > 0)) {
+            linhaDir = `<span style="color:var(--muted);">sem cotação</span>`;
+          } else if (ehDia) {
+            if (o.recriarHoje) {
+              linhaDir = `<span class="ordem-recriar-destaque" style="color:var(--critical); font-weight:600;">agora ${fmtR(o.precoAtual)}${dataStr} · a ${distNum}%: recrie hoje na corretora</span>`;
+            } else {
+              linhaDir = `<span class="ordem-longe-muted" style="color:var(--muted);">agora ${fmtR(o.precoAtual)}${dataStr} · longe: falta ${distNum}%, não precisa recriar hoje</span>`;
+            }
+          } else {
+            linhaDir = `agora ${fmtR(o.precoAtual)}${dataStr} · a ${distNum}% da sua ordem`;
+          }
 
           const badgesAlertas = [];
           if (o.podeTerExecutado) {
             badgesAlertas.push(`<span class="ordem-alerta-pill" style="display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; background:color-mix(in srgb, var(--good) 16%, transparent); color:var(--good); border:1px solid var(--good);">Pode ter executado: confira na corretora</span>`);
           }
           if (o.vencida) {
-            badgesAlertas.push(`<span class="ordem-alerta-pill" style="display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; background:color-mix(in srgb, var(--critical) 14%, transparent); color:var(--critical); border:1px solid var(--critical);">Venceu em ${valDdmm}: cancele ou renove</span>`);
+            badgesAlertas.push(`<span class="ordem-alerta-pill" style="display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; background:color-mix(in srgb, var(--critical) 14%, transparent); color:var(--critical); border:1px solid var(--critical);">Venceu em ${_ddmmDeISO(o.validade)}: cancele ou renove</span>`);
           }
           if (o.reguaNaoAprova) {
             badgesAlertas.push(`<span class="ordem-alerta-pill" style="display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; background:color-mix(in srgb, var(--warning) 16%, transparent); color:var(--warning); border:1px solid var(--warning);">A régua não aprova mais esta compra (${o.veredito}): considere cancelar</span>`);
@@ -25353,6 +25474,12 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
               <span style="font-size:11.5px; color:var(--muted); font-weight:500;">${_ordensCardRecolhido ? '▾' : '▴'}</span>
             </div>
             <div id="ordens-resumo-linha" style="font-size:12.5px; color:var(--ink-2); margin-top:2px;">${resumoTxt}</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-top:4px; font-size:12.5px;">
+              <span style="color:var(--ink); font-weight:600;">Recriar hoje: <span id="ordens-recriar-hoje-n">${res.recriarHoje.n}</span> ${res.recriarHoje.n === 1 ? 'ordem' : 'ordens'} (<span id="ordens-recriar-hoje-total">${fmtR(res.recriarHoje.total)}</span>)</span>
+              <label style="font-size:12px; color:var(--muted); display:inline-flex; align-items:center; gap:4px;" onclick="event.stopPropagation();">
+                acender a menos de <input type="number" id="input-ordens-gatilho" min="1" max="10" step="1" value="${gatilho}" style="width:46px; padding:2px 4px; font-size:12px; border:1px solid var(--rule); border-radius:4px; text-align:center;" onchange="fehmirGravarGatilho(this.value)">%
+              </label>
+            </div>
           </div>
           <button type="button" class="mc-btn primary" id="btn-nova-ordem" onclick="abrirModalOrdem()" style="padding:6px 12px; font-size:12px;">+ Nova ordem</button>
         </div>

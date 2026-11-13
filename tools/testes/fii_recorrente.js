@@ -76,7 +76,17 @@ return (async () => {
     );
 
     // Caso 7 (Parte F): calcularAporteInteligente com R$ 211 só inclui ativos com veredito "Aportar"
-    const inpAp = document.getElementById('smart-aporte-input');
+    // Fixture: força o preço de TAEE11 para 36,00 (e status 'good') para garantir que ela entra na cesta (veredito "Aportar")
+    const taeeItem = (typeof BASE_STOCKS !== 'undefined') ? BASE_STOCKS.find(s => s && s.t === 'TAEE11') : null;
+    const pAntTaee = taeeItem ? taeeItem.preco : null;
+    const stAntTaee = taeeItem ? taeeItem.status : null;
+    if (taeeItem) {
+      taeeItem.preco = 36.00;
+      taeeItem.status = 'good';
+    }
+    if (typeof window.limparCacheTetoOficial === 'function') window.limparCacheTetoOficial();
+
+    const inpAp = document.getElementById('smart-aporte-val') || document.getElementById('smart-aporte-input');
     const valAnt = inpAp ? inpAp.value : '300';
     if (inpAp) inpAp.value = '211';
     const resAp = window.calcularAporteInteligente ? window.calcularAporteInteligente() : null;
@@ -87,9 +97,15 @@ return (async () => {
     });
     const foraTxt = document.getElementById('smart-aporte-fora-cesta')?.textContent || '';
     if (inpAp) { inpAp.value = valAnt; window.calcularAporteInteligente(); }
+    if (taeeItem) {
+      if (pAntTaee != null) taeeItem.preco = pAntTaee;
+      if (stAntTaee != null) taeeItem.status = stAntTaee;
+    }
+    if (typeof window.limparCacheTetoOficial === 'function') window.limparCacheTetoOficial();
+
     check(
-      '7. Parte F: com R$ 211, nenhum ativo da cesta tem veredito != Aportar e BBSE3 aparece fora da cesta',
-      naoAportar.length === 0 && !cesta.some(x => x.t === 'BBSE3') && foraTxt.includes('BBSE3'),
+      '7. Parte F: com R$ 211 e TAEE11 a 36,00, ela entra na cesta, nenhum ativo da cesta tem veredito != Aportar e BBSE3 aparece fora da cesta',
+      cesta.length > 0 && cesta.some(x => x.t === 'TAEE11') && naoAportar.length === 0 && !cesta.some(x => x.t === 'BBSE3') && foraTxt.includes('BBSE3'),
       `cesta=${cesta.map(x => x.t).join(',')}, naoAportar=${naoAportar.map(x => x.t).join(',')}, foraTxt="${foraTxt}"`
     );
   } finally {

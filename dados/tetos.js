@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-13 03:29",
+ "gerado": "2026-11-13 14:47",
  "ativos": 219,
  "carteira": 23,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
@@ -826,7 +826,7 @@ window.FEHMIR_TETOS = {
   "compra": 11.92,
   "margemMin": 20,
   "metodo": "P/VP com desconto + Bazin 5A",
-  "setor": "Industrial & Bens de capital",
+  "setor": "Outros",
   "src": "P/VP c/ desconto + Bazin 5A [menor entre VPA×0,9 R$ 36,05 e Bazin 5A R$ 14,89] = R$ 14,89 · ⚠️ Patrimônio (R$ 36,05) diverge 142% da renda 5A (R$ 14,89): laudos de reavaliação inflaram VPA",
   "preco": 22.5,
   "data": "2026-11-12",
