@@ -105,21 +105,31 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Modificação de Projeções Divulgadas",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1583332&numSequencia=1108038&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-03."
+        "BB Seguridade revisou seu guidance para o ano de 2026 em decorrência do desempenho observado no acumulado até 9M26.",
+        "O guidance de prêmios emitidos da Brasilseg foi revisado para baixo, passando da faixa de -3% a +2% para -15% a -11%.",
+        "A retração nos prêmios emitidos da Brasilseg (-9,2% no 9M26 vs 9M25) foi motivada por desempenhos abaixo do esperado nos segmentos de seguro rural, prestamista e vida.",
+        "O resultado operacional não decorrente de juros (ex-holding) recuou 1,2% em 9M26 vs 9M25, superando a faixa de guidance de -7% a -3% (que foi mantida), beneficiado por sinistralidade favorável e taxa de gestão da previdência.",
+        "O crescimento das reservas de previdência (PGBL e VGBL da Brasilprev) atingiu +12,6% em 9M26 vs 9M25, superando o intervalo projetado (+8% a +11%), impulsionado por captação líquida e rentabilidade das reservas."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Revisão negativa no guidance de prêmios emitidos da Brasilseg para 2026: de '-3% a +2%' para '-15% a -11%'.",
+        "Manutenção formal dos intervalos de guidance para o resultado operacional não decorrente de juros (-7% a -3%) e reservas da Brasilprev (+8% a +11%), apesar de ambos estarem acima do previsto em 9M26."
+      ],
+      "alertas": [
+        "Desaceleração acentuada na emissão de prêmios da Brasilseg nos segmentos rural, prestamista e vida, com expectativa de queda anual de até 15%.",
+        "Risco de impacto negativo sobre o volume de receitas futuras da companhia caso a desaceleração em prêmios emitidos persista nos próximos períodos."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "cvm_023159IPE231020260110957071-32",
@@ -587,6 +597,29 @@ window.FEHMIR_NOVIDADES = {
   ],
   "HGRE11": [
     {
+      "id": "fnet_1384732",
+      "data": "2026-11-13",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1384732",
+      "resumo": [
+        "Relatório Gerencial publicado em 2026-11-13."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
       "id": "fnet_1348103",
       "data": "2026-10-13",
       "tipo": "Relatório Gerencial",
@@ -716,21 +749,34 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1373192",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-11-09."
+        "Distribuição de rendimentos referente a outubro foi de R$ 1,00 por cota, superando o resultado gerado de R$ 0,99 por cota.",
+        "Investimento de R$ 100 milhões no CRI FS II (BTS de armazém graneleiro em Lucas do Rio Verde/MT) com taxa de IPCA + 11,43% a.a.",
+        "A carteira permanece 100% adimplente segundo a gestão, com reserva acumulada estável em R$ 0,67 por cota.",
+        "Forte deságio no mercado secundário (cota a R$ 85,24 vs cota patrimonial de R$ 99,54), motivando proposta em AGE para recompra de cotas.",
+        "Alocação total atingiu 89,6% do PL em ativos-alvo e 10,4% em instrumentos de caixa e LCI."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Aumento do provento distribuído por cota de R$ 0,93 para R$ 1,00.",
+        "Redução do resultado gerado por cota de R$ 1,04 (em set/26) para R$ 0,99.",
+        "Entrada da nova operação de CRI FS II no portfólio no montante de R$ 100,7 milhões.",
+        "Convocação de AGE com proposta para permitir a recompra de cotas abaixo do valor patrimonial."
+      ],
+      "alertas": [
+        "Remarcação negativa pelo administrador fiduciário no CRA SuperFrio I (saldo de aquisição de R$ 44,8 mi vs saldo MTM de R$ 35,1 mi), apesar de a gestão afirmar não esperar perdas.",
+        "Distribuição de rendimentos no mês (R$ 1,00/cota) acima do resultado auferido no regime de competência (R$ 0,99/cota).",
+        "Pressão temporária na receita dos papéis atrelados ao IPCA decorrente da defasagem de inflação mais baixa nos meses de referência (agosto a -0,32%)."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 80.0,
+        "provento_por_cota": 1.0,
+        "reserva_por_cota": 0.67,
+        "resultado_por_cota": 0.99,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1345687",
@@ -1516,6 +1562,42 @@ window.FEHMIR_NOVIDADES = {
   ],
   "RZTR11": [
     {
+      "id": "fnet_1386032",
+      "data": "2026-11-13",
+      "tipo": "Fato Relevante",
+      "titulo": "Fato Relevante",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1386032",
+      "resumo": [
+        "Celebração de Instrumento de Transação encerrando litígios judiciais com o Grupo Macedo relativos à Fazenda Bom Jardim (969,68 hectares em Montividiu/GO).",
+        "Confirmação irrevogável da propriedade exclusiva do Fundo e reconhecimento de que o imóvel não se sujeita aos efeitos da recuperação judicial do Grupo Macedo.",
+        "Novo contrato de arrendamento rural e nova opção de compra firmados com Lindolfo Leão de Macedo Neto com vigência até abril de 2030 e natureza pós-concursal.",
+        "Fluxo de remuneração anual estabelecido com pagamentos antecipados em abril de 2027 (R$ 2,74 mi), abril de 2028 (R$ 3,01 mi) e abril de 2029 (R$ 3,31 mi).",
+        "Ajuste contábil no valor do ativo na carteira para R$ 68,40 mi (baseado no preço de recompra), reduzindo o patrimônio líquido em R$ 49,87 mi (-R$ 2,65 por cota)."
+      ],
+      "mudancas": [
+        "Encerramento das disputas judiciais (ação de despejo, execução de título e medida cautelar) e baixa na averbação da matrícula.",
+        "Substituição do arrendatário em recuperação judicial por novo arrendatário (obrigações pós-concursais).",
+        "Redução do valor contábil do imóvel de R$ 118.273.900,84 (laudo de avaliação) para R$ 68.400.000,00, gerando impacto negativo de R$ 2,65/cota no valor patrimonial.",
+        "Cronograma de receitas de arrendamento reprogramado, com início dos recebimentos apenas em abril de 2027."
+      ],
+      "alertas": [
+        "Impacto patrimonial negativo relevante de R$ 49.873.900,84 (R$ 2,65 por cota) no patrimônio líquido do Fundo decorrente da reavaliação contábil.",
+        "Fluxo de caixa do ativo postergado, com o primeiro pagamento de arrendamento ocorrendo somente em abril de 2027.",
+        "Risco de crédito/execução associado ao novo arrendatário, ainda vinculado ao grupo familiar anterior."
+      ],
+      "metricas": {
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.85,
+        "reserva_por_cota": 0.01,
+        "resultado_por_cota": 0.85,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
+      },
+      "gravidade": "atencao",
+      "resumido_ia": true
+    },
+    {
       "id": "fnet_1358017",
       "data": "2026-10-23",
       "tipo": "Relatório Gerencial",
@@ -1674,29 +1756,6 @@ window.FEHMIR_NOVIDADES = {
       },
       "gravidade": "info",
       "resumido_ia": false
-    },
-    {
-      "id": "fnet_1284317",
-      "data": "2026-08-11",
-      "tipo": "Fato Relevante",
-      "titulo": "Fato Relevante",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1284317",
-      "resumo": [
-        "Fato Relevante publicado em 2026-08-11."
-      ],
-      "mudancas": [],
-      "alertas": [],
-      "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
-      },
-      "gravidade": "info",
-      "resumido_ia": false
     }
   ],
   "TAEE11": [
@@ -1736,21 +1795,36 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1371440",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-11-06."
+        "Aquisição de 14,57% do empreendimento logístico Meli City Campinas por R$ 250 milhões, com RMG de 8,50% a.a. durante obras e locação atípica de 16 anos ao Mercado Livre.",
+        "Aprovação do primeiro programa de recompra de cotas de até 10% das cotas emitidas, válido por 12 meses a partir de novembro de 2026.",
+        "Conclusão da venda do imóvel Delboni (Vila Mariana/SP) por R$ 77 milhões (12,23% acima do laudo) e assinatura de novos acordos para venda de lojas GPA e Extra.",
+        "Distribuição mantida em R$ 0,93 por cota, exigindo o uso de reservas de resultados acumulados devido ao descasamento temporário de receitas da 13ª emissão.",
+        "Estrutura financeira registra relação dívida total/ativo de 32,46% e alavancagem líquida de 19,19%, com liquidez corrente de 22,61x."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "O resultado operacional por cota em outubro foi de R$ 0,63 (abaixo da distribuição de R$ 0,93), demandando uso de reservas.",
+        "A reserva acumulada de rendimentos caiu expressivamente para R$ 0,04 por cota ao final de outubro (ante R$ 0,51 no mês anterior).",
+        "A vacância física registrou 0,5% e a vacância financeira registrou 0,3% (anteriormente zeradas).",
+        "Distribuição declarada de R$ 0,93 por cota para pagamento em 16 de novembro.",
+        "Relação dívida total/ativo reportada em 32,46%."
+      ],
+      "alertas": [
+        "Consumo relevante do saldo de reserva acumulada de resultados (reduzido para R$ 0,04/cota), deixando pouca margem caso o descasamento de receitas persista.",
+        "Elevado volume de endividamento bruto (dívida total de R$ 4,64 bilhões e relação dívida/ativo de 32,46%), gerando despesas financeiras mensais de R$ 18,39 milhões.",
+        "Potencial pressão vendedora no mercado secundário decorrente das cotas emitidas para pagamento de imóveis na 13ª emissão (vendedores ainda detêm 82,40% das cotas recebidas).",
+        "Risco de desenvolvimento e execução de obras em ativos adquiridos na planta/construção (Meli City, Galpões Shopee, hospitais)."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 32.46,
+        "provento_por_cota": 0.93,
+        "reserva_por_cota": 0.04,
+        "resultado_por_cota": 0.63,
+        "vacancia_financeira": 0.3,
+        "vacancia_fisica": 0.5
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1360869",
