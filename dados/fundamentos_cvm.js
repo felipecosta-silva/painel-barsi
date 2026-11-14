@@ -1,11 +1,11 @@
 /* Gerado por tools/fundamentos_cvm.py — não editar à mão. */
 window.FEHMIR_FUND_CVM_META = {
-  "gerado": "2026-11-13 13:46",
+  "gerado": "2026-11-14 17:20",
   "fonte": "CVM Dados Abertos (ITR/DFP consolidado/individual 2026/2025)",
   "total_ativos": 64,
   "ok": 64,
   "falhas": [],
-  "sanidade_auditada": 57,
+  "sanidade_auditada": 56,
   "sem_referencia": [
     "ALUP11",
     "ALUP3",
@@ -13,7 +13,8 @@ window.FEHMIR_FUND_CVM_META = {
     "BPAC11",
     "BRIT3",
     "ENGI11",
-    "MTRE3"
+    "MTRE3",
+    "VITT3"
   ],
   "ajustes_escala": [
     {
