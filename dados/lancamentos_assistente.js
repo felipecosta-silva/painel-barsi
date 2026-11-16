@@ -483,5 +483,18 @@ window.FEHMIR_LANC_ASSIST = [
     total: 33.46,
     moeda: "BRL",
     nota: "Ordem limitada executada (contada no chat de 05/11/2026): 4 × R$ 8,36 + R$ 0,02 de taxa"
+  },
+  {
+    id: "2026-11-16-XPML11-V-1",
+    data: "2026-11-16",
+    tipo: "Venda",
+    ticker: "XPML11",
+    cat: "FIIS",
+    quant: 5,
+    preco: 89.75,
+    taxa: 0.15,
+    total: 448.60,
+    moeda: "BRL",
+    nota: "Venda total: 5 × R$ 89,75 = R$ 448,75 − R$ 0,15 de taxa = R$ 448,60. Motivo: fundamento mudou (recorrente ~R$ 0,56 contra R$ 0,92 pago; guidance 0,74–0,84 completado pela reserva de R$ 0,95/cota). Custo: 3 × R$ 102,88 + R$ 199,17 = R$ 507,81 (taxa da 1ª compra não lançada) ⇒ prejuízo de ~R$ 59,21 a compensar em FIIs no IR (acumulado com VILG11 + RZTR11: ~R$ 97,57)"
   }
 ];
