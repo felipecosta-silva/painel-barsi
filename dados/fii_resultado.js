@@ -4,8 +4,8 @@
    Só entram fundos e meses com o dado lido em fonte datada. conferido: false = fonte secundária (vídeo), conferir no relatório no Fundos.NET. */
 window.FEHMIR_FII_RESULTADO = {
   "GGRC11": [
-    { mes: "2026-10", pago: 0.10, recorrente: 0.088, naoRecorrente: 0.012, origem: "reserva acumulada",
-      fonte: "Relatório gerencial de out/26 citado pela imprensa (resultado R$ 9,32 mi contra R$ 10,58 mi distribuídos ⇒ 88% de cobertura sobre R$ 0,10); vídeo Maicon Trindade (Investidor de Fábrica) de 16/11/2026 (03:43) cita geração de R$ 0,096/cota", conferido: false }
+    { mes: "2026-09", pago: 0.10, recorrente: 0.096, naoRecorrente: 0.004, origem: "reserva acumulada",
+      fonte: "Vídeo Maicon Trindade (Investidor de Fábrica) de 16/11/2026 (03:38–03:50): gera R$ 0,096/cota e usa R$ 0,004 de reserva; vídeo Beca Alcântara de 16/11 usa dados de set/26 (PL ~R$ 4 bi). O número 'R$ 9,32 mi × R$ 10,58 mi' da imprensa (usado antes) é de quando o fundo era ~3,5× menor e foi descartado", conferido: false }
   ],
   "XPML11": [
     { mes: "2026-09", pago: 0.92, recorrente: 0.50, naoRecorrente: 0.42, origem: "reserva acumulada",
