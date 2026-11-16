@@ -68,7 +68,24 @@ def baixar_diario(simbolo):
         return None
 
 
-def processar(js, diario=None, nome="", falhas_b3=None):
+def _reusar_b3_anterior(lacunas, anterior, por_ano, fonte_proventos):
+    """B3 fora do ar: reaproveita o ano já preenchido pela B3 na geração anterior (16/11/2026)."""
+    if not anterior:
+        return lacunas
+    fonte_ant = anterior.get("fonte_proventos") or {}
+    dpa_ant = anterior.get("dpaAno") or {}
+    restam = []
+    for y in lacunas:
+        v = dpa_ant.get(str(y))
+        if fonte_ant.get(str(y)) == "B3" and v and v > 0:
+            por_ano[y] = v
+            fonte_proventos[str(y)] = "B3"
+        else:
+            restam.append(y)
+    return restam
+
+
+def processar(js, diario=None, nome="", falhas_b3=None, anterior=None):
     try:
         res = js["chart"]["result"][0]
     except (KeyError, IndexError, TypeError):
@@ -142,12 +159,22 @@ def processar(js, diario=None, nome="", falhas_b3=None):
                             anos_ant = [a for a in por_ano if a < y and por_ano.get(a, 0) > 0 and b3_ano.get(a, 0) > 0]
                             anos_pos = [a for a in por_ano if a > y and por_ano.get(a, 0) > 0 and b3_ano.get(a, 0) > 0]
                             calibrado = False
+                            # 16/11/2026: o ano corrente é parcial e o Yahoo às vezes perde um evento dele
+                            # (CPFE3 2026 veio 2,60 contra 3,73 da B3 em 13/11 e derrubou o teto de 43,59 para 35,73).
+                            # Ele só serve de vizinho posterior quando não há ano fechado depois da lacuna e
+                            # ele mesmo bate; se não bater, basta o vizinho anterior (fechado) calibrado.
+                            anos_pos_fech = [a for a in anos_pos if a < ano_atual]
                             if anos_ant and anos_pos:
                                 v_ant = max(anos_ant)
-                                v_pos = min(anos_pos)
                                 r_ant = por_ano[v_ant] / b3_ano[v_ant]
-                                r_pos = por_ano[v_pos] / b3_ano[v_pos]
-                                if 0.90 <= r_ant <= 1.10 and 0.90 <= r_pos <= 1.10:
+                                ok_ant = 0.90 <= r_ant <= 1.10
+                                if anos_pos_fech:
+                                    v_pos = min(anos_pos_fech)
+                                    r_pos = por_ano[v_pos] / b3_ano[v_pos]
+                                    ok_pos = 0.90 <= r_pos <= 1.10
+                                else:
+                                    ok_pos = True  # só o ano corrente (parcial) depois da lacuna: não reprova
+                                if ok_ant and ok_pos:
                                     calibrado = True
                             if calibrado:
                                 por_ano[y] = b3_ano[y]
@@ -161,8 +188,9 @@ def processar(js, diario=None, nome="", falhas_b3=None):
                 elif res_b3 and not res_b3.get("ok"):
                     if falhas_b3 is not None:
                         falhas_b3.append(f"{nome}: {res_b3.get('erro')}")
+                    lacunas = _reusar_b3_anterior(lacunas, anterior, por_ano, fonte_proventos)
             except Exception:
-                pass
+                lacunas = _reusar_b3_anterior(lacunas, anterior, por_ano, fonte_proventos)
 
     anos_ok = [y for y in anos_ok if y not in lacunas]
     dpa5 = round(sum(por_ano.get(y, 0.0) for y in anos_ok) / len(anos_ok), 4) if anos_ok and any(por_ano.get(y, 0) for y in anos_ok) else None
@@ -273,6 +301,15 @@ def main():
     args = [a.upper() for a in sys.argv[1:] if not a.startswith("-")]
     dados, falhas, falhas_b3 = {}, [], []
     meta = {}
+    anteriores = {}
+    if SAIDA.exists():
+        try:
+            _t = SAIDA.read_text(encoding="utf-8")
+            _p = _t.find("window.FEHMIR_HIST = ")
+            if _p != -1:
+                anteriores = json.loads(_t[_p + len("window.FEHMIR_HIST = "):].strip().rstrip(";"))
+        except Exception:
+            anteriores = {}
     if args:
         if SAIDA.exists():
             texto = SAIDA.read_text(encoding="utf-8")
@@ -294,7 +331,7 @@ def main():
     for nome, simbolo in alvos.items():
         sym = ALIASES_YAHOO.get(nome, simbolo)
         js = baixar(sym)
-        reg = processar(js, baixar_diario(sym), nome, falhas_b3) if js else None
+        reg = processar(js, baixar_diario(sym), nome, falhas_b3, anteriores.get(nome)) if js else None
         if reg:
             if nome in INTL_ATIVOS:
                 reg["moeda"] = "USD"

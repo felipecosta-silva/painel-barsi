@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-14 03:27",
+ "gerado": "2026-11-16 12:52",
  "ativos": 221,
  "carteira": 23,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
@@ -118,12 +118,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "CPFE3": {
-  "teto": 38.66,
-  "compra": 34.79,
+  "teto": 43.59,
+  "compra": 39.23,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 38,66 (LPA R$ 5,21 × payout da empresa 54% × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 3A R$ 3,28 (robô)÷8,9% = R$ 36,81 (conferência)",
+  "src": "Projetivo R$ 43,59 (LPA R$ 5,21 × payout realista 61% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 3,08 (robô)÷8,9% = R$ 34,56 (conferência)",
   "preco": 43.97,
   "data": "2026-11-13",
   "base_dpa": "projetivo_regulada"
