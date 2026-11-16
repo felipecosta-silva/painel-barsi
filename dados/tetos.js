@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-16 18:44",
+ "gerado": "2026-11-16 18:47",
  "ativos": 221,
  "carteira": 23,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
@@ -646,12 +646,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "XPML11": {
-  "teto": 75.88,
-  "compra": 72.09,
+  "teto": 58.82,
+  "compra": 55.88,
   "margemMin": 5,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Shoppings",
-  "src": "Rendimento inflado por reserva acumulada: R$ 0,28 por cota em média em set–out/26 (pagou R$ 0,92, gerou R$ 0,65). Teto pelo recorrente: R$ 0,65 × 12 = R$ 7,74 ÷ 10,2% = R$ 75,88 (pelo pago seria R$ 108,52). DY no preço de hoje: 8,4% pelo recorrente, 12,0% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
+  "src": "Rendimento inflado por reserva acumulada: R$ 0,42 por cota em set/26 (pagou R$ 0,92, gerou R$ 0,50). Teto pelo recorrente: R$ 0,50 × 12 = R$ 6,00 ÷ 10,2% = R$ 58,82 (pelo pago seria R$ 108,52). DY no preço de hoje: 6,5% pelo recorrente, 12,0% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
   "preco": 92,
   "data": "2026-11-13",
   "base_dpa": "historico_5a"
