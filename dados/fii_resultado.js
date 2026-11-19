@@ -13,6 +13,8 @@ window.FEHMIR_FII_RESULTADO = {
   ],
   "TRXF11": [
     { mes: "2026-08", pago: 0.93, recorrente: 0.72, naoRecorrente: 0.21, origem: "venda de imóveis",
-      fonte: "Vídeo Bruno Chimarelli de 02/11/2026 (07:46), citando o relatório gerencial de agosto", conferido: false }
+      fonte: "Vídeo Bruno Chimarelli de 02/11/2026 (07:46), citando o relatório gerencial de agosto", conferido: false },
+    { mes: "2026-10", pago: 0.93, recorrente: 0.63, naoRecorrente: 0.30, origem: "reserva acumulada",
+      fonte: "Resultado operacional de out/26 R$ 60,54 mi = R$ 0,63/cota (fiis.com.br) e vídeo André Train (Clube do Valor) de 19/11/2026 (0:14): gerou 0,63, pagou 0,93; reserva caiu de R$ 35 mi (jul) para R$ 3,5 mi (out)", conferido: false }
   ]
 };

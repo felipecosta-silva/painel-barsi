@@ -1,11 +1,11 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-19 04:20",
+ "gerado": "2026-11-19 16:22",
  "ativos": 221,
  "carteira": 22,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
 };
-window.FEHMIR_CARTEIRA = {"ETH":0.00794523,"BTC":0.00052531,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":50,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.14199095,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2};
+window.FEHMIR_CARTEIRA = {"ETH":0.00981292,"BTC":0.00063294,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":50,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.20210896,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2};
 window.FEHMIR_TETOS = {
  "BBSE3": {
   "teto": 60.53,
@@ -811,12 +811,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "TRXF11": {
-  "teto": 70.82,
-  "compra": 67.28,
+  "teto": 66.39,
+  "compra": 63.07,
   "margemMin": 5,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Logística/Renda urbana",
-  "src": "Rendimento inflado por venda de imóveis: R$ 0,21 por cota em ago/26 (pagou R$ 0,93, gerou R$ 0,72). Teto pelo recorrente: R$ 0,72 × 12 = R$ 8,64 ÷ 12,2% = R$ 70,82 (pelo pago seria R$ 89,10). DY no preço de hoje: 15,9% pelo recorrente, 20,1% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
+  "src": "Rendimento inflado por reserva acumulada: R$ 0,26 por cota em média em ago–out/26 (pagou R$ 0,93, gerou R$ 0,68). Teto pelo recorrente: R$ 0,68 × 12 = R$ 8,10 ÷ 12,2% = R$ 66,39 (pelo pago seria R$ 89,10). DY no preço de hoje: 14,9% pelo recorrente, 20,1% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
   "preco": 54.2,
   "data": "2026-11-17",
   "base_dpa": "historico_5a"
