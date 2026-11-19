@@ -404,12 +404,13 @@ def main(argv):
             mk = re.search(k + r":\s*([\d.]+)", m_alvo.group(1))
             if mk:
                 metas[k] = float(mk.group(1))
+    usd_hoje = ((H.get("USDBRL") or {}).get("c") or [5.0])[-1] or 5.0
     valor = {"acoes": 0.0, "fiis": 0.0, "outros": 0.0}
     for t, q in CART.items():
         h = H.get(t) or {}
         pr = (h.get("c") or [0])[-1] or 0
         if h.get("moeda") == "USD" or t in ("BTC", "ETH", "SOL"):
-            valor["outros"] += q * pr * (5 if h.get("moeda") == "USD" else 1)
+            valor["outros"] += q * pr * (usd_hoje if h.get("moeda") == "USD" else 1)
         else:
             valor["fiis" if eh_fii(t) else "acoes"] += q * pr
     total = sum(valor.values()) or 1
@@ -460,6 +461,25 @@ def main(argv):
                           if (setor.startswith("Commodities") or "Construção" in setor or "Varejo" in setor)
                           else "B.A.S.E. só se vende por fundamento; FII nunca por rebalanceamento."),
                        {"preco": preco, "teto": tt["teto"]}, origem_preco)
+
+    # 7. Gatilho de aporte no exterior (regra do Léo, 19/11/2026): dólar do mês ≥ 5% abaixo do maior
+    #    fechamento mensal dos últimos 12 meses ⇒ usar a reserva de exterior guardada em CDI.
+    hu = H.get("USDBRL") or {}
+    du, cu = hu.get("d") or [], hu.get("c") or []
+    if du and cu:
+        fech_mes = {}
+        for d_, c_ in zip(du, cu):
+            if c_:
+                fech_mes[d_[:7]] = c_
+        topo_mes = max(fech_mes, key=fech_mes.get)
+        topo, atual = fech_mes[topo_mes], cu[-1]
+        queda = (1 - atual / topo) * 100
+        print(f"dólar: R$ {br(atual)} · topo de 12 meses R$ {br(topo)} ({topo_mes}) · queda {br(queda, 1)}% (gatilho 5%)")
+        if queda >= 5:
+            alerta("USDBRL", "gatilho_exterior", "alta",
+                   f"Dólar R$ {br(atual)}: {br(queda, 1)}% abaixo do maior fechamento de 12 meses (R$ {br(topo)} em {topo_mes}). "
+                   "Gatilho do Léo acionado: aportar a reserva de exterior (ETF na B3, WRLD11/IVVB11).",
+                   {"usd": atual, "topo": topo, "queda_pct": round(queda, 2)}, {"fonte": "robô de preços (Yahoo USDBRL=X)", "data": du[-1]})
 
     # 3 e 4. Proventos e fundamentos contra a base anterior (primeira execução só grava a base)
     base_nova = {}
