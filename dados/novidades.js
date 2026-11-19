@@ -8,21 +8,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Remuneração aos acionistas para 2026 e 2027",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1587981&numSequencia=1112687&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-11."
+        "Redução do payout de 2026 de 30% para 25% do lucro líquido ajustado, limitando-o ao dividendo mínimo obrigatório.",
+        "Cancelamento dos anúncios de dividendos intermediários previstos para 11/11/2026 e 19/11/2026; complemento será anunciado em 17/02/2027 e pago em 10/03/2027.",
+        "Fixação do payout de 2027 em 25%, com suspensão de dividendos intermediários ao longo de todo o ano de 2027.",
+        "Distribuição do dividendo obrigatório de 2027 fica condicionada à compatibilidade com projeções de capital, podendo ser retida em reserva especial sob o art. 202 da Lei das S.A.",
+        "Medidas justificadas pela persistência da elevação da inadimplência no agronegócio e seus impactos no custo de crédito, lucro líquido e capital."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Payout do exercício de 2026 reduzido de 30% para 25%.",
+        "Cancelamento de proventos intermediários em novembro de 2026 e eliminação total de dividendos intermediários em 2027.",
+        "Possibilidade de não pagamento inclusive do dividendo mínimo obrigatório em 2027 caso as projeções de capital não permitam."
+      ],
+      "alertas": [
+        "Corte imediato na remuneração aos acionistas e suspensão de pagamentos intermediários em 2026 e 2027.",
+        "Risco de retenção integral de proventos em 2027 via constituição de reserva especial.",
+        "Aumento persistente da inadimplência na carteira de agronegócio pressionando o custo de crédito e o lucro líquido do banco."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "critico",
+      "resumido_ia": true
     },
     {
       "id": "cvm_001023IPE111120260121034258-38",
@@ -31,21 +43,36 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Projeções 2026 - revisadas",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1587982&numSequencia=1112688&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-11."
+        "Revisão para baixo das projeções corporativas do Banco do Brasil para 2026.",
+        "Projeção de Lucro Líquido Ajustado cortada cerca de 50%, passando de R$ 18-22 bilhões para R$ 9-11 bilhões.",
+        "Custo do Crédito revisado para cima, de R$ 65-70 bilhões para R$ 80-83 bilhões.",
+        "Crescimento da Carteira de Crédito total revisto para contração/estagnação (-2,0% a 0,0% ante 0,5% a 4,5%).",
+        "Margem Financeira Bruta reduzida de 7% a 11% para 2,5% a 4,5%."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Lucro líquido ajustado projetado caiu de R$ 18-22 bi para R$ 9-11 bi.",
+        "Custo do crédito projetado subiu de R$ 65-70 bi para R$ 80-83 bi.",
+        "Carteira de crédito total revisada de 0,5% a 4,5% para -2,0% a 0,0%.",
+        "Margem financeira bruta reduzida de 7% a 11% para 2,5% a 4,5%.",
+        "Projeções para Pessoas Físicas, Empresas e Agronegócios todas revisadas para baixo."
+      ],
+      "alertas": [
+        "Elevação contínua da inadimplência na carteira de agronegócios e baixo nível de pontualizações.",
+        "Desempenho de renegociações sob a MP nº 1.376/2026 abaixo do esperado.",
+        "Concentração de vencimentos no 3T26 gerando pressão em provisões com impacto direto no 4T26.",
+        "Forte redução do lucro líquido projetado com impacto negativo direto na capacidade futura de pagamento de proventos e dividendos."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "critico",
+      "resumido_ia": true
     },
     {
       "id": "cvm_001023IPE281020260171802023-05",
@@ -672,21 +699,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1384732",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-11-13."
+        "O fundo registrou resultado distribuível de R$ 0,85/cota em outubro/2026 e manteve o rendimento distribuído em R$ 0,85/cota, em linha com o guidance para o 2S26.",
+        "A vacância financeira reduziu de 6,3% para 5,9% devido ao fim do período de carência de dois contratos de locação.",
+        "A vacância física permaneceu estável em 5,9%, com 143.387 m² de ABL total distribuídos em 13 edifícios.",
+        "A alavancagem financeira fechou em 1,9% do portfólio (CRI Chucri Zaidan, saldo devedor de R$ 34,3 milhões), com amortizações previstas até 2028.",
+        "A reserva de lucros acumulada encerrou o período estável em R$ 3,03 por cota."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Resultado distribuível por cota reduziu de R$ 1,03 para R$ 0,85, impactado pontualmente por R$ 0,02/cota em despesas não recorrentes de manutenção.",
+        "Vacância financeira recuou de 6,3% para 5,9% pelo fim de carências.",
+        "Alavancagem bruta (LTV) recuou levemente de 2,0% para 1,9%."
+      ],
+      "alertas": [
+        "Despesas não recorrentes de manutenção reduziram a margem do resultado, igualando-o pontualmente ao valor distribuído (sem adição líquida à reserva no mês).",
+        "Concentração relevante de inquilinos em Totvs (24%) e Vivo (23%), totalizando 47% da receita contratada.",
+        "Andamento da 10ª emissão de cotas (montante total de R$ 700 milhões) e estudos em andamento para potenciais consolidações com outros fundos da casa."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 1.9,
+        "provento_por_cota": 0.85,
+        "reserva_por_cota": 3.03,
+        "resultado_por_cota": 0.85,
+        "vacancia_financeira": 5.9,
+        "vacancia_fisica": 5.9
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "fnet_1348103",
