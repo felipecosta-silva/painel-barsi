@@ -155,21 +155,29 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Chamamento para indicação de candidatos ao Conselho de Administração",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1583255&numSequencia=1107961&numVersao=1",
       "resumo": [
-        "Comunicado ao Mercado publicado em 2026-11-03."
+        "Abertura de chamamento para acionistas minoritários indicarem candidatos ao Conselho de Administração em eleição em separado.",
+        "O processo decorre da renúncia apresentada pela Sra. Maria Carolina Ferreira Lacerda aos cargos no Conselho de Administração e no Comitê de Transações com Partes Relacionadas.",
+        "A vaga a ser preenchida visa completar o prazo de gestão do mandato 2025/2027.",
+        "A Assembleia Geral Extraordinária (AGE) está prevista para o dia 14 de dezembro de 2026.",
+        "Indicações de candidatos para inclusão na Proposta da Administração devem ser enviadas até 10 de novembro de 2026."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Início do procedimento para eleição em separado de novo membro do Conselho de Administração para preencher vacância deixada por Maria Carolina Ferreira Lacerda."
+      ],
+      "alertas": [
+        "Nenhum risco operacional, financeiro, de crédito ou corte de proventos identificado; trata-se estritamente de processo formal de governança corporativa."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "cvm_023159IPE031120260115042650-19",
@@ -243,20 +251,29 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante - Eleição de Presidente e de Presidente do Conselho de Administração",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1567618&numSequencia=1092324&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-09-11."
+        "O Conselho de Administração da Cemig deliberou a eleição do Sr. Marco Aurélio Martins da Costa Vasconcelos para o cargo de Presidente (CEO) da Companhia.",
+        "O Sr. Alexandre Ramos Peixoto foi eleito Presidente do Conselho de Administração da Cemig.",
+        "Marco Aurélio Martins da Costa Vasconcelos possui histórico de gestão na Copasa MG e atuação no Governo do Estado de Minas Gerais.",
+        "Alexandre Ramos Peixoto é engenheiro de carreira da Cemig, já exerceu cargos de liderança na própria companhia e atua como Presidente do Conselho da CCEE desde 2023."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Eleição de novo Presidente da Companhia (Marco Aurélio Martins da Costa Vasconcelos).",
+        "Eleição de novo Presidente do Conselho de Administração (Alexandre Ramos Peixoto)."
+      ],
+      "alertas": [
+        "Alterações simultâneas na Presidência executiva e no Conselho de Administração de empresa de controle estatal podem acarretar mudanças na condução estratégica, plano de investimentos e política de dividendos."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0,
+        "ltv": 0,
+        "provento_por_cota": 0,
+        "reserva_por_cota": 0,
+        "resultado_por_cota": 0,
+        "vacancia_financeira": 0,
+        "vacancia_fisica": 0
       },
-      "gravidade": "info"
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "cvm_002453IPE310820260141306725-07",
@@ -518,21 +535,36 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1387111",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-11-16."
+        "Assinatura de Compromisso de Compra e Venda para alienação de portfólio com 10 imóveis por R$ 530 milhões, com lucro estimado de R$ 75 milhões (aprox. R$ 0,22/cota) e sinal recebido de R$ 10,6 milhões.",
+        "Gestão pretende destinar até 50% dos recursos da alienação para aquisição de cotas de FIIs que venham a deter os imóveis vendidos.",
+        "Distribuição de proventos mantida em R$ 0,10 por cota (dividend yield anualizado de 14,32% sobre a cota de mercado de R$ 8,38), acima do resultado gerado no mês de R$ 0,096 por cota.",
+        "Carteira encerrou o período com 42 ativos imobiliários, mais de 1 milhão de m² de ABL, 49 inquilinos, WAULT de 4,47 anos e vacância física de 0,49%.",
+        "Avanço em 4 frentes de obras: CD Raposo Sanca (34,6% concluído), CD Braspark (18,0%), CD Pouso Alegre (8,9%) e CD Camaçari (5,0%)."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Celebração de compromisso de desinvestimento de 10 ativos logísticos/industriais/híbridos por R$ 530 milhões, com prêmio de 14,18% sobre os laudos de avaliação.",
+        "Recebimento de R$ 10,60 milhões correspondente ao sinal da transação de venda de ativos.",
+        "Pagamento da parcela 4/5 do CD Raposo Sanca (R$ 4,00 milhões) e da parcela 2/4 do complemento de preço do portfólio RELG11 devida ao RECM11 (R$ 1,74 milhão).",
+        "Convocação de Assembleia Geral Ordinária (AGO) eletrônica para aprovação das Demonstrações Financeiras do exercício findo em 30 de junho.",
+        "Base de cotistas aumentou em 16.682 investidores (+3,94%), totalizando 440.043 cotistas."
+      ],
+      "alertas": [
+        "Resultado caixa gerado de R$ 0,096/cota foi insuficiente para cobrir o rendimento distribuído de R$ 0,10/cota, exigindo consumo de R$ 0,004/cota de caixa/reserva.",
+        "Concentração locatícia relevante nos maiores inquilinos: Renault (8,7%), Americanas (8,2%) e Ambev (8,0%).",
+        "Cronograma de vencimento de contratos com 14% das receitas vencendo no curto prazo.",
+        "Existência de obrigações financeiras por aquisições de ativos pendentes (R$ 11,44 milhões) e saldo devedor de CRIs de R$ 329,17 milhões."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.13,
+        "provento_por_cota": 0.1,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.096,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0049
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1373169",
@@ -541,21 +573,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1373169",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-09."
+        "Conclusão do fechamento da alienação de 10 imóveis do portfólio ao Suno Imóveis FII (SNIM) pelo valor total de R$ 530.000.000,00.",
+        "Cumprimento integral das condições precedentes previstas no Compromisso de Compra e Venda.",
+        "Pagamento da Parcela A de R$ 371.000.000,00 (70%), totalizando R$ 381.600.000,00 (72%) recebidos juntamente com o sinal quitado em 30 de outubro de 2026.",
+        "Parcela B no montante de R$ 148.400.000,00 a ser paga em 14 parcelas mensais, iguais e sucessivas de R$ 10.600.000,00, sem atualização monetária, a partir de 06/12/2026.",
+        "Lucro apurado com a operação será integrado aos resultados distribuíveis à medida do seu efetivo recebimento em caixa."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Efetivação e fechamento definitivo da venda dos 10 imóveis que antes compunham o portfólio operacional do fundo.",
+        "Entrada substancial de caixa correspondente a 72% do valor total da transação.",
+        "Início do cronograma de recebimento parcelado do saldo de R$ 148,4 milhões a partir de dezembro de 2026."
+      ],
+      "alertas": [
+        "O saldo parcelado de R$ 148,4 milhões não possui atualização monetária, sujeitando o valor a perdas inflacionárias ao longo dos 14 meses.",
+        "Risco de crédito/inadimplência do comprador no fluxo das 14 parcelas futuras a receber.",
+        "Risco de reinvestimento do expressivo caixa gerado para recompor a renda imobiliária do fundo após a saída das receitas dos 10 imóveis alienados."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.13,
+        "provento_por_cota": 0.1,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.096,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0049
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1366052",
@@ -674,21 +718,35 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1321637",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-09-15."
+        "Distribuição mantida em R$ 0,10 por cota em agosto de 2026, com resultado gerado de R$ 0,101 por cota.",
+        "Grupo Casas Bahia entrou com pedido de Recuperação Judicial e não pagou o aluguel de agosto no FII Triple A (exposição indireta de ~5,8% da receita imobiliária do GGRC11); o Triple A manteve repasses normais.",
+        "Conclusão das obras da Fase 02 de expansão do CD Santa Cruz, com YoC estimado de 12,68% a.a. e acréscimo de 23.022 m² de ABL.",
+        "Área técnica da CVM emitiu parecer sobre compensação de créditos em emissões de cotas, afetando a operação anterior com o BLMG11 para supervisão.",
+        "Recompra e cancelamento de 453.226 cotas no mês a um preço médio de R$ 9,22, totalizando R$ 4,2 milhões."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Vacância física reduziu de 0,49% para 0,14%.",
+        "Resultado gerado subiu de R$ 0,096 para R$ 0,101 por cota.",
+        "Alavancagem recuou: relação Passivo/Ativos reportada em 8,10% (Passivo/PL em 8,81%), frente ao LTV anterior de 13%.",
+        "Conversão dos recibos da 11ª emissão (GGRC13) para cotas ordinárias GGRC11 e pagamento de complemento de preço ao RELG11 em cotas.",
+        "Finalização da Fase 02 do CD Santa Cruz, elevando a receita de locação do ativo para R$ 1,02 milhão/mês."
+      ],
+      "alertas": [
+        "Risco de inadimplência/reestruturação de contrato com o Grupo Casas Bahia (em Recuperação Judicial), que responde indiretamente por cerca de 5,8% da receita imobiliária do fundo via Triple A FII.",
+        "Processo de supervisão pela CVM relativo ao Parecer Técnico nº 16/2026 sobre estruturas de aquisição via compensação de créditos (operação BLMG11).",
+        "Concentração em inquilinos e setores do comércio varejista (42,24% da carteira), segmento sob maior pressão econômica."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.081,
+        "provento_por_cota": 0.1,
+        "reserva_por_cota": -0.001,
+        "resultado_por_cota": 0.101,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0014
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "HGRE11": [
@@ -833,20 +891,36 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1316899",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-09-11."
+        "Distribuição mantida em R$ 0,85/cota, com resultado distribuível de R$ 1,11/cota auxiliado por lucro não recorrente de R$ 0,32/cota da venda do Edifício Curitiba.",
+        "Compromisso de venda do Imóvel Alegria (100% vago) por R$ 115,5 milhões, gerando lucro estimado de R$ 42,7 milhões (~R$ 3,62/cota) a receber parceladamente.",
+        "Lançamento da 10ª emissão de cotas com montante total pretendido de R$ 700 milhões.",
+        "Vacância financeira recuou para 6,9% no mês com o término de carências, enquanto a vacância física permaneceu em 6,6%.",
+        "Endividamento baixo com LTV de 2,0% (saldo devedor de R$ 36,1 milhões em CRI) e caixa líquido positivo."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Resultado por cota aumentou de R$ 0,85 para R$ 1,11 por conta de receita extraordinária de alienação.",
+        "Reserva acumulada por cota reduziu de R$ 3,03 para R$ 2,84.",
+        "Vacância física aumentou de 5,9% para 6,6%.",
+        "Vacância financeira subiu de 5,9% para 6,9%.",
+        "LTV/Alavancagem teve ligeira elevação de 1,9% para 2,0%."
+      ],
+      "alertas": [
+        "Risco de diluição decorrente da 10ª emissão de cotas no valor relevante de R$ 700 milhões.",
+        "Concentração expressiva de receita em dois locatários principais: Totvs (23%) e Vivo (23%), somando 46% do total.",
+        "Elevado percentual de revisionais em aberto (46%) e concentração de 21% de vencimentos de contratos em 2027.",
+        "Aumento das métricas de vacância física e financeira em relação ao patamar do relatório anterior (5,9%)."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 2.0,
+        "provento_por_cota": 0.85,
+        "reserva_por_cota": 2.84,
+        "resultado_por_cota": 1.11,
+        "vacancia_financeira": 6.9,
+        "vacancia_fisica": 6.6
       },
-      "gravidade": "info"
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "KNCA11": [
@@ -977,21 +1051,27 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Aquisição/Alienação de Participação Acionária (art. 12 da Instr. CVM nº 358)",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1587268&numSequencia=1111974&numVersao=1",
       "resumo": [
-        "Comunicado ao Mercado publicado em 2026-11-10."
+        "A FMR LLC (Fidelity) alienou 106.374 ações ordinárias da LOG Commercial Properties.",
+        "A participação consolidada da FMR LLC passou a ser de 4.294.144 ações ordinárias, representando 4,888% do total emitido pela Companhia (redução abaixo do patamar de 5%).",
+        "A gestora declarou que a participação possui finalidade estritamente de investimento passivo, sem intuito de alterar o controle acionário ou a estrutura administrativa da Companhia.",
+        "Foi informado que os fundos e contas administrados não detêm derivativos atrelados às ações ou direitos conversíveis em ações da Companhia.",
+        "A representação legal no Brasil permanece sob responsabilidade da Citibank DTVM S.A."
       ],
-      "mudancas": [],
+      "mudancas": [
+        "Redução da participação acionária da FMR LLC de um patamar acima de 5% para 4,888% (4.294.144 ações ON), após a alienação líquida de 106.374 ações."
+      ],
       "alertas": [],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "cvm_023272IPE081020260161275986-82",
@@ -1214,21 +1294,35 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Petrobras atualiza projeções operacionais e financeiras para 2026",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1587552&numSequencia=1112258&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-10."
+        "A Petrobras revisou para cima suas projeções de produção total de óleo e gás em 2026 para a faixa de 3,3 a 3,4 milhões de boed (anteriormente 3,1 milhões de boed).",
+        "A estimativa de geração de caixa operacional para 2026 aumentou de US$ 35 bilhões para uma faixa entre US$ 45 bilhões e US$ 50 bilhões, impulsionada pelo preço do Brent e maior volume.",
+        "O Capex total projetado para 2026 (Carteira em Implantação) foi elevado de US$ 19,4 bilhões para a faixa de US$ 24 bilhões a US$ 25,5 bilhões.",
+        "O Investimento Caixa da Carteira em Implantação foi revisado de US$ 16,9 bilhões para US$ 21 bilhões a US$ 22 bilhões, refletindo avanço de FPSOs, antecipação da P-79 e bônus de leilões da ANP.",
+        "A projeção de Gastos Operacionais Gerenciáveis (GOG) subiu de US$ 20,2 bilhões para US$ 24,2 - 25,5 bilhões, afetada por câmbio e custos de frete internacional elevados."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Produção total de óleo e gás para 2026 elevada de 3,1 milhões de boed para 3,3 - 3,4 milhões de boed.",
+        "Investimento caixa (implantação) ampliado em até US$ 5,1 bilhões (de US$ 16,9 bilhões para US$ 21 - 22 bilhões).",
+        "Capex Total (Implantação + Avaliação) revisado de US$ 20,5 bilhões para US$ 24 - 25,5 bilhões.",
+        "Geração de caixa operacional elevada de US$ 35 bilhões para US$ 45 - 50 bilhões.",
+        "GOG ampliado de US$ 20,2 bilhões para US$ 24,2 - 25,5 bilhões e arrendamentos aumentados de US$ 10 bilhões para US$ 11 - 11,5 bilhões."
+      ],
+      "alertas": [
+        "Aumento expressivo do desembolso de Investimento Caixa e arrendamentos pode pressionar o Fluxo de Caixa Livre, variável-chave para a distribuição de dividendos ordinários e extraordinários.",
+        "Pressão inflacionária de custos operacionais (GOG) decorrente do efeito cambial e do mercado de fretes marítimos em níveis excepcionalmente altos.",
+        "Dependência do patamar de preços internacionais do petróleo Brent para a sustentação das metas revisadas de geração de caixa."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "cvm_009512IPE281020260169680874-88",
@@ -1447,21 +1541,31 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1316501",
       "resumo": [
-        "Fato Relevante publicado em 2026-09-11."
+        "Aprovação de rerratificação dos termos da 13ª emissão de cotas do RECR11, totalizando inicialmente 4.606.000 novas cotas.",
+        "Alteração das condições de integralização, permitindo pagamento à vista em moeda corrente nacional e/ou compensação de créditos contra o Fundo.",
+        "Dispensa de boletins físicos de subscrição com base nas Resoluções CVM 27 e CVM 160.",
+        "Definição de que a modificação não enseja direito de desistência por ser considerada favorável aos investidores (art. 67, §8º da Resolução CVM 160).",
+        "Divulgação do cronograma tentativo atualizado da oferta, com liquidação da oferta prevista para 06/11/2026."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Inclusão da possibilidade de integralização de novas cotas mediante compensação de créditos detidos contra o Fundo.",
+        "Atualização das datas indicativas do cronograma da 13ª emissão de cotas."
+      ],
+      "alertas": [
+        "Risco de diluição proporcional de participação e proventos para cotistas que não exercerem seus direitos de preferência na 13ª emissão.",
+        "Integralização mediante compensação de créditos contra o Fundo não gera nova entrada de caixa físico correspondente a essa parcela."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.52,
+        "provento_por_cota": 0.7636,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.7638,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1312402",
