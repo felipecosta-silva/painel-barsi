@@ -61,36 +61,38 @@ return (async () => {
       `fnHas0085=${fnStr.includes('0.0085')}, ocorrencias0085=${ocorrencias0085}, tem12Anos=${htmlAll.includes('~12 anos')}`
     );
 
-    // Caso 6 (Parte H): BBSE3 na ficha -> linha de referência do setor e botão "usar g do setor" bate com tetoOficial("BBSE3").teto ± 0,05
+    // Caso 6 (Parte H): ITSA4 na ficha (após Rodada 24 zerar g da BBSE3) -> linha de referência do setor e botão "usar g do setor" bate com tetoOficial("ITSA4").teto ± 0,05
     switchMainTab('analise');
     await sleep(200);
-    localStorage.removeItem('barsi-calc-BBSE3');
-    await window.fehmirAnalisar('BBSE3');
+    localStorage.removeItem('barsi-calc-ITSA4');
+    await window.fehmirAnalisar('ITSA4');
     await sleep(300);
-    const refEl = document.getElementById('calc-proj-ref-setor-BBSE3');
+    const refEl = document.getElementById('calc-proj-ref-setor-ITSA4');
     const refTxt = refEl ? refEl.textContent.trim() : '';
-    const tetoOfBbse = window.tetoOficial('BBSE3').teto;
-    window.fehmirUsarGSetorCalc('BBSE3');
-    const resProjEl = document.getElementById('calc-res-proj-BBSE3');
+    const tetoOfItsa = window.tetoOficial('ITSA4').teto;
+    window.fehmirUsarGSetorCalc('ITSA4');
+    const resProjEl = document.getElementById('calc-res-proj-ITSA4');
     const mTeto = (resProjEl?.innerText || '').match(/Preço teto:\s*R\$\s*([\d.]+,\d{2})/);
     const tetoCalcComG = mTeto ? parseFloat(mTeto[1].replace(/\./g, '').replace(',', '.')) : null;
-    window.fehmirResetarCalc('BBSE3', 'projetivo');
-    const mTetoPadrao = (document.getElementById('calc-res-proj-BBSE3')?.innerText || '').match(/Preço teto:\s*R\$\s*([\d.]+,\d{2})/);
+    window.fehmirResetarCalc('ITSA4', 'projetivo');
+    const mTetoPadrao = (document.getElementById('calc-res-proj-ITSA4')?.innerText || '').match(/Preço teto:\s*R\$\s*([\d.]+,\d{2})/);
     const tetoCalcPadrao = mTetoPadrao ? parseFloat(mTetoPadrao[1].replace(/\./g, '').replace(',', '.')) : null;
 
     check(
-      '4. Parte H: BBSE3 com "usar g do setor" = tetoOficial("BBSE3").teto ± 0,05 e linha de referência visível',
-      refTxt.includes('Com o crescimento do setor') && tetoCalcComG != null && Math.abs(tetoCalcComG - tetoOfBbse) <= 0.05 && tetoCalcPadrao != null && tetoCalcPadrao < tetoCalcComG,
-      `refTxt="${refTxt}", tetoCalcComG=${tetoCalcComG}, tetoOfBbse=${tetoOfBbse?.toFixed(2)}, tetoCalcPadrao=${tetoCalcPadrao}`
+      '4. Parte H: ITSA4 com "usar g do setor" = tetoOficial("ITSA4").teto ± 0,05 e linha de referência visível',
+      refTxt.includes('Com o crescimento do setor') && tetoCalcComG != null && Math.abs(tetoCalcComG - tetoOfItsa) <= 0.05 && tetoCalcPadrao != null && tetoCalcPadrao < tetoCalcComG,
+      `refTxt="${refTxt}", tetoCalcComG=${tetoCalcComG}, tetoOfItsa=${tetoOfItsa?.toFixed(2)}, tetoCalcPadrao=${tetoCalcPadrao}`
     );
 
-    // Caso 7 (Rodada 23 Parte A): BBSE3 projetivo sem dupla contagem de g (≈ 49,72, não 60,53)
+    // Caso 7 (Rodada 24): Gordon real restaurado + g=0 para asset-light (BBSE3 g=0 => 48,99; ITSA4 g=1,5 => ≈ 14,44)
     const avBbse = window.tetoOficial('BBSE3');
-    const projEspBbse = avBbse ? (avBbse.lpa * ((avBbse.S && avBbse.S.haircut) || 1) * (avBbse.pay / 100) * (1 + avBbse.g / 100) / (avBbse.req / 100)) : null;
+    const avItsa = window.tetoOficial('ITSA4');
+    const projEspItsa = avItsa ? (avItsa.lpa * ((avItsa.S && avItsa.S.haircut) || 1) * (avItsa.pay / 100) * (1 + avItsa.g / 100) / ((avItsa.req - avItsa.g) / 100)) : null;
     check(
-      '5. Rodada 23 Parte A: BBSE3 projetivo = LPA × payout × (1 + g) ÷ req (≈ R$ 49,72, não R$ 60,53)',
-      avBbse && projEspBbse != null && Math.abs(avBbse.proj - projEspBbse) <= 0.01 && avBbse.proj > 49.0 && avBbse.proj < 50.5 && avBbse.teto < 55,
-      `lpa=${avBbse?.lpa?.toFixed(2)}, pay=${avBbse?.pay?.toFixed(1)}, g=${avBbse?.g?.toFixed(1)}, req=${avBbse?.req?.toFixed(1)}, proj=${avBbse?.proj?.toFixed(2)}, esp=${projEspBbse?.toFixed(2)}, teto=${avBbse?.teto?.toFixed(2)}`
+      '5. Rodada 24: Gordon real + g=0 asset-light (BBSE3 g=0 => R$ 48,99; ITSA4 g=1,5 => ≈ R$ 14,44)',
+      avBbse && avBbse.g === 0 && Math.abs(avBbse.proj - 48.99) <= 0.05 && Math.abs(avBbse.teto - 48.99) <= 0.05 &&
+      avItsa && Math.abs(avItsa.g - 1.5) <= 0.05 && projEspItsa != null && Math.abs(avItsa.proj - projEspItsa) <= 0.02 && Math.abs(avItsa.teto - 14.44) <= 0.05,
+      `BBSE3[g=${avBbse?.g?.toFixed(1)}, proj=${avBbse?.proj?.toFixed(2)}, teto=${avBbse?.teto?.toFixed(2)}] ITSA4[g=${avItsa?.g?.toFixed(1)}, proj=${avItsa?.proj?.toFixed(2)}, esp=${projEspItsa?.toFixed(2)}, teto=${avItsa?.teto?.toFixed(2)}]`
     );
   } finally {
     // Restaurar estado limpo
@@ -101,6 +103,7 @@ return (async () => {
     try {
       localStorage.removeItem('barsi-meta-v1');
       localStorage.removeItem('barsi-calc-BBSE3');
+      localStorage.removeItem('barsi-calc-ITSA4');
     } catch (e) {}
   }
 
