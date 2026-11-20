@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-19 16:22",
+ "gerado": "2026-11-20 02:53",
  "ativos": 221,
  "carteira": 22,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
@@ -1801,12 +1801,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "HGBS11": {
-  "teto": 19.51,
-  "compra": 18.53,
+  "teto": 14.47,
+  "compra": 13.75,
   "margemMin": 5,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Shoppings",
-  "src": "Dividendo 12m R$ 1,99 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 19,51",
+  "src": "Rendimento inflado por lucro de vendas acumulado (Jardim Sul 19%, I Fashion Outlet): R$ 0,05 por cota em out/26 (pagou R$ 0,17, gerou R$ 0,12). Teto pelo recorrente: R$ 0,12 × 12 = R$ 1,48 ÷ 10,2% = R$ 14,47 (pelo pago seria R$ 19,51). DY no preço de hoje: 8,5% pelo recorrente, 11,4% pelo pago.",
   "preco": 17.39,
   "data": null,
   "base_dpa": "historico_5a"
