@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-20 04:08",
+ "gerado": "2026-11-20 20:12",
  "ativos": 212,
  "carteira": 22,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
@@ -8,12 +8,12 @@ window.FEHMIR_TETOS_META = {
 window.FEHMIR_CARTEIRA = {"ETH":0.00794523,"BTC":0.00052531,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":50,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.14199095,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2};
 window.FEHMIR_TETOS = {
  "BBSE3": {
-  "teto": 60.53,
-  "compra": 54.48,
+  "teto": 49.72,
+  "compra": 44.75,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Seguradoras",
-  "src": "Projetivo R$ 60,53 (LPA R$ 4,73 × payout realista 87% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 2,67 (robô)÷8,4% = R$ 31,82 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 60,53) diverge 90% do histórico (R$ 31,82): confira premissa de dividendos",
+  "src": "Projetivo R$ 49,72 (LPA R$ 4,73 × payout realista 87% (3A, sem extras) × (1 + g) ÷ taxa) · g real 1,5% (limite) · DPA 5A R$ 2,67 (robô)÷8,4% = R$ 31,82 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 49,72) diverge 56% do histórico (R$ 31,82): confira premissa de dividendos",
   "preco": 36.66,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -24,18 +24,18 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Seguradoras",
-  "src": "Projetivo R$ 16,18 (LPA R$ 1,51 × payout realista 90% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (retém pouco) · DPA 4A R$ 1,00 (robô)÷8,4% = R$ 11,91 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 16,18) diverge 36% do histórico (R$ 11,91): confira premissa de dividendos",
+  "src": "Projetivo R$ 16,18 (LPA R$ 1,51 × payout realista 90% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (retém pouco) · DPA 4A R$ 1,00 (robô)÷8,4% = R$ 11,91 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 16,18) diverge 36% do histórico (R$ 11,91): confira premissa de dividendos",
   "preco": 20.5,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
  },
  "PSSA3": {
-  "teto": 48.8,
-  "compra": 43.92,
+  "teto": 40.09,
+  "compra": 36.08,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Seguradoras",
-  "src": "Projetivo R$ 48,80 (LPA R$ 5,82 × payout realista 57% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 1,56 (robô)÷8,4% = R$ 18,55 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 48,80) diverge 163% do histórico (R$ 18,55): confira premissa de dividendos",
+  "src": "Projetivo R$ 40,09 (LPA R$ 5,82 × payout realista 57% (3A, sem extras) × (1 + g) ÷ taxa) · g real 1,5% (limite) · DPA 5A R$ 1,56 (robô)÷8,4% = R$ 18,55 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 40,09) diverge 116% do histórico (R$ 18,55): confira premissa de dividendos",
   "preco": 44.66,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -46,7 +46,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Seguradoras",
-  "src": "Projetivo R$ 18,82 (LPA R$ 2,96 × payout da empresa 53% × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · Bazin 5A R$ 18,00 → usa o menor (recuperação: ROE 5A -2,2% < 10%)",
+  "src": "Projetivo R$ 18,82 (LPA R$ 2,96 × payout da empresa 53% × (1 + g) ÷ taxa) · g 0 (recuperação) · Bazin 5A R$ 18,00 → usa o menor (recuperação: ROE 5A -2,2% < 10%)",
   "preco": 59.88,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -63,12 +63,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "ITSA4": {
-  "teto": 14.44,
-  "compra": 13,
+  "teto": 12.01,
+  "compra": 10.81,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 14,44 (LPA R$ 1,62 × payout realista 65% (3A, com extras recorrentes) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA pago 3A (2023, 2024, 2025) R$ 0,96 ÷ 8,9% = R$ 10,73 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar",
+  "src": "Projetivo R$ 12,01 (LPA R$ 1,62 × payout realista 65% (3A, com extras recorrentes) × (1 + g) ÷ taxa) · g real 1,5% (limite) · DPA pago 3A (2023, 2024, 2025) R$ 0,96 ÷ 8,9% = R$ 10,73 (conferência)",
   "preco": 13.15,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -79,7 +79,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 20,96 (LPA R$ 3,52 × payout realista 53% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,72 ÷ 8,9% = R$ 19,30 → usa o menor (recuperação: ROE 5A 11,6% < 15%)",
+  "src": "Projetivo R$ 20,96 (LPA R$ 3,52 × payout realista 53% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,72 ÷ 8,9% = R$ 19,30 → usa o menor (recuperação: ROE 5A 11,6% < 15%)",
   "preco": 28.15,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -90,7 +90,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 17,02 (LPA R$ 2,47 × payout realista 82% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,41 ÷ 11,9% = R$ 11,88 → usa o menor (recuperação: ROE 5A 12,4% < 15%) · ⚠️ Projetivo (R$ 17,02) diverge 43% do histórico (R$ 11,88): confira premissa de dividendos · +3,0 p.p. risco da empresa (banco em recuperação)",
+  "src": "Projetivo R$ 17,02 (LPA R$ 2,47 × payout realista 82% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,41 ÷ 11,9% = R$ 11,88 → usa o menor (recuperação: ROE 5A 12,4% < 15%) · ⚠️ Projetivo (R$ 17,02) diverge 43% do histórico (R$ 11,88): confira premissa de dividendos · +3,0 p.p. risco da empresa (banco em recuperação)",
   "preco": 14.08,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -101,7 +101,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 7,82 (LPA R$ 2,15 × payout realista 36% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,75 ÷ 9,9% = R$ 17,73 → usa o menor (recuperação: ROE 5A 14,5% < 15%) · ⚠️ Projetivo (R$ 7,82) diverge 56% do histórico (R$ 17,73): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "src": "Projetivo R$ 7,82 (LPA R$ 2,15 × payout realista 36% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,75 ÷ 9,9% = R$ 17,73 → usa o menor (recuperação: ROE 5A 14,5% < 15%) · ⚠️ Projetivo (R$ 7,82) diverge 56% do histórico (R$ 17,73): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
   "preco": 14.12,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -118,12 +118,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "CPFE3": {
-  "teto": 43.59,
-  "compra": 39.23,
+  "teto": 36.24,
+  "compra": 32.62,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 43,59 (LPA R$ 5,21 × payout realista 61% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 3,08 (robô)÷8,9% = R$ 34,56 (conferência)",
+  "src": "Projetivo R$ 36,24 (LPA R$ 5,21 × payout realista 61% (3A, sem extras) × (1 + g) ÷ taxa) · g real 1,5% (limite) · DPA 5A R$ 3,08 (robô)÷8,9% = R$ 34,56 (conferência)",
   "preco": 44.14,
   "data": "2026-11-18",
   "base_dpa": "projetivo_regulada"
@@ -134,7 +134,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 10,90 (LPA R$ 1,61 × payout realista 67% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 1,26 (robô)÷9,9% = R$ 12,71 → usa o menor (recuperação: LPA 12m 22% abaixo da média 3A) · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "src": "Projetivo R$ 10,90 (LPA R$ 1,61 × payout realista 67% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (recuperação) · DPA 5A R$ 1,26 (robô)÷9,9% = R$ 12,71 → usa o menor (recuperação: LPA 12m 22% abaixo da média 3A) · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
   "preco": 10.93,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -145,7 +145,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 5,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$ 44,81 (LPA R$ 4,72 × payout realista 75% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 3,23 ÷ 7,9% = R$ 40,83 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
+  "src": "Projetivo R$ 44,81 (LPA R$ 4,72 × payout realista 75% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 3,23 ÷ 7,9% = R$ 40,83 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
   "preco": 40.56,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -156,7 +156,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 9,17 (LPA R$ 1,06 × payout realista 77% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (retém pouco) · DPA 5A R$ 0,69 (robô)÷8,9% = R$ 7,80 (conferência)",
+  "src": "Projetivo R$ 9,17 (LPA R$ 1,06 × payout realista 77% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (retém pouco) · DPA 5A R$ 0,69 (robô)÷8,9% = R$ 7,80 (conferência)",
   "preco": 15.28,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -167,7 +167,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 5,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$ 25,35 (LPA R$ 4,19 × payout da empresa 48% × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 2A (2023, 2025) R$ 2,75 ÷ 7,9% = R$ 34,75 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
+  "src": "Projetivo R$ 25,35 (LPA R$ 4,19 × payout da empresa 48% × (1 + g) ÷ taxa) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 2A (2023, 2025) R$ 2,75 ÷ 7,9% = R$ 34,75 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
   "preco": 26.19,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -178,29 +178,29 @@ window.FEHMIR_TETOS = {
   "margemMin": 5,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$ 21,39 (LPA R$ 3,13 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 1,44 ÷ 7,9% = R$ 18,19 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
+  "src": "Projetivo R$ 21,39 (LPA R$ 3,13 × payout realista 54% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 1,44 ÷ 7,9% = R$ 18,19 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
   "preco": 32.85,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
  },
  "ALUP4": {
-  "teto": 7.7,
-  "compra": 6.93,
+  "teto": 6.4,
+  "compra": 5.76,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 7,70 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 0,41 (robô)÷8,9% = R$ 4,61 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 7,70) diverge 67% do histórico (R$ 4,61): confira premissa de dividendos",
+  "src": "Projetivo R$ 6,40 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ taxa) · g real 1,5% (limite) · DPA 5A R$ 0,41 (robô)÷8,9% = R$ 4,61 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 6,40) diverge 39% do histórico (R$ 4,61): confira premissa de dividendos",
   "preco": 10.37,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
  },
  "ALUP3": {
-  "teto": 7.7,
-  "compra": 6.93,
+  "teto": 6.4,
+  "compra": 5.76,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 7,70 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 0,41 (robô)÷8,9% = R$ 4,61 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 7,70) diverge 67% do histórico (R$ 4,61): confira premissa de dividendos",
+  "src": "Projetivo R$ 6,40 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ taxa) · g real 1,5% (limite) · DPA 5A R$ 0,41 (robô)÷8,9% = R$ 4,61 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 6,40) diverge 39% do histórico (R$ 4,61): confira premissa de dividendos",
   "preco": 11.99,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -211,7 +211,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 2,82 (LPA R$ 0,76 × payout realista 33% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 0,90 (robô)÷8,9% = R$ 10,15 → usa o menor (recuperação: LPA 12m 56% abaixo da média 3A) · ⚠️ Projetivo (R$ 2,82) diverge 72% do histórico (R$ 10,15): confira premissa de dividendos",
+  "src": "Projetivo R$ 2,82 (LPA R$ 0,76 × payout realista 33% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (recuperação) · DPA 5A R$ 0,90 (robô)÷8,9% = R$ 10,15 → usa o menor (recuperação: LPA 12m 56% abaixo da média 3A) · ⚠️ Projetivo (R$ 2,82) diverge 72% do histórico (R$ 10,15): confira premissa de dividendos",
   "preco": 33.67,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -222,7 +222,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 13,91 (LPA R$ 3,02 × payout realista 41% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 2,22 (robô)÷8,9% = R$ 24,95 → usa o menor (recuperação: LPA 12m 42% abaixo da média 3A) · ⚠️ Projetivo (R$ 13,91) diverge 44% do histórico (R$ 24,95): confira premissa de dividendos",
+  "src": "Projetivo R$ 13,91 (LPA R$ 3,02 × payout realista 41% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (recuperação) · DPA 5A R$ 2,22 (robô)÷8,9% = R$ 24,95 → usa o menor (recuperação: LPA 12m 42% abaixo da média 3A) · ⚠️ Projetivo (R$ 13,91) diverge 44% do histórico (R$ 24,95): confira premissa de dividendos",
   "preco": 48.82,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -266,7 +266,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Gordon / fluxo de dividendos",
   "setor": "Água & Saneamento",
-  "src": "Gordon / DDM [2 estágios: g1=10,0%, g2=3,5%, k=11,9%]: DDM R$ 8,31 · Histórico R$ 4,85 → vale o menor (R$ 4,85) · ⚠️ Projetivo (R$ 7,61) diverge 57% do histórico (R$ 4,85): confira premissa de dividendos",
+  "src": "Gordon / DDM [2 estágios: g1=10,0%, g2=3,5%, k=11,9%]: DDM R$ 8,31 · Histórico R$ 4,85 → vale o menor (R$ 4,85)",
   "preco": 27.43,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -288,7 +288,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 15,
   "metodo": "Bazin projetivo",
   "setor": "Telecom",
-  "src": "Projetivo R$ 19,72 (LPA R$ 2,06 × payout realista 90% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 1,46 (robô)÷9,4% = R$ 15,57 → usa o menor (recuperação: ROE 5A 7,8% < 10%)",
+  "src": "Projetivo R$ 19,72 (LPA R$ 2,06 × payout realista 90% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (recuperação) · DPA 5A R$ 1,46 (robô)÷9,4% = R$ 15,57 → usa o menor (recuperação: ROE 5A 7,8% < 10%)",
   "preco": 35.56,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -387,7 +387,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 1,47 × 0,75 = R$ 1,10 ÷ 8,9% = R$ 12,35] · Proj R$ 34,22 (conferência) · ⚠️ Projetivo (R$ 34,22) diverge 177% do meio de ciclo (R$ 12,35): ciclo de commodities pode estar revertendo",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 1,47 × 0,75 = R$ 1,10 ÷ 8,9% = R$ 12,35] · Proj R$ 28,45 (conferência) · ⚠️ Projetivo (R$ 28,45) diverge 130% do meio de ciclo (R$ 12,35): ciclo de commodities pode estar revertendo",
   "preco": 30.39,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -552,7 +552,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 48,20 (LPA R$ 6,60 × payout realista 65% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 1,84 (robô)÷8,9% = R$ 20,68 → usa o menor (recuperação: ROE 5A 6,0% < 10%) · ⚠️ Projetivo (R$ 48,20) diverge 133% do histórico (R$ 20,68): confira premissa de dividendos",
+  "src": "Projetivo R$ 48,20 (LPA R$ 6,60 × payout realista 65% (3A, sem extras) × (1 + g) ÷ taxa) · g 0 (recuperação) · DPA 5A R$ 1,84 (robô)÷8,9% = R$ 20,68 → usa o menor (recuperação: ROE 5A 6,0% < 10%) · ⚠️ Projetivo (R$ 48,20) diverge 133% do histórico (R$ 20,68): confira premissa de dividendos",
   "preco": 46.3,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"
@@ -2334,7 +2334,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 15,
   "metodo": "Bazin projetivo",
   "setor": "Telecom",
-  "src": "Projetivo R$ 0,44 (LPA R$ 0,14 × payout da empresa 29% × (1 + g) ÷ (taxa − g)) · g 0 (sem ROE) · DPA/9,4% R$ 1,81 (conferência) · ⚠️ Projetivo (R$ 0,44) diverge 76% do histórico (R$ 1,81): confira premissa de dividendos",
+  "src": "Projetivo R$ 0,44 (LPA R$ 0,14 × payout da empresa 29% × (1 + g) ÷ taxa) · g 0 (sem ROE) · DPA/9,4% R$ 1,81 (conferência) · ⚠️ Projetivo (R$ 0,44) diverge 76% do histórico (R$ 1,81): confira premissa de dividendos",
   "preco": 2.43,
   "data": "2026-11-18",
   "base_dpa": "historico_5a"

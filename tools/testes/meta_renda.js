@@ -83,6 +83,15 @@ return (async () => {
       refTxt.includes('Com o crescimento do setor') && tetoCalcComG != null && Math.abs(tetoCalcComG - tetoOfBbse) <= 0.05 && tetoCalcPadrao != null && tetoCalcPadrao < tetoCalcComG,
       `refTxt="${refTxt}", tetoCalcComG=${tetoCalcComG}, tetoOfBbse=${tetoOfBbse?.toFixed(2)}, tetoCalcPadrao=${tetoCalcPadrao}`
     );
+
+    // Caso 7 (Rodada 23 Parte A): BBSE3 projetivo sem dupla contagem de g (≈ 49,72, não 60,53)
+    const avBbse = window.tetoOficial('BBSE3');
+    const projEspBbse = avBbse ? (avBbse.lpa * ((avBbse.S && avBbse.S.haircut) || 1) * (avBbse.pay / 100) * (1 + avBbse.g / 100) / (avBbse.req / 100)) : null;
+    check(
+      '5. Rodada 23 Parte A: BBSE3 projetivo = LPA × payout × (1 + g) ÷ req (≈ R$ 49,72, não R$ 60,53)',
+      avBbse && projEspBbse != null && Math.abs(avBbse.proj - projEspBbse) <= 0.01 && avBbse.proj > 49.0 && avBbse.proj < 50.5 && avBbse.teto < 55,
+      `lpa=${avBbse?.lpa?.toFixed(2)}, pay=${avBbse?.pay?.toFixed(1)}, g=${avBbse?.g?.toFixed(1)}, req=${avBbse?.req?.toFixed(1)}, proj=${avBbse?.proj?.toFixed(2)}, esp=${projEspBbse?.toFixed(2)}, teto=${avBbse?.teto?.toFixed(2)}`
+    );
   } finally {
     // Restaurar estado limpo
     const elSal = document.getElementById('meta-salario-input');

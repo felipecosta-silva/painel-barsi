@@ -15,11 +15,11 @@ return (async () => {
     // Caso 1: TRXF11 com o arquivo real
     const avTrxf = window.tetoOficial('TRXF11');
     const reqTrxf = avTrxf.req || avTrxf.taxa;
-    const tetoEspTrxf = 8.64 / (reqTrxf / 100);
+    const tetoEspTrxf = 8.10 / (reqTrxf / 100); // 20/11: média ago (0,72) e out/26 (0,63) = 0,675 × 12
     const recTrxf = avTrxf.recorrente;
     check(
-      '1. TRXF11 teto pelo recorrente e inflado 0,21',
-      avTrxf && Math.abs(avTrxf.teto - tetoEspTrxf) <= 0.02 && recTrxf && Math.abs(recTrxf.inflado - 0.21) <= 0.001,
+      '1. TRXF11 teto pelo recorrente e inflado 0,26',
+      avTrxf && Math.abs(avTrxf.teto - tetoEspTrxf) <= 0.02 && recTrxf && Math.abs(recTrxf.inflado - 0.255) <= 0.006,
       `teto=${avTrxf?.teto?.toFixed(2)} (esp=${tetoEspTrxf.toFixed(2)}), inflado=${recTrxf?.inflado?.toFixed(2)}`
     );
 
@@ -35,8 +35,8 @@ return (async () => {
       `teto=${avGare?.teto?.toFixed(2)} (esp=${tetoPagoGare.toFixed(2)}), recorrente=${avGare?.recorrente}`
     );
 
-    // Caso 3: Fixture de mês fora da janela (hoje = 2027-03-01 para 2026-08) -> null
-    const recForaJanela = window.fehmirRecorrenteFii('TRXF11', 10.87, 67.38, 12.2, '2027-03-01');
+    // Caso 3: mês fora da janela (hoje = 2027-05-01; o último mês medido é 2026-10) -> null
+    const recForaJanela = window.fehmirRecorrenteFii('TRXF11', 10.87, 67.38, 12.2, '2027-05-01');
     check(
       '3. Mês fora da janela de 6 meses retorna null',
       recForaJanela === null,
@@ -66,7 +66,7 @@ return (async () => {
       `recMes=${rec2m?.recMes}`
     );
 
-    // Caso 6: texto da fonte do TRXF11 com R$ 0,21, ago/26 e os dois DY calculados pelo preço do dia
+    // Caso 6: texto da fonte do TRXF11 com R$ 0,26, ago–out/26 e os dois DY calculados pelo preço do dia
     // (13/11/2026: antes fixava 12,8% e 16,1%, que só valiam com o TRXF11 a R$ 67,38)
     const srcTxt = avTrxf?.src || '';
     const mDy = srcTxt.match(/DY no preço de hoje: ([\d,]+)% pelo recorrente, ([\d,]+)% pelo pago/);
@@ -74,10 +74,10 @@ return (async () => {
     const br = x => (x * 100).toFixed(1).replace('.', ',') + '%';
     const mPago = srcTxt.match(/pelo pago seria R\$ ([\d.,]+)\)/), mTaxa = srcTxt.match(/÷ ([\d,]+)% = R\$/);
     const pagoAno = (mPago && mTaxa) ? parseFloat(mPago[1].replace('.', '').replace(',', '.')) * parseFloat(mTaxa[1].replace(',', '.')) / 100 : null;
-    const dyRecEsp = pHoje ? br(0.72 * 12 / pHoje) : null, dyPagoEsp = (pHoje && pagoAno) ? br(pagoAno / pHoje) : null;
-    const temTokens = ['R$ 0,21', 'ago/26'].every(tok => srcTxt.includes(tok)) && mDy && (mDy[1] + '%') === dyRecEsp && (mDy[2] + '%') === dyPagoEsp;
+    const dyRecEsp = pHoje ? br(0.675 * 12 / pHoje) : null, dyPagoEsp = (pHoje && pagoAno) ? br(pagoAno / pHoje) : null;
+    const temTokens = ['R$ 0,26', 'ago–out/26'].every(tok => srcTxt.includes(tok)) && mDy && (mDy[1] + '%') === dyRecEsp && (mDy[2] + '%') === dyPagoEsp;
     check(
-      `6. Texto da fonte do TRXF11 contém R$ 0,21, ago/26 e os DY do preço de hoje (${dyRecEsp} e ${dyPagoEsp} a R$ ${pHoje})`,
+      `6. Texto da fonte do TRXF11 contém R$ 0,26, ago–out/26 e os DY do preço de hoje (${dyRecEsp} e ${dyPagoEsp} a R$ ${pHoje})`,
       temTokens,
       `src="${srcTxt}"`
     );

@@ -19176,14 +19176,8 @@ initCollapsibleBlocks();
     const gi = fehmirCrescimentoReal(a.t, S, pay, m, rec);
     const g = gi.g;
     let proj = null;
-    let projMotivo = "";
     if (lpa > 0) {
-      if (req - g <= 2) {
-        proj = null;
-        projMotivo = "— taxa − g ≤ 2 p.p.: projetivo não calculado";
-      } else {
-        proj = lpa * (S.haircut || 1) * (pay / 100) * (1 + g / 100) / ((req - g) / 100);
-      }
+      proj = lpa * (S.haircut || 1) * (pay / 100) * (1 + g / 100) / (req / 100);
     }
     const gTxt = gi.limitado ? ("g real " + fmtN(g, 1) + "% (limite)") : (g > 0 ? ("g real " + fmtN(g, 1) + "%") : ("g 0 (" + gi.motivoZero + ")"));
 
@@ -19233,7 +19227,7 @@ initCollapsibleBlocks();
       if (hist != null && hist > 0 && proj > 1.30 * hist) {
         aviso30 = " · ⚠️ projetivo 30%+ acima do pago — confirmar";
       }
-      src = "Projetivo " + fR(proj) + " (LPA " + fR(lpa) + " × " + payLabel + " × (1 + g) ÷ (taxa − g)) · " + gTxt +
+      src = "Projetivo " + fR(proj) + " (LPA " + fR(lpa) + " × " + payLabel + " × (1 + g) ÷ taxa) · " + gTxt +
         (hist ? " · " + histSrc + " (conferência)" : "") + aviso30;
     }
     // 1. MÉTODO GRAHAM (Industrial & Bens de capital; Construção & Incorporação; ou Payout < 30% / irregular)
@@ -19373,8 +19367,8 @@ initCollapsibleBlocks();
         motivoBase = S.ciclico ? "ciclica" : (rec.emRecuperacao ? "recuperacao" : "transmissora");
         const motivoMenor = S.ciclico ? " (cíclica)" : (rec.emRecuperacao ? (" (recuperação: " + rec.motivo + ")") : " (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)");
         const projParte = (proj != null && proj > 0)
-          ? ("Projetivo " + fR(proj) + " (LPA " + fR(lpa) + " × " + payLabel + (S.haircut ? " × " + fmtN(S.haircut * 100, 0) + "%" : "") + " × (1 + g) ÷ (taxa − g)) · " + gTxt)
-          : (projMotivo ? ("Projetivo indisponível " + projMotivo) : "");
+          ? ("Projetivo " + fR(proj) + " (LPA " + fR(lpa) + " × " + payLabel + (S.haircut ? " × " + fmtN(S.haircut * 100, 0) + "%" : "") + " × (1 + g) ÷ taxa) · " + gTxt)
+          : "";
         src = (projParte ? projParte + (paySrcAviso ? " [" + paySrcAviso + "]" : "") : "") +
           (projParte && hist ? " · " : "") + (hist ? histSrc : "") + " → usa o menor" + motivoMenor;
       } else {
@@ -19386,14 +19380,14 @@ initCollapsibleBlocks();
           if (hist != null && hist > 0 && proj > 1.30 * hist) {
             aviso30 = " · ⚠️ projetivo 30%+ acima do pago — confirmar";
           }
-          src = "Projetivo " + fR(proj) + " (LPA " + fR(lpa) + " × " + payLabel + (S.haircut ? " × " + fmtN(S.haircut * 100, 0) + "%" : "") + " × (1 + g) ÷ (taxa − g)) · " + gTxt +
+          src = "Projetivo " + fR(proj) + " (LPA " + fR(lpa) + " × " + payLabel + (S.haircut ? " × " + fmtN(S.haircut * 100, 0) + "%" : "") + " × (1 + g) ÷ taxa) · " + gTxt +
             (paySrcAviso ? " [" + paySrcAviso + "]" : "") +
             (hist ? " · " + histSrc + " (conferência)" : "") + aviso30;
         } else {
           teto = hist;
           baseTeto = "historico";
           motivoBase = "qualidade";
-          src = (projMotivo ? "Projetivo indisponível " + projMotivo + " · " : "") + (hist ? histSrc : "Sem dados para teto");
+          src = hist ? histSrc : "Sem dados para teto";
         }
       }
     }
@@ -20245,7 +20239,7 @@ initCollapsibleBlocks();
       mtz.innerHTML = `<h3>Matriz Setorial de Valuation</h3>
         <p class="cb-sub">Cada setor tem a sua régua: não se compara banana-prata com banana-nanica. O preço-teto de cada ação é o <b>menor</b> entre o <b>projetivo</b> e o <b>histórico</b>, e o "mais descontado" só compara pares do mesmo setor (ativos com flag de armadilha ficam de fora).</p>
         <div class="mz-formula">
-          <div><b>Teto projetivo (ações)</b> = LPA × corte de ciclo × payout sustentável ÷ DY exigido do setor</div>
+          <div><b>Teto projetivo (ações)</b> = LPA × corte de ciclo × payout sustentável × (1 + g) ÷ DY exigido do setor</div>
           <div><b>DY exigido</b> = Tesouro IPCA+ (juro real) + prêmio do setor. Dividendo de empresa perene cresce com a inflação, então o DY é comparado com juro <i>real</i>; quem não repassa preço paga prêmio maior.</div>
           <div><b>FII tijolo</b>: aluguel corrigido pela inflação → IPCA+ + prêmio. <b>FII papel/fiagro</b>: rendimento nominal → IPCA+ + IPCA + spread. Yield fora da curva leva prêmio extra.</div>
         </div>
@@ -21803,12 +21797,11 @@ function fehmirCalcularMetricas(t, estado, preco) {
     projMsg = "Informe o DY desejado";
   } else {
     const gProj = estado.projetivo.proj || 0;
-    const usarGordon = !!(estado.projetivo.usarGSetor || gProj > 0);
     const dpaBase = (estado.projetivo.usarGSetor && estado.projetivo.dpa0Exato > 0)
       ? estado.projetivo.dpa0Exato
       : ((estado.projetivo.lucro * (estado.projetivo.payout / 100)) / estado.projetivo.nAcoes);
     dpaProj = dpaBase * (1 + gProj / 100);
-    const denomDy = usarGordon ? (estado.projetivo.dy - gProj) : estado.projetivo.dy;
+    const denomDy = estado.projetivo.dy;
     projTeto = denomDy > 0 ? dpaProj / (denomDy / 100) : null;
     if (preco > 0) yieldProj = (dpaProj / preco) * 100;
     if (projTeto > 0 && preco > 0) projMargem = (1 - preco / projTeto) * 100;
@@ -22067,7 +22060,7 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
         <div class="an-calc-card"${isProjRec ? ' style="border:2px solid var(--gold);position:relative;"' : ''}>
           <div class="an-calc-card-head">
             <div class="an-calc-card-title">
-              <span>📙 Projetivo (Barsi) <span class="an-info" tabindex="0" title="Projetivo: lucro esperado × parte distribuída ÷ dividendo que você exige. É o método principal para pagadoras estáveis (elétricas, seguradoras, transmissão, bancos junto com o P/VP justo). Com os valores padrão dá o mesmo número do Valuation explicado.">ⓘ</span></span>
+              <span>📙 Projetivo (Barsi) <span class="an-info" tabindex="0" title="Projetivo: lucro esperado × parte distribuída × (1 + g) ÷ dividendo que você exige. É o método principal para pagadoras estáveis (elétricas, seguradoras, transmissão, bancos junto com o P/VP justo). Com os valores padrão dá o mesmo número do Valuation explicado.">ⓘ</span></span>
               ${isProjRec ? badgeRecHtml : ''}
             </div>
             <button type="button" class="an-calc-card-reset" onclick="fehmirResetarCalc('${t}', 'projetivo')">↻ Padrão</button>
@@ -22086,9 +22079,9 @@ function fehmirRenderCalculadorasValuation(t, a, av, vDDM) {
               </div>
             </div>
             <div class="an-calc-row">
-              <span class="an-calc-label">Projeção Cresc. (%) <span class="an-info" tabindex="0" title="Quanto o lucro deve crescer no próximo ano. Padrão 0%: mostra o teto sem nenhum crescimento (visão conservadora). O teto oficial da régua usa o crescimento real limitado do setor na fórmula de Gordon, por isso pode ficar acima deste.">ⓘ</span></span>
+              <span class="an-calc-label">Projeção Cresc. (%) <span class="an-info" tabindex="0" title="Quanto o lucro deve crescer no próximo ano. Padrão 0%: mostra o teto sem nenhum crescimento (visão conservadora). O teto oficial da régua aplica o crescimento real limitado do setor no dividendo projetado (× (1 + g) ÷ taxa), por isso pode ficar acima deste.">ⓘ</span></span>
               <div class="an-calc-input-wrap" style="gap:4px;flex-wrap:wrap;justify-content:flex-end;">
-                ${(av && av.g > 0) ? `<button type="button" class="an-calc-shortcut-btn" id="calc-proj-btn-gsetor-${t}" onclick="fehmirUsarGSetorCalc('${t}')" title="Preenche o g oficial (${fmtN(av.g, 1)}%) e aplica a fórmula de Gordon da régua">usar g do setor</button>` : ''}
+                ${(av && av.g > 0) ? `<button type="button" class="an-calc-shortcut-btn" id="calc-proj-btn-gsetor-${t}" onclick="fehmirUsarGSetorCalc('${t}')" title="Preenche o g oficial (${fmtN(av.g, 1)}%) no dividendo projetado da régua (× (1 + g) ÷ taxa)">usar g do setor</button>` : ''}
                 <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','proj-proj', -1)">−</button>
                 <input type="number" step="0.1" class="an-calc-input" id="calc-proj-proj-${t}" value="${estado.projetivo.proj}" oninput="fehmirAtualizarCalc('${t}')" style="width:50px">
                 <button type="button" class="an-calc-step-btn" onclick="fehmirPassoCalc('${t}','proj-proj', 1)">+</button>
