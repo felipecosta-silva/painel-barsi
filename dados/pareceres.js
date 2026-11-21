@@ -42,117 +42,85 @@ window.FEHMIR_PARECERES = {
   },
   "GARE11": {
     "fatos": [
-      "Aquisição do Complexo Logístico Nova Santa Rita (RS) por R$ 155,87 milhões parcelados em até 18 meses, com running yield estimado de 13,5% a.a. nos primeiros 5 anos (11,75% a.a. estabilizado).",
-      "Conclusão da compra do ativo Carrefour Itapevi por R$ 119,81 milhões (R$ 101,7 milhões à vista e R$ 18 milhões para julho de 2028, contrato típico com vencimento em dez/2029).",
-      "Venda de 10 ativos ao FII Riza Master teve captação de R$ 428 milhões concluída pelo comprador, mas liquidação da 1ª tranche foi postergada de agosto para outubro por questões operacionais.",
-      "Portfólio com 34 imóveis, 100% ocupado (vacância zero), 100% adimplente e 88% da receita vinculada a contratos atípicos (prazo médio remanescente de 9,33 anos).",
-      "Colchão de disponibilidades superior a R$ 1 bilhão cobre o total de obrigações consolidadas (R$ 847 milhões), resultando em alavancagem líquida de -7%.",
-      "Distribuição mantida em R$ 0,083 por cota (DY anualizado de 11,8%), com resultado apurado de R$ 0,085 por cota e guidance entre R$ 0,083 e R$ 0,090 confirmado."
+      "Alienação de 9 imóveis ao FII Riza Master por R$ 791,7 milhões com projeção de lucro bruto de R$ 177 milhões e quitação de R$ 328 milhões em CRIs.",
+      "Estruturação do recebimento da venda composta por R$ 382,2 milhões em caixa, R$ 250,0 milhões em cotas subordinadas do comprador e R$ 159,5 milhões em Seller's Finance.",
+      "Aquisição do Complexo Logístico Nova Santa Rita por R$ 155,87 milhões com pagamento diferido em 18 meses, elevando a exposição logística para 41%.",
+      "Manutenção de 0% de vacância física e financeira, inadimplência zero e distribuição de proventos estável em R$ 0,083 por cota, com guidance reiterado entre R$ 0,083 e R$ 0,090."
     ],
-    "atribuicao": "ativo: a dinâmica recente é dominada pela reciclagem e expansão de portfólio da gestão, com compras parceladas de ativos logísticos e venda de portfólio em andamento.",
+    "atribuicao": "ativo (reciclagem estrutural profunda do portfólio físico, migrando de varejo de renda para ativos logísticos, recebíveis parcelados e cotas subordinadas)",
     "risco": "idiossincratico",
-    "risco_motivo": "",
-    "caixa_vs_contabil": "As aquisições parceladas (Nova Santa Rita e Carrefour Itapevi) postergam a saída real de caixa enquanto agregam receita imediata, enquanto o atraso na liquidação da venda ao Riza Master adia a entrada efetiva de caixa.",
+    "risco_motivo": "A substituição de imóveis físicos com contratos atípicos por R$ 250 milhões em cotas subordinadas e R$ 159,5 milhões em Seller's Finance insere risco de cauda e dependência de crédito do comprador.",
+    "caixa_vs_contabil": "Embora haja lucro contábil projetado de R$ 177 milhões, a entrada de caixa livre é mitigada pela quitação de CRIs (R$ 328M), retenção em cotas subordinadas (R$ 250M) e diferimento no recebimento a prazo (R$ 159,5M).",
     "gatilhos": [
-      "Fracasso ou renegociação com desconto na liquidação da venda dos 10 ativos ao FII Riza Master.",
-      "Aumento de vacância física ou inadimplência nos principais locatários (Carrefour ou BAT).",
-      "Consumo excessivo da reserva de liquidez com compromissos de aquisição sem a respectiva entrada de recursos das desinvestimentos planejados."
+      "Inadimplência ou perda de valor nas cotas subordinadas e no Seller's Finance vinculados ao FII comprador",
+      "Redução do provento mensal abaixo do guidance mínimo de R$ 0,083 por atraso ou ineficiência no reinvestimento de caixa",
+      "Aumento relevante da vacância nos ativos remanescentes ou nos recém-adquiridos"
     ],
     "parecer": "atencao",
     "confianca": "alta",
-    "licao_generica": "Aquisições parceladas exigem monitorar se as disponibilidades de caixa cobrem as obrigações futuras sem depender de novas vendas de ativos.",
-    "data": "2026-10-24",
+    "licao_generica": "Vendas de imóveis pagas com cotas subordinadas e parcelamentos trocam ativos reais por risco de crédito, exigindo análise rigorosa do caixa efetivo.",
+    "data": "2026-11-21",
     "fontes": [
+      "fnet_1370249",
+      "fnet_1366160",
       "fnet_1339182",
       "fnet_1331301"
-    ],
-    "gatilhos_mudanca": [],
-    "completo": false,
-    "motivo_parcial": "Número sem lastro na ficha: 36%",
-    "veredito": "manter",
-    "regua": {
-      "teto": 11.29,
-      "compra": 10.16,
-      "preco": 8.76,
-      "margem": 22.4,
-      "metodo": "Bazin por rendimento",
-      "setor": "FII Tijolo · Logística/Renda urbana"
-    },
-    "antigo": true
+    ]
   },
   "GGRC11": {
     "fatos": [
-      "Distribuição mantida em R$ 0,10 por cota em setembro de 2026, com resultado operacional gerado de R$ 0,096 por cota e uso de R$ 0,004 por cota de reserva.",
-      "Exposição ao Triple A FII (Casas Bahia) representa menos de 5% da receita, com 58% do imóvel sublocado e aluguéis pós-RJ adimplentes.",
-      "Avanço na venda de portfólio de 10 imóveis por R$ 530 milhões, com pendência de condições precedentes contratuais.",
-      "Fixação de complemento de preço da aquisição do portfólio RELG11 em R$ 6,67 milhões, a ser quitado em 4 parcelas."
+      "Conclusão da alienação de portfólio com 10 imóveis ao Suno Imóveis FII (SNIM) pelo montante total de R$ 530 milhões, com lucro apurado de aproximadamente R$ 75 milhões (cerca de R$ 0,22 por cota).",
+      "Condições de pagamento da venda: R$ 381,6 milhões recebidos à vista (72%) e saldo remanescente de R$ 148,4 milhões em 14 parcelas mensais de R$ 10,6 milhões sem atualização monetária.",
+      "Gestão informou intenção de alocar até 50% dos recursos apurados na aquisição de cotas de FIIs que deterão os ativos alienados, amortização de dívidas (CRIs) ou novos ativos.",
+      "Distribuição mantida em R$ 0,10 por cota, superando o resultado gerado no mês de R$ 0,096 por cota e exigindo consumo de reservas de caixa de R$ 0,004 por cota.",
+      "Carteira remanescente com vacância física reduzida a 0,49%, inadimplência zerada e saldo devedor em CRIs de R$ 329,17 milhões (LTV próximo a 13%)."
     ],
-    "atribuicao": "fluxo (resultado operacional gerado no mês ficou aquém da distribuição mantida, demandando consumo de reserva de caixa)",
+    "atribuicao": "fluxo",
     "risco": "idiossincratico",
-    "risco_motivo": "Consumo de reservas para sustentar proventos e pendências de fechamento na alienação relevante de R$ 530 milhões, somados a desdobramentos da RJ de Casas Bahia.",
-    "caixa_vs_contabil": "O fundo consumiu R$ 0,004 por cota de caixa acumulado para pagar R$ 0,10, enquanto gerou R$ 0,096; entradas pontuais de R$ 2,0 milhões de Campinas aliviam caixa, mas há desembolso de R$ 6,67 milhões a pagar pelo RELG11.",
+    "risco_motivo": "Desinvestimento de volume expressivo de ativos (R$ 530 milhões) impõe elevado risco de reinvestimento para recompor o fluxo de aluguéis recorrentes, somado à corrosão inflacionária da parcela a prazo sem correção monetária.",
+    "caixa_vs_contabil": "O ganho de capital contábil de R$ 75 milhões será incorporado à distribuição apenas no ritmo das entradas de caixa; enquanto isso, o resultado operacional caixa de R$ 0,096/cota é inferior ao dividendo pago de R$ 0,10/cota, consumindo reservas.",
     "gatilhos": [
-      "Recorrência de resultado mensal gerado abaixo do patamar de R$ 0,10 por cota com exaustão de reservas",
-      "Não fechamento ou rescisão da venda do portfólio de R$ 530 milhões",
-      "Inadimplência ou aumento de vacância física/financeira no Triple A FII ou carteira direta"
+      "Inadimplência ou atraso no pagamento das 14 parcelas mensais de R$ 10,6 milhões devidas pelo comprador.",
+      "Alocação do caixa recebido em ativos ou cotas com yield recorrente substancialmente inferior ao do portfólio vendido, comprimindo a renda base por cota.",
+      "Aumento contínuo do déficit entre o resultado operacional gerado e a distribuição de proventos praticada após o esgotamento do caixa da venda."
     ],
     "parecer": "atencao",
     "confianca": "alta",
-    "licao_generica": "Distribuição sustentada por reservas exige cautela; monitore a recorrência da geração operacional para evitar cortes futuros de proventos.",
-    "data": "2026-10-24",
+    "licao_generica": "Vendas a prazo sem indexação inflacionária deterioram o valor real do capital e transferem para a gestão a urgência de um reinvestimento eficiente.",
+    "data": "2026-11-21",
     "fontes": [
+      "fnet_1387111",
+      "fnet_1373169",
+      "fnet_1366052",
+      "fnet_1366307",
       "fnet_1355299"
-    ],
-    "gatilhos_mudanca": [],
-    "completo": false,
-    "motivo_parcial": "Número sem lastro na ficha: 0,37%",
-    "veredito": "manter",
-    "regua": {
-      "teto": 14.12,
-      "compra": 12.71,
-      "preco": 9.31,
-      "margem": 34.1,
-      "metodo": "Bazin por rendimento",
-      "setor": "FII Tijolo · Logística/Renda urbana"
-    },
-    "antigo": true
+    ]
   },
   "KNCA11": {
     "fatos": [
-      "Distribuição de rendimentos de R$ 0,93 por cota referente a setembro/2026, com resultado gerado equivalente a R$ 0,93 por cota (R$ 20,1 milhões).",
-      "Reserva de lucros acumulada não distribuída mantida em patamar robusto de R$ 0,67 por cota.",
-      "Alocação em ativos-alvo atingiu 86% do patrimônio líquido com aporte de R$ 110 milhões na CPR-F Cooxupé e compras no secundário de SLC, Cocal e Cooxupé.",
-      "Convocação de AGE com proposta de programa de recompra de cotas para mitigar o deságio de mercado frente ao valor patrimonial."
+      "Carteira do fundo permaneceu 100% adimplente em setembro e outubro de 2026, com reserva de resultados mantida em R$ 0,67 por cota.",
+      "Distribuição referente a outubro foi de R$ 1,00 por cota, superando ligeiramente o resultado contábil de competência de R$ 0,99 por cota.",
+      "Administrador fiduciário manteve remarcação a mercado negativa no CRA SuperFrio I, com saldo MTM de R$ 35,1 milhões frente ao saldo de aquisição de R$ 44,8 milhões.",
+      "Alocação de R$ 100 milhões no CRI FS II a IPCA + 11,43% a.a. elevou os ativos-alvo para 89,6% do PL.",
+      "Convocação de AGE para aprovar programa de recompra de cotas diante do forte deságio de mercado em relação ao valor patrimonial."
     ],
-    "atribuicao": "ativo (domina o impacto de crédito e alocação, evidenciado pelo aporte expressivo em Cooxupé e pelo estresse fiduciário no CRA SuperFrio I)",
+    "atribuicao": "ativo (risco de crédito específico evidenciado na remarcação fiduciária do CRA SuperFrio I e novas alocações de crédito)",
     "risco": "idiossincratico",
-    "risco_motivo": "Risco de crédito fiduciário específico no devedor do CRA SuperFrio I, que sofreu desvalorização contábil de mais de 20% pelo administrador, sinalizando potencial estresse financeiro da contraparte.",
-    "caixa_vs_contabil": "A remarcação fiduciária do CRA SuperFrio I e o efeito da deflação pontual do IPCA são ajustes contábeis/patrimoniais imediatos que não afetaram o caixa do mês, cuja geração de R$ 0,93 cobriu integralmente os proventos.",
+    "risco_motivo": "Desvalorização a mercado expressiva no CRA SuperFrio I imposta pelo administrador fiduciário, indicando potencial estresse no emissor apesar de não haver calote formal reportado.",
+    "caixa_vs_contabil": "A remarcação negativa de R$ 9,7 milhões no CRA SuperFrio I é estritamente contábil/patrimonial sem impacto imediato no fluxo de caixa (inadimplência zero); porém, a distribuição de outubro superou o resultado em R$ 0,01/cota via caixa acumulado.",
     "gatilhos": [
-      "Inadimplência formal, moratória ou perda efetiva de principal/juros no CRA SuperFrio I.",
-      "Redução persistente da geração de caixa abaixo da distribuição proposta, exigindo queima da reserva de R$ 0,67 por cota.",
-      "Aumento significativo no LTV médio da carteira ou deterioração generalizada no perfil de risco dos devedores."
+      "Inadimplência formal ou reestruturação compulsória com desconto no CRA SuperFrio I.",
+      "Redução recorrente da geração de caixa que force o esgotamento da reserva de R$ 0,67 por cota.",
+      "Aumento da inadimplência geral da carteira acima de 0%."
     ],
     "parecer": "atencao",
     "confianca": "alta",
-    "licao_generica": "Remarcações fiduciárias negativas pelo custodiante em títulos de crédito privado costumam antecipar estresse de crédito antes do calote formal.",
-    "data": "2026-10-24",
+    "licao_generica": "Remarcações fiduciárias negativas exigem vigilância redobrada sobre a higidez do devedor antes mesmo da ocorrência de inadimplência no fluxo de caixa.",
+    "data": "2026-11-21",
     "fontes": [
+      "fnet_1373192",
       "fnet_1345687"
-    ],
-    "gatilhos_mudanca": [],
-    "completo": false,
-    "motivo_parcial": "Número sem lastro na ficha: R$ 47,0",
-    "veredito": "manter",
-    "regua": {
-      "teto": 82.06,
-      "compra": 69.75,
-      "preco": 91.6,
-      "margem": -11.6,
-      "metodo": "P/VP perto de 1 + spread",
-      "setor": "Fiagro · Crédito agro"
-    },
-    "antigo": true
+    ]
   },
   "MXRF11": {
     "fatos": [
@@ -182,96 +150,85 @@ window.FEHMIR_PARECERES = {
   },
   "PETR4": {
     "fatos": [
-      "Assinatura de Acordos de Equalização de Gastos e Volumes (AEGVs) em Berbigão e Sururu, garantindo recebimento líquido de cerca de US$ 859 milhões de parceiros até novembro de 2026.",
-      "Aprovação pelo CA da adesão à nova subvenção econômica de diesel (MP 1.391/2026) de R$ 1,00 por litro, cumulativa a subsídio anterior de R$ 1,12 por litro, reiterando a diretriz de não repasse imediato da volatilidade internacional de preços."
+      "Revisão para cima da projeção de produção de óleo e gás em 2026 para 3,3 a 3,4 milhões de boed e geração de caixa operacional para US$ 45 a 50 bilhões.",
+      "Aumento das projeções de Capex para US$ 24 a 25,5 bilhões, Investimento Caixa para US$ 21 a 22 bilhões e Gastos Operacionais Gerenciáveis (GOG) para US$ 24,2 a 25,5 bilhões em 2026.",
+      "Produção total própria recorde de 3,512 MMboed no 3T26 (+5,3% vs 2T26 e +11,7% vs 3T25), impulsionada pelos FPSOs P-78, P-79 e Alexandre de Gusmão.",
+      "Recebimento líquido de aproximadamente US$ 859 milhões decorrente de acordos de equalização de gastos e volumes em Berbigão e Sururu previsto até novembro de 2026.",
+      "Arrematação de 21 blocos exploratórios em leilões da ANP com compromisso de desembolso de R$ 3,22 bilhões em bônus de assinatura até 30 de dezembro de 2026.",
+      "Adesão à subvenção econômica temporária de R$ 1,00/litro de diesel (MP nº 1.391/2026), reiterando a política de não repasse imediato de volatilidade de preços internacionais."
     ],
-    "atribuicao": "fluxo | O fluxo de caixa de curto e médio prazo é o elemento dominante, balanceando a entrada de US$ 859 milhões contra desembolsos de R$ 3,22 bilhões em bônus e impactos de margem via subsídios governamentais.",
+    "atribuicao": "ativo (expansão operacional e recorde de produção no pré-sal com ramp-up de FPSOs superam oscilações de curto prazo, embora custos e capex tenham subido)",
     "risco": "idiossincratico",
-    "risco_motivo": "Risco regulatório e político inerente à governança da estatal, evidenciado pelo uso de subvenções econômicas transitórias para contenção de preços de combustíveis e compromissos vultosos de capex exploratório.",
-    "caixa_vs_contabil": "O recebimento de US$ 859 milhões e o pagamento de R$ 3,22 bilhões têm liquidação em caixa prevista para o 4T26; já a subvenção do diesel impacta margem operacional e gera ativo a receber do Tesouro, com risco de descasamento temporal de caixa real.",
+    "risco_motivo": "Aumento simultâneo de Capex, Investimento Caixa e GOG, combinado com intervenções via subvenção de combustíveis e política de preços, pode comprimir o Fluxo de Caixa Livre e os proventos.",
+    "caixa_vs_contabil": "O recebimento de US$ 859 milhões de equalização e a elevação da geração operacional têm entrada real de caixa, mas serão contrabalançados pelo desembolso de R$ 3,22 bi de bônus e capex caixa ampliado em até US$ 5,1 bi.",
     "gatilhos": [
-      "Atraso ou inadimplência da União no ressarcimento financeiro das subvenções de óleo diesel.",
-      "Deterioração das margens de refino provocada por defasagem persistente e prolongada entre preços domésticos e paridade internacional.",
-      "Aumento desproporcional do capex exploratório sem conversão satisfatória em reservas comerciais provadas."
+      "Redução sustentada do preço do petróleo Brent que comprometa a meta de US$ 45-50 bilhões de geração de caixa operacional com Capex elevado.",
+      "Aumento da dívida bruta além dos limites de prudência em virtude de gastos com investimentos e afretamentos de FPSOs.",
+      "Alteração na política de remuneração aos acionistas que reduza o payout mínimo ou suspenda proventos em prol de investimentos de baixo retorno."
     ],
     "parecer": "atencao",
     "confianca": "alta",
-    "licao_generica": "Mecanismos de subvenção governamental em preços reduzem a previsibilidade das margens e aumentam o risco regulatório sobre o caixa.",
-    "data": "2026-10-24",
+    "licao_generica": "Elevações substanciais de Capex e custos operacionais exigem vigilância redobrada sobre o fluxo de caixa livre disponível para proventos.",
+    "data": "2026-11-21",
     "fontes": [
+      "cvm_009512IPE101120260123667596-54",
+      "cvm_009512IPE281020260169680874-88",
       "cvm_009512IPE131020260134742550-39",
       "cvm_009512IPE081020260138678668-06",
       "cvm_009512IPE190920260100853886-76"
-    ],
-    "gatilhos_mudanca": [],
-    "completo": false,
-    "motivo_parcial": "Número sem lastro na ficha: 21",
-    "veredito": "manter",
-    "regua": {
-      "teto": 47.9,
-      "compra": 33.53,
-      "preco": 58.68,
-      "margem": -22.5,
-      "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
-      "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)"
-    },
-    "antigo": true
+    ]
   },
   "RECR11": {
     "fatos": [
-      "Operações CRI Olimpo Sênior e Olimpo 2 Sênior foram classificadas em status de Repactuação."
+      "Rendimento de outubro de 2026 fixado em R$ 0,7636 por cota, com resultado caixa de R$ 20,20 milhões (R$ 0,7638 por cota), ante R$ 0,6182 distribuído em setembro.",
+      "Prejuízo contábil por competência de R$ 7,71 milhões em outubro de 2026 em função de marcação a mercado negativa de R$ 27,89 milhões nos títulos.",
+      "Permanência de dois créditos com status de vencimento antecipado (CRI Olimpo e CRI Olimpo 2), totalizando R$ 53,32 milhões ou aproximadamente 2,2% do ativo total.",
+      "CRI Grupo Cem apresenta indicador LTV de 102%, indicando saldo devedor superior ao valor das garantias imobiliárias diretas.",
+      "Contratação de operações compromissadas no valor de R$ 43,53 milhões com vencimento em janeiro de 2027, gerando despesa financeira de R$ 1,61 milhão no mês.",
+      "Rerratificação da 13ª emissão de cotas permitindo integralização mediante compensação de créditos contra o fundo e liquidação prevista para novembro de 2026."
     ],
-    "atribuicao": "fluxo (queda direta no resultado operacional de caixa e receitas com CRI/FII, pressionado também por despesas com compromissadas)",
+    "atribuicao": "ativo (risco de crédito concentrado em operações específicas como CRI Olimpo e CRI Grupo Cem, além do peso financeiro de compromissadas na geração de caixa)",
     "risco": "idiossincratico",
-    "risco_motivo": "",
-    "caixa_vs_contabil": "A distribuição foi integralmente respaldada pela geração de caixa do mês (resultado de R$ 0,6229/cota versus R$ 0,6182/cota distribuído), sem consumo de reservas, confirmando queda real do fluxo e não mero descompasso contábil.",
+    "risco_motivo": "Dois CRIs em vencimento antecipado somando R$ 53,32 milhões e operação com LTV acima de 100%, combinados com despesa recorrente de alavancagem via compromissadas.",
+    "caixa_vs_contabil": "No regime caixa o fundo gerou R$ 20,20 milhões e distribuiu R$ 0,7636 por cota, enquanto na competência teve prejuízo de R$ 7,71 milhões devido a R$ 27,89 milhões de marcação a mercado negativa sem saída financeira imediata.",
     "gatilhos": [
-      "Materialização de inadimplência efetiva nos CRIs em repactuação (Olimpo)",
-      "Aumento do endividamento via compromissadas sem contrapartida de carrego favorável",
-      "Perda de patrimônio líquido decorrente de execução frustrada de garantias (ex: Grupo Cem)"
+      "Inadimplência formal ou perda de capital definitiva na execução das garantias dos CRIs Olimpo 1 e 2.",
+      "Aumento do volume de operações compromissadas elevando a despesa financeira a ponto de comprometer o rendimento caixa.",
+      "Deterioração das garantias do CRI Grupo Cem com necessidade de provisionamento de perdas."
     ],
     "parecer": "atencao",
     "confianca": "alta",
-    "licao_generica": "Em fundos de crédito, repactuações e alavancagem via compromissadas antecipam a compressão de proventos antes do default formal.",
-    "data": "2026-10-24",
+    "licao_generica": "Prejuízo por marcação a mercado não afeta o dividendo imediato, mas créditos em repactuação e custo de compromissadas corroem a geração de caixa.",
+    "data": "2026-11-21",
     "fontes": [
-      "fnet_1342523"
-    ],
-    "gatilhos_mudanca": [],
-    "completo": false,
-    "motivo_parcial": "Número sem lastro na ficha: R$ 1,37",
-    "veredito": "manter",
-    "regua": {
-      "teto": 70.48,
-      "compra": 63.43,
-      "preco": 77.77,
-      "margem": -10.3,
-      "metodo": "P/VP perto de 1 + spread",
-      "setor": "FII Papel · CRI"
-    },
-    "antigo": true
+      "fnet_1373276",
+      "fnet_1342523",
+      "fnet_1316501"
+    ]
   },
   "BBSE3": {
     "fatos": [
-      "Renúncia com efeitos imediatos da conselheira Maria Carolina Ferreira Lacerda do Conselho de Administração e do Comitê de Transações com Partes Relacionadas (CTPR).",
-      "A conselheira exercia mandato como representante eleita pelos acionistas minoritários.",
-      "A saída foi motivada por razões de natureza pessoal e profissional.",
-      "A Companhia iniciará os procedimentos para recomposição da vaga conforme a legislação e o Estatuto Social."
+      "Revisão para baixo no guidance de prêmios emitidos da Brasilseg para 2026, passando de [-3% a +2%] para [-15% a -11%], impulsionada por desempenho fraco em rural, prestamista e vida.",
+      "Resultado operacional não decorrente de juros (ex-holding) recuou 1,2% em 9M26, mantendo o guidance original (-7% a -3%) sustentado por sinistralidade favorável.",
+      "Crescimento de reservas de PGBL/VGBL da Brasilprev atingiu +12,6% em 9M26, superando a faixa projetada de +8% a +11%.",
+      "Renúncia da conselheira Maria Carolina Ferreira Lacerda ao Conselho de Administração e ao CTPR, abrindo chamamento para eleição de representante dos minoritários em AGE prevista para 14/12/2026."
     ],
-    "atribuicao": "ativo: evento estritamente interno e corporativo de governança da companhia, sem relação com fatores macroeconômicos ou dinâmica setorial.",
+    "atribuicao": "ativo | Desaceleração operacional concentrada na emissão de seguros da Brasilseg, compensada parcialmente pela força da previdência e baixa sinistralidade.",
     "risco": "idiossincratico",
-    "risco_motivo": "Risco de desfalque temporário na representatividade dos minoritários no Conselho e no comitê que avalia operações com o controlador (CTPR) até a recomposição formal do cargo.",
-    "caixa_vs_contabil": "Sem qualquer impacto contábil ou no fluxo de caixa operacional; evento exclusivamente administrativo de governança.",
+    "risco_motivo": "Contração relevante no volume de prêmios emitidos nos segmentos rural e prestamista, com potencial de reduzir as receitas auferidas nos exercícios seguintes.",
+    "caixa_vs_contabil": "A redução na emissão de prêmios impacta o volume contratado imediatamente, mas o impacto no lucro e no caixa é amortecido no curto prazo pelo diferimento de prêmios ganhos e sinistralidade controlada.",
     "gatilhos": [
-      "Dificuldade ou atraso injustificado na eleição de novo representante dos acionistas minoritários.",
-      "Aprovação de transações com partes relacionadas que prejudiquem os interesses dos minoritários durante o período de vacância.",
-      "Surgimento de conflitos de interesse ou litígios associados à saída da conselheira."
+      "Deterioração do resultado operacional não decorrente de juros abaixo da faixa projetada (-7%).",
+      "Aumento significativo da taxa de sinistralidade simultâneo à retração dos prêmios.",
+      "Redução recorrente no fluxo de proventos distribuídos decorrente da menor geração operacional."
     ],
-    "parecer": "manter",
+    "parecer": "atencao",
     "confianca": "alta",
-    "licao_generica": "Renúncias pontuais no conselho por motivos pessoais, sem litígio relatado, não afetam os fundamentos operacionais nem o fluxo de proventos.",
-    "data": "2026-10-31",
+    "licao_generica": "Queda na emissão de prêmios sinaliza receitas futuras menores, mas baixa sinistralidade e float financeiro podem amortecer o caixa de curto prazo.",
+    "data": "2026-11-21",
     "fontes": [
+      "cvm_023159IPE031120260136690064-95",
+      "cvm_023159IPE031120260115042650-19",
       "cvm_023159IPE231020260110957071-32"
     ]
   },
@@ -302,28 +259,28 @@ window.FEHMIR_PARECERES = {
   },
   "RZTR11": {
     "fatos": [
-      "Alienacao da Fazenda Vale do Rio Celeste a vista por R$ 109 milhoes apos rescisao amigavel de opcao de compra pelo arrendatario por incapacidade financeira",
-      "Venda da Fazenda Sao Francisco I por R$ 200 milhoes, sendo R$ 118 milhoes parcelados em 4 anos e R$ 40 milhoes em permuta por imovel com yield de 3% a.a. e contrato de 1 ano",
-      "Processo judicial em andamento para reintegracao de posse da Fazenda Bom Jardim apos inadimplencia de arrendatario",
-      "Recompra antecipada das Fazendas Bacuri e Buriti pelo arrendatario cessando contratos de arrendamento e reduzindo receitas recorrentes",
-      "Gestao emitiu alerta formal de reducao de dividendos no proximo semestre com guidance revisado para a faixa de R$ 0,80 a R$ 1,00 por cota",
-      "Reserva de resultado acumulada praticamente esgotada em R$ 0,01 por cota em setembro de 2026",
-      "Identificacao de erro relevante pelo administrador fiduciario no calculo do valor patrimonial divulgado, ajustado de R$ 195,67 para R$ 99 a R$ 100 por cota"
+      "Acordo judicial sobre a Fazenda Bom Jardim confirmou a propriedade do Fundo fora da RJ do Grupo Macedo, mas reduziu o valor contábil do ativo em R$ 49,87 milhões (-R$ 2,65/cota) e adiou o início dos pagamentos de arrendamento para abril de 2027.",
+      "Alienação da Fazenda Vale do Rio Celeste concluída à vista por R$ 109 milhões após o arrendatário (Grupo Lermen) não exercer a opção de recompra.",
+      "Alienada a Fazenda São Francisco I por R$ 200 milhões, recebendo R$ 40 milhões em imóvel permutado de baixo yield (3% a.a.) e R$ 118 milhões parcelados em 4 anos.",
+      "Exercício de recompra antecipada pelo Grupo Cereal Ouro (R$ 48,8 milhões), encerrando o respectivo contrato de arrendamento recorrente.",
+      "Gestão emitiu alerta formal de redução potencial nas distribuições de rendimentos no semestre, situando o guidance entre R$ 0,80 e R$ 1,00 por cota.",
+      "Identificação e correção de erro operacional do administrador que havia superavaliado o valor patrimonial em R$ 195,67 por cota, ajustado para a faixa de R$ 99,00 a R$ 100,00."
     ],
-    "atribuicao": "ativo | Desinvestimentos e dificuldades operacionais de arrendatarios diminuem o fluxo de receitas recorrentes e exigem reestruturacao do portfolio.",
+    "atribuicao": "fluxo",
     "risco": "idiossincratico",
-    "risco_motivo": "Risco de credito e capacidade financeira de contrapartes rurais, gerando litigio de posse, rescisoes e concentracao de recebiveis parcelados a prazo longo.",
-    "caixa_vs_contabil": "Ganhos de capital contabeis sao diferidos e parcelados em varios anos, enquanto a perda das receitas de arrendamento impacta imediatamente o fluxo de caixa mensal.",
+    "risco_motivo": "Concentração de estresse de crédito e liquidez em múltiplos arrendatários (Macedo, Lermen), resultando em renegociações com diferimento de fluxo e desinvestimentos que reduzem a receita recorrente de arrendamento.",
+    "caixa_vs_contabil": "Contabilmente houve baixa de R$ 49,87 mi na Fazenda Bom Jardim e retificação do PL de R$ 195 para ~R$ 100/cota; no caixa, a entrada pontual de vendas mascara o hiato de receitas recorrentes até 2027, comprimindo os proventos futuros.",
     "gatilhos": [
-      "Inadimplencia no pagamento das parcelas anuais a receber da Fazenda Sao Francisco I",
-      "Perda definitiva ou atraso desproporcional na reintegracao e liquidacao da Fazenda Bom Jardim",
-      "Distribuicao mensal caindo abaixo de R$ 0,80 por cota de forma recorrente sem reposicao de caixa gerador"
+      "Distribuição de rendimentos caindo abaixo do piso do guidance de R$ 0,80 por cota por período prolongado.",
+      "Inadimplência ou renegociação desfavorável nas 4 parcelas anuais de R$ 118 milhões da Fazenda São Francisco I.",
+      "Não cumprimento do cronograma de pagamentos da Fazenda Bom Jardim com início previsto para abril de 2027."
     ],
     "parecer": "atencao",
     "confianca": "alta",
-    "licao_generica": "Ganhos de capital parcelados nao substituem receita operacional recorrente no curto prazo e trazem volatilidade a distribuicao de proventos.",
-    "data": "2026-10-31",
+    "licao_generica": "Em ativos imobiliários rurais, recompras antecipadas e renegociações de crédito podem corroer a previsibilidade do dividendo recorrente.",
+    "data": "2026-11-21",
     "fontes": [
+      "fnet_1386032",
       "fnet_1358017",
       "fnet_1348111",
       "fnet_1343384",
@@ -413,32 +370,82 @@ window.FEHMIR_PARECERES = {
   },
   "XPML11": {
     "fatos": [
-      "Conclusão da aquisição de 60,00% do São Bernardo Plaza Shopping, com 30% do valor parcelado em até 24 meses e estimativa de incremento de R$ 0,48/cota no resultado operacional em 12 meses.",
-      "Conclusão da venda de 16,99% do Shopping Cidade Jardim por R$ 456,30 milhões, gerando ganho de capital estimado de R$ 2,07/cota e redução da alavancagem de 15,6% para 13,1%.",
-      "Aquisição de direitos reais de uso temporários (vencimentos em 2043 e 2047) nos Shoppings Metrô Boulevard Tatuapé e Metrô Itaquera com obrigações diferidas indexadas ao CDI.",
-      "Resultado contábil mensal de agosto de R$ 33,68 milhões inferior à distribuição realizada de R$ 59,16 milhões (R$ 0,92/cota), reduzindo a reserva acumulada de R$ 1,91 para R$ 1,51/cota.",
-      "Guidance de distribuição divulgado pela gestão prevendo intervalo entre R$ 0,83 e R$ 0,92 por cota até dezembro de 2026, com vacância física subindo continuamente para 5,1%."
+      "Anúncio de novo guidance de distribuição reduzindo proventos para a faixa de R$ 0,74 a R$ 0,84 por cota, ante R$ 0,92 pagos anteriormente.",
+      "Resultado apurado de setembro/26 (R$ 32,36 milhões ou ~R$ 0,50/cota) muito inferior ao distribuído (R$ 59,16 milhões ou R$ 0,92/cota), consumindo reservas acumuladas.",
+      "A reserva acumulada por cota caiu expressivamente de R$ 4,12 em janeiro/26 para R$ 0,95 ao fim de setembro/26.",
+      "Alienação de 16,99% do Shopping Cidade Jardim por R$ 456,30 milhões (gerando ganho de capital contábil de R$ 2,07/cota e quitação de CRIs, reduzindo alavancagem para 11,2%).",
+      "Novas aquisições com compromissos diferidos: 60% do São Bernardo Plaza (R$ 331,1 milhões com 30% a prazo) e direitos reais temporários nos shoppings Metrô Boulevard Tatuapé e Metrô Itaquera (com parcelas indexadas ao CDI).",
+      "Aumento gradual da vacância física de 3,7% no início de 2026 para 5,3% em setembro/26, acompanhada de inadimplência líquida de 2,7%."
     ],
-    "atribuicao": "fluxo | Descompasso relevante entre a geração de caixa operacional recorrente e o patamar de proventos distribuídos, exigindo consumo contínuo de reservas e gestão de desembolsos parcelados.",
+    "atribuicao": "fluxo | Domina o fluxo operacional insuficiente frente às distribuições passadas, forçando a queima de reservas acumuladas e a revisão formal do guidance de dividendos para baixo.",
     "risco": "idiossincratico",
-    "risco_motivo": "Distribuição de proventos mantida acima da geração de caixa recorrente combinada com compromissos futuros de desembolso de R$ 192,8 milhões até 2027 e aumento gradual da vacância física.",
-    "caixa_vs_contabil": "O provento distribuído (R$ 0,92/cota) supera amplamente o caixa operacional do mês, sendo suportado por reservas e pelo ganho de capital diferido da alienação de ativo, encobrindo a retração do resultado recorrente.",
+    "risco_motivo": "Descompasso temporário entre geração operacional de caixa e proventos distribuídos, agravado pelo cronograma de desembolsos de parcelas de aquisições futuras em meio a um varejo mais pressionado.",
+    "caixa_vs_contabil": "O ganho de capital expressivo na venda do Shopping Cidade Jardim (R$ 2,07/cota) infla o resultado contábil, mas o recebimento em parcelas e o resultado operacional recorrente real (R$ 0,50/cota em set/26) não cobriam o dividendo de R$ 0,92, drenando a reserva de caixa.",
     "gatilhos": [
-      "Corte do dividendo mensal para o piso do guidance (R$ 0,83 ou inferior)",
-      "Esgotamento da reserva acumulada por cota abaixo de R$ 0,50",
-      "Avanço da vacância física média para patamar superior a 7,0%",
-      "Incapacidade de honrar as parcelas das aquisições com a geração interna de caixa"
+      "Elevação da vacância física sustentada acima de 8% nos principais shopping centers do portfólio.",
+      "Incapacidade de honrar os compromissos parcelados das aquisições com a geração interna de caixa somada às receitas parceladas da venda do Cidade Jardim.",
+      "Queda do resultado operacional recorrente abaixo do piso do guidance (R$ 0,74 por cota) por trimestres consecutivos."
     ],
     "parecer": "atencao",
     "confianca": "alta",
-    "licao_generica": "Proventos sustentados por reservas ou vendas de ativos mascaram deficiência operacional e elevam a probabilidade de corte futuro nos rendimentos.",
-    "data": "2026-11-07",
+    "licao_generica": "Distribuições mantidas artificialmente por queima acelerada de reservas costumam mascarar a geração real de caixa e antecipam cortes de proventos.",
+    "data": "2026-11-21",
     "fontes": [
+      "fnet_1373061",
       "fnet_1358969",
       "fnet_1353649",
       "fnet_1353654",
-      "fnet_1342555",
-      "fnet_1324186"
+      "fnet_1342555"
+    ]
+  },
+  "BBAS3": {
+    "fatos": [
+      "Redução do payout de 2026 de 30% para 25% e cancelamento dos proventos intermediários de novembro de 2026.",
+      "Fixação do payout de 2027 em 25%, com suspensão total de dividendos intermediários no ano e possibilidade de retenção integral do dividendo mínimo obrigatório em reserva especial por restrição de capital.",
+      "Corte de aproximadamente 50% na projeção de Lucro Líquido Ajustado de 2026, de R$ 18-22 bilhões para R$ 9-11 bilhões.",
+      "Elevação expressiva da projeção de Custo do Crédito de 2026 para R$ 80-83 bilhões (anteriormente R$ 65-70 bilhões), motivada por inadimplência persistente no agronegócio.",
+      "Revisão da projeção de crescimento da Carteira de Crédito para contração/estagnação (-2,0% a 0,0%) e queda na Margem Financeira Bruta projetada para 2,5% a 4,5%.",
+      "Renúncia da Vice-Presidente de Negócios de Varejo, com assunção temporária pelo Vice-Presidente de Negócios de Atacado."
+    ],
+    "atribuicao": "ativo | A deterioração severa decorre da carteira de crédito específica do banco (agronegócio), resultando em explosão de provisões e revisão drástica de lucros e remuneração.",
+    "risco": "estrutural",
+    "risco_motivo": "Aumento acentuado e persistente da inadimplência no agronegócio que comprometeu os níveis de capital do banco, forçou o corte pela metade do lucro projetado e levou à suspensão de dividendos intermediários com risco de retenção total de proventos em 2027.",
+    "caixa_vs_contabil": "O aumento de provisões tem efeito contábil imediato no resultado e no capital regulatório, mas o impacto em caixa se materializa via calotes efetivos e na retenção total/suspensão de proventos aos acionistas para recompor índice de capital.",
+    "gatilhos": [
+      "Estabilização da inadimplência da carteira de agronegócio e reversão do custo do crédito aos níveis históricos.",
+      "Recomposição dos índices de capital regulatório sem necessidade de reter dividendos mínimos obrigatórios sob o art. 202 da Lei das S.A.",
+      "Retomada do pagamento de dividendos intermediários e retorno do payout histórico acima de 25%."
+    ],
+    "parecer": "reavaliar_tese",
+    "confianca": "alta",
+    "licao_generica": "Concentração setorial em carteiras de crédito pode transformar crises de safra ou ciclo em choques que interrompem integralmente proventos.",
+    "data": "2026-11-21",
+    "fontes": [
+      "cvm_001023IPE111120260148396875-54",
+      "cvm_001023IPE111120260121034258-38",
+      "cvm_001023IPE281020260171802023-05"
+    ]
+  },
+  "CMIG4": {
+    "fatos": [
+      "Marco Aurélio Martins da Costa Vasconcelos foi eleito Presidente (CEO) da Cemig, com histórico prévio na Copasa MG e no Governo de Minas Gerais.",
+      "Alexandre Ramos Peixoto foi eleito Presidente do Conselho de Administração, sendo engenheiro de carreira da companhia e atual Presidente do Conselho da CCEE."
+    ],
+    "atribuicao": "ativo (mudança de governança corporativa e comando estratégico da companhia)",
+    "risco": "idiossincratico",
+    "risco_motivo": "Trocas simultâneas no comando executivo e no Conselho de Administração de empresa estatal podem ensejar inflexões em diretrizes estratégicas, plano de investimentos e disciplina de distribuição de proventos.",
+    "caixa_vs_contabil": "Sem impacto imediato em caixa ou contábil; trata-se de evento estritamente administrativo e de governança.",
+    "gatilhos": [
+      "Revisão para baixo da política de dividendos ou redução expressiva do payout.",
+      "Aumento injustificado do plano de investimentos (Capex) em projetos com TIR abaixo do custo de capital.",
+      "Indícios de ingerência política afetando a eficiência operacional."
+    ],
+    "parecer": "atencao",
+    "confianca": "alta",
+    "licao_generica": "Mudanças de liderança em empresas estatais exigem monitoramento imediato de possíveis alterações na alocação de capital e na política de dividendos.",
+    "data": "2026-11-21",
+    "fontes": [
+      "cvm_002453IPE110920260124477976-55"
     ]
   }
 };

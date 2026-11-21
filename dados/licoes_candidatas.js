@@ -118,5 +118,75 @@ window.FEHMIR_LICOES = [
     "data": "2026-11-07",
     "contagem": 1,
     "status": "candidata"
+  },
+  {
+    "texto": "Concentração setorial em carteiras de crédito pode transformar crises de safra ou ciclo em choques que interrompem integralmente proventos.",
+    "ticker": "BBAS3",
+    "data": "2026-11-21",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Mudanças de liderança em empresas estatais exigem monitoramento imediato de possíveis alterações na alocação de capital e na política de dividendos.",
+    "ticker": "CMIG4",
+    "data": "2026-11-21",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Queda na emissão de prêmios sinaliza receitas futuras menores, mas baixa sinistralidade e float financeiro podem amortecer o caixa de curto prazo.",
+    "ticker": "BBSE3",
+    "data": "2026-11-21",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Vendas de imóveis pagas com cotas subordinadas e parcelamentos trocam ativos reais por risco de crédito, exigindo análise rigorosa do caixa efetivo.",
+    "ticker": "GARE11",
+    "data": "2026-11-21",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Vendas a prazo sem indexação inflacionária deterioram o valor real do capital e transferem para a gestão a urgência de um reinvestimento eficiente.",
+    "ticker": "GGRC11",
+    "data": "2026-11-21",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Remarcações fiduciárias negativas exigem vigilância redobrada sobre a higidez do devedor antes mesmo da ocorrência de inadimplência no fluxo de caixa.",
+    "ticker": "KNCA11",
+    "data": "2026-11-21",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Elevações substanciais de Capex e custos operacionais exigem vigilância redobrada sobre o fluxo de caixa livre disponível para proventos.",
+    "ticker": "PETR4",
+    "data": "2026-11-21",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Prejuízo por marcação a mercado não afeta o dividendo imediato, mas créditos em repactuação e custo de compromissadas corroem a geração de caixa.",
+    "ticker": "RECR11",
+    "data": "2026-11-21",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Em ativos imobiliários rurais, recompras antecipadas e renegociações de crédito podem corroer a previsibilidade do dividendo recorrente.",
+    "ticker": "RZTR11",
+    "data": "2026-11-21",
+    "contagem": 1,
+    "status": "candidata"
+  },
+  {
+    "texto": "Distribuições mantidas artificialmente por queima acelerada de reservas costumam mascarar a geração real de caixa e antecipam cortes de proventos.",
+    "ticker": "XPML11",
+    "data": "2026-11-21",
+    "contagem": 1,
+    "status": "candidata"
   }
 ];
