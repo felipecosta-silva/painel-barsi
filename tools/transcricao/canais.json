@@ -1,5 +1,47 @@
 [
- {"nome": "Geração Dividendos (Léo)", "id": "UCzLAzI6Q-0WX2IbKfLmtZUw", "membro": true,
-  "membros": "todos", "publicos": "pertinentes", "nota_minima": 2,
-  "obs": "membros = todos os vídeos exclusivos; públicos = só os que citam ticker da carteira/radar (nota ≥ 2). Regras: todos | pertinentes | nenhum"}
+ {
+  "nome": "Geração Dividendos (Léo)",
+  "id": "UCzLAzI6Q-0WX2IbKfLmtZUw",
+  "membro": true,
+  "membros": "todos",
+  "publicos": "todos",
+  "nota_minima": 2,
+  "obs": "membros = todos os vídeos exclusivos; públicos = só os que citam ticker da carteira/radar (nota ≥ 2). Regras: todos | pertinentes | nenhum"
+ },
+ {
+  "nome": "Investidor 4.20 (Defiverso)",
+  "id": "UC8oofAsuieQv3imZGvaUDOQ",
+  "membro": false,
+  "membros": "nenhum",
+  "publicos": "pertinentes",
+  "nota_minima": 1,
+  "temas": [
+   "HALVING",
+   "CICLO",
+   "CYCLE",
+   "BEAR MARKET",
+   "FUNDO",
+   "BOTTOM",
+   "CARTEIRA",
+   "WALLET",
+   "LEDGER",
+   "HACK",
+   "SEGURAN",
+   "SAFE",
+   "GUARDAR",
+   "STORE",
+   "FED",
+   "IMPOSTO",
+   "TAX",
+   "DCA",
+   "SOLANA",
+   "ETHEREUM",
+   "CAINDO",
+   "FALLING",
+   "CAIR",
+   "FALL"
+  ],
+  "dica": "Vídeo sobre criptomoedas: Bitcoin, BTC, Ethereum, ETH, Solana, SOL, altcoins, halving, ciclo, bull market, bear market, ETF, FED, Ledger, carteira fria, Binance, Bybit, MVRV, média de 200 semanas, dominância.",
+  "obs": "Canal ligado ao Defiverso (os canais @Defiverso/@DefiversoOficial não têm vídeos). Sessão de cripto; resumos em estudos/cripto/resumos/."
+ }
 ]
