@@ -1,7 +1,7 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-21 04:07",
- "ativos": 213,
+ "gerado": "2026-11-24 07:01",
+ "ativos": 224,
  "carteira": 22,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
 };
@@ -14,19 +14,19 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Seguradoras",
   "src": "Projetivo R$ 48,99 (LPA R$ 4,73 × payout realista 87% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (distribui quase tudo / sem onde reinvestir) · DPA 5A R$ 2,67 (robô)÷8,4% = R$ 31,82 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 48,99) diverge 54% do histórico (R$ 31,82): confira premissa de dividendos",
-  "preco": 36.99,
-  "data": "2026-11-19",
+  "preco": 36.51,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "CXSE3": {
-  "teto": 16.18,
-  "compra": 14.56,
+  "teto": 16.29,
+  "compra": 14.66,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Seguradoras",
-  "src": "Projetivo R$ 16,18 (LPA R$ 1,51 × payout realista 90% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (distribui quase tudo / sem onde reinvestir) · DPA 4A R$ 1,00 (robô)÷8,4% = R$ 11,91 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 16,18) diverge 36% do histórico (R$ 11,91): confira premissa de dividendos",
-  "preco": 20.57,
-  "data": "2026-11-19",
+  "src": "Projetivo R$ 16,29 (LPA R$ 1,52 × payout realista 90% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (distribui quase tudo / sem onde reinvestir) · DPA 4A R$ 1,00 (robô)÷8,4% = R$ 11,91 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 16,29) diverge 37% do histórico (R$ 11,91): confira premissa de dividendos",
+  "preco": 20.44,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "PSSA3": {
@@ -36,8 +36,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Seguradoras",
   "src": "Projetivo R$ 48,80 (LPA R$ 5,82 × payout realista 57% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 1,56 (robô)÷8,4% = R$ 18,55 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 48,80) diverge 163% do histórico (R$ 18,55): confira premissa de dividendos",
-  "preco": 43.96,
-  "data": "2026-11-19",
+  "preco": 42.91,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "IRBR3": {
@@ -46,9 +46,9 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Seguradoras",
-  "src": "Projetivo R$ 18,82 (LPA R$ 2,96 × payout da empresa 53% × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · Bazin 5A R$ 18,00 → usa o menor (recuperação: ROE 5A -2,2% < 10%)",
-  "preco": 58.79,
-  "data": "2026-11-19",
+  "src": "Bazin 5A R$ 18,00 → usa o menor (recuperação: ROE 5A -2,2% < 10%)",
+  "preco": 58.06,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "ITUB4": {
@@ -58,19 +58,19 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP justo (banco forte)",
   "setor": "Bancos",
   "src": "Banco forte [ROE 2021 18,1% · 2022 18,5% · 2023 18,5% · 2024 20,5% · 2025 21,6%] → P/VP justo = (ROE 20,8% − g 4,6%) ÷ (k 13,5% − g) = 1,82 × VPA R$ 20,80 = R$ 37,93 · conferência Bazin (DPA 5A R$ 1,88 ÷ 8,9%) = R$ 21,10",
-  "preco": 40.07,
-  "data": "2026-11-19",
+  "preco": 39.73,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "ITSA4": {
-  "teto": 14.44,
-  "compra": 13,
+  "teto": 15.07,
+  "compra": 13.56,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 14,44 (LPA R$ 1,62 × payout realista 65% (3A, com extras recorrentes) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA pago 3A (2023, 2024, 2025) R$ 0,96 ÷ 8,9% = R$ 10,73 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar",
-  "preco": 13.17,
-  "data": "2026-11-19",
+  "src": "Projetivo R$ 15,07 (LPA R$ 1,69 × payout realista 65% (3A, com extras recorrentes) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA pago 3A (2023, 2024, 2025) R$ 0,96 ÷ 8,9% = R$ 10,73 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 15,07) diverge 40% do histórico (R$ 10,73): confira premissa de dividendos",
+  "preco": 12.91,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "SANB11": {
@@ -91,19 +91,19 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
   "src": "Projetivo R$ 17,02 (LPA R$ 2,47 × payout realista 82% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,41 ÷ 11,9% = R$ 11,88 → usa o menor (recuperação: ROE 5A 12,4% < 15%) · ⚠️ Projetivo (R$ 17,02) diverge 43% do histórico (R$ 11,88): confira premissa de dividendos · +3,0 p.p. risco da empresa (banco em recuperação)",
-  "preco": 13.83,
-  "data": "2026-11-19",
+  "preco": 13.71,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "BBAS3": {
-  "teto": 7.82,
-  "compra": 7.04,
+  "teto": 7.02,
+  "compra": 6.32,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "Projetivo R$ 7,82 (LPA R$ 2,15 × payout realista 36% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,75 ÷ 9,9% = R$ 17,73 → usa o menor (recuperação: ROE 5A 14,5% < 15%) · ⚠️ Projetivo (R$ 7,82) diverge 56% do histórico (R$ 17,73): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
-  "preco": 14.3,
-  "data": "2026-11-19",
+  "src": "Projetivo R$ 7,02 (LPA R$ 1,93 × payout realista 36% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA pago 3A (2023, 2024, 2025) R$ 1,75 ÷ 9,9% = R$ 17,73 → usa o menor (recuperação: ROE 5A 14,5% < 15%) · ⚠️ Projetivo (R$ 7,02) diverge 60% do histórico (R$ 17,73): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "preco": 14.2,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "EGIE3": {
@@ -113,30 +113,30 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
   "src": "DPA 5A R$ 1,73 (robô)÷8,9% = R$ 19,48",
-  "preco": 25.32,
-  "data": "2026-11-19",
+  "preco": 24.79,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "CPFE3": {
-  "teto": 43.59,
-  "compra": 39.23,
+  "teto": 42.92,
+  "compra": 38.63,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 43,59 (LPA R$ 5,21 × payout realista 61% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 3,08 (robô)÷8,9% = R$ 34,56 (conferência)",
-  "preco": 43.78,
-  "data": "2026-11-19",
+  "src": "Projetivo R$ 42,92 (LPA R$ 5,13 × payout realista 61% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 3,08 (robô)÷8,9% = R$ 34,56 (conferência)",
+  "preco": 43.28,
+  "data": "2026-11-23",
   "base_dpa": "projetivo_regulada"
  },
  "CMIG4": {
-  "teto": 10.9,
-  "compra": 9.81,
+  "teto": 15.62,
+  "compra": 14.06,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 10,90 (LPA R$ 1,61 × payout realista 67% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 1,26 (robô)÷9,9% = R$ 12,71 → usa o menor (recuperação: LPA 12m 22% abaixo da média 3A) · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
-  "preco": 10.94,
-  "data": "2026-11-19",
+  "src": "Projetivo R$ 15,62 (LPA R$ 1,93 × payout realista 67% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 1,26 (robô)÷9,9% = R$ 12,71 (conferência) · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "preco": 10.78,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "TAEE11": {
@@ -145,20 +145,20 @@ window.FEHMIR_TETOS = {
   "margemMin": 5,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$ 44,81 (LPA R$ 4,72 × payout realista 75% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 3,23 ÷ 7,9% = R$ 40,83 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
+  "src": "Projetivo R$ 45,38 (LPA R$ 4,78 × payout realista 75% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 3,23 ÷ 7,9% = R$ 40,83 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
   "preco": 40.17,
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
  },
  "CPLE3": {
-  "teto": 9.17,
-  "compra": 8.25,
+  "teto": 10.04,
+  "compra": 9.03,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 9,17 (LPA R$ 1,06 × payout realista 77% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (retém pouco) · DPA 5A R$ 0,69 (robô)÷8,9% = R$ 7,80 (conferência)",
-  "preco": 15.19,
-  "data": "2026-11-19",
+  "src": "Projetivo R$ 10,04 (LPA R$ 1,16 × payout realista 77% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (retém pouco) · DPA 5A R$ 0,69 (robô)÷8,9% = R$ 7,80 (conferência)",
+  "preco": 15.04,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "ISAE4": {
@@ -168,8 +168,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Transmissão",
   "src": "Projetivo R$ 25,35 (LPA R$ 4,19 × payout da empresa 48% × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 2A (2023, 2025) R$ 2,75 ÷ 7,9% = R$ 34,75 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
-  "preco": 26.05,
-  "data": "2026-11-19",
+  "preco": 25.83,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "ALUP11": {
@@ -190,8 +190,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$ 7,70 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 0,41 (robô)÷8,9% = R$ 4,61 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 7,70) diverge 67% do histórico (R$ 4,61): confira premissa de dividendos",
-  "preco": 10.45,
-  "data": "2026-11-19",
+  "preco": 10.42,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "ALUP3": {
@@ -206,23 +206,23 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "EQTL3": {
-  "teto": 2.82,
-  "compra": 2.54,
+  "teto": 3.67,
+  "compra": 3.3,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 2,82 (LPA R$ 0,76 × payout realista 33% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 0,90 (robô)÷8,9% = R$ 10,15 → usa o menor (recuperação: LPA 12m 56% abaixo da média 3A) · ⚠️ Projetivo (R$ 2,82) diverge 72% do histórico (R$ 10,15): confira premissa de dividendos",
-  "preco": 32.9,
-  "data": "2026-11-19",
+  "src": "Projetivo R$ 3,67 (LPA R$ 0,99 × payout realista 33% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 0,90 (robô)÷8,9% = R$ 10,15 → usa o menor (recuperação: LPA 12m 43% abaixo da média 3A) · ⚠️ Projetivo (R$ 3,67) diverge 64% do histórico (R$ 10,15): confira premissa de dividendos",
+  "preco": 32.74,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "ENGI11": {
-  "teto": 13.91,
-  "compra": 12.52,
+  "teto": 16.58,
+  "compra": 14.93,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 13,91 (LPA R$ 3,02 × payout realista 41% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 2,22 (robô)÷8,9% = R$ 24,95 → usa o menor (recuperação: LPA 12m 42% abaixo da média 3A) · ⚠️ Projetivo (R$ 13,91) diverge 44% do histórico (R$ 24,95): confira premissa de dividendos",
+  "src": "Projetivo R$ 16,58 (LPA R$ 3,60 × payout realista 41% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 2,22 (robô)÷8,9% = R$ 24,95 → usa o menor (recuperação: LPA 12m 31% abaixo da média 3A)",
   "preco": 48.44,
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
@@ -234,8 +234,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
   "src": "DPA 3A R$ 1,15 (robô)÷8,9% = R$ 12,95 → usa o menor (recuperação: ROE 5A 4,6% < 10%)",
-  "preco": 11.91,
-  "data": "2026-11-19",
+  "preco": 11.69,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "CSMG3": {
@@ -244,18 +244,18 @@ window.FEHMIR_TETOS = {
   "margemMin": 10,
   "metodo": "Gordon / fluxo de dividendos",
   "setor": "Água & Saneamento",
-  "src": "Gordon / DDM [2 estágios: g1=2,8%, g2=3,5%, k=12,9%]: DDM R$ 29,43 · Histórico R$ 19,74 → vale o menor (R$ 19,74) · ⚠️ Projetivo (R$ 29,30) diverge 48% do histórico (R$ 19,74): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
-  "preco": 56.09,
-  "data": "2026-11-19",
+  "src": "Gordon / DDM [2 estágios: g1=2,7%, g2=3,5%, k=12,9%]: DDM R$ 28,68 · Histórico R$ 19,74 → vale o menor (R$ 19,74) · ⚠️ Projetivo (R$ 28,69) diverge 45% do histórico (R$ 19,74): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "preco": 56.68,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "SAPR11": {
-  "teto": 6.32,
-  "compra": 5.69,
+  "teto": 7.14,
+  "compra": 6.42,
   "margemMin": 10,
   "metodo": "Gordon / fluxo de dividendos",
   "setor": "Água & Saneamento",
-  "src": "Gordon / DDM [2 estágios: g1=2,3%, g2=3,5%, k=12,9%]: DDM R$ 6,32 · Histórico R$ 16,09 → vale o menor (R$ 6,32) · ⚠️ Projetivo (R$ 6,43) diverge 60% do histórico (R$ 16,09): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "src": "Gordon / DDM [2 estágios: g1=2,5%, g2=3,5%, k=12,9%]: DDM R$ 7,14 · Histórico R$ 16,09 → vale o menor (R$ 7,14) · ⚠️ Projetivo (R$ 7,19) diverge 55% do histórico (R$ 16,09): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
   "preco": 34.14,
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
@@ -267,19 +267,19 @@ window.FEHMIR_TETOS = {
   "metodo": "Gordon / fluxo de dividendos",
   "setor": "Água & Saneamento",
   "src": "Gordon / DDM [2 estágios: g1=10,0%, g2=3,5%, k=11,9%]: DDM R$ 8,31 · Histórico R$ 4,85 → vale o menor (R$ 4,85) · ⚠️ Projetivo (R$ 7,61) diverge 57% do histórico (R$ 4,85): confira premissa de dividendos",
-  "preco": 27.35,
-  "data": "2026-11-19",
+  "preco": 27.7,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "SAPR4": {
-  "teto": 1.26,
-  "compra": 1.13,
+  "teto": 1.44,
+  "compra": 1.29,
   "margemMin": 10,
   "metodo": "Gordon / fluxo de dividendos",
   "setor": "Água & Saneamento",
-  "src": "Gordon / DDM [2 estágios: g1=2,3%, g2=3,5%, k=12,9%]: DDM R$ 1,26 · Histórico R$ 3,28 → vale o menor (R$ 1,26) · ⚠️ Projetivo (R$ 1,28) diverge 61% do histórico (R$ 3,28): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
-  "preco": 6.62,
-  "data": "2026-11-19",
+  "src": "Gordon / DDM [2 estágios: g1=2,5%, g2=3,5%, k=12,9%]: DDM R$ 1,44 · Histórico R$ 3,28 → vale o menor (R$ 1,44) · ⚠️ Projetivo (R$ 1,45) diverge 56% do histórico (R$ 3,28): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "preco": 6.68,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "VIVT3": {
@@ -288,9 +288,9 @@ window.FEHMIR_TETOS = {
   "margemMin": 15,
   "metodo": "Bazin projetivo",
   "setor": "Telecom",
-  "src": "Projetivo R$ 19,72 (LPA R$ 2,06 × payout realista 90% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 1,46 (robô)÷9,4% = R$ 15,57 → usa o menor (recuperação: ROE 5A 7,8% < 10%)",
-  "preco": 35.22,
-  "data": "2026-11-19",
+  "src": "Projetivo R$ 21,45 (LPA R$ 2,24 × payout realista 90% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 1,46 (robô)÷9,4% = R$ 15,57 → usa o menor (recuperação: ROE 5A 7,8% < 10%) · ⚠️ Projetivo (R$ 21,45) diverge 38% do histórico (R$ 15,57): confira premissa de dividendos",
+  "preco": 34.97,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "TIMS3": {
@@ -299,9 +299,9 @@ window.FEHMIR_TETOS = {
   "margemMin": 15,
   "metodo": "Bazin projetivo",
   "setor": "Telecom",
-  "src": "Política nova [guidance R$ 2,22 limitado ao DPA 12m pago (caixa livre não conferido)] ÷ 9,4% = R$ 15,66",
-  "preco": 22,
-  "data": "2026-11-19",
+  "src": "Política nova [guidance R$ 2,23 limitado ao DPA 12m pago (caixa livre não conferido)] ÷ 9,4% = R$ 15,66",
+  "preco": 21.92,
+  "data": "2026-11-23",
   "base_dpa": "guidance_piso"
  },
  "FIQE3": {
@@ -311,19 +311,19 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Telecom",
   "src": "DPA 4A R$ 0,31 (robô)÷9,4% = R$ 3,35",
-  "preco": 5.73,
-  "data": "2026-11-19",
+  "preco": 6.85,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "DIRR3": {
-  "teto": 7.3,
-  "compra": 5.48,
+  "teto": 7.91,
+  "compra": 5.93,
   "margemMin": 25,
   "metodo": "Graham",
   "setor": "Construção & Incorporação",
-  "src": "Graham √[22,5 × LPA R$ 1,65 × VPA R$ 4,47] = R$ 12,88 · Bazin 5A R$ 5,86 (conferência) · limitado pelo P/VP justo = (ROE 24,0% − g 4,6%) ÷ (k 16,5% − g) = 1,63 × VPA R$ 4,47 = R$ 7,30 (incorporadora: lucro de obras antigas infla o Graham)",
-  "preco": 8.74,
-  "data": "2026-11-19",
+  "src": "Graham √[22,5 × LPA R$ 1,59 × VPA R$ 4,84] = R$ 13,16 · Bazin 5A R$ 5,86 (conferência) · limitado pelo P/VP justo = (ROE 24,0% − g 4,6%) ÷ (k 16,5% − g) = 1,63 × VPA R$ 4,84 = R$ 7,91 (incorporadora: lucro de obras antigas infla o Graham)",
+  "preco": 8.94,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "LAVV3": {
@@ -338,23 +338,23 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "CYRE3": {
-  "teto": 24.17,
-  "compra": 18.12,
+  "teto": 24.92,
+  "compra": 18.69,
   "margemMin": 25,
   "metodo": "Graham",
   "setor": "Construção & Incorporação",
-  "src": "Graham √[22,5 × LPA R$ 4,50 × VPA R$ 24,63] = R$ 49,94 · Bazin 5A R$ 9,85 (conferência) · ⚠️ Teto do método (R$ 49,94) bem acima do que o crescimento pessimista sustenta (R$ 11,81): confira se o lucro é recorrente · limitado pelo P/VP justo = (ROE 16,3% − g 4,6%) ÷ (k 16,5% − g) = 0,98 × VPA R$ 24,63 = R$ 24,17 (incorporadora: lucro de obras antigas infla o Graham)",
-  "preco": 18.43,
-  "data": "2026-11-19",
+  "src": "Graham √[22,5 × LPA R$ 4,22 × VPA R$ 25,40] = R$ 49,11 · Bazin 5A R$ 9,85 (conferência) · ⚠️ Teto do método (R$ 49,11) bem acima do que o crescimento pessimista sustenta (R$ 11,09): confira se o lucro é recorrente · limitado pelo P/VP justo = (ROE 16,3% − g 4,6%) ÷ (k 16,5% − g) = 0,98 × VPA R$ 25,40 = R$ 24,92 (incorporadora: lucro de obras antigas infla o Graham)",
+  "preco": 18.7,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "CURY3": {
-  "teto": 20.77,
-  "compra": 15.58,
+  "teto": 22.09,
+  "compra": 16.57,
   "margemMin": 25,
   "metodo": "Graham",
   "setor": "Construção & Incorporação",
-  "src": "Graham √[22,5 × LPA R$ 3,57 × VPA R$ 5,37] = R$ 20,77 · Bazin 5A R$ 13,99 (conferência)",
+  "src": "Graham √[22,5 × LPA R$ 3,76 × VPA R$ 5,77] = R$ 22,09 · Bazin 5A R$ 13,99 (conferência)",
   "preco": 25.01,
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
@@ -366,8 +366,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Graham",
   "setor": "Construção & Incorporação",
   "src": "Graham √[22,5 × LPA R$ 0,62 × VPA R$ 9,69] = R$ 11,63 · Bazin 5A R$ 3,38 (conferência) · limitado pelo P/VP justo = (ROE 5,1% − g 4,6%) ÷ (k 16,5% − g) = 0,04 × VPA R$ 9,69 = R$ 0,39 (incorporadora: lucro de obras antigas infla o Graham)",
-  "preco": 3.07,
-  "data": "2026-11-19",
+  "preco": 3.01,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "PRIO3": {
@@ -377,8 +377,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/L normalizado",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "P/L normalizado [LPA R$ 7,77 × (1 − 25%) ÷ 12,4%] = R$ 47,00",
-  "preco": 60.2,
-  "data": "2026-11-19",
+  "preco": 58.22,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "VBBR3": {
@@ -398,9 +398,9 @@ window.FEHMIR_TETOS = {
   "margemMin": 30,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 7,34 × 0,75 = R$ 5,51 ÷ 12,4% = R$ 44,42] · Proj R$ 48,20 (conferência)",
-  "preco": 42.67,
-  "data": "2026-11-19",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 7,34 × 0,75 = R$ 5,51 ÷ 12,4% = R$ 44,42] · Proj R$ 50,72 (conferência)",
+  "preco": 41.3,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "RECV3": {
@@ -411,17 +411,6 @@ window.FEHMIR_TETOS = {
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,90 × 0,75 = R$ 0,68 ÷ 12,4% = R$ 5,44] · Proj R$ 7,84 (conferência) · ⚠️ Projetivo (R$ 7,84) diverge 44% do meio de ciclo (R$ 5,44): ciclo de commodities pode estar revertendo",
   "preco": 10.03,
-  "data": "2026-11-19",
-  "base_dpa": "historico_5a"
- },
- "BRAV3": {
-  "teto": 0.73,
-  "compra": 0.51,
-  "margemMin": 30,
-  "metodo": "P/L normalizado",
-  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "P/L normalizado [LPA R$ 0,12 × (1 − 25%) ÷ 12,4%] = R$ 0,73 · Bazin 5A R$ 11,00 (conferência)",
-  "preco": 12.83,
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
  },
@@ -443,8 +432,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/L normalizado",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "P/L normalizado [LPA R$ 6,75 × (1 − 25%) ÷ 12,4%] = R$ 40,83 · Bazin 5A R$ 11,23 (conferência)",
-  "preco": 55.32,
-  "data": "2026-11-19",
+  "preco": 55.19,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "KLBN4": {
@@ -454,8 +443,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,26 × 0,75 = R$ 0,20 ÷ 12,4% = R$ 1,59] · Proj R$ 0,27 (conferência) · ⚠️ Projetivo (R$ 0,27) diverge 83% do meio de ciclo (R$ 1,59): ciclo de commodities pode estar revertendo",
-  "preco": 3.34,
-  "data": "2026-11-19",
+  "preco": 3.28,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "POMO4": {
@@ -465,19 +454,19 @@ window.FEHMIR_TETOS = {
   "metodo": "Graham",
   "setor": "Industrial & Bens de capital",
   "src": "Graham √[22,5 × LPA R$ 0,86 × VPA R$ 3,44] = R$ 8,16 · Bazin 5A R$ 3,87 (conferência)",
-  "preco": 3.62,
-  "data": "2026-11-19",
+  "preco": 3.6,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "VULC3": {
-  "teto": 21.77,
-  "compra": 16.33,
+  "teto": 12.38,
+  "compra": 9.28,
   "margemMin": 25,
   "metodo": "P/L normalizado",
   "setor": "Varejo & Consumo",
-  "src": "P/L normalizado [LPA R$ 2,92 × (1 − 15%) ÷ 11,4%] = R$ 21,77 · Bazin 5A R$ 17,73 (conferência)",
-  "preco": 10.91,
-  "data": "2026-11-19",
+  "src": "P/L normalizado [LPA R$ 1,66 × (1 − 15%) ÷ 11,4%] = R$ 12,38 · Bazin 5A R$ 17,73 (conferência)",
+  "preco": 10.73,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "WEGE3": {
@@ -486,18 +475,18 @@ window.FEHMIR_TETOS = {
   "margemMin": 0,
   "metodo": "Compounder (TIR 10A)",
   "setor": "Industrial & Bens de capital",
-  "src": "Compounder TIR 10A [g 12,1% = menor entre lucro 3A 14,9%, 5A 22,2% e ROE × retenção 12,1%] · pessimista 2,9% / base 7,9% / otimista 12,7% · entrada = base rende 12,0% ao ano · régua do setor seria R$ 12,63",
-  "preco": 51.13,
-  "data": "2026-11-19",
+  "src": "Compounder TIR 10A [g 12,1% = menor entre lucro 3A 14,9%, 5A 22,2% e ROE × retenção 12,1%] · pessimista 3,2% / base 8,2% / otimista 13,0% · entrada = base rende 12,0% ao ano · régua do setor seria R$ 12,63",
+  "preco": 49.91,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "LEVE3": {
-  "teto": 28.68,
-  "compra": 22.94,
+  "teto": 30.17,
+  "compra": 24.13,
   "margemMin": 20,
   "metodo": "Graham",
   "setor": "Industrial & Bens de capital",
-  "src": "Graham √[22,5 × LPA R$ 5,14 × VPA R$ 7,11] = R$ 28,68 · Bazin 5A R$ 38,15 (conferência)",
+  "src": "Graham √[22,5 × LPA R$ 4,92 × VPA R$ 8,22] = R$ 30,17 · Bazin 5A R$ 38,15 (conferência)",
   "preco": 30.8,
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
@@ -520,8 +509,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Graham",
   "setor": "Industrial & Bens de capital",
   "src": "Graham √[22,5 × LPA R$ 0,34 × VPA R$ 2,83] = R$ 4,65 · Bazin 5A R$ 2,29 (conferência)",
-  "preco": 2.49,
-  "data": "2026-11-19",
+  "preco": 2.6,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "VALE3": {
@@ -531,8 +520,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 7,58 × 0,75 = R$ 5,69 ÷ 12,4% = R$ 45,87] · Proj R$ 1,96 (conferência) · ⚠️ Projetivo (R$ 1,96) diverge 96% do meio de ciclo (R$ 45,87): ciclo de commodities pode estar revertendo",
-  "preco": 58.48,
-  "data": "2026-11-19",
+  "preco": 58.41,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "GGBR4": {
@@ -542,8 +531,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 1,33 × 0,75 = R$ 1,00 ÷ 12,4% = R$ 8,07] · Proj R$ 1,92 (conferência) · ⚠️ Projetivo (R$ 1,92) diverge 76% do meio de ciclo (R$ 8,07): ciclo de commodities pode estar revertendo",
-  "preco": 25.86,
-  "data": "2026-11-19",
+  "preco": 25.34,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "AXIA3": {
@@ -553,8 +542,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Geração/Distribuição",
   "src": "Projetivo R$ 48,20 (LPA R$ 6,60 × payout realista 65% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (recuperação) · DPA 5A R$ 1,84 (robô)÷8,9% = R$ 20,68 → usa o menor (recuperação: ROE 5A 6,0% < 10%) · ⚠️ Projetivo (R$ 48,20) diverge 133% do histórico (R$ 20,68): confira premissa de dividendos",
-  "preco": 46,
-  "data": "2026-11-19",
+  "preco": 45.52,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "XPLG11": {
@@ -564,8 +553,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Dividendo 12m R$ 9,84 (robô) ÷ 10,2% = R$ 96,47",
-  "preco": 86.79,
-  "data": "2026-11-19",
+  "preco": 86,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "VILG11": {
@@ -575,8 +564,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Dividendo 12m R$ 9,64 (robô) ÷ 10,2% = R$ 94,51",
-  "preco": 86.9,
-  "data": "2026-11-19",
+  "preco": 87.37,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "HGLG11": {
@@ -586,8 +575,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Dividendo 12m R$ 13,48 (robô) ÷ 10,2% = R$ 132,16",
-  "preco": 141.8,
-  "data": "2026-11-19",
+  "preco": 140.69,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "BTLG11": {
@@ -597,8 +586,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Dividendo 12m R$ 9,65 (robô) ÷ 10,2% = R$ 94,61",
-  "preco": 94.8,
-  "data": "2026-11-19",
+  "preco": 94.26,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "GARE11": {
@@ -608,8 +597,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Dividendo 12m R$ 0,91 (robô) ÷ 10,2% = R$ 8,95",
-  "preco": 7.91,
-  "data": "2026-11-19",
+  "preco": 7.84,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "VISC11": {
@@ -619,8 +608,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Shoppings",
   "src": "Dividendo 12m R$ 10,02 (robô) ÷ 10,2% = R$ 98,24",
-  "preco": 96,
-  "data": "2026-11-19",
+  "preco": 93.7,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "PMLL11": {
@@ -630,8 +619,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Shoppings",
   "src": "Dividendo 12m R$ 11,72 (robô) ÷ 10,2% = R$ 114,90",
-  "preco": 97.42,
-  "data": "2026-11-19",
+  "preco": 97.18,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "HSML11": {
@@ -641,19 +630,19 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Shoppings",
   "src": "Dividendo 12m R$ 8,71 (robô) ÷ 10,2% = R$ 85,39",
-  "preco": 76.55,
-  "data": "2026-11-19",
+  "preco": 75,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "XPML11": {
-  "teto": 58.82,
-  "compra": 55.88,
+  "teto": 49.18,
+  "compra": 46.72,
   "margemMin": 5,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Shoppings",
-  "src": "Rendimento inflado por reserva acumulada: R$ 0,42 por cota em set/26 (pagou R$ 0,92, gerou R$ 0,50). Teto pelo recorrente: R$ 0,50 × 12 = R$ 6,00 ÷ 10,2% = R$ 58,82 (pelo pago seria R$ 99,51). DY no preço de hoje: 7,3% pelo recorrente, 12,4% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
-  "preco": 81.99,
-  "data": "2026-11-19",
+  "src": "Rendimento inflado por reserva acumulada: R$ 0,42 por cota em set/26 (pagou R$ 0,92, gerou R$ 0,50). Teto pelo recorrente: R$ 0,50 × 12 = R$ 6,00 ÷ 12,2% = R$ 49,18 (pelo pago seria R$ 89,75). DY no preço de hoje: 7,2% pelo recorrente, 13,2% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
+  "preco": 83,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "KNCA11": {
@@ -663,8 +652,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "Fiagro · Crédito agro",
   "src": "Dividendo 12m R$ 11,42 (robô) ÷ 14,5% = R$ 78,76",
-  "preco": 82.72,
-  "data": "2026-11-19",
+  "preco": 82.48,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "KNIP11": {
@@ -674,8 +663,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 10,20 (robô) ÷ 13,5% = R$ 75,56",
-  "preco": 85.4,
-  "data": "2026-11-19",
+  "preco": 84.5,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "RZTR11": {
@@ -685,8 +674,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII · Terras agrícolas (arrendamento)",
   "src": "Dividendo 12m R$ 11,35 (robô) ÷ 12,4% = R$ 91,53",
-  "preco": 64.49,
-  "data": "2026-11-19",
+  "preco": 61.9,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "RZAG11": {
@@ -696,8 +685,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "Fiagro · Crédito agro",
   "src": "Dividendo 12m R$ 1,38 (robô) ÷ 16,0% = R$ 8,59",
-  "preco": 7.45,
-  "data": "2026-11-19",
+  "preco": 7.21,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "RBRR11": {
@@ -718,8 +707,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 10,68 (robô) ÷ 15,0% = R$ 71,20",
-  "preco": 65.48,
-  "data": "2026-11-19",
+  "preco": 64.19,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "PORD11": {
@@ -729,8 +718,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 1,18 (robô) ÷ 13,5% = R$ 8,77",
-  "preco": 7.94,
-  "data": "2026-11-19",
+  "preco": 7.54,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "MXRF11": {
@@ -740,8 +729,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 1,19 (robô) ÷ 13,5% = R$ 8,81",
-  "preco": 8.5,
-  "data": "2026-11-19",
+  "preco": 8.32,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "PCIP11": {
@@ -751,8 +740,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 10,22 (robô) ÷ 13,5% = R$ 75,70",
-  "preco": 66.67,
-  "data": "2026-11-19",
+  "preco": 66.05,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "VGHF11": {
@@ -762,8 +751,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII · Fundo de fundos",
   "src": "Dividendo 12m R$ 0,79 (robô) ÷ 15,5% = R$ 5,10",
-  "preco": 3.87,
-  "data": "2026-11-19",
+  "preco": 3.7,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "KFOF11": {
@@ -784,8 +773,8 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII · Fundo de fundos",
   "src": "Dividendo 12m R$ 0,84 (robô) ÷ 14,0% = R$ 6,00",
-  "preco": 5.73,
-  "data": "2026-11-19",
+  "preco": 5.61,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "HFOF11": {
@@ -800,14 +789,14 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "ALZR11": {
-  "teto": 8.61,
-  "compra": 7.75,
+  "teto": 9.41,
+  "compra": 8.47,
   "margemMin": 10,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Híbrido",
-  "src": "Dividendo 12m R$ 0,92 (robô) ÷ 10,7% = R$ 8,61",
-  "preco": 9.4,
-  "data": "2026-11-19",
+  "src": "Dividendo 12m R$ 1,01 (robô) ÷ 10,7% = R$ 9,41",
+  "preco": 9.23,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "TRXF11": {
@@ -816,9 +805,9 @@ window.FEHMIR_TETOS = {
   "margemMin": 5,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Logística/Renda urbana",
-  "src": "Rendimento inflado por reserva acumulada: R$ 0,26 por cota em média em ago–out/26 (pagou R$ 0,93, gerou R$ 0,68). Teto pelo recorrente: R$ 0,68 × 12 = R$ 8,10 ÷ 12,2% = R$ 66,39 (pelo pago seria R$ 89,10). DY no preço de hoje: 15,0% pelo recorrente, 20,1% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
-  "preco": 54,
-  "data": "2026-11-19",
+  "src": "Rendimento inflado por reserva acumulada: R$ 0,26 por cota em média em ago–out/26 (pagou R$ 0,93, gerou R$ 0,68). Teto pelo recorrente: R$ 0,68 × 12 = R$ 8,10 ÷ 12,2% = R$ 66,39 (pelo pago seria R$ 89,10). DY no preço de hoje: 15,3% pelo recorrente, 20,6% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
+  "preco": 52.85,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "GGRC11": {
@@ -827,9 +816,9 @@ window.FEHMIR_TETOS = {
   "margemMin": 5,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Logística/Renda urbana",
-  "src": "Rendimento inflado por reserva acumulada: R$ 0,00 por cota em set/26 (pagou R$ 0,10, gerou R$ 0,10). Teto pelo recorrente: R$ 0,10 × 12 = R$ 1,15 ÷ 12,2% = R$ 9,44 (pelo pago seria R$ 9,84). DY no preço de hoje: 14,2% pelo recorrente, 14,8% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
-  "preco": 8.09,
-  "data": "2026-11-19",
+  "src": "Rendimento inflado por reserva acumulada: R$ 0,00 por cota em set/26 (pagou R$ 0,10, gerou R$ 0,10). Teto pelo recorrente: R$ 0,10 × 12 = R$ 1,15 ÷ 12,2% = R$ 9,44 (pelo pago seria R$ 9,84). DY no preço de hoje: 14,4% pelo recorrente, 15,0% pelo pago. Fonte: vídeo, conferir no relatório gerencial.",
+  "preco": 8,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "LOGG3": {
@@ -838,20 +827,20 @@ window.FEHMIR_TETOS = {
   "margemMin": 20,
   "metodo": "P/VP com desconto + Bazin 5A",
   "setor": "Outros",
-  "src": "P/VP c/ desconto + Bazin 5A [menor entre VPA×0,9 R$ 36,05 e Bazin 5A R$ 14,89] = R$ 14,89 · ⚠️ Patrimônio (R$ 36,05) diverge 142% da renda 5A (R$ 14,89): laudos de reavaliação inflaram VPA · patrimônio não comprovado: falta venda registrada a ≥ 90% do valor contábil",
-  "preco": 19.62,
-  "data": "2026-11-19",
+  "src": "P/VP c/ desconto + Bazin 5A [menor entre VPA×0,9 R$ 37,07 e Bazin 5A R$ 14,89] = R$ 14,89 · ⚠️ Patrimônio (R$ 37,07) diverge 149% da renda 5A (R$ 14,89): laudos de reavaliação inflaram VPA · patrimônio não comprovado: falta venda registrada a ≥ 90% do valor contábil",
+  "preco": 19.46,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "MELK3": {
-  "teto": 1.41,
-  "compra": 1.06,
+  "teto": 1.42,
+  "compra": 1.07,
   "margemMin": 25,
   "metodo": "Graham",
   "setor": "Construção & Incorporação",
-  "src": "Graham √[22,5 × LPA R$ 0,63 × VPA R$ 5,35] = R$ 8,71 · Bazin 5A R$ 4,64 (conferência) · limitado pelo P/VP justo = (ROE 7,7% − g 4,6%) ÷ (k 16,5% − g) = 0,26 × VPA R$ 5,35 = R$ 1,41 (incorporadora: lucro de obras antigas infla o Graham)",
-  "preco": 2.05,
-  "data": "2026-11-19",
+  "src": "Graham √[22,5 × LPA R$ 0,49 × VPA R$ 5,40] = R$ 7,72 · Bazin 5A R$ 4,64 (conferência) · limitado pelo P/VP justo = (ROE 7,7% − g 4,6%) ÷ (k 16,5% − g) = 0,26 × VPA R$ 5,40 = R$ 1,42 (incorporadora: lucro de obras antigas infla o Graham)",
+  "preco": 2.04,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "HGRE11": {
@@ -861,8 +850,8 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Lajes corporativas",
   "src": "Dividendo 12m R$ 11,50 (robô) ÷ 11,2% = R$ 102,68",
-  "preco": 111.02,
-  "data": "2026-11-19",
+  "preco": 110,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "B3SA3": {
@@ -872,29 +861,7 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Outros",
   "src": "DPA/11,4% R$ 4,29",
-  "preco": 14.28,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "CSAN3": {
-  "teto": 2.35,
-  "compra": 1.64,
-  "margemMin": 30,
-  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
-  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,39 × 0,75 = R$ 0,29 ÷ 12,4% = R$ 2,35]",
-  "preco": 3.08,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "BEEF3": {
-  "teto": 3.24,
-  "compra": 2.27,
-  "margemMin": 30,
-  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
-  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,54 × 0,75 = R$ 0,40 ÷ 12,4% = R$ 3,24]",
-  "preco": 3.73,
+  "preco": 14.16,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -905,7 +872,29 @@ window.FEHMIR_TETOS = {
   "metodo": "Graham",
   "setor": "Construção & Incorporação",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,9% R$ 1,48 → usa o menor",
-  "preco": 4.59,
+  "preco": 4.47,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "CSAN3": {
+  "teto": 2.35,
+  "compra": 1.64,
+  "margemMin": 30,
+  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
+  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,39 × 0,75 = R$ 0,29 ÷ 12,4% = R$ 2,35]",
+  "preco": 3.14,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "USIM5": {
+  "teto": 3.23,
+  "compra": 2.26,
+  "margemMin": 30,
+  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
+  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,53 × 0,75 = R$ 0,40 ÷ 12,4% = R$ 3,23]",
+  "preco": 5.05,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -920,25 +909,14 @@ window.FEHMIR_TETOS = {
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
  },
- "BBDC3": {
-  "teto": 10.8,
-  "compra": 9.72,
-  "margemMin": 10,
-  "metodo": "Bazin projetivo",
-  "setor": "Bancos",
-  "src": "DPA pago 3A (2023, 2024, 2025) R$ 1,28 ÷ 11,9% = R$ 10,80 → usa o menor (recuperação: ROE 5A 12,4% < 15%) · +3,0 p.p. risco da empresa (banco em recuperação)",
-  "preco": 12.74,
-  "data": "2026-11-19",
-  "base_dpa": "historico_5a"
- },
- "GOAU4": {
-  "teto": 5.45,
-  "compra": 3.82,
+ "BEEF3": {
+  "teto": 3.24,
+  "compra": 2.27,
   "margemMin": 30,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,90 × 0,75 = R$ 0,68 ÷ 12,4% = R$ 5,45]",
-  "preco": 11.5,
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,54 × 0,75 = R$ 0,40 ÷ 12,4% = R$ 3,24]",
+  "preco": 3.75,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -953,25 +931,25 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "USIM5": {
-  "teto": 3.23,
-  "compra": 2.26,
+ "BBDC3": {
+  "teto": 10.8,
+  "compra": 9.72,
+  "margemMin": 10,
+  "metodo": "Bazin projetivo",
+  "setor": "Bancos",
+  "src": "DPA pago 3A (2023, 2024, 2025) R$ 1,28 ÷ 11,9% = R$ 10,80 → usa o menor (recuperação: ROE 5A 12,4% < 15%) · +3,0 p.p. risco da empresa (banco em recuperação)",
+  "preco": 12.59,
+  "data": "2026-11-23",
+  "base_dpa": "historico_5a"
+ },
+ "PETR3": {
+  "teto": 49.57,
+  "compra": 34.7,
   "margemMin": 30,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,53 × 0,75 = R$ 0,40 ÷ 12,4% = R$ 3,23]",
-  "preco": 5.14,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "RENT3": {
-  "teto": 12.53,
-  "compra": 10.03,
-  "margemMin": 20,
-  "metodo": "Graham",
-  "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 12,53 → usa o menor",
-  "preco": 28.86,
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 8,20 × 0,75 = R$ 6,15 ÷ 12,4% = R$ 49,57]",
+  "preco": 47.02,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -986,25 +964,14 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "PETR3": {
-  "teto": 49.57,
-  "compra": 34.7,
+ "GOAU4": {
+  "teto": 5.45,
+  "compra": 3.82,
   "margemMin": 30,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 8,20 × 0,75 = R$ 6,15 ÷ 12,4% = R$ 49,57]",
-  "preco": 48.63,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "UGPA3": {
-  "teto": 4.52,
-  "compra": 3.16,
-  "margemMin": 30,
-  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
-  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,75 × 0,75 = R$ 0,56 ÷ 12,4% = R$ 4,52]",
-  "preco": 31.36,
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,90 × 0,75 = R$ 0,68 ÷ 12,4% = R$ 5,45]",
+  "preco": 11.42,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1019,6 +986,28 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
+ "UGPA3": {
+  "teto": 4.52,
+  "compra": 3.16,
+  "margemMin": 30,
+  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
+  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,75 × 0,75 = R$ 0,56 ÷ 12,4% = R$ 4,52]",
+  "preco": 31.36,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "RENT3": {
+  "teto": 12.53,
+  "compra": 10.03,
+  "margemMin": 20,
+  "metodo": "Graham",
+  "setor": "Industrial & Bens de capital",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 12,53 → usa o menor",
+  "preco": 28.74,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
  "ECOR3": {
   "teto": 1.3,
   "compra": 1.04,
@@ -1026,18 +1015,18 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP com desconto + Bazin 5A",
   "setor": "Industrial & Bens de capital",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 1,30",
-  "preco": 5.87,
+  "preco": 6.13,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "ALOS3": {
-  "teto": 7.94,
-  "compra": 6.36,
+ "EMBJ3": {
+  "teto": 6.89,
+  "compra": 5.51,
   "margemMin": 20,
-  "metodo": "P/VP com desconto + Bazin 5A",
+  "metodo": "Bazin projetivo",
   "setor": "Outros",
-  "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 7,94",
-  "preco": 25.75,
+  "src": "DPA/11,4% R$ 6,89",
+  "preco": 106.96,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1048,7 +1037,62 @@ window.FEHMIR_TETOS = {
   "metodo": "Graham",
   "setor": "Industrial & Bens de capital",
   "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 5,41 → usa o menor",
-  "preco": 5.64,
+  "preco": 5.81,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "CMIN3": {
+  "teto": 4.36,
+  "compra": 3.05,
+  "margemMin": 30,
+  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
+  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,72 × 0,75 = R$ 0,54 ÷ 12,4% = R$ 4,36]",
+  "preco": 4.94,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "TOTS3": {
+  "teto": 3.72,
+  "compra": 2.97,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 3,72",
+  "preco": 31.08,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "EZTC3": {
+  "teto": 4.54,
+  "compra": 3.41,
+  "margemMin": 25,
+  "metodo": "Graham",
+  "setor": "Construção & Incorporação",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,9% R$ 4,54 → usa o menor",
+  "preco": 9.26,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "ALOS3": {
+  "teto": 7.94,
+  "compra": 6.36,
+  "margemMin": 20,
+  "metodo": "P/VP com desconto + Bazin 5A",
+  "setor": "Outros",
+  "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 7,94",
+  "preco": 25.5,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "RIAA3": {
+  "teto": 8.39,
+  "compra": 6.71,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 8,39",
+  "preco": 5.71,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1063,69 +1107,14 @@ window.FEHMIR_TETOS = {
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
  },
- "IGTI11": {
-  "teto": 5.01,
-  "compra": 4.01,
-  "margemMin": 20,
-  "metodo": "P/VP com desconto + Bazin 5A",
-  "setor": "Outros",
-  "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 5,01",
-  "preco": 21.85,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "PASS3": {
-  "teto": 5.86,
-  "compra": 5.28,
-  "margemMin": 10,
-  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
-  "setor": "Elétricas · Geração/Distribuição",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,70 × 0,75 = R$ 0,52 ÷ 8,9% = R$ 5,86]",
-  "preco": 22.1,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "CMIN3": {
-  "teto": 4.36,
-  "compra": 3.05,
-  "margemMin": 30,
-  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
-  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,72 × 0,75 = R$ 0,54 ÷ 12,4% = R$ 4,36]",
-  "preco": 5.02,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "EMBJ3": {
-  "teto": 6.89,
-  "compra": 5.51,
+ "BRAP4": {
+  "teto": 39.53,
+  "compra": 31.62,
   "margemMin": 20,
   "metodo": "Bazin projetivo",
   "setor": "Outros",
-  "src": "DPA/11,4% R$ 6,89",
-  "preco": 110.15,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "AUAU3": {
-  "teto": 0.28,
-  "compra": 0.22,
-  "margemMin": 20,
-  "metodo": "Graham",
-  "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 0,28 → usa o menor",
-  "preco": 4.23,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "MULT3": {
-  "teto": 7.49,
-  "compra": 5.99,
-  "margemMin": 20,
-  "metodo": "P/VP com desconto + Bazin 5A",
-  "setor": "Outros",
-  "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 7,49",
-  "preco": 26.4,
+  "src": "DPA/11,4% R$ 39,53",
+  "preco": 16.5,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1136,117 +1125,7 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Outros",
   "src": "DPA/11,4% R$ 3,33",
-  "preco": 10.27,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "LIGT3": {
-  "teto": 1.15,
-  "compra": 1.04,
-  "margemMin": 10,
-  "metodo": "Bazin projetivo",
-  "setor": "Elétricas · Geração/Distribuição",
-  "src": "DPA/8,9% R$ 1,15",
-  "preco": 3.06,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "EZTC3": {
-  "teto": 4.54,
-  "compra": 3.41,
-  "margemMin": 25,
-  "metodo": "Graham",
-  "setor": "Construção & Incorporação",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,9% R$ 4,54 → usa o menor",
-  "preco": 9.24,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "CBAV3": {
-  "teto": 2.09,
-  "compra": 1.46,
-  "margemMin": 30,
-  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
-  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,35 × 0,75 = R$ 0,26 ÷ 12,4% = R$ 2,09]",
-  "preco": 11.37,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "PLPL3": {
-  "teto": 4.15,
-  "compra": 3.11,
-  "margemMin": 25,
-  "metodo": "Graham",
-  "setor": "Construção & Incorporação",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,9% R$ 4,15 → usa o menor",
-  "preco": 4.27,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "SIMH3": {
-  "teto": 4.02,
-  "compra": 3.21,
-  "margemMin": 20,
-  "metodo": "P/VP com desconto + Bazin 5A",
-  "setor": "Industrial & Bens de capital",
-  "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 4,02",
-  "preco": 5.33,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "TOTS3": {
-  "teto": 3.72,
-  "compra": 2.97,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 3,72",
-  "preco": 31.11,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "BRAP4": {
-  "teto": 39.53,
-  "compra": 31.62,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 39,53",
-  "preco": 16.58,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "TTEN3": {
-  "teto": 1.3,
-  "compra": 1.04,
-  "margemMin": 20,
-  "metodo": "Graham",
-  "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 1,30 → usa o menor",
-  "preco": 11.35,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "RIAA3": {
-  "teto": 8.39,
-  "compra": 6.71,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 8,39",
-  "preco": 5.8,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "POMO3": {
-  "teto": 3.83,
-  "compra": 3.06,
-  "margemMin": 20,
-  "metodo": "Graham",
-  "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 3,83 → usa o menor",
-  "preco": 3.37,
+  "preco": 10.61,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1261,25 +1140,14 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "RAPT4": {
-  "teto": 4.6,
-  "compra": 3.68,
+ "SIMH3": {
+  "teto": 4.02,
+  "compra": 3.21,
   "margemMin": 20,
-  "metodo": "Graham",
+  "metodo": "P/VP com desconto + Bazin 5A",
   "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 4,60 → usa o menor",
-  "preco": 3.79,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "SMTO3": {
-  "teto": 11.42,
-  "compra": 9.14,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 11,42",
-  "preco": 17.65,
+  "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 4,02",
+  "preco": 5.46,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1290,172 +1158,51 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
   "src": "DPA/8,9% R$ 21,10",
-  "preco": 44.42,
+  "preco": 43.53,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "BMGB4": {
-  "teto": 4.37,
-  "compra": 3.94,
-  "margemMin": 10,
-  "metodo": "Bazin projetivo",
-  "setor": "Bancos",
-  "src": "DPA/8,9% R$ 4,37",
-  "preco": 5.02,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "SLCE3": {
-  "teto": 8.14,
-  "compra": 6.51,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 8,14",
-  "preco": 17.53,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "BRSR6": {
-  "teto": 9.52,
-  "compra": 7.62,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA 5A R$ 1,09 (robô)÷11,4% = R$ 9,52",
-  "preco": 12.46,
-  "data": "2026-11-19",
-  "base_dpa": "historico_5a"
- },
- "SOJA3": {
-  "teto": 4.36,
-  "compra": 3.49,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 4,36",
-  "preco": 5.04,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "DXCO3": {
-  "teto": 3.56,
-  "compra": 2.85,
-  "margemMin": 20,
-  "metodo": "Graham",
-  "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 3,56 → usa o menor",
-  "preco": 4.67,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "OPCT3": {
-  "teto": 0.85,
-  "compra": 0.68,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 0,85",
-  "preco": 8.89,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "MLAS3": {
-  "teto": 0.44,
-  "compra": 0.35,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 0,44",
-  "preco": 2.22,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "EVEN3": {
-  "teto": 4.5,
-  "compra": 3.38,
-  "margemMin": 25,
-  "metodo": "Graham",
-  "setor": "Construção & Incorporação",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,9% R$ 4,50 → usa o menor",
-  "preco": 3.65,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "POSI3": {
-  "teto": 3.91,
-  "compra": 3.13,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 3,91",
-  "preco": 3.37,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "PINE4": {
-  "teto": 3.35,
-  "compra": 2.68,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 3,35",
-  "preco": 10.35,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "MDNE3": {
-  "teto": 8.45,
-  "compra": 6.34,
-  "margemMin": 25,
-  "metodo": "Graham",
-  "setor": "Construção & Incorporação",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,9% R$ 8,45 → usa o menor",
-  "preco": 16.89,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "SHUL4": {
-  "teto": 3.14,
-  "compra": 2.51,
-  "margemMin": 20,
-  "metodo": "Graham",
-  "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 3,14 → usa o menor",
-  "preco": 4.11,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "KEPL3": {
-  "teto": 9.81,
-  "compra": 7.85,
-  "margemMin": 20,
-  "metodo": "Graham",
-  "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 9,81 → usa o menor",
-  "preco": 6.63,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "FESA4": {
-  "teto": 4.25,
-  "compra": 2.97,
+ "CBAV3": {
+  "teto": 2.09,
+  "compra": 1.46,
   "margemMin": 30,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,70 × 0,75 = R$ 0,53 ÷ 12,4% = R$ 4,25]",
-  "preco": 5.2,
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,35 × 0,75 = R$ 0,26 ÷ 12,4% = R$ 2,09]",
+  "preco": 11.3,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "ARML3": {
-  "teto": 2.54,
-  "compra": 2.03,
+ "MULT3": {
+  "teto": 7.49,
+  "compra": 5.99,
+  "margemMin": 20,
+  "metodo": "P/VP com desconto + Bazin 5A",
+  "setor": "Outros",
+  "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 7,49",
+  "preco": 26.4,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "AUAU3": {
+  "teto": 0.28,
+  "compra": 0.22,
   "margemMin": 20,
   "metodo": "Graham",
   "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 2,54 → usa o menor",
-  "preco": 3.99,
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 0,28 → usa o menor",
+  "preco": 4.16,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "TTEN3": {
+  "teto": 1.3,
+  "compra": 1.04,
+  "margemMin": 20,
+  "metodo": "Graham",
+  "setor": "Industrial & Bens de capital",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 1,30 → usa o menor",
+  "preco": 11.35,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1470,14 +1217,168 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "USIM3": {
-  "teto": 2.93,
-  "compra": 2.05,
-  "margemMin": 30,
-  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
-  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,48 × 0,75 = R$ 0,36 ÷ 12,4% = R$ 2,93]",
-  "preco": 4.9,
+ "MDNE3": {
+  "teto": 8.45,
+  "compra": 6.34,
+  "margemMin": 25,
+  "metodo": "Graham",
+  "setor": "Construção & Incorporação",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,9% R$ 8,45 → usa o menor",
+  "preco": 16.89,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "RAPT4": {
+  "teto": 4.6,
+  "compra": 3.68,
+  "margemMin": 20,
+  "metodo": "Graham",
+  "setor": "Industrial & Bens de capital",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 4,60 → usa o menor",
+  "preco": 3.79,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "PLPL3": {
+  "teto": 4.15,
+  "compra": 3.11,
+  "margemMin": 25,
+  "metodo": "Graham",
+  "setor": "Construção & Incorporação",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,9% R$ 4,15 → usa o menor",
+  "preco": 4.17,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "IGTI11": {
+  "teto": 5.01,
+  "compra": 4.01,
+  "margemMin": 20,
+  "metodo": "P/VP com desconto + Bazin 5A",
+  "setor": "Outros",
+  "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 5,01",
+  "preco": 21.85,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "LIGT3": {
+  "teto": 1.15,
+  "compra": 1.04,
+  "margemMin": 10,
+  "metodo": "Bazin projetivo",
+  "setor": "Elétricas · Geração/Distribuição",
+  "src": "DPA/8,9% R$ 1,15",
+  "preco": 3.06,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "DXCO3": {
+  "teto": 3.56,
+  "compra": 2.85,
+  "margemMin": 20,
+  "metodo": "Graham",
+  "setor": "Industrial & Bens de capital",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 3,56 → usa o menor",
+  "preco": 4.66,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "SLCE3": {
+  "teto": 8.14,
+  "compra": 6.51,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 8,14",
+  "preco": 16.94,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "SMTO3": {
+  "teto": 11.42,
+  "compra": 9.14,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 11,42",
+  "preco": 17.65,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "EVEN3": {
+  "teto": 4.5,
+  "compra": 3.38,
+  "margemMin": 25,
+  "metodo": "Graham",
+  "setor": "Construção & Incorporação",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/11,9% R$ 4,50 → usa o menor",
+  "preco": 3.65,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "POMO3": {
+  "teto": 3.83,
+  "compra": 3.06,
+  "margemMin": 20,
+  "metodo": "Graham",
+  "setor": "Industrial & Bens de capital",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 3,83 → usa o menor",
+  "preco": 3.28,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "BRSR6": {
+  "teto": 9.52,
+  "compra": 7.62,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA 5A R$ 1,09 (robô)÷11,4% = R$ 9,52",
+  "preco": 12.37,
+  "data": "2026-11-23",
+  "base_dpa": "historico_5a"
+ },
+ "KEPL3": {
+  "teto": 9.81,
+  "compra": 7.85,
+  "margemMin": 20,
+  "metodo": "Graham",
+  "setor": "Industrial & Bens de capital",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 9,81 → usa o menor",
+  "preco": 6.63,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "BMGB4": {
+  "teto": 4.37,
+  "compra": 3.94,
+  "margemMin": 10,
+  "metodo": "Bazin projetivo",
+  "setor": "Bancos",
+  "src": "DPA/8,9% R$ 4,37",
+  "preco": 5.02,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "MLAS3": {
+  "teto": 0.44,
+  "compra": 0.35,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 0,44",
+  "preco": 2.22,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "OPCT3": {
+  "teto": 0.85,
+  "compra": 0.68,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 0,85",
+  "preco": 8.89,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1488,7 +1389,29 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,24 × 0,75 = R$ 0,18 ÷ 12,4% = R$ 1,43]",
-  "preco": 3.42,
+  "preco": 3.34,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "PASS3": {
+  "teto": 5.86,
+  "compra": 5.28,
+  "margemMin": 10,
+  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
+  "setor": "Elétricas · Geração/Distribuição",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,70 × 0,75 = R$ 0,52 ÷ 8,9% = R$ 5,86]",
+  "preco": 22.1,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "JALL3": {
+  "teto": 2.1,
+  "compra": 1.68,
+  "margemMin": 20,
+  "metodo": "Graham",
+  "setor": "Industrial & Bens de capital",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 2,10 → usa o menor",
+  "preco": 2.27,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1499,30 +1422,19 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP com desconto + Bazin 5A",
   "setor": "Industrial & Bens de capital",
   "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 5,96",
-  "preco": 5.68,
+  "preco": 5.78,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "TASA4": {
-  "teto": 5.06,
-  "compra": 4.04,
+ "SOJA3": {
+  "teto": 4.36,
+  "compra": 3.49,
   "margemMin": 20,
   "metodo": "Bazin projetivo",
   "setor": "Outros",
-  "src": "DPA/11,4% R$ 5,06",
-  "preco": 4.65,
+  "src": "DPA/11,4% R$ 4,36",
+  "preco": 5.09,
   "data": null,
-  "base_dpa": "historico_5a"
- },
- "ABCB4": {
-  "teto": 22.8,
-  "compra": 20.52,
-  "margemMin": 10,
-  "metodo": "Bazin projetivo",
-  "setor": "Bancos",
-  "src": "DPA pago 3A (2023, 2024, 2025) R$ 2,03 ÷ 8,9% = R$ 22,80 → usa o menor (recuperação: ROE 5A 14,7% < 15%)",
-  "preco": 22.92,
-  "data": "2026-11-19",
   "base_dpa": "historico_5a"
  },
  "BMOB3": {
@@ -1536,25 +1448,25 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "MILS3": {
-  "teto": 3.81,
-  "compra": 3.04,
-  "margemMin": 20,
-  "metodo": "Graham",
-  "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 3,81 → usa o menor",
-  "preco": 16.35,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "BRBI11": {
-  "teto": 19.21,
-  "compra": 17.29,
+ "ABCB4": {
+  "teto": 22.8,
+  "compra": 20.52,
   "margemMin": 10,
   "metodo": "Bazin projetivo",
   "setor": "Bancos",
-  "src": "DPA/8,9% R$ 19,21",
-  "preco": 10.06,
+  "src": "DPA pago 3A (2023, 2024, 2025) R$ 2,03 ÷ 8,9% = R$ 22,80 → usa o menor (recuperação: ROE 5A 14,7% < 15%)",
+  "preco": 23.07,
+  "data": "2026-11-23",
+  "base_dpa": "historico_5a"
+ },
+ "FESA4": {
+  "teto": 4.25,
+  "compra": 2.97,
+  "margemMin": 30,
+  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
+  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,70 × 0,75 = R$ 0,53 ÷ 12,4% = R$ 4,25]",
+  "preco": 5.2,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1569,6 +1481,72 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
+ "POSI3": {
+  "teto": 3.91,
+  "compra": 3.13,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 3,91",
+  "preco": 3.38,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "PINE4": {
+  "teto": 3.35,
+  "compra": 2.68,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 3,35",
+  "preco": 10.35,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "TASA4": {
+  "teto": 5.06,
+  "compra": 4.04,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 5,06",
+  "preco": 4.57,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "PRNR3": {
+  "teto": 1.28,
+  "compra": 1.03,
+  "margemMin": 20,
+  "metodo": "Graham",
+  "setor": "Industrial & Bens de capital",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 1,28 → usa o menor",
+  "preco": 12.45,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "USIM3": {
+  "teto": 2.93,
+  "compra": 2.05,
+  "margemMin": 30,
+  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
+  "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
+  "src": "Bazin de meio de ciclo [mediana 5A R$ 0,48 × 0,75 = R$ 0,36 ÷ 12,4% = R$ 2,93]",
+  "preco": 4.9,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "SHUL4": {
+  "teto": 3.14,
+  "compra": 2.51,
+  "margemMin": 20,
+  "metodo": "Graham",
+  "setor": "Industrial & Bens de capital",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 3,14 → usa o menor",
+  "preco": 4.11,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
  "WIZC3": {
   "teto": 4.31,
   "compra": 3.44,
@@ -1580,69 +1558,36 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "PRNR3": {
-  "teto": 1.28,
-  "compra": 1.02,
+ "BRBI11": {
+  "teto": 19.21,
+  "compra": 17.29,
+  "margemMin": 10,
+  "metodo": "Bazin projetivo",
+  "setor": "Bancos",
+  "src": "DPA/8,9% R$ 19,21",
+  "preco": 10.06,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "ARML3": {
+  "teto": 2.54,
+  "compra": 2.03,
   "margemMin": 20,
   "metodo": "Graham",
   "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 1,28 → usa o menor",
-  "preco": 12.5,
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 2,54 → usa o menor",
+  "preco": 3.99,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "RENT4": {
-  "teto": 14.16,
-  "compra": 11.32,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 14,16",
-  "preco": 28.2,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "VLID3": {
-  "teto": 13.97,
-  "compra": 11.17,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 13,97",
-  "preco": 14.78,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "TGMA3": {
-  "teto": 18.87,
-  "compra": 15.1,
-  "margemMin": 20,
-  "metodo": "P/VP com desconto + Bazin 5A",
-  "setor": "Industrial & Bens de capital",
-  "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 18,87",
-  "preco": 32.57,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "FRAS3": {
-  "teto": 4.53,
-  "compra": 3.63,
+ "MILS3": {
+  "teto": 3.81,
+  "compra": 3.04,
   "margemMin": 20,
   "metodo": "Graham",
   "setor": "Industrial & Bens de capital",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 4,53 → usa o menor",
-  "preco": 20.58,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "SANB4": {
-  "teto": 9.4,
-  "compra": 7.52,
-  "margemMin": 20,
-  "metodo": "Bazin projetivo",
-  "setor": "Outros",
-  "src": "DPA/11,4% R$ 9,40",
-  "preco": 14.07,
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 3,81 → usa o menor",
+  "preco": 16.35,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1668,6 +1613,17 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
+ "ITSA3": {
+  "teto": 8.23,
+  "compra": 7.41,
+  "margemMin": 10,
+  "metodo": "Bazin projetivo",
+  "setor": "Bancos",
+  "src": "DPA/8,9% R$ 8,23",
+  "preco": 13.16,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
  "AGRO3": {
   "teto": 23.5,
   "compra": 18.8,
@@ -1675,7 +1631,62 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin projetivo",
   "setor": "Outros",
   "src": "DPA/11,4% R$ 23,50",
-  "preco": 16.48,
+  "preco": 16.51,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "FRAS3": {
+  "teto": 4.53,
+  "compra": 3.63,
+  "margemMin": 20,
+  "metodo": "Graham",
+  "setor": "Industrial & Bens de capital",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/10,9% R$ 4,53 → usa o menor",
+  "preco": 20.58,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "RENT4": {
+  "teto": 14.16,
+  "compra": 11.32,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 14,16",
+  "preco": 28.2,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "TGMA3": {
+  "teto": 18.87,
+  "compra": 15.1,
+  "margemMin": 20,
+  "metodo": "P/VP com desconto + Bazin 5A",
+  "setor": "Industrial & Bens de capital",
+  "src": "P/VP c/ desconto indisponível (sem VPA): usando Bazin 5A R$ 18,87",
+  "preco": 32.57,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "VLID3": {
+  "teto": 13.97,
+  "compra": 11.17,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 13,97",
+  "preco": 14.78,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "SANB4": {
+  "teto": 9.4,
+  "compra": 7.52,
+  "margemMin": 20,
+  "metodo": "Bazin projetivo",
+  "setor": "Outros",
+  "src": "DPA/11,4% R$ 9,40",
+  "preco": 14.07,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1690,28 +1701,6 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "ITSA3": {
-  "teto": 8.23,
-  "compra": 7.41,
-  "margemMin": 10,
-  "metodo": "Bazin projetivo",
-  "setor": "Bancos",
-  "src": "DPA/8,9% R$ 8,23",
-  "preco": 13.62,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "CMIG3": {
-  "teto": 15.17,
-  "compra": 13.65,
-  "margemMin": 10,
-  "metodo": "Bazin projetivo",
-  "setor": "Elétricas · Geração/Distribuição",
-  "src": "DPA/8,9% R$ 15,17",
-  "preco": 17.34,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
  "CLSC4": {
   "teto": 73.54,
   "compra": 66.19,
@@ -1723,28 +1712,6 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "CPTS11": {
-  "teto": 7.2,
-  "compra": 6.48,
-  "margemMin": 10,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 1,08 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 7,20",
-  "preco": 6.54,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "MIDW11": {
-  "teto": 4.54,
-  "compra": 3.86,
-  "margemMin": 15,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII · Fundo de fundos",
-  "src": "Dividendo 12m R$ 0,64 (dividendo do cadastro, não do robô — conferir) ÷ 14,0% = R$ 4,54",
-  "preco": 11,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
  "KNSC11": {
   "teto": 8.28,
   "compra": 7.46,
@@ -1752,7 +1719,7 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 1,12 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 8,28",
-  "preco": 8.26,
+  "preco": 8.03,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1767,6 +1734,28 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
+ "CPTS11": {
+  "teto": 7.2,
+  "compra": 6.48,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 1,08 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 7,20",
+  "preco": 6.54,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "MCRE11": {
+  "teto": 10.08,
+  "compra": 9.07,
+  "margemMin": 10,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Híbrido",
+  "src": "Dividendo 12m R$ 1,28 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 10,08",
+  "preco": 6.5,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
  "VGIR11": {
   "teto": 9.99,
   "compra": 8.99,
@@ -1774,7 +1763,18 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 1,50 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 9,99",
-  "preco": 8.13,
+  "preco": 8,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "AZPL11": {
+  "teto": 8.24,
+  "compra": 7.82,
+  "margemMin": 5,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Logística/Renda urbana",
+  "src": "Dividendo 12m R$ 0,84 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 8,24",
+  "preco": 7.35,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1785,7 +1785,51 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII · Fundo de fundos",
   "src": "Dividendo 12m R$ 1,21 (dividendo do cadastro, não do robô — conferir) ÷ 14,0% = R$ 8,63",
-  "preco": 7.96,
+  "preco": 7.76,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "AJFI11": {
+  "teto": 6.42,
+  "compra": 6.1,
+  "margemMin": 5,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Shoppings",
+  "src": "Dividendo 12m R$ 0,66 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 6,42",
+  "preco": 8.28,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "HGBL11": {
+  "teto": 8.59,
+  "compra": 8.16,
+  "margemMin": 5,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Logística/Renda urbana",
+  "src": "Dividendo 12m R$ 0,88 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 8,59",
+  "preco": 8.94,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "MIDW11": {
+  "teto": 4.54,
+  "compra": 3.86,
+  "margemMin": 15,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII · Fundo de fundos",
+  "src": "Dividendo 12m R$ 0,64 (dividendo do cadastro, não do robô — conferir) ÷ 14,0% = R$ 4,54",
+  "preco": 11,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "CPUR11": {
+  "teto": 10.87,
+  "compra": 10.32,
+  "margemMin": 5,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Logística/Renda urbana",
+  "src": "Dividendo 12m R$ 1,11 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 10,87",
+  "preco": 10.4,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1795,19 +1839,8 @@ window.FEHMIR_TETOS = {
   "margemMin": 5,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Shoppings",
-  "src": "Rendimento inflado por lucro de vendas acumulado (Jardim Sul 19%, I Fashion Outlet): R$ 0,05 por cota em out/26 (pagou R$ 0,17, gerou R$ 0,12). Teto pelo recorrente: R$ 0,12 × 12 = R$ 1,48 ÷ 10,2% = R$ 14,47 (pelo pago seria R$ 19,51). DY no preço de hoje: 8,8% pelo recorrente, 11,8% pelo pago.",
-  "preco": 16.83,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "MCRE11": {
-  "teto": 9.29,
-  "compra": 8.36,
-  "margemMin": 10,
-  "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Híbrido",
-  "src": "Dividendo 12m R$ 1,18 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 9,29",
-  "preco": 6.55,
+  "src": "Rendimento inflado por lucro de vendas acumulado (Jardim Sul 19%, I Fashion Outlet): R$ 0,05 por cota em out/26 (pagou R$ 0,17, gerou R$ 0,12). Teto pelo recorrente: R$ 0,12 × 12 = R$ 1,48 ÷ 10,2% = R$ 14,47 (pelo pago seria R$ 19,51). DY no preço de hoje: 9,0% pelo recorrente, 12,1% pelo pago.",
+  "preco": 16.4,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1822,80 +1855,14 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "RURA11": {
-  "teto": 7.49,
-  "compra": 6.36,
-  "margemMin": 15,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "Fiagro · Crédito agro",
-  "src": "Dividendo 12m R$ 1,20 (robô) ÷ 16,0% = R$ 7,49",
-  "preco": 7.19,
-  "data": "2026-11-19",
-  "base_dpa": "historico_5a"
- },
- "RBVA11": {
-  "teto": 8.85,
-  "compra": 8.41,
+ "GSFI11": {
+  "teto": 2.16,
+  "compra": 2.05,
   "margemMin": 5,
   "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Logística/Renda urbana",
-  "src": "Dividendo 12m R$ 1,08 (dividendo do cadastro, não do robô — conferir) ÷ 12,2% = R$ 8,85",
-  "preco": 7.42,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "AIEC11": {
-  "teto": 34.82,
-  "compra": 29.6,
-  "margemMin": 15,
-  "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Lajes corporativas",
-  "src": "Dividendo 12m R$ 3,90 (dividendo do cadastro, não do robô — conferir) ÷ 11,2% = R$ 34,82",
-  "preco": 70.53,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "VGIA11": {
-  "teto": 9.94,
-  "compra": 8.45,
-  "margemMin": 15,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "Fiagro · Crédito agro",
-  "src": "Dividendo 12m R$ 1,59 (robô) ÷ 16,0% = R$ 9,94",
-  "preco": 7.82,
-  "data": "2026-11-19",
-  "base_dpa": "historico_5a"
- },
- "SNAG11": {
-  "teto": 9.81,
-  "compra": 8.34,
-  "margemMin": 15,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "Fiagro · Crédito agro",
-  "src": "Dividendo 12m R$ 1,57 (robô) ÷ 16,0% = R$ 9,81",
-  "preco": 9.45,
-  "data": "2026-11-19",
-  "base_dpa": "historico_5a"
- },
- "KNCR11": {
-  "teto": 101.36,
-  "compra": 91.22,
-  "margemMin": 10,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 13,68 (robô) ÷ 13,5% = R$ 101,36",
-  "preco": 102.85,
-  "data": "2026-11-19",
-  "base_dpa": "historico_5a"
- },
- "JSAF11": {
-  "teto": 6.86,
-  "compra": 5.83,
-  "margemMin": 15,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII · Fundo de fundos",
-  "src": "Dividendo 12m R$ 0,96 (dividendo do cadastro, não do robô — conferir) ÷ 14,0% = R$ 6,86",
-  "preco": 6.41,
+  "setor": "FII Tijolo · Shoppings",
+  "src": "Dividendo 12m R$ 0,22 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 2,16",
+  "preco": 11.45,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1906,30 +1873,63 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 1,16 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 8,60",
-  "preco": 8,
+  "preco": 7.62,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "TEPP11": {
-  "teto": 8.77,
-  "compra": 7.45,
-  "margemMin": 15,
+ "RBVA11": {
+  "teto": 8.85,
+  "compra": 8.41,
+  "margemMin": 5,
   "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Lajes corporativas",
-  "src": "Dividendo 12m R$ 1,16 (dividendo do cadastro, não do robô — conferir) ÷ 13,2% = R$ 8,77",
-  "preco": 6.42,
+  "setor": "FII Tijolo · Logística/Renda urbana",
+  "src": "Dividendo 12m R$ 1,08 (dividendo do cadastro, não do robô — conferir) ÷ 12,2% = R$ 8,85",
+  "preco": 7.24,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "BODB11": {
-  "teto": 8.37,
-  "compra": 7.53,
+ "RURA11": {
+  "teto": 7.49,
+  "compra": 6.36,
+  "margemMin": 15,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "Fiagro · Crédito agro",
+  "src": "Dividendo 12m R$ 1,20 (robô) ÷ 16,0% = R$ 7,49",
+  "preco": 7.14,
+  "data": "2026-11-23",
+  "base_dpa": "historico_5a"
+ },
+ "KNCR11": {
+  "teto": 101.36,
+  "compra": 91.22,
   "margemMin": 10,
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 1,13 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 8,37",
-  "preco": 7.1,
-  "data": null,
+  "src": "Dividendo 12m R$ 13,68 (robô) ÷ 13,5% = R$ 101,36",
+  "preco": 101.71,
+  "data": "2026-11-23",
+  "base_dpa": "historico_5a"
+ },
+ "VGIA11": {
+  "teto": 9.94,
+  "compra": 8.45,
+  "margemMin": 15,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "Fiagro · Crédito agro",
+  "src": "Dividendo 12m R$ 1,59 (robô) ÷ 16,0% = R$ 9,94",
+  "preco": 7.54,
+  "data": "2026-11-23",
+  "base_dpa": "historico_5a"
+ },
+ "SNAG11": {
+  "teto": 9.81,
+  "compra": 8.34,
+  "margemMin": 15,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "Fiagro · Crédito agro",
+  "src": "Dividendo 12m R$ 1,57 (robô) ÷ 16,0% = R$ 9,81",
+  "preco": 9.43,
+  "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "CPSH11": {
@@ -1943,6 +1943,50 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
+ "TEPP11": {
+  "teto": 8.77,
+  "compra": 7.45,
+  "margemMin": 15,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Lajes corporativas",
+  "src": "Dividendo 12m R$ 1,16 (dividendo do cadastro, não do robô — conferir) ÷ 13,2% = R$ 8,77",
+  "preco": 6.31,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "JSAF11": {
+  "teto": 6.86,
+  "compra": 5.83,
+  "margemMin": 15,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII · Fundo de fundos",
+  "src": "Dividendo 12m R$ 0,96 (dividendo do cadastro, não do robô — conferir) ÷ 14,0% = R$ 6,86",
+  "preco": 6.41,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "BODB11": {
+  "teto": 8.37,
+  "compra": 7.53,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 1,13 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 8,37",
+  "preco": 7.18,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "CPOF11": {
+  "teto": 71.01,
+  "compra": 63.91,
+  "margemMin": 10,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Híbrido",
+  "src": "Dividendo 12m R$ 7,60 (dividendo do cadastro, não do robô — conferir) ÷ 10,7% = R$ 71,01",
+  "preco": 123.99,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
  "MANA11": {
   "teto": 9.96,
   "compra": 8.96,
@@ -1950,7 +1994,40 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Híbrido",
   "src": "Dividendo 12m R$ 1,27 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 9,96",
-  "preco": 8.27,
+  "preco": 8.06,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "KCRE11": {
+  "teto": 8.9,
+  "compra": 8.01,
+  "margemMin": 10,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Híbrido",
+  "src": "Dividendo 12m R$ 1,13 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 8,90",
+  "preco": 7.9,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "TRXB11": {
+  "teto": 261.52,
+  "compra": 235.37,
+  "margemMin": 10,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Híbrido",
+  "src": "Dividendo 12m R$ 33,21 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 261,52",
+  "preco": 198.01,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "PVBI11": {
+  "teto": 43.84,
+  "compra": 37.26,
+  "margemMin": 15,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Lajes corporativas",
+  "src": "Dividendo 12m R$ 4,91 (dividendo do cadastro, não do robô — conferir) ÷ 11,2% = R$ 43,84",
+  "preco": 58.22,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1961,7 +2038,7 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 13,98 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 93,20",
-  "preco": 86.18,
+  "preco": 85.81,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -1976,80 +2053,25 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "BDIF11": {
-  "teto": 66,
-  "compra": 59.4,
+ "KNRI11": {
+  "teto": 124.39,
+  "compra": 111.95,
   "margemMin": 10,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 9,90 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 66,00",
-  "preco": 59.8,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Híbrido",
+  "src": "Dividendo 12m R$ 13,31 (dividendo do cadastro, não do robô — conferir) ÷ 10,7% = R$ 124,39",
+  "preco": 140.5,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "RBRY11": {
-  "teto": 85.33,
-  "compra": 76.8,
+ "KNUQ11": {
+  "teto": 112.37,
+  "compra": 101.14,
   "margemMin": 10,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 12,80 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 85,33",
-  "preco": 74.71,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "JSRE11": {
-  "teto": 52.14,
-  "compra": 44.32,
-  "margemMin": 15,
   "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Lajes corporativas",
-  "src": "Dividendo 12m R$ 5,84 (dividendo do cadastro, não do robô — conferir) ÷ 11,2% = R$ 52,14",
-  "preco": 56.94,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "LVBI11": {
-  "teto": 89.71,
-  "compra": 85.22,
-  "margemMin": 5,
-  "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Logística/Renda urbana",
-  "src": "Dividendo 12m R$ 9,15 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 89,71",
-  "preco": 99.29,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "BRCR11": {
-  "teto": 37.27,
-  "compra": 31.68,
-  "margemMin": 15,
-  "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Lajes corporativas",
-  "src": "Dividendo 12m R$ 4,92 (dividendo do cadastro, não do robô — conferir) ÷ 13,2% = R$ 37,27",
-  "preco": 37.84,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "KNHF11": {
-  "teto": 85.71,
-  "compra": 72.86,
-  "margemMin": 15,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII · Fundo de fundos",
-  "src": "Dividendo 12m R$ 12,00 (dividendo do cadastro, não do robô — conferir) ÷ 14,0% = R$ 85,71",
-  "preco": 85.36,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "PSEC11": {
-  "teto": 34.81,
-  "compra": 31.33,
-  "margemMin": 10,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 4,70 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 34,81",
-  "preco": 43.1,
+  "setor": "FII Tijolo · Híbrido",
+  "src": "Dividendo 12m R$ 14,27 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 112,37",
+  "preco": 94.9,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -2064,36 +2086,25 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "KNHY11": {
-  "teto": 90.67,
-  "compra": 81.6,
+ "RBRY11": {
+  "teto": 85.33,
+  "compra": 76.8,
   "margemMin": 10,
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 12,24 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 90,67",
-  "preco": 90.55,
+  "src": "Dividendo 12m R$ 12,80 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 85,33",
+  "preco": 74.02,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "PVBI11": {
-  "teto": 43.84,
-  "compra": 37.26,
+ "KNHF11": {
+  "teto": 85.71,
+  "compra": 72.86,
   "margemMin": 15,
-  "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Lajes corporativas",
-  "src": "Dividendo 12m R$ 4,91 (dividendo do cadastro, não do robô — conferir) ÷ 11,2% = R$ 43,84",
-  "preco": 59.21,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "KNRI11": {
-  "teto": 124.39,
-  "compra": 111.95,
-  "margemMin": 10,
-  "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Híbrido",
-  "src": "Dividendo 12m R$ 13,31 (dividendo do cadastro, não do robô — conferir) ÷ 10,7% = R$ 124,39",
-  "preco": 143.11,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII · Fundo de fundos",
+  "src": "Dividendo 12m R$ 12,00 (dividendo do cadastro, não do robô — conferir) ÷ 14,0% = R$ 85,71",
+  "preco": 84.5,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -2104,7 +2115,18 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 9,50 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 70,37",
-  "preco": 89.02,
+  "preco": 88.25,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "HBCR11": {
+  "teto": 152.72,
+  "compra": 137.45,
+  "margemMin": 10,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Híbrido",
+  "src": "Dividendo 12m R$ 16,34 (dividendo do cadastro, não do robô — conferir) ÷ 10,7% = R$ 152,72",
+  "preco": 144,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -2115,84 +2137,18 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 12,00 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 88,89",
-  "preco": 86.7,
+  "preco": 85.99,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "BRCO11": {
-  "teto": 108.24,
-  "compra": 102.82,
-  "margemMin": 5,
-  "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Logística/Renda urbana",
-  "src": "Dividendo 12m R$ 11,04 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 108,24",
-  "preco": 103.86,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "XPCI11": {
-  "teto": 78.59,
-  "compra": 70.73,
+ "PSEC11": {
+  "teto": 34.81,
+  "compra": 31.33,
   "margemMin": 10,
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 10,61 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 78,59",
-  "preco": 74.66,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "KDIF11": {
-  "teto": 103.7,
-  "compra": 93.33,
-  "margemMin": 10,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 14,00 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 103,70",
-  "preco": 112,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "HGRU11": {
-  "teto": 107.31,
-  "compra": 101.95,
-  "margemMin": 5,
-  "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Logística/Renda urbana",
-  "src": "Dividendo 12m R$ 10,95 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 107,31",
-  "preco": 113.35,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "HGCR11": {
-  "teto": 86.67,
-  "compra": 78,
-  "margemMin": 10,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 11,70 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 86,67",
-  "preco": 83.7,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "BINC11": {
-  "teto": 101.04,
-  "compra": 90.93,
-  "margemMin": 10,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 13,64 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 101,04",
-  "preco": 87.55,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "IFRI11": {
-  "teto": 94.07,
-  "compra": 84.67,
-  "margemMin": 10,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 12,70 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 94,07",
-  "preco": 84.88,
+  "src": "Dividendo 12m R$ 4,70 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 34,81",
+  "preco": 42.44,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -2207,25 +2163,14 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "KNUQ11": {
-  "teto": 112.37,
-  "compra": 101.14,
-  "margemMin": 10,
-  "metodo": "Bazin por rendimento",
-  "setor": "FII Tijolo · Híbrido",
-  "src": "Dividendo 12m R$ 14,27 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 112,37",
-  "preco": 95,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "DIVS11": {
-  "teto": 96,
-  "compra": 86.4,
+ "KNHY11": {
+  "teto": 90.67,
+  "compra": 81.6,
   "margemMin": 10,
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 14,40 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 96,00",
-  "preco": 85.02,
+  "src": "Dividendo 12m R$ 12,24 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 90,67",
+  "preco": 90.55,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -2237,6 +2182,171 @@ window.FEHMIR_TETOS = {
   "setor": "FII Tijolo · Logística/Renda urbana",
   "src": "Dividendo 12m R$ 9,60 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 94,12",
   "preco": 75.91,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "BRCO11": {
+  "teto": 108.24,
+  "compra": 102.82,
+  "margemMin": 5,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Logística/Renda urbana",
+  "src": "Dividendo 12m R$ 11,04 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 108,24",
+  "preco": 103,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "BRCR11": {
+  "teto": 37.27,
+  "compra": 31.68,
+  "margemMin": 15,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Lajes corporativas",
+  "src": "Dividendo 12m R$ 4,92 (dividendo do cadastro, não do robô — conferir) ÷ 13,2% = R$ 37,27",
+  "preco": 36.87,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "LVBI11": {
+  "teto": 89.71,
+  "compra": 85.22,
+  "margemMin": 5,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Logística/Renda urbana",
+  "src": "Dividendo 12m R$ 9,15 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 89,71",
+  "preco": 98.57,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "HGRU11": {
+  "teto": 107.31,
+  "compra": 101.95,
+  "margemMin": 5,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Logística/Renda urbana",
+  "src": "Dividendo 12m R$ 10,95 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 107,31",
+  "preco": 112.35,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "BDIF11": {
+  "teto": 66,
+  "compra": 59.4,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 9,90 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 66,00",
+  "preco": 61.45,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "VGIP11": {
+  "teto": 67.93,
+  "compra": 61.14,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 10,19 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 67,93",
+  "preco": 61.32,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "JSRE11": {
+  "teto": 52.14,
+  "compra": 44.32,
+  "margemMin": 15,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Lajes corporativas",
+  "src": "Dividendo 12m R$ 5,84 (dividendo do cadastro, não do robô — conferir) ÷ 11,2% = R$ 52,14",
+  "preco": 56.24,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "XPCI11": {
+  "teto": 78.59,
+  "compra": 70.73,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 10,61 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 78,59",
+  "preco": 74.66,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "TRBL11": {
+  "teto": 78.03,
+  "compra": 74.13,
+  "margemMin": 5,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Logística/Renda urbana",
+  "src": "Dividendo 12m R$ 9,52 (dividendo do cadastro, não do robô — conferir) ÷ 12,2% = R$ 78,03",
+  "preco": 39.95,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "IFRI11": {
+  "teto": 94.07,
+  "compra": 84.67,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 12,70 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 94,07",
+  "preco": 86.86,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "DIVS11": {
+  "teto": 96,
+  "compra": 86.4,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 14,40 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 96,00",
+  "preco": 83.92,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "KDIF11": {
+  "teto": 103.7,
+  "compra": 93.33,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 14,00 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 103,70",
+  "preco": 105.02,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "VRTA11": {
+  "teto": 68,
+  "compra": 61.2,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 10,20 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 68,00",
+  "preco": 62.6,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "HGCR11": {
+  "teto": 86.67,
+  "compra": 78,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 11,70 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 86,67",
+  "preco": 82.74,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "BINC11": {
+  "teto": 101.04,
+  "compra": 90.93,
+  "margemMin": 10,
+  "metodo": "P/VP perto de 1 + spread",
+  "setor": "FII Papel · CRI",
+  "src": "Dividendo 12m R$ 13,64 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 101,04",
+  "preco": 89.1,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -2262,25 +2372,25 @@ window.FEHMIR_TETOS = {
   "data": null,
   "base_dpa": "historico_5a"
  },
- "BBGO11": {
-  "teto": 63.88,
-  "compra": 54.29,
-  "margemMin": 15,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "Fiagro · Crédito agro",
-  "src": "Dividendo 12m R$ 10,22 (dividendo do cadastro, não do robô — conferir) ÷ 16,0% = R$ 63,88",
-  "preco": 60.58,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "VGIP11": {
-  "teto": 67.93,
-  "compra": 61.14,
+ "SNCI11": {
+  "teto": 88.89,
+  "compra": 80,
   "margemMin": 10,
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 10,19 (dividendo do cadastro, não do robô — conferir) ÷ 15,0% = R$ 67,93",
-  "preco": 61.53,
+  "src": "Dividendo 12m R$ 12,00 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 88,89",
+  "preco": 79.9,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "TVRI11": {
+  "teto": 99.21,
+  "compra": 89.29,
+  "margemMin": 10,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Híbrido",
+  "src": "Dividendo 12m R$ 12,60 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 99,21",
+  "preco": 78.52,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -2291,18 +2401,7 @@ window.FEHMIR_TETOS = {
   "metodo": "P/VP perto de 1 + spread",
   "setor": "FII Papel · CRI",
   "src": "Dividendo 12m R$ 9,18 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 68,00",
-  "preco": 81.76,
-  "data": null,
-  "base_dpa": "historico_5a"
- },
- "VRTA11": {
-  "teto": 75.56,
-  "compra": 68,
-  "margemMin": 10,
-  "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 10,20 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 75,56",
-  "preco": 63.96,
+  "preco": 80.65,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -2313,29 +2412,51 @@ window.FEHMIR_TETOS = {
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Híbrido",
   "src": "Dividendo 12m R$ 8,50 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 66,93",
-  "preco": 61.02,
+  "preco": 60.86,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "RZAT11": {
-  "teto": 112.2,
-  "compra": 100.98,
+ "GTWR11": {
+  "teto": 85.04,
+  "compra": 76.54,
   "margemMin": 10,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Híbrido",
-  "src": "Dividendo 12m R$ 14,25 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 112,20",
-  "preco": 70.91,
+  "src": "Dividendo 12m R$ 10,80 (dividendo do cadastro, não do robô — conferir) ÷ 12,7% = R$ 85,04",
+  "preco": 74.35,
   "data": null,
   "base_dpa": "historico_5a"
  },
- "BCDI11": {
-  "teto": 17.78,
-  "compra": 16,
-  "margemMin": 10,
+ "EGAF11": {
+  "teto": 100.69,
+  "compra": 85.58,
+  "margemMin": 15,
   "metodo": "P/VP perto de 1 + spread",
-  "setor": "FII Papel · CRI",
-  "src": "Dividendo 12m R$ 2,40 (dividendo do cadastro, não do robô — conferir) ÷ 13,5% = R$ 17,78",
-  "preco": 85.46,
+  "setor": "Fiagro · Crédito agro",
+  "src": "Dividendo 12m R$ 16,11 (dividendo do cadastro, não do robô — conferir) ÷ 16,0% = R$ 100,69",
+  "preco": 70.99,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "ITRI11": {
+  "teto": 85,
+  "compra": 80.75,
+  "margemMin": 5,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Logística/Renda urbana",
+  "src": "Dividendo 12m R$ 10,37 (dividendo do cadastro, não do robô — conferir) ÷ 12,2% = R$ 85,00",
+  "preco": 66.05,
+  "data": null,
+  "base_dpa": "historico_5a"
+ },
+ "PQDP11": {
+  "teto": 2121.38,
+  "compra": 2015.31,
+  "margemMin": 5,
+  "metodo": "Bazin por rendimento",
+  "setor": "FII Tijolo · Shoppings",
+  "src": "Dividendo 12m R$ 216,38 (dividendo do cadastro, não do robô — conferir) ÷ 10,2% = R$ 2.121,38",
+  "preco": 2280,
   "data": null,
   "base_dpa": "historico_5a"
  },
@@ -2345,7 +2466,7 @@ window.FEHMIR_TETOS = {
   "margemMin": 15,
   "metodo": "Bazin projetivo",
   "setor": "Telecom",
-  "src": "Projetivo R$ 0,44 (LPA R$ 0,14 × payout da empresa 29% × (1 + g) ÷ (taxa − g)) · g 0 (sem ROE) · DPA/9,4% R$ 1,81 (conferência) · ⚠️ Projetivo (R$ 0,44) diverge 76% do histórico (R$ 1,81): confira premissa de dividendos",
+  "src": "Projetivo R$ 0,44 (LPA R$ 0,15 × payout da empresa 27% × (1 + g) ÷ (taxa − g)) · g 0 (sem ROE) · DPA/9,4% R$ 1,81 (conferência) · ⚠️ Projetivo (R$ 0,44) diverge 76% do histórico (R$ 1,81): confira premissa de dividendos",
   "preco": 2.43,
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
