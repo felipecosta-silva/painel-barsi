@@ -1,11 +1,11 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-24 07:01",
+ "gerado": "2026-11-24 17:34",
  "ativos": 224,
  "carteira": 22,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
 };
-window.FEHMIR_CARTEIRA = {"ETH":0.00794523,"BTC":0.00052531,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":50,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.14199095,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2};
+window.FEHMIR_CARTEIRA = {"ETH":0.00981292,"BTC":0.00063294,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":50,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.20210896,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2};
 window.FEHMIR_TETOS = {
  "BBSE3": {
   "teto": 48.99,
@@ -613,12 +613,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "PMLL11": {
-  "teto": 114.9,
-  "compra": 109.16,
+  "teto": 90.59,
+  "compra": 86.06,
   "margemMin": 5,
   "metodo": "Bazin por rendimento",
   "setor": "FII Tijolo · Shoppings",
-  "src": "Dividendo 12m R$ 11,72 (robô) ÷ 10,2% = R$ 114,90",
+  "src": "Rendimento inflado por extraordinárias VISC11 (R$ 0,04) + Park Sul (R$ 0,03) líquidas de descasamento temporário (−R$ 0,05) = +R$ 0,02; restante (+R$ 0,21) via consumo de reserva acumulada: R$ 0,23 por cota em out/26 (pagou R$ 1,00, gerou R$ 0,77). Teto pelo recorrente: R$ 0,77 × 12 = R$ 9,24 ÷ 10,2% = R$ 90,59 (pelo pago seria R$ 114,90). DY no preço de hoje: 9,5% pelo recorrente, 12,1% pelo pago",
   "preco": 97.18,
   "data": "2026-11-23",
   "base_dpa": "historico_5a"

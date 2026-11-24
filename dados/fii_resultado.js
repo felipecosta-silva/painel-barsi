@@ -20,5 +20,9 @@ window.FEHMIR_FII_RESULTADO = {
   "HGBS11": [
     { mes: "2026-10", pago: 0.17, recorrente: 0.123, naoRecorrente: 0.047, origem: "lucro de vendas acumulado (Jardim Sul 19%, I Fashion Outlet)",
       fonte: "Relatório gerencial de out/26 (Fundos.NET id 1388726): resultado operacional R$ 19,07 mi = R$ 0,123/cota (receita imobiliária 0,154 + outras 0,012 − despesas 0,042); resultado total 0,116; média 2026 do operacional R$ 0,143/cota; reserva R$ 0,071/cota após out; guidance de 0,17 só para 2026", conferido: true }
+  ],
+  "PMLL11": [
+    { mes: "2026-10", pago: 1.00, recorrente: 0.77, naoRecorrente: 0.02, origem: "extraordinárias VISC11 (R$ 0,04) + Park Sul (R$ 0,03) líquidas de descasamento temporário (−R$ 0,05) = +R$ 0,02; restante (+R$ 0,21) via consumo de reserva acumulada",
+      fonte: "Relatório gerencial de out/26 (Fundos.NET id 1390466, 20.108.428 cotas): receita total R$ 0,91/cota − despesas R$ 0,12/cota = resultado distribuível R$ 0,79/cota (−R$ 0,07 extraordinárias VISC11 0,04 + Park Sul 0,03; +R$ 0,05 descasamento temporário de caixa de shopping) ⇒ recorrente R$ 0,77/cota; reserva caiu de R$ 0,56 para R$ 0,18/cota; guidance R$ 1,00 mantido só no 2S26", conferido: true }
   ]
 };
