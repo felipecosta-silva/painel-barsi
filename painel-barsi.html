@@ -9414,25 +9414,52 @@ function openModal(ticker) {
     }
   }
 
-  // Linha da Política Nova de Dividendos (§21.9.5) ou Empresa Regulada Estável (Rodada 18)
+  // Linha da Política Nova de Dividendos / Mudança Estrutural (Spec 012) ou Empresa Regulada Estável
   const elPolRow = document.getElementById('m-politica-nova-row');
   if (elPolRow) {
     const polData = (typeof window !== "undefined" && window.FEHMIR_POLITICA_DIV) ? window.FEHMIR_POLITICA_DIV[r.t] : null;
-    if (polData && polData.desde) {
+    const polDocUrl = polData && /^https?:\/\/\S+/i.test(String(polData.documento || "").trim()) ? String(polData.documento).trim().split(/\s+/)[0] : "";
+    const ehFiiPol = typeof ehFii === "boolean" ? ehFii : (r.macro === 'fiis' || (r.t && r.t.endsWith('11') && window.FII_META && !!window.FII_META[r.t]));
+    if (polData && polDocUrl && !ehFiiPol) {
       elPolRow.style.display = 'block';
-      const parts = String(polData.desde).split('-');
-      const mmAaaa = (parts[1] && parts[0]) ? `${parts[1]}/${parts[0]}` : polData.desde;
-      const docLink = polData.documento ? `<a href="${polData.documento.split(' ')[0]}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">documento</a>` : 'documento';
+      const parts = String(polData.desde || "").split('-');
+      const mmAaaa = (parts[1] && parts[0]) ? `${parts[1]}/${parts[0]}` : (polData.desde || "");
+      const docLink = `<a href="${polDocUrl}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">documento oficial</a>`;
+      const f2Url = (polData.fonte_fase2 && /^https?:\/\/\S+/i.test(String(polData.fonte_fase2).trim())) ? String(polData.fonte_fase2).trim().split(/\s+/)[0] : "";
+      const f2Link = f2Url ? ` · <a href="${f2Url}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">fonte fase 2</a>` : "";
       const baseMap = {
+        "estrutural_permanente": "dividendo projetado estrutural permanente",
+        "estrutural_fases": "dividendo projetado em fases (valor presente)",
+        "sem_dividendo_projetado": "sem perspectiva de dividendo projetado",
+        "ddm_politica_nova": "fluxo de dividendos descontado pós-política (histórico só confere)",
         "politica_nova_media": "média dos anos fechados da política nova",
-        "guidance_piso": (av.src && av.src.includes("limitado ao DPA 12m")) ? "piso do guidance limitado ao DPA 12m" : "piso do guidance",
+        "guidance_piso": (av && av.src && av.src.includes("limitado ao DPA 12m")) ? "piso do guidance limitado ao DPA 12m" : "piso do guidance",
         "fcf": "fluxo de caixa livre",
         "payout_min": "payout mínimo da nova política",
         "historico_5a": "histórico 5 anos"
       };
-      const baseDesc = baseMap[av.base_dpa] || av.base_dpa || "guidance";
-      elPolRow.innerHTML = `<div style="padding:8px 14px; background:rgba(79,70,229,0.08); border:1px solid rgba(79,70,229,0.2); border-radius:8px; font-size:12.5px; color:var(--ink); line-height:1.4;">
-        📢 <b>Política nova desde ${mmAaaa} (${docLink})</b> · Base utilizada: <b>${baseDesc}</b>
+      const baseDesc = baseMap[av && av.base_dpa] || (av && av.base_dpa) || "guidance";
+      const isSemDiv = av && av.base_dpa === "sem_dividendo_projetado";
+      const revBr = polData.rever_em ? String(polData.rever_em).split('-').reverse().join('/') : "";
+      const avisosPol = [];
+      if (av && av.polExpirada) avisosPol.push(`<span style="color:#b45309;font-weight:700;">⚠️ Revisão vencida em ${revBr} — confirme no RI</span>`);
+      if (av && av.polAcoesMudou) avisosPol.push(`<span style="color:#b45309;font-weight:700;">⚠️ Nº de ações mudou &gt;5% — confira desdobramento/grupamento</span>`);
+      if (av && av.fase1Encerrada) avisosPol.push(`<span style="color:#b45309;font-weight:700;">⚠️ Fase 1 encerrada — confirme nos resultados se o dividendo voltou</span>`);
+      const tituloPol = isSemDiv
+        ? `⏸️ <b>Empresa sem perspectiva de dividendo</b> (${docLink})`
+        : (polData.tipo === "estrutural"
+            ? `📉 <b>Dividendo projetado${mmAaaa ? " desde " + mmAaaa : ""}</b> (${docLink}${f2Link})`
+            : `📢 <b>Política nova${mmAaaa ? " desde " + mmAaaa : ""}</b> (${docLink}${f2Link})`);
+      const boxBg = isSemDiv ? "rgba(100,116,139,0.10)" : ((av && (av.polExpirada || av.polAcoesMudou || av.fase1Encerrada)) ? "rgba(245,158,11,0.10)" : "rgba(79,70,229,0.08)");
+      const boxBd = isSemDiv ? "rgba(100,116,139,0.35)" : ((av && (av.polExpirada || av.polAcoesMudou || av.fase1Encerrada)) ? "rgba(245,158,11,0.35)" : "rgba(79,70,229,0.2)");
+      const _fM = v => 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const histConfTxt = (av && av.hist > 0) ? ` · Histórico <b>${_fM(av.hist)}</b> (só conferência)` : "";
+      const semVoltaTxt = (av && av.tetoSemVolta > 0) ? ` · Se o dividendo não voltar: <b>${_fM(av.tetoSemVolta)}</b>` : "";
+      const premTxt = (polData.premissa || polData.nota) ? `<div style="margin-top:4px;color:var(--muted);">${polData.premissa || polData.nota}</div>` : "";
+      elPolRow.innerHTML = `<div style="padding:8px 14px; background:${boxBg}; border:1px solid ${boxBd}; border-radius:8px; font-size:12.5px; color:var(--ink); line-height:1.45;">
+        ${tituloPol} · Base: <b>${baseDesc}</b>${histConfTxt}${semVoltaTxt}${revBr ? ` · Rever em <b>${revBr}</b>` : ""}
+        ${premTxt}
+        ${avisosPol.length ? `<div style="margin-top:4px;">${avisosPol.join(" · ")}</div>` : ""}
       </div>`;
     } else if (av && av.base_dpa === "projetivo_regulada") {
       elPolRow.style.display = 'block';
@@ -9449,6 +9476,45 @@ function openModal(ticker) {
     } else {
       elPolRow.style.display = 'none';
       elPolRow.innerHTML = '';
+    }
+    // FR-012: Realismo de preço nos últimos 60 meses
+    let elReal = document.getElementById('m-realismo-row');
+    if (!elReal && elPolRow.parentNode) {
+      elReal = document.createElement('div');
+      elReal.id = 'm-realismo-row';
+      elReal.style.marginTop = '6px';
+      elPolRow.parentNode.insertBefore(elReal, elPolRow.nextSibling);
+    }
+    if (elReal) {
+      const _fMR = v => 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const mMarg = (av && av.S && av.S.margemMin != null) ? av.S.margemMin : 10;
+      const compraRegua = (tetoRegua && isFinite(tetoRegua) && tetoRegua > 0) ? (tetoRegua * (1 - mMarg / 100)) : null;
+      const pintarReal = () => {
+        if (!tetoRegua || !(tetoRegua > 0) || typeof window.fehmirRealismoPreco !== "function") {
+          elReal.style.display = 'none';
+          return;
+        }
+        const rm = window.fehmirRealismoPreco(r.t, compraRegua, tetoRegua);
+        if (!rm) { elReal.style.display = 'none'; return; }
+        elReal.style.display = 'block';
+        const ultTxt = rm.ultCompra ? ` (última vez em <b>${rm.ultCompra}</b>)` : (rm.ultTeto ? ` (no teto em <b>${rm.ultTeto}</b>)` : '');
+        const msg = rm.zerado
+          ? `📊 Nos últimos <b>${rm.total} meses</b>, não fechou abaixo da sua compra (${_fMR(compraRegua)})${rm.mesesTeto > 0 ? ` — ficou abaixo do teto em <b>${rm.mesesTeto}</b> mês(es)` : ' nem do teto'}`
+          : `📊 Nos últimos <b>${rm.total} meses</b>, fechou abaixo da compra em <b>${rm.mesesCompra}</b> mês(es)${ultTxt} e abaixo do teto em <b>${rm.mesesTeto}</b> mês(es)`;
+        elReal.innerHTML = `<div style="padding:6px 12px; background:var(--surface-2); border:1px solid var(--line); border-radius:8px; font-size:12px; color:var(--muted);">${msg}</div>`;
+      };
+      if (window.FEHMIR_HIST_MENSAL) {
+        pintarReal();
+      } else if (tetoRegua > 0 && typeof fehmirCarregarMensal === "function") {
+        elReal.style.display = 'none';
+        const tkAlvo = r.t;
+        fehmirCarregarMensal(() => {
+          const curTk = document.getElementById('m-ticker');
+          if (curTk && curTk.textContent === tkAlvo) pintarReal();
+        });
+      } else {
+        elReal.style.display = 'none';
+      }
     }
   }
 
@@ -18420,8 +18486,8 @@ initCollapsibleBlocks();
      Payout = típico sustentável do setor (usa o menor entre o da empresa e este).
      Corte de lucro (haircut) = desconto no LPA de cíclicas para chegar ao lucro de meio de ciclo. */
   const SETORES = [
-    { id: "transmissao", margemMin: 5, nome: "Elétricas · Transmissão", base: true, premio: 0.5, payout: 90,
-      match: /transmiss/i, tickers: ["TAEE11", "ISAE4", "ALUP11"],
+    { id: "transmissao", margemMin: 5, nome: "Elétricas · Transmissão", base: true, premio: 1.6, payout: 90,
+      match: /transmiss/i, tickers: ["TAEE11", "ISAE4", "ISAE3", "ALUP11", "ALUP4", "ALUP3", "TRPL4"],
       metodo: "Bazin projetivo + TIR real implícita",
       chave: "RAP corrigida pela inflação, prazo das concessões, Dív.Líq/EBITDA até 4x, payout",
       armadilha: "Concessão vencendo sem renovação; revisão de RAP para baixo" },
@@ -18465,7 +18531,7 @@ initCollapsibleBlocks();
       metodo: "P/VP vs. ROE + Graham (Bazin só com média de 5 anos)",
       chave: "VSO, lançamentos em 12m, landbank, distratos, caixa líquido, exposição ao MCMV",
       armadilha: "Inércia contábil (POC): lucro bom sem lançamentos novos, caso LAVV3" },
-    { id: "commodity", margemMin: 30, nome: "Commodities (petróleo, mineração, siderurgia, celulose, agro)", base: false, premio: 5.0, payout: 50, ciclico: true, haircut: 0.75,
+    { id: "commodity", margemMin: 20, nome: "Commodities (petróleo, mineração, siderurgia, celulose, agro)", base: false, premio: 5.0, payout: 50, ciclico: true, haircut: 0.75,
       match: /petr[oó]leo|miner|sider|celulose|agroneg/i, tickers: ["PETR4", "PETR3", "PRIO3", "VALE3", "RECV3", "BRAV3", "SUZB3", "KLBN4", "GGBR4", "CSNA3"],
       metodo: "EV/EBITDA de meio de ciclo + Bazin com lucro normalizado (−25%)",
       chave: "Custo de produção na curva global, preço da commodity vs. média de 5 anos, Dív.Líq/EBITDA ≤ 1,5x",
@@ -18552,7 +18618,6 @@ initCollapsibleBlocks();
     SAPR11: { pp: 1.0, motivo: "estatal/capex > valor de mercado" },
     SAPR4: { pp: 1.0, motivo: "estatal/capex > valor de mercado" },
     BBAS3: { pp: 1.0, motivo: "estatal/capex > valor de mercado" },
-    CSMG3: { pp: 1.0, motivo: "estatal/capex > valor de mercado" },
     // banco em recuperação (+3.0 p.p.)
     BBDC4: { pp: 3.0, motivo: "banco em recuperação" },
     BBDC3: { pp: 3.0, motivo: "banco em recuperação" }
@@ -18979,10 +19044,17 @@ initCollapsibleBlocks();
 
       const anosCandidatos = [ultimoFechado - 3, ultimoFechado - 2, ultimoFechado - 1];
       const lacunas = Array.isArray(HY.lacunas) ? HY.lacunas.map(Number) : [];
+      const polP = (typeof window !== "undefined" && window.FEHMIR_POLITICA_DIV) ? window.FEHMIR_POLITICA_DIV[t] : null;
+      const polPValida = !!(polP && /^https?:\/\/\S+/i.test(String(polP.documento || "").trim()));
+      const anoDesdePolP = (polPValida && polP.desde) ? parseInt(String(polP.desde).slice(0, 4), 10) : null;
       const paysValidos = [];
 
       for (const y of anosCandidatos) {
         const anoPagto = y + 1;
+        if (anoDesdePolP && !isNaN(anoDesdePolP) && anoDesdePolP <= ultimoFechado && anoPagto < anoDesdePolP) {
+          excluidos.push({ ano: anoPagto, motivo: "pre-politica" });
+          continue;
+        }
         if (lacunas.includes(y) || lacunas.includes(anoPagto)) {
           excluidos.push({ ano: anoPagto, motivo: "lacuna" });
           continue;
@@ -19088,42 +19160,106 @@ initCollapsibleBlocks();
       }
     }
 
-    // Mudança de política de dividendos (§21.9.5)
+    // Mudança de política / estrutural de dividendos (Spec 012)
     let base_dpa = "historico_5a";
     let polDpa = null;
     let polSrc = "";
-    const pol = (typeof window !== "undefined" && window.FEHMIR_POLITICA_DIV) ? window.FEHMIR_POLITICA_DIV[a.t] : null;
+    let polEstruturalTeto = null;
+    let polEstruturalSemDiv = false;
+    let polEstruturalSrc = "";
+    let polTetoSemVolta = null;
+    let polFase1Encerrada = false;
+    let polExpirada = false;
+    let polAcoesMudou = false;
+
+    const polRaw = (typeof window !== "undefined" && window.FEHMIR_POLITICA_DIV) ? window.FEHMIR_POLITICA_DIV[a.t] : null;
+    const ehFiiAtivo = (a.cls === "fii") || (a.macro === "fiis") ||
+      (typeof window !== "undefined" && window.FII_META && !!window.FII_META[a.t]) ||
+      /fii|fundo imob|tijolo|papel\/cri|receb[ií]veis|fiagro/i.test(a.setor || "");
+    const polDoc = polRaw ? String(polRaw.documento || "").trim() : "";
+    const pol = (!ehFiiAtivo && polRaw && /^https?:\/\/\S+/i.test(polDoc)) ? polRaw : null;
+    if (polRaw && !ehFiiAtivo && !pol && typeof console !== "undefined" && console.warn) {
+      console.warn("politica_dividendos.js: entrada ignorada por falta de URL primária válida (" + a.t + ")");
+    }
 
     if (pol) {
       const anoAtual = new Date().getFullYear();
+      const hojeIso = new Date().toISOString().slice(0, 10);
+      const CVM_ALL = (typeof window !== "undefined" && window.FEHMIR_FUND_CVM) ? window.FEHMIR_FUND_CVM : {};
+      const CVM_D = CVM_ALL[a.t] || {};
+      const numAcoesPol = CVM_D.acoes || a.acoes || (HY && HY.acoes);
+      if (pol.rever_em && /^\d{4}-\d{2}-\d{2}$/.test(String(pol.rever_em)) && String(pol.rever_em) < hojeIso) {
+        polExpirada = true;
+      }
+      if (pol.acoes_cadastro > 0 && numAcoesPol > 0 && Math.abs(numAcoesPol - pol.acoes_cadastro) / pol.acoes_cadastro > 0.05) {
+        polAcoesMudou = true;
+      }
+
+      if (pol.tipo === "estrutural") {
+        const rEst = req / 100;
+        if (Array.isArray(pol.fases) && pol.fases.length > 0 && rEst > 0) {
+          const validas = pol.fases.filter(f => Number(f && f.dpa) > 0);
+          if (!validas.length) {
+            polEstruturalSemDiv = true;
+          } else {
+            const transitorias = pol.fases.filter(f => f && f.ate != null);
+            const faseFinal = pol.fases.find(f => f && f.ate == null) || pol.fases[pol.fases.length - 1];
+            const ultimaTrans = transitorias.length ? transitorias[transitorias.length - 1] : null;
+            if (ultimaTrans && anoAtual > Number(ultimaTrans.ate)) {
+              polFase1Encerrada = true;
+            }
+            const minDe = pol.fases.map(f => Number(f.de != null ? f.de : (f.desde != null ? f.desde : anoAtual))).reduce((x, y) => Math.min(x, y), 9999);
+            const tOffset = (minDe > anoAtual) ? 0 : 1;
+            let pv = 0;
+            let tMax = 0;
+            const partes = [];
+            for (const f of transitorias) {
+              const deY = Math.max(anoAtual, Number(f.de != null ? f.de : anoAtual));
+              const ateY = Number(f.ate);
+              const dpaF = Math.max(0, Number(f.dpa) || 0);
+              for (let y = deY; y <= ateY; y++) {
+                const tExp = (y - anoAtual) + tOffset;
+                if (tExp > 0) {
+                  pv += dpaF / Math.pow(1 + rEst, tExp);
+                  if (tExp > tMax) tMax = tExp;
+                }
+              }
+              partes.push((f.rotulo || (f.de + "–" + f.ate)) + " " + fR(dpaF));
+            }
+            const dpaFinal = Math.max(0, Number(faseFinal && faseFinal.dpa) || 0);
+            const pvTerm = (dpaFinal / rEst) / Math.pow(1 + rEst, tMax);
+            pv += pvTerm;
+            partes.push((faseFinal.rotulo || ((faseFinal.desde || (ultimaTrans ? Number(ultimaTrans.ate) + 1 : anoAtual)) + "+")) + " " + fR(dpaFinal));
+            polEstruturalTeto = pv;
+            base_dpa = "estrutural_fases";
+            const dpaF1 = Number(pol.fases[0] && pol.fases[0].dpa) || 0;
+            if (dpaF1 > 0) polTetoSemVolta = dpaF1 / rEst;
+            polEstruturalSrc = "Dividendo projetado em fases (" + partes.join(" · ") + ") a " + fmtN(req, 1) + "% = " + fR(pv) +
+              (polTetoSemVolta ? " (sem volta: " + fR(polTetoSemVolta) + ")" : "");
+          }
+        } else if (pol.dpa_projetado != null) {
+          const dpaEst = Number(pol.dpa_projetado);
+          if (!(dpaEst > 0)) {
+            polEstruturalSemDiv = true;
+          } else if (rEst > 0) {
+            polEstruturalTeto = dpaEst / rEst;
+            base_dpa = "estrutural_permanente";
+            polEstruturalSrc = "Dividendo projetado estrutural (" + fR(dpaEst) + " ÷ " + fmtN(req, 1) + "% = " + fR(polEstruturalTeto) + ")";
+          }
+        }
+      }
+
       const anoDesde = parseInt(String(pol.desde || "").slice(0, 4), 10);
       const anosFechados = [];
       if (anoDesde && anoDesde < anoAtual) {
         for (let y = anoDesde; y < anoAtual; y++) anosFechados.push(y);
       }
-      // 1. Com >= 1 ano fechado desde `desde`: média dos anos fechados sem extraordinários
-      if (anosFechados.length >= 1 && HY && HY.dpaAno) {
-        const dpaPuros = anosFechados.map(y => {
-          const tot = Number(HY.dpaAno[String(y)] || 0);
-          const ext = Number((HY.dpaAnoExtra && HY.dpaAnoExtra[String(y)]) || 0);
-          return Math.max(0, tot - ext);
-        });
-        const med = dpaPuros.reduce((acc, v) => acc + v, 0) / dpaPuros.length;
-        if (med > 0) {
-          polDpa = med;
-          base_dpa = "politica_nova_media";
-          polSrc = "Política nova (média " + anosFechados.length + "A fechados " + fR(polDpa) + " s/ extraordinários)";
-        }
-      }
-      // 2. Sem ano fechado e com guidance: valor_min ÷ ações (o piso)
-      if (polDpa == null && pol.guidance && pol.guidance.valor_min > 0) {
-        const CVM_ALL = (typeof window !== "undefined" && window.FEHMIR_FUND_CVM) ? window.FEHMIR_FUND_CVM : {};
-        const CVM_D = CVM_ALL[a.t] || {};
+      // 1. Guidance oficial vigente antes do fechamento do ano do guidance
+      if (pol.tipo !== "estrutural" && pol.guidance && pol.guidance.valor_min > 0 && (!pol.guidance.ano || pol.guidance.ano >= anoAtual)) {
         const FUND_ALL = (typeof window !== "undefined" && window.FEHMIR_FUND) ? window.FEHMIR_FUND : {};
         const FUND_D = FUND_ALL[a.t] || {};
-        const numAcoes = CVM_D.acoes || a.acoes || (HY && HY.acoes);
-        if (numAcoes > 0) {
-          const piso = pol.guidance.valor_min / numAcoes;
+        if (numAcoesPol > 0) {
+          const piso = pol.guidance.valor_min / numAcoesPol;
           const fcf12m = (FUND_D.fcf != null && FUND_D.fcf > 0) ? FUND_D.fcf : null;
           if (fcf12m != null) {
             if (fcf12m >= pol.guidance.valor_min) {
@@ -19131,12 +19267,11 @@ initCollapsibleBlocks();
               base_dpa = "guidance_piso";
               polSrc = "Política nova [guidance piso " + (pol.guidance.ano || "") + " " + fR(polDpa) + " coberto por caixa livre]";
             } else {
-              polDpa = fcf12m / numAcoes;
+              polDpa = fcf12m / numAcoesPol;
               base_dpa = "fcf";
               polSrc = "Política nova [caixa livre 12m " + fR(polDpa) + " limita o guidance piso " + fR(piso) + "]";
             }
           } else {
-            // Sem caixa livre conferido: menor entre piso do guidance e DPA 12m pago sem extras
             let dpa12SemExtras = (HY && HY.dpa12 > 0) ? HY.dpa12 : (a.dpa || 0);
             if (HY && HY.extras && HY.extras.length) {
               const umAnoAtras = new Date();
@@ -19157,12 +19292,25 @@ initCollapsibleBlocks();
           }
         }
       }
-
-      // 3. Sem guidance: LPA 12m × payout_min
-      if (polDpa == null && pol.payout_min != null && lpa > 0) {
+      // 2. Com >= 1 ano fechado desde `desde`: média dos anos fechados sem extraordinários
+      if (pol.tipo !== "estrutural" && polDpa == null && anosFechados.length >= 1 && HY && HY.dpaAno) {
+        const dpaPuros = anosFechados.map(y => {
+          const tot = Number(HY.dpaAno[String(y)] || 0);
+          const ext = Number((HY.dpaAnoExtra && HY.dpaAnoExtra[String(y)]) || 0);
+          return Math.max(0, tot - ext);
+        });
+        const med = dpaPuros.reduce((acc, v) => acc + v, 0) / dpaPuros.length;
+        if (med > 0) {
+          polDpa = med;
+          base_dpa = "politica_nova_media";
+          polSrc = "Política nova (média " + anosFechados.length + "A fechados " + fR(polDpa) + " s/ extraordinários)";
+        }
+      }
+      // 3. Sem guidance e sem ano fechado: LPA 12m × payout_min
+      if (pol.tipo !== "estrutural" && polDpa == null && pol.payout_min != null && lpa > 0) {
         polDpa = lpa * pol.payout_min;
         base_dpa = "payout_min";
-        polSrc = "Política nova [LPA 12m R$" + fR(lpa) + " × payout mín " + fmtN(pol.payout_min * 100, 0) + "% = R$" + fR(polDpa) + "]";
+        polSrc = "Política nova [LPA 12m " + fR(lpa) + " × payout mín " + fmtN(pol.payout_min * 100, 0) + "% = " + fR(polDpa) + "]";
       }
     }
 
@@ -19226,8 +19374,25 @@ initCollapsibleBlocks();
     const ehReguladaEstavel = regCheck.pass;
     const cvLucroVal = regCheck.cv;
 
+    // 00. MUDANÇA ESTRUTURAL DE DIVIDENDOS (Spec 012 — permanente ou em fases, antes de regulada estável)
+    if (pol && polEstruturalSemDiv) {
+      teto = null;
+      base_dpa = "sem_dividendo_projetado";
+      baseTeto = "sem_dividendo";
+      motivoBase = "politica_mudou";
+      src = "Sem dividendo projetado (DPA ≤ 0 na premissa estrutural) — empresa sem perspectiva de dividendo";
+    } else if (pol && polEstruturalTeto != null && polEstruturalTeto > 0) {
+      proj = polEstruturalTeto;
+      const tetoCap = (hist != null && hist > 0) ? Math.min(polEstruturalTeto, hist) : polEstruturalTeto;
+      teto = tetoCap;
+      baseTeto = "projetivo";
+      motivoBase = "estrutural";
+      src = polEstruturalSrc + (hist != null && hist > 0
+        ? (tetoCap < polEstruturalTeto ? " · limitado pelo histórico (" + fR(hist) + ") → " + fR(teto) : " · " + histSrc + " (só conferência)")
+        : "");
+    }
     // 0. EMPRESA REGULADA DE LUCRO ESTÁVEL (Rodada 18 Parte B: distribuição, transmissão, saneamento com CV <= 15% e sem prejuízo)
-    if (ehReguladaEstavel && proj != null && proj > 0) {
+    else if (ehReguladaEstavel && !(pol && polDpa > 0) && proj != null && proj > 0) {
       teto = proj;
       base_dpa = "projetivo_regulada";
       baseTeto = "projetivo";
@@ -19266,9 +19431,34 @@ initCollapsibleBlocks();
     }
     // 3. MÉTODO GORDON / DDM (Água & Saneamento)
     else if (em.metodo === "Gordon / fluxo de dividendos") {
+      let lpaDDM = lpa;
+      let roeDDM = a.roe || 0;
+      let lucroNormalizado = false;
+      const CVM_DDM = (typeof window !== "undefined" && window.FEHMIR_FUND_CVM) ? window.FEHMIR_FUND_CVM[a.t] : null;
+      if (!split && CVM_DDM && CVM_DDM.lpaAnual && lpa > 0) {
+        const ultF = new Date().getFullYear() - 1;
+        const lpas3 = Object.keys(CVM_DDM.lpaAnual).filter(y => Number(y) <= ultF).sort().slice(-3)
+          .map(y => Number(CVM_DDM.lpaAnual[y])).filter(v => v > 0).sort((x, y) => x - y);
+        if (lpas3.length === 3) {
+          const medLpa3 = lpas3[1];
+          if (lpa <= 0.60 * medLpa3) {
+            lpaDDM = medLpa3;
+            lucroNormalizado = true;
+            if (CVM_DDM.roeAnual) {
+              const roes3 = Object.keys(CVM_DDM.roeAnual).filter(y => Number(y) <= ultF).sort().slice(-3)
+                .map(y => Number(CVM_DDM.roeAnual[y])).filter(v => v > 0).sort((x, y) => x - y);
+              if (roes3.length >= 2) {
+                const medRoe3 = roes3[Math.floor(roes3.length / 2)];
+                if (medRoe3 > roeDDM) roeDDM = medRoe3;
+              }
+            }
+          }
+        }
+      }
+
       let dpa0 = null;
-      if (lpa > 0) {
-        dpa0 = lpa * (S.haircut || 1) * (pay / 100);
+      if (lpaDDM > 0) {
+        dpa0 = lpaDDM * (S.haircut || 1) * (pay / 100);
       } else if (HY && (HY.dpa5 > 0 || (split && HY.dpa12 > 0))) {
         dpa0 = (HY.dpa5 > 0 ? HY.dpa5 : HY.dpa12) * (S.ciclico ? (S.haircut || 1) : 1);
       } else {
@@ -19276,9 +19466,8 @@ initCollapsibleBlocks();
         if (d > 0) dpa0 = d * (S.ciclico ? (S.haircut || 1) : 1);
       }
 
-      const roe = a.roe || 0;
       const retencao = Math.max(0, 1 - (pay / 100));
-      let g1Padrao = (roe / 100) * retencao;
+      let g1Padrao = (roeDDM / 100) * retencao;
       g1Padrao = Math.max(0, Math.min(0.10, g1Padrao));
       const g2Padrao = 0.035;
       const dyExigido = (req || 8.0) / 100;
@@ -19297,9 +19486,12 @@ initCollapsibleBlocks();
 
       const vDDM = calcDDM(g1Padrao, g2Padrao, kPadrao, dpa0);
       if (vDDM != null && vDDM > 0) {
-        teto = (hist != null && hist > 0) ? Math.min(vDDM, hist) : vDDM;
+        const pularTravaHist = !!pol || lucroNormalizado;
+        teto = pularTravaHist ? vDDM : ((hist != null && hist > 0) ? Math.min(vDDM, hist) : vDDM);
+        if (pol) base_dpa = "ddm_politica_nova";
         src = "Gordon / DDM [2 estágios: g1=" + fmtN(g1Padrao * 100, 1) + "%, g2=3,5%, k=" + fmtN(kPadrao * 100, 1) + "%]: DDM " + fR(vDDM) +
-          (hist ? " · Histórico " + fR(hist) + " → vale o menor (" + fR(teto) + ")" : "");
+          (lucroNormalizado ? " (lucro normalizado pela mediana 3A: LPA " + fR(lpaDDM) + ", ROE " + fmtN(roeDDM, 1) + "%)" : "") +
+          (hist ? (pularTravaHist ? " · Histórico " + fR(hist) + " (só conferência)" : " · Histórico " + fR(hist) + " → vale o menor (" + fR(teto) + ")") : "");
       } else {
         const vals = [proj, hist].filter(v => v > 0);
         teto = vals.length ? Math.min(...vals) : null;
@@ -19342,7 +19534,16 @@ initCollapsibleBlocks();
       }
       const dpaCorte = (dpaMediana != null && dpaMediana > 0) ? dpaMediana * 0.75 : null;
       tetoCiclo = (dpaCorte != null && dpaCorte > 0) ? dpaCorte / (req / 100) : null;
-      if (tetoCiclo != null && tetoCiclo > 0) {
+      if (polDpa != null && polDpa > 0) {
+        const tetoPolC = polDpa / (req / 100);
+        proj = tetoPolC;
+        const refHistC = (hist != null && hist > 0) ? hist : tetoCiclo;
+        teto = (refHistC != null && refHistC > 0) ? Math.min(tetoPolC, refHistC) : tetoPolC;
+        baseTeto = "projetivo";
+        motivoBase = "politica_mudou";
+        src = polSrc + " ÷ " + fmtN(req, 1) + "% = " + fR(tetoPolC) +
+          (refHistC ? (teto < tetoPolC ? " · limitado pelo ciclo 5A (" + fR(refHistC) + ") → " + fR(teto) : " · ciclo 5A " + fR(refHistC) + " (só conferência)") : "");
+      } else if (tetoCiclo != null && tetoCiclo > 0) {
         teto = tetoCiclo;
         src = "Bazin de meio de ciclo [mediana 5A " + fR(dpaMediana) + " × 0,75 = " + fR(dpaCorte) + " ÷ " + fmtN(req, 1) + "% = " + fR(tetoCiclo) + "]" +
           (proj ? " · Proj " + fR(proj) + " (conferência)" : "");
@@ -19485,8 +19686,12 @@ initCollapsibleBlocks();
     // Banco de qualidade comprovada (decisão do Felipe, 23/10/2026): ROE >= 18% em cada um dos 5 anos
     // fechados (DFPs da CVM, PL médio) ⇒ teto = P/VP justo × VPA, com k nominal = taxa do setor + IPCA e
     // g = IPCA (crescimento real zero). O Bazin pelo DPA de 5 anos fica só como conferência.
-    let metodoOut = (ehReguladaEstavel && proj != null && proj > 0) ? "Bazin projetivo" : em.metodo;
-    let motivoOut = (ehReguladaEstavel && proj != null && proj > 0) ? "Empresa regulada de lucro estável: remuneração regulatória sobre a base de ativos, projetivo vira o teto." : em.motivo;
+    let metodoOut = (ehReguladaEstavel && !(pol && (polEstruturalTeto > 0 || polEstruturalSemDiv || polDpa > 0)) && proj != null && proj > 0)
+      ? "Bazin projetivo"
+      : (pol && polEstruturalTeto > 0 ? "Bazin projetivo (estrutural)" : em.metodo);
+    let motivoOut = (ehReguladaEstavel && !(pol && (polEstruturalTeto > 0 || polEstruturalSemDiv || polDpa > 0)) && proj != null && proj > 0)
+      ? "Empresa regulada de lucro estável: remuneração regulatória sobre a base de ativos, projetivo vira o teto."
+      : em.motivo;
     const CV = window.FEHMIR_FUND_CVM && window.FEHMIR_FUND_CVM[a.t];
     const roesAno = (CV && CV.roeAnual) ? Object.keys(CV.roeAnual).sort().map(k => [k, CV.roeAnual[k]]) : [];
     if (S.nome === "Bancos" && !split && roesAno.length >= 5 && roesAno.every(x => x[1] >= 18) && CV.vpa > 0 && CV.roe > 0 && m && m.ipca12 != null) {
@@ -19533,6 +19738,15 @@ initCollapsibleBlocks();
     if (pe.pp > 0) {
       src += " · +" + fmtN(pe.pp, 1) + " p.p. risco da empresa (" + pe.motivo + ")";
     }
+    if (pol && polExpirada) {
+      src += " · ⚠️ Revisão da premissa vencida em " + pol.rever_em.split("-").reverse().join("/") + " — confirme no RI";
+    }
+    if (pol && polAcoesMudou) {
+      src += " · ⚠️ Nº de ações mudou mais de 5% desde o cadastro — confira desdobramento/grupamento";
+    }
+    if (pol && polFase1Encerrada) {
+      src += " · ⚠️ Fase 1 encerrada — confirme nos resultados se o dividendo voltou";
+    }
 
     return {
       teto,
@@ -19557,14 +19771,58 @@ initCollapsibleBlocks();
       payoutUsado: pay,
       payoutImplicito: payImplicitoVal,
 
-      // Novos campos Spec 002
+      // Novos campos Spec 002 & Spec 012
       baseTeto,
       motivoBase,
       recuperacao: rec,
       g,
-      premioEmpresa: pe.pp
+      premioEmpresa: pe.pp,
+      polVigente: !!pol,
+      polExpirada,
+      polAcoesMudou,
+      tetoSemVolta: polTetoSemVolta,
+      fase1Encerrada: polFase1Encerrada
     };
   }
+  function fehmirRealismoPreco(ticker, compra, teto) {
+    const HM = (typeof window !== "undefined" && window.FEHMIR_HIST_MENSAL) ? window.FEHMIR_HIST_MENSAL : null;
+    const reg = HM ? HM[ticker] : null;
+    if (!reg || !Array.isArray(reg.c) || !reg.c.length || !reg.i) return null;
+    const len = reg.c.length;
+    const startIdx = Math.max(0, len - 60);
+    const slice = reg.c.slice(startIdx);
+    const [anoIni, mesIni] = String(reg.i).split("-").map(Number);
+    const fmtMes = idxAbs => {
+      const mTot = (anoIni * 12 + (mesIni - 1)) + idxAbs;
+      const yr = Math.floor(mTot / 12);
+      const mo = (mTot % 12) + 1;
+      return String(mo).padStart(2, "0") + "/" + yr;
+    };
+    let mesesCompra = 0, mesesTeto = 0;
+    let ultCompra = null, ultTeto = null;
+    for (let j = slice.length - 1; j >= 0; j--) {
+      const px = Number(slice[j]);
+      if (!(px > 0)) continue;
+      if (teto > 0 && px <= teto) {
+        mesesTeto++;
+        if (!ultTeto) ultTeto = fmtMes(startIdx + j);
+      }
+      if (compra > 0 && px <= compra) {
+        mesesCompra++;
+        if (!ultCompra) ultCompra = fmtMes(startIdx + j);
+      }
+    }
+    return {
+      ticker,
+      mesesCompra,
+      mesesTeto,
+      total: slice.length,
+      ultCompra,
+      ultTeto,
+      zerado: compra > 0 ? mesesCompra === 0 : mesesTeto === 0
+    };
+  }
+  window.fehmirRealismoPreco = fehmirRealismoPreco;
   const isBaseSetor = s => setorDe({ setor: s }).base;
 
   function holdings(m) {
@@ -20010,6 +20268,22 @@ initCollapsibleBlocks();
     });
     if (termo.premio < 3) a.push(["🌡️", "Prêmio de risco da bolsa em " + fmtN(termo.premio, 1) + " p.p. sobre o IPCA+, abaixo dos 4-5 p.p. exigidos. O Tesouro IPCA+ a " + fmtN(m.ntnb, 1) + "% compete forte com ações esticadas."]);
     if (m.dolar && m.dolar <= 5.1) a.push(["💵", "Dólar perto de R$ " + fmtN(m.dolar, 2) + ": janela de desconto duplo para o balde internacional (VTI sub-alocado)."]);
+    const polDictA = (typeof window !== "undefined" && window.FEHMIR_POLITICA_DIV) ? window.FEHMIR_POLITICA_DIV : {};
+    const hojePol = new Date().toISOString().slice(0, 10);
+    const cvmAllA = (typeof window !== "undefined" && window.FEHMIR_FUND_CVM) ? window.FEHMIR_FUND_CVM : {};
+    Object.keys(polDictA).forEach(tk => {
+      const p = polDictA[tk];
+      if (!p || !/^https?:\/\/\S+/i.test(String(p.documento || "").trim())) return;
+      if (p.rever_em && /^\d{4}-\d{2}-\d{2}$/.test(String(p.rever_em)) && String(p.rever_em) < hojePol) {
+        const dtBr = String(p.rever_em).split("-").reverse().join("/");
+        const docU = String(p.documento).trim().split(/\s+/)[0];
+        a.push(["📅", `<b>${tk}</b>: revisão da premissa de dividendos venceu em <b>${dtBr}</b> (<a href="${docU}" target="_blank" rel="noopener">documento</a>). Confira se a tese segue de pé.`]);
+      }
+      const acAt = (cvmAllA[tk] && cvmAllA[tk].acoes > 0) ? cvmAllA[tk].acoes : 0;
+      if (p.acoes_cadastro > 0 && acAt > 0 && Math.abs(acAt - p.acoes_cadastro) / p.acoes_cadastro > 0.05) {
+        a.push(["⚠️", `<b>${tk}</b>: quantidade de ações mudou mais de 5% desde o cadastro da política — confira desdobramento ou grupamento.`]);
+      }
+    });
     const est = (m.est || []).length;
     if (est) a.push(["✏️", est + " dado(s) do termômetro são estimativas (borda tracejada no formulário abaixo). Confirme para deixar o sinal mais confiável."]);
     return a;
@@ -20435,7 +20709,12 @@ initCollapsibleBlocks();
         motivoBase: em.metodo,
         recuperacao: { emRecuperacao: false, roeMin: 10, motivo: "" },
         g: 0,
-        premioEmpresa: 0
+        premioEmpresa: 0,
+        polVigente: false,
+        polExpirada: false,
+        polAcoesMudou: false,
+        tetoSemVolta: null,
+        fase1Encerrada: false
       };
     }
     const tv = tetoAcao(a, m);
@@ -20466,7 +20745,12 @@ initCollapsibleBlocks();
       motivoBase: tv.motivoBase,
       recuperacao: tv.recuperacao,
       g: tv.g,
-      premioEmpresa: tv.premioEmpresa
+      premioEmpresa: tv.premioEmpresa,
+      polVigente: !!tv.polVigente,
+      polExpirada: !!tv.polExpirada,
+      polAcoesMudou: !!tv.polAcoesMudou,
+      tetoSemVolta: tv.tetoSemVolta != null ? tv.tetoSemVolta : null,
+      fase1Encerrada: !!tv.fase1Encerrada
     };
 
   };
@@ -22537,14 +22821,53 @@ window.fehmirUsarGSetorCalc = function(t) {
     if (av && av.payoutDivergente && (!av.payoutImplicito || av.payoutImplicito <= 100)) alertas.push("Payout divergente: confira em fonte primária.");
     if (av && av.diverg != null && av.diverg > 35) alertas.push("Modelos divergem (" + fmt(av.diverg, 0) + "% " + (av.diverg_par || 'conferência') + "): confira o lucro (pode haver resultado não recorrente).");
     if (a && a._fundDiverg && a._fundDiverg.length) alertas.push("Fundamentos do robô mudaram mais de 25% em relação ao cadastro (" + a._fundDiverg.join(" · ") + "): conferir no RI antes de decidir.");
-    const valExplicado = (av && (av.proj != null || av.hist != null)) ? `
-      <div class="an-val-box" style="margin:12px 0 8px;padding:10px 14px;background:var(--surface-2);border-radius:8px;font-size:13px;border-left:3px solid var(--accent)">
+    if (av && av.polExpirada) alertas.push("Premissa da política/dividendo projetado está com revisão vencida: confirme nos documentos do RI.");
+    if (av && av.polAcoesMudou) alertas.push("Número de ações mudou mais de 5% desde o cadastro da política: confira desdobramento ou grupamento.");
+    if (av && av.fase1Encerrada) alertas.push("Fase 1 da projeção de dividendos já terminou: confirme se o dividendo voltou antes de comprar.");
+    if (av && av.base_dpa === "sem_dividendo_projetado") alertas.push("Sem perspectiva de dividendo projetado (DPA projetado menor ou igual a zero).");
+    const polFicha = (!ehFii && typeof window !== "undefined" && window.FEHMIR_POLITICA_DIV) ? window.FEHMIR_POLITICA_DIV[t] : null;
+    const polFichaUrl = polFicha && /^https?:\/\/\S+/i.test(String(polFicha.documento || "").trim()) ? String(polFicha.documento).trim().split(/\s+/)[0] : "";
+    let polFichaHtml = "";
+    if (polFicha && polFichaUrl) {
+      const f2F = (polFicha.fonte_fase2 && /^https?:\/\/\S+/i.test(String(polFicha.fonte_fase2).trim())) ? String(polFicha.fonte_fase2).trim().split(/\s+/)[0] : "";
+      const revF = polFicha.rever_em ? String(polFicha.rever_em).split("-").reverse().join("/") : "";
+      const isSemD = av && av.base_dpa === "sem_dividendo_projetado";
+      polFichaHtml = `
+        <div class="an-val-box" style="margin:10px 0 8px;padding:10px 14px;background:${isSemD ? "rgba(100,116,139,0.09)" : "rgba(79,70,229,0.07)"};border-radius:8px;font-size:12.5px;border-left:3px solid ${isSemD ? "#64748b" : "var(--accent)"}">
+          <div><b>${isSemD ? "Sem perspectiva de dividendo" : (polFicha.tipo === "estrutural" ? "Dividendo projetado (ajuste estrutural)" : "Política de dividendos atualizada")}</b> · <a href="${polFichaUrl}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">documento oficial</a>${f2F ? ` · <a href="${f2F}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">fonte fase 2</a>` : ""}${revF ? ` · Rever em <b>${revF}</b>` : ""}</div>
+          ${(polFicha.premissa || polFicha.nota) ? `<div class="cb-sub" style="margin:4px 0 0;font-size:12px;">${polFicha.premissa || polFicha.nota}</div>` : ""}
+          ${(av && av.tetoSemVolta > 0) ? `<div style="margin-top:4px;">Se o dividendo não voltar: teto <b>${R(av.tetoSemVolta)}</b>${av.hist > 0 ? ` · Histórico <b>${R(av.hist)}</b> (só conferência)` : ""}</div>` : ((av && av.hist > 0 && polFicha.tipo === "estrutural") ? `<div style="margin-top:4px;">Histórico <b>${R(av.hist)}</b> (só conferência)</div>` : "")}
+        </div>`;
+    }
+    const mMargF = (av && av.S && av.S.margemMin != null) ? av.S.margemMin : 10;
+    const compraF = (teto > 0) ? teto * (1 - mMargF / 100) : null;
+    const rmF = (teto > 0 && typeof window.fehmirRealismoPreco === "function") ? window.fehmirRealismoPreco(t, compraF, teto) : null;
+    const realismoTexto = rm => {
+      if (!rm) return "";
+      const ultT = rm.ultCompra ? ` (última vez em <b>${rm.ultCompra}</b>)` : (rm.ultTeto ? ` (no teto em <b>${rm.ultTeto}</b>)` : "");
+      return rm.zerado
+        ? `📊 Nos últimos <b>${rm.total} meses</b>, o preço não fechou abaixo da sua compra (${R(compraF)})${rm.mesesTeto > 0 ? ` — ficou abaixo do teto em <b>${rm.mesesTeto}</b> mês(es)` : " nem do teto"}.`
+        : `📊 Nos últimos <b>${rm.total} meses</b>, fechou abaixo da compra em <b>${rm.mesesCompra}</b> mês(es)${ultT} e abaixo do teto em <b>${rm.mesesTeto}</b> mês(es).`;
+    };
+    if (!rmF && teto > 0 && !window.FEHMIR_HIST_MENSAL && typeof fehmirCarregarMensal === "function") {
+      setTimeout(() => fehmirCarregarMensal(() => {
+        const elRF = document.getElementById("an-realismo-" + t);
+        if (elRF && typeof window.fehmirRealismoPreco === "function") {
+          const r2 = window.fehmirRealismoPreco(t, compraF, teto);
+          if (r2) { elRF.innerHTML = realismoTexto(r2); elRF.style.display = "block"; }
+        }
+      }), 0);
+    }
+    const valExplicado = (av && (av.proj != null || av.hist != null || polFichaHtml || teto > 0)) ? `
+      ${polFichaHtml}
+      ${(av.proj != null || av.hist != null) ? `<div class="an-val-box" style="margin:12px 0 8px;padding:10px 14px;background:var(--surface-2);border-radius:8px;font-size:13px;border-left:3px solid var(--accent)">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
           <span><b>Valuation explicado:</b> ${av.proj != null ? `Projetivo <b>${R(av.proj)}</b> · ` : ""}${av.hist != null ? `Histórico <b>${R(av.hist)}</b>` : ""}${av.proj != null && av.hist != null ? (Math.abs(teto - Math.min(av.proj, av.hist)) < 0.01 ? ` → <b>vale o menor (${R(teto)})</b>` : ` → <b>teto pelo projetivo (${R(teto)})</b>; o histórico só confere`) : ""}</span>
           ${av.req ? `<span style="font-family:var(--font-mono);color:var(--muted)">DY exigido: ${fmt(av.req, 1)}%</span>` : ""}
         </div>
         ${av.src ? `<div class="cb-sub" style="margin:4px 0 0;font-size:11.5px">${av.src}</div>` : ""}
-      </div>` : "";
+      </div>` : ""}
+      ${teto > 0 ? `<div id="an-realismo-${t}" style="margin:6px 0 8px;padding:7px 12px;background:var(--surface-2);border-radius:8px;font-size:12px;color:var(--muted);${rmF ? "" : "display:none;"}">${rmF ? realismoTexto(rmF) : ""}</div>` : ""}` : "";
 
     /* ---------- Fluxo de Dividendos Descontado DDM (15/10/2026 - Tarefa 2) ---------- */
     let ddmSecHtml = "";

@@ -45,13 +45,19 @@ const EXPR = `(() => {
   }
   if (!alvos) throw new Error('Chrome não respondeu em ' + chrome);
   const ws = new WebSocket(alvos.find(t => t.type === 'page').webSocketDebuggerUrl);
-  let id = 1; const cb = new Map();
-  ws.onmessage = e => { const d = JSON.parse(e.data); if (d.id && cb.has(d.id)) { cb.get(d.id)(d.result || d); cb.delete(d.id); } };
+  let id = 1; const cb = new Map(); let carregou = null;
+  const pronto = new Promise(r => { carregou = r; });
+  ws.onmessage = e => {
+    const d = JSON.parse(e.data);
+    if (d.id && cb.has(d.id)) { cb.get(d.id)(d.result || d); cb.delete(d.id); }
+    if (d.method === 'Page.loadEventFired' && carregou) carregou();
+  };
   const send = (method, params = {}) => new Promise(r => { const i = id++; cb.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
   await new Promise(r => ws.onopen = r);
   await send('Page.enable');
   await send('Page.navigate', { url });
-  await new Promise(r => setTimeout(r, 6000));
+  await Promise.race([pronto, new Promise(r => setTimeout(r, 30000))]);
+  await new Promise(r => setTimeout(r, 4000));
   const res = await send('Runtime.evaluate', { expression: EXPR, returnByValue: true });
   if (res.exceptionDetails || !res.result || !res.result.value) throw new Error('Falha ao avaliar o painel: ' + JSON.stringify(res.exceptionDetails || res).slice(0, 400));
   const { tetos, carteira } = res.result.value;

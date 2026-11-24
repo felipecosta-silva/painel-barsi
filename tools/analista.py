@@ -525,9 +525,25 @@ def main(argv):
         alerta(t, "documento", prio, f"{t}: {rotulo}{extra}",
                {"documentos": len(recentes)}, {"fonte": "CVM/Fundos.NET", "link": doc.get("url"), "data": doc.get("data")})
 
-    # 6. Alerta de possível mudança de política de dividendos (payout 3A vs 5A, §21.9.5)
+    # 6. Alerta de possível mudança de política de dividendos (payout 3A vs 5A, §21.9.5) + revisão vencida
     politica_cadastrada = ler_var("politica_dividendos.js", "FEHMIR_POLITICA_DIV", {}) or {}
-    anos_payout = ["2021", "2022", "2023", "2024", "2025"]
+    for t_pol, pol_d in politica_cadastrada.items():
+        if not isinstance(pol_d, dict):
+            continue
+        doc_pol = str(pol_d.get("documento") or "").strip()
+        if not doc_pol.startswith(("http://", "https://")):
+            continue
+        rev = str(pol_d.get("rever_em") or "").strip()
+        if re.match(r"^\d{4}-\d{2}-\d{2}$", rev) and rev < hoje:
+            rev_br = f"{rev[8:10]}/{rev[5:7]}/{rev[0:4]}"
+            alerta(t_pol, "politica_revisao", "media",
+                   f"{t_pol}: revisão da política de dividendos vencida em {rev_br} — conferir documento oficial",
+                   {"rever_em": rev},
+                   {"fonte": "politica_dividendos.js", "link": doc_pol.split()[0], "data": rev})
+
+    ultimo_fechado_pol = datetime.date.today().year - 1
+    anos_payout = [str(y) for y in range(ultimo_fechado_pol - 4, ultimo_fechado_pol + 1)]
+    anos_3a_pol = anos_payout[-3:]
     for t in set(universo) | set(CVM):
         if t in politica_cadastrada:
             continue
@@ -535,19 +551,17 @@ def main(argv):
         dpa_ano = h_t.get("dpaAno") or {}
         dpa_extra = h_t.get("dpaAnoExtra") or {}
         cv_t = CVM.get(t) or {}
-        vpa = cv_t.get("vpa")
-        roe_anual = cv_t.get("roeAnual") or {}
-        if not vpa or not roe_anual or not dpa_ano:
+        lpa_anual = cv_t.get("lpaAnual") or {}
+        if not lpa_anual or not dpa_ano:
             continue
         payouts = {}
         for y in anos_payout:
             d = max(0.0, dpa_ano.get(y, 0.0) - dpa_extra.get(y, 0.0))
-            ry = roe_anual.get(y)
-            if ry and ry > 0 and vpa > 0:
-                lpa_y = vpa * (ry / 100.0)
+            lpa_y = lpa_anual.get(y)
+            if lpa_y and lpa_y > 0:
                 payouts[y] = d / lpa_y
         if len(payouts) == 5:
-            p3 = sum(payouts[y] for y in ["2023", "2024", "2025"]) / 3.0
+            p3 = sum(payouts[y] for y in anos_3a_pol) / 3.0
             p5 = sum(payouts[y] for y in anos_payout) / 5.0
             if p5 >= 0.20:
                 diff_pp = abs(p3 - p5) * 100.0
@@ -557,7 +571,7 @@ def main(argv):
                         alerta(t, "politica_dividendos", "info",
                                f"{t}: possível mudança de política de dividendos — confirmar documento (payout 3A {br(p3*100, 0)}% vs 5A {br(p5*100, 0)}%, razão {br(razao, 2)}×, dif {br(diff_pp, 0)} p.p.)",
                                {"payout3a": round(p3*100, 1), "payout5a": round(p5*100, 1), "razao": round(razao, 2), "diff_pp": round(diff_pp, 1)},
-                               {"fonte": "histórico e CVM (payout)", "data": "2021–2025"})
+                               {"fonte": "histórico e CVM (payout)", "data": f"{anos_payout[0]}–{anos_payout[-1]}"})
 
     # Estado: mantém "desde", resolve o que sumiu, apaga resolvido antigo
 

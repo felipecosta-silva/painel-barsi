@@ -1,6 +1,6 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-24 17:34",
+ "gerado": "2026-11-24 20:20",
  "ativos": 224,
  "carteira": 22,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
@@ -129,26 +129,26 @@ window.FEHMIR_TETOS = {
   "base_dpa": "projetivo_regulada"
  },
  "CMIG4": {
-  "teto": 15.62,
-  "compra": 14.06,
+  "teto": 9.43,
+  "compra": 8.49,
   "margemMin": 10,
-  "metodo": "Bazin projetivo",
+  "metodo": "Bazin projetivo (estrutural)",
   "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 15,62 (LPA R$ 1,93 × payout realista 67% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 1,26 (robô)÷9,9% = R$ 12,71 (conferência) · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "src": "Dividendo projetado em fases (2026–2028 (capex R$ 44 bi) R$ 0,73 · 2029+ (pós-revisão tarifária) R$ 1,00) a 9,9% = R$ 9,43 (sem volta: R$ 7,37) · DPA 5A R$ 1,26 (robô)÷9,9% = R$ 12,71 (só conferência) · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
   "preco": 10.78,
   "data": "2026-11-23",
-  "base_dpa": "historico_5a"
+  "base_dpa": "estrutural_fases"
  },
  "TAEE11": {
-  "teto": 40.83,
-  "compra": 38.79,
+  "teto": 28.67,
+  "compra": 27.23,
   "margemMin": 5,
-  "metodo": "Bazin projetivo",
+  "metodo": "Bazin projetivo (estrutural)",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$ 45,38 (LPA R$ 4,78 × payout realista 75% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 3,23 ÷ 7,9% = R$ 40,83 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
+  "src": "Dividendo projetado estrutural (R$ 2,58 ÷ 9,0% = R$ 28,67) · DPA pago 3A (2023, 2024, 2025) R$ 3,23 ÷ 9,0% = R$ 35,84 (só conferência)",
   "preco": 40.17,
   "data": "2026-11-19",
-  "base_dpa": "historico_5a"
+  "base_dpa": "estrutural_permanente"
  },
  "CPLE3": {
   "teto": 10.04,
@@ -162,45 +162,45 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "ISAE4": {
-  "teto": 25.35,
-  "compra": 24.08,
+  "teto": 19.1,
+  "compra": 18.15,
   "margemMin": 5,
-  "metodo": "Bazin projetivo",
+  "metodo": "Bazin projetivo (estrutural)",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$ 25,35 (LPA R$ 4,19 × payout da empresa 48% × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 2A (2023, 2025) R$ 2,75 ÷ 7,9% = R$ 34,75 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
+  "src": "Dividendo projetado em fases (2027 (RBSE integral) R$ 2,08 · 2028 (saída RBSE jul/28) R$ 1,76 · 2029+ (novas linhas) R$ 1,68) a 9,0% = R$ 19,10 (sem volta: R$ 23,11) · DPA pago 2A (2023, 2025) R$ 2,75 ÷ 9,0% = R$ 30,50 (só conferência) · ⚠️ Projetivo (R$ 19,10) diverge 37% do histórico (R$ 30,50): confira premissa de dividendos",
   "preco": 25.83,
   "data": "2026-11-23",
-  "base_dpa": "historico_5a"
+  "base_dpa": "estrutural_fases"
  },
  "ALUP11": {
-  "teto": 18.19,
-  "compra": 17.28,
+  "teto": 15.96,
+  "compra": 15.16,
   "margemMin": 5,
   "metodo": "Bazin projetivo",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$ 21,39 (LPA R$ 3,13 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 1,44 ÷ 7,9% = R$ 18,19 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
+  "src": "Projetivo R$ 18,78 (LPA R$ 3,13 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 1,44 ÷ 9,0% = R$ 15,96 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
   "preco": 32.86,
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
  },
  "ALUP4": {
-  "teto": 7.7,
-  "compra": 6.93,
-  "margemMin": 10,
+  "teto": 5.32,
+  "compra": 5.05,
+  "margemMin": 5,
   "metodo": "Bazin projetivo",
-  "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 7,70 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 0,41 (robô)÷8,9% = R$ 4,61 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 7,70) diverge 67% do histórico (R$ 4,61): confira premissa de dividendos",
+  "setor": "Elétricas · Transmissão",
+  "src": "Projetivo R$ 6,24 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 0,48 ÷ 9,0% = R$ 5,32 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
   "preco": 10.42,
   "data": "2026-11-23",
   "base_dpa": "historico_5a"
  },
  "ALUP3": {
-  "teto": 7.7,
-  "compra": 6.93,
-  "margemMin": 10,
+  "teto": 5.32,
+  "compra": 5.05,
+  "margemMin": 5,
   "metodo": "Bazin projetivo",
-  "setor": "Elétricas · Geração/Distribuição",
-  "src": "Projetivo R$ 7,70 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g real 1,5% (limite) · DPA 5A R$ 0,41 (robô)÷8,9% = R$ 4,61 (conferência) · ⚠️ projetivo 30%+ acima do pago — confirmar · ⚠️ Projetivo (R$ 7,70) diverge 67% do histórico (R$ 4,61): confira premissa de dividendos",
+  "setor": "Elétricas · Transmissão",
+  "src": "Projetivo R$ 6,24 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 0,48 ÷ 9,0% = R$ 5,32 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
   "preco": 12.09,
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
@@ -239,45 +239,45 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "CSMG3": {
-  "teto": 19.74,
-  "compra": 17.77,
+  "teto": 32.08,
+  "compra": 28.87,
   "margemMin": 10,
   "metodo": "Gordon / fluxo de dividendos",
   "setor": "Água & Saneamento",
-  "src": "Gordon / DDM [2 estágios: g1=2,7%, g2=3,5%, k=12,9%]: DDM R$ 28,68 · Histórico R$ 19,74 → vale o menor (R$ 19,74) · ⚠️ Projetivo (R$ 28,69) diverge 45% do histórico (R$ 19,74): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "src": "Gordon / DDM [2 estágios: g1=2,7%, g2=3,5%, k=11,9%]: DDM R$ 32,08 · Histórico R$ 22,09 (só conferência) · ⚠️ Projetivo (R$ 32,11) diverge 45% do histórico (R$ 22,09): confira premissa de dividendos",
   "preco": 56.68,
   "data": "2026-11-23",
-  "base_dpa": "historico_5a"
+  "base_dpa": "ddm_politica_nova"
  },
  "SAPR11": {
-  "teto": 7.14,
-  "compra": 6.42,
+  "teto": 28.94,
+  "compra": 26.04,
   "margemMin": 10,
   "metodo": "Gordon / fluxo de dividendos",
   "setor": "Água & Saneamento",
-  "src": "Gordon / DDM [2 estágios: g1=2,5%, g2=3,5%, k=12,9%]: DDM R$ 7,14 · Histórico R$ 16,09 → vale o menor (R$ 7,14) · ⚠️ Projetivo (R$ 7,19) diverge 55% do histórico (R$ 16,09): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "src": "Gordon / DDM [2 estágios: g1=9,7%, g2=3,5%, k=12,9%]: DDM R$ 28,94 (lucro normalizado pela mediana 3A: LPA R$ 5,11, ROE 16,2%) · Histórico R$ 16,09 (só conferência) · ⚠️ Projetivo (R$ 7,19) diverge 55% do histórico (R$ 16,09): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
   "preco": 34.14,
   "data": "2026-11-19",
   "base_dpa": "historico_5a"
  },
  "SBSP3": {
-  "teto": 4.85,
-  "compra": 4.37,
+  "teto": 15.2,
+  "compra": 13.68,
   "margemMin": 10,
   "metodo": "Gordon / fluxo de dividendos",
   "setor": "Água & Saneamento",
-  "src": "Gordon / DDM [2 estágios: g1=10,0%, g2=3,5%, k=11,9%]: DDM R$ 8,31 · Histórico R$ 4,85 → vale o menor (R$ 4,85) · ⚠️ Projetivo (R$ 7,61) diverge 57% do histórico (R$ 4,85): confira premissa de dividendos",
+  "src": "Gordon / DDM [2 estágios: g1=7,8%, g2=3,5%, k=11,9%]: DDM R$ 15,20 · Histórico R$ 4,85 (só conferência) · ⚠️ Projetivo (R$ 15,22) diverge 214% do histórico (R$ 4,85): confira premissa de dividendos",
   "preco": 27.7,
   "data": "2026-11-23",
-  "base_dpa": "historico_5a"
+  "base_dpa": "ddm_politica_nova"
  },
  "SAPR4": {
-  "teto": 1.44,
-  "compra": 1.29,
+  "teto": 5.79,
+  "compra": 5.21,
   "margemMin": 10,
   "metodo": "Gordon / fluxo de dividendos",
   "setor": "Água & Saneamento",
-  "src": "Gordon / DDM [2 estágios: g1=2,5%, g2=3,5%, k=12,9%]: DDM R$ 1,44 · Histórico R$ 3,28 → vale o menor (R$ 1,44) · ⚠️ Projetivo (R$ 1,45) diverge 56% do histórico (R$ 3,28): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
+  "src": "Gordon / DDM [2 estágios: g1=9,7%, g2=3,5%, k=12,9%]: DDM R$ 5,79 (lucro normalizado pela mediana 3A: LPA R$ 1,02, ROE 16,2%) · Histórico R$ 3,28 (só conferência) · ⚠️ Projetivo (R$ 1,45) diverge 56% do histórico (R$ 3,28): confira premissa de dividendos · +1,0 p.p. risco da empresa (estatal/capex > valor de mercado)",
   "preco": 6.68,
   "data": "2026-11-23",
   "base_dpa": "historico_5a"
@@ -372,8 +372,8 @@ window.FEHMIR_TETOS = {
  },
  "PRIO3": {
   "teto": 47,
-  "compra": 32.9,
-  "margemMin": 30,
+  "compra": 37.6,
+  "margemMin": 20,
   "metodo": "P/L normalizado",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "P/L normalizado [LPA R$ 7,77 × (1 − 25%) ÷ 12,4%] = R$ 47,00",
@@ -393,20 +393,20 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "PETR4": {
-  "teto": 44.42,
-  "compra": 31.09,
-  "margemMin": 30,
+  "teto": 26.46,
+  "compra": 21.17,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 7,34 × 0,75 = R$ 5,51 ÷ 12,4% = R$ 44,42] · Proj R$ 50,72 (conferência)",
+  "src": "Política nova (média 1A fechados R$ 3,28 s/ extraordinários) ÷ 12,4% = R$ 26,46 · ciclo 5A R$ 47,63 (só conferência) · ⚠️ Projetivo (R$ 26,46) diverge 40% do meio de ciclo (R$ 44,42): ciclo de commodities pode estar revertendo",
   "preco": 41.3,
   "data": "2026-11-23",
-  "base_dpa": "historico_5a"
+  "base_dpa": "politica_nova_media"
  },
  "RECV3": {
   "teto": 5.44,
-  "compra": 3.81,
-  "margemMin": 30,
+  "compra": 4.36,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,90 × 0,75 = R$ 0,68 ÷ 12,4% = R$ 5,44] · Proj R$ 7,84 (conferência) · ⚠️ Projetivo (R$ 7,84) diverge 44% do meio de ciclo (R$ 5,44): ciclo de commodities pode estar revertendo",
@@ -416,8 +416,8 @@ window.FEHMIR_TETOS = {
  },
  "RANI3": {
   "teto": 3.87,
-  "compra": 2.71,
-  "margemMin": 30,
+  "compra": 3.09,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,64 × 0,75 = R$ 0,48 ÷ 12,4% = R$ 3,87] · Proj R$ 1,75 (conferência) · ⚠️ Projetivo (R$ 1,75) diverge 55% do meio de ciclo (R$ 3,87): ciclo de commodities pode estar revertendo",
@@ -427,8 +427,8 @@ window.FEHMIR_TETOS = {
  },
  "SUZB3": {
   "teto": 40.83,
-  "compra": 28.58,
-  "margemMin": 30,
+  "compra": 32.66,
+  "margemMin": 20,
   "metodo": "P/L normalizado",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "P/L normalizado [LPA R$ 6,75 × (1 − 25%) ÷ 12,4%] = R$ 40,83 · Bazin 5A R$ 11,23 (conferência)",
@@ -438,8 +438,8 @@ window.FEHMIR_TETOS = {
  },
  "KLBN4": {
   "teto": 1.59,
-  "compra": 1.11,
-  "margemMin": 30,
+  "compra": 1.27,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,26 × 0,75 = R$ 0,20 ÷ 12,4% = R$ 1,59] · Proj R$ 0,27 (conferência) · ⚠️ Projetivo (R$ 0,27) diverge 83% do meio de ciclo (R$ 1,59): ciclo de commodities pode estar revertendo",
@@ -515,8 +515,8 @@ window.FEHMIR_TETOS = {
  },
  "VALE3": {
   "teto": 45.87,
-  "compra": 32.11,
-  "margemMin": 30,
+  "compra": 36.69,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 7,58 × 0,75 = R$ 5,69 ÷ 12,4% = R$ 45,87] · Proj R$ 1,96 (conferência) · ⚠️ Projetivo (R$ 1,96) diverge 96% do meio de ciclo (R$ 45,87): ciclo de commodities pode estar revertendo",
@@ -526,8 +526,8 @@ window.FEHMIR_TETOS = {
  },
  "GGBR4": {
   "teto": 8.07,
-  "compra": 5.65,
-  "margemMin": 30,
+  "compra": 6.45,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 1,33 × 0,75 = R$ 1,00 ÷ 12,4% = R$ 8,07] · Proj R$ 1,92 (conferência) · ⚠️ Projetivo (R$ 1,92) diverge 76% do meio de ciclo (R$ 8,07): ciclo de commodities pode estar revertendo",
@@ -878,8 +878,8 @@ window.FEHMIR_TETOS = {
  },
  "CSAN3": {
   "teto": 2.35,
-  "compra": 1.64,
-  "margemMin": 30,
+  "compra": 1.88,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,39 × 0,75 = R$ 0,29 ÷ 12,4% = R$ 2,35]",
@@ -889,8 +889,8 @@ window.FEHMIR_TETOS = {
  },
  "USIM5": {
   "teto": 3.23,
-  "compra": 2.26,
-  "margemMin": 30,
+  "compra": 2.58,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,53 × 0,75 = R$ 0,40 ÷ 12,4% = R$ 3,23]",
@@ -911,8 +911,8 @@ window.FEHMIR_TETOS = {
  },
  "BEEF3": {
   "teto": 3.24,
-  "compra": 2.27,
-  "margemMin": 30,
+  "compra": 2.59,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,54 × 0,75 = R$ 0,40 ÷ 12,4% = R$ 3,24]",
@@ -944,8 +944,8 @@ window.FEHMIR_TETOS = {
  },
  "PETR3": {
   "teto": 49.57,
-  "compra": 34.7,
-  "margemMin": 30,
+  "compra": 39.65,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 8,20 × 0,75 = R$ 6,15 ÷ 12,4% = R$ 49,57]",
@@ -966,8 +966,8 @@ window.FEHMIR_TETOS = {
  },
  "GOAU4": {
   "teto": 5.45,
-  "compra": 3.82,
-  "margemMin": 30,
+  "compra": 4.36,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,90 × 0,75 = R$ 0,68 ÷ 12,4% = R$ 5,45]",
@@ -977,8 +977,8 @@ window.FEHMIR_TETOS = {
  },
  "KLBN11": {
   "teto": 7.14,
-  "compra": 5,
-  "margemMin": 30,
+  "compra": 5.71,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 1,18 × 0,75 = R$ 0,89 ÷ 12,4% = R$ 7,14]",
@@ -988,8 +988,8 @@ window.FEHMIR_TETOS = {
  },
  "UGPA3": {
   "teto": 4.52,
-  "compra": 3.16,
-  "margemMin": 30,
+  "compra": 3.62,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,75 × 0,75 = R$ 0,56 ÷ 12,4% = R$ 4,52]",
@@ -1043,8 +1043,8 @@ window.FEHMIR_TETOS = {
  },
  "CMIN3": {
   "teto": 4.36,
-  "compra": 3.05,
-  "margemMin": 30,
+  "compra": 3.49,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,72 × 0,75 = R$ 0,54 ÷ 12,4% = R$ 4,36]",
@@ -1164,8 +1164,8 @@ window.FEHMIR_TETOS = {
  },
  "CBAV3": {
   "teto": 2.09,
-  "compra": 1.46,
-  "margemMin": 30,
+  "compra": 1.67,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,35 × 0,75 = R$ 0,26 ÷ 12,4% = R$ 2,09]",
@@ -1384,8 +1384,8 @@ window.FEHMIR_TETOS = {
  },
  "KLBN3": {
   "teto": 1.43,
-  "compra": 1,
-  "margemMin": 30,
+  "compra": 1.14,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,24 × 0,75 = R$ 0,18 ÷ 12,4% = R$ 1,43]",
@@ -1461,8 +1461,8 @@ window.FEHMIR_TETOS = {
  },
  "FESA4": {
   "teto": 4.25,
-  "compra": 2.97,
-  "margemMin": 30,
+  "compra": 3.4,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,70 × 0,75 = R$ 0,53 ÷ 12,4% = R$ 4,25]",
@@ -1527,8 +1527,8 @@ window.FEHMIR_TETOS = {
  },
  "USIM3": {
   "teto": 2.93,
-  "compra": 2.05,
-  "margemMin": 30,
+  "compra": 2.35,
+  "margemMin": 20,
   "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
   "src": "Bazin de meio de ciclo [mediana 5A R$ 0,48 × 0,75 = R$ 0,36 ÷ 12,4% = R$ 2,93]",
@@ -1592,12 +1592,12 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "TAEE4": {
-  "teto": 16.06,
-  "compra": 15.26,
+  "teto": 14.1,
+  "compra": 13.39,
   "margemMin": 5,
   "metodo": "Graham",
   "setor": "Elétricas · Transmissão",
-  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/7,9% R$ 16,06 → usa o menor",
+  "src": "Graham indisponível (sem VPA/PVP): usando Bazin projetivo · DPA/9,0% R$ 14,10 → usa o menor",
   "preco": 13.45,
   "data": null,
   "base_dpa": "historico_5a"
