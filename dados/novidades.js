@@ -300,6 +300,29 @@ window.FEHMIR_NOVIDADES = {
   ],
   "CPLE3": [
     {
+      "id": "cvm_014311IPE191120260107046150-34",
+      "data": "2026-11-19",
+      "tipo": "Fato Relevante",
+      "titulo": "CAPEX de R$ 21,1 bilhões para o ciclo 2027 - 2030",
+      "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1591309&numSequencia=1116015&numVersao=1",
+      "resumo": [
+        "Fato Relevante publicado em 2026-11-19."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
       "id": "cvm_014311IPE031120260152764723-08",
       "data": "2026-11-03",
       "tipo": "Fato Relevante",
@@ -750,6 +773,29 @@ window.FEHMIR_NOVIDADES = {
     }
   ],
   "HGRE11": [
+    {
+      "id": "fnet_1390198",
+      "data": "2026-11-23",
+      "tipo": "Fato Relevante",
+      "titulo": "Fato Relevante",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1390198",
+      "resumo": [
+        "Fato Relevante publicado em 2026-11-23."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
     {
       "id": "fnet_1384732",
       "data": "2026-11-13",
