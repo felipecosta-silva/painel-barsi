@@ -59,6 +59,9 @@ def main() -> int:
         return 1
 
     try:
+        eu = tg_chamar(token, "getMe") or {}
+        print(f"\nChave aceita: é do bot \"{eu.get('first_name')}\" (@{eu.get('username')}).")
+        print("Se não for o bot em que você mandou o 'oi', feche (Ctrl+C) e pegue a chave certa no BotFather (/mybots → bot → API Token).")
         wh = tg_chamar(token, "getWebhookInfo")
     except (urllib.error.URLError, RuntimeError) as exc:
         print(f"Erro ao consultar o bot no Telegram: {exc}")

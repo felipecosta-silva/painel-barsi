@@ -446,6 +446,13 @@ def main(argv: list[str] | None = None) -> int:
         try:
             enviar_telegram(token, chat_id, res["mensagem"])
             print(f"OK: {len(res['novos'])} alerta(s) enviado(s) ao Telegram.")
+        except urllib.error.HTTPError as exc:
+            corpo = exc.read().decode("utf-8", "replace")[:300]
+            dica = {401: "TELEGRAM_BOT_TOKEN inválido (chave errada ou de outro bot)",
+                    400: "TELEGRAM_CHAT_ID errado ou você ainda não mandou 'oi' a este bot",
+                    403: "o bot foi bloqueado no Telegram"}.get(exc.code, "")
+            print(f"[erro] Telegram HTTP {exc.code}: {corpo} {('→ ' + dica) if dica else ''}", file=sys.stderr)
+            return 1
         except (urllib.error.URLError, RuntimeError) as exc:
             print(f"[erro] Envio ao Telegram falhou: {exc}", file=sys.stderr)
             return 1
