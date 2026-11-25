@@ -2341,6 +2341,29 @@ window.FEHMIR_NOVIDADES = {
   ],
   "VILG11": [
     {
+      "id": "fnet_1391199",
+      "data": "2026-11-24",
+      "tipo": "Relatório Gerencial",
+      "titulo": "Relatório Gerencial",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1391199",
+      "resumo": [
+        "Relatório Gerencial publicado em 2026-11-24."
+      ],
+      "mudancas": [],
+      "alertas": [],
+      "metricas": {
+        "vacancia_fisica": null,
+        "vacancia_financeira": null,
+        "inadimplencia": null,
+        "provento_por_cota": null,
+        "resultado_por_cota": null,
+        "reserva_por_cota": null,
+        "ltv": null
+      },
+      "gravidade": "info",
+      "resumido_ia": false
+    },
+    {
       "id": "fnet_1373431",
       "data": "2026-11-09",
       "tipo": "Relatório Gerencial",
