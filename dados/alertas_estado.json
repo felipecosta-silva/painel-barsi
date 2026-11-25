@@ -1,4 +1,29 @@
 {
-  "atualizado": null,
-  "regras": {}
+  "atualizado": "2026-11-25",
+  "regras": {
+    "manual:ITSA4:compra": {
+      "ativo": true,
+      "valor": 12.91,
+      "desde": "2026-11-25",
+      "ultimoEnvio": "2026-11-25"
+    },
+    "manual:TESOURO-IPCA-2032:taxa": {
+      "ativo": true,
+      "valor": 7.82,
+      "desde": "2026-11-25",
+      "ultimoEnvio": "2026-11-25"
+    },
+    "auto:GARE11:compra": {
+      "ativo": true,
+      "valor": 7.84,
+      "desde": "2026-11-25",
+      "ultimoEnvio": "2026-11-25"
+    },
+    "auto:GGRC11:compra": {
+      "ativo": true,
+      "valor": 8.0,
+      "desde": "2026-11-25",
+      "ultimoEnvio": "2026-11-25"
+    }
+  }
 }
