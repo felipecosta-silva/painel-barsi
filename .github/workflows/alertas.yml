@@ -1,0 +1,44 @@
+# Fehmir · Alertas no Telegram após atualização de preços e do analista.
+# Segredos opcionais: TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID (se faltarem, encerra com aviso sem falhar).
+name: Alertas Telegram
+
+on:
+  workflow_run:
+    workflows: ["Atualizar historico", "Analista automatico"]
+    types:
+      - completed
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  alertas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Pegar os dados mais recentes da branch main
+        run: git pull --rebase origin main || true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Avaliar alertas e notificar no Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python tools/alertas.py
+      - name: Salvar estado anti-spam se mudou
+        run: |
+          git config user.name "fehmir-robo"
+          git config user.email "fehmir-robo@users.noreply.github.com"
+          git add dados/alertas_estado.json
+          git diff --cached --quiet || git commit -m "dados: alertas_estado atualizado $(date +%Y-%m-%d)"
+          for i in 1 2 3; do
+            git pull --rebase --autostash -X theirs origin main && git push && exit 0
+            git rebase --abort 2>/dev/null || true
+            sleep 10
+          done
+          exit 1

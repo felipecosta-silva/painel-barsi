@@ -23,6 +23,7 @@ PADROES = [
     re.compile(r"\bgh[pousr]_[A-Za-z0-9]{30,}\b"),  # GitHub
     re.compile(r"\bsk-[A-Za-z0-9_\-]{20,}\b"),      # OpenAI/Anthropic e similares
     re.compile(r"\bAIza[0-9A-Za-z_\-]{30,}\b"),     # Google
+    re.compile(r"\b\d{8,10}:[A-Za-z0-9_-]{35}\b"),  # Telegram Bot Token
 ]
 
 def checar(caminhos):
