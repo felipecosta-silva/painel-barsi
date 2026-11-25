@@ -20,6 +20,7 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
 <script src="dados/vendas_ativos.js"></script>
 <script src="dados/historico_investidor10.js"></script>
 <script src="dados/alertas.js"></script>
+<script src="dados/tesouro.js"></script>
 <script>
 /* Aplica uma vez cada configuração contada ao assistente (dados/config_assistente.js) no formulário macro. */
 (function () {
@@ -95,13 +96,14 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --cor-classe-acoes: #2563eb;      /* Azul B3 */
   --cor-classe-intl: #059669;       /* Verde Esmeralda */
   --cor-classe-cripto: #d97706;     /* Âmbar / Ouro */
+  --cor-classe-rf: #0d9488;         /* Petróleo / Turquesa */
   --cor-classe-caixa: #475569;      /* Ardósia / Neutro */
 
   --alloc-c1: var(--cor-classe-fiis);
   --alloc-c2: var(--cor-classe-acoes);
   --alloc-c3: var(--cor-classe-intl);
   --alloc-c4: var(--cor-classe-cripto);
-  --alloc-c5: var(--cor-classe-caixa);
+  --alloc-c5: var(--cor-classe-rf);
 
   /* Paleta para até 7 ativos individuais + Outros */
   --data-1: #2563eb;
@@ -162,13 +164,14 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
     --cor-classe-acoes: #60a5fa;      /* Azul claro */
     --cor-classe-intl: #34d399;       /* Verde esmeralda claro */
     --cor-classe-cripto: #fbbf24;     /* Âmbar brilhante */
+    --cor-classe-rf: #2dd4bf;         /* Turquesa claro */
     --cor-classe-caixa: #94a3b8;      /* Ardósia claro */
 
     --alloc-c1: var(--cor-classe-fiis);
     --alloc-c2: var(--cor-classe-acoes);
     --alloc-c3: var(--cor-classe-intl);
     --alloc-c4: var(--cor-classe-cripto);
-    --alloc-c5: var(--cor-classe-caixa);
+    --alloc-c5: var(--cor-classe-rf);
 
     --data-1: #60a5fa;
     --data-2: #a78bfa;
@@ -228,13 +231,14 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
   --cor-classe-acoes: #60a5fa;
   --cor-classe-intl: #34d399;
   --cor-classe-cripto: #fbbf24;
+  --cor-classe-rf: #2dd4bf;
   --cor-classe-caixa: #94a3b8;
 
   --alloc-c1: var(--cor-classe-fiis);
   --alloc-c2: var(--cor-classe-acoes);
   --alloc-c3: var(--cor-classe-intl);
   --alloc-c4: var(--cor-classe-cripto);
-  --alloc-c5: var(--cor-classe-caixa);
+  --alloc-c5: var(--cor-classe-rf);
 
   --data-1: #60a5fa;
   --data-2: #a78bfa;
@@ -4664,12 +4668,16 @@ function note(status, text){
 let _vereditoCtx = null;
 function _pesoClasses() {
   if (_vereditoCtx && Date.now() - _vereditoCtx.ts < 1500) return _vereditoCtx;
-  let acoes = null, fiis = null;
+  let acoes = null, fiis = null, rf = null;
   try {
     const d = obterDadosAlocacaoClasses();
-    if (d.totalPatrimonio > 0) { acoes = d.totalAcoes / d.totalPatrimonio * 100; fiis = d.totalFiis / d.totalPatrimonio * 100; }
+    if (d.totalPatrimonio > 0) {
+      acoes = d.totalAcoes / d.totalPatrimonio * 100;
+      fiis = d.totalFiis / d.totalPatrimonio * 100;
+      rf = (d.saldoRf || 0) / d.totalPatrimonio * 100;
+    }
   } catch (e) {}
-  _vereditoCtx = { ts: Date.now(), acoes, fiis };
+  _vereditoCtx = { ts: Date.now(), acoes, fiis, rf };
   return _vereditoCtx;
 }
 function fehmirVeredito(r) {
@@ -4788,9 +4796,9 @@ const REB_DATA_KEY = "barsi-reb-data-v2";
    Ações só recebem dinheiro quando passam na margem do setor; sem margem, o dinheiro vai para o Caixa. */
 /* 23/10/2026: o Felipe escolheu a meta intermediária de 35% em ações (antes 45%) e 45% em FIIs (antes 35%),
    mais perto da carteira real (17% ações / 70% FIIs). B.A.S.E. 26 + fora 9 mantém a proporção anterior (~3:1). */
-const ALOCACAO_ALVO = { acoes: 35, base: 26, fora: 9, foraMaxAtivo: 3, fiis: 37, intl: 15, cripto: 8, caixa: 5 };
+const ALOCACAO_ALVO = { acoes: 35, base: 26, fora: 9, foraMaxAtivo: 3, fiis: 32, intl: 15, cripto: 8, rf: 5, caixa: 5 };
 const ALOC_VERSION_KEY = "barsi-aloc-version";
-const ALOC_VERSION = "2026-11-19";
+const ALOC_VERSION = "2026-11-24";
 
 const DEFAULT_CARTEIRA_FELIPE = {
   // Ações (10 ativos - R$ 1.564,67)
@@ -4861,7 +4869,9 @@ function aplicarAlocacaoAlvo(forcar) {
   fiis.forEach(t => { if (rebData[t] && rebData[t].i !== null) rebData[t].i = +(ALOCACAO_ALVO.fiis / fiis.length).toFixed(2); });
   if (rebData.VTI && rebData.VTI.i !== null) rebData.VTI.i = ALOCACAO_ALVO.intl;
   if (rebData.SOL && rebData.SOL.i !== null) rebData.SOL.i = ALOCACAO_ALVO.cripto;
-  Object.keys(rebData).forEach(t => { if (!tem(t) && !base.includes(t) && rebData[t].i !== null) rebData[t].i = 0; });
+  const rfKeys = Object.keys(rebData).filter(t => typeof _determinarCategoriaTicker === 'function' && _determinarCategoriaTicker(t) === 'RENDA FIXA' && rebData[t] && rebData[t].q > 0);
+  rfKeys.forEach(t => { if (rebData[t].i !== null) rebData[t].i = +(ALOCACAO_ALVO.rf / rfKeys.length).toFixed(2); });
+  Object.keys(rebData).forEach(t => { if (!tem(t) && !base.includes(t) && !rfKeys.includes(t) && rebData[t].i !== null) rebData[t].i = 0; });
   try { localStorage.setItem(REB_DATA_KEY, JSON.stringify(rebData)); localStorage.setItem(ALOC_VERSION_KEY, ALOC_VERSION); } catch (e) {}
   return true;
 }
@@ -4972,6 +4982,16 @@ function fehmirFmtHoraSP(iso) {
   return { dia, hora, hoje: dia === hoje, texto: dia === hoje ? hora + ' de hoje' : hora + ' de ' + dia };
 }
 function fehmirFontePreco(t) {
+  if (typeof _determinarCategoriaTicker === 'function' && _determinarCategoriaTicker(t) === 'RENDA FIXA' && typeof obterPrecoAtivo === 'function') {
+    const pObj = obterPrecoAtivo(t);
+    if (pObj && pObj.estimado) {
+      return { fonte: 'estimado', quando: '', texto: 'estimado: valor aplicado + IPCA + taxa contratada (sem PU diário do Tesouro)' };
+    }
+    if (pObj && !pObj.semCotacao && pObj.atualizado) {
+      const dd = String(pObj.atualizado).slice(8, 10) + '/' + String(pObj.atualizado).slice(5, 7);
+      return { fonte: 'Tesouro Direto', quando: dd, texto: 'Tesouro Direto, PU base de ' + dd };
+    }
+  }
   const x = fehmirItemCadastro(t);
   if (x && x.fontePreco === 'Brapi') {
     const h = fehmirFmtHoraSP(x.precoHora);
@@ -5358,7 +5378,7 @@ function fehmirPromoverPosicoesDoRadar(posExtratoArg) {
       const units = ['TAEE11', 'ALUP11', 'KLBN11', 'SANB11', 'BPAC11', 'SAPR11', 'ENGI11', 'SULA11'];
       cat = (t.endsWith('11') && !units.includes(t)) ? 'FIIS' : 'AÇÕES';
     }
-    if (cat === 'ETFS' || cat === 'CRIPTO' || cat === 'CAIXA') return;
+    if (cat === 'ETFS' || cat === 'CRIPTO' || cat === 'CAIXA' || cat === 'RENDA FIXA') return;
 
     let rAcao = null, rFii = null, rData = null;
     try { rAcao = RADAR_ACOES.find(x => x.t === t); } catch (e) {}
@@ -6380,6 +6400,7 @@ window.renderProventosEventos = renderProventosEventos;
 const MA_CLASSES = [
   { cat: 'AÇÕES', nome: 'Ações', icone: '📈', meta: () => ALOCACAO_ALVO.acoes },
   { cat: 'FIIS', nome: 'FIIs', icone: '🏢', meta: () => ALOCACAO_ALVO.fiis },
+  { cat: 'RENDA FIXA', nome: 'Renda fixa longo prazo', icone: '🛡️', meta: () => ALOCACAO_ALVO.rf || 5 },
   { cat: 'ETFS', nome: 'ETFs internacionais', icone: '🌎', meta: () => ALOCACAO_ALVO.intl },
   { cat: 'CRIPTO', nome: 'Criptomoedas', icone: '🪙', meta: () => ALOCACAO_ALVO.cripto }
 ];
@@ -6402,12 +6423,13 @@ function renderMeusAtivos() {
   const num = (v, d = 2) => { const n = Number(String(v == null ? '' : v).replace(',', '.')); return (v == null || v === '' || v === '—' || !isFinite(n)) ? '—' : n.toFixed(d).replace('.', ','); };
   const fmtQ = q => Number.isInteger(q) ? String(q) : q.toLocaleString('pt-BR', { maximumFractionDigits: 8 });
   const linhas = Object.entries(pos).filter(([, p]) => p.quant > 0).map(([t, p]) => {
-    const cat = (typeof _determinarCategoriaTicker === 'function') ? _determinarCategoriaTicker(t) : (p.cat || '');
-    const preco = (obterPrecoAtivo(t) || {}).preco || 0;
-    const saldo = p.quant * preco, custo = p.quant * p.pm, pv = provT[t] || 0;
+    const cat = (typeof _determinarCategoriaTicker === 'function') ? _determinarCategoriaTicker(t, p.cat) : (p.cat || '');
+    const pObj = obterPrecoAtivo(t) || {};
+    const preco = pObj.preco || 0;
+    const saldo = Number((p.quant * preco).toFixed(2)), custo = p.quant * p.pm, pv = provT[t] || 0;
     const r = cad(t);
-    const ideal = (rebData[t] && rebData[t].i != null) ? rebData[t].i : (r.ideal != null ? r.ideal : null);
-    return { t, cat, q: p.quant, pm: p.pm, preco, saldo, custo, prov: pv,
+    const ideal = (rebData[t] && rebData[t].i != null) ? rebData[t].i : (r.ideal != null ? r.ideal : (cat === 'RENDA FIXA' ? (ALOCACAO_ALVO.rf || 5) : null));
+    return { t, cat, q: p.quant, pm: p.pm, preco, est: !!pObj.estimado, saldo, custo, prov: pv,
       variacao: custo > 0 ? (saldo / custo - 1) * 100 : null,
       rent: custo > 0 ? ((saldo - custo + pv) / custo) * 100 : null, r, ideal };
   });
@@ -6436,7 +6458,7 @@ function renderMeusAtivos() {
         <td class="ticker"><b>${x.t}</b>${(typeof fehmirIconeVendaPapel === 'function' ? fehmirIconeVendaPapel(x.t, x.preco) : '')}${(typeof fehmirBadgeOrdemAtivo === 'function' ? fehmirBadgeOrdemAtivo(x.t) : '')}</td>
         <td class="tabular">${fmtQ(x.q)}</td>
         <td class="tabular">${fmtR(x.pm)}</td>
-        <td class="tabular" style="font-weight:700"${fehmirTitle(x.t)}>${fmtR(x.preco)}${(typeof fehmirSubIdadePreco === 'function' ? fehmirSubIdadePreco(x.t) : '')}</td>
+        <td class="tabular" style="font-weight:700"${fehmirTitle(x.t)}>${fmtR(x.preco)}${x.est ? ' <span style="font-size:10px;color:var(--warning);font-weight:600">(estimado)</span>' : ''}${(typeof fehmirSubIdadePreco === 'function' ? fehmirSubIdadePreco(x.t) : '')}</td>
         <td class="tabular" style="color:${cor(x.variacao)}; font-weight:700">${pct(x.variacao)}</td>
         <td class="tabular" style="color:${cor(x.rent)}">${pct(x.rent)}</td>
         <td class="tabular" style="font-weight:600">${fmtR(x.saldo)}</td>
@@ -6449,7 +6471,7 @@ function renderMeusAtivos() {
     return `<div class="ma-card open">${head}<div class="twrap ma-twrap"><table class="ma-table"><thead><tr>${ths.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${trs}</tbody></table></div></div>`;
   }).join('');
   const caixaCard = `<div class="ma-card"><div class="ma-head" style="cursor:default">
-      <div class="ma-nome"><span class="ma-ic">🏦</span>Renda fixa e caixa</div>
+      <div class="ma-nome"><span class="ma-ic">🏦</span>Reserva e caixa</div>
       <div class="ma-kpi"><span>Valor</span><b>${fmtR(caixa)}</b></div>
       <div class="ma-kpi"><span>% do total com caixa</span><b>${(patr + caixa) > 0 ? (caixa / (patr + caixa) * 100).toFixed(0) : 0}% <span style="color:var(--muted); font-weight:500">/ ${ALOCACAO_ALVO.caixa}%</span></b></div>
       <div class="ma-kpi"><span>&nbsp;</span><a href="javascript:void(0)" onclick="setCarteiraView('caixa')" style="font-size:12.5px">ver reserva e caixinhas</a></div>
@@ -6474,7 +6496,7 @@ function renderResumoAporteMes() {
   const acima = vs.filter(x => x.mg != null && x.mg < 0).sort((a, b) => a.mg - b.mg);
   const pc = _pesoClasses();
   const li = [];
-  li.push(`<li><b>Classes:</b> ações ${pc.acoes != null ? pc.acoes.toFixed(1).replace(".", ",") : "—"}% (meta ${ALOCACAO_ALVO.acoes}%) · FIIs ${pc.fiis != null ? pc.fiis.toFixed(1).replace(".", ",") : "—"}% (meta ${ALOCACAO_ALVO.fiis}%). O aporte vai para a classe abaixo da meta.</li>`);
+  li.push(`<li><b>Classes:</b> ações ${pc.acoes != null ? pc.acoes.toFixed(1).replace(".", ",") : "—"}% (meta ${ALOCACAO_ALVO.acoes}%) · FIIs ${pc.fiis != null ? pc.fiis.toFixed(1).replace(".", ",") : "—"}% (meta ${ALOCACAO_ALVO.fiis}%) · Renda fixa ${pc.rf != null ? pc.rf.toFixed(1).replace(".", ",") : "—"}% (meta ${ALOCACAO_ALVO.rf || 5}%). O aporte vai para a classe abaixo da meta.</li>`);
   li.push(ap.length
     ? `<li><b>Com margem e classe abaixo da meta (Aportar):</b> ${ap.map(x => `${x.r.t} (margem ${String((x.mg).toFixed(0)).replace('.', ',')}%)`).join(", ")}.</li>`
     : `<li><b>Nenhum ativo da carteira</b> está abaixo do preço de compra numa classe abaixo da meta.</li>`);
@@ -6486,8 +6508,21 @@ function renderResumoAporteMes() {
 window.renderResumoAporteMes = renderResumoAporteMes;
 
 function renderRebalanceamento() {
+   const posExtratoReb = (typeof carregarExtrato === "function" && typeof calcularPosicoesExtrato === "function")
+     ? calcularPosicoesExtrato(carregarExtrato()) : {};
+   const rfRebItems = [];
+   Object.keys(posExtratoReb).forEach(t => {
+     const info = posExtratoReb[t];
+     if (!info || info.quant <= 0) return;
+     if (typeof _determinarCategoriaTicker === "function" && _determinarCategoriaTicker(t, info.cat) === "RENDA FIXA") {
+       const pObj = typeof obterPrecoAtivo === "function" ? obterPrecoAtivo(t) : { preco: 0 };
+       if (!rebData[t]) rebData[t] = { q: info.quant, i: (ALOCACAO_ALVO.rf || 5) };
+       else rebData[t].q = info.quant;
+       rfRebItems.push({ t, nome: (pObj && pObj.nomeTesouro) || t, preco: (pObj && pObj.preco) || 0, ideal: ALOCACAO_ALVO.rf || 5, _isRendaFixa: true, _estimado: !!(pObj && pObj.estimado) });
+     }
+   });
    const seen = new Set();
-   const todos = [...BASE_STOCKS, ...FIIS, ...OUT_OF_BASE, ...RADAR_ACOES, ...RADAR_FIIS].filter(x => x && x.t && !seen.has(x.t) && seen.add(x.t));
+   const todos = [...BASE_STOCKS, ...FIIS, ...OUT_OF_BASE, ...RADAR_ACOES, ...RADAR_FIIS, ...rfRebItems].filter(x => x && x.t && !seen.has(x.t) && seen.add(x.t));
    let html = "";
    let patTotal = 0;
    let ativosComValor = [];
@@ -6496,7 +6531,7 @@ function renderRebalanceamento() {
    todos.forEach(r => {
       const p = rebData[r.t] || {q:0, i:0};
       const preco = r.preco || 0;
-      const valorReal = p.q * preco;
+      const valorReal = Number((p.q * preco).toFixed(2));
       patTotal += valorReal;
       if (valorReal > 0) ativosComValor.push({...r, valorReal});
    });
@@ -6505,15 +6540,15 @@ function renderRebalanceamento() {
    if (typeof renderResumoAporteMes === "function") renderResumoAporteMes();
    if (typeof atualizarBotaoReinvestir === "function") atualizarBotaoReinvestir();
    const rebTotLbl = document.getElementById("reb-total-lbl");
-   if (rebTotLbl) rebTotLbl.textContent = "Ações e FIIs (base do simulador)";
+   if (rebTotLbl) rebTotLbl.textContent = "Ações, FIIs e renda fixa (base do simulador)";
    const rebTotSub = document.getElementById("reb-total-sub");
-   if (rebTotSub && typeof window.fehmirPatrimonioAtual === "function") rebTotSub.textContent = "Patrimônio total com ETFs e cripto: " + fmtR(window.fehmirPatrimonioAtual());
+   if (rebTotSub && typeof window.fehmirPatrimonioAtual === "function") rebTotSub.textContent = "Patrimônio total (com ETFs, cripto e renda fixa): " + fmtR(window.fehmirPatrimonioAtual());
    
    // Construir a lista de ativos a exibir no Simulador
    // Mostrar sempre os que são da BASE, dos FIIs ou que tiverem alguma Quantidade/Ideal preenchidos
    const toShow = todos.filter(r => {
        const p = rebData[r.t] || {q:0, i:0};
-       const inBase = BASE_STOCKS.some(b => b.t === r.t) || FIIS.some(f => f.t === r.t) || OUT_OF_BASE.some(o => o.t === r.t);
+       const inBase = BASE_STOCKS.some(b => b.t === r.t) || FIIS.some(f => f.t === r.t) || OUT_OF_BASE.some(o => o.t === r.t) || !!r._isRendaFixa;
        return inBase || p.q > 0 || (p.i != null && p.i > 0);
    });
 
@@ -6524,18 +6559,19 @@ function renderRebalanceamento() {
    visibleToShow.forEach(r => {
       const p = rebData[r.t] || { q: 0, i: (r.ideal !== undefined ? r.ideal : 0) };
       const preco = r.preco || 0;
-      const total = p.q * preco;
+      const total = Number((p.q * preco).toFixed(2));
       const pctAtual = patTotal > 0 ? (total / patTotal * 100) : 0;
       const semMeta = (p.i === null || (r._promovido && r.ideal === null && p.i == null));
       const iVal = semMeta ? 0 : (parseFloat(p.i) || 0);
       
-      const isFii = FIIS.some(f => f.t === r.t) || (r.tipo != null);
-      const isBase = BASE_STOCKS.some(b => b.t === r.t);
-      const isIntl = r.t === "VTI" || r.t === "SOL";
+      const isRf = !!r._isRendaFixa;
+      const isFii = !isRf && (FIIS.some(f => f.t === r.t) || (r.tipo != null));
+      const isBase = !isRf && BASE_STOCKS.some(b => b.t === r.t);
+      const isIntl = !isRf && (r.t === "VTI" || r.t === "SOL");
 
       // Bandas de Tolerância Assimétricas de Markowitz (Seção 7 da Metodologia)
-      const tolMin = isFii ? 0.35 : (isBase ? 0.25 : (isIntl ? 0.50 : 0.20));
-      const tolMax = isFii ? 0.35 : (isBase ? 0.25 : (isIntl ? 0.30 : 0.40));
+      const tolMin = isFii ? 0.35 : (isBase ? 0.25 : (isRf ? 0.40 : (isIntl ? 0.50 : 0.20)));
+      const tolMax = isFii ? 0.35 : (isBase ? 0.25 : (isRf ? 0.40 : (isIntl ? 0.30 : 0.40)));
       const bMin = iVal * (1 - tolMin);
       const bMax = iVal * (1 + tolMax);
       
@@ -6546,7 +6582,7 @@ function renderRebalanceamento() {
          const valorIdeal = patTotal * (iVal / 100);
          const dist = valorIdeal - total;
          
-         const tvReb = (typeof window.tetoOficial === "function") ? window.tetoOficial(r) : null;
+         const tvReb = (!isRf && !isIntl && typeof window.tetoOficial === "function") ? window.tetoOficial(r) : null;
          const compraReb = tvReb && tvReb.teto ? (tvReb.compra || tvReb.teto) : null;
          if (pctAtual < bMin && compraReb != null && preco > compraReb) {
             // Sub-alocado, mas sem margem: sub-alocado é necessário, nunca suficiente (Barsi)
@@ -6602,12 +6638,12 @@ function renderRebalanceamento() {
       }
 
       html += `<tr>
-         <td style="font-weight:600; font-family:var(--font-mono)">${r.t}</td>
+         <td style="font-weight:600; font-family:var(--font-mono)">${r.t}${isRf ? ' <span style="font-size:10px;color:var(--cor-classe-rf);font-weight:600">RF</span>' : ''}</td>
          <td class="tabular">
-            ${fmtR(preco)}
-            <button onclick="forceUpdateTicker('${r.t}', this)" style="background:none; border:none; cursor:pointer; margin-left:6px; font-size:12px; color:var(--accent)" title="Forçar atualização na B3">↻</button>
+            ${fmtR(preco)}${r._estimado ? ' <span style="font-size:10px;color:var(--warning);font-weight:600">(estimado)</span>' : ''}
+            ${isRf ? '' : `<button onclick="forceUpdateTicker('${r.t}', this)" style="background:none; border:none; cursor:pointer; margin-left:6px; font-size:12px; color:var(--accent)" title="Forçar atualização na B3">↻</button>`}
          </td>
-         <td><input type="number" class="reb-input reb-q" data-t="${r.t}" value="${p.q}" style="width:70px; text-align:right; font-family:var(--font-mono); border-radius:6px; border:1px solid var(--rule); padding:4px;"></td>
+         <td><input type="number" class="reb-input reb-q" data-t="${r.t}" value="${typeof p.q === 'number' && p.q < 1 ? Number(p.q.toFixed(6)) : p.q}" style="width:70px; text-align:right; font-family:var(--font-mono); border-radius:6px; border:1px solid var(--rule); padding:4px;"></td>
          <td class="tabular">${fmtR(total)}</td>
          <td><input type="number" class="reb-input reb-i" data-t="${r.t}" value="${semMeta ? '' : p.i}" placeholder="${semMeta ? 'sem meta' : '0'}" style="width:60px; text-align:right; font-family:var(--font-mono); border-radius:6px; border:1px solid var(--rule); padding:4px;"></td>
          <td class="tabular">${fmtPct(pctAtual)}</td>
@@ -6650,7 +6686,7 @@ function gerarIdealSugerido() {
       renderRebalanceamento();
       if (typeof window.limparCacheTetoOficial === "function") window.limparCacheTetoOficial();
       if (typeof window.renderConselheiro === "function") window.renderConselheiro();
-      alert("Metas recalculadas pela alocação-alvo: Ações 45% (B.A.S.E. 33 + outras 12, máx. 3% por cíclica) · FIIs 35% · Internacional 7% · Cripto 8% · Caixa 5%. A transição é feita com aportes, não vendendo FIIs.");
+      alert(`Metas recalculadas pela alocação-alvo: Ações ${ALOCACAO_ALVO.acoes}% (B.A.S.E. ${ALOCACAO_ALVO.base} + outras ${ALOCACAO_ALVO.fora}, máx. ${ALOCACAO_ALVO.foraMaxAtivo}% por cíclica) · FIIs ${ALOCACAO_ALVO.fiis}% · Internacional ${ALOCACAO_ALVO.intl}% · Cripto ${ALOCACAO_ALVO.cripto}% · Renda fixa ${ALOCACAO_ALVO.rf || 5}% · Caixa ${ALOCACAO_ALVO.caixa}%. A transição é feita com aportes, não vendendo FIIs.`);
       return;
    }
    const todos = [...BASE_STOCKS, ...FIIS, ...OUT_OF_BASE, ...RADAR_ACOES, ...RADAR_FIIS];
@@ -7704,6 +7740,7 @@ enableSort("thead-radar-fiis", RADAR_FIIS, (r,key)=>{
           <select id="lanc-cat" onchange="updateLancamentoTickers(this.value)">
             <option value="acoes">Ações B.A.S.E.</option>
             <option value="fiis">Fundos Imobiliários (FIIs)</option>
+            <option value="renda-fixa">Renda fixa longo prazo (Tesouro IPCA+)</option>
             <option value="etfs">ETFs Internacionais</option>
             <option value="cripto">Criptomoedas (BTC/ETH/SOL)</option>
           </select>
@@ -10793,6 +10830,11 @@ function updateLancamentoTickers(cat) {
     options = [...BASE_STOCKS, ...OUT_OF_BASE, ...RADAR_ACOES].map(x => x.t);
   } else if (cat === 'fiis') {
     options = [...FIIS, ...RADAR_FIIS].map(x => x.t);
+  } else if (cat === 'renda-fixa' || cat === 'RENDA FIXA') {
+    const tit = (window.FEHMIR_TESOURO && Array.isArray(window.FEHMIR_TESOURO.titulos))
+      ? window.FEHMIR_TESOURO.titulos.filter(x => x && x.ticker && x.nome === 'Tesouro IPCA+').map(x => x.ticker)
+      : [];
+    options = tit.length ? tit : ['TESOURO-IPCA-2032', 'TESOURO-IPCA-2035', 'TESOURO-IPCA-2040', 'TESOURO-IPCA-2045', 'TESOURO-IPCA-2050'];
   } else if (cat === 'etfs') {
     options = ['VTI', 'SCHD', 'IVV', 'VOO', 'VT', 'QQQ', 'SPY', 'VNQ'];
   } else if (cat === 'cripto') {
@@ -10813,6 +10855,11 @@ function onLancTickerInput() {
     if (cat) cat.value = 'etfs';
     const moeda = document.getElementById('lanc-moeda');
     if (moeda) moeda.value = 'USD';
+  } else if (/^(TESOURO-|LCI-|LCA-|CDB-)/.test(ticker)) {
+    const cat = document.getElementById('lanc-cat');
+    if (cat) cat.value = 'renda-fixa';
+    const moeda = document.getElementById('lanc-moeda');
+    if (moeda) moeda.value = 'BRL';
   }
   onLancTipoChange();
 }
@@ -11063,14 +11110,16 @@ function handleSalvarLancamento(e) {
     cat = 'ETFS';
   } else if (['BTC', 'ETH', 'SOL', 'USDT', 'ADA'].includes(ticker)) {
     cat = 'CRIPTO';
+  } else if (cat === 'renda-fixa' || cat === 'RENDA-FIXA' || cat === 'RENDA_FIXA' || /^(TESOURO-|LCI-|LCA-|CDB-)/.test(ticker)) {
+    cat = 'RENDA FIXA';
   } else {
     cat = cat.toUpperCase();
   }
 
-  // Atualizar rebData apenas para Compra ou Venda de ativos nacionais B3
+  // Atualizar rebData apenas para Compra ou Venda de ativos nacionais B3 / Renda Fixa
   if ((tipo === 'C' || tipo === 'V') && cat !== 'CAIXA') {
     if (!rebData[ticker]) {
-      rebData[ticker] = { q: 0, i: 2.0 };
+      rebData[ticker] = { q: 0, i: (cat === 'RENDA FIXA' ? (ALOCACAO_ALVO.rf || 5) : 2.0) };
     }
     if (tipo === 'C') {
       rebData[ticker].q += quant;
@@ -12231,15 +12280,17 @@ window.obterCotacaoDolar = obterCotacaoDolar;
 function _determinarCategoriaTicker(ticker, catInformada, moeda) {
   if (moeda === 'USD') return 'ETFS';
   if (catInformada) {
-    const c = String(catInformada).toUpperCase();
+    const c = String(catInformada).toUpperCase().trim();
     if (c === 'FIIS' || c === 'FII' || c === 'FUNDOS IMOBILIÁRIOS') return 'FIIS';
     if (c === 'AÇÕES' || c === 'ACOES' || c === 'AÇÃO' || c === 'ACAO') return 'AÇÕES';
+    if (c === 'RENDA FIXA' || c === 'RENDA_FIXA' || c === 'RENDA-FIXA' || c === 'RF' || c === 'TESOURO') return 'RENDA FIXA';
     if (c === 'ETFS' || c === 'ETF') return 'ETFS';
     if (c === 'CRIPTO' || c === 'CRYPTO') return 'CRIPTO';
     if (c === 'CAIXA' || c === 'REMESSA') return 'CAIXA';
   }
   if (!ticker || ticker === '—') return 'AÇÕES';
   const t = ticker.toUpperCase();
+  if (/^(TESOURO-|LCI-|LCA-|CDB-)/.test(t)) return 'RENDA FIXA';
   if (INTL_TICKERS.includes(t)) return 'ETFS';
   if (CRIPTO_TICKERS.includes(t)) return 'CRIPTO';
   if (typeof FIIS !== 'undefined' && FIIS.some(f => f.t === t)) return 'FIIS';
@@ -12252,9 +12303,99 @@ function _determinarCategoriaTicker(ticker, catInformada, moeda) {
 }
 window._determinarCategoriaTicker = _determinarCategoriaTicker;
 
+function _buscarTituloTesouro(ticker) {
+  const T = (typeof window !== 'undefined') ? window.FEHMIR_TESOURO : null;
+  if (!T || !Array.isArray(T.titulos)) return null;
+  const t = String(ticker || '').trim().toUpperCase();
+  if (!t) return null;
+  const direto = T.titulos.find(x => x && String(x.ticker || '').toUpperCase() === t);
+  if (direto) return direto;
+  const m = t.match(/^TESOURO-(IPCA|PRE|SELIC|RENDA|EDUCA)(?:-JS)?-(\d{4})/);
+  if (!m) return null;
+  const [, grp, ano] = m;
+  const temJs = /-JS-/.test(t);
+  return T.titulos.find(x => {
+    if (!x || !x.nome || !x.vencimento || !String(x.vencimento).startsWith(ano)) return false;
+    const n = String(x.nome).toUpperCase();
+    const rowJs = n.includes('SEMESTRAIS');
+    if (rowJs !== temJs) return false;
+    if (grp === 'IPCA') return n.includes('IPCA+');
+    if (grp === 'PRE') return n.includes('PREFIXADO');
+    if (grp === 'SELIC') return n.includes('SELIC');
+    if (grp === 'RENDA') return n.includes('RENDA+');
+    if (grp === 'EDUCA') return n.includes('EDUCA+');
+    return false;
+  }) || null;
+}
+
 function obterPrecoAtivo(ticker, data) {
   if (!ticker || ticker === '—') return { preco: 0, semCotacao: false };
   const t = ticker.toUpperCase();
+
+  // 0a. Renda fixa longo prazo (Tesouro Direto via dados/tesouro.js ou fallback estimado)
+  if (_determinarCategoriaTicker(t) === 'RENDA FIXA') {
+    const T = (typeof window !== 'undefined') ? window.FEHMIR_TESOURO : null;
+    const tit = _buscarTituloTesouro(t);
+    const puDiario = tit ? ((tit.puVenda > 0 ? tit.puVenda : tit.puCompra) || 0) : 0;
+    if (T && tit && puDiario > 0 && (!data || !T.atualizado || data >= T.atualizado || String(data) >= '2026-11-19')) {
+      return {
+        preco: Number(puDiario.toFixed(2)),
+        semCotacao: false,
+        estimado: false,
+        fonte: 'Tesouro Direto',
+        atualizado: T.atualizado,
+        taxaCompra: tit.taxaCompra,
+        puCompra: tit.puCompra,
+        puVenda: tit.puVenda,
+        vencimento: tit.vencimento,
+        nomeTesouro: tit.nome
+      };
+    }
+    // Sem PU diário disponível: estima por valor aplicado + IPCA + taxa contratada marcada "estimado"
+    const ext = (typeof carregarExtrato === 'function') ? carregarExtrato() : (window.DEFAULT_TRANSACOES || []);
+    const txs = (ext || []).filter(tx => tx && String(tx.ticker || '').toUpperCase() === t && (tx.tipo === 'Compra' || tx.tipo === 'Reinvestimento')).sort((a, b) => String(a.data).localeCompare(String(b.data)));
+    if (txs.length > 0) {
+      let totQ = 0, totV = 0, taxaPeso = 0;
+      txs.forEach(tx => {
+        const q = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.quant) : (parseFloat(tx.quant) || 0);
+        const tot = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.total) : (parseFloat(tx.total) || 0);
+        const pUnit = (typeof _converterNumRobusto === 'function') ? _converterNumRobusto(tx.preco) : (parseFloat(tx.preco) || 0);
+        const val = tot > 0 ? tot : (q * pUnit);
+        let txReal = (tx.taxaContratada != null && !isNaN(Number(tx.taxaContratada))) ? Number(tx.taxaContratada) : null;
+        if (txReal == null && tx.nota) {
+          const mt = String(tx.nota).match(/(\d+(?:[.,]\d+)?)\s*%\s*a\.?a\.?/i);
+          if (mt) txReal = parseFloat(mt[1].replace(',', '.'));
+        }
+        if (q > 0 && val > 0) {
+          totQ += q;
+          totV += val;
+          if (txReal != null) taxaPeso += val * txReal;
+        }
+      });
+      if (totQ > 0 && totV > 0) {
+        const precoCompra = totV / totQ;
+        const taxaContratada = taxaPeso > 0 ? (taxaPeso / totV) : 0;
+        const ipca = (typeof fehmirIpca12m === 'function' && fehmirIpca12m() != null)
+          ? fehmirIpca12m()
+          : ((typeof loadMacro === 'function' && loadMacro().ipca12 != null) ? Number(loadMacro().ipca12) : 4.6);
+        const dtIni = String(txs[0].data || '').slice(0, 10);
+        const dtFim = data ? String(data).slice(0, 10) : new Date().toISOString().slice(0, 10);
+        let dias = 0;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dtIni) && /^\d{4}-\d{2}-\d{2}$/.test(dtFim)) {
+          dias = Math.max(0, Math.round((new Date(dtFim + 'T12:00:00Z') - new Date(dtIni + 'T12:00:00Z')) / 86400000));
+        }
+        const fator = Math.pow((1 + ipca / 100) * (1 + taxaContratada / 100), dias / 365);
+        return {
+          preco: Number((precoCompra * fator).toFixed(2)),
+          semCotacao: true,
+          estimado: true,
+          fonte: 'estimado (valor aplicado + IPCA + taxa contratada)'
+        };
+      }
+    }
+    return { preco: null, semCotacao: true, estimado: true };
+  }
+
   const hist = window.FEHMIR_HIST;
   const h = hist && hist[t];
   const isIntl = INTL_TICKERS.includes(t) || (h && h.moeda === 'USD');
@@ -12381,6 +12522,9 @@ function openModalConferencia() {
     } else if (cat === 'CRIPTO') {
       const pObj = obterPrecoAtivo(t);
       registrar(t, 'Cripto', pInfo.quant, pInfo.pm, pObj.preco, pObj.semCotacao);
+    } else if (cat === 'RENDA FIXA') {
+      const pObj = obterPrecoAtivo(t);
+      registrar(t, 'Renda fixa', pInfo.quant, pInfo.pm, pObj.preco, pObj.semCotacao);
     }
   });
 
@@ -12564,18 +12708,20 @@ function recalcularCarteira() {
     }
   });
 
-  // ETFs e Criptos genéricos (sem preços nem fatores inventados)
+  // ETFs, Criptos e Renda fixa genéricos (sem preços nem fatores inventados)
   let saldoEtf = 0;
   let saldoCripto = 0;
+  let saldoRf = 0;
   let etfsAbertosCount = 0;
   let criptosAbertosCount = 0;
+  let rfAbertosCount = 0;
 
   Object.keys(posExtrato).forEach(t => {
     const pInfo = posExtrato[t];
     if (!pInfo || pInfo.quant <= 0) return;
-    const cat = _determinarCategoriaTicker(t);
+    const cat = _determinarCategoriaTicker(t, pInfo.cat);
     const pObj = obterPrecoAtivo(t);
-    const precoAtivo = pObj.preco;
+    const precoAtivo = pObj.preco || 0;
     const q = pInfo.quant;
     const pm = pInfo.pm || precoAtivo;
     const saldo = Number((q * precoAtivo).toFixed(2));
@@ -12589,6 +12735,11 @@ function recalcularCarteira() {
       saldoCripto += saldo;
       totalInvestido += Number((q * pm).toFixed(2));
       criptosAbertosCount++;
+      if (typeof rebData !== 'undefined' && rebData[t]) rebData[t].q = q;
+    } else if (cat === 'RENDA FIXA') {
+      saldoRf += saldo;
+      totalInvestido += Number((q * pm).toFixed(2));
+      rfAbertosCount++;
       if (typeof rebData !== 'undefined' && rebData[t]) rebData[t].q = q;
     }
   });
@@ -12610,7 +12761,7 @@ function recalcularCarteira() {
   }
 
   totalInvestido = Number(totalInvestido.toFixed(2));
-  const totalPatrimonio = totalAcoes + totalFiis + saldoEtf + saldoCripto;
+  const totalPatrimonio = totalAcoes + totalFiis + saldoEtf + saldoCripto + saldoRf;
   const ganhoCapital = totalPatrimonio - totalInvestido;
 
   // Proventos Acumulados do Extrato
@@ -12627,6 +12778,7 @@ function recalcularCarteira() {
   const pctAcoes = totalPatrimonio > 0 ? (totalAcoes / totalPatrimonio) * 100 : 0;
   const pctEtf = totalPatrimonio > 0 ? (saldoEtf / totalPatrimonio) * 100 : 0;
   const pctCripto = totalPatrimonio > 0 ? (saldoCripto / totalPatrimonio) * 100 : 0;
+  const pctRf = totalPatrimonio > 0 ? (saldoRf / totalPatrimonio) * 100 : 0;
 
   // Atualizar KPIs do Topo (Bloco Ward)
   const elPat = document.getElementById('mc-patrimonio');
@@ -12712,13 +12864,13 @@ function recalcularCarteira() {
   }
 
   // Contagem de Ativos
-  const totalAtivos = acoesAbertasCount + fiisAbertosCount + etfsAbertosCount + criptosAbertosCount;
+  const totalAtivos = acoesAbertasCount + fiisAbertosCount + etfsAbertosCount + criptosAbertosCount + rfAbertosCount;
   const elTotalAtivos = document.getElementById('mc-total-ativos');
   if (elTotalAtivos) elTotalAtivos.textContent = `${totalAtivos} Ativos`;
 
   const kpiAtivosItem = document.getElementById('ward-kpi-ativos');
   if (kpiAtivosItem) {
-    kpiAtivosItem.setAttribute('title', `${acoesAbertasCount} Ações · ${fiisAbertosCount} FIIs · ${etfsAbertosCount} ETF(s) · ${criptosAbertosCount} Cripto(s)`);
+    kpiAtivosItem.setAttribute('title', `${acoesAbertasCount} Ações · ${fiisAbertosCount} FIIs · ${rfAbertosCount} Renda fixa · ${etfsAbertosCount} ETF(s) · ${criptosAbertosCount} Cripto(s)`);
   }
 
   const elAlocPatrWard = document.getElementById('aloc-total-patr-ward');
@@ -12804,13 +12956,15 @@ function obterDadosAlocacaoClasses() {
   let saldoEtf = 0;
   const criptoList = [];
   let saldoCripto = 0;
+  const rfList = [];
+  let saldoRf = 0;
 
   Object.keys(posExtratoAloc).forEach(t => {
     const pInfo = posExtratoAloc[t];
     if (!pInfo || pInfo.quant <= 0) return;
-    const cat = _determinarCategoriaTicker(t);
+    const cat = _determinarCategoriaTicker(t, pInfo.cat);
     const pObj = obterPrecoAtivo(t);
-    const preco = pObj.preco;
+    const preco = pObj.preco || 0;
     const saldo = Number((pInfo.quant * preco).toFixed(2));
     if (cat === 'ETFS') {
       saldoEtf += saldo;
@@ -12818,6 +12972,9 @@ function obterDadosAlocacaoClasses() {
     } else if (cat === 'CRIPTO') {
       saldoCripto += saldo;
       criptoList.push({ ticker: t, tipo: 'Cripto', saldo, quant: pInfo.quant, preco });
+    } else if (cat === 'RENDA FIXA') {
+      saldoRf += saldo;
+      rfList.push({ ticker: t, tipo: 'Renda fixa', saldo, quant: pInfo.quant, preco, estimado: !!pObj.estimado });
     }
   });
 
@@ -12836,25 +12993,28 @@ function obterDadosAlocacaoClasses() {
 
   saldoEtf = Number(saldoEtf.toFixed(2));
   saldoCripto = Number(saldoCripto.toFixed(2));
+  saldoRf = Number(saldoRf.toFixed(2));
   acoesList.forEach(a => { a.saldo = Number(a.saldo.toFixed(2)); });
   fiisList.forEach(f => { f.saldo = Number(f.saldo.toFixed(2)); });
   totalAcoes = Number(acoesList.reduce((acc, a) => acc + a.saldo, 0).toFixed(2));
   totalFiis = Number(fiisList.reduce((acc, f) => acc + f.saldo, 0).toFixed(2));
-  const totalPatrimonio = Number((totalAcoes + totalFiis + saldoEtf + saldoCripto).toFixed(2));
+  const totalPatrimonio = Number((totalAcoes + totalFiis + saldoEtf + saldoCripto + saldoRf).toFixed(2));
 
-  const targetFiis = (typeof ALOCACAO_ALVO !== 'undefined') ? ALOCACAO_ALVO.fiis : 35.0;
-  const targetAcoes = (typeof ALOCACAO_ALVO !== 'undefined') ? ALOCACAO_ALVO.acoes : 45.0;
-  const targetIntl = (typeof ALOCACAO_ALVO !== 'undefined') ? ALOCACAO_ALVO.intl : 7.0;
+  const targetFiis = (typeof ALOCACAO_ALVO !== 'undefined') ? ALOCACAO_ALVO.fiis : 32.0;
+  const targetAcoes = (typeof ALOCACAO_ALVO !== 'undefined') ? ALOCACAO_ALVO.acoes : 35.0;
+  const targetIntl = (typeof ALOCACAO_ALVO !== 'undefined') ? ALOCACAO_ALVO.intl : 15.0;
   const targetCripto = (typeof ALOCACAO_ALVO !== 'undefined') ? ALOCACAO_ALVO.cripto : 8.0;
+  const targetRf = (typeof ALOCACAO_ALVO !== 'undefined' && ALOCACAO_ALVO.rf != null) ? ALOCACAO_ALVO.rf : 5.0;
 
   const classesData = [
     { key: 'fiis', label: 'Fundos Imobiliários (FIIs)', shortLabel: 'FIIs', saldo: totalFiis, ideal: targetFiis, corToken: 'var(--alloc-c1)', list: fiisList, desc: 'FIIs de Tijolo e Papel selecionados.' },
     { key: 'acoes', label: 'Ações', shortLabel: 'Ações', saldo: Number(totalAcoes.toFixed(2)), ideal: targetAcoes, corToken: 'var(--alloc-c2)', list: acoesList, desc: 'Núcleo perene com dividendos e margem de segurança.' },
+    { key: 'rf', label: 'Renda fixa longo prazo', shortLabel: 'Renda fixa', saldo: saldoRf, ideal: targetRf, corToken: 'var(--alloc-c5)', list: rfList, desc: 'Tesouro IPCA+ para longo prazo e proteção contra inflação.' },
     { key: 'intl', label: 'ETFs Internacionais', shortLabel: 'Internacional', saldo: saldoEtf, ideal: targetIntl, corToken: 'var(--alloc-c3)', list: intlList, desc: 'Exposição global via VTI e SCHD.' },
     { key: 'cripto', label: 'Criptomoedas', shortLabel: 'Cripto', saldo: saldoCripto, ideal: targetCripto, corToken: 'var(--alloc-c4)', list: criptoList, desc: 'Exposição assimétrica em criptoativos.' }
   ];
 
-  return { classesData, totalPatrimonio, totalFiis, totalAcoes, saldoEtf, saldoCripto, acoesList, fiisList, intlList, criptoList };
+  return { classesData, totalPatrimonio, totalFiis, totalAcoes, saldoEtf, saldoCripto, saldoRf, acoesList, fiisList, intlList, criptoList, rfList };
 }
 
 function renderGraficosAlocacao() {
@@ -12862,7 +13022,7 @@ function renderGraficosAlocacao() {
   if (!container) return;
 
   const alloc = obterDadosAlocacaoClasses();
-  const { classesData, totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto, acoesList, fiisList, intlList, criptoList } = alloc;
+  const { classesData, totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto, saldoRf, acoesList, fiisList, intlList, criptoList, rfList } = alloc;
   const classesFiltradas = classesData.filter(c => c.saldo > 0);
 
   const elPatr = document.getElementById('aloc-total-patr');
@@ -12870,7 +13030,7 @@ function renderGraficosAlocacao() {
 
   const summaryPill = document.getElementById('vg-summary-pill');
   if (summaryPill) {
-    const totalAtivos = acoesList.length + fiisList.length + intlList.length + criptoList.length;
+    const totalAtivos = acoesList.length + fiisList.length + intlList.length + criptoList.length + (rfList ? rfList.length : 0);
     summaryPill.textContent = `${fmtR(totalPatrimonio)} · ${totalAtivos} Ativos`;
   }
 
@@ -12908,6 +13068,7 @@ function renderGraficosAlocacao() {
     classList004 = [
       ...addWithClass(fiisList, 'FIIs', totalFiis),
       ...addWithClass(acoesList, 'Ações', totalAcoes),
+      ...addWithClass(rfList || [], 'Renda fixa', saldoRf || 0),
       ...addWithClass(intlList, 'Internacional', saldoEtf),
       ...addWithClass(criptoList, 'Cripto', saldoCripto)
     ];
@@ -12927,7 +13088,7 @@ function renderGraficosAlocacao() {
   const titleAtivos004 = document.getElementById('aloc-ativos-title');
   if (titleAtivos004) {
     const btnTodosActive = isTodos ? 'background:var(--accent);color:#fff;border-color:var(--accent);' : 'background:var(--surface-2);color:var(--ink-2);border-color:var(--rule-strong);';
-    const chipsAloc = [['todos', 'Todos'], ['fiis', 'FIIs'], ['acoes', 'Ações'], ['intl', 'Internacional'], ['cripto', 'Cripto']]
+    const chipsAloc = [['todos', 'Todos'], ['fiis', 'FIIs'], ['acoes', 'Ações'], ['rf', 'Renda fixa'], ['intl', 'Internacional'], ['cripto', 'Cripto']]
       .map(([k, l]) => `<button type="button" class="aloc-chip${alocClasseSelecionada === k ? ' on' : ''}" aria-pressed="${alocClasseSelecionada === k}" onclick="alocClasseSelecionada='${k}'; renderGraficosAlocacao();">${l}</button>`).join('');
     titleAtivos004.innerHTML = `<div class="aloc-chips" role="group" aria-label="Filtrar por classe">${chipsAloc}</div>`;
   }
@@ -13016,7 +13177,7 @@ function renderGraficosAlocacao() {
     legendItems: legendItems004,
     totalPatrimonioGlobal: totalPatrimonio
   });
-  renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto);
+  renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto, saldoRf);
   if (true) return;
   renderDonutChart('svg-rosca-classes', 'aloc-legend-classes', classesFiltradas, totalPatrimonio, {
     isClassDonut: true,
@@ -13103,7 +13264,7 @@ function renderGraficosAlocacao() {
   });
 
   // 6. Renderizar Barra Atual vs. Meta (§7.0)
-  renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto);
+  renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto, saldoRf);
 }
 
 function renderDonutChart(svgId, legendId, items, total, options = {}) {
@@ -13234,7 +13395,7 @@ function setupDonutInteractions(svg, legend, options) {
   });
 }
 
-function renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto) {
+function renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, saldoCripto, saldoRf = 0) {
   const container = document.getElementById('aloc-metas-list');
   if (!container) return;
 
@@ -13242,12 +13403,14 @@ function renderMetasBarras(totalPatrimonio, totalAcoes, totalFiis, saldoEtf, sal
   
   const pctAcoes = totalPatrimonio > 0 ? (totalAcoes / totalPatrimonio * 100) : 0;
   const pctFiis = totalPatrimonio > 0 ? (totalFiis / totalPatrimonio * 100) : 0;
+  const pctRf = totalPatrimonio > 0 ? (saldoRf / totalPatrimonio * 100) : 0;
   const pctEtf = totalPatrimonio > 0 ? (saldoEtf / totalPatrimonio * 100) : 0;
   const pctCripto = totalPatrimonio > 0 ? (saldoCripto / totalPatrimonio * 100) : 0;
 
   const rows = [
     { nome: 'FIIs (Tijolo / Papel)', meta: A.fiis, atual: pctFiis, corToken: 'var(--alloc-c1)', tolMin: 0.35, tolMax: 0.35 },
     { nome: 'Ações (B.A.S.E. + Fora)', meta: A.acoes, atual: pctAcoes, corToken: 'var(--alloc-c2)', tolMin: 0.25, tolMax: 0.25 },
+    { nome: 'Renda fixa longo prazo (IPCA+)', meta: A.rf || 5, atual: pctRf, corToken: 'var(--alloc-c5)', tolMin: 0.40, tolMax: 0.40 },
     { nome: 'Internacional (ETFs)', meta: A.intl, atual: pctEtf, corToken: 'var(--alloc-c3)', tolMin: 0.50, tolMax: 0.30 },
     { nome: 'Cripto (Satélite)', meta: A.cripto, atual: pctCripto, corToken: 'var(--alloc-c4)', tolMin: 0.50, tolMax: 0.00 }
   ];
@@ -13343,29 +13506,31 @@ function calcularSaudeCarteira(dadosContexto) {
   const perdasPontos = [];
 
   // PILAR 1: DIVERSIFICAÇÃO (200 pts)
-  let saldoAcoes = 0, saldoFiis = 0, saldoIntl = 0, saldoCripto = 0;
+  let saldoAcoes = 0, saldoFiis = 0, saldoIntl = 0, saldoCripto = 0, saldoRf = 0;
   posicoes.forEach(p => {
     if (p.cat === 'AÇÕES' || p.tipo === 'Ação' || p.cat === 'Acoes') saldoAcoes += p.saldo;
     else if (p.cat === 'FIIS' || p.tipo === 'FII') saldoFiis += p.saldo;
+    else if (p.cat === 'RENDA FIXA' || p.tipo === 'Renda fixa') saldoRf += p.saldo;
     else if (p.cat === 'ETFS' || p.tipo === 'ETF') saldoIntl += p.saldo;
     else if (p.cat === 'CRIPTO' || p.tipo === 'Cripto') saldoCripto += p.saldo;
   });
 
   // O caixa (caixinha) faz parte da carteira para medir a alocação: o denominador inclui o próprio caixa,
   // senão as porcentagens somam mais de 100%.
-  const totCalc = (totalPatrimonio > 0 ? totalPatrimonio : (saldoAcoes + saldoFiis + saldoIntl + saldoCripto)) + caixaTotal;
+  const totCalc = (totalPatrimonio > 0 ? totalPatrimonio : (saldoAcoes + saldoFiis + saldoRf + saldoIntl + saldoCripto)) + caixaTotal;
   const pAcoes = totCalc > 0 ? (saldoAcoes / totCalc) * 100 : 0;
   const pFiis = totCalc > 0 ? (saldoFiis / totCalc) * 100 : 0;
+  const pRf = totCalc > 0 ? (saldoRf / totCalc) * 100 : 0;
   const pIntl = totCalc > 0 ? (saldoIntl / totCalc) * 100 : 0;
   const pCripto = totCalc > 0 ? (saldoCripto / totCalc) * 100 : 0;
   const pCaixa = totCalc > 0 ? (caixaTotal / totCalc) * 100 : 0;
 
-  const desvioTotal = Math.abs(pAcoes - metas.acoes) + Math.abs(pFiis - metas.fiis) + Math.abs(pIntl - metas.intl) +
-                     Math.abs(pCripto - metas.cripto) + Math.abs(pCaixa - metas.caixa);
+  const desvioTotal = Math.abs(pAcoes - metas.acoes) + Math.abs(pFiis - metas.fiis) + Math.abs(pRf - (metas.rf || 0)) +
+                     Math.abs(pIntl - metas.intl) + Math.abs(pCripto - metas.cripto) + Math.abs(pCaixa - metas.caixa);
 
   const fAderencia = lin(desvioTotal, 0, 60);
   const ptsAderencia = Math.round(100 * fAderencia);
-  perdasPontos.push({ item: 'metas', perda: 100 - ptsAderencia, pAcoes, pFiis, pIntl, pCripto, metas });
+  perdasPontos.push({ item: 'metas', perda: 100 - ptsAderencia, pAcoes, pFiis, pRf, pIntl, pCripto, metas });
 
   let maiorPesoAtivo = 0;
   let tickerMaiorAtivo = '';
@@ -13895,12 +14060,25 @@ function extrairContextoSaudePainel() {
         teto: null,
         cagrDiv5: null
       });
+    } else if (cat === 'RENDA FIXA') {
+      posicoes.push({
+        ticker: t,
+        cat: 'RENDA FIXA',
+        tipo: 'Renda fixa',
+        quant: q,
+        preco: preco,
+        saldo: saldo,
+        liq: 100,
+        teto: null,
+        cagrDiv5: null
+      });
     }
   });
 
   const metas = (typeof ALOCACAO_ALVO !== 'undefined') ? {
     acoes: ALOCACAO_ALVO.acoes,
     fiis: ALOCACAO_ALVO.fiis,
+    rf: ALOCACAO_ALVO.rf || 5,
     intl: ALOCACAO_ALVO.intl,
     cripto: ALOCACAO_ALVO.cripto,
     caixa: ALOCACAO_ALVO.caixa
@@ -14289,6 +14467,26 @@ function setSmartAporteProventos() {
 }
 window.setSmartAporteProventos = setSmartAporteProventos;
 
+function fehmirSugestaoRendaFixaAporte(verba) {
+  try {
+    const T = window.FEHMIR_TESOURO;
+    if (!T || !Array.isArray(T.titulos)) return null;
+    const d = (typeof obterDadosAlocacaoClasses === "function") ? obterDadosAlocacaoClasses() : null;
+    const pat = (d && d.totalPatrimonio > 0) ? d.totalPatrimonio : 0;
+    const saldoRf = (d && d.saldoRf) ? d.saldoRf : 0;
+    const metaRf = (typeof ALOCACAO_ALVO !== "undefined" && ALOCACAO_ALVO.rf != null) ? ALOCACAO_ALVO.rf : 5;
+    const pctRf = pat > 0 ? (saldoRf / pat) * 100 : 0;
+    if (pctRf >= metaRf) return null;
+    const curtos = T.titulos.filter(t => t && t.nome === "Tesouro IPCA+" && Number(String(t.vencimento || "").slice(0, 4)) <= 2035 && t.taxaCompra > 0)
+      .sort((a, b) => b.taxaCompra - a.taxaCompra);
+    const melhor = curtos[0];
+    if (!melhor || melhor.taxaCompra < 7.5 || melhor.taxaCompra < 6.5) return null;
+    const fatia = verba >= 40 ? Math.min(verba, Math.max(40, Math.min(50, Math.round(verba * 0.2)))) : Math.round(verba * 100) / 100;
+    return { titulo: melhor, pctRf, metaRf, fatia };
+  } catch (e) { return null; }
+}
+window.fehmirSugestaoRendaFixaAporte = fehmirSugestaoRendaFixaAporte;
+
 function calcularAporteInteligente() {
   const inputEl = document.getElementById("smart-aporte-val");
   const resContainer = document.getElementById("smart-aporte-resultado");
@@ -14375,6 +14573,9 @@ function calcularAporteInteligente() {
     ? `<div id="smart-aporte-fora-cesta" style="margin-top:8px; font-size:12px; color:var(--warning);">Fora da cesta: ${foraConferir.map(tk => `${tk} (teto a conferir: a margem só existe no modelo otimista)`).join(' · ')}</div>`
     : '';
 
+  const rfSug = fehmirSugestaoRendaFixaAporte(verba);
+  const rfSugHtml = rfSug ? `<div id="smart-aporte-rf-sugestao" style="background:var(--surface-2); border-left:4px solid var(--cor-classe-rf); padding:10px 14px; border-radius:8px; margin:10px 0; font-size:12.5px; line-height:1.5; color:var(--ink);">🛡️ <b>Renda fixa longo prazo (${String(rfSug.pctRf.toFixed(1)).replace('.', ',')}% / meta ${rfSug.metaRf}%):</b> <b>${rfSug.titulo.nome} ${String(rfSug.titulo.vencimento).slice(0, 4)}</b> paga <b>IPCA + ${String(rfSug.titulo.taxaCompra.toFixed(2)).replace('.', ',')}%</b> (≥ 7,5%): destine uma fatia de <b>${fmtR(rfSug.fatia)}</b> deste aporte.</div>` : '';
+
   if (aprovados.length === 0) {
     resContainer.style.display = "block";
     resContainer.innerHTML = `
@@ -14383,6 +14584,7 @@ function calcularAporteInteligente() {
         <p style="font-size:12.5px; color:var(--ink-2); margin-top:4px; line-height:1.5;">
           Regra Fehmir: quando a bolsa sobe e os ativos estouram o preço teto, <b>estacione o dinheiro na Reserva de Oportunidade / Caixinha Turbo</b> até o mercado abrir novas barganhas!
         </p>
+        ${rfSugHtml}
         ${(() => {
           const metaIntl = (typeof ALOCACAO_ALVO !== "undefined" ? ALOCACAO_ALVO.intl : 7);
           const extratoAlt = (typeof carregarExtrato === 'function') ? carregarExtrato() : [];
@@ -14461,6 +14663,7 @@ function calcularAporteInteligente() {
         <span style="font-size:13.5px; font-weight:700; color:var(--ink);">📦 Cesta Sugerida de Aporte:</span>
         <span style="font-size:13px; font-family:var(--font-mono); color:var(--ink);">Total a Comprar: <b style="color:var(--accent);">${fmtR(totalGasto)}</b> · Sobra: <b style="color:var(--good);">${fmtR(saldoRestante)}</b></span>
       </div>
+      ${rfSugHtml}
       ${comprasHtml}
       ${foraConferirHtml}
       <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:12px;">
@@ -19857,10 +20060,10 @@ initCollapsibleBlocks();
     Object.keys(posExtratoH).forEach(t => {
       const pInfo = posExtratoH[t];
       if (!pInfo || pInfo.quant <= 0) return;
-      const cat = typeof _determinarCategoriaTicker === 'function' ? _determinarCategoriaTicker(t) : '';
-      if (cat === 'ETFS' || cat === 'CRIPTO') {
+      const cat = typeof _determinarCategoriaTicker === 'function' ? _determinarCategoriaTicker(t, pInfo.cat) : '';
+      if (cat === 'ETFS' || cat === 'CRIPTO' || cat === 'RENDA FIXA') {
         const pObj = (typeof obterPrecoAtivo === 'function') ? obterPrecoAtivo(t) : { preco: 0 };
-        extras += (pInfo.quant * pObj.preco);
+        extras += (pInfo.quant * (pObj.preco || 0));
       }
     });
     const total = rows.reduce((a, r) => a + r.saldo, 0) + extras;
@@ -20268,6 +20471,17 @@ initCollapsibleBlocks();
     });
     if (termo.premio < 3) a.push(["🌡️", "Prêmio de risco da bolsa em " + fmtN(termo.premio, 1) + " p.p. sobre o IPCA+, abaixo dos 4-5 p.p. exigidos. O Tesouro IPCA+ a " + fmtN(m.ntnb, 1) + "% compete forte com ações esticadas."]);
     if (m.dolar && m.dolar <= 5.1) a.push(["💵", "Dólar perto de R$ " + fmtN(m.dolar, 2) + ": janela de desconto duplo para o balde internacional (VTI sub-alocado)."]);
+    const tesTits = (typeof window !== "undefined" && window.FEHMIR_TESOURO && Array.isArray(window.FEHMIR_TESOURO.titulos))
+      ? window.FEHMIR_TESOURO.titulos.filter(x => x && x.nome === "Tesouro IPCA+" && x.taxaCompra > 0)
+      : [];
+    const tesOport = tesTits.filter(x => x.taxaCompra >= 8.0);
+    if (tesOport.length > 0) {
+      tesOport.forEach(t => {
+        a.push(["🏛️", `<b>Tesouro IPCA+ ${String(t.vencimento).slice(0, 4)}</b> a <b>IPCA + ${fmtN(t.taxaCompra, 2)}%</b> (≥ 8%): boa hora para a fatia de renda fixa (${fR(t.puCompra)}/título).`]);
+      });
+    } else if ((m.ntnb != null && m.ntnb < 6.5) || (tesTits.length > 0 && Math.max(...tesTits.map(x => x.taxaCompra)) < 6.5)) {
+      a.push(["⚠️", `<b>Tesouro IPCA+ com juro real abaixo de 6,5%</b> (${fmtN(m.ntnb, 2)}%): prêmio da renda fixa comprimiu — não acelerar aportes nessa fatia.`]);
+    }
     const polDictA = (typeof window !== "undefined" && window.FEHMIR_POLITICA_DIV) ? window.FEHMIR_POLITICA_DIV : {};
     const hojePol = new Date().toISOString().slice(0, 10);
     const cvmAllA = (typeof window !== "undefined" && window.FEHMIR_FUND_CVM) ? window.FEHMIR_FUND_CVM : {};
@@ -21472,6 +21686,18 @@ function toggleTheme(){
         const mm = JSON.parse(localStorage.getItem("barsi-macro-v1") || "{}");
         mm.dolar = Math.round(U.c[U.c.length - 1] * 100) / 100;
         localStorage.setItem("barsi-macro-v1", JSON.stringify(mm));
+        if (typeof window.renderConselheiro === "function") window.renderConselheiro();
+      }
+    } catch (e) {}
+    // Tesouro IPCA+ longo do robô (mediana dos sem cupom >= 2035) no macro
+    try {
+      const T = window.FEHMIR_TESOURO;
+      if (T && typeof T.ntnbMediana === "number" && T.ntnbMediana > 0) {
+        const mm = JSON.parse(localStorage.getItem("barsi-macro-v1") || "{}");
+        mm.ntnb = T.ntnbMediana;
+        if (T.atualizado) mm.ntnbData = T.atualizado;
+        localStorage.setItem("barsi-macro-v1", JSON.stringify(mm));
+        if (typeof window.limparCacheTetoOficial === "function") window.limparCacheTetoOficial();
         if (typeof window.renderConselheiro === "function") window.renderConselheiro();
       }
     } catch (e) {}

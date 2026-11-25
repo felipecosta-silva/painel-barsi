@@ -16,6 +16,8 @@ const TESTES = [
   { arq: 'ordens_e_precos.js', nome: 'Ordens abertas, preço velho e conferência', ok: v => v && v.falhas === 0 },
   { arq: 'compounder_giro.js', nome: 'Compounder, balde de giro, patrimônio e MELK3', ok: v => v && v.falhas === 0 },
   { arq: 'politica_mudou.js', nome: 'Política mudou, estrutural, saneamento e realismo 60m', ok: v => v && v.falhas === 0 }
+  { arq: 'politica_mudou.js', nome: 'Política mudou, estrutural, saneamento e realismo 60m', ok: v => v && v.falhas === 0 },
+  { arq: 'renda_fixa.js', nome: 'Renda fixa longo prazo (Tesouro IPCA+) e robô da taxa', ok: v => v && v.falhas === 0 }
 ];
 
 (async () => {

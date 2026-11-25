@@ -496,5 +496,20 @@ window.FEHMIR_LANC_ASSIST = [
     total: 448.60,
     moeda: "BRL",
     nota: "Venda total: 5 × R$ 89,75 = R$ 448,75 − R$ 0,15 de taxa = R$ 448,60. Motivo: fundamento mudou (recorrente ~R$ 0,56 contra R$ 0,92 pago; guidance 0,74–0,84 completado pela reserva de R$ 0,95/cota). Custo: 3 × R$ 102,88 + R$ 199,17 = R$ 507,81 (taxa da 1ª compra não lançada) ⇒ prejuízo de ~R$ 59,21 a compensar em FIIs no IR (acumulado com VILG11 + RZTR11: ~R$ 97,57)"
+  },
+  {
+    id: "2026-11-24-TESOURO-IPCA-2032-C-1",
+    data: "2026-11-24",
+    tipo: "Compra",
+    ticker: "TESOURO-IPCA-2032",
+    cat: "RENDA FIXA",
+    quant: 0.020151,
+    preco: 3110.97,
+    taxa: 0.00,
+    total: 62.69,
+    moeda: "BRL",
+    taxaContratada: 7.88,
+    vencimento: "2032-08-15",
+    nota: "Compra inicial Tesouro IPCA+ 2032 (venc. oficial CSV 15/08/2032 · taxa 7,88% a.a. + IPCA; quant. calculada pelo PU base 19/11 R$ 3.110,97 aguardando CSV de 24/11)"
   }
 ];

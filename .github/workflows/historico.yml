@@ -33,12 +33,15 @@ jobs:
       - name: Serie mensal de 10 anos (comparador de ativos)
         run: python tools/historico_mensal.py
         continue-on-error: true
+      - name: Baixar taxas e PUs do Tesouro Direto
+        run: python tools/tesouro.py
+        continue-on-error: true
       - name: Salvar se mudou
         run: |
           git config user.name "fehmir-robo"
           git config user.email "fehmir-robo@users.noreply.github.com"
           # cache_b3_nomes.json é versionado e o coletor da B3 o reescreve: sem ele aqui, o rebase recusava "unstaged changes" (falhou de 31/10 a 11/11).
-          git add dados/historico.js dados/mercado.js dados/benchmarks.js dados/historico_mensal.js dados/cache_b3_nomes.json
+          git add dados/historico.js dados/mercado.js dados/benchmarks.js dados/historico_mensal.js dados/tesouro.js dados/cache_b3_nomes.json
           git diff --cached --quiet || git commit -m "dados: historico atualizado $(date +%Y-%m-%d)"
           # Os outros robôs (novidades, analista) gravam no main enquanto este roda.
           # Tenta 3 vezes; em conflito num arquivo de dados vence a versão recém-gerada por este robô (-X theirs no rebase).
