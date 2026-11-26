@@ -109,20 +109,26 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "JCP Complementar atualização até a data de pagamento",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1565745&numSequencia=1090451&numVersao=1",
       "resumo": [
-        "Comunicado ao Mercado publicado em 2026-09-08."
+        "Atualização do valor de JCP complementar referente ao 2º trimestre de 2026.",
+        "O montante foi corrigido pela taxa Selic até a data de pagamento.",
+        "O valor por ação passou de R$ 0,10245643978 para R$ 0,10527005787.",
+        "A data de pagamento foi fixada em 11/09/2026."
       ],
-      "mudancas": [],
+      "mudancas": [
+        "Acréscimo no valor do provento por ação de R$ 0,10245643978 para R$ 0,10527005787 devido à correção pela taxa Selic."
+      ],
       "alertas": [],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.10527005787,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info"
+      "gravidade": "info",
+      "resumido_ia": true
     },
     {
       "id": "cvm_001023IPE010920260195414678-41",
@@ -131,20 +137,25 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Atualização do valor JCP Complementar até a data base.",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1563648&numSequencia=1088354&numVersao=1",
       "resumo": [
-        "Comunicado ao Mercado publicado em 2026-09-01."
+        "Atualização do valor de JCP complementar do Banco do Brasil referente ao 2º trimestre de 2026 pela taxa Selic até 01/09/2026.",
+        "O valor original por ação de R$ 0,10245643978 foi ajustado para R$ 0,10489016714.",
+        "Comunicação realizada em continuidade ao Fato Relevante divulgado em 12/08/2026."
       ],
-      "mudancas": [],
+      "mudancas": [
+        "O provento por ação (JCP complementar) foi atualizado pela Selic de R$ 0,10245643978 para R$ 0,10489016714 na data-base."
+      ],
       "alertas": [],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.10489016714,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info"
+      "gravidade": "info",
+      "resumido_ia": true
     }
   ],
   "BBSE3": [
@@ -306,21 +317,31 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "CAPEX de R$ 21,1 bilhões para o ciclo 2027 - 2030",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1591309&numSequencia=1116015&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-19."
+        "Aprovação pelo Conselho de Administração do programa de investimentos (Capex) de R$ 21,1 bilhões para o ciclo de 2027 a 2030.",
+        "Distribuição do Capex plurianual: 67% para Copel Distribuição, 24% para geração, 7% para transmissão e 2% para outros projetos.",
+        "Foco da expansão em geração voltado para ampliação da capacidade das UHEs Foz do Areia e Segredo e expansão do LRCAP.",
+        "Para o exercício de 2027, o plano prevê investimento total de R$ 5,45 bilhões (aproximadamente R$ 5,5 bilhões).",
+        "Em 2027, os aportes serão liderados pela Copel Distribuição (R$ 2,94 bilhões) e Copel GeT (R$ 2,41 bilhões)."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Definição e divulgação formal das metas e orçamento de Capex para o novo ciclo de 4 anos (2027-2030), totalizando R$ 21,1 bilhões, com detalhamento orçamentário específico para 2027."
+      ],
+      "alertas": [
+        "Pressão potencial sobre o fluxo de caixa livre e pagamento de dividendos/proventos devido ao expressivo volume de investimentos (R$ 5,45 bilhões já previstos para 2027).",
+        "Possível aumento da necessidade de alavancagem financeira/endividamento para suportar o ciclo de expansão plurianual de R$ 21,1 bilhões.",
+        "Riscos de execução de obras e licenciamento nos projetos de expansão de grande porte das hidrelétricas Foz do Areia e Segredo."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.0,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "cvm_014311IPE031120260152764723-08",
@@ -780,21 +801,32 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1390198",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-23."
+        "Celebração de escritura para aquisição de 67 salas comerciais (84% do edifício, 3.831 m² de ABL) no Condomínio One Eleven, na Vila Olímpia (SP), por R$ 73,5 milhões.",
+        "O preço equivale a R$ 19.186/m², com cap rate de entrada estimado em 7,9% ao ano.",
+        "Condição de pagamento estruturada em 70% à vista (R$ 51,45 milhões) e 30% restante (R$ 22,05 milhões) a pagar em até 180 dias.",
+        "O ativo adquirido está 100% ocupado pela WeWork com contrato de locação vigente até 29 de junho de 2038 (WALE de 11,8 anos).",
+        "A estimativa de acréscimo de renda agregada gerada pela operação é de R$ 0,03 por cota."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Inclusão do Edifício One Eleven no portfólio do Fundo.",
+        "Assunção de obrigação a pagar parcelada no montante de R$ 22,05 milhões em até 6 meses."
+      ],
+      "alertas": [
+        "Risco de crédito e contraparte: o imóvel adquirido possui 100% de concentração locatícia na WeWork.",
+        "Compromisso financeiro a prazo de R$ 22,05 milhões com vencimento em até 180 dias.",
+        "Inconsistência na apresentação anexa quanto ao regime de locação, ora citado como contrato típico, ora como atípico."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 1.9,
+        "provento_por_cota": 0.85,
+        "reserva_por_cota": 3.03,
+        "resultado_por_cota": 0.85,
+        "vacancia_financeira": 5.9,
+        "vacancia_fisica": 5.9
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1384732",
@@ -1049,21 +1081,34 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1313741",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-09-09."
+        "Distribuição de rendimentos referente a agosto/2026 foi de R$ 0,85 por cota, com resultado líquido gerado de R$ 0,80 por cota.",
+        "A redução dos rendimentos decorreu da desaceleração do IPCA dos meses de referência e do caixa elevado em cerca de 20% do PL.",
+        "A carteira de crédito permanece 100% adimplente segundo a gestão, com negociações em estágio final para alocação do caixa.",
+        "Foi convocada AGE para deliberar sobre a possibilidade de recompra de cotas com desconto em relação ao valor patrimonial.",
+        "O ativo CRA SuperFrio I sofreu remarcação negativa a mercado pelo administrador fiduciário (R$ 38,0 mi MTM vs R$ 50,9 mi aquisição)."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Corte nos dividendos de R$ 1,00 para R$ 0,85 por cota (-15%).",
+        "Queda no resultado mensal gerado por cota de R$ 0,99 para R$ 0,80.",
+        "Aumento temporário da posição em caixa para 19,2% do PL (R$ 414,7 milhões) decorrente de amortizações e resgates antecipados.",
+        "Distribuição no mês (R$ 0,85) superou o resultado gerado no período (R$ 0,80)."
+      ],
+      "alertas": [
+        "Impacto negativo no carrego da carteira IPCA devido ao baixo IPCA passado e possibilidade sinalizada de deflação no mês seguinte.",
+        "Arrasto de rentabilidade decorrente do elevado volume em caixa não alocado (~19,2% do patrimônio líquido).",
+        "Remarcação do CRA SuperFrio I pelo administrador fiduciário, com redução relevante do saldo a valor de mercado."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 45.0,
+        "provento_por_cota": 0.85,
+        "reserva_por_cota": 0.67,
+        "resultado_por_cota": 0.8,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1280657",
@@ -1317,21 +1362,30 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Petrobras informa sobre remuneração aos acionistas",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1587545&numSequencia=1112251&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-10."
+        "Aprovação de pagamento de remuneração aos acionistas no montante total de R$ 15,3 bilhões, correspondente a R$ 1,18732774 por ação ordinária e preferencial.",
+        "Proventos declarados como antecipação da remuneração do exercício de 2026, com base no balanço de 30 de setembro de 2026, aplicando 45% do fluxo de caixa livre.",
+        "Data de corte (data com) na B3 em 21 de dezembro de 2026, passando as ações a negociar 'ex-direitos' a partir de 22 de dezembro de 2026.",
+        "Pagamento dividido em duas parcelas iguais de R$ 0,59366387 por ação, com vencimentos em 22 de fevereiro de 2027 e 22 de março de 2027.",
+        "Parcelas serão corrigidas pela taxa Selic de 31 de dezembro de 2026 até a data de efetivo pagamento; definição entre dividendos e/ou JCP ocorrerá até 10 de dezembro de 2026."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Declaração de novo provento de R$ 1,18732774 por ação, comparado ao valor de 0,0 do documento anterior."
+      ],
+      "alertas": [
+        "Possível incidência de Imposto de Renda a depender da definição de parcelas sob a forma de Juros sobre Capital Próprio (JCP).",
+        "Prazo alongado para desembolso do fluxo de caixa, com liquidação apenas no primeiro trimestre de 2027."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 1.18732774,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.0,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "cvm_009512IPE101120260123667596-54",
@@ -2093,21 +2147,30 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante - Incorporação Ananaí",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1588152&numSequencia=1112858&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-11-12."
+        "O Conselho de Administração da TAESA aprovou a proposta de incorporação de sua subsidiária integral Ananaí Transmissora de Energia Elétrica S.A.",
+        "A Ananaí detém a concessão do Lote 1 do Leilão de Transmissão nº 02/2021-ANEEL (SP e PR), e será extinta após a incorporação, sendo sucedida pela TAESA em todos os direitos e obrigações.",
+        "A operação visa simplificar a estrutura societária, reduzir custos operacionais e administrativos e capturar sinergias.",
+        "Não haverá emissão de novas ações, relação de substituição ou direito de recesso para acionistas, dado que a TAESA detém 100% do capital da subsidiária.",
+        "A incorporação depende de aprovação em AGE e de anuência regulatória da ANEEL, com custos estimados em até R$ 1.000.000,00."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Início do processo de incorporação e extinção da subsidiária integral Ananaí pela TAESA."
+      ],
+      "alertas": [
+        "A eficácia da incorporação está sujeita à anuência prévia da ANEEL, cujo pedido já foi protocolado e segue sob análise regulatória.",
+        "Custos estimados de até R$ 1 milhão com publicações, avaliações e assessoria jurídica integralmente arcados pela TAESA."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0,
+        "ltv": 0,
+        "provento_por_cota": 0,
+        "reserva_por_cota": 0,
+        "resultado_por_cota": 0,
+        "vacancia_financeira": 0,
+        "vacancia_fisica": 0
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "cvm_020257IPE160920260119278711-06",
@@ -2347,21 +2410,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1391199",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-11-24."
+        "Distribuição de rendimentos mantida em R$ 0,82 por cota pelo 9º mês consecutivo, em linha com o guidance de R$ 0,80 a R$ 0,87 até dezembro de 2026.",
+        "Assinatura de novo contrato de 10 anos para 9,5 mil m² no Castelo 57 Business Park, a um valor 20% superior à média do ativo.",
+        "Resultado de R$ 0,94 por cota no mês (composto por R$ 0,63 recorrente e R$ 0,31 não recorrente), mantendo a reserva acumulada em R$ 0,37 por cota.",
+        "Avanço na venda de cotas do HGLG11 no secundário, gerando R$ 45,1 milhões em caixa e R$ 5,86 milhões (R$ 0,39/cota) de ganho de capital por competência.",
+        "Taxa de ocupação financeira subiu para 95,4% e a inadimplência líquida encerrou o mês de outubro em 0,0%."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Locação de 9,5 mil m² no Castelo 57 Business Park (cerca de 15% da ABL do ativo), com 2 meses de carência e impacto a partir de janeiro de 2027.",
+        "Ocupação financeira avançou para 95,4% em outubro (vacância financeira de 4,6%), ante 94,9% no mês anterior.",
+        "Redução da carteira de HGLG11 para 1.217.425 cotas (R$ 182,0 milhões a mercado), após alienação de 292.630 cotas no período."
+      ],
+      "alertas": [
+        "Resultado recorrente dos imóveis e financeiro foi de R$ 0,63/cota, sendo complementado por receitas não recorrentes de venda de HGLG11 para cobrir o dividendo de R$ 0,82/cota.",
+        "Obrigações financeiras (CRIs) totalizam R$ 210,1 milhões, com 7,9% do saldo a vencer nos próximos 12 meses.",
+        "Concessão de carência de 2 meses no novo contrato do Castelo 57 Business Park posterga o fluxo financeiro de locação até janeiro de 2027."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 14.32,
+        "provento_por_cota": 0.82,
+        "reserva_por_cota": 0.37,
+        "resultado_por_cota": 0.94,
+        "vacancia_financeira": 4.6,
+        "vacancia_fisica": 4.6
       },
       "gravidade": "info",
-      "resumido_ia": false
+      "resumido_ia": true
     },
     {
       "id": "fnet_1373431",
@@ -2444,21 +2519,34 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1312318",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-09-08."
+        "Distribuição mantida em R$ 0,82 por cota em agosto de 2026, com resultado total auferido de R$ 0,84 por cota.",
+        "Assinatura de novo contrato de locação de 100% do CD Pouso Alegre (13,9 mil m²) com a Shopee por 60 meses e aluguel 22% superior ao anterior.",
+        "Assinatura de compromisso vinculante para aquisição de ativo AAA em Campinas/SP (46,3 mil m² de ABL, 100% locado) por R$ 140 milhões e cap rate de 9,7%.",
+        "Continuidade do desinvestimento em cotas de HGLG11, gerando R$ 40,3 milhões em caixa no mês (ganho de capital de R$ 0,10/cota).",
+        "Taxa de ocupação financeira recuou para 93,0% no mês devido à desocupação temporária da Cremer antes do início do contrato da Shopee em setembro."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Resultado por cota recuou de R$ 0,94 para R$ 0,84.",
+        "Reserva acumulada de resultado não distribuído reduziu de R$ 0,37 para R$ 0,146 por cota.",
+        "Taxa de vacância financeira aumentou de 4,6% para 7,0% (ocupação financeira de 93,0%) em virtude da transição no CD Pouso Alegre.",
+        "Inadimplência líquida média passou de 0,0% para 0,5%."
+      ],
+      "alertas": [
+        "Queda relevante da reserva acumulada de resultado para R$ 0,146/cota, reduzindo a margem para sustentação de proventos caso haja descompasso de receitas.",
+        "Compromisso financeiro futuro de R$ 140 milhões parcelados para a aquisição do imóvel em Campinas/SP, a ser honrado nos próximos 12 meses.",
+        "Carência de 60 dias concedida à Shopee no CD Pouso Alegre, mitigada temporariamente pelo recebimento de encargos rescisórios da Cremer até dezembro/2026."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.5,
+        "ltv": 16.13,
+        "provento_por_cota": 0.82,
+        "reserva_por_cota": 0.146,
+        "resultado_por_cota": 0.84,
+        "vacancia_financeira": 7.0,
+        "vacancia_fisica": 3.7
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "XPML11": [
