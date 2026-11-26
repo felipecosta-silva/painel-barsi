@@ -7,6 +7,7 @@ body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;ba
 <script src="dados/fii_pvp.js"></script>
 <script src="dados/fii_resultado.js"></script>
 <script src="dados/politica_dividendos.js"></script>
+<script src="dados/tetos_leo.js"></script>
 <script src="dados/mercado.js"></script>
 
 <script src="dados/novidades.js"></script>
@@ -9442,7 +9443,7 @@ function openModal(ticker) {
       elMetodoTag.style.display = 'inline-flex';
       const temDiverg = av.diverg != null && av.diverg > 35;
       elMetodoTag.textContent = 'Método: ' + av.metodo + (temDiverg ? ' ⚠️' : '');
-      let tt = (av.motivo ? av.motivo + '\n' : '') + (av.taxaExplicada ? 'Taxa: ' + av.taxaExplicada : '');
+      let tt = (av.motivo ? av.motivo + '\n' : '') + (av.taxaExplicada ? 'Taxa: ' + av.taxaExplicada : '') + (av.taxaFonte ? '\nOrigem da taxa: ' + av.taxaFonte : '');
       if (window.fehmirFonteFund) tt += '\n' + window.fehmirFonteFund(r) + (r && r._fundDiverg && r._fundDiverg.length ? ' · mudou > 25%: ' + r._fundDiverg.join(' · ') : '');
       if (temDiverg) tt += `\n⚠️ Modelos divergem ${String((av.diverg).toFixed(0)).replace('.', ',')}% (${av.diverg_par || 'conferência'}): confira o lucro (pode haver não recorrente)`;
       elMetodoTag.setAttribute('title', tt || 'Método de Valuation');
@@ -9467,6 +9468,7 @@ function openModal(ticker) {
       const baseMap = {
         "estrutural_permanente": "dividendo projetado estrutural permanente",
         "estrutural_fases": "dividendo projetado em fases (valor presente)",
+        "dcf_leo": "DCF Léo (Geração Dividendos) refeito nos dados atuais",
         "sem_dividendo_projetado": "sem perspectiva de dividendo projetado",
         "ddm_politica_nova": "fluxo de dividendos descontado pós-política (histórico só confere)",
         "politica_nova_media": "média dos anos fechados da política nova",
@@ -9484,18 +9486,21 @@ function openModal(ticker) {
       if (av && av.fase1Encerrada) avisosPol.push(`<span style="color:#b45309;font-weight:700;">⚠️ Fase 1 encerrada — confirme nos resultados se o dividendo voltou</span>`);
       const tituloPol = isSemDiv
         ? `⏸️ <b>Empresa sem perspectiva de dividendo</b> (${docLink})`
-        : (polData.tipo === "estrutural"
-            ? `📉 <b>Dividendo projetado${mmAaaa ? " desde " + mmAaaa : ""}</b> (${docLink}${f2Link})`
-            : `📢 <b>Política nova${mmAaaa ? " desde " + mmAaaa : ""}</b> (${docLink}${f2Link})`);
+        : (polData.tipo === "dcf_leo"
+            ? `🦁 <b>Método Léo em Commodity</b> (${docLink}${f2Link})`
+            : (polData.tipo === "estrutural"
+                ? `📉 <b>Dividendo projetado${mmAaaa ? " desde " + mmAaaa : ""}</b> (${docLink}${f2Link})`
+                : `📢 <b>Política nova${mmAaaa ? " desde " + mmAaaa : ""}</b> (${docLink}${f2Link})`));
       const boxBg = isSemDiv ? "rgba(100,116,139,0.10)" : ((av && (av.polExpirada || av.polAcoesMudou || av.fase1Encerrada)) ? "rgba(245,158,11,0.10)" : "rgba(79,70,229,0.08)");
       const boxBd = isSemDiv ? "rgba(100,116,139,0.35)" : ((av && (av.polExpirada || av.polAcoesMudou || av.fase1Encerrada)) ? "rgba(245,158,11,0.35)" : "rgba(79,70,229,0.2)");
       const _fM = v => 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const histConfTxt = (av && av.hist > 0) ? ` · Histórico <b>${_fM(av.hist)}</b> (só conferência)` : "";
       const semVoltaTxt = (av && av.tetoSemVolta > 0) ? ` · Se o dividendo não voltar: <b>${_fM(av.tetoSemVolta)}</b>` : "";
+      const taxaPropTxt = (av && av.taxaFonte) ? `<div style="margin-top:4px;color:var(--ink);">🎯 <b>Taxa própria (${String(Number(av.req).toFixed(1)).replace('.', ',')}%):</b> ${av.taxaFonte}</div>` : "";
       const premTxt = (polData.premissa || polData.nota) ? `<div style="margin-top:4px;color:var(--muted);">${polData.premissa || polData.nota}</div>` : "";
       elPolRow.innerHTML = `<div style="padding:8px 14px; background:${boxBg}; border:1px solid ${boxBd}; border-radius:8px; font-size:12.5px; color:var(--ink); line-height:1.45;">
         ${tituloPol} · Base: <b>${baseDesc}</b>${histConfTxt}${semVoltaTxt}${revBr ? ` · Rever em <b>${revBr}</b>` : ""}
-        ${premTxt}
+        ${taxaPropTxt}${premTxt}
         ${avisosPol.length ? `<div style="margin-top:4px;">${avisosPol.join(" · ")}</div>` : ""}
       </div>`;
     } else if (av && av.base_dpa === "projetivo_regulada") {
@@ -9513,6 +9518,38 @@ function openModal(ticker) {
     } else {
       elPolRow.style.display = 'none';
       elPolRow.innerHTML = '';
+    }
+    // Comparação com teto do Léo (Geração Dividendos) — só exibição fora das commodities já avaliadas pelo Léo
+    let elLeoRow = document.getElementById('m-leo-row');
+    if (!elLeoRow && elPolRow.parentNode) {
+      elLeoRow = document.createElement('div');
+      elLeoRow.id = 'm-leo-row';
+      elLeoRow.style.marginTop = '6px';
+      elPolRow.parentNode.insertBefore(elLeoRow, elPolRow.nextSibling);
+    }
+    if (elLeoRow) {
+      const leo = (typeof window !== "undefined" && window.FEHMIR_TETOS_LEO) ? window.FEHMIR_TETOS_LEO[r.t] : null;
+      const ehOficialLeo = (av && (av.base_dpa === "dcf_leo" || (av.S && av.S.id === "commodity" && av.taxaFonte)));
+      if (leo && leo.teto > 0 && !ehOficialLeo) {
+        elLeoRow.style.display = 'block';
+        const _fLR = v => 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const divPct = (tetoRegua && isFinite(tetoRegua) && tetoRegua > 0) ? ((leo.teto / tetoRegua - 1) * 100) : null;
+        const divAbs = divPct != null ? Math.abs(divPct) : 0;
+        const dtLeo = leo.data ? String(leo.data).split('-').reverse().join('/') : '';
+        const idadeDias = leo.data ? Math.round((Date.now() - new Date(leo.data + 'T12:00:00Z').getTime()) / 86400000) : 0;
+        const antigoAviso = idadeDias > 365 ? ` <span style="color:#b45309;font-weight:700;">(estudo com &gt;12 meses)</span>` : '';
+        const divAviso = (divPct != null && divAbs > 20)
+          ? `<div style="margin-top:4px;color:#b45309;font-weight:700;">⚠️ Diverge ${divPct >= 0 ? '+' : ''}${Math.round(divPct)}% da régua do painel (apenas comparação; não altera o teto oficial)</div>`
+          : '';
+        elLeoRow.innerHTML = `<div style="padding:7px 12px; background:var(--surface-2); border:1px solid var(--line); border-radius:8px; font-size:12px; color:var(--ink); line-height:1.4;">
+          🦁 <b>Léo (Geração Dividendos) — só comparação:</b> Teto <b>${_fLR(leo.teto)}</b> (${leo.metodo || ''}${leo.taxa_ou_k ? ' · ' + leo.taxa_ou_k : ''}) · ${dtLeo} ${leo.timestamp || ''}${antigoAviso}
+          ${leo.faixa_entrada ? `<div style="color:var(--muted);margin-top:2px;">Entrada Léo: ${leo.faixa_entrada} · Vídeo: ${leo.video || ''}</div>` : ''}
+          ${divAviso}
+        </div>`;
+      } else {
+        elLeoRow.style.display = 'none';
+        elLeoRow.innerHTML = '';
+      }
     }
     // FR-012: Realismo de preço nos últimos 60 meses
     let elReal = document.getElementById('m-realismo-row');
@@ -18744,6 +18781,15 @@ initCollapsibleBlocks();
     metodo: "Graham + Bazin projetivo", chave: "ROE, margem, dívida, previsibilidade", armadilha: "Sem histórico de dividendo" };
 
   // FIIs: subtipos com régua própria. Papel/fiagro: DY nominal → exige IPCA + juro real + spread.
+  // Rodada 33-B: FII de tijolo comparado com o Tesouro IPCA+ líquido de IR (15% só sobre o juro real, versão conservadora).
+  const FII_AJUSTE_IR = {
+    ativo: true,
+    aliquota: 0.15,
+    desde: "2026-11-25",
+    fonte: "Léo · É o fim dos FIIs? (24/11/2026)",
+    rever: "se dividendos de FII passarem a ser tributados: ativo = false"
+  };
+  if (typeof window !== "undefined") window.FII_AJUSTE_IR = FII_AJUSTE_IR;
   const FII_TIPOS = [
     { id: "dev", margemMin: 0, nome: "FII · Desenvolvimento", semTeto: true, match: /desenvolv/i,
       chave: "Cronograma de obra, vendas de unidades, fonte da distribuição", armadilha: "Dividendo que depende do futuro não é renda (MFII11)" },
@@ -18806,12 +18852,36 @@ initCollapsibleBlocks();
     const txt = (f.tipo || "") + " " + (f.setor || "") + " " + (f.tag || "") + " " + (f.nome || "");
     return FII_TIPOS.find(x => x.match.test(txt)) || FII_TIPOS.find(x => x.id === "hibrido");
   }
+  function fiiAjusteIrAtivo(sub) {
+    return !!(sub && !sub.semTeto && !sub.papel && FII_AJUSTE_IR && FII_AJUSTE_IR.ativo);
+  }
+  function fiiBaseNtnb(sub, m) {
+    return fiiAjusteIrAtivo(sub) ? m.ntnb * (1 - FII_AJUSTE_IR.aliquota) : m.ntnb;
+  }
   function fiiReq(sub, dy, m) {
     if (!sub || sub.semTeto) return null;
-    let req = sub.papel ? m.ntnb + m.ipca12 + 1.5 + (sub.extra || 0) : m.ntnb + sub.premio;
+    const base = fiiBaseNtnb(sub, m);
+    let req = sub.papel ? base + m.ipca12 + 1.5 + (sub.extra || 0) : base + sub.premio;
     if (sub.papel && dy > 16) req += 1.5;          // yield alto demais pede investigação
     if (!sub.papel && dy > 13) req += 2;            // tijolo com DY de papel = suspeito
     return req;
+  }
+  function fiiTaxaFormula(sub, dy, m) {
+    if (!sub || sub.semTeto) return "";
+    const req = fiiReq(sub, dy, m);
+    const segCurto = sub.nome.replace(/^FII (?:Tijolo · )?|^Fiagro · /i, "").replace(/\/Renda urbana/i, "");
+    if (sub.papel) {
+      const spread = 1.5 + (sub.extra || 0);
+      const extraHigh = dy > 16 ? " + 1,5% (DY > 16%)" : "";
+      return `Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + inflação ${fmtN(m.ipca12, 1)}% + spread ${fmtN(spread, 1)}% (${segCurto})${extraHigh} = ${fmtN(req, 1)}%`;
+    }
+    const base = fiiBaseNtnb(sub, m);
+    const extraHigh = dy > 13 ? " + 2,0% (DY > 13%)" : "";
+    if (fiiAjusteIrAtivo(sub)) {
+      const aliqPct = fmtN(FII_AJUSTE_IR.aliquota * 100, 0);
+      return `Tesouro IPCA+ ${fmtN(m.ntnb, 2)}% − IR ${aliqPct}% = ${fmtN(base, 2)}% + prêmio ${fmtN(sub.premio, 1)}% (${segCurto})${extraHigh} = ${fmtN(req, 2)}%`;
+    }
+    return `Tesouro IPCA+ ${fmtN(m.ntnb, 2)}% + prêmio ${fmtN(sub.premio, 1)}% (${segCurto})${extraHigh} = ${fmtN(req, 2)}%`;
   }
 
   /* ===== PRÊMIO DE RISCO POR EMPRESA, HOLDING & RECUPERAÇÃO (Spec 002) ===== */
@@ -19034,8 +19104,7 @@ initCollapsibleBlocks();
       const isPapel = sub.papel || sub.id === "papel" || sub.id === "fiagro" || sub.id === "fof";
 
       if (isPapel) {
-        const spread = (1.5 + (sub.extra || 0));
-        const taxaExplicada = `${fmtN(req, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + inflação ${fmtN(m.ipca12, 1)}% + spread ${fmtN(spread, 1)}% (${sub.nome.replace(/^FII |^Fiagro /i, '')})`;
+        const taxaExplicada = fiiTaxaFormula(sub, a.dy || 0, m);
         return {
           metodo: "P/VP perto de 1 + spread",
           motivo: "FII de papel: o valor é a carteira de crédito; P/VP muito abaixo de 1 costuma ser risco de calote, não desconto.",
@@ -19043,10 +19112,13 @@ initCollapsibleBlocks();
           taxaExplicada
         };
       } else {
-        const taxaExplicada = `${fmtN(req, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio ${fmtN(sub.premio, 1)}% (${sub.nome.replace(/^FII /i, '')})`;
+        const ajIr = fiiAjusteIrAtivo(sub);
+        const taxaExplicada = fiiTaxaFormula(sub, a.dy || 0, m);
+        const motivo = "FII de tijolo: vale pela renda dos aluguéis; P/VP abaixo de 1 só é desconto se a vacância e os contratos estiverem saudáveis." +
+          (ajIr ? " Base: Tesouro IPCA+ líquido de IR (15% só sobre o juro real: ~1,1 p.p.; pelo nominal seria ~1,8 p.p. — versão conservadora porque dividendo de FII é isento)." : "");
         return {
           metodo: "Bazin por rendimento",
-          motivo: "FII de tijolo: vale pela renda dos aluguéis; P/VP abaixo de 1 só é desconto se a vacância e os contratos estiverem saudáveis.",
+          motivo,
           taxa: req,
           taxaExplicada
         };
@@ -19057,14 +19129,27 @@ initCollapsibleBlocks();
     const S = setorDe(a);
 
     const pe = fehmirPremioEmpresa(a.t);
-    const req = m.ntnb + S.premio + pe.pp;
-    let taxaExplicada = `${fmtN(req, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio ${fmtN(S.premio, 1)}% (${S.nome})`;
-    if (pe.pp > 0) {
-      taxaExplicada += ` + ${fmtN(pe.pp, 1)} p.p. risco da empresa (${pe.motivo})`;
-    }
+    const ehFiiEm = (a.cls === "fii") || (a.macro === "fiis") || (typeof window !== "undefined" && window.FII_META && !!window.FII_META[a.t]) || /fii|fundo imob|tijolo|papel\/cri|receb[ií]veis|fiagro/i.test(a.setor || "");
+    const polEm = (!ehFiiEm && typeof window !== "undefined" && window.FEHMIR_POLITICA_DIV) ? window.FEHMIR_POLITICA_DIV[a.t] : null;
+    const polEmValida = !!(polEm && /^https?:\/\/\S+/i.test(String(polEm.documento || "").trim()));
+    const taxaProp = (polEmValida && polEm.taxa != null && Number(polEm.taxa) > 0) ? Number(polEm.taxa) : null;
+    const taxaFonteProp = (taxaProp != null) ? (polEm.taxa_fonte ? String(polEm.taxa_fonte).trim() : "taxa própria cadastrada") : null;
+    const req = taxaProp != null ? taxaProp : (m.ntnb + S.premio + pe.pp);
+    let taxaExplicada = taxaProp != null
+      ? `${fmtN(req, 1)}% (${taxaFonteProp})`
+      : `${fmtN(req, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio ${fmtN(S.premio, 1)}% (${S.nome})${pe.pp > 0 ? ` + ${fmtN(pe.pp, 1)} p.p. risco da empresa (${pe.motivo})` : ""}`;
+    const retMetodo = (metodo, motivo, taxaCustom, taxaExpCustom) => ({
+      metodo, motivo,
+      taxa: taxaCustom != null ? taxaCustom : req,
+      taxaExplicada: taxaExpCustom != null ? taxaExpCustom : taxaExplicada,
+      taxaFonte: taxaCustom != null ? null : taxaFonteProp
+    });
 
-    // Regra 3: Commodities (cíclico - Rodada 9 Parte A & D)
+    // Regra 3: Commodities (cíclico - Rodada 9 Parte A & D; Rodada 33 Léo DCF)
     if (S.id === "commodity" || /petr[oó]leo|miner|sider|celulose|agroneg/i.test(a.setor || "") || /petr[oó]leo|miner|sider|celulose|agroneg/i.test(S.nome || "")) {
+      if (polEmValida && polEm.tipo === "dcf_leo") {
+        return retMetodo("DCF Léo", "Commodity avaliada pelo método DCF do Léo refeito nos dados atuais.");
+      }
       const anos5 = ["2021", "2022", "2023", "2024", "2025"];
       let anosComDiv5 = 5;
       if (HY && HY.dpaAno) {
@@ -19086,28 +19171,13 @@ initCollapsibleBlocks();
             : (payEmp < 30)
             ? "Cíclica que reinveste (payout < 30%): lucro normalizado por meio de ciclo."
             : "Cíclica com histórico irregular de dividendos (menos de 4 anos em 2021-2025): lucro normalizado por meio de ciclo.";
-          return {
-            metodo: "P/L normalizado",
-            motivo: motivoCiclico,
-            taxa: req,
-            taxaExplicada
-          };
+          return retMetodo("P/L normalizado", motivoCiclico);
         } else {
-          return {
-            metodo: "Sem dados aplicáveis",
-            motivo: "Cíclica sem lucro positivo" + (divSuspenso ? " e com dividendo suspenso" : " e com histórico irregular de dividendos") + ": sem base para preço-teto.",
-            taxa: req,
-            taxaExplicada
-          };
+          return retMetodo("Sem dados aplicáveis", "Cíclica sem lucro positivo" + (divSuspenso ? " e com dividendo suspenso" : " e com histórico irregular de dividendos") + ": sem base para preço-teto.");
         }
       }
 
-      return {
-        metodo: "Bazin de meio de ciclo (mediana 5A × 0,75)",
-        motivo: "Cíclica: lucro de pico engana; usa a mediana dos dividendos de 5 anos (2021-2025) com corte de 25%.",
-        taxa: req,
-        taxaExplicada
-      };
+      return retMetodo("Bazin de meio de ciclo (mediana 5A × 0,75)", "Cíclica: lucro de pico engana; usa a mediana dos dividendos de 5 anos (2021-2025) com corte de 25%.");
     }
 
     // Regra Imobiliária de renda (galpões logísticos, shoppings e propriedades para renda)
@@ -19116,68 +19186,42 @@ initCollapsibleBlocks();
                         ["LOGG3", "ALOS3", "MULT3", "IGTI11"].includes(a.t);
     if (ehImobRenda) {
       // Taxa do setor "Outros": 10,5% = Tesouro IPCA+ (6,5%) + prêmio 4,0%
-      const taxaImob = m.ntnb + 4.0 + pe.pp;
-      let taxaExplicadaImob = `${fmtN(taxaImob, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio 4,0% (Imóveis para Renda)`;
-      if (pe.pp > 0) {
-        taxaExplicadaImob += ` + ${fmtN(pe.pp, 1)} p.p. risco da empresa (${pe.motivo})`;
-      }
-      return {
-        metodo: "P/VP com desconto + Bazin 5A",
-        motivo: "Empresa de imóveis para renda: o lucro inclui reavaliação de imóveis; usa o patrimônio com desconto e o dividendo médio.",
-        taxa: taxaImob,
-        taxaExplicada: taxaExplicadaImob
-      };
+      const taxaImob = taxaProp != null ? taxaProp : (m.ntnb + 4.0 + pe.pp);
+      let taxaExplicadaImob = taxaProp != null
+        ? taxaExplicada
+        : `${fmtN(taxaImob, 1)}% = Tesouro IPCA+ ${fmtN(m.ntnb, 1)}% + prêmio 4,0% (Imóveis para Renda)${pe.pp > 0 ? ` + ${fmtN(pe.pp, 1)} p.p. risco da empresa (${pe.motivo})` : ""}`;
+      return retMetodo(
+        "P/VP com desconto + Bazin 5A",
+        "Empresa de imóveis para renda: o lucro inclui reavaliação de imóveis; usa o patrimônio com desconto e o dividendo médio.",
+        taxaImob,
+        taxaExplicadaImob
+      );
     }
 
     // Regra 4: Industrial & Bens de capital; Construção & Incorporação
     if (S.id === "industrial" || S.id === "construcao" || /industr|autope|bens de capital|constru|incorpor/i.test(a.setor || "") || /industr|constru/i.test(S.nome || "")) {
-      return {
-        metodo: "Graham",
-        motivo: "Empresa que reinveste o lucro: dividendo não mede o valor; Graham usa lucro e patrimônio.",
-        taxa: req,
-        taxaExplicada
-      };
+      return retMetodo("Graham", "Empresa que reinveste o lucro: dividendo não mede o valor; Graham usa lucro e patrimônio.");
     }
 
     // Regra 5: Varejo & Consumo
     if (S.id === "consumo" || /varejo|consumo|aliment|cal[cç]ado|vestu|educa/i.test(a.setor || "")) {
-      return {
-        metodo: "P/L normalizado",
-        motivo: "Consumo é cíclico: usa o lucro de meio de ciclo.",
-        taxa: req,
-        taxaExplicada
-      };
+      return retMetodo("P/L normalizado", "Consumo é cíclico: usa o lucro de meio de ciclo.");
     }
 
     // Regra 6: Água & Saneamento
     if (S.id === "saneamento" || /saneamento|[aá]gua/i.test(a.setor || "")) {
-      return {
-        metodo: "Gordon / fluxo de dividendos",
-        motivo: "Saneamento cresce com o investimento regulado: o dividendo futuro é maior que o de hoje.",
-        taxa: req,
-        taxaExplicada
-      };
+      return retMetodo("Gordon / fluxo de dividendos", "Saneamento cresce com o investimento regulado: o dividendo futuro é maior que o de hoje.");
     }
 
     // Regra 7: Bancos
     if (S.id === "banco" || /banc/i.test(a.setor || "")) {
-      return {
-        metodo: "Bazin projetivo",
-        motivo: "Banco: lucro × payout ÷ DY exigido; equivale ao P/VP justo pelo ROE.",
-        taxa: req,
-        taxaExplicada
-      };
+      return retMetodo("Bazin projetivo", "Banco: lucro × payout ÷ DY exigido; equivale ao P/VP justo pelo ROE.");
     }
 
     // Regra 8: Elétricas, Seguradoras e Telecom
     const ehBase = S.id === "eletrica" || S.id === "eletrica_trans" || S.id === "seguradora" || S.id === "telecom" || /el[eé]tr|segur|telecom/i.test(a.setor || "");
     if (ehBase) {
-      return {
-        metodo: "Bazin projetivo",
-        motivo: "Empresa madura que distribui a maior parte do lucro: o dividendo projetado mede o valor.",
-        taxa: req,
-        taxaExplicada
-      };
+      return retMetodo("Bazin projetivo", "Empresa madura que distribui a maior parte do lucro: o dividendo projetado mede o valor.");
     }
 
     // Regra 9: Payout < 30% ou pagou dividendo em menos de 6 dos últimos 10 anos
@@ -19191,21 +19235,11 @@ initCollapsibleBlocks();
     const pay = a.payout != null ? a.payout : null;
 
     if ((pay != null && pay > 0 && pay < 30) || anosComDiv < 6) {
-      return {
-        metodo: "Graham",
-        motivo: "Dividendo baixo ou irregular: Bazin subestimaria a empresa.",
-        taxa: req,
-        taxaExplicada
-      };
+      return retMetodo("Graham", "Dividendo baixo ou irregular: Bazin subestimaria a empresa.");
     }
 
     // Demais pagadoras
-    return {
-      metodo: "Bazin projetivo",
-      motivo: "Empresa madura que distribui a maior parte do lucro: o dividendo projetado mede o valor.",
-      taxa: req,
-      taxaExplicada
-    };
+    return retMetodo("Bazin projetivo", "Empresa madura que distribui a maior parte do lucro: o dividendo projetado mede o valor.");
   }
 
   window.fehmirEscolherMetodo = escolherMetodo;
@@ -19372,6 +19406,8 @@ initCollapsibleBlocks();
     let polEstruturalSrc = "";
     let polTetoSemVolta = null;
     let polFase1Encerrada = false;
+    let polDcfLeoTeto = null;
+    let polDcfLeoSrc = "";
     let polExpirada = false;
     let polAcoesMudou = false;
 
@@ -19450,15 +19486,26 @@ initCollapsibleBlocks();
             polEstruturalSrc = "Dividendo projetado estrutural (" + fR(dpaEst) + " ÷ " + fmtN(req, 1) + "% = " + fR(polEstruturalTeto) + ")";
           }
         }
+      } else if (pol.tipo === "dcf_leo") {
+        const lucDcf = Number(pol.lucro_projetado);
+        const kDcf = Number(pol.k != null ? pol.k : req) / 100;
+        const gDcf = Number(pol.g != null ? pol.g : 0) / 100;
+        if (lucDcf > 0 && kDcf > gDcf && numAcoesPol > 0) {
+          polDcfLeoTeto = (lucDcf * (1 + gDcf) / (kDcf - gDcf)) / numAcoesPol;
+          base_dpa = "dcf_leo";
+          const lucBi = lucDcf >= 1e9 ? ("R$ " + fmtN(lucDcf / 1e9, 1) + " bi") : fR(lucDcf);
+          polDcfLeoSrc = "DCF Léo [LL " + lucBi + " × (1 + " + fmtN(gDcf * 100, 1) + "%) ÷ (" + fmtN(kDcf * 100, 1) + "% − " + fmtN(gDcf * 100, 1) + "%) ÷ " + (numAcoesPol / 1e9).toFixed(3).replace(".", ",") + " bi ações = " + fR(polDcfLeoTeto) + "]";
+        }
       }
 
+      const ehCustomPol = pol.tipo === "estrutural" || pol.tipo === "dcf_leo";
       const anoDesde = parseInt(String(pol.desde || "").slice(0, 4), 10);
       const anosFechados = [];
       if (anoDesde && anoDesde < anoAtual) {
         for (let y = anoDesde; y < anoAtual; y++) anosFechados.push(y);
       }
       // 1. Guidance oficial vigente antes do fechamento do ano do guidance
-      if (pol.tipo !== "estrutural" && pol.guidance && pol.guidance.valor_min > 0 && (!pol.guidance.ano || pol.guidance.ano >= anoAtual)) {
+      if (!ehCustomPol && pol.guidance && pol.guidance.valor_min > 0 && (!pol.guidance.ano || pol.guidance.ano >= anoAtual)) {
         const FUND_ALL = (typeof window !== "undefined" && window.FEHMIR_FUND) ? window.FEHMIR_FUND : {};
         const FUND_D = FUND_ALL[a.t] || {};
         if (numAcoesPol > 0) {
@@ -19496,7 +19543,7 @@ initCollapsibleBlocks();
         }
       }
       // 2. Com >= 1 ano fechado desde `desde`: média dos anos fechados sem extraordinários
-      if (pol.tipo !== "estrutural" && polDpa == null && anosFechados.length >= 1 && HY && HY.dpaAno) {
+      if (!ehCustomPol && polDpa == null && anosFechados.length >= 1 && HY && HY.dpaAno) {
         const dpaPuros = anosFechados.map(y => {
           const tot = Number(HY.dpaAno[String(y)] || 0);
           const ext = Number((HY.dpaAnoExtra && HY.dpaAnoExtra[String(y)]) || 0);
@@ -19510,7 +19557,7 @@ initCollapsibleBlocks();
         }
       }
       // 3. Sem guidance e sem ano fechado: LPA 12m × payout_min
-      if (pol.tipo !== "estrutural" && polDpa == null && pol.payout_min != null && lpa > 0) {
+      if (!ehCustomPol && polDpa == null && pol.payout_min != null && lpa > 0) {
         polDpa = lpa * pol.payout_min;
         base_dpa = "payout_min";
         polSrc = "Política nova [LPA 12m " + fR(lpa) + " × payout mín " + fmtN(pol.payout_min * 100, 0) + "% = " + fR(polDpa) + "]";
@@ -19577,16 +19624,22 @@ initCollapsibleBlocks();
     const ehReguladaEstavel = regCheck.pass;
     const cvLucroVal = regCheck.cv;
 
-    // 00. MUDANÇA ESTRUTURAL DE DIVIDENDOS (Spec 012 — permanente ou em fases, antes de regulada estável)
+    // 00. MUDANÇA ESTRUTURAL DE DIVIDENDOS / DCF LÉO (Spec 012 & Rodada 33, antes de regulada estável)
     if (pol && polEstruturalSemDiv) {
       teto = null;
       base_dpa = "sem_dividendo_projetado";
       baseTeto = "sem_dividendo";
       motivoBase = "politica_mudou";
       src = "Sem dividendo projetado (DPA ≤ 0 na premissa estrutural) — empresa sem perspectiva de dividendo";
+    } else if (pol && polDcfLeoTeto != null && polDcfLeoTeto > 0) {
+      proj = polDcfLeoTeto;
+      teto = polDcfLeoTeto;
+      baseTeto = "projetivo";
+      motivoBase = "dcf_leo";
+      src = polDcfLeoSrc + (hist != null && hist > 0 ? " · " + histSrc + " (só conferência)" : "");
     } else if (pol && polEstruturalTeto != null && polEstruturalTeto > 0) {
       proj = polEstruturalTeto;
-      const tetoCap = (hist != null && hist > 0) ? Math.min(polEstruturalTeto, hist) : polEstruturalTeto;
+      const tetoCap = (!pol.permitir_acima_hist && hist != null && hist > 0) ? Math.min(polEstruturalTeto, hist) : polEstruturalTeto;
       teto = tetoCap;
       baseTeto = "projetivo";
       motivoBase = "estrutural";
@@ -19964,6 +20017,7 @@ initCollapsibleBlocks();
       cvLucro: cvLucroVal,
       taxa: req,
       taxaExplicada: em.taxaExplicada,
+      taxaFonte: em.taxaFonte || null,
       metodo: metodoOut,
       motivo: motivoOut,
       S,
@@ -20724,10 +20778,18 @@ initCollapsibleBlocks();
       }).join("");
       const cardsFiis = FII_TIPOS.map(T => {
         const req = T.semTeto ? null : fiiReq(T, 0, m);
+        const irBrick = fiiAjusteIrAtivo(T);
         const pares = fiis.filter(f => fiiSubDe(f).id === T.id).map(f => { const rq = fiiReq(T, f.dy || 0, m); const tOfF = typeof window.tetoOficial === "function" ? window.tetoOficial(f) : null; const teto = (tOfF && tOfF.teto) ? tOfF.teto : (f.dpa && rq ? f.dpa / (rq / 100) : null); return { t: f.t, margem: teto ? (1 - f.preco / teto) * 100 : null, trap: trap(f) }; });
+        const formulaSmall = T.semTeto
+          ? "Não projetar teto de renda"
+          : (T.papel
+              ? `IPCA+ ${fmtN(m.ntnb, 1)} + IPCA ${fmtN(m.ipca12, 1)} + 1,5${T.extra ? " + " + fmtN(T.extra, 1) : ""}`
+              : (irBrick
+                  ? `Tesouro IPCA+ ${fmtN(m.ntnb, 2)}% − IR ${fmtN(FII_AJUSTE_IR.aliquota * 100, 0)}% = ${fmtN(fiiBaseNtnb(T, m), 2)}% + prêmio ${fmtN(T.premio, 1)}%`
+                  : `IPCA+ ${fmtN(m.ntnb, 2)} + prêmio ${fmtN(T.premio, 1)}`));
         return `<div class="mz-card${T.semTeto ? " is-off" : ""}">
           <div class="mz-top"><b>${T.nome}</b>${T.papel ? '<span class="mz-badge">nominal</span>' : T.semTeto ? '<span class="mz-badge hot">sem teto</span>' : '<span class="mz-badge">real</span>'}</div>
-          <div class="mz-req"><span>DY exigido</span><b>${req ? fmtN(req, 1) + "%" : "não é renda"}</b><small>${T.semTeto ? "Não projetar teto de renda" : T.papel ? `IPCA+ ${fmtN(m.ntnb, 1)} + IPCA ${fmtN(m.ipca12, 1)} + 1,5${T.extra ? " + " + fmtN(T.extra, 1) : ""}` : `IPCA+ ${fmtN(m.ntnb, 1)} + prêmio ${fmtN(T.premio, 1)}`}</small></div>
+          <div class="mz-req"><span>DY exigido</span><b>${req ? fmtN(req, irBrick ? 2 : 1) + "%" : "não é renda"}</b><small>${formulaSmall}</small></div>
           ${T.semTeto ? "" : `<div class="mz-kv"><span>Margem mínima p/ comprar</span><b>${T.margemMin}%</b></div>`}
           <p><i>Olhar:</i> ${T.chave}</p><p class="warn"><i>Armadilha:</i> ${T.armadilha}</p>
           <div class="mz-best"><span>Mais descontado agora (${pares.length} pares)</span>${T.semTeto ? "—" : melhor(pares)}</div>
@@ -20738,7 +20800,7 @@ initCollapsibleBlocks();
         <div class="mz-formula">
           <div><b>Teto projetivo (ações)</b> = LPA × corte de ciclo × payout sustentável × (1 + g) ÷ (taxa − g)</div>
           <div><b>Taxa exigida</b> = A taxa é o Tesouro IPCA+ mais o prêmio do setor (retorno real que você exige). O teto divide o dividendo do próximo ano por (taxa − crescimento real).</div>
-          <div><b>FII tijolo</b>: aluguel corrigido pela inflação → IPCA+ + prêmio. <b>FII papel/fiagro</b>: rendimento nominal → IPCA+ + IPCA + spread. Yield fora da curva leva prêmio extra.</div>
+          <div><b>FII tijolo</b>: aluguel corrigido pela inflação → ${FII_AJUSTE_IR.ativo ? "Tesouro IPCA+ líquido de IR (15% só sobre o juro real: ~1,1 p.p.; pelo nominal seria ~1,8 p.p. — versão conservadora)" : "IPCA+"} + prêmio. <b>FII papel/fiagro</b>: rendimento nominal → IPCA+ + IPCA + spread. Yield fora da curva leva prêmio extra.</div>
         </div>
         <div class="cb-group-title">Ações · ${SETORES.length} setores</div><div class="mz-grid">${cardsAcoes}</div>
         <div class="cb-group-title">Fundos imobiliários · ${FII_TIPOS.length} tipos</div><div class="mz-grid">${cardsFiis}</div>`;
@@ -20878,10 +20940,13 @@ initCollapsibleBlocks();
       const hF = typeof fehmirObterHist === "function" ? fehmirObterHist(a.t) : (window.FEHMIR_HIST && window.FEHMIR_HIST[a.t]);
       const doRobo = hF && hF.dpa12 > 0;
       const renda = doRobo ? hF.dpa12 : (a.rend ? a.rend * 12 : a.dpa);
+      const irAtivoFii = fiiAjusteIrAtivo(sub);
+      const reqStrFii = req ? fmtN(req, irAtivoFii ? 2 : 1) : "—";
+      const taxaFormulaFii = (!sub.papel && em.taxaExplicada) ? " · " + em.taxaExplicada : "";
       let teto = renda && req ? renda / (req / 100) : null;
       let srcFii = renda && req
-        ? "Dividendo 12m " + fR(renda) + (doRobo ? " (robô)" : " (dividendo do cadastro, não do robô — conferir)") + " ÷ " + fmtN(req, 1) + "% = " + fR(teto)
-        : "Renda anual ÷ " + (req ? fmtN(req, 1) + "%" : "—");
+        ? "Dividendo 12m " + fR(renda) + (doRobo ? " (robô)" : " (dividendo do cadastro, não do robô — conferir)") + " ÷ " + reqStrFii + "% = " + fR(teto) + taxaFormulaFii
+        : "Renda anual ÷ " + (req ? reqStrFii + "%" : "—") + taxaFormulaFii;
       // Mesma trava de sanidade das ações: teto acima de 3× o preço = provento inflado (amortização etc.).
       const pF = (a.preco > 0) ? a.preco : (hF && hF.c && hF.c.length ? hF.c[hF.c.length - 1] : 0);
       let recFii = null;
@@ -20892,9 +20957,10 @@ initCollapsibleBlocks();
           const mesTexto = _fmtPeriodoRecFii(recFii.meses, true);
           srcFii = ("Rendimento inflado por " + (recFii.origem || "venda de imóveis") + ": " + fR(recFii.inflado) + " por cota " + mesTexto +
             " (pagou " + fR(recFii.pagoMes) + ", gerou " + fR(recFii.recMes) + "). Teto pelo recorrente: " + fR(recFii.recMes) + " × 12 = " + fR(recFii.rendaRec) +
-            " ÷ " + fmtN(req, 1) + "% = " + fR(recFii.teto) + " (pelo pago seria " + fR(recFii.tetoPago) + ")." +
+            " ÷ " + reqStrFii + "% = " + fR(recFii.teto) + " (pelo pago seria " + fR(recFii.tetoPago) + ")." +
             (recFii.dyRec != null && recFii.dyPago != null ? " DY no preço de hoje: " + fmtN(recFii.dyRec, 1) + "% pelo recorrente, " + fmtN(recFii.dyPago, 1) + "% pelo pago." : "") +
-            (recFii.conferido === false ? " Fonte: vídeo, conferir no relatório gerencial." : "")).replace(/\u00a0/g, " ");
+            (recFii.conferido === false ? " Fonte: vídeo, conferir no relatório gerencial." : "") +
+            taxaFormulaFii).replace(/\u00a0/g, " ");
         }
       }
       if (teto > 0 && pF > 0 && teto > 3 * pF) {
@@ -20939,6 +21005,7 @@ initCollapsibleBlocks();
       motivo: tv.motivo,
       taxa: tv.taxa,
       taxaExplicada: tv.taxaExplicada,
+      taxaFonte: tv.taxaFonte || null,
       setorNome: tv.S.nome,
       proj: tv.proj,
       hist: tv.hist,
@@ -21027,6 +21094,7 @@ initCollapsibleBlocks();
   window.fehmirEscolherMetodo = escolherMetodo;
   window.fiiSubDe = fiiSubDe;
   window.fiiReq = fiiReq;
+  window.fiiTaxaFormula = fiiTaxaFormula;
 
   window.renderConselheiro = function () { try { render(); } catch (e) { console.error("Conselheiro:", e); } };
   window.fehmirHoldings = function () { return holdings(loadMacro()); };   // exposto para teste de coerência
@@ -23060,9 +23128,10 @@ window.fehmirUsarGSetorCalc = function(t) {
       const isSemD = av && av.base_dpa === "sem_dividendo_projetado";
       polFichaHtml = `
         <div class="an-val-box" style="margin:10px 0 8px;padding:10px 14px;background:${isSemD ? "rgba(100,116,139,0.09)" : "rgba(79,70,229,0.07)"};border-radius:8px;font-size:12.5px;border-left:3px solid ${isSemD ? "#64748b" : "var(--accent)"}">
-          <div><b>${isSemD ? "Sem perspectiva de dividendo" : (polFicha.tipo === "estrutural" ? "Dividendo projetado (ajuste estrutural)" : "Política de dividendos atualizada")}</b> · <a href="${polFichaUrl}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">documento oficial</a>${f2F ? ` · <a href="${f2F}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">fonte fase 2</a>` : ""}${revF ? ` · Rever em <b>${revF}</b>` : ""}</div>
+          <div><b>${isSemD ? "Sem perspectiva de dividendo" : (polFicha.tipo === "dcf_leo" ? "Método Léo em Commodity" : (polFicha.tipo === "estrutural" ? "Dividendo projetado (ajuste estrutural)" : "Política de dividendos atualizada"))}</b> · <a href="${polFichaUrl}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">documento oficial</a>${f2F ? ` · <a href="${f2F}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">fonte fase 2</a>` : ""}${revF ? ` · Rever em <b>${revF}</b>` : ""}</div>
+          ${(av && av.taxaFonte) ? `<div style="margin-top:4px;font-size:12px;">🎯 <b>Taxa própria (${fmt(av.req, 1)}%):</b> ${av.taxaFonte}</div>` : ""}
           ${(polFicha.premissa || polFicha.nota) ? `<div class="cb-sub" style="margin:4px 0 0;font-size:12px;">${polFicha.premissa || polFicha.nota}</div>` : ""}
-          ${(av && av.tetoSemVolta > 0) ? `<div style="margin-top:4px;">Se o dividendo não voltar: teto <b>${R(av.tetoSemVolta)}</b>${av.hist > 0 ? ` · Histórico <b>${R(av.hist)}</b> (só conferência)` : ""}</div>` : ((av && av.hist > 0 && polFicha.tipo === "estrutural") ? `<div style="margin-top:4px;">Histórico <b>${R(av.hist)}</b> (só conferência)</div>` : "")}
+          ${(av && av.tetoSemVolta > 0) ? `<div style="margin-top:4px;">Se o dividendo não voltar: teto <b>${R(av.tetoSemVolta)}</b>${av.hist > 0 ? ` · Histórico <b>${R(av.hist)}</b> (só conferência)` : ""}</div>` : ((av && av.hist > 0 && (polFicha.tipo === "estrutural" || polFicha.tipo === "dcf_leo")) ? `<div style="margin-top:4px;">Histórico <b>${R(av.hist)}</b> (só conferência)</div>` : "")}
         </div>`;
     }
     const mMargF = (av && av.S && av.S.margemMin != null) ? av.S.margemMin : 10;

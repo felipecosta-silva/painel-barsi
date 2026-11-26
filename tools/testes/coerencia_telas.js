@@ -21,7 +21,6 @@ switchMainTab('projecao'); await sleep(800);
 const ini = +document.getElementById('in-inicial').value;
 if (Math.abs(ini - patr) > 0.01) div.push(`Projeção inicial ${ini} ≠ ${patr}`);
 const meta = [...document.querySelectorAll('#tbody-meta-aposentadoria tr')].map(tr => [tr.children[0].textContent.trim(), +tr.children[4].textContent.trim()]);
-const abertos = Object.entries(pos).filter(([t, p]) => p.quant > 0 && !['ETFS', 'CRIPTO'].includes(_determinarCategoriaTicker(t))).map(([t]) => t);
 const abertos = Object.entries(pos).filter(([t, p]) => p.quant > 0 && !['ETFS', 'CRIPTO', 'RENDA FIXA'].includes(_determinarCategoriaTicker(t, p.cat))).map(([t]) => t);
 meta.forEach(([t, q]) => { if (!pos[t] || Math.abs(pos[t].quant - q) > 1e-9) div.push(`Meta: ${t} você tem ${q} ≠ extrato ${pos[t]?.quant}`); });
 abertos.forEach(t => { if (!meta.find(m => m[0] === t)) div.push(`Meta: falta ${t}`); });

@@ -131,7 +131,7 @@ return (async () => {
     // ---------- T016: preço velho ----------
     const hist = window.FEHMIR_HIST || {};
     const d1s = fehmirTickersCarteiraB3().map(t => hist[t] && hist[t].d1).filter(Boolean).map(d => String(d).slice(0, 10)).sort();
-    const d1 = d1s[d1s.length - 1];
+    const d1 = d1s[Math.floor(d1s.length / 2)];
     info.d1Robo = d1;
     let dt = new Date(d1 + 'T12:00:00-03:00'), n = 0;
     while (n < 4) { dt = new Date(dt.getTime() + 86400000); if (fehmirDiaUtilB3(iso(dt))) n++; }

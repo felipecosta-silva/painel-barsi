@@ -59,14 +59,85 @@ window.FEHMIR_POLITICA_DIV = {
     "aprovado_por": "Felipe"
   },
   "PETR4": {
-    "tipo": "politica",
+    "tipo": "estrutural",
     "desde": "2025-01-01",
-    "payout_min": null,
-    "premissa": "Política vigente de 45% do FCL em ciclo normalizado (Plano 2027–2031: capex de US$ 122 bi, Brent base US$ 74–70/bbl e teto de dívida bruta US$ 75 bi), excluindo o pico extraordinário de 2022–2023.",
-    "documento": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1587545&numSequencia=1112251&numVersao=1",
-    "data_cadastro": "2026-11-24",
+    "dpa_projetado": 3.81,
+    "taxa": 10.0,
+    "taxa_fonte": "Léo (Geração Dividendos), DY exigido de 10% na Petrobras, vídeo de 11/11/26 [36:00–39:11]",
+    "premissa": "45% do FCL de 2027 pelo Plano Estratégico 2027–2031 (FCO US$ 44 bi, Brent US$ 74/bbl, câmbio R$ 5,31, investimento em caixa US$ 24 bi, 12,889 bi ações) ⇒ DPA projetado R$ 3,81; taxa exigida de 10% (Léo, 11/11/26 [36:00–39:11]).",
+    "documento": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1592762",
+    "fonte_fase2": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1592677",
+    "data_cadastro": "2026-11-25",
     "rever_em": "2027-03-31",
     "acoes_cadastro": 12888732761,
+    "aprovado_por": "Felipe"
+  },
+  "VALE3": {
+    "tipo": "dcf_leo",
+    "desde": "2026-10-30",
+    "lucro_projetado": 31100000000,
+    "k": 18.0,
+    "g": 5.0,
+    "k_fonte": "Léo (Geração Dividendos), DCF k=18%, g=5% sobre lucro 2026 de R$ 31,1 bi, vídeo de 30/10/26 [27:52–32:37]",
+    "premissa": "DCF do Léo após o 3T26: lucro 2026 projetado em R$ 31,1 bi (9M26 US$ 4,629 bi + 4T26 US$ 1,3 bi × R$ 5,25), k=18% e g=5% (LL ≈ FCL em commodity) sobre ações ex-tesouraria (CVM 3T26), com margem cíclica de 20%.",
+    "documento": "https://vale.com/pt/confira-os-resultados-financeiros-do-3t26/-/categories",
+    "data_cadastro": "2026-11-25",
+    "rever_em": "2027-03-31",
+    "acoes_cadastro": 4072366000,
+    "aprovado_por": "Felipe"
+  },
+  "ALUP11": {
+    "tipo": "estrutural",
+    "permitir_acima_hist": true,
+    "desde": "2026-11-25",
+    "fases": [
+      { "de": 2027, "ate": 2027, "dpa": 1.21, "rotulo": "2027 (capex TAP/Peru)" },
+      { "de": 2028, "ate": 2028, "dpa": 1.39, "rotulo": "2028 (entrada TAP + Puno Sur)" },
+      { "de": 2029, "ate": 2029, "dpa": 1.55, "rotulo": "2029 (maturação TAP + Grupo 3 Peru)" },
+      { "desde": 2030, "dpa": 1.70, "rotulo": "2030+ (pós-ciclo greenfield)" }
+    ],
+    "premissa": "Política estatutária ≥ 50% do Lucro Líquido Regulatório (R$ 737,6 mi em 2025; R$ 522,0 mi no 9M26; DL/EBITDA Reg. 3,2×). Durante o pico de capex de R$ 10,4 bi (15 projetos: TECP/TAP +R$ 276,8 mi RAP em 2027, Puno Sur 2028, Peru Grupo 3 US$ 31,8 mi RAP em nov/29), o payout converge ao piso (~52–55%) antes de subir para ~60–61% na maturação de 2030+.",
+    "documento": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&numProtocolo=1038669&descTipo=IPE&CodigoInstituicao=1",
+    "fonte_fase2": "https://ri.alupar.com.br/pt/governanca/politica-de-dividendos-e-historico",
+    "data_cadastro": "2026-11-25",
+    "rever_em": "2027-03-31",
+    "acoes_cadastro": 329626867,
+    "aprovado_por": "Felipe"
+  },
+  "ALUP4": {
+    "tipo": "estrutural",
+    "permitir_acima_hist": true,
+    "desde": "2026-11-25",
+    "fases": [
+      { "de": 2027, "ate": 2027, "dpa": 0.40, "rotulo": "2027 (capex TAP/Peru)" },
+      { "de": 2028, "ate": 2028, "dpa": 0.46, "rotulo": "2028 (entrada TAP + Puno Sur)" },
+      { "de": 2029, "ate": 2029, "dpa": 0.52, "rotulo": "2029 (maturação TAP + Grupo 3 Peru)" },
+      { "desde": 2030, "dpa": 0.57, "rotulo": "2030+ (pós-ciclo greenfield)" }
+    ],
+    "premissa": "Equivalente a 1/3 da Unit ALUP11 (1 ON + 2 PN). Política estatutária ≥ 50% do Lucro Líquido Regulatório e entrada escalonada das RAPs de TAP/TECP (2027), Puno Sur (2028) e Peru Grupo 3 (nov/2029).",
+    "documento": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&numProtocolo=1038669&descTipo=IPE&CodigoInstituicao=1",
+    "fonte_fase2": "https://ri.alupar.com.br/pt/governanca/politica-de-dividendos-e-historico",
+    "data_cadastro": "2026-11-25",
+    "rever_em": "2027-03-31",
+    "acoes_cadastro": 988880601,
+    "aprovado_por": "Felipe"
+  },
+  "ALUP3": {
+    "tipo": "estrutural",
+    "permitir_acima_hist": true,
+    "desde": "2026-11-25",
+    "fases": [
+      { "de": 2027, "ate": 2027, "dpa": 0.40, "rotulo": "2027 (capex TAP/Peru)" },
+      { "de": 2028, "ate": 2028, "dpa": 0.46, "rotulo": "2028 (entrada TAP + Puno Sur)" },
+      { "de": 2029, "ate": 2029, "dpa": 0.52, "rotulo": "2029 (maturação TAP + Grupo 3 Peru)" },
+      { "desde": 2030, "dpa": 0.57, "rotulo": "2030+ (pós-ciclo greenfield)" }
+    ],
+    "premissa": "Equivalente a 1/3 da Unit ALUP11 (1 ON + 2 PN). Política estatutária ≥ 50% do Lucro Líquido Regulatório e entrada escalonada das RAPs de TAP/TECP (2027), Puno Sur (2028) e Peru Grupo 3 (nov/2029).",
+    "documento": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&numProtocolo=1038669&descTipo=IPE&CodigoInstituicao=1",
+    "fonte_fase2": "https://ri.alupar.com.br/pt/governanca/politica-de-dividendos-e-historico",
+    "data_cadastro": "2026-11-25",
+    "rever_em": "2027-03-31",
+    "acoes_cadastro": 988880601,
     "aprovado_por": "Felipe"
   },
   "SBSP3": {

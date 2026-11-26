@@ -7,8 +7,7 @@ window.FEHMIR_ALERTAS_REGRAS = {
   // Decisões que bloqueiam o alerta automático (revisar quando o motivo cair).
   silenciar: {
     "TRXF11:compra": "acima de 5% da carteira e recorrente R$ 0,63 contra R$ 0,93 pago; esperar o relatório de nov/26",
-    "RZAG11:compra": "sem folga; esperar o relatório de out/26 (Uniggel em RJ)",
-    "PETR4:venda": "teto do Léo (38,10) entra na Rodada 33; não realizar pelo 26,15"
+    "RZAG11:compra": "sem folga; esperar o relatório de out/26 (Uniggel em RJ)"
   },
   regras: [
     {

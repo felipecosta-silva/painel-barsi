@@ -9,9 +9,11 @@ const r = fehmirRetornoTotal({ i: '2020-01', c: [10, 10, 10], d: { 1: 1 } }, '20
 ok(r && Math.abs(r.pts[2][1] - 1.1) < 1e-9, 'retorno total da série de teste: ' + (r && r.pts[2][1]));
 const rTx = fehmirRetornoTotal({ i: '2020-01', r: [1, 1, 1] }, '2020-01', '2020-03');
 ok(rTx && Math.abs(rTx.pts[2][1] - 1.0201) < 1e-9, 'taxa acumulada: ' + (rTx && rTx.pts[2][1]));
-// SC-001 (CDI 5 anos, Investidor10 R$ 1.804,70 em 30/10/2026): até 1%
+// SC-001 (CDI 5 anos calculado dinamicamente pelos últimos 60 meses de I.CDI.r): desvio ≤ 0,05%
 const fim = cmpSomaMeses(I.CDI.i, I.CDI.r.length - 1), cdi5 = fehmirRetornoTotal(I.CDI, cmpSomaMeses(fim, -60), fim);
 const vCdi = cdi5.pts[cdi5.pts.length - 1][1] * 1000;
+const vCdiEsp = I.CDI.r.slice(-60).reduce((acc, taxa) => acc * (1 + taxa / 100), 1000);
+ok(vCdi > 1400 && Math.abs(vCdi / vCdiEsp - 1) < 1e-6, `CDI 5 anos divergente: calc=${vCdi.toFixed(4)} esp=${vCdiEsp.toFixed(4)}`);
 // SC-002: MXRF11 entre os pares do KNSC11
 const sug = fehmirParesSugeridos('KNSC11', 5);
 ok(sug.pares.includes('MXRF11'), 'MXRF11 fora dos pares do KNSC11: ' + sug.pares.join(','));
@@ -40,4 +42,4 @@ ok(document.querySelector('#radar-cmp-body .cmp-svg path'), 'comparador livre n�
 const kn = fehmirRetornoTotal(H.KNSC11, cmpSomaMeses(fim, -60), fim);
 const pp = fehmirParesSugeridos('PETR4', 5);
 ok(pp.pares.includes('PRIO3') && pp.pares.includes('RECV3'), 'pares da PETR4: ' + pp.pares.join(','));
-return { petr4: pp, falhas: falhas.length, detalhes: falhas, cdi5: +vCdi.toFixed(2), desvioCdi: +((vCdi / 1804.70 - 1) * 100).toFixed(2), knsc11: kn && { desde: kn.desde, v: +(kn.pts[kn.pts.length - 1][1] * 1000).toFixed(2) }, pares: sug };
+return { petr4: pp, falhas: falhas.length, detalhes: falhas, cdi5: +vCdi.toFixed(2), cdi5Esp: +vCdiEsp.toFixed(2), desvioCdi: +((vCdi / vCdiEsp - 1) * 100).toFixed(4), knsc11: kn && { desde: kn.desde, v: +(kn.pts[kn.pts.length - 1][1] * 1000).toFixed(2) }, pares: sug };

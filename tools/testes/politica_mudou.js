@@ -12,63 +12,49 @@ const falhas = [];
 const assert = (cond, msg) => { if (!cond) falhas.push(msg); };
 const ntnbAt = (typeof loadMacro === 'function' && loadMacro().ntnb != null) ? Number(loadMacro().ntnb) : 7.4;
 
-// 1. TAEE11 (estrutural permanente + FR-A1 9,0% + FR-A2)
 // 1. TAEE11 (estrutural permanente + FR-A1 ntnb+1,6% + FR-A2)
 const taee = getAtivo('TAEE11');
 const avTaee = taee ? window.fehmirAvaliar(taee) : null;
 assert(avTaee && avTaee.polVigente, 'TAEE11 polVigente devia ser true');
-assert(avTaee && Math.abs(avTaee.taxa - 9.0) < 0.05, `TAEE11 taxa esperada 9.0, veio ${avTaee && avTaee.taxa}`);
-assert(avTaee && avTaee.teto >= 28.0 && avTaee.teto <= 29.5, `TAEE11 teto esperado ~28.67, veio ${avTaee && avTaee.teto}`);
 assert(avTaee && Math.abs(avTaee.taxa - (ntnbAt + 1.6)) < 0.05, `TAEE11 taxa esperada ${(ntnbAt + 1.6).toFixed(2)}, veio ${avTaee && avTaee.taxa}`);
 assert(avTaee && avTaee.teto >= 27.5 && avTaee.teto <= 29.5, `TAEE11 teto esperado ~28.20-28.67, veio ${avTaee && avTaee.teto}`);
 const compraTaee = avTaee && avTaee.teto * (1 - avTaee.S.margemMin / 100);
-assert(compraTaee && compraTaee >= 26.5 && compraTaee <= 28.0, `TAEE11 compra esperada ~27.23, veio ${compraTaee}`);
 assert(compraTaee && compraTaee >= 26.0 && compraTaee <= 28.0, `TAEE11 compra esperada ~26.79-27.23, veio ${compraTaee}`);
 
-// 2. ISAE4 (estrutural em 3 fases + FR-A1 9,0% + FR-A2)
 // 2. ISAE4 (estrutural em 3 fases + FR-A1 ntnb+1,6% + FR-A2)
 const isae = getAtivo('ISAE4');
 const avIsae = isae ? window.fehmirAvaliar(isae) : null;
 assert(avIsae && avIsae.polVigente, 'ISAE4 polVigente devia ser true');
-assert(avIsae && Math.abs(avIsae.taxa - 9.0) < 0.05, `ISAE4 taxa esperada 9.0, veio ${avIsae && avIsae.taxa}`);
-assert(avIsae && avIsae.teto >= 18.5 && avIsae.teto <= 19.7, `ISAE4 teto esperado ~19.10, veio ${avIsae && avIsae.teto}`);
 assert(avIsae && Math.abs(avIsae.taxa - (ntnbAt + 1.6)) < 0.05, `ISAE4 taxa esperada ${(ntnbAt + 1.6).toFixed(2)}, veio ${avIsae && avIsae.taxa}`);
 assert(avIsae && avIsae.teto >= 18.2 && avIsae.teto <= 19.7, `ISAE4 teto esperado ~18.79-19.10, veio ${avIsae && avIsae.teto}`);
 const compraIsae = avIsae && avIsae.teto * (1 - avIsae.S.margemMin / 100);
-assert(compraIsae && compraIsae >= 17.6 && compraIsae <= 18.7, `ISAE4 compra esperada ~18.15, veio ${compraIsae}`);
-assert(avIsae && avIsae.tetoSemVolta >= 22.5 && avIsae.tetoSemVolta <= 23.8, `ISAE4 tetoSemVolta esperado ~23.11, veio ${avIsae && avIsae.tetoSemVolta}`);
 assert(compraIsae && compraIsae >= 17.3 && compraIsae <= 18.7, `ISAE4 compra esperada ~17.85-18.15, veio ${compraIsae}`);
 assert(avIsae && avIsae.tetoSemVolta >= 22.0 && avIsae.tetoSemVolta <= 23.8, `ISAE4 tetoSemVolta esperado ~22.73-23.11, veio ${avIsae && avIsae.tetoSemVolta}`);
 
-// 3. CMIG4 (estrutural 2 fases + 9,9%)
 // 3. CMIG4 (estrutural 2 fases + ntnb+2,5%)
 const cmig = getAtivo('CMIG4');
 const avCmig = cmig ? window.fehmirAvaliar(cmig) : null;
 assert(avCmig && avCmig.polVigente, 'CMIG4 polVigente devia ser true');
-assert(avCmig && Math.abs(avCmig.taxa - 9.9) < 0.05, `CMIG4 taxa esperada 9.9, veio ${avCmig && avCmig.taxa}`);
-assert(avCmig && avCmig.teto >= 9.0 && avCmig.teto <= 9.8, `CMIG4 teto esperado ~9.43, veio ${avCmig && avCmig.teto}`);
 assert(avCmig && Math.abs(avCmig.taxa - (ntnbAt + 2.5)) < 0.05, `CMIG4 taxa esperada ${(ntnbAt + 2.5).toFixed(2)}, veio ${avCmig && avCmig.taxa}`);
 assert(avCmig && avCmig.teto >= 8.8 && avCmig.teto <= 9.8, `CMIG4 teto esperado ~9.28-9.43, veio ${avCmig && avCmig.teto}`);
 const compraCmig = avCmig && avCmig.teto * (1 - avCmig.S.margemMin / 100);
-assert(compraCmig && compraCmig >= 8.1 && compraCmig <= 8.8, `CMIG4 compra esperada ~8.49, veio ${compraCmig}`);
-assert(avCmig && avCmig.tetoSemVolta >= 7.0 && avCmig.tetoSemVolta <= 7.8, `CMIG4 tetoSemVolta esperado ~7.37, veio ${avCmig && avCmig.tetoSemVolta}`);
 assert(compraCmig && compraCmig >= 8.0 && compraCmig <= 8.8, `CMIG4 compra esperada ~8.35-8.49, veio ${compraCmig}`);
 assert(avCmig && avCmig.tetoSemVolta >= 7.0 && avCmig.tetoSemVolta <= 7.8, `CMIG4 tetoSemVolta esperado ~7.26-7.37, veio ${avCmig && avCmig.tetoSemVolta}`);
 
-// 4. PETR4 (US2 + SC-003 + FR-A3 margemMin 20%)
+// 4. PETR4 (Rodada 33: estrutural DPA 3,81 + taxa própria 10,0% => 38,10 / 30,48)
 const petr = getAtivo('PETR4');
 const avPetr = petr ? window.fehmirAvaliar(petr) : null;
 assert(avPetr && avPetr.polVigente, 'PETR4 polVigente devia ser true');
 assert(avPetr && avPetr.S && avPetr.S.margemMin === 20, `PETR4 margemMin esperada 20, veio ${avPetr && avPetr.S && avPetr.S.margemMin}`);
-assert(avPetr && avPetr.teto >= 25.0 && avPetr.teto <= 28.0, `PETR4 teto esperado 25..28, veio ${avPetr && avPetr.teto}`);
+assert(avPetr && Math.abs(avPetr.taxa - 10.0) < 0.05, `PETR4 taxa própria esperada 10.0, veio ${avPetr && avPetr.taxa}`);
+assert(avPetr && avPetr.teto >= 37.5 && avPetr.teto <= 39.0, `PETR4 teto esperado ~38.10, veio ${avPetr && avPetr.teto}`);
 const compraPetr = avPetr && avPetr.teto * (1 - avPetr.S.margemMin / 100);
-assert(compraPetr && compraPetr >= 20.0 && compraPetr <= 22.4, `PETR4 compra esperada ~21.17, veio ${compraPetr}`);
+assert(compraPetr && compraPetr >= 29.8 && compraPetr <= 31.5, `PETR4 compra esperada ~30.48, veio ${compraPetr}`);
 
-// 5. ALUP4 em Transmissão (FR-A1)
+// 5. ALUP4 em Transmissão (FR-A1 + Rodada 33 estrutural em fases)
 const alup = getAtivo('ALUP4');
 const avAlup = alup ? window.fehmirAvaliar(alup) : null;
 assert(avAlup && avAlup.S && avAlup.S.id === 'transmissao', `ALUP4 devia ser transmissao, veio ${avAlup && avAlup.S && avAlup.S.id}`);
-assert(avAlup && Math.abs(avAlup.taxa - 9.0) < 0.05, `ALUP4 taxa esperada 9.0, veio ${avAlup && avAlup.taxa}`);
 assert(avAlup && Math.abs(avAlup.taxa - (ntnbAt + 1.6)) < 0.05, `ALUP4 taxa esperada ${(ntnbAt + 1.6).toFixed(2)}, veio ${avAlup && avAlup.taxa}`);
 
 // 6. Saneamento FR-A4 (SBSP3, CSMG3, SAPR11, SAPR4 dentro de -50%..+50% da cotação)

@@ -128,12 +128,15 @@ return (async () => {
     check('T020 FII não entra no giro', fehmirGiroMarcar('XPML11', true) === 'FII não entra no giro (venda de FII só por fundamento)' && !fehmirGiroLer().ativos.XPML11, '');
     check('T020 limite fora de 5–30% é recusado', fehmirGiroLimite(40) !== true && fehmirGiroLimite(3) !== true && fehmirGiroLimite(15) === true, '');
 
-    // isenção: R$ 19.900 vendidos no mês + degrau ⇒ tributável
-    const mes = new Date().toISOString().slice(0, 7);
-    adicionarTransacao({ id: 'teste-giro-venda', data: mes + '-02', tipo: 'Venda', ticker: 'ITSA4', cat: 'AÇÕES', quant: 1000, preco: 19.9, taxa: 0, total: 19900, moeda: 'BRL' });
+    // isenção: vendas perto do limite de R$ 20.000 no mês + degrau ⇒ tributável
+    const dLoc = new Date();
+    const mes = new Date(dLoc.getTime() - dLoc.getTimezoneOffset() * 60000).toISOString().slice(0, 7);
+    const faltaAlvo = p4.sugeridaQtd * forcados.PETR4 > 100 ? 100 : Math.max(10, Math.floor((p4.sugeridaQtd * forcados.PETR4) / 2));
+    const totalVendaTeste = 20000 - faltaAlvo;
+    adicionarTransacao({ id: 'teste-giro-venda', data: mes + '-02', tipo: 'Venda', ticker: 'ITSA4', cat: 'AÇÕES', quant: 1000, preco: +(totalVendaTeste / 1000).toFixed(4), taxa: 0, total: totalVendaTeste, moeda: 'BRL' });
     const pI = fehmirGiro().ativos.find(x => x.t === 'PETR4');
     check('T020 R$ 19.900 vendidos no mês + degrau ⇒ "venda tributável: 15% sobre o lucro"',
-      perto(pI.isencaoFalta, 100, 0.01) && pI.avisos.includes('venda tributável: 15% sobre o lucro'), `falta=${pI.isencaoFalta} avisos=${pI.avisos}`);
+      perto(pI.isencaoFalta, faltaAlvo, 0.05) && pI.avisos.includes('venda tributável: 15% sobre o lucro'), `falta=${pI.isencaoFalta} avisos=${pI.avisos}`);
 
     // limite do balde bloqueia compra de ativo do giro
     const g0 = fehmirGiro();

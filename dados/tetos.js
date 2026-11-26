@@ -1,11 +1,11 @@
 /* Gerado por tools/exportar_tetos.js — não editar à mão. */
 window.FEHMIR_TETOS_META = {
- "gerado": "2026-11-25 17:57",
+ "gerado": "2026-11-26 02:00",
  "ativos": 222,
  "carteira": 23,
  "fonte": "fehmirAvaliar do painel-barsi.html (mesma régua do Radar) · carteira = Extrato inicial + lançamentos do assistente"
 };
-window.FEHMIR_CARTEIRA = {"ETH":0.00794523,"BTC":0.00052531,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":50,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.14199095,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2,"TESOURO-IPCA-2032":0.020151};
+window.FEHMIR_CARTEIRA = {"ETH":0.00981292,"BTC":0.00063294,"CMIG4":10,"TAEE11":4,"BBSE3":3,"PETR4":7,"LOGG3":1,"TRXF11":11,"RECR11":9,"GARE11":51,"MXRF11":50,"GGRC11":31,"KNCA11":2,"RZAG11":20,"HGRE11":1,"VTI":0.05209268,"SOL":0.20210896,"TIMS3":7,"SCHD":1.81669824,"ISAE4":7,"BBDC4":5,"BTLG11":2,"TESOURO-IPCA-2032":0.020151};
 window.FEHMIR_TETOS = {
  "BBSE3": {
   "teto": 48.13,
@@ -173,37 +173,37 @@ window.FEHMIR_TETOS = {
   "base_dpa": "estrutural_fases"
  },
  "ALUP11": {
-  "teto": 15.7,
-  "compra": 14.92,
+  "teto": 17.75,
+  "compra": 16.87,
   "margemMin": 5,
-  "metodo": "Bazin projetivo",
+  "metodo": "Bazin projetivo (estrutural)",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$ 18,47 (LPA R$ 3,13 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 1,44 ÷ 9,2% = R$ 15,70 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
+  "src": "Dividendo projetado em fases (2027 (capex TAP/Peru) R$ 1,21 · 2028 (entrada TAP + Puno Sur) R$ 1,39 · 2029 (maturação TAP + Grupo 3 Peru) R$ 1,55 · 2030+ (pós-ciclo greenfield) R$ 1,70) a 9,2% = R$ 17,75 (sem volta: R$ 13,22) · DPA pago 3A (2023, 2024, 2025) R$ 1,44 ÷ 9,2% = R$ 15,70 (só conferência)",
   "preco": 32.78,
   "data": "2026-11-23",
-  "base_dpa": "historico_5a"
+  "base_dpa": "estrutural_fases"
  },
  "ALUP4": {
-  "teto": 5.23,
-  "compra": 4.97,
+  "teto": 5.94,
+  "compra": 5.65,
   "margemMin": 5,
-  "metodo": "Bazin projetivo",
+  "metodo": "Bazin projetivo (estrutural)",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$ 6,14 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 0,48 ÷ 9,2% = R$ 5,23 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
+  "src": "Dividendo projetado em fases (2027 (capex TAP/Peru) R$ 0,40 · 2028 (entrada TAP + Puno Sur) R$ 0,46 · 2029 (maturação TAP + Grupo 3 Peru) R$ 0,52 · 2030+ (pós-ciclo greenfield) R$ 0,57) a 9,2% = R$ 5,94 (sem volta: R$ 4,37) · DPA pago 3A (2023, 2024, 2025) R$ 0,48 ÷ 9,2% = R$ 5,23 (só conferência)",
   "preco": 10.46,
   "data": "2026-11-23",
-  "base_dpa": "historico_5a"
+  "base_dpa": "estrutural_fases"
  },
  "ALUP3": {
-  "teto": 5.23,
-  "compra": 4.97,
+  "teto": 5.94,
+  "compra": 5.65,
   "margemMin": 5,
-  "metodo": "Bazin projetivo",
+  "metodo": "Bazin projetivo (estrutural)",
   "setor": "Elétricas · Transmissão",
-  "src": "Projetivo R$ 6,14 (LPA R$ 1,04 × payout realista 54% (3A, sem extras) × (1 + g) ÷ (taxa − g)) · g 0 (concessão: RAP só repõe a inflação) · DPA pago 3A (2023, 2024, 2025) R$ 0,48 ÷ 9,2% = R$ 5,23 → usa o menor (transmissora: lucro IFRS acima do regulatório, vale o dividendo pago)",
+  "src": "Dividendo projetado em fases (2027 (capex TAP/Peru) R$ 0,40 · 2028 (entrada TAP + Puno Sur) R$ 0,46 · 2029 (maturação TAP + Grupo 3 Peru) R$ 0,52 · 2030+ (pós-ciclo greenfield) R$ 0,57) a 9,2% = R$ 5,94 (sem volta: R$ 4,37) · DPA pago 3A (2023, 2024, 2025) R$ 0,48 ÷ 9,2% = R$ 5,23 (só conferência)",
   "preco": 12.05,
   "data": "2026-11-23",
-  "base_dpa": "historico_5a"
+  "base_dpa": "estrutural_fases"
  },
  "EQTL3": {
   "teto": 3.61,
@@ -393,15 +393,15 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "PETR4": {
-  "teto": 26.15,
-  "compra": 20.92,
+  "teto": 38.1,
+  "compra": 30.48,
   "margemMin": 20,
-  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
+  "metodo": "Bazin projetivo (estrutural)",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Política nova (média 1A fechados R$ 3,28 s/ extraordinários) ÷ 12,6% = R$ 26,15 · ciclo 5A R$ 47,06 (só conferência) · ⚠️ Projetivo (R$ 26,15) diverge 40% do meio de ciclo (R$ 43,89): ciclo de commodities pode estar revertendo",
+  "src": "Dividendo projetado estrutural (R$ 3,81 ÷ 10,0% = R$ 38,10) · DPA 5A R$ 7,88 (robô)÷10,0% = R$ 59,06 (só conferência)",
   "preco": 41.3,
   "data": "2026-11-23",
-  "base_dpa": "politica_nova_media"
+  "base_dpa": "estrutural_permanente"
  },
  "RECV3": {
   "teto": 5.38,
@@ -514,15 +514,15 @@ window.FEHMIR_TETOS = {
   "base_dpa": "historico_5a"
  },
  "VALE3": {
-  "teto": 45.32,
-  "compra": 36.25,
+  "teto": 61.68,
+  "compra": 49.35,
   "margemMin": 20,
-  "metodo": "Bazin de meio de ciclo (mediana 5A × 0,75)",
+  "metodo": "DCF Léo",
   "setor": "Commodities (petróleo, mineração, siderurgia, celulose, agro)",
-  "src": "Bazin de meio de ciclo [mediana 5A R$ 7,58 × 0,75 = R$ 5,69 ÷ 12,6% = R$ 45,32] · Proj R$ 1,94 (conferência) · ⚠️ Projetivo (R$ 1,94) diverge 96% do meio de ciclo (R$ 45,32): ciclo de commodities pode estar revertendo",
+  "src": "DCF Léo [LL R$ 31,1 bi × (1 + 5,0%) ÷ (18,0% − 5,0%) ÷ 4,072 bi ações = R$ 61,68] · DPA 5A R$ 8,26 (robô)÷12,6% = R$ 49,34 (só conferência)",
   "preco": 58.41,
   "data": "2026-11-23",
-  "base_dpa": "historico_5a"
+  "base_dpa": "dcf_leo"
  },
  "GGBR4": {
   "teto": 7.97,

@@ -73,7 +73,6 @@ return (async () => {
     const pHoje = (() => { const h = (window.FEHMIR_HIST || {}).TRXF11; return h && h.c && h.c.length ? h.c[h.c.length - 1] : null; })();
     const br = x => (x * 100).toFixed(1).replace('.', ',') + '%';
     const mPago = srcTxt.match(/pelo pago seria R\$ ([\d.,]+)\)/), mTaxa = srcTxt.match(/÷ ([\d,]+)% = R\$/);
-    const pagoAno = (mPago && mTaxa) ? parseFloat(mPago[1].replace('.', '').replace(',', '.')) * parseFloat(mTaxa[1].replace(',', '.')) / 100 : null;
     const taxaExata = avTrxf && (avTrxf.req || avTrxf.taxa) ? Number(avTrxf.req || avTrxf.taxa) : (mTaxa ? parseFloat(mTaxa[1].replace(',', '.')) : null);
     const pagoAno = (mPago && taxaExata) ? parseFloat(mPago[1].replace('.', '').replace(',', '.')) * taxaExata / 100 : null;
     const dyRecEsp = pHoje ? br(0.675 * 12 / pHoje) : null, dyPagoEsp = (pHoje && pagoAno) ? br(pagoAno / pHoje) : null;

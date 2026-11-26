@@ -84,15 +84,20 @@ return (async () => {
       `refTxt="${refTxt}", tetoCalcComG=${tetoCalcComG}, tetoOfItsa=${tetoOfItsa?.toFixed(2)}, tetoCalcPadrao=${tetoCalcPadrao}`
     );
 
-    // Caso 7 (Rodada 24): Gordon real restaurado + g=0 para asset-light (BBSE3 g=0 => 48,99; ITSA4 g=1,5 => ≈ 14,44)
+    // Caso 7 (Rodada 24 / Rodada 33): Gordon real + g=0 asset-light lendo dados/tetos.js e fórmula dinâmica
     const avBbse = window.tetoOficial('BBSE3');
     const avItsa = window.tetoOficial('ITSA4');
+    const tBbseExp = window.FEHMIR_TETOS && window.FEHMIR_TETOS.BBSE3 ? window.FEHMIR_TETOS.BBSE3.teto : null;
+    const tItsaExp = window.FEHMIR_TETOS && window.FEHMIR_TETOS.ITSA4 ? window.FEHMIR_TETOS.ITSA4.teto : null;
+    const projEspBbse = avBbse ? (avBbse.lpa * ((avBbse.S && avBbse.S.haircut) || 1) * (avBbse.pay / 100) * (1 + avBbse.g / 100) / ((avBbse.req - avBbse.g) / 100)) : null;
     const projEspItsa = avItsa ? (avItsa.lpa * ((avItsa.S && avItsa.S.haircut) || 1) * (avItsa.pay / 100) * (1 + avItsa.g / 100) / ((avItsa.req - avItsa.g) / 100)) : null;
     check(
-      '5. Rodada 24: Gordon real + g=0 asset-light (BBSE3 g=0 => R$ 48,99; ITSA4 g=1,5 => ≈ R$ 14,44)',
-      avBbse && avBbse.g === 0 && Math.abs(avBbse.proj - 48.99) <= 0.05 && Math.abs(avBbse.teto - 48.99) <= 0.05 &&
-      avItsa && Math.abs(avItsa.g - 1.5) <= 0.05 && projEspItsa != null && Math.abs(avItsa.proj - projEspItsa) <= 0.02 && Math.abs(avItsa.teto - 14.44) <= 0.05,
-      `BBSE3[g=${avBbse?.g?.toFixed(1)}, proj=${avBbse?.proj?.toFixed(2)}, teto=${avBbse?.teto?.toFixed(2)}] ITSA4[g=${avItsa?.g?.toFixed(1)}, proj=${avItsa?.proj?.toFixed(2)}, esp=${projEspItsa?.toFixed(2)}, teto=${avItsa?.teto?.toFixed(2)}]`
+      '5. Rodada 24: Gordon real + g=0 asset-light (BBSE3 g=0; ITSA4 g=1,5 vs dados/tetos.js)',
+      avBbse && avBbse.g === 0 && projEspBbse != null && Math.abs(avBbse.proj - projEspBbse) <= 0.02 &&
+      (tBbseExp == null || Math.abs(avBbse.teto - tBbseExp) <= 0.05) &&
+      avItsa && Math.abs(avItsa.g - 1.5) <= 0.05 && projEspItsa != null && Math.abs(avItsa.proj - projEspItsa) <= 0.02 &&
+      (tItsaExp == null || Math.abs(avItsa.teto - tItsaExp) <= 0.05),
+      `BBSE3[g=${avBbse?.g?.toFixed(1)}, proj=${avBbse?.proj?.toFixed(2)}, esp=${projEspBbse?.toFixed(2)}, tetos.js=${tBbseExp}] ITSA4[g=${avItsa?.g?.toFixed(1)}, proj=${avItsa?.proj?.toFixed(2)}, esp=${projEspItsa?.toFixed(2)}, tetos.js=${tItsaExp}]`
     );
   } finally {
     // Restaurar estado limpo
