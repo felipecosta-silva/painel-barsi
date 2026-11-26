@@ -24,6 +24,12 @@
       "valor": 8.05,
       "desde": "2026-11-25",
       "ultimoEnvio": "2026-11-25"
+    },
+    "auto:BTLG11:compra": {
+      "ativo": true,
+      "valor": 94.55,
+      "desde": "2026-11-26",
+      "ultimoEnvio": "2026-11-26"
     }
   }
 }
