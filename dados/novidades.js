@@ -293,20 +293,28 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Fato Relevante - Prorrogação da Concessão da UHE Sá Carvalho",
       "url": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1563284&numSequencia=1087990&numVersao=1",
       "resumo": [
-        "Fato Relevante publicado em 2026-08-31."
+        "Conselho de Administracao da Cemig aprovou a adesao as condicoes para prorrogacao da concessao da UHE Sa Carvalho.",
+        "A concessao sera prorrogada sob o regime de cotas (Lei Federal nº 12.783/2013) pelo prazo de 30 anos, a contar de 31 de agosto de 2026.",
+        "Apos convocacao pelo Ministerio de Minas e Energia, a Cemig tera prazo de 210 dias para assinatura do termo aditivo.",
+        "A UHE Sa Carvalho possui capacidade instalada de 78 MW e garantia fisica de 54,4 MW medios."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Aprovada a prorrogacao da concessao da UHE Sa Carvalho por 30 anos sob regime de cotas a partir de 31 de agosto de 2026."
+      ],
+      "alertas": [
+        "A operacao sob regime de cotas implica remuneracao por receita regulada (tarifa de operacao e manutencao), eliminando a comercializacao de energia no mercado livre para esta usina."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0,
+        "ltv": 0,
+        "provento_por_cota": 0,
+        "reserva_por_cota": 0,
+        "resultado_por_cota": 0,
+        "vacancia_financeira": 0,
+        "vacancia_fisica": 0
       },
-      "gravidade": "info"
+      "gravidade": "info",
+      "resumido_ia": true
     }
   ],
   "CPLE3": [
@@ -554,21 +562,34 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1306188",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-08-31."
+        "Conclusão da aquisição do ativo logístico Carrefour Itapevi por R$ 119,81 milhões (R$ 101,7M quitados e R$ 18M para jul/2028).",
+        "Avanço na venda de 10 imóveis ao FII Riza Master após o Riza Feeder captar R$ 428 milhões, com liquidação inicial prevista para o mês seguinte.",
+        "Distribuição mantida em R$ 0,083 por cota (DY anualizado de 12,1%), em linha com o guidance anual mantido entre R$ 0,083 e R$ 0,090.",
+        "Portfólio permanece com 0% de vacância física e financeira, com 100% de adimplência e prazo médio contratual (WAULT) de 9,4 anos.",
+        "Reajuste inflacionário anual (IPCA de +4,39%) aplicado aos contratos de todas as lojas locadas ao GPA no portfólio."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Resultado por cota passou de R$ 0,086 para R$ 0,083, igualando exatamente o provento distribuído no mês.",
+        "Alavancagem líquida (LTV líquido sobre ativos) passou de -6,0% para -7,0%, com disponibilidades de R$ 1.022 milhões superando as obrigações financeiras.",
+        "Adição de compromisso a prazo de R$ 18 milhões para julho de 2028 decorrente da compra do Carrefour Itapevi.",
+        "Inclusão provisória do imóvel logístico Carrefour Itapevi no portfólio, elevando temporariamente a exposição ao Carrefour para 41% da receita."
+      ],
+      "alertas": [
+        "Elevada concentração de receita no Grupo Carrefour (41%) e na BAT (19%), totalizando 60% da receita do fundo em dois locatários.",
+        "O contrato recém-adquirido de Itapevi é típico e possui vencimento mais curto (dezembro de 2029 / ~4 anos), diferindo do padrão atípico de longo prazo da maior parte do fundo.",
+        "Obrigação futura de R$ 18 milhões a pagar em 2028 com correção por IPCA referente à segunda parcela da aquisição de Itapevi."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": -7.0,
+        "provento_por_cota": 0.083,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.083,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "GGRC11": [
@@ -795,6 +816,40 @@ window.FEHMIR_NOVIDADES = {
   ],
   "HGRE11": [
     {
+      "id": "fnet_1393468",
+      "data": "2026-11-26",
+      "tipo": "Fato Relevante",
+      "titulo": "Fato Relevante",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1393468",
+      "resumo": [
+        "Aquisição de 100% do Edifício Spot Leblon (RJ), com 2.600 m² de ABL e 100% ocupado por 7 inquilinos, pelo valor de R$ 100,38 milhões (cap rate de 7,8% a.a.).",
+        "Aquisição de 53,1% do Edifício Módulo Rebouças (SP), correspondendo a 5.444 m² de ABL própria, 100% locado à Nu Pagamentos (Nubank) até 2030, por R$ 105,00 milhões (cap rate de 8,5% a.a.).",
+        "Estrutura de pagamento consolidada das aquisições: R$ 113,30 milhões quitados à vista, R$ 45,93 milhões em até 180 dias e R$ 46,15 milhões até dezembro de 2027.",
+        "Potencial incremento estimado na geração de renda de R$ 0,04 por cota para o Spot Leblon e R$ 0,05 por cota para o Módulo Rebouças.",
+        "Preço do Spot Leblon sujeito a complemento de até R$ 2,63 milhões condicionado a aprovações pendentes pelo vendedor."
+      ],
+      "mudancas": [
+        "Inclusão de 8.044 m² de ABL corporativa prime ao portfólio do fundo nos mercados do Leblon (RJ) e Pinheiros/Rebouças (SP).",
+        "Aumento de obrigações financeiras futuras do fundo no valor de R$ 92,08 milhões (parcela a prazo em 180 dias e saldo devedor indexado ao IPCA até dez/2027)."
+      ],
+      "alertas": [
+        "Endividamento e compromisso de caixa: necessidade de desembolso futuro de R$ 45,93 milhões no curto prazo (180 dias) e assunção de dívida de R$ 46,15 milhões corrigida por IPCA até dez/2027.",
+        "Risco de concentração de locatário no Edifício Módulo Rebouças, monousuário ocupado 100% pelo Nubank.",
+        "Concentração de revisionais no Spot Leblon, com 61% da receita de locação sujeita a revisão contratual em 2026."
+      ],
+      "metricas": {
+        "inadimplencia": 0.0,
+        "ltv": 1.9,
+        "provento_por_cota": 0.85,
+        "reserva_por_cota": 3.03,
+        "resultado_por_cota": 0.85,
+        "vacancia_financeira": 5.9,
+        "vacancia_fisica": 5.9
+      },
+      "gravidade": "atencao",
+      "resumido_ia": true
+    },
+    {
       "id": "fnet_1390198",
       "data": "2026-11-23",
       "tipo": "Fato Relevante",
@@ -961,44 +1016,6 @@ window.FEHMIR_NOVIDADES = {
       },
       "gravidade": "atencao",
       "resumido_ia": true
-    },
-    {
-      "id": "fnet_1316899",
-      "data": "2026-09-11",
-      "tipo": "Relatório Gerencial",
-      "titulo": "Relatório Gerencial",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1316899",
-      "resumo": [
-        "Distribuição mantida em R$ 0,85/cota, com resultado distribuível de R$ 1,11/cota auxiliado por lucro não recorrente de R$ 0,32/cota da venda do Edifício Curitiba.",
-        "Compromisso de venda do Imóvel Alegria (100% vago) por R$ 115,5 milhões, gerando lucro estimado de R$ 42,7 milhões (~R$ 3,62/cota) a receber parceladamente.",
-        "Lançamento da 10ª emissão de cotas com montante total pretendido de R$ 700 milhões.",
-        "Vacância financeira recuou para 6,9% no mês com o término de carências, enquanto a vacância física permaneceu em 6,6%.",
-        "Endividamento baixo com LTV de 2,0% (saldo devedor de R$ 36,1 milhões em CRI) e caixa líquido positivo."
-      ],
-      "mudancas": [
-        "Resultado por cota aumentou de R$ 0,85 para R$ 1,11 por conta de receita extraordinária de alienação.",
-        "Reserva acumulada por cota reduziu de R$ 3,03 para R$ 2,84.",
-        "Vacância física aumentou de 5,9% para 6,6%.",
-        "Vacância financeira subiu de 5,9% para 6,9%.",
-        "LTV/Alavancagem teve ligeira elevação de 1,9% para 2,0%."
-      ],
-      "alertas": [
-        "Risco de diluição decorrente da 10ª emissão de cotas no valor relevante de R$ 700 milhões.",
-        "Concentração expressiva de receita em dois locatários principais: Totvs (23%) e Vivo (23%), somando 46% do total.",
-        "Elevado percentual de revisionais em aberto (46%) e concentração de 21% de vencimentos de contratos em 2027.",
-        "Aumento das métricas de vacância física e financeira em relação ao patamar do relatório anterior (5,9%)."
-      ],
-      "metricas": {
-        "inadimplencia": 0.0,
-        "ltv": 2.0,
-        "provento_por_cota": 0.85,
-        "reserva_por_cota": 2.84,
-        "resultado_por_cota": 1.11,
-        "vacancia_financeira": 6.9,
-        "vacancia_fisica": 6.6
-      },
-      "gravidade": "atencao",
-      "resumido_ia": true
     }
   ],
   "KNCA11": [
@@ -1117,21 +1134,34 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1280657",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-08-07."
+        "O fundo manteve a distribuição estável em R$ 1,00 por cota referente a julho de 2026, com resultado gerado de R$ 0,99 por cota.",
+        "A gestão anunciou a convocação de AGE para incluir dispositivo que permite recompra de cotas com cancelamento, visando combater o deságio de cerca de 10% no mercado secundário.",
+        "A reserva de resultados acumulada não distribuída subiu para R$ 0,70 por cota.",
+        "A carteira segue 100% adimplente, com 81,2% alocado em ativos-alvo, 2,4% em LCI e 16,5% mantido em instrumentos de caixa.",
+        "A alocação por indexador fechou com 42,2% em IPCA, 38,8% em CDI, 16,5% em Selic e 2,5% em prefixados."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "A reserva acumulada não distribuída aumentou de R$ 0,67 para R$ 0,70 por cota.",
+        "Proposta de AGE para autorização de programa de recompra de cotas próprias após as novas diretrizes da CVM.",
+        "O resultado mensal gerado recuou de R$ 1,45 em junho para R$ 0,99 em julho, reflexo de IPCAs menores nos meses base (maio e junho).",
+        "Início da redução da taxa básica Selic de 14,25% para 14,00% a.a. pelo Copom."
+      ],
+      "alertas": [
+        "Possibilidade de deflação na medição do IPCA de agosto, com potencial impacto de baixa na receita dos ativos atrelados à inflação.",
+        "Início do ciclo de afrouxamento monetário, que reduz o carrego dos títulos pós-fixados indexados ao CDI.",
+        "Atenção continuada ao fenômeno climático El Niño sobre o agronegócio, embora o fundo não possua exposição direta a produtores pessoas físicas e registre baixa exposição a Sul e Nordeste."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 80.0,
+        "provento_por_cota": 1.0,
+        "reserva_por_cota": 0.7,
+        "resultado_por_cota": 0.99,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "LOGG3": [
@@ -1338,20 +1368,36 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1307338",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-09-01."
+        "Distribuição mantida em R$ 0,10 por cota em julho/2026, representando 100,31% do CDI (com gross-up).",
+        "Resultado caixa mensal de R$ 0,092 por cota (R$ 42,29 milhões), impactado pela inflação mais baixa de curto prazo.",
+        "Reserva acumulada de correção monetária alcançou R$ 22,19 milhões (R$ 0,048 por cota).",
+        "Conclusão da 12ª emissão de cotas com captação de R$ 1,0 bilhão, elevando o caixa temporário para 17,9%.",
+        "Portfólio encerrou com 62,8% em CRIs, 12,2% em FIIs, 7,2% em Permutas Financeiras e LTV médio de 56%."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Resultado por cota recuou de R$ 0,099 para R$ 0,092.",
+        "Reserva de correção monetária por cota subiu de R$ 0,0212 para R$ 0,048.",
+        "LTV médio do portfólio reduziu de 59% para 56%.",
+        "Encerramento da 12ª oferta com captação líquida de R$ 1,0 bilhão, aumentando significativamente a posição em caixa."
+      ],
+      "alertas": [
+        "Resultado caixa do mês (R$ 0,092/cota) foi inferior à distribuição efetuada (R$ 0,10/cota).",
+        "CRI Arquiplan/Beside: negociações amigáveis foram infrutíferas e a gestão iniciou execução formal com consolidação da propriedade e processo de venda de unidades.",
+        "CRI AIZ/Pesa: empresa em dificuldades financeiras; credores concederam carência e negociam venda ordenada de imóvel em garantia.",
+        "CRI Cogna Educação: devolução das chaves do campus gerou multa e a gestão iniciou trâmites jurídicos via AGT para cobrança/recompra compulsória.",
+        "Manutenção de quatro séries de CRIs vencidas na carteira (14B0058368, 14K0050601, 15H0698161 e 11L0005713)."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.56,
+        "provento_por_cota": 0.1,
+        "reserva_por_cota": 0.048,
+        "resultado_por_cota": 0.092,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info"
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "PETR4": [
@@ -1674,21 +1720,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1312402",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-09-08."
+        "O fundo distribuiu R$ 0,7373 por cota referente ao resultado de agosto, com dividend yield de 0,94% a.m. (111% do CDI líquido).",
+        "O patrimônio líquido encerrou em R$ 2,32 bilhões, com cota patrimonial de R$ 87,70 e cota de mercado a R$ 78,71.",
+        "A alocação fechou em 94% dos ativos aplicados em CRIs (91%) e cotas de FIIs (3%), mantendo 2% em liquidez diária e 3% em imóvel direto.",
+        "No mês, foram realizadas aquisições em quatro CRIs totalizando cerca de R$ 8,94 milhões e alienações parciais somando R$ 6,93 milhões.",
+        "O LTV médio ponderado da carteira de CRIs situou-se em 50%, com duration média de 3,6 anos."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "O provento por cota reduziu de R$ 0,7636 (e R$ 1,0987 no mês anterior da DRE) para R$ 0,7373.",
+        "O resultado por cota (regime caixa) recuou para R$ 0,7373, frente a R$ 0,7638 do relatório base.",
+        "O LTV médio do portfólio de CRIs recuou ligeiramente de 52% para 50%."
+      ],
+      "alertas": [
+        "Redução sensível no patamar de distribuição de dividendos na comparação recente (de valores superiores a R$ 1,00 nos meses de março a julho para R$ 0,7373 em agosto).",
+        "Presença de operações com status em 'Repactuação' no portfólio (CRI Olimpo e CRI Olimpo 2).",
+        "Custo financeiro com operações compromissadas impactando o resultado (despesa de R$ 1,37 milhão no mês)."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.5,
+        "provento_por_cota": 0.7373,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.7373,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     },
     {
       "id": "fnet_1280631",
@@ -1697,21 +1755,33 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1280631",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-08-07."
+        "Distribuição de rendimentos de R$ 1,0987 por cota referente ao resultado de julho de 2026, representando um Dividend Yield de 1,373% no mês (146% do CDI líquido).",
+        "Patrimônio líquido encerrou em R$ 2,33 bilhões, com 94% dos recursos alocados (91% em CRIs e 3% em FIIs).",
+        "Aquisição de cotas da 2ª série do CRI Matarazzo Retail no montante de R$ 23,35 milhões à taxa de IPCA + 9,50% a.a.",
+        "Alienação de fatias de 10 CRIs e amortização de operação compromissada de R$ 31,04 milhões, seguida de nova operação compromissada reversa de mesmo valor.",
+        "DRE em regime de caixa gerou lucro líquido de R$ 29,05 milhões, distribuindo R$ 29,05 milhões aos cotistas."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Aumento no provento distribuído por cota de R$ 0,7636 no período anterior para R$ 1,0987 em julho de 2026.",
+        "Redução do LTV médio do portfólio de CRIs de 52% para 50%.",
+        "Aumento do resultado por cota (regime caixa) para R$ 1,0988 frente aos R$ 0,7638 do documento anterior.",
+        "Realização de rolagem/alongamento de operação compromissada reversa no valor de R$ 31,04 milhões."
+      ],
+      "alertas": [
+        "Dois ativos da carteira constam com status de 'Venc. Antec.' (vencimento antecipado): CRI Olimpo (R$ 29,17 milhões; 1,2% do ativo) e CRI Olimpo 2 (R$ 24,89 milhões; 1,0% do ativo).",
+        "Presença de alavancagem via operações compromissadas, gerando despesa financeira de R$ 1,64 milhão no mês de julho/2026."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.5,
+        "provento_por_cota": 1.0987,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 1.0988,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "atencao",
+      "resumido_ia": true
     }
   ],
   "RECV3": [
@@ -1924,21 +1994,34 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1304738",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-08-31."
+        "Distribuição de rendimentos referente ao mês foi mantida em R$ 0,125 por cota, representando dividend yield anualizado de 19,29%.",
+        "Resultado apurado foi de R$ 0,1247 por cota (DRE indica R$ 0,120/cota), demandando consumo marginal de R$ 0,0003/cota do resultado acumulado.",
+        "Proposta em Consulta Formal de 4ª emissão de cotas para incorporação da carteira de ativos do LSAG11, com renúncia do direito de preferência e aprovação de conflito de interesses.",
+        "Andamento da Recuperação Judicial da Uniggel Sementes: encerramento do primeiro stay period e concessão judicial de prorrogação para um segundo período.",
+        "Portfólio com 102,27% de alocação do PL, duration média de 2,10 anos e 100% dos ativos atrelados ao CDI com spread médio de CDI + 4,52%."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Convocação de deliberação para 4ª emissão de cotas do fundo visando integralização dos ativos do LSAG11 a valor patrimonial.",
+        "Prorrogação judicial do stay period no processo de recuperação judicial da Uniggel Sementes.",
+        "Proposta de alteração da política de investimento nos termos da CVM 175 para aquisição direta de CPR-F sem custos de securitização em CRA.",
+        "Resultado por cota passou de R$ 0,1239 no período anterior para R$ 0,1247."
+      ],
+      "alertas": [
+        "Inadimplência de 8,1% do PL referente aos CRAs do Grupo Uniggel/Uniggel em processo de recuperação judicial, com execução de garantias afetada pela extensão do stay period.",
+        "Risco de conflito de interesses e diluição de governança com a renúncia de preferência na 4ª emissão para absorção de carteira de ativos do ecossistema Riza (LSAG11).",
+        "Alocação superior a 100% do PL (102,27%), evidenciando alavancagem financeira na estrutura do fundo."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 8.1,
+        "ltv": 0.0,
+        "provento_por_cota": 0.125,
+        "reserva_por_cota": 0.0,
+        "resultado_por_cota": 0.1247,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "critico",
+      "resumido_ia": true
     }
   ],
   "RZTR11": [
@@ -2122,21 +2205,34 @@ window.FEHMIR_NOVIDADES = {
       "titulo": "Relatório Gerencial",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=1303778",
       "resumo": [
-        "Relatório Gerencial publicado em 2026-08-28."
+        "Rescisão do contrato de arrendamento da Fazenda Bom Jardim (Montividiu/GO) em decorrência de inadimplência da parcela de abril/2026 não sanada pelo arrendatário.",
+        "A rescisão acarreta perda de receita estimada em R$ 5,60 milhões no período de maio a dezembro de 2026, impactando negativamente em cerca de R$ 0,30 por cota o exercício.",
+        "Distribuição de rendimentos referente a julho de 2026 de R$ 0,90 por cota, com resultado por cota de R$ 0,90 e saldo acumulado de reserva em R$ 0,01 por cota.",
+        "Expectativa de distribuição para o segundo semestre de 2026 revisada para baixo, com projeção indicando piso de R$ 0,80 por cota.",
+        "Potencial ganho patrimonial futuro estimado em R$ 22,13 milhões (R$ 1,17 por cota) na Fazenda Bom Jardim, decorrente de reavaliação a valor de liquidação (R$ 82,13 milhões contra custo de R$ 60 milhões)."
       ],
-      "mudancas": [],
-      "alertas": [],
+      "mudancas": [
+        "Materialização de inadimplência e rescisão contratual com perda de opção de compra na Fazenda Bom Jardim.",
+        "Provento por cota distribuído aumentou de R$ 0,85 para R$ 0,90 no período analisado.",
+        "Resultado por cota avançou de R$ 0,85 para R$ 0,90.",
+        "Revisão formal da perspectiva de proventos futuros para baixo para o segundo semestre de 2026."
+      ],
+      "alertas": [
+        "Inadimplência contratual e rescisão com perda de R$ 5,60 milhões em receitas de arrendamento até o final de 2026.",
+        "Risco de corte na distribuição mensal para patamares de até R$ 0,80 por cota.",
+        "Risco de litígio e demora no processo de reintegração/retomada de posse da Fazenda Bom Jardim e cobrança dos débitos pendentes."
+      ],
       "metricas": {
-        "vacancia_fisica": null,
-        "vacancia_financeira": null,
-        "inadimplencia": null,
-        "provento_por_cota": null,
-        "resultado_por_cota": null,
-        "reserva_por_cota": null,
-        "ltv": null
+        "inadimplencia": 0.0,
+        "ltv": 0.0,
+        "provento_por_cota": 0.9,
+        "reserva_por_cota": 0.01,
+        "resultado_por_cota": 0.9,
+        "vacancia_financeira": 0.0,
+        "vacancia_fisica": 0.0
       },
-      "gravidade": "info",
-      "resumido_ia": false
+      "gravidade": "critico",
+      "resumido_ia": true
     }
   ],
   "TAEE11": [
