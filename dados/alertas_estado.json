@@ -1,9 +1,9 @@
 {
-  "atualizado": "2026-11-26",
+  "atualizado": "2026-11-27",
   "regras": {
     "manual:ITSA4:compra": {
       "ativo": true,
-      "valor": 12.93,
+      "valor": 13.09,
       "desde": "2026-11-25",
       "ultimoEnvio": "2026-11-25"
     },
@@ -15,19 +15,19 @@
     },
     "auto:GARE11:compra": {
       "ativo": true,
-      "valor": 7.91,
+      "valor": 8.02,
       "desde": "2026-11-25",
       "ultimoEnvio": "2026-11-25"
     },
     "auto:GGRC11:compra": {
       "ativo": true,
-      "valor": 8.05,
+      "valor": 8.23,
       "desde": "2026-11-25",
       "ultimoEnvio": "2026-11-25"
     },
     "auto:BTLG11:compra": {
       "ativo": true,
-      "valor": 94.55,
+      "valor": 97.0,
       "desde": "2026-11-26",
       "ultimoEnvio": "2026-11-26"
     }
