@@ -1,11 +1,12 @@
 {
-  "atualizado": "2026-11-27",
+  "atualizado": "2026-11-28",
   "regras": {
     "manual:ITSA4:compra": {
-      "ativo": true,
-      "valor": 13.09,
+      "ativo": false,
+      "valor": 13.99,
       "desde": "2026-11-25",
-      "ultimoEnvio": "2026-11-25"
+      "ultimoEnvio": "2026-11-25",
+      "saiu": "2026-11-28"
     },
     "manual:TESOURO-IPCA-2032:taxa": {
       "ativo": true,
@@ -15,25 +16,25 @@
     },
     "auto:GARE11:compra": {
       "ativo": true,
-      "valor": 8.02,
+      "valor": 8.17,
       "desde": "2026-11-25",
       "ultimoEnvio": "2026-11-25"
     },
     "auto:GGRC11:compra": {
       "ativo": true,
-      "valor": 8.23,
+      "valor": 8.34,
       "desde": "2026-11-25",
       "ultimoEnvio": "2026-11-25"
     },
     "auto:BTLG11:compra": {
       "ativo": true,
-      "valor": 97.0,
+      "valor": 96.5,
       "desde": "2026-11-26",
       "ultimoEnvio": "2026-11-26"
     },
     "auto:RECR11:compra": {
       "ativo": true,
-      "valor": 67.16,
+      "valor": 68.15,
       "desde": "2026-11-27",
       "ultimoEnvio": "2026-11-27"
     }
